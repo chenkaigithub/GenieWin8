@@ -7,6 +7,8 @@
 
 #include "Common\LayoutAwarePage.h" // 生成的页眉所必需的
 #include "MainPage.g.h"
+#include "LoginPage.xaml.h"
+#include "PopupAbout.xaml.h"
 
 namespace GenieWin8Demo
 {
@@ -25,5 +27,12 @@ namespace GenieWin8Demo
 
 	private:
 		void ItemView_ItemClick(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
+		void LoginButton_Click(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
+		void LogoutButton_Click(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
+		void AboutButton_Click(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
+		void SearchButton_Click(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
+		void CloseAboutButton_Click(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
+		void LicenseButton_Click(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
+		void CloseLicenseButton_Click(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 	};
 }

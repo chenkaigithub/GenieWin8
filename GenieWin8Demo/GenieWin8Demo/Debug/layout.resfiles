@@ -1,6 +1,10 @@
 App.xaml
 Common\StandardStyles.xaml
+LoginPage.xaml
 MainPage.xaml
+PopupAbout.xaml
+PopupLicense.xaml
+WifiSettingPage.xaml
 Assets\DarkGray.png
 Assets\LightGray.png
 Assets\Logo.png

@@ -23,8 +23,20 @@ namespace Windows {
             namespace Controls {
                 ref class GridView;
                 ref class ListView;
+                ref class Canvas;
                 ref class Button;
                 ref class TextBlock;
+            }
+        }
+    }
+}
+namespace Windows {
+    namespace UI {
+        namespace Xaml {
+            namespace Controls {
+                namespace Primitives {
+                    ref class Popup;
+                }
             }
         }
     }
@@ -53,6 +65,13 @@ namespace GenieWin8Demo
         private: ::Windows::UI::Xaml::Data::CollectionViewSource^ itemsViewSource;
         private: ::Windows::UI::Xaml::Controls::GridView^ itemGridView;
         private: ::Windows::UI::Xaml::Controls::ListView^ itemListView;
+        private: ::Windows::UI::Xaml::Controls::Canvas^ PopupBackgroundTop;
+        private: ::Windows::UI::Xaml::Controls::Canvas^ PopupBackground;
+        private: ::Windows::UI::Xaml::Controls::Primitives::Popup^ AboutPopup;
+        private: ::Windows::UI::Xaml::Controls::Button^ CloseAboutButton;
+        private: ::Windows::UI::Xaml::Controls::Button^ LicenseButton;
+        private: ::Windows::UI::Xaml::Controls::Primitives::Popup^ LicensePopup;
+        private: ::Windows::UI::Xaml::Controls::Button^ CloseLicenseButton;
         private: ::Windows::UI::Xaml::Controls::Button^ backButton;
         private: ::Windows::UI::Xaml::Controls::TextBlock^ pageTitle;
         private: ::Windows::UI::Xaml::VisualStateGroup^ ApplicationViewStates;

@@ -58,6 +58,104 @@ void MainPage::ItemView_ItemClick(Object^ sender, ItemClickEventArgs^ e)
 
 	// 导航至相应的目标页，并
 	// 通过将所需信息作为导航参数传入来配置新页
-	auto groupId = safe_cast<Data::DataGroup^>(e->ClickedItem)->UniqueId;
+	if (1)	//已登陆
+	{
+		auto groupId = safe_cast<Data::DataGroup^>(e->ClickedItem)->UniqueId;
+		if (groupId == "WiFiSetting")
+		{
+			//Frame->Navigate(TypeName(SplitPage::typeid), groupId);
+		}
+	} 
+	else	//未登录，跳到登陆页面
+	{
+		Frame->Navigate(TypeName(LoginPage::typeid));
+	}
+	
 	//Frame->Navigate(TypeName(SplitPage::typeid), groupId);
+}
+
+void MainPage::SearchButton_Click(Object^ sender, ItemClickEventArgs^ e)
+{
+	(void) sender;	// 未使用的参数
+	(void) e;		// 未使用的参数
+}
+
+void MainPage::LoginButton_Click(Object^ sender, ItemClickEventArgs^ e)
+{
+	(void) sender;	// 未使用的参数
+	(void) e;		// 未使用的参数
+
+	Frame->Navigate(TypeName(LoginPage::typeid));
+}
+
+void MainPage::LogoutButton_Click(Object^ sender, ItemClickEventArgs^ e)
+{
+	(void) sender;	// 未使用的参数
+	(void) e;		// 未使用的参数
+}
+
+void MainPage::AboutButton_Click(Object^ sender, ItemClickEventArgs^ e)
+{
+	(void) sender;	// 未使用的参数
+	(void) e;		// 未使用的参数
+
+	if (!AboutPopup->IsOpen)
+	{
+		AboutPopup->IsOpen = true;
+		PopupBackgroundTop->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		PopupBackground->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		CloseAboutButton->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		LicenseButton->Visibility = Windows::UI::Xaml::Visibility::Visible;
+	}
+	if (LicensePopup->IsOpen)
+	{
+		LicensePopup->IsOpen = false;
+		CloseLicenseButton->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	}
+}
+
+void MainPage::CloseAboutButton_Click(Object^ sender, ItemClickEventArgs^ e)
+{
+	(void) sender;	// 未使用的参数
+	(void) e;		// 未使用的参数
+
+	if (AboutPopup->IsOpen)
+	{
+		AboutPopup->IsOpen = false;
+		PopupBackgroundTop->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+		PopupBackground->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+		CloseAboutButton->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+		LicenseButton->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	}
+}
+
+void MainPage::LicenseButton_Click(Object^ sender, ItemClickEventArgs^ e)
+{
+	(void) sender;	// 未使用的参数
+	(void) e;		// 未使用的参数
+
+	if (!LicensePopup->IsOpen)
+	{
+		LicensePopup->IsOpen = true;
+		AboutPopup->IsOpen = false;
+		PopupBackgroundTop->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		PopupBackground->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		CloseLicenseButton->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		CloseAboutButton->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+		LicenseButton->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	}
+}
+
+void MainPage::CloseLicenseButton_Click(Object^ sender, ItemClickEventArgs^ e)
+{
+	(void) sender;	// 未使用的参数
+	(void) e;		// 未使用的参数
+
+	if (LicensePopup->IsOpen)
+	{
+		LicensePopup->IsOpen = false;
+		PopupBackgroundTop->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+		PopupBackground->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+		CloseLicenseButton->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+	}
 }

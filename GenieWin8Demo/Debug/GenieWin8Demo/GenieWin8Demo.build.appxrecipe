@@ -53,8 +53,20 @@
     <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\Common\StandardStyles.xaml">
       <PackagePath>Common\StandardStyles.xaml</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\LoginPage.xaml">
+      <PackagePath>LoginPage.xaml</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\PopupAbout.xaml">
+      <PackagePath>PopupAbout.xaml</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\PopupLicense.xaml">
+      <PackagePath>PopupLicense.xaml</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\WifiSettingPage.xaml">
+      <PackagePath>WifiSettingPage.xaml</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\resources.pri">
       <PackagePath>resources.pri</PackagePath>

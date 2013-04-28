@@ -79,21 +79,33 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.xaml.cpp" />
-    <ClCompile Include="SplitPage.xaml.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="DataModel\MainPageModel.cpp">
       <Filter>DataModel</Filter>
     </ClCompile>
     <ClCompile Include="MainPage.xaml.cpp" />
+    <ClCompile Include="LoginPage.xaml.cpp" />
+    <ClCompile Include="PopupAbout.xaml.cpp" />
+    <ClCompile Include="PopupLicense.xaml.cpp" />
+    <ClCompile Include="WifiSettingPage.xaml.cpp" />
+    <ClCompile Include="DataModel\WifiSettingModel.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h" />
-    <ClInclude Include="SplitPage.xaml.h" />
     <ClInclude Include="DataModel\MainPageModel.h">
       <Filter>DataModel</Filter>
     </ClInclude>
     <ClInclude Include="MainPage.xaml.h" />
+    <ClInclude Include="LoginPage.xaml.h" />
+    <ClInclude Include="PopupAbout.xaml.h" />
+    <ClInclude Include="PopupLicense.xaml.h" />
+    <ClInclude Include="WifiSettingPage.xaml.h" />
+    <ClInclude Include="DataModel\WifiSettingModel.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -103,5 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainPage.xaml" />
+    <Page Include="WifiSettingPage.xaml" />
+    <Page Include="LoginPage.xaml" />
+    <Page Include="PopupAbout.xaml" />
+    <Page Include="PopupLicense.xaml" />
   </ItemGroup>
 </Project>

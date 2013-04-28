@@ -18,6 +18,28 @@
             x:Name="itemsViewSource"
             Source="{Binding Items}"
             d:Source="{Binding AllGroups, Source={d:DesignInstance Type=data:DataSource, IsDesignTimeCreatable=True}}"/>
+
+        <DataTemplate x:Key="250x250ItemTemplate">
+            <Grid HorizontalAlignment="Left" Width="250" Height="250">
+                <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Height="50">
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="AboutAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="AboutAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="About"/>
+            <Setter Property="Content" Value="&#xE11B;"/>
+        </Style>
+        <Style x:Key="SearchAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="SearchAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Search"/>
+            <Setter Property="Content" Value="&#xE11A;"/>
+        </Style>
     </Page.Resources>
 
     <!--
@@ -40,7 +62,7 @@
             Grid.RowSpan="2"
             Padding="116,136,116,46"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource Standard250x250ItemTemplate}"
+            ItemTemplate="{StaticResource 250x250ItemTemplate}"
             SelectionMode="None"
             IsSwipeEnabled="false"
             IsItemClickEnabled="True"
@@ -62,6 +84,24 @@
             IsSwipeEnabled="false"
             IsItemClickEnabled="True"
             ItemClick="ItemView_ItemClick"/>
+
+        <!--关于-->
+        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
+        <Canvas x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed"/>
+        <Popup x:Name="AboutPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,100,300,0">
+            <local:PopupAbout/>
+        </Popup>
+        <Button x:Name="CloseAboutButton" Content="关闭" Click="CloseAboutButton_Click"
+                Grid.Row="1" FontSize="22" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,400,150,0" Visibility="Collapsed"/>
+        <Button x:Name="LicenseButton" Content="许可" Click="LicenseButton_Click"
+                Grid.Row="1" FontSize="22" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="150,400,0,0" Visibility="Collapsed"/>
+        
+        <!--许可-->
+        <Popup x:Name="LicensePopup" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,400,0">
+            <local:PopupLicense/>
+        </Popup>
+        <Button x:Name="CloseLicenseButton" Content="关闭" Click="CloseLicenseButton_Click"
+                Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,580,0,0" Visibility="Collapsed"/>
 
         <!-- 后退按钮和页标题-->
         <Grid>
@@ -114,6 +154,25 @@
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+        </VisualStateManager.VisualStateGroups>       
     </Grid>
+    
+    <Page.TopAppBar>
+        <AppBar Padding="10,0,10,0">
+            <Grid>
+                <TextBox VerticalAlignment="Center" Margin="10,0,100,0" FontSize="18"/>
+                <Button Click="SearchButton_Click" Style="{StaticResource SearchAppBarButtonStyle}" HorizontalAlignment="Right"/>
+            </Grid>                   
+        </AppBar>
+    </Page.TopAppBar>
+
+    <Page.BottomAppBar>
+        <AppBar Padding="10,0,10,0">
+            <Grid>
+                <Button Content="登陆" Click="LoginButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"/>
+                <Button Content="注销" Click="LogoutButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150" Visibility="Collapsed"/>
+                <Button Click="AboutButton_Click"  Style="{StaticResource AboutAppBarButtonStyle}" HorizontalAlignment="Right"/>                
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </common:LayoutAwarePage>

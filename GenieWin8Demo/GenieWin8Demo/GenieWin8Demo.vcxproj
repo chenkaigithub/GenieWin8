@@ -129,6 +129,10 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DataModel\WifiSettingModel.h" />
+    <ClInclude Include="LoginPage.xaml.h">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Common\BindableBase.h" />
     <ClInclude Include="Common\BooleanToVisibilityConverter.h" />
@@ -143,6 +147,15 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="DataModel\MainPageModel.h" />
+    <ClInclude Include="PopupAbout.xaml.h">
+      <DependentUpon>PopupAbout.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PopupLicense.xaml.h">
+      <DependentUpon>PopupLicense.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="WifiSettingPage.xaml.h">
+      <DependentUpon>WifiSettingPage.xaml</DependentUpon>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -151,7 +164,19 @@
     <Page Include="Common\StandardStyles.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="LoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopupAbout.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopupLicense.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WifiSettingPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -181,6 +206,10 @@
     <ClCompile Include="Common\LayoutAwarePage.cpp" />
     <ClCompile Include="Common\RichTextColumns.cpp" />
     <ClCompile Include="Common\SuspensionManager.cpp" />
+    <ClCompile Include="DataModel\WifiSettingModel.cpp" />
+    <ClCompile Include="LoginPage.xaml.cpp">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </ClCompile>
     <ClCompile Include="MainPage.xaml.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
@@ -192,6 +221,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="PopupAbout.xaml.cpp">
+      <DependentUpon>PopupAbout.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="PopupLicense.xaml.cpp">
+      <DependentUpon>PopupLicense.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="WifiSettingPage.xaml.cpp">
+      <DependentUpon>WifiSettingPage.xaml</DependentUpon>
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

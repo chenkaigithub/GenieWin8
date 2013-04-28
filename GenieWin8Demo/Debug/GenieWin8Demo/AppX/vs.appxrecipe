@@ -16,21 +16,21 @@
     <AppXManifest Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-04-27T09:37:43.570</Modified>
+      <Modified>2013-04-28T08:26:30.583</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\GenieWin8Demo.exe">
       <PackagePath>GenieWin8Demo.exe</PackagePath>
-      <Modified>2013-04-27T10:11:02.723</Modified>
+      <Modified>2013-04-28T08:52:57.684</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\GenieWin8Demo.pdb">
       <PackagePath>GenieWin8Demo.pdb</PackagePath>
-      <Modified>2013-04-27T10:11:03.283</Modified>
+      <Modified>2013-04-28T08:52:58.556</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\GenieWin8Demo.winmd">
       <PackagePath>GenieWin8Demo.winmd</PackagePath>
-      <Modified>2013-04-27T10:11:00.317</Modified>
+      <Modified>2013-04-28T08:52:52.405</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\GenieWin8Demo\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
@@ -72,13 +72,29 @@
       <PackagePath>Common\StandardStyles.xaml</PackagePath>
       <Modified>2012-07-26T12:23:38.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\LoginPage.xaml">
+      <PackagePath>LoginPage.xaml</PackagePath>
+      <Modified>2013-04-28T08:52:47.018</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-04-27T09:37:17.483</Modified>
+      <Modified>2013-04-28T08:29:39.529</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\PopupAbout.xaml">
+      <PackagePath>PopupAbout.xaml</PackagePath>
+      <Modified>2013-04-28T04:09:56.332</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\PopupLicense.xaml">
+      <PackagePath>PopupLicense.xaml</PackagePath>
+      <Modified>2013-04-28T08:28:36.274</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\WifiSettingPage.xaml">
+      <PackagePath>WifiSettingPage.xaml</PackagePath>
+      <Modified>2013-04-28T03:05:37.974</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\xy\Documents\GitHub\GenieWin8\GenieWin8Demo\Debug\GenieWin8Demo\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-04-27T09:37:43.502</Modified>
+      <Modified>2013-04-28T06:27:03.523</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

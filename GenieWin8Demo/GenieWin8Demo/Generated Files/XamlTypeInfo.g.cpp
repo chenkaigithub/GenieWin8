@@ -9,11 +9,19 @@
 #include "pch.h"
 #include "XamlTypeInfo.g.h"
 
+#include "LoginPage.xaml.h"
 #include "App.xaml.h"
 #include "MainPage.xaml.h"
+#include "PopupAbout.xaml.h"
+#include "PopupLicense.xaml.h"
+#include "WifiSettingPage.xaml.h"
 
+#include "LoginPage.g.hpp"
 #include "App.g.hpp"
 #include "MainPage.g.hpp"
+#include "PopupAbout.g.hpp"
+#include "PopupLicense.g.hpp"
+#include "WifiSettingPage.g.hpp"
 
 ::Platform::Collections::Vector<::Windows::UI::Xaml::Markup::IXamlMetadataProvider^>^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::OtherProviders::get()
 {
@@ -110,6 +118,42 @@
         return userType;
     }
 
+    if (typeName == L"GenieWin8Demo.LoginPage")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"GenieWin8Demo.Common.LayoutAwarePage"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> Platform::Object^ 
+            {
+                return ref new ::GenieWin8Demo::LoginPage(); 
+            };
+        return userType;
+    }
+
+    if (typeName == L"GenieWin8Demo.PopupLicense")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"Windows.UI.Xaml.Controls.UserControl"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> Platform::Object^ 
+            {
+                return ref new ::GenieWin8Demo::PopupLicense(); 
+            };
+        return userType;
+    }
+
+    if (typeName == L"GenieWin8Demo.PopupAbout")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"Windows.UI.Xaml.Controls.UserControl"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> Platform::Object^ 
+            {
+                return ref new ::GenieWin8Demo::PopupAbout(); 
+            };
+        return userType;
+    }
+
     if (typeName == L"GenieWin8Demo.MainPage")
     {
         ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"GenieWin8Demo.Common.LayoutAwarePage"));
@@ -118,6 +162,18 @@
             []() -> Platform::Object^ 
             {
                 return ref new ::GenieWin8Demo::MainPage(); 
+            };
+        return userType;
+    }
+
+    if (typeName == L"GenieWin8Demo.WifiSettingPage")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"GenieWin8Demo.Common.LayoutAwarePage"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> Platform::Object^ 
+            {
+                return ref new ::GenieWin8Demo::WifiSettingPage(); 
             };
         return userType;
     }
