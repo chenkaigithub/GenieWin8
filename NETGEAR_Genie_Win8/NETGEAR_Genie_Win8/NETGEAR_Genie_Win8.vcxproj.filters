@@ -107,6 +107,13 @@
     <ClCompile Include="TrafficControlPage.xaml.cpp" />
     <ClCompile Include="TrafficCtrlSettingPage.xaml.cpp" />
     <ClCompile Include="WifiSettingPage.xaml.cpp" />
+    <ClCompile Include="ParentalControlPage.xaml.cpp" />
+    <ClCompile Include="PopupEnquireOpenDNS.xaml.cpp" />
+    <ClCompile Include="PopupFilterLevel.xaml.cpp" />
+    <ClCompile Include="PopupLoginOpenDNS.xaml.cpp" />
+    <ClCompile Include="PopupRegisterOpenDNS.xaml.cpp" />
+    <ClCompile Include="PopupSettingComplete.xaml.cpp" />
+    <ClCompile Include="TrafficLimitationPage.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -138,6 +145,13 @@
     <ClInclude Include="TrafficControlPage.xaml.h" />
     <ClInclude Include="TrafficCtrlSettingPage.xaml.h" />
     <ClInclude Include="WifiSettingPage.xaml.h" />
+    <ClInclude Include="ParentalControlPage.xaml.h" />
+    <ClInclude Include="PopupEnquireOpenDNS.xaml.h" />
+    <ClInclude Include="PopupFilterLevel.xaml.h" />
+    <ClInclude Include="PopupLoginOpenDNS.xaml.h" />
+    <ClInclude Include="PopupRegisterOpenDNS.xaml.h" />
+    <ClInclude Include="PopupSettingComplete.xaml.h" />
+    <ClInclude Include="TrafficLimitationPage.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -163,13 +177,33 @@
     <Page Include="StartDatePage.xaml" />
     <Page Include="TrafficLimitationPage.xaml" />
     <Page Include="ParentalControlPage.xaml" />
-    <Page Include="RegisterOpenDNSPage.xaml" />
-    <Page Include="LoginOpenDNSPage.xaml" />
-    <Page Include="FilterLevelPage.xaml" />
     <Page Include="PopupSettingComplete.xaml" />
     <Page Include="PopupLoginOpenDNS.xaml" />
     <Page Include="PopupRegisterOpenDNS.xaml" />
     <Page Include="PopupFilterLevel.xaml" />
     <Page Include="PopupEnquireOpenDNS.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Guestc Access200.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\My Media200.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\Network Map200.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\Parental Controls200.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\Traffic Meter200.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\Wireless Settings200.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\genie1.png">
+      <Filter>资产</Filter>
+    </Image>
   </ItemGroup>
 </Project>

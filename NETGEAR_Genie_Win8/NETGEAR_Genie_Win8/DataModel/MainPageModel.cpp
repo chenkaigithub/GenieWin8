@@ -2,7 +2,6 @@
 // MainPageModel.cpp
 // DataSource、DataGroup、DataItem 和 DataCommon 类的实现
 //
-
 #include "pch.h"
 #include "DataModel\MainPageModel.h"
 
@@ -230,41 +229,44 @@ DataGroup::DataGroup(String^ uniqueId, String^ title, String^ imagePath)
 // DataSource
 //
 
+//typedef Platform::String^ hello(Platform::String^);
 DataSource::DataSource()
 {
 	_allGroups = ref new Vector<DataGroup^>();
+	//HINSTANCE hDll;
+	//hDll = LoadLibrary("..\\DLLs\\helloword.dll");
 
 	//String^ LONG_LOREM_IPSUM = "Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat";
 	//String^ ITEM_CONTENT = "Item Content: " + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM;
 
 	auto group1 = ref new DataGroup("WiFiSetting",
 		"无线设置",
-		"Assets/DarkGray.png");
+		"Assets/Wireless Settings200.png");
 	_allGroups->Append(group1);
 
 	auto group2 = ref new DataGroup("GuestAccess",
 		"访客访问",
-		"Assets/LightGray.png");
+		"Assets/Guestc Access200.png");
 	_allGroups->Append(group2);
 
 	auto group3 = ref new DataGroup("NetworkMap",
 		"网络映射",
-		"Assets/MediumGray.png");
+		"Assets/Network Map200.png");
 	_allGroups->Append(group3);
 
 	auto group4 = ref new DataGroup("ParentalControl",
 		"家长控制",
-		"Assets/LightGray.png");
+		"Assets/Parental Controls200.png");
 	_allGroups->Append(group4);
 
 	auto group5 = ref new DataGroup("TrafficControl",
 		"流量控制",
-		"Assets/MediumGray.png");
+		"Assets/Traffic Meter200.png");
 	_allGroups->Append(group5);
 
 	auto group6 = ref new DataGroup("MyMedia",
 		"我的媒体",
-		"Assets/DarkGray.png");
+		"Assets/My Media200.png");
 	_allGroups->Append(group6);
 
 	auto group7 = ref new DataGroup("QRCode",

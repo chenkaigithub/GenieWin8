@@ -12,8 +12,6 @@
 #include "WifiSettingPage.xaml.h"
 #include "GuestAccessPage.xaml.h"
 #include "TrafficControlPage.xaml.h"
-#include "RegisterOpenDNSPage.xaml.h"
-#include "LoginOpenDNSPage.xaml.h"
 #include "ParentalControlPage.xaml.h"
 
 namespace NETGEAR_Genie_Win8

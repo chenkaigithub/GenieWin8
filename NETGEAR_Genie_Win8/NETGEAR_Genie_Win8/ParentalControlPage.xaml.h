@@ -7,7 +7,6 @@
 
 #include "Common\LayoutAwarePage.h" // 生成的页眉所必需的
 #include "ParentalControlPage.g.h"
-#include "FilterLevelPage.xaml.h"
 
 namespace NETGEAR_Genie_Win8
 {

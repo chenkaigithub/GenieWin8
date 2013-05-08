@@ -142,9 +142,6 @@
     <ClInclude Include="EditSettingPage.xaml.h">
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="FilterLevelPage.xaml.h">
-      <DependentUpon>FilterLevelPage.xaml</DependentUpon>
-    </ClInclude>
     <ClInclude Include="GuestAccessPage.xaml.h">
       <DependentUpon>GuestAccessPage.xaml</DependentUpon>
     </ClInclude>
@@ -156,9 +153,6 @@
     </ClInclude>
     <ClInclude Include="GuestTimeSegPage.xaml.h">
       <DependentUpon>GuestTimeSegPage.xaml</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="LoginOpenDNSPage.xaml.h">
-      <DependentUpon>LoginOpenDNSPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="LoginPage.xaml.h">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -200,9 +194,6 @@
     <ClInclude Include="PopupSettingComplete.xaml.h">
       <DependentUpon>PopupSettingComplete.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="RegisterOpenDNSPage.xaml.h">
-      <DependentUpon>RegisterOpenDNSPage.xaml</DependentUpon>
-    </ClInclude>
     <ClInclude Include="StartDatePage.xaml.h">
       <DependentUpon>StartDatePage.xaml</DependentUpon>
     </ClInclude>
@@ -229,18 +220,12 @@
     <Page Include="EditChannelPage.xaml" />
     <Page Include="EditSecurityPage.xaml" />
     <Page Include="EditSettingPage.xaml" />
-    <Page Include="FilterLevelPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="GuestAccessPage.xaml" />
     <Page Include="GuestSecurityPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GuestSettingPage.xaml" />
     <Page Include="GuestTimeSegPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="LoginOpenDNSPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="LoginPage.xaml" />
@@ -265,9 +250,6 @@
     <Page Include="PopupSettingComplete.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="RegisterOpenDNSPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="StartDatePage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -290,13 +272,20 @@
     <None Include="NETGEAR_Genie_Win8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\genie1.png" />
+    <Image Include="Assets\Guestc Access200.png" />
     <Image Include="Assets\Logo.png" />
+    <Image Include="Assets\My Media200.png" />
+    <Image Include="Assets\Network Map200.png" />
+    <Image Include="Assets\Parental Controls200.png" />
     <Image Include="Assets\SmallLogo.png" />
     <Image Include="Assets\StoreLogo.png" />
     <Image Include="Assets\SplashScreen.png" />
     <Image Include="Assets\LightGray.png" />
     <Image Include="Assets\MediumGray.png" />
     <Image Include="Assets\DarkGray.png" />
+    <Image Include="Assets\Traffic Meter200.png" />
+    <Image Include="Assets\Wireless Settings200.png" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.xaml.cpp">
@@ -321,9 +310,6 @@
     <ClCompile Include="EditSettingPage.xaml.cpp">
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="FilterLevelPage.xaml.cpp">
-      <DependentUpon>FilterLevelPage.xaml</DependentUpon>
-    </ClCompile>
     <ClCompile Include="GuestAccessPage.xaml.cpp">
       <DependentUpon>GuestAccessPage.xaml</DependentUpon>
     </ClCompile>
@@ -335,9 +321,6 @@
     </ClCompile>
     <ClCompile Include="GuestTimeSegPage.xaml.cpp">
       <DependentUpon>GuestTimeSegPage.xaml</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="LoginOpenDNSPage.xaml.cpp">
-      <DependentUpon>LoginOpenDNSPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="LoginPage.xaml.cpp">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -376,9 +359,6 @@
     </ClCompile>
     <ClCompile Include="PopupSettingComplete.xaml.cpp">
       <DependentUpon>PopupSettingComplete.xaml</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="RegisterOpenDNSPage.xaml.cpp">
-      <DependentUpon>RegisterOpenDNSPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="StartDatePage.xaml.cpp">
       <DependentUpon>StartDatePage.xaml</DependentUpon>
