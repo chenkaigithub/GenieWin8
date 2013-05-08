@@ -1,0 +1,27 @@
+﻿<UserControl
+    x:Class="NETGEAR_Genie_Win8.PopupFilterLevel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NETGEAR_Genie_Win8"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="520"
+    d:DesignWidth="600">
+    
+    <Grid Width="600" Height="520">
+        <StackPanel Grid.Row="1" Margin="20,20,20,0">
+            <TextBlock Text="所有连接到您路由器上的计算机都将受您选择的以下内容保护。您可以稍后通过我们的网站定制您的实时家长控制。" FontSize="22" TextWrapping="Wrap"/>
+            <RadioButton x:Name="radioButton_None"  Content="无" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+            <TextBlock Text="不阻止。" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+            <RadioButton x:Name="radioButton_Minimum"  Content="最小" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+            <TextBlock Text="仅阻止网络钓鱼。" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+            <RadioButton x:Name="radioButton_Low"  Content="低" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" IsChecked="True"/>
+            <TextBlock Text="阻止情色网站和网络钓鱼。" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+            <RadioButton x:Name="radioButton_Medium"  Content="中等" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+            <TextBlock Text="阻止所有与成人有关的网站、非法活动和网络钓鱼。" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+            <RadioButton x:Name="radioButton_High"  Content="高" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+            <TextBlock Text="阻止所有与成人有关的网站、非法活动、社交网站、共享视频网站、钓鱼网站以及浪费时间的内容。" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

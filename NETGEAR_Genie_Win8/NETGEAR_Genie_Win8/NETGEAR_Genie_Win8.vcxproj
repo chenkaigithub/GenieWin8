@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{ec4487ad-4734-4d3b-8aa5-5c135b35ce2d}</ProjectGuid>
+    <RootNamespace>NETGEAR_Genie_Win8</RootNamespace>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <PackageCertificateKeyFile>NETGEAR_Genie_Win8_TemporaryKey.pfx</PackageCertificateKeyFile>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="DataModel\GuestAccessModel.h" />
+    <ClInclude Include="DataModel\MainPageModel.h" />
+    <ClInclude Include="DataModel\TrafficControlModel.h" />
+    <ClInclude Include="DataModel\WifiSettingModel.h" />
+    <ClInclude Include="EditChannelPage.xaml.h">
+      <DependentUpon>EditChannelPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="EditSecurityPage.xaml.h">
+      <DependentUpon>EditSecurityPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="EditSettingPage.xaml.h">
+      <DependentUpon>EditSettingPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="FilterLevelPage.xaml.h">
+      <DependentUpon>FilterLevelPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="GuestAccessPage.xaml.h">
+      <DependentUpon>GuestAccessPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="GuestSecurityPage.xaml.h">
+      <DependentUpon>GuestSecurityPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="GuestSettingPage.xaml.h">
+      <DependentUpon>GuestSettingPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="GuestTimeSegPage.xaml.h">
+      <DependentUpon>GuestTimeSegPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="LoginOpenDNSPage.xaml.h">
+      <DependentUpon>LoginOpenDNSPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="LoginPage.xaml.h">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="MainPage.xaml.h">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="ParentalControlPage.xaml.h">
+      <DependentUpon>ParentalControlPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Common\BindableBase.h" />
+    <ClInclude Include="Common\BooleanToVisibilityConverter.h" />
+    <ClInclude Include="Common\BooleanNegationConverter.h" />
+    <ClInclude Include="Common\LayoutAwarePage.h" />
+    <ClInclude Include="Common\RichTextColumns.h" />
+    <ClInclude Include="Common\SuspensionManager.h" />
+    <ClInclude Include="App.xaml.h">
+      <DependentUpon>App.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PopupAbout.xaml.h">
+      <DependentUpon>PopupAbout.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PopupEnquireOpenDNS.xaml.h">
+      <DependentUpon>PopupEnquireOpenDNS.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PopupFilterLevel.xaml.h">
+      <DependentUpon>PopupFilterLevel.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PopupLicense.xaml.h">
+      <DependentUpon>PopupLicense.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PopupLoginOpenDNS.xaml.h">
+      <DependentUpon>PopupLoginOpenDNS.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PopupRegisterOpenDNS.xaml.h">
+      <DependentUpon>PopupRegisterOpenDNS.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PopupSettingComplete.xaml.h">
+      <DependentUpon>PopupSettingComplete.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="RegisterOpenDNSPage.xaml.h">
+      <DependentUpon>RegisterOpenDNSPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="StartDatePage.xaml.h">
+      <DependentUpon>StartDatePage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="TrafficControlPage.xaml.h">
+      <DependentUpon>TrafficControlPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="TrafficCtrlSettingPage.xaml.h">
+      <DependentUpon>TrafficCtrlSettingPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="TrafficLimitationPage.xaml.h">
+      <DependentUpon>TrafficLimitationPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="WifiSettingPage.xaml.h">
+      <DependentUpon>WifiSettingPage.xaml</DependentUpon>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Common\StandardStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EditChannelPage.xaml" />
+    <Page Include="EditSecurityPage.xaml" />
+    <Page Include="EditSettingPage.xaml" />
+    <Page Include="FilterLevelPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GuestAccessPage.xaml" />
+    <Page Include="GuestSecurityPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GuestSettingPage.xaml" />
+    <Page Include="GuestTimeSegPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LoginOpenDNSPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LoginPage.xaml" />
+    <Page Include="MainPage.xaml" />
+    <Page Include="ParentalControlPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopupAbout.xaml" />
+    <Page Include="PopupEnquireOpenDNS.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopupFilterLevel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopupLicense.xaml" />
+    <Page Include="PopupLoginOpenDNS.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopupRegisterOpenDNS.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopupSettingComplete.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RegisterOpenDNSPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StartDatePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TrafficControlPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TrafficCtrlSettingPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TrafficLimitationPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WifiSettingPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="Common\ReadMe.txt" />
+    <None Include="NETGEAR_Genie_Win8_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Logo.png" />
+    <Image Include="Assets\SmallLogo.png" />
+    <Image Include="Assets\StoreLogo.png" />
+    <Image Include="Assets\SplashScreen.png" />
+    <Image Include="Assets\LightGray.png" />
+    <Image Include="Assets\MediumGray.png" />
+    <Image Include="Assets\DarkGray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App.xaml.cpp">
+      <DependentUpon>App.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Common\BindableBase.cpp" />
+    <ClCompile Include="Common\BooleanToVisibilityConverter.cpp" />
+    <ClCompile Include="Common\BooleanNegationConverter.cpp" />
+    <ClCompile Include="Common\LayoutAwarePage.cpp" />
+    <ClCompile Include="Common\RichTextColumns.cpp" />
+    <ClCompile Include="Common\SuspensionManager.cpp" />
+    <ClCompile Include="DataModel\GuestAccessModel.cpp" />
+    <ClCompile Include="DataModel\MainPageModel.cpp" />
+    <ClCompile Include="DataModel\TrafficControlModel.cpp" />
+    <ClCompile Include="DataModel\WifiSettingModel.cpp" />
+    <ClCompile Include="EditChannelPage.xaml.cpp">
+      <DependentUpon>EditChannelPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="EditSecurityPage.xaml.cpp">
+      <DependentUpon>EditSecurityPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="EditSettingPage.xaml.cpp">
+      <DependentUpon>EditSettingPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="FilterLevelPage.xaml.cpp">
+      <DependentUpon>FilterLevelPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="GuestAccessPage.xaml.cpp">
+      <DependentUpon>GuestAccessPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="GuestSecurityPage.xaml.cpp">
+      <DependentUpon>GuestSecurityPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="GuestSettingPage.xaml.cpp">
+      <DependentUpon>GuestSettingPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="GuestTimeSegPage.xaml.cpp">
+      <DependentUpon>GuestTimeSegPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="LoginOpenDNSPage.xaml.cpp">
+      <DependentUpon>LoginOpenDNSPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="LoginPage.xaml.cpp">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="MainPage.xaml.cpp">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="ParentalControlPage.xaml.cpp">
+      <DependentUpon>ParentalControlPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="PopupAbout.xaml.cpp">
+      <DependentUpon>PopupAbout.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="PopupEnquireOpenDNS.xaml.cpp">
+      <DependentUpon>PopupEnquireOpenDNS.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="PopupFilterLevel.xaml.cpp">
+      <DependentUpon>PopupFilterLevel.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="PopupLicense.xaml.cpp">
+      <DependentUpon>PopupLicense.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="PopupLoginOpenDNS.xaml.cpp">
+      <DependentUpon>PopupLoginOpenDNS.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="PopupRegisterOpenDNS.xaml.cpp">
+      <DependentUpon>PopupRegisterOpenDNS.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="PopupSettingComplete.xaml.cpp">
+      <DependentUpon>PopupSettingComplete.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="RegisterOpenDNSPage.xaml.cpp">
+      <DependentUpon>RegisterOpenDNSPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="StartDatePage.xaml.cpp">
+      <DependentUpon>StartDatePage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="TrafficControlPage.xaml.cpp">
+      <DependentUpon>TrafficControlPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="TrafficCtrlSettingPage.xaml.cpp">
+      <DependentUpon>TrafficCtrlSettingPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="TrafficLimitationPage.xaml.cpp">
+      <DependentUpon>TrafficLimitationPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="WifiSettingPage.xaml.cpp">
+      <DependentUpon>WifiSettingPage.xaml</DependentUpon>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="通用">
+      <UniqueIdentifier>ec4487ad-4734-4d3b-8aa5-5c135b35ce2d</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资产">
+      <UniqueIdentifier>a89f72f0-1eac-40b1-bb4e-e06a2cd4c9c8</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataModel">
+      <UniqueIdentifier>18e39a43-c8a6-4ae8-962b-26dd386af7fd</UniqueIdentifier>
+    </Filter>
+    <None Include="Common\ReadMe.txt">
+      <Filter>通用</Filter>
+    </None>
+    <Page Include="Common\StandardStyles.xaml">
+      <Filter>通用</Filter>
+    </Page>
+    <ClCompile Include="Common\BindableBase.cpp">
+      <Filter>通用</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BooleanToVisibilityConverter.cpp">
+      <Filter>通用</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BooleanNegationConverter.cpp">
+      <Filter>通用</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\RichTextColumns.cpp">
+      <Filter>通用</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\LayoutAwarePage.cpp">
+      <Filter>通用</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\SuspensionManager.cpp">
+      <Filter>通用</Filter>
+    </ClCompile>
+    <ClInclude Include="Common\BindableBase.h">
+      <Filter>通用</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BooleanToVisibilityConverter.h">
+      <Filter>通用</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BooleanNegationConverter.h">
+      <Filter>通用</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\RichTextColumns.h">
+      <Filter>通用</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\LayoutAwarePage.h">
+      <Filter>通用</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\SuspensionManager.h">
+      <Filter>通用</Filter>
+    </ClInclude>
+    <Image Include="Assets\Logo.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\SmallLogo.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\LightGray.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\MediumGray.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\DarkGray.png">
+      <Filter>资产</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App.xaml.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="DataModel\GuestAccessModel.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="DataModel\MainPageModel.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="DataModel\WifiSettingModel.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="DataModel\TrafficControlModel.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="EditChannelPage.xaml.cpp" />
+    <ClCompile Include="EditSecurityPage.xaml.cpp" />
+    <ClCompile Include="EditSettingPage.xaml.cpp" />
+    <ClCompile Include="GuestAccessPage.xaml.cpp" />
+    <ClCompile Include="GuestSecurityPage.xaml.cpp" />
+    <ClCompile Include="GuestSettingPage.xaml.cpp" />
+    <ClCompile Include="GuestTimeSegPage.xaml.cpp" />
+    <ClCompile Include="LoginPage.xaml.cpp" />
+    <ClCompile Include="MainPage.xaml.cpp" />
+    <ClCompile Include="PopupAbout.xaml.cpp" />
+    <ClCompile Include="PopupLicense.xaml.cpp" />
+    <ClCompile Include="StartDatePage.xaml.cpp" />
+    <ClCompile Include="TrafficControlPage.xaml.cpp" />
+    <ClCompile Include="TrafficCtrlSettingPage.xaml.cpp" />
+    <ClCompile Include="WifiSettingPage.xaml.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="App.xaml.h" />
+    <ClInclude Include="DataModel\GuestAccessModel.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="DataModel\MainPageModel.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="DataModel\WifiSettingModel.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="DataModel\TrafficControlModel.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="EditChannelPage.xaml.h" />
+    <ClInclude Include="EditSecurityPage.xaml.h" />
+    <ClInclude Include="EditSettingPage.xaml.h" />
+    <ClInclude Include="GuestAccessPage.xaml.h" />
+    <ClInclude Include="GuestSecurityPage.xaml.h" />
+    <ClInclude Include="GuestSettingPage.xaml.h" />
+    <ClInclude Include="GuestTimeSegPage.xaml.h" />
+    <ClInclude Include="LoginPage.xaml.h" />
+    <ClInclude Include="MainPage.xaml.h" />
+    <ClInclude Include="PopupAbout.xaml.h" />
+    <ClInclude Include="PopupLicense.xaml.h" />
+    <ClInclude Include="StartDatePage.xaml.h" />
+    <ClInclude Include="TrafficControlPage.xaml.h" />
+    <ClInclude Include="TrafficCtrlSettingPage.xaml.h" />
+    <ClInclude Include="WifiSettingPage.xaml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NETGEAR_Genie_Win8_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="EditChannelPage.xaml" />
+    <Page Include="EditSecurityPage.xaml" />
+    <Page Include="EditSettingPage.xaml" />
+    <Page Include="GuestAccessPage.xaml" />
+    <Page Include="GuestSettingPage.xaml" />
+    <Page Include="LoginPage.xaml" />
+    <Page Include="MainPage.xaml" />
+    <Page Include="PopupAbout.xaml" />
+    <Page Include="PopupLicense.xaml" />
+    <Page Include="WifiSettingPage.xaml" />
+    <Page Include="GuestTimeSegPage.xaml" />
+    <Page Include="GuestSecurityPage.xaml" />
+    <Page Include="TrafficControlPage.xaml" />
+    <Page Include="TrafficCtrlSettingPage.xaml" />
+    <Page Include="StartDatePage.xaml" />
+    <Page Include="TrafficLimitationPage.xaml" />
+    <Page Include="ParentalControlPage.xaml" />
+    <Page Include="RegisterOpenDNSPage.xaml" />
+    <Page Include="LoginOpenDNSPage.xaml" />
+    <Page Include="FilterLevelPage.xaml" />
+    <Page Include="PopupSettingComplete.xaml" />
+    <Page Include="PopupLoginOpenDNS.xaml" />
+    <Page Include="PopupRegisterOpenDNS.xaml" />
+    <Page Include="PopupFilterLevel.xaml" />
+    <Page Include="PopupEnquireOpenDNS.xaml" />
+  </ItemGroup>
+</Project>
