@@ -12,8 +12,8 @@
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,10,0,0">
-                <Image Source="Assets/Logo.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                <TextBlock Text="关于" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Image Source="Assets/NETGEAR_Genie_ico_50.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock Text="关于" FontSize="30" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </StackPanel>
             <TextBlock Text="路由器型号：N/A" FontSize="24" Margin="10,10,0,0"/>
             <TextBlock Text="固件版本：N/A" FontSize="24" Margin="10,0,0,0"/>

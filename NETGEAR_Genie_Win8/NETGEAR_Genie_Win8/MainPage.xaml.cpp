@@ -77,30 +77,16 @@ void MainPage::ItemView_ItemClick(Object^ sender, ItemClickEventArgs^ e)
 		}
 		else if (groupId == "ParentalControl")
 		{
-			//if (0)	//已登陆OpenDNS账户
-			//{
-				Frame->Navigate(TypeName(ParentalControlPage::typeid));
-			//} 
-			//else    //未登录
-			//{
-			//	auto messageDialog = ref new MessageDialog("要设置实时家长控制，您需要拥有OpenDNS账户。已经有账户了吗？");
-
-			//	messageDialog->Commands->Append(ref new UICommand("否", nullptr, PropertyValue::CreateInt32(0)));
-			//	messageDialog->Commands->Append(ref new UICommand("是", nullptr, PropertyValue::CreateInt32(1)));
-
-			//	// Show the message dialog and retrieve the id of the chosen command
-			//	create_task(messageDialog->ShowAsync()).then([this](IUICommand^ command)
-			//	{
-			//		if (command->Label == "否")
-			//		{
-			//			this->Frame->Navigate(TypeName(RegisterOpenDNSPage::typeid));
-			//		}
-			//		else if (command->Label == "是")
-			//		{
-			//			this->Frame->Navigate(TypeName(LoginOpenDNSPage::typeid));
-			//		}
-			//	});
-			//}			
+			Frame->Navigate(TypeName(ParentalControlPage::typeid));		
+		}
+		else if (groupId == "MyMedia")
+		{
+			Frame->Navigate(TypeName(MyMediaPage::typeid));
+		}
+		else if (groupId == "MarketPlace")
+		{
+			auto uri = ref new Uri((String^)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+			Windows::System::Launcher::LaunchUriAsync(uri);
 		}
 	} 
 	else	//未登录，跳到登陆页面

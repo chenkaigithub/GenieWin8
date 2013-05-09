@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="DataModel\GuestAccessModel.h" />
     <ClInclude Include="DataModel\MainPageModel.h" />
+    <ClInclude Include="DataModel\MyMediaModel.h" />
     <ClInclude Include="DataModel\TrafficControlModel.h" />
     <ClInclude Include="DataModel\WifiSettingModel.h" />
     <ClInclude Include="EditChannelPage.xaml.h">
@@ -141,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="EditSettingPage.xaml.h">
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="FileOpenPickerPage.xaml.h">
+      <DependentUpon>FileOpenPickerPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="GuestAccessPage.xaml.h">
       <DependentUpon>GuestAccessPage.xaml</DependentUpon>
@@ -159,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="MainPage.xaml.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="MyMediaPage.xaml.h">
+      <DependentUpon>MyMediaPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="MyMediaSourcesPage.xaml.h">
+      <DependentUpon>MyMediaSourcesPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="ParentalControlPage.xaml.h">
       <DependentUpon>ParentalControlPage.xaml</DependentUpon>
@@ -220,6 +230,9 @@
     <Page Include="EditChannelPage.xaml" />
     <Page Include="EditSecurityPage.xaml" />
     <Page Include="EditSettingPage.xaml" />
+    <Page Include="FileOpenPickerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GuestAccessPage.xaml" />
     <Page Include="GuestSecurityPage.xaml">
       <SubType>Designer</SubType>
@@ -230,6 +243,12 @@
     </Page>
     <Page Include="LoginPage.xaml" />
     <Page Include="MainPage.xaml" />
+    <Page Include="MyMediaPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MyMediaSourcesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ParentalControlPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -272,20 +291,25 @@
     <None Include="NETGEAR_Genie_Win8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\genie1.png" />
-    <Image Include="Assets\Guestc Access200.png" />
+    <Image Include="Assets\icon48.png" />
     <Image Include="Assets\Logo.png" />
-    <Image Include="Assets\My Media200.png" />
-    <Image Include="Assets\Network Map200.png" />
-    <Image Include="Assets\Parental Controls200.png" />
+    <Image Include="Assets\NETGEAR_Genie_ico_150.png" />
+    <Image Include="Assets\NETGEAR_Genie_ico_30.png" />
+    <Image Include="Assets\NETGEAR_Genie_ico_50.png" />
+    <Image Include="Assets\NETGEAR_Genie_Logo_white_green.png" />
+    <Image Include="Assets\NETGER 首页小图标\Guestc Access200.png" />
+    <Image Include="Assets\NETGER 首页小图标\My Media200.png" />
+    <Image Include="Assets\NETGER 首页小图标\Network Map200.png" />
+    <Image Include="Assets\NETGER 首页小图标\Parental Controls200.png" />
+    <Image Include="Assets\NETGER 首页小图标\Traffic Meter200.png" />
+    <Image Include="Assets\NETGER 首页小图标\Wireless Settings200.png" />
     <Image Include="Assets\SmallLogo.png" />
     <Image Include="Assets\StoreLogo.png" />
     <Image Include="Assets\SplashScreen.png" />
     <Image Include="Assets\LightGray.png" />
     <Image Include="Assets\MediumGray.png" />
     <Image Include="Assets\DarkGray.png" />
-    <Image Include="Assets\Traffic Meter200.png" />
-    <Image Include="Assets\Wireless Settings200.png" />
+    <Image Include="Assets\开机画面620x300.png" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.xaml.cpp">
@@ -299,6 +323,7 @@
     <ClCompile Include="Common\SuspensionManager.cpp" />
     <ClCompile Include="DataModel\GuestAccessModel.cpp" />
     <ClCompile Include="DataModel\MainPageModel.cpp" />
+    <ClCompile Include="DataModel\MyMediaModel.cpp" />
     <ClCompile Include="DataModel\TrafficControlModel.cpp" />
     <ClCompile Include="DataModel\WifiSettingModel.cpp" />
     <ClCompile Include="EditChannelPage.xaml.cpp">
@@ -309,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="EditSettingPage.xaml.cpp">
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="FileOpenPickerPage.xaml.cpp">
+      <DependentUpon>FileOpenPickerPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="GuestAccessPage.xaml.cpp">
       <DependentUpon>GuestAccessPage.xaml</DependentUpon>
@@ -327,6 +355,12 @@
     </ClCompile>
     <ClCompile Include="MainPage.xaml.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="MyMediaPage.xaml.cpp">
+      <DependentUpon>MyMediaPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="MyMediaSourcesPage.xaml.cpp">
+      <DependentUpon>MyMediaSourcesPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="ParentalControlPage.xaml.cpp">
       <DependentUpon>ParentalControlPage.xaml</DependentUpon>

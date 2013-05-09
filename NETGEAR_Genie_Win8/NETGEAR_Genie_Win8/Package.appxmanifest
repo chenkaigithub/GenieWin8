@@ -1,39 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-
-  <Identity Name="832ea7af-74ce-4e8a-92a3-7ec5d063f9b0"
-            Publisher="CN=xy"
-            Version="1.0.0.0" />
-
+  <Identity Name="832ea7af-74ce-4e8a-92a3-7ec5d063f9b0" Publisher="CN=xy" Version="1.0.0.0" />
   <Properties>
     <DisplayName>NETGEAR_Genie_Win8</DisplayName>
     <PublisherDisplayName>xy</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\NETGEAR_Genie_ico_50.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
     <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
   </Prerequisites>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="NETGEAR_Genie_Win8.App">
-        <VisualElements
-            DisplayName="NETGEAR_Genie_Win8"
-            Logo="Assets\Logo.png"
-            SmallLogo="Assets\SmallLogo.png"
-            Description="NETGEAR_Genie_Win8"
-            ForegroundText="light"
-            BackgroundColor="#464646">
-            <DefaultTile ShowName="allLogos" />
-            <SplashScreen Image="Assets\SplashScreen.png" />
-        </VisualElements>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="NETGEAR_Genie_Win8.App">
+      <VisualElements DisplayName="NETGEAR_Genie_Win8" Logo="Assets\NETGEAR_Genie_ico_150.png" SmallLogo="Assets\NETGEAR_Genie_ico_30.png" Description="NETGEAR_Genie_Win8" ForegroundText="light" BackgroundColor="#3030FF">
+        <DefaultTile ShowName="allLogos" ShortName="NETGEAR Genie" />
+        <SplashScreen Image="Assets\开机画面620x300.png" BackgroundColor="#E4E8ED" />
+      </VisualElements>
+      <Extensions>
+        <Extension Category="windows.fileOpenPicker">
+          <FileOpenPicker>
+            <SupportedFileTypes>
+              <SupportsAnyFileType />
+            </SupportedFileTypes>
+          </FileOpenPicker>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

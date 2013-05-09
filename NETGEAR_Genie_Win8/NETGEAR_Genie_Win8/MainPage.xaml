@@ -111,7 +111,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <!--<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>-->
-            <Image Source="Assets/genie1.png" Grid.Column="1" Width="300" Height="60" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0"/>
+            <Image Source="Assets/NETGEAR_Genie_Logo_white_green.png" Grid.Column="1" Width="600" Height="80" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0"/>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

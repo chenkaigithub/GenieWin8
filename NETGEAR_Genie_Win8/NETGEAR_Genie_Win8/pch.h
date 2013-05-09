@@ -15,3 +15,4 @@
 #include "DataModel\WifiSettingModel.h"
 #include "DataModel\GuestAccessModel.h"
 #include "DataModel\TrafficControlModel.h"
+#include "DataModel\MyMediaModel.h"

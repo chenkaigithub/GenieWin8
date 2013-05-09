@@ -241,38 +241,43 @@ DataSource::DataSource()
 
 	auto group1 = ref new DataGroup("WiFiSetting",
 		"无线设置",
-		"Assets/Wireless Settings200.png");
+		"Assets/NETGER 首页小图标/Wireless Settings200.png");
 	_allGroups->Append(group1);
 
 	auto group2 = ref new DataGroup("GuestAccess",
 		"访客访问",
-		"Assets/Guestc Access200.png");
+		"Assets/NETGER 首页小图标/Guestc Access200.png");
 	_allGroups->Append(group2);
 
 	auto group3 = ref new DataGroup("NetworkMap",
 		"网络映射",
-		"Assets/Network Map200.png");
+		"Assets/NETGER 首页小图标/Network Map200.png");
 	_allGroups->Append(group3);
 
 	auto group4 = ref new DataGroup("ParentalControl",
 		"家长控制",
-		"Assets/Parental Controls200.png");
+		"Assets/NETGER 首页小图标/Parental Controls200.png");
 	_allGroups->Append(group4);
 
 	auto group5 = ref new DataGroup("TrafficControl",
 		"流量控制",
-		"Assets/Traffic Meter200.png");
+		"Assets/NETGER 首页小图标/Traffic Meter200.png");
 	_allGroups->Append(group5);
 
 	auto group6 = ref new DataGroup("MyMedia",
 		"我的媒体",
-		"Assets/My Media200.png");
+		"Assets/NETGER 首页小图标/My Media200.png");
 	_allGroups->Append(group6);
 
 	auto group7 = ref new DataGroup("QRCode",
 		"QR码",
 		"Assets/DarkGray.png");
 	_allGroups->Append(group7);
+
+	auto group8 = ref new DataGroup("MarketPlace",
+		"Marketplace",
+		"Assets/DarkGray.png");
+	_allGroups->Append(group8);
 }
 
 IObservableVector<DataGroup^>^ DataSource::AllGroups::get()

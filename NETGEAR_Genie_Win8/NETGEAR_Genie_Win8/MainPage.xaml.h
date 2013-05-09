@@ -13,6 +13,7 @@
 #include "GuestAccessPage.xaml.h"
 #include "TrafficControlPage.xaml.h"
 #include "ParentalControlPage.xaml.h"
+#include "MyMediaPage.xaml.h"
 
 namespace NETGEAR_Genie_Win8
 {
