@@ -117,7 +117,9 @@
     <ClCompile Include="DataModel\MyMediaModel.cpp">
       <Filter>DataModel</Filter>
     </ClCompile>
-    <ClCompile Include="MyMediaSourcePage.xaml.cpp" />
+    <ClCompile Include="FileOpenPickerPage.xaml.cpp" />
+    <ClCompile Include="MyMediaPage.xaml.cpp" />
+    <ClCompile Include="MyMediaSourcesPage.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -159,7 +161,9 @@
     <ClInclude Include="DataModel\MyMediaModel.h">
       <Filter>DataModel</Filter>
     </ClInclude>
-    <ClInclude Include="MyMediaSourcePage.xaml.h" />
+    <ClInclude Include="FileOpenPickerPage.xaml.h" />
+    <ClInclude Include="MyMediaPage.xaml.h" />
+    <ClInclude Include="MyMediaSourcesPage.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -191,8 +195,7 @@
     <Page Include="PopupFilterLevel.xaml" />
     <Page Include="PopupEnquireOpenDNS.xaml" />
     <Page Include="MyMediaPage.xaml" />
-    <Page Include="MyMediaSourcesPage.xaml" />
-    <Page Include="FileOpenPickerPage.xaml" />
+    <Page Include="MyMediaSourcePage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\开机画面620x300.png">
@@ -210,25 +213,43 @@
     <Image Include="Assets\NETGEAR_Genie_Logo_white_green.png">
       <Filter>资产</Filter>
     </Image>
-    <Image Include="Assets\NETGER 首页小图标\Guestc Access200.png">
-      <Filter>资产</Filter>
-    </Image>
-    <Image Include="Assets\NETGER 首页小图标\My Media200.png">
-      <Filter>资产</Filter>
-    </Image>
-    <Image Include="Assets\NETGER 首页小图标\Network Map200.png">
-      <Filter>资产</Filter>
-    </Image>
-    <Image Include="Assets\NETGER 首页小图标\Parental Controls200.png">
-      <Filter>资产</Filter>
-    </Image>
-    <Image Include="Assets\NETGER 首页小图标\Traffic Meter200.png">
-      <Filter>资产</Filter>
-    </Image>
-    <Image Include="Assets\NETGER 首页小图标\Wireless Settings200.png">
-      <Filter>资产</Filter>
-    </Image>
     <Image Include="Assets\icon48.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\下边栏\Browse1.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\下边栏\Device2.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\下边栏\Option.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\下边栏\Playing.PNG">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\NETGER 首页小图标\appstore.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\NETGER 首页小图标\guestaccess.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\NETGER 首页小图标\map.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\NETGER 首页小图标\mymedia.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\NETGER 首页小图标\parentalcontrols.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\NETGER 首页小图标\qrcode.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\NETGER 首页小图标\traffic.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\NETGER 首页小图标\wireless.png">
       <Filter>资产</Filter>
     </Image>
   </ItemGroup>

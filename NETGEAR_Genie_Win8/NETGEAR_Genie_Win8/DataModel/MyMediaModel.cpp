@@ -107,6 +107,15 @@ void MediaCommon::SetImage(String^ path)
 //}
 
 //
+// MyMediaGroup
+//
+
+MyMediaGroup::MyMediaGroup(String^ uniqueId, String^ title, String^ imagePath)
+	: MediaCommon(uniqueId, title, imagePath)
+{
+}
+
+//
 // SourcesGroup
 //
 
@@ -135,8 +144,29 @@ PlayersGroup::PlayersGroup(String^ uniqueId, String^ title, String^ imagePath)
 
 MediaSource::MediaSource()
 {
+	_mymediaGroups = ref new Vector<MyMediaGroup^>();
 	_sourcesGroups = ref new Vector<SourcesGroup^>();
 	_playersGroups = ref new Vector<PlayersGroup^>();
+
+	auto mymediagroup1 = ref new MyMediaGroup("MyMediaSource",
+		"来源",
+		"Assets/下边栏/Browse1.png");
+	_mymediaGroups->Append(mymediagroup1);
+
+	auto mymediagroup2 = ref new MyMediaGroup("MyMediaPlayer",
+		"播放器",
+		"Assets/下边栏/Device2.png");
+	_mymediaGroups->Append(mymediagroup2);
+
+	auto mymediagroup3 = ref new MyMediaGroup("MyMediaPlaying",
+		"正在播放",
+		"Assets/下边栏/Playing.png");
+	_mymediaGroups->Append(mymediagroup3);
+
+	auto mymediagrou4 = ref new MyMediaGroup("MyMediaOption",
+		"选项",
+		"Assets/下边栏/Option.png");
+	_mymediaGroups->Append(mymediagrou4);
 
 	auto sourcegroup1 = ref new SourcesGroup("SourceGroup-1",
 		"ReadyDLNA: R6200",
@@ -169,6 +199,11 @@ MediaSource::MediaSource()
 	_playersGroups->Append(playergroup3);
 }
 
+IObservableVector<MyMediaGroup^>^ MediaSource::MyMediaGroups::get()
+{
+	return _mymediaGroups;
+}
+
 IObservableVector<SourcesGroup^>^ MediaSource::SourcesGroups::get()
 {
 	return _sourcesGroups;
@@ -187,6 +222,12 @@ void MediaSource::Init()
 	{
 		_mediaSource = ref new MediaSource();
 	}
+}
+
+IIterable<MyMediaGroup^>^ MediaSource::GetMymediaGroups(String^ uniqueId)
+{
+	Init();
+	return _mediaSource->MyMediaGroups;
 }
 
 IIterable<SourcesGroup^>^ MediaSource::GetSourceGroups(String^ uniqueId)

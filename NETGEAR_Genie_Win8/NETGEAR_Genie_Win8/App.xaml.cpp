@@ -8,7 +8,6 @@
 #include "MainPage.xaml.h"
 
 #include <ppltasks.h>
-#include "FileOpenPickerPage.xaml.h"
 
 using namespace NETGEAR_Genie_Win8;
 using namespace NETGEAR_Genie_Win8::Common;
@@ -129,14 +128,4 @@ void App::OnSuspending(Object^ sender, SuspendingEventArgs^ e)
 	{
 		deferral->Complete();
 	});
-}
-
-/// <summary>
-/// 在激活应用程序以显示文件打开选取器时调用。
-/// </summary>
-/// <param name="args">有关激活请求的详细信息。</param>
-void NETGEAR_Genie_Win8::App::OnFileOpenPickerActivated(Windows::ApplicationModel::Activation::FileOpenPickerActivatedEventArgs^ args)
-{
-	auto fileOpenPickerPage = ref new NETGEAR_Genie_Win8::FileOpenPickerPage();
-	fileOpenPickerPage->Activate(args);
 }

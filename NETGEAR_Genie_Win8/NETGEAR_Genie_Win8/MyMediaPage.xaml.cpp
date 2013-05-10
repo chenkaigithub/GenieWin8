@@ -5,6 +5,7 @@
 
 #include "pch.h"
 #include "MyMediaPage.xaml.h"
+#include "MyMediaSourcePage.xaml.h"
 
 using namespace NETGEAR_Genie_Win8;
 
@@ -18,6 +19,7 @@ using namespace Windows::UI::Xaml::Data;
 using namespace Windows::UI::Xaml::Input;
 using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
+using namespace Windows::UI::Xaml::Interop;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -37,8 +39,10 @@ MyMediaPage::MyMediaPage()
 ///映射。首次访问页面时为 null。</param>
 void MyMediaPage::LoadState(Object^ navigationParameter, IMap<String^, Object^>^ pageState)
 {
-	(void) navigationParameter;	// 未使用的参数
 	(void) pageState;	// 未使用的参数
+
+	auto mymediaGroups = Data::MediaSource::GetMymediaGroups(safe_cast<String^>(navigationParameter));
+	DefaultViewModel->Insert("mymediaGroup", mymediaGroups);
 }
 
 /// <summary>
@@ -50,4 +54,27 @@ void MyMediaPage::LoadState(Object^ navigationParameter, IMap<String^, Object^>^
 void MyMediaPage::SaveState(IMap<String^, Object^>^ pageState)
 {
 	(void) pageState;	// 未使用的参数
+}
+
+void MyMediaPage::MyMedia_ItemClick(Object^ sender, ItemClickEventArgs^ e)
+{
+	(void) sender;	// 未使用的参数
+
+	auto groupId = safe_cast<Data::MyMediaGroup^>(e->ClickedItem)->UniqueId;
+	if (groupId == "MyMediaSource")
+	{
+		Frame->Navigate(TypeName(MyMediaSourcePage::typeid));
+	}
+	else if (groupId == "MyMediaPlayer")
+	{
+		//Frame->Navigate(TypeName(GuestAccessPage::typeid));
+	}
+	else if (groupId == "MyMediaPlaying")
+	{
+		//Frame->Navigate(TypeName(TrafficControlPage::typeid));
+	}
+	else if (groupId == "MyMediaOption")
+	{
+		//Frame->Navigate(TypeName(ParentalControlPage::typeid));		
+	} 
 }

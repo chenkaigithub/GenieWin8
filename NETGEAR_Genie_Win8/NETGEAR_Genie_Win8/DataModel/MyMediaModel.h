@@ -7,6 +7,7 @@ namespace NETGEAR_Genie_Win8
 {
 	namespace Data
 	{
+		ref class MyMediaGroup;
 		ref class SourcesGroup;
 		ref class PlayersGroup;
 
@@ -42,6 +43,11 @@ namespace NETGEAR_Genie_Win8
 		//};
 
 		[Windows::UI::Xaml::Data::Bindable]
+		public ref class MyMediaGroup sealed : public MediaCommon
+		{
+		public:
+			MyMediaGroup(Platform::String^ uniqueId, Platform::String^ title, Platform::String^ imagePath);
+		};
 		public ref class SourcesGroup sealed : public MediaCommon
 		{
 		public:
@@ -65,6 +71,10 @@ namespace NETGEAR_Genie_Win8
 		{
 		public:			
 			MediaSource();
+			property Windows::Foundation::Collections::IObservableVector<MyMediaGroup^>^ MyMediaGroups
+			{
+				Windows::Foundation::Collections::IObservableVector<MyMediaGroup^>^ get();
+			}
 			property Windows::Foundation::Collections::IObservableVector<SourcesGroup^>^ SourcesGroups
 			{
 				Windows::Foundation::Collections::IObservableVector<SourcesGroup^>^ get();
@@ -73,11 +83,13 @@ namespace NETGEAR_Genie_Win8
 			{
 				Windows::Foundation::Collections::IObservableVector<PlayersGroup^>^ get();
 			}
+			static Windows::Foundation::Collections::IIterable<MyMediaGroup^>^ GetMymediaGroups(Platform::String^ uniqueId);
 			static Windows::Foundation::Collections::IIterable<SourcesGroup^>^ GetSourceGroups(Platform::String^ uniqueId);
 			static Windows::Foundation::Collections::IIterable<PlayersGroup^>^ GetPlayerGroups(Platform::String^ uniqueId);
 
 		private: 
 			static void Init();
+			Platform::Collections::Vector<MyMediaGroup^>^ _mymediaGroups;
 			Platform::Collections::Vector<SourcesGroup^>^ _sourcesGroups;
 			Platform::Collections::Vector<PlayersGroup^>^ _playersGroups;
 		};

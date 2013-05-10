@@ -22,5 +22,8 @@ namespace NETGEAR_Genie_Win8
 		virtual void LoadState(Platform::Object^ navigationParameter,
 			Windows::Foundation::Collections::IMap<Platform::String^, Platform::Object^>^ pageState) override;
 		virtual void SaveState(Windows::Foundation::Collections::IMap<Platform::String^, Platform::Object^>^ pageState) override;
+
+	private:
+		void MyMedia_ItemClick(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 	};
 }

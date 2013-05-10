@@ -21,8 +21,5 @@ namespace NETGEAR_Genie_Win8
 
 	private:
 		void OnSuspending(Platform::Object^ sender, Windows::ApplicationModel::SuspendingEventArgs^ e);
-	protected:
-
-		virtual void OnFileOpenPickerActivated(Windows::ApplicationModel::Activation::FileOpenPickerActivatedEventArgs^ pArgs) override;
 	};
 }
