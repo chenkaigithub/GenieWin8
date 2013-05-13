@@ -49,6 +49,21 @@
         * Row 1 contains the rest of the page layout
     -->
     <Grid Style="{StaticResource LayoutRootStyle}">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFFE7B4" Offset="1"/>
+                <GradientStop Color="#FF058D7A"/>
+                <GradientStop Color="#FFFF645C" Offset="0.75"/>
+                <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
+                <GradientStop Color="#FFC59FB2" Offset="0.3"/>
+                <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
+                <GradientStop Color="#FFFF495A" Offset="0.6"/>
+                <GradientStop Color="#FFFFC547" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -67,16 +82,33 @@
 
         <StackPanel Grid.Row="1" Margin="60,0">
             <Grid DataContext="{Binding Source={StaticResource limitPerMonthSource}}"
-                  d:DataContext="{Binding Source={StaticResource limitPerMonthSource}}" Margin="0,40,0,0" Background="Gray">
+                  d:DataContext="{Binding Source={StaticResource limitPerMonthSource}}" Margin="0,40,0,0">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
                 <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                 <TextBox Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" Margin="0,5,5,5"/>
             </Grid>
 
             <ListView ItemsSource="{Binding Source={StaticResource startdateSource}}"
                       SelectionMode="None"
-                      IsItemClickEnabled="True"
-                      Background="Gray" Margin="0,30,0,0"
+                      IsItemClickEnabled="True" Margin="0,30,0,0"
                       ItemClick="StartDate_ItemClick">
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" Margin="10,0,0,0">
@@ -87,7 +119,16 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Grid  Background="Gray">
+            <Grid>
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
                 <TextBlock Text="时间" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                 <Grid DataContext="{Binding Source={StaticResource starttimehourSource}}"
                       d:DataContext="{Binding Source={StaticResource starttimehourSource}}">
@@ -103,9 +144,17 @@
 
             <ListView ItemsSource="{Binding Source={StaticResource trafficlimitationSource}}"
                       SelectionMode="None"
-                      IsItemClickEnabled="True"
-                      Background="Gray" Margin="0,30,0,0"
+                      IsItemClickEnabled="True" Margin="0,30,0,0"
                       ItemClick="TrafficLimitation_ItemClick">
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" Margin="10,0,0,0">

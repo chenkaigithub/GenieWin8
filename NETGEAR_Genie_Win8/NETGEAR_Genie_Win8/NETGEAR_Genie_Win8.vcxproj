@@ -305,10 +305,10 @@
     <Image Include="Assets\LightGray.png" />
     <Image Include="Assets\MediumGray.png" />
     <Image Include="Assets\DarkGray.png" />
-    <Image Include="Assets\下边栏\Browse1.png" />
-    <Image Include="Assets\下边栏\Device2.png" />
-    <Image Include="Assets\下边栏\Option.png" />
-    <Image Include="Assets\下边栏\Playing.PNG" />
+    <Image Include="Assets\下边栏\browse.png" />
+    <Image Include="Assets\下边栏\device.png" />
+    <Image Include="Assets\下边栏\option.png" />
+    <Image Include="Assets\下边栏\playing.png" />
     <Image Include="Assets\开机画面620x300.png" />
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +406,10 @@
     <ClCompile Include="WifiSettingPage.xaml.cpp">
       <DependentUpon>WifiSettingPage.xaml</DependentUpon>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\zh-Hans-CN\Resources.resw" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -150,22 +150,22 @@ MediaSource::MediaSource()
 
 	auto mymediagroup1 = ref new MyMediaGroup("MyMediaSource",
 		"来源",
-		"Assets/下边栏/Browse1.png");
+		"Assets/下边栏/browse.png");
 	_mymediaGroups->Append(mymediagroup1);
 
 	auto mymediagroup2 = ref new MyMediaGroup("MyMediaPlayer",
 		"播放器",
-		"Assets/下边栏/Device2.png");
+		"Assets/下边栏/device.png");
 	_mymediaGroups->Append(mymediagroup2);
 
 	auto mymediagroup3 = ref new MyMediaGroup("MyMediaPlaying",
 		"正在播放",
-		"Assets/下边栏/Playing.png");
+		"Assets/下边栏/playing.png");
 	_mymediaGroups->Append(mymediagroup3);
 
 	auto mymediagrou4 = ref new MyMediaGroup("MyMediaOption",
 		"选项",
-		"Assets/下边栏/Option.png");
+		"Assets/下边栏/option.png");
 	_mymediaGroups->Append(mymediagrou4);
 
 	auto sourcegroup1 = ref new SourcesGroup("SourceGroup-1",

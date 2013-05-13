@@ -29,6 +29,21 @@
         * Row 1 contains the rest of the page layout
     -->
     <Grid Style="{StaticResource LayoutRootStyle}">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFFE7B4" Offset="1"/>
+                <GradientStop Color="#FF058D7A"/>
+                <GradientStop Color="#FFFF645C" Offset="0.75"/>
+                <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
+                <GradientStop Color="#FFC59FB2" Offset="0.3"/>
+                <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
+                <GradientStop Color="#FFFF495A" Offset="0.6"/>
+                <GradientStop Color="#FFFFC547" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -47,44 +62,89 @@
 
         <StackPanel Grid.Row="1"
                     VerticalAlignment="Top" Margin="60,40,60,0">
-            <Grid Background="Gray">
+            <Grid>
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
                 <TextBlock Text="家长控制" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0"/>
                 <CheckBox HorizontalAlignment="Right" FontSize="24" IsChecked="True"/>
             </Grid>
-            
+
             <ListView 
                       SelectionMode="None"
                       IsItemClickEnabled="True"
-                      Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Gray"
+                      Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
                       ItemClick="FilterLevel_ItemClick">
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
                 <!--<ListView.ItemTemplate>
                     <DataTemplate>-->
-                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                            <!--<TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
+                <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                    <!--<TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Content}" FontSize="22"/>-->
-                            <TextBlock Text="过滤级别" FontSize="24" FontWeight="Bold"/>
-                            <TextBlock Text="低" FontSize="22"/>
-                        </StackPanel>
-                    <!--</DataTemplate>
+                    <TextBlock Text="过滤级别" FontSize="24" FontWeight="Bold"/>
+                    <TextBlock Text="低" FontSize="22"/>
+                </StackPanel>
+                <!--</DataTemplate>
                 </ListView.ItemTemplate>-->
             </ListView>
 
             <ListView SelectionMode="None"
                       IsItemClickEnabled="True"
-                      Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Gray"
+                      Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
                       ItemClick="ChangeSetting_ItemClick">
-                    <TextBlock Text="更改定制的设置" FontSize="24" FontWeight="Bold"/>
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
+                <TextBlock Text="更改定制的设置" FontSize="24" FontWeight="Bold"/>
             </ListView>
 
-            <StackPanel Margin="0,20,0,0" Background="Gray">
+            <StackPanel Margin="0,20,0,0">
+                <StackPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
                 <TextBlock Text="OpenDNS账户" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="10,5,0,0"/>
                 <TextBlock Text="Genie007" FontSize="22" VerticalAlignment="Center" Margin="10,5,0,0"/>
             </StackPanel>
 
             <ListView SelectionMode="None"
                       IsItemClickEnabled="True"
-                      Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Gray"
+                      Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
                       ItemClick="Bypass_ItemClick">
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
                 <TextBlock Text="Bypass" FontSize="24" FontWeight="Bold"/>
             </ListView>
         </StackPanel>
@@ -133,7 +193,7 @@
         </Popup>
         <Button x:Name="ReturnToStatusButton" Content="返回状态页" Click="ReturnToStatusButton_Click"
                 Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,400,0,0" Visibility="Collapsed"/>
-        
+
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

@@ -21,7 +21,13 @@
 
         <DataTemplate x:Key="250x250ItemTemplate">
             <Grid HorizontalAlignment="Left" Width="250" Height="250">
-                <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                <Border>
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF4D4A4A" Offset="1"/>
+                            <GradientStop Color="White"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
                     <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
                 </Border>
                 <StackPanel VerticalAlignment="Bottom" Height="50">
@@ -66,7 +72,23 @@
             SelectionMode="None"
             IsSwipeEnabled="false"
             IsItemClickEnabled="True"
-            ItemClick="ItemView_ItemClick"/>
+            ItemClick="ItemView_ItemClick" RenderTransformOrigin="0.5,0.5">
+            <GridView.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFFFE7B4" Offset="1"/>
+                    <GradientStop Color="#FF058D7A"/>
+                    <GradientStop Color="#FFFF645C" Offset="0.75"/>
+                    <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
+                    <GradientStop Color="#FFC59FB2" Offset="0.3"/>
+                    <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
+                    <GradientStop Color="#FFFF495A" Offset="0.6"/>
+                    <GradientStop Color="#FFFFC547" Offset="0.9"/>
+                </LinearGradientBrush>
+            </GridView.Background>
+        </GridView>
 
         <!-- 垂直滚动列表仅在对齐后使用-->
         <ListView
@@ -95,7 +117,7 @@
                 Grid.Row="1" FontSize="22" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,400,150,0" Visibility="Collapsed"/>
         <Button x:Name="LicenseButton" Content="许可" Click="LicenseButton_Click"
                 Grid.Row="1" FontSize="22" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="150,400,0,0" Visibility="Collapsed"/>
-        
+
         <!--许可-->
         <Popup x:Name="LicensePopup" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,400,0">
             <local:PopupLicense/>
@@ -155,15 +177,15 @@
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>       
+        </VisualStateManager.VisualStateGroups>
     </Grid>
-    
+
     <Page.TopAppBar>
         <AppBar Padding="10,0,10,0">
             <Grid>
                 <TextBox VerticalAlignment="Center" Margin="10,0,100,0" FontSize="18"/>
                 <Button Click="SearchButton_Click" Style="{StaticResource SearchAppBarButtonStyle}" HorizontalAlignment="Right"/>
-            </Grid>                   
+            </Grid>
         </AppBar>
     </Page.TopAppBar>
 
@@ -172,7 +194,7 @@
             <Grid>
                 <Button Content="登陆" Click="LoginButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"/>
                 <Button Content="注销" Click="LogoutButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150" Visibility="Collapsed"/>
-                <Button Click="AboutButton_Click"  Style="{StaticResource AboutAppBarButtonStyle}" HorizontalAlignment="Right"/>                
+                <Button Click="AboutButton_Click"  Style="{StaticResource AboutAppBarButtonStyle}" HorizontalAlignment="Right"/>
             </Grid>
         </AppBar>
     </Page.BottomAppBar>

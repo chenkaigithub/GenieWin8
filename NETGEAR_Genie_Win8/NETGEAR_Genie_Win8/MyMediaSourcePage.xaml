@@ -18,7 +18,7 @@
 
         <CollectionViewSource
             x:Name="MyMediaSourcesSource"
-            Source="{Binding sourcesGroup}"
+            Source="{Binding sourceGroup}"
             d:Source="{Binding SourcesGroups, Source={d:DesignInstance Type=data:MediaSource, IsDesignTimeCreatable=True}}"/>
     </Page.Resources>
 
@@ -28,6 +28,21 @@
         * Row 1 contains the rest of the page layout
     -->
     <Grid Style="{StaticResource LayoutRootStyle}">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFFE7B4" Offset="1"/>
+                <GradientStop Color="#FF058D7A"/>
+                <GradientStop Color="#FFFF645C" Offset="0.75"/>
+                <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
+                <GradientStop Color="#FFC59FB2" Offset="0.3"/>
+                <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
+                <GradientStop Color="#FFFF495A" Offset="0.6"/>
+                <GradientStop Color="#FFFFC547" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -46,19 +61,26 @@
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Source={StaticResource MyMediaSourcesSource}}"
                   SelectionMode="None"
-                  IsItemClickEnabled="True"
-                  Background="Gray" Margin="10,20,10,0" VerticalAlignment="Top"
-                  >
+                  IsItemClickEnabled="True" Margin="10,20,10,0" VerticalAlignment="Top">
+            <ListView.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF004F74" Offset="1"/>
+                    <GradientStop Color="#FF50C6FD"/>
+                </LinearGradientBrush>
+            </ListView.Background>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
-                        <Image Source="{Binding Image}" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <Border Width="50" Height="50">
+                            <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+                        </Border>
+                        <!--<Image Source="{Binding Image}" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" AutomationProperties.Name="{Binding Title}"/>-->
                         <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
+
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

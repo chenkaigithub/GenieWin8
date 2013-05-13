@@ -14,7 +14,7 @@
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">访客访问</x:String>
+        <!--<x:String x:Key="AppName">访客访问</x:String>-->
         <CollectionViewSource
             x:Name="guestSettingItemsSource"
             Source="{Binding Groups}"
@@ -33,6 +33,21 @@
         * Row 1 contains the rest of the page layout
     -->
     <Grid Style="{StaticResource LayoutRootStyle}">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFFE7B4" Offset="1"/>
+                <GradientStop Color="#FF058D7A"/>
+                <GradientStop Color="#FFFF645C" Offset="0.75"/>
+                <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
+                <GradientStop Color="#FFC59FB2" Offset="0.3"/>
+                <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
+                <GradientStop Color="#FFFF495A" Offset="0.6"/>
+                <GradientStop Color="#FFFFC547" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -45,23 +60,38 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="GuestAccessPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
             <Button Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
-        
+
         <StackPanel Grid.Row="1"
                     VerticalAlignment="Top" Margin="60,40,60,0">
-            <Grid Background="Gray">
-                <TextBlock Text="访客访问" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0"/>
+            <Grid>
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock x:Uid="CheckGuestAccess" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0"/>
                 <CheckBox HorizontalAlignment="Right" FontSize="24" IsChecked="True"/>
             </Grid>
 
             <ListView ItemsSource="{Binding Source={StaticResource guestSettingItemsSource}}"
                       SelectionMode="None"
                       IsItemClickEnabled="True"
-                      Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Gray"
-                      ItemClick="GuestSetting_ItemClick">                   
-                <ListView.ItemTemplate>                        
+                      Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
+                      ItemClick="GuestSetting_ItemClick">
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
+                <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" Margin="10,0,0,0">
                             <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
@@ -70,7 +100,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <TextBlock Text="扫描二维码连接无线网" Grid.Row="1" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+            <TextBlock x:Uid="ScanQrCodeTips"  Grid.Row="1" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,0"/>
             <Image Source="Assets/SmallLogo.png" Width="200" Height="200" Stretch="UniformToFill" Margin="0,10,0,0" HorizontalAlignment="Center"/>
         </StackPanel>
 

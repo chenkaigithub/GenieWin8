@@ -39,8 +39,8 @@ void MyMediaSourcePage::LoadState(Object^ navigationParameter, IMap<String^, Obj
 {
 	(void) pageState;	// 未使用的参数
 
-	auto sourcesgroup = Data::MediaSource::GetSourceGroups(safe_cast<String^>(navigationParameter));
-	DefaultViewModel->Insert("sourcesGroup", sourcesgroup);
+	auto sourcegroup = Data::MediaSource::GetSourceGroups(safe_cast<String^>(navigationParameter));
+	DefaultViewModel->Insert("sourceGroup", sourcegroup);
 }
 
 /// <summary>

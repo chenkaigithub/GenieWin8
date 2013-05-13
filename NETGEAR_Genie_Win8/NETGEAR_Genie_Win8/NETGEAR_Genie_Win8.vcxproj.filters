@@ -73,6 +73,15 @@
     <Image Include="Assets\DarkGray.png">
       <Filter>资产</Filter>
     </Image>
+    <Filter Include="Strings">
+      <UniqueIdentifier>{b291fad2-9314-4287-a73a-5463bfe56219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings\en-US">
+      <UniqueIdentifier>{57e36874-90fe-4517-a645-f1ddb9db4491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings\zh-Hans-CN">
+      <UniqueIdentifier>{456623b7-e7dc-4136-991e-a50f83655411}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -117,9 +126,8 @@
     <ClCompile Include="DataModel\MyMediaModel.cpp">
       <Filter>DataModel</Filter>
     </ClCompile>
-    <ClCompile Include="FileOpenPickerPage.xaml.cpp" />
     <ClCompile Include="MyMediaPage.xaml.cpp" />
-    <ClCompile Include="MyMediaSourcesPage.xaml.cpp" />
+    <ClCompile Include="MyMediaSourcePage.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -161,9 +169,8 @@
     <ClInclude Include="DataModel\MyMediaModel.h">
       <Filter>DataModel</Filter>
     </ClInclude>
-    <ClInclude Include="FileOpenPickerPage.xaml.h" />
     <ClInclude Include="MyMediaPage.xaml.h" />
-    <ClInclude Include="MyMediaSourcesPage.xaml.h" />
+    <ClInclude Include="MyMediaSourcePage.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -216,18 +223,6 @@
     <Image Include="Assets\icon48.png">
       <Filter>资产</Filter>
     </Image>
-    <Image Include="Assets\下边栏\Browse1.png">
-      <Filter>资产</Filter>
-    </Image>
-    <Image Include="Assets\下边栏\Device2.png">
-      <Filter>资产</Filter>
-    </Image>
-    <Image Include="Assets\下边栏\Option.png">
-      <Filter>资产</Filter>
-    </Image>
-    <Image Include="Assets\下边栏\Playing.PNG">
-      <Filter>资产</Filter>
-    </Image>
     <Image Include="Assets\NETGER 首页小图标\appstore.png">
       <Filter>资产</Filter>
     </Image>
@@ -252,5 +247,25 @@
     <Image Include="Assets\NETGER 首页小图标\wireless.png">
       <Filter>资产</Filter>
     </Image>
+    <Image Include="Assets\下边栏\browse.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\下边栏\device.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\下边栏\option.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\下边栏\playing.png">
+      <Filter>资产</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <Filter>Strings\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="Strings\zh-Hans-CN\Resources.resw">
+      <Filter>Strings\zh-Hans-CN</Filter>
+    </PRIResource>
   </ItemGroup>
 </Project>
