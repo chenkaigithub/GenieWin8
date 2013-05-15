@@ -132,6 +132,7 @@
     <ClInclude Include="DataModel\GuestAccessModel.h" />
     <ClInclude Include="DataModel\MainPageModel.h" />
     <ClInclude Include="DataModel\MyMediaModel.h" />
+    <ClInclude Include="DataModel\ParentalControlModel.h" />
     <ClInclude Include="DataModel\TrafficControlModel.h" />
     <ClInclude Include="DataModel\WifiSettingModel.h" />
     <ClInclude Include="EditChannelPage.xaml.h">
@@ -324,6 +325,7 @@
     <ClCompile Include="DataModel\GuestAccessModel.cpp" />
     <ClCompile Include="DataModel\MainPageModel.cpp" />
     <ClCompile Include="DataModel\MyMediaModel.cpp" />
+    <ClCompile Include="DataModel\ParentalControlModel.cpp" />
     <ClCompile Include="DataModel\TrafficControlModel.cpp" />
     <ClCompile Include="DataModel\WifiSettingModel.cpp" />
     <ClCompile Include="EditChannelPage.xaml.cpp">

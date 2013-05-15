@@ -117,24 +117,304 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About.Text" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Average.Text" xml:space="preserve">
+    <value>平均</value>
+  </data>
+  <data name="Bypass.Text" xml:space="preserve">
+    <value>Bypass</value>
+    <comment>Bypass</comment>
+  </data>
+  <data name="CancelButton.Content" xml:space="preserve">
+    <value>取消</value>
+    <comment>Cancel Button Content</comment>
+  </data>
+  <data name="ChangeCustomizingSetting.Text" xml:space="preserve">
+    <value>更改定制的设置</value>
+    <comment>Change Customizing Settings</comment>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>频道</value>
+    <comment>Channel</comment>
+  </data>
   <data name="ChannelPageTitle.Text" xml:space="preserve">
     <value>频道</value>
     <comment>EditChannelPage Title</comment>
+  </data>
+  <data name="CheckAvailability.Content" xml:space="preserve">
+    <value>检查可用性</value>
   </data>
   <data name="CheckGuestAccess.Text" xml:space="preserve">
     <value>访客访问</value>
     <comment>Guest Access CheckBox Content</comment>
   </data>
+  <data name="CheckParentalControl.Text" xml:space="preserve">
+    <value>家长控制</value>
+    <comment>Parental Control CheckBox Content</comment>
+  </data>
+  <data name="CloseAboutButton.Content" xml:space="preserve">
+    <value>关闭</value>
+    <comment>CloseAbout Button Content</comment>
+  </data>
+  <data name="CloseLicenseButton.Content" xml:space="preserve">
+    <value>关闭</value>
+    <comment>CloseLicense Button Content</comment>
+  </data>
+  <data name="CompleteIllustration.Text" xml:space="preserve">
+    <value>您已经成功设置了由OpenDNS提供支持的NETGEAR实时家长控制。下次运行管理工具时，它会带您到状态页，您可以：</value>
+  </data>
+  <data name="ConfirmEmail.Text" xml:space="preserve">
+    <value>确认电子邮件</value>
+  </data>
+  <data name="ConfirmPassword.Text" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
+  <data name="Copyright.Text" xml:space="preserve">
+    <value>Copyright (c) 2013, NETGEAR Inc.</value>
+  </data>
+  <data name="CounterStartTime" xml:space="preserve">
+    <value>计数器启动时间</value>
+    <comment>Counter Start Time</comment>
+  </data>
+  <data name="CounterStartTimeHour" xml:space="preserve">
+    <value>启动时间-时</value>
+    <comment>Counter Start Time Hour</comment>
+  </data>
+  <data name="CounterStartTimeMin" xml:space="preserve">
+    <value>启动时间-分</value>
+    <comment>Counter Start Time Minute</comment>
+  </data>
+  <data name="Email.Text" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="EnquireOpenDNS.Text" xml:space="preserve">
+    <value>要设置实时家长控制，您需要拥有OpenDNS账户。已经有账户了吗？</value>
+  </data>
+  <data name="EnterRegInformation.Text" xml:space="preserve">
+    <value>请输入以下信息。</value>
+  </data>
+  <data name="EnterUsername_Password.Text" xml:space="preserve">
+    <value>请输入下面的用户名和密码。</value>
+  </data>
+  <data name="FilterLevel" xml:space="preserve">
+    <value>过滤级别</value>
+    <comment>Filtering level</comment>
+  </data>
+  <data name="FiltingIllustration.Text" xml:space="preserve">
+    <value>所有连接到您路由器上的计算机都将受您选择的以下内容保护。您可以稍后通过我们的网站定制您的实时家长控制。</value>
+  </data>
+  <data name="FirmwareVersion.Text" xml:space="preserve">
+    <value>固件版本：</value>
+  </data>
+  <data name="GuestAccess" xml:space="preserve">
+    <value>访客访问</value>
+    <comment>Guest Access</comment>
+  </data>
   <data name="GuestAccessPageTitle.Text" xml:space="preserve">
     <value>访客访问</value>
     <comment>GuestAccessPage Title</comment>
   </data>
+  <data name="GuestSecurityPageTitle.Text" xml:space="preserve">
+    <value>安全</value>
+    <comment>GuestSecurityPage Title</comment>
+  </data>
+  <data name="GuestSettingPageTitle.Text" xml:space="preserve">
+    <value>访客设置</value>
+    <comment>GuestSettingPage Title</comment>
+  </data>
+  <data name="GuestTimeSegPageTitle.Text" xml:space="preserve">
+    <value>时间段</value>
+    <comment>GuestTimeSegPage Title</comment>
+  </data>
+  <data name="GuestWiFiName" xml:space="preserve">
+    <value>名称/无线网络标识</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="Illustration-1.Text" xml:space="preserve">
+    <value>*  检查实时家长控制是否已经启动</value>
+  </data>
+  <data name="Illustration-2.Text" xml:space="preserve">
+    <value>*  关闭或启动实时家长控制</value>
+  </data>
+  <data name="Illustration-3.Text" xml:space="preserve">
+    <value>*  修改基本设置</value>
+  </data>
+  <data name="Illustration-4.Text" xml:space="preserve">
+    <value>*  更改定制的设置，如基于实时家长控制的各用户或每天的特定时间</value>
+  </data>
+  <data name="Illustration_High.Text" xml:space="preserve">
+    <value>阻止所有与成人有关的网站、非法活动、社交网站、共享视频网站、钓鱼网站以及浪费时间的内容。</value>
+  </data>
+  <data name="Illustration_Low.Text" xml:space="preserve">
+    <value>阻止情色网站和网络钓鱼。</value>
+  </data>
+  <data name="Illustration_Medium.Text" xml:space="preserve">
+    <value>阻止所有与成人有关的网站、非法活动和网络钓鱼。</value>
+  </data>
+  <data name="Illustration_Minimum.Text" xml:space="preserve">
+    <value>仅阻止网络钓鱼。</value>
+  </data>
+  <data name="Illustration_None.Text" xml:space="preserve">
+    <value>不阻止。</value>
+  </data>
+  <data name="Key/Password" xml:space="preserve">
+    <value>密钥/密码</value>
+    <comment>Key/Password</comment>
+  </data>
+  <data name="License.Text" xml:space="preserve">
+    <value>许可</value>
+  </data>
+  <data name="LicenseButton.Content" xml:space="preserve">
+    <value>许可</value>
+    <comment>License Button Content</comment>
+  </data>
+  <data name="LimitPerMonth" xml:space="preserve">
+    <value>每月限制(MB)</value>
+    <comment>Monthly Limit</comment>
+  </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>登录</value>
+    <comment>Login Button Content</comment>
+  </data>
+  <data name="LoginPageTitle.Text" xml:space="preserve">
+    <value>登录</value>
+    <comment>LoginPage Title</comment>
+  </data>
+  <data name="LogoutButton.Content" xml:space="preserve">
+    <value>注销</value>
+  </data>
+  <data name="MarketPlace" xml:space="preserve">
+    <value>MarketPlace</value>
+    <comment>MarketPlace</comment>
+  </data>
+  <data name="Mbytes.Text" xml:space="preserve">
+    <value>兆字节</value>
+  </data>
+  <data name="MyMedia" xml:space="preserve">
+    <value>我的媒体</value>
+    <comment>My Media</comment>
+  </data>
+  <data name="MyMediaOption" xml:space="preserve">
+    <value>选项</value>
+    <comment>Options</comment>
+  </data>
+  <data name="MyMediaPageTitle.Text" xml:space="preserve">
+    <value>我的媒体</value>
+    <comment>MyMediaPage Title</comment>
+  </data>
+  <data name="MyMediaPlayer" xml:space="preserve">
+    <value>播放器</value>
+    <comment>Player</comment>
+  </data>
+  <data name="MyMediaPlaying" xml:space="preserve">
+    <value>正在播放</value>
+    <comment>Playing</comment>
+  </data>
+  <data name="MyMediaSource" xml:space="preserve">
+    <value>来源</value>
+    <comment>Source</comment>
+  </data>
+  <data name="MyMediaSourcePageTitle.Text" xml:space="preserve">
+    <value>来源</value>
+    <comment>MyMediaSourcePage Title</comment>
+  </data>
+  <data name="NetworkMap" xml:space="preserve">
+    <value>网络映射</value>
+    <comment>Network Map</comment>
+  </data>
+  <data name="NextButton.Content" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="NoButton.Content" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="OpenDNSUser.Text" xml:space="preserve">
+    <value>OpenDNS 账户</value>
+    <comment>OpenDNS User</comment>
+  </data>
+  <data name="OpenDNSUserName.Text" xml:space="preserve">
+    <value>Genie007</value>
+  </data>
+  <data name="ParentalControl" xml:space="preserve">
+    <value>家长控制</value>
+    <comment>Parental Control</comment>
+  </data>
+  <data name="ParentalControlPageTitle.Text" xml:space="preserve">
+    <value>家长控制</value>
+    <comment>ParentalControlPage Title</comment>
+  </data>
+  <data name="Password.Text" xml:space="preserve">
+    <value>密码</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PasswordTips.Text" xml:space="preserve">
+    <value>（默认值为“password”）</value>
+  </data>
+  <data name="PreviousButton.Content" xml:space="preserve">
+    <value>上一步</value>
+  </data>
+  <data name="PrivacyPolicy.Content" xml:space="preserve">
+    <value>隐私权政策</value>
+  </data>
+  <data name="QRCode" xml:space="preserve">
+    <value>QR码</value>
+    <comment>QR Code</comment>
+  </data>
+  <data name="radioButton_High.Content" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="radioButton_Low.Content" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="radioButton_Medium.Content" xml:space="preserve">
+    <value>中等</value>
+  </data>
+  <data name="radioButton_Minimum.Content" xml:space="preserve">
+    <value>最小</value>
+  </data>
+  <data name="radioButton_None.Content" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="RememberPasswordCheckBox.Content" xml:space="preserve">
+    <value>记住密码</value>
+    <comment>Remember password CheckBox Content</comment>
+  </data>
+  <data name="ReturnButton.Content" xml:space="preserve">
+    <value>返回状态页</value>
+  </data>
+  <data name="RightsReserved.Text" xml:space="preserve">
+    <value>版权所有</value>
+  </data>
+  <data name="RouterModel.Text" xml:space="preserve">
+    <value>路由器型号：</value>
+  </data>
   <data name="ScanQrCodeTips.Text" xml:space="preserve">
     <value>扫描二维码连接无线网</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>安全</value>
+    <comment>Security</comment>
   </data>
   <data name="SecurityPageTitle.Text" xml:space="preserve">
     <value>安全</value>
     <comment>EditSecurityPage Title</comment>
+  </data>
+  <data name="Security_None" xml:space="preserve">
+    <value>None</value>
+    <comment>None</comment>
+  </data>
+  <data name="Security_WPA-PSK+WPA2-PSK" xml:space="preserve">
+    <value>WPA-PSK+WPA2-PSK</value>
+    <comment>WPA-PSK+WPA2-PSK</comment>
+  </data>
+  <data name="Security_WPA2-PSK[AES]" xml:space="preserve">
+    <value>WPA2-PSK[AES]</value>
+    <comment>WPA2-PSK[AES]</comment>
+  </data>
+  <data name="SettingComplete.Text" xml:space="preserve">
+    <value>设置完成</value>
   </data>
   <data name="SettingPageTitle.Text" xml:space="preserve">
     <value>编辑设置</value>
@@ -142,5 +422,119 @@
   </data>
   <data name="SettingPasswordTips.Text" xml:space="preserve">
     <value>8-63个字符或64位十六进制值</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>计数器启动日期</value>
+    <comment>Counter Start Day</comment>
+  </data>
+  <data name="StartDatePageTitle.Text" xml:space="preserve">
+    <value>日期</value>
+    <comment>StartDatePage Title</comment>
+  </data>
+  <data name="StartTime.Text" xml:space="preserve">
+    <value>计数器启动时间</value>
+  </data>
+  <data name="StartTimeHour.Text" xml:space="preserve">
+    <value>时</value>
+  </data>
+  <data name="StartTimeMinute.Text" xml:space="preserve">
+    <value>分</value>
+  </data>
+  <data name="Support.Text" xml:space="preserve">
+    <value>由 SiteView 提供支持</value>
+  </data>
+  <data name="Terms_Conditions.Text" xml:space="preserve">
+    <value>条款与条件</value>
+  </data>
+  <data name="TimeSegment" xml:space="preserve">
+    <value>时间段</value>
+    <comment>Time Period</comment>
+  </data>
+  <data name="TimeSegment_10hours" xml:space="preserve">
+    <value>10 小时</value>
+    <comment>10 hours</comment>
+  </data>
+  <data name="TimeSegment_1day" xml:space="preserve">
+    <value>1 天</value>
+    <comment>1 day</comment>
+  </data>
+  <data name="TimeSegment_1hour" xml:space="preserve">
+    <value>1 小时</value>
+    <comment>1 hour</comment>
+  </data>
+  <data name="TimeSegment_1week" xml:space="preserve">
+    <value>1 周</value>
+    <comment>1 week</comment>
+  </data>
+  <data name="TimeSegment_5hours" xml:space="preserve">
+    <value>5 小时</value>
+    <comment>5 hours</comment>
+  </data>
+  <data name="TimeSegment_Always" xml:space="preserve">
+    <value>永久</value>
+    <comment>Always</comment>
+  </data>
+  <data name="Total.Text" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="TrafficControl" xml:space="preserve">
+    <value>流量控制</value>
+    <comment>Traffic Meter</comment>
+  </data>
+  <data name="TrafficControlPageTitle.Text" xml:space="preserve">
+    <value>流量控制</value>
+    <comment>TrafficControlPage Title</comment>
+  </data>
+  <data name="TrafficCtrlSettingPageTitle.Text" xml:space="preserve">
+    <value>流量控制</value>
+    <comment>TrafficCtrlSettingPage Title</comment>
+  </data>
+  <data name="TrafficLimitation" xml:space="preserve">
+    <value>流量限制</value>
+    <comment>Traffic Volume Limit</comment>
+  </data>
+  <data name="TrafficLimitationPageTitle.Text" xml:space="preserve">
+    <value>流量限制</value>
+    <comment>TrafficLimitationPage Title</comment>
+  </data>
+  <data name="TrafficLimitation_Download" xml:space="preserve">
+    <value>仅下载</value>
+    <comment>Download Only</comment>
+  </data>
+  <data name="TrafficLimitation_DownloadUpload" xml:space="preserve">
+    <value>上传和下载</value>
+    <comment>Download &amp; Upload</comment>
+  </data>
+  <data name="TrafficLimitation_Unlimited" xml:space="preserve">
+    <value>无</value>
+    <comment>Unlimited</comment>
+  </data>
+  <data name="TrafficMeter.Text" xml:space="preserve">
+    <value>流量控制</value>
+  </data>
+  <data name="UserName.Text" xml:space="preserve">
+    <value>用户名</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="Version.Text" xml:space="preserve">
+    <value>版本：</value>
+  </data>
+  <data name="WiFiName" xml:space="preserve">
+    <value>名称/无线网络标识</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="WiFiSetting" xml:space="preserve">
+    <value>无线设置</value>
+    <comment>Wireless Settings</comment>
+  </data>
+  <data name="WifiSettingsPageTitle.Text" xml:space="preserve">
+    <value>设置</value>
+    <comment>WifiSettingsPage Title</comment>
+  </data>
+  <data name="within_distribution.Text" xml:space="preserve">
+    <value>在 NETGEAR 精灵分发内</value>
+  </data>
+  <data name="YesButton.Content" xml:space="preserve">
+    <value>是</value>
   </data>
 </root>

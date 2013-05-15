@@ -14,7 +14,7 @@
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">设置</x:String>
+        <!--<x:String x:Key="AppName">设置</x:String>-->
         <CollectionViewSource
             x:Name="settingItemsSource"
             Source="{Binding Groups}"
@@ -60,7 +60,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="WifiSettingsPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
             <Button Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
@@ -85,7 +85,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <TextBlock Text="扫描二维码连接无线网" Grid.Row="1" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+            <TextBlock x:Uid="ScanQrCodeTips" Grid.Row="1" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,0"/>
             <Image Source="Assets/SmallLogo.png" Width="200" Height="200" Stretch="UniformToFill" Margin="0,10,0,0" HorizontalAlignment="Center"/>
         </StackPanel>
 

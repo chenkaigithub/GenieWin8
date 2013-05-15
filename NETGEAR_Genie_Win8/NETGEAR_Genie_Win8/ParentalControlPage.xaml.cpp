@@ -25,6 +25,18 @@ using namespace Windows::UI::Xaml::Interop;
 ParentalControlPage::ParentalControlPage()
 {
 	InitializeComponent();
+
+	if (0)	//未登录OpenDNS账户
+	{
+		if (!EnquirePopup->IsOpen)
+		{
+			EnquirePopup->IsOpen = true;
+			//PopupBackgroundTop->Visibility = Windows::UI::Xaml::Visibility::Visible;
+			PopupBackground->Visibility = Windows::UI::Xaml::Visibility::Visible;
+			NoButton->Visibility = Windows::UI::Xaml::Visibility::Visible;
+			YesButton->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		}
+	}
 }
 
 /// <summary>
@@ -38,20 +50,10 @@ ParentalControlPage::ParentalControlPage()
 ///映射。首次访问页面时为 null。</param>
 void ParentalControlPage::LoadState(Object^ navigationParameter, IMap<String^, Object^>^ pageState)
 {
-	(void) navigationParameter;	// 未使用的参数
-	(void) pageState;	// 未使用的参数
+	(void) pageState;	// 未使用的参数 
 
-	if (1)	//未登录OpenDNS账户
-	{
-		if (!EnquirePopup->IsOpen)
-		{
-			EnquirePopup->IsOpen = true;
-			//PopupBackgroundTop->Visibility = Windows::UI::Xaml::Visibility::Visible;
-			PopupBackground->Visibility = Windows::UI::Xaml::Visibility::Visible;
-			NoButton->Visibility = Windows::UI::Xaml::Visibility::Visible;
-			YesButton->Visibility = Windows::UI::Xaml::Visibility::Visible;
-		}
-	} 
+	auto FilterLevelGroup = Data::FilterLevelSource::GetGroup(safe_cast<String^>(navigationParameter));
+	DefaultViewModel->Insert("Group", FilterLevelGroup);
 }
 
 /// <summary>
@@ -250,5 +252,6 @@ void ParentalControlPage::ReturnToStatusButton_Click(Object^ sender, ItemClickEv
 		//PopupBackgroundTop->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
 		PopupBackground->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
 		ReturnToStatusButton->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+		Frame->Navigate(TypeName(ParentalControlPage::typeid));
 	}
 }

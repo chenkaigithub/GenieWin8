@@ -26,7 +26,9 @@ PopupFilterLevel::PopupFilterLevel()
 	InitializeComponent();
 }
 
+String^ filterLevel;
 void PopupFilterLevel::RadioButton_Checked(Object^ sender, RoutedEventArgs^ e)
 {
-
+	RadioButton^ rb = dynamic_cast<RadioButton^>(sender);
+	filterLevel = dynamic_cast<String^>(rb->Content);
 }

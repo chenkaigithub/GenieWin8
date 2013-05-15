@@ -233,49 +233,53 @@ DataGroup::DataGroup(String^ uniqueId, String^ title, String^ imagePath)
 DataSource::DataSource()
 {
 	_allGroups = ref new Vector<DataGroup^>();
-	//HINSTANCE hDll;
-	//hDll = LoadLibrary("..\\DLLs\\helloword.dll");
+	auto loader = ref new Windows::ApplicationModel::Resources::ResourceLoader();
 
-	//String^ LONG_LOREM_IPSUM = "Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat";
-	//String^ ITEM_CONTENT = "Item Content: " + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM + "\n\n" + LONG_LOREM_IPSUM;
-
+	auto strTitle = loader->GetString("WiFiSetting");
 	auto group1 = ref new DataGroup("WiFiSetting",
-		"无线设置",
+		strTitle,
 		"Assets/NETGER 首页小图标/wireless.png");
 	_allGroups->Append(group1);
 
+	strTitle = loader->GetString("GuestAccess");
 	auto group2 = ref new DataGroup("GuestAccess",
-		"访客访问",
+		strTitle,
 		"Assets/NETGER 首页小图标/guestaccess.png");
 	_allGroups->Append(group2);
 
+	strTitle = loader->GetString("NetworkMap");
 	auto group3 = ref new DataGroup("NetworkMap",
-		"网络映射",
+		strTitle,
 		"Assets/NETGER 首页小图标/map.png");
 	_allGroups->Append(group3);
 
+	strTitle = loader->GetString("ParentalControl");
 	auto group4 = ref new DataGroup("ParentalControl",
-		"家长控制",
+		strTitle,
 		"Assets/NETGER 首页小图标/parentalcontrols.png");
 	_allGroups->Append(group4);
 
+	strTitle = loader->GetString("TrafficControl");
 	auto group5 = ref new DataGroup("TrafficControl",
-		"流量控制",
+		strTitle,
 		"Assets/NETGER 首页小图标/traffic.png");
 	_allGroups->Append(group5);
 
+	strTitle = loader->GetString("MyMedia");
 	auto group6 = ref new DataGroup("MyMedia",
-		"我的媒体",
+		strTitle,
 		"Assets/NETGER 首页小图标/mymedia.png");
 	_allGroups->Append(group6);
 
+	strTitle = loader->GetString("QRCode");
 	auto group7 = ref new DataGroup("QRCode",
-		"QR码",
+		strTitle,
 		"Assets/NETGER 首页小图标/qrcode.png");
 	_allGroups->Append(group7);
 
+	strTitle = loader->GetString("MarketPlace");
 	auto group8 = ref new DataGroup("MarketPlace",
-		"Marketplace",
+		strTitle,
 		"Assets/NETGER 首页小图标/appstore.png");
 	_allGroups->Append(group8);
 }

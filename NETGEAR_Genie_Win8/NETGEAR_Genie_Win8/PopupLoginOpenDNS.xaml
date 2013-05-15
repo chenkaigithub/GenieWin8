@@ -11,13 +11,13 @@
     
     <Grid>
         <StackPanel Height="180" Width="600">
-            <TextBlock Text="请输入下面的用户名和密码。" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
+            <TextBlock x:Uid="EnterUsername_Password" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
             <Grid Margin="20,15,20,0">
-                <TextBlock Text="用户名" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
             </Grid>
             <Grid Margin="20,15,20,0">
-                <TextBlock Text="密码" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <PasswordBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
             </Grid>
         </StackPanel>

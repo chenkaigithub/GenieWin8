@@ -10,15 +10,17 @@
     d:DesignWidth="400">
     
     <Grid>
-        <StackPanel Width="400">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10,10,0,0">
-                <TextBlock Text="设置完成" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
+        <ScrollViewer Margin="10" Width="380" Height="380">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10,10,0,0">
+                    <TextBlock x:Uid="SettingComplete" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock x:Uid="CompleteIllustration" FontSize="24" Margin="10,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="Illustration-1" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="Illustration-2" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="Illustration-3" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="Illustration-4" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
             </StackPanel>
-            <TextBlock Text="您已经成功设置了由OpenDNS提供支持的NETGEAR实时家长控制。下次运行管理工具时，它会带您到状态页，您可以：" FontSize="24" Margin="10,10,0,0" TextWrapping="Wrap"/>
-            <TextBlock Text="*  检查实时家长控制是否已经启动" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
-            <TextBlock Text="*  关闭或启动实时家长控制" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
-            <TextBlock Text="*  修改基本设置" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
-            <TextBlock Text="*  更改定制的设置，如基于实时家长控制的各用户或每天的特定时间" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>           
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

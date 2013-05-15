@@ -14,7 +14,7 @@
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">流量控制</x:String>
+        <!--<x:String x:Key="AppName">流量控制</x:String>-->
         <CollectionViewSource
             x:Name="trafficControlSource"
             Source="{Binding Groups}"
@@ -60,7 +60,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="TrafficControlPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
             <Button Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
@@ -76,7 +76,7 @@
                             <GradientStop Color="#FF50C6FD"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <TextBlock Text="流量控制" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0"/>
+                    <TextBlock x:Uid="TrafficMeter" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0"/>
                     <CheckBox HorizontalAlignment="Right" FontSize="24" IsChecked="True"/>
                 </Grid>
 
@@ -102,12 +102,12 @@
                 </ListView>
 
                 <Canvas Grid.Row="1"  Background="White" Margin="0,40,0,0" Height="800">
-                    <TextBlock Text="兆字节" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
+                    <TextBlock x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
                         <TextBlock.RenderTransform>
                             <CompositeTransform Rotation="270"/>
                         </TextBlock.RenderTransform>
                     </TextBlock>
-                    <TextBlock Text="总计" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="500,20,0,0"/>
+                    <TextBlock x:Uid="Total" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="500,20,0,0"/>
                     <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="750" X2="1200" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="100" X2="1200" Y2="100" Width="1246" Height="800" />
@@ -117,12 +117,12 @@
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="620" X2="1200" Y2="620" Width="1246" Height="800" />
                 </Canvas>
                 <Canvas Grid.Row="1"  Background="White" Height="800" Margin="0,40,0,0">
-                    <TextBlock Text="兆字节" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
+                    <TextBlock x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
                         <TextBlock.RenderTransform>
                             <CompositeTransform Rotation="270"/>
                         </TextBlock.RenderTransform>
                     </TextBlock>
-                    <TextBlock Text="平均" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="500,20,0,0"/>
+                    <TextBlock x:Uid="Average" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="500,20,0,0"/>
                     <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="750" X2="1200" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="100" X2="1200" Y2="100" Width="1246" Height="800" />

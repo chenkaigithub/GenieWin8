@@ -14,17 +14,12 @@
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">我的媒体</x:String>
+        <!--<x:String x:Key="AppName">我的媒体</x:String>-->
         <CollectionViewSource
             x:Name="MyMediaSource"
             Source="{Binding mymediaGroup}"
             d:Source="{Binding MyMediaGroups, Source={d:DesignInstance Type=data:MediaSource, IsDesignTimeCreatable=True}}"/>
 
-        <Style x:Key="RefreshAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
-            <Setter Property="AutomationProperties.AutomationId" Value="RefreshAppBarButton"/>
-            <Setter Property="AutomationProperties.Name" Value="Refresh"/>
-            <Setter Property="Content" Value="&#xE117;"/>
-        </Style>
     </Page.Resources>
 
     <!--
@@ -60,8 +55,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
-            <Button Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <TextBlock x:Name="pageTitle" x:Uid="MyMediaPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
         <GridView Grid.Row="1"

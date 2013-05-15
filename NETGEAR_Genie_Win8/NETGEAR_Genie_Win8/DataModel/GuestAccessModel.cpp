@@ -114,57 +114,70 @@ GuestSettingSource::GuestSettingSource()
 	_guestSettingGroups = ref new Vector<GuestSettingGroup^>();
 	_editName = ref new Vector<GuestSettingGroup^>();
 	_editTimesegSecurity = ref new Vector<GuestSettingGroup^>();
+	auto loader = ref new Windows::ApplicationModel::Resources::ResourceLoader();
 
+	auto strTitle = loader->GetString("GuestWiFiName");
 	auto group1 = ref new GuestSettingGroup("GuestWiFiName",
-		"名称/无线网络标识",
+		strTitle,
 		"wifiname");
 	_editName->Append(group1);
 	_guestSettingGroups->Append(group1);
 
+	strTitle = loader->GetString("TimeSegment");
 	auto group2 = ref new GuestSettingGroup("TimeSegment",
-		"时间段",
+		strTitle,
 		"Always");
+	auto strContent = loader->GetString("TimeSegment_Always");
 	group2->Items->Append(ref new GuestSettingItem("TimeSegment-1",
 		"TimeSegment",
-		"Always",
+		strContent,
 		group2));
+	strContent = loader->GetString("TimeSegment_1hour");
 	group2->Items->Append(ref new GuestSettingItem("TimeSegment-2",
 		"TimeSegment",
-		"1 小时",
+		strContent,
 		group2));
+	strContent = loader->GetString("TimeSegment_5hours");
 	group2->Items->Append(ref new GuestSettingItem("TimeSegment-3",
 		"TimeSegment",
-		"5 小时",
+		strContent,
 		group2));
+	strContent = loader->GetString("TimeSegment_10hours");
 	group2->Items->Append(ref new GuestSettingItem("TimeSegment-4",
 		"TimeSegment",
-		"10 小时",
+		strContent,
 		group2));
+	strContent = loader->GetString("TimeSegment_1day");
 	group2->Items->Append(ref new GuestSettingItem("TimeSegment-5",
 		"TimeSegment",
-		"1 天",
+		strContent,
 		group2));
+	strContent = loader->GetString("TimeSegment_1week");
 	group2->Items->Append(ref new GuestSettingItem("TimeSegment-6",
 		"TimeSegment",
-		"1 周",
+		strContent,
 		group2));
 	_editTimesegSecurity->Append(group2);
 	_guestSettingGroups->Append(group2);
 
+	strTitle = loader->GetString("Security");
 	auto group3 = ref new GuestSettingGroup("Security",
-		"安全",
+		strTitle,
 		"WPA2-PSK[AES]");
+	strContent = loader->GetString("Security_None");
 	group3->Items->Append(ref new GuestSettingItem("Security-1",
 		"Security",
-		"None",
+		strContent,
 		group3));
+	strContent = loader->GetString("Security_WPA2-PSK[AES]");
 	group3->Items->Append(ref new GuestSettingItem("Security-2",
 		"Security",
-		"WPA2-PSK[AES]",
+		strContent,
 		group3));
+	strContent = loader->GetString("Security_WPA-PSK+WPA2-PSK");
 	group3->Items->Append(ref new GuestSettingItem("Security-3",
 		"Security",
-		"WPA-PSK+WPA2-PSK",
+		strContent,
 		group3));
 	_editTimesegSecurity->Append(group3);
 	_guestSettingGroups->Append(group3);

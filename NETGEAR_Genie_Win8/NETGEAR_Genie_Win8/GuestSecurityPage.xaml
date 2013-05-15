@@ -14,7 +14,7 @@
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">安全</x:String>
+        <!--<x:String x:Key="AppName">安全</x:String>-->
         <CollectionViewSource
             x:Name="guestSecuritySource"
             Source="{Binding itemSecurity}"
@@ -54,7 +54,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="GuestSecurityPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
         <ListView Grid.Row="1"

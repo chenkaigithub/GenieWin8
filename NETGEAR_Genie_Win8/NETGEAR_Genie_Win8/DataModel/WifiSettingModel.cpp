@@ -115,21 +115,25 @@ SettingSource::SettingSource()
 	_editName = ref new Vector<SettingGroup^>();
 	_editKey = ref new Vector<SettingGroup^>();
 	_editChannelSecurity = ref new Vector<SettingGroup^>();
+	auto loader = ref new Windows::ApplicationModel::Resources::ResourceLoader();
 
+	auto strTitle = loader->GetString("WiFiName");
 	auto group1 = ref new SettingGroup("WiFiName",
-		"名称/无线网络标识",
+		strTitle,
 		"wifiname");
 	_editName->Append(group1);
 	_settingGroups->Append(group1);
 
+	strTitle = loader->GetString("Key/Password");
 	auto group2 = ref new SettingGroup("Password",
-		"密钥/密码",
+		strTitle,
 		"password");
 	_editKey->Append(group2);
 	_settingGroups->Append(group2);
 
+	strTitle = loader->GetString("Channel");
 	auto group3 = ref new SettingGroup("Channel",
-		"频道",
+		strTitle,
 		"Auto");
 	group3->Items->Append(ref new SettingItem("Channel-1",
 		"Channel",
@@ -182,20 +186,24 @@ SettingSource::SettingSource()
 	_editChannelSecurity->Append(group3);
 	_settingGroups->Append(group3);
 
+	strTitle = loader->GetString("Security");
 	auto group4 = ref new SettingGroup("Security",
-		"安全",
+		strTitle,
 		"WPA2-PSK[AES]");
+	auto strContent = loader->GetString("Security_None");
 	group4->Items->Append(ref new SettingItem("Security-1",
 		"Security",
-		"None",
+		strContent,
 		group4));
+	strContent = loader->GetString("Security_WPA2-PSK[AES]");
 	group4->Items->Append(ref new SettingItem("Security-2",
 		"Security",
-		"WPA2-PSK[AES]",
+		strContent,
 		group4));
+	strContent = loader->GetString("Security_WPA-PSK+WPA2-PSK");
 	group4->Items->Append(ref new SettingItem("Security-3",
 		"Security",
-		"WPA-PSK+WPA2-PSK",
+		strContent,
 		group4));
 	_editChannelSecurity->Append(group4);
 }

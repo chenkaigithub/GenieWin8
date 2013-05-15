@@ -10,6 +10,6 @@
     d:DesignWidth="400">
     
     <Grid Width="400">
-        <TextBlock Text="要设置实时家长控制，您需要拥有OpenDNS账户。已经有账户了吗？" FontSize="22" Margin="10,10,0,0" TextWrapping="Wrap"/>
+        <TextBlock x:Uid="EnquireOpenDNS" FontSize="22" Margin="10,10,0,0" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>

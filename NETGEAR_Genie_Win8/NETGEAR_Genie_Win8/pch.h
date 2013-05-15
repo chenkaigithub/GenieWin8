@@ -16,3 +16,4 @@
 #include "DataModel\GuestAccessModel.h"
 #include "DataModel\TrafficControlModel.h"
 #include "DataModel\MyMediaModel.h"
+#include "DataModel\ParentalControlModel.h"

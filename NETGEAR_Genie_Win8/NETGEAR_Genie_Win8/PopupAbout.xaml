@@ -13,16 +13,25 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,10,0,0">
                 <Image Source="Assets/NETGEAR_Genie_ico_50.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                <TextBlock Text="关于" FontSize="30" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock x:Uid="About" FontSize="30" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </StackPanel>
-            <TextBlock Text="路由器型号：N/A" FontSize="24" Margin="10,10,0,0"/>
-            <TextBlock Text="固件版本：N/A" FontSize="24" Margin="10,0,0,0"/>
-            <TextBlock Text="版本：2.0.46" FontSize="20" Margin="10,20,0,0"/>
-            <TextBlock Text="Copyright (c) 2013, NETGEAR Inc." FontSize="20" Margin="10,0,0,0"/>
-            <TextBlock Text="版权所有" FontSize="20" Margin="10,0,0,0"/>
-            <HyperlinkButton Content="隐私权政策" Tag="http://www.netgear.com/about/privacypolicy/"
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Uid="RouterModel" FontSize="24" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                <TextBlock Text="N/A" FontSize="24" Margin="0,10,0,0" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Uid="FirmwareVersion" FontSize="24" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+                <TextBlock Text="N/A" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Uid="Version" FontSize="20" Margin="10,20,0,0" HorizontalAlignment="Left"/>
+                <TextBlock Text="2.0.46" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <TextBlock x:Uid="Copyright" FontSize="20" Margin="10,0,0,0"/>
+            <TextBlock x:Uid="RightsReserved" FontSize="20" Margin="10,0,0,0"/>
+            <HyperlinkButton x:Uid="PrivacyPolicy" Tag="http://www.netgear.com/about/privacypolicy/"
                         Click="Policy_Click" FontSize="20" Margin="10,0,0,0" HorizontalContentAlignment="Left" Padding="0"/>
-            <TextBlock Text="由 SiteView 提供支持" FontSize="20" Margin="10,0,0,0"/>
+            <TextBlock x:Uid="Support" FontSize="20" Margin="10,0,0,0"/>
         </StackPanel>
     </Grid>
 </UserControl>

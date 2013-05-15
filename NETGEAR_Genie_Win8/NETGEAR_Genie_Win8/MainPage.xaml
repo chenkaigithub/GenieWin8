@@ -113,16 +113,16 @@
         <Popup x:Name="AboutPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,100,300,0">
             <local:PopupAbout/>
         </Popup>
-        <Button x:Name="CloseAboutButton" Content="关闭" Click="CloseAboutButton_Click"
+        <Button x:Name="CloseAboutButton" x:Uid="CloseAboutButton" Click="CloseAboutButton_Click"
                 Grid.Row="1" FontSize="22" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,400,150,0" Visibility="Collapsed"/>
-        <Button x:Name="LicenseButton" Content="许可" Click="LicenseButton_Click"
+        <Button x:Name="LicenseButton" x:Uid="LicenseButton" Click="LicenseButton_Click"
                 Grid.Row="1" FontSize="22" Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="150,400,0,0" Visibility="Collapsed"/>
 
         <!--许可-->
         <Popup x:Name="LicensePopup" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,400,0">
             <local:PopupLicense/>
         </Popup>
-        <Button x:Name="CloseLicenseButton" Content="关闭" Click="CloseLicenseButton_Click"
+        <Button x:Name="CloseLicenseButton" x:Uid="CloseLicenseButton" Click="CloseLicenseButton_Click"
                 Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,580,0,0" Visibility="Collapsed"/>
 
         <!-- 后退按钮和页标题-->
@@ -192,8 +192,8 @@
     <Page.BottomAppBar>
         <AppBar Padding="10,0,10,0">
             <Grid>
-                <Button Content="登陆" Click="LoginButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"/>
-                <Button Content="注销" Click="LogoutButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150" Visibility="Collapsed"/>
+                <Button x:Uid="LoginButton" Click="LoginButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"/>
+                <Button x:Uid="LogoutButton" Click="LogoutButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150" Visibility="Collapsed"/>
                 <Button Click="AboutButton_Click"  Style="{StaticResource AboutAppBarButtonStyle}" HorizontalAlignment="Right"/>
             </Grid>
         </AppBar>

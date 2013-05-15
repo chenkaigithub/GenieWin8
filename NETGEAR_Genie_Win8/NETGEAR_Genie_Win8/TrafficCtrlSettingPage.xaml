@@ -14,7 +14,7 @@
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">流量控制</x:String>
+        <!--<x:String x:Key="AppName">流量控制</x:String>-->
         <CollectionViewSource
             x:Name="limitPerMonthSource"
             Source="{Binding limitpermonth}"
@@ -76,7 +76,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="TrafficCtrlSettingPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
             <Button Grid.Column="1" Style="{StaticResource SaveAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
@@ -129,15 +129,15 @@
                         <GradientStop Color="#FF50C6FD"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                <TextBlock Text="时间" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock x:Uid="StartTime" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                 <Grid DataContext="{Binding Source={StaticResource starttimehourSource}}"
                       d:DataContext="{Binding Source={StaticResource starttimehourSource}}">
-                    <TextBlock Text="时" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,390,0" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,220,5"/>
+                    <TextBlock x:Uid="StartTimeHour" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,430,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,260,5"/>
                 </Grid>
                 <Grid DataContext="{Binding Source={StaticResource starttimeminSource}}"
                   d:DataContext="{Binding Source={StaticResource starttimeminSource}}">
-                    <TextBlock Text="点" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="StartTimeMinute" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Center"/>
                     <TextBox Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,5,5"/>
                 </Grid>
             </Grid>

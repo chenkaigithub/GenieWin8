@@ -11,27 +11,27 @@
     
     <Grid>
         <StackPanel Height="380" Width="600">
-            <TextBlock Text="请输入以下信息。" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
+            <TextBlock x:Uid="EnterRegInformation" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
             <Grid Margin="20,15,20,0">
-                <TextBlock Text="用户名" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
+                <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="350"/>
             </Grid>
-            <Button Content="检查可用性" FontSize="24" Margin="180,5,20,0" HorizontalAlignment="Left" Width="200"/>
+            <Button x:Uid="CheckAvailability" FontSize="24" Margin="230,5,20,0" HorizontalAlignment="Left" Width="230"/>
             <Grid Margin="20,15,20,0">
-                <TextBlock Text="密码" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <PasswordBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
-            </Grid>
-            <Grid Margin="20,15,20,0">
-                <TextBlock Text="确认密码" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <PasswordBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
+                <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <PasswordBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="350"/>
             </Grid>
             <Grid Margin="20,15,20,0">
-                <TextBlock Text="电子邮件" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
+                <TextBlock x:Uid="ConfirmPassword" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <PasswordBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="350"/>
             </Grid>
             <Grid Margin="20,15,20,0">
-                <TextBlock Text="确认电子邮件" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
+                <TextBlock x:Uid="Email" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="350"/>
+            </Grid>
+            <Grid Margin="20,15,20,0">
+                <TextBlock x:Uid="ConfirmEmail" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Width="350"/>
             </Grid>
         </StackPanel>
     </Grid>

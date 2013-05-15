@@ -13,14 +13,14 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,10,0,0">
                 <Image Source="Assets/NETGEAR_Genie_ico_50.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                <TextBlock Text="许可" FontSize="30" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock x:Uid="License" FontSize="30" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </StackPanel>
             <ScrollViewer Margin="10" Width="380" Height="480">
                 <StackPanel>
-                    <TextBlock Text="条款与条件" FontSize="24" Margin="0,10,0,0"/>
+                    <TextBlock x:Uid="Terms_Conditions" FontSize="24" Margin="0,10,0,0"/>
                     <TextBlock Text="NETGEAR Genie is distributed under license. No title to or ownership rights in NETGEAR Genie or any portion of NETGEAR Genie are transferred. The end user of NETGEAR Genie agrees not to reverse engineer, decompile, disassemble or otherwise attempt to discover the source code."
                            FontSize="20" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                    <TextBlock Text="在 NETGEAR 精灵分发内" FontSize="24" Margin="0,20,0,0"/>
+                    <TextBlock x:Uid="within_distribution" FontSize="24" Margin="0,20,0,0"/>
                     <TextBlock Text="Neptune C++ Runtime System"
                            FontSize="20" Margin="0,10,0,0" TextWrapping="Wrap"/>
                     <TextBlock Text="----------------------------------------" FontSize="20"/>

@@ -147,24 +147,29 @@ MediaSource::MediaSource()
 	_mymediaGroups = ref new Vector<MyMediaGroup^>();
 	_sourcesGroups = ref new Vector<SourcesGroup^>();
 	_playersGroups = ref new Vector<PlayersGroup^>();
+	auto loader = ref new Windows::ApplicationModel::Resources::ResourceLoader();
 
+	auto strTitle = loader->GetString("MyMediaSource");
 	auto mymediagroup1 = ref new MyMediaGroup("MyMediaSource",
-		"来源",
+		strTitle,
 		"Assets/下边栏/browse.png");
 	_mymediaGroups->Append(mymediagroup1);
 
+	strTitle = loader->GetString("MyMediaPlayer");
 	auto mymediagroup2 = ref new MyMediaGroup("MyMediaPlayer",
-		"播放器",
+		strTitle,
 		"Assets/下边栏/device.png");
 	_mymediaGroups->Append(mymediagroup2);
 
+	strTitle = loader->GetString("MyMediaPlaying");
 	auto mymediagroup3 = ref new MyMediaGroup("MyMediaPlaying",
-		"正在播放",
+		strTitle,
 		"Assets/下边栏/playing.png");
 	_mymediaGroups->Append(mymediagroup3);
 
+	strTitle = loader->GetString("MyMediaOption");
 	auto mymediagrou4 = ref new MyMediaGroup("MyMediaOption",
-		"选项",
+		strTitle,
 		"Assets/下边栏/option.png");
 	_mymediaGroups->Append(mymediagrou4);
 

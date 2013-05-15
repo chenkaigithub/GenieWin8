@@ -117,15 +117,18 @@ TrafficControlSource::TrafficControlSource()
 	_startTimeHour = ref new Vector<TrafficControlGroup^>();
 	_startTimeMin = ref new Vector<TrafficControlGroup^>();
 	_trafficLimitation = ref new Vector<TrafficControlGroup^>();
+	auto loader = ref new Windows::ApplicationModel::Resources::ResourceLoader();
 
+	auto strTitle = loader->GetString("LimitPerMonth");
 	auto group1 = ref new TrafficControlGroup("LimitPerMonth",
-		"每月限制(MB)",
+		strTitle,
 		"limitpermonth");
 	_limitPerMonth->Append(group1);
 	_trafficControlGroups->Append(group1);
 
+	strTitle = loader->GetString("StartDate");
 	auto group2 = ref new TrafficControlGroup("StartDate",
-		"计数器启动日期",
+		strTitle,
 		"1");
 	group2->Items->Append(ref new TrafficControlItem("StartDate-1",
 		"StartDate",
@@ -248,33 +251,40 @@ TrafficControlSource::TrafficControlSource()
 
 	String^ STARTTIME_HOUR = "hour";
 	String^ STARTTIME_MINUTE = "minute";
+	strTitle = loader->GetString("CounterStartTimeHour");
 	auto hour = ref new TrafficControlGroup("StartTimeHour",
-		"启动时间-时",
+		strTitle,
 		STARTTIME_HOUR);
+	strTitle = loader->GetString("CounterStartTimeMin");
 	auto minute = ref new TrafficControlGroup("StartTimeMin",
-		"启动时间-分",
+		strTitle,
 		STARTTIME_MINUTE);
+	strTitle = loader->GetString("CounterStartTime");
 	auto group3 = ref new TrafficControlGroup("StartTime",
-		"启动时间",
+		strTitle,
 		STARTTIME_HOUR+":"+STARTTIME_MINUTE);
 	_startTimeHour->Append(hour);
 	_startTimeMin->Append(minute);
 	_trafficControlGroups->Append(group3);
 
+	strTitle = loader->GetString("TrafficLimitation");
 	auto group4 = ref new TrafficControlGroup("TrafficLimitation",
-		"流量限制",
+		strTitle,
 		"Unlimited");
+	auto strContent = loader->GetString("TrafficLimitation_Unlimited");
 	group4->Items->Append(ref new TrafficControlItem("TrafficLimitation-1",
 		"TrafficLimitation",
-		"Unlimited",
+		strContent,
 		group4));
+	strContent = loader->GetString("TrafficLimitation_Download");
 	group4->Items->Append(ref new TrafficControlItem("TrafficLimitation-2",
 		"TrafficLimitation",
-		"Download Only",
+		strContent,
 		group4));
+	strContent = loader->GetString("TrafficLimitation_DownloadUpload");
 	group4->Items->Append(ref new TrafficControlItem("TrafficLimitation-3",
 		"TrafficLimitation",
-		"Download & Upload",
+		strContent,
 		group4));
 	_trafficLimitation->Append(group4);
 	_trafficControlGroups->Append(group4);
