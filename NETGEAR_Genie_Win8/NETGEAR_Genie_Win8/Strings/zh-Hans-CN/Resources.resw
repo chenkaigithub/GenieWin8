@@ -537,4 +537,33 @@
   <data name="YesButton.Content" xml:space="preserve">
     <value>是</value>
   </data>
+  <data name="MyMediaPlayerPageTitle.Text" xml:space="preserve">
+    <value>播放器</value>
+    <comment>MyMediaPlayerPage Title</comment>
+  </data>
+  <data name="AllowPlayInNetwork.Text" xml:space="preserve">
+    <value>允许在网络中播放</value>
+  </data>
+  <data name="MyMediaOptionPageTitle.Text" xml:space="preserve">
+    <value>选项</value>
+    <comment>MyMediaOptionPage Title</comment>
+  </data>
+  <data name="Note.Text" xml:space="preserve">
+    <value>注意：</value>
+  </data>
+  <data name="NoteContent.Text" xml:space="preserve">
+    <value>在无线网络设置有更改时重新启动媒体服务。</value>
+  </data>
+  <data name="RefreshButton.Content" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="RefreshSourceFolder.Text" xml:space="preserve">
+    <value>刷新源文件夹</value>
+  </data>
+  <data name="RestartMediaService.Text" xml:space="preserve">
+    <value>重新启动媒体服务</value>
+  </data>
+  <data name="ShareFilesInNetwork.Text" xml:space="preserve">
+    <value>在网络中共享文件</value>
+  </data>
 </root>

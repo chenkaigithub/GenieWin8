@@ -91,6 +91,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <PackageCertificateKeyFile>NETGEAR_Genie_Win8_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
@@ -162,8 +163,14 @@
     <ClInclude Include="MainPage.xaml.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="MyMediaOptionPage.xaml.h">
+      <DependentUpon>MyMediaOptionPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="MyMediaPage.xaml.h">
       <DependentUpon>MyMediaPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="MyMediaPlayerPage.xaml.h">
+      <DependentUpon>MyMediaPlayerPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="MyMediaSourcePage.xaml.h">
       <DependentUpon>MyMediaSourcePage.xaml</DependentUpon>
@@ -238,7 +245,13 @@
     </Page>
     <Page Include="LoginPage.xaml" />
     <Page Include="MainPage.xaml" />
+    <Page Include="MyMediaOptionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MyMediaPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MyMediaPlayerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MyMediaSourcePage.xaml">
@@ -355,8 +368,14 @@
     <ClCompile Include="MainPage.xaml.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="MyMediaOptionPage.xaml.cpp">
+      <DependentUpon>MyMediaOptionPage.xaml</DependentUpon>
+    </ClCompile>
     <ClCompile Include="MyMediaPage.xaml.cpp">
       <DependentUpon>MyMediaPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="MyMediaPlayerPage.xaml.cpp">
+      <DependentUpon>MyMediaPlayerPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="MyMediaSourcePage.xaml.cpp">
       <DependentUpon>MyMediaSourcePage.xaml</DependentUpon>

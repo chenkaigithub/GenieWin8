@@ -86,25 +86,40 @@ void MediaCommon::SetImage(String^ path)
 // SettingItem
 //
 
-//SettingItem::SettingItem(String^ uniqueId, String^ title, String^ content, SourcesGroup^ group)
-//	: MediaCommon(uniqueId, title, content)
-//{
-//	_group = group;
-//}
-//
-//SourcesGroup^ SettingItem::Group::get()
-//{
-//	return _group.Resolve<SourcesGroup>();
-//}
-//
-//void SettingItem::Group::set(SourcesGroup^ value)
-//{
-//	if (Group != value)
-//	{
-//		_group = value;
-//		OnPropertyChanged("Group");
-//	}
-//}
+MediaItem::MediaItem(String^ uniqueId, String^ title, String^ imagePath, String^ content, MyMediaGroup^ group)
+	: MediaCommon(uniqueId, title, imagePath)
+{
+	_content = content;
+	_group = group;
+}
+
+String^ MediaItem::Content::get()
+{
+	return _content;
+}
+
+void MediaItem::Content::set(String^ value)
+{
+	if (_content != value)
+	{
+		_content = value;
+		OnPropertyChanged("Content");
+	}
+}
+
+MyMediaGroup^ MediaItem::Group::get()
+{
+	return _group.Resolve<MyMediaGroup>();
+}
+
+void MediaItem::Group::set(MyMediaGroup^ value)
+{
+	if (Group != value)
+	{
+		_group = value;
+		OnPropertyChanged("Group");
+	}
+}
 
 //
 // MyMediaGroup
@@ -113,30 +128,13 @@ void MediaCommon::SetImage(String^ path)
 MyMediaGroup::MyMediaGroup(String^ uniqueId, String^ title, String^ imagePath)
 	: MediaCommon(uniqueId, title, imagePath)
 {
+	_items = ref new Vector<MediaItem^>();
 }
 
-//
-// SourcesGroup
-//
-
-SourcesGroup::SourcesGroup(String^ uniqueId, String^ title, String^ imagePath)
-	: MediaCommon(uniqueId, title, imagePath)
+IObservableVector<MediaItem^>^ MyMediaGroup::Items::get()
 {
-	//_items = ref new Vector<SettingItem^>();
+	return _items;
 }
-
-//
-// PlayersGroup
-//
-PlayersGroup::PlayersGroup(String^ uniqueId, String^ title, String^ imagePath)
-	: MediaCommon(uniqueId, title, imagePath)
-{
-}
-
-//IObservableVector<SettingItem^>^ SourcesGroup::Items::get()
-//{
-//	return _items;
-//}
 
 //
 // MediaSource
@@ -145,20 +143,48 @@ PlayersGroup::PlayersGroup(String^ uniqueId, String^ title, String^ imagePath)
 MediaSource::MediaSource()
 {
 	_mymediaGroups = ref new Vector<MyMediaGroup^>();
-	_sourcesGroups = ref new Vector<SourcesGroup^>();
-	_playersGroups = ref new Vector<PlayersGroup^>();
 	auto loader = ref new Windows::ApplicationModel::Resources::ResourceLoader();
 
 	auto strTitle = loader->GetString("MyMediaSource");
 	auto mymediagroup1 = ref new MyMediaGroup("MyMediaSource",
 		strTitle,
 		"Assets/ÏÂ±ßÀ¸/browse.png");
+	mymediagroup1->Items->Append(ref new MediaItem("Source-1",
+		"Source",
+		"Assets/icon48.png",
+		"ReadyDLNA: R6200",
+		mymediagroup1));
+	mymediagroup1->Items->Append(ref new MediaItem("Source-2",
+		"Source",
+		"Assets/icon48.png",
+		"Genie Media Server (iPad Simulator)",
+		mymediagroup1));
+	mymediagroup1->Items->Append(ref new MediaItem("Source-3",
+		"Source",
+		"Assets/icon48.png",
+		"Genie Media Server (HTC Incredible S)",
+		mymediagroup1));
 	_mymediaGroups->Append(mymediagroup1);
 
 	strTitle = loader->GetString("MyMediaPlayer");
 	auto mymediagroup2 = ref new MyMediaGroup("MyMediaPlayer",
 		strTitle,
 		"Assets/ÏÂ±ßÀ¸/device.png");
+	mymediagroup2->Items->Append(ref new MediaItem("Player-1",
+		"Player",
+		"Assets/icon48.png",
+		"Genie Media Player (GT-I9100)",
+		mymediagroup2));
+	mymediagroup2->Items->Append(ref new MediaItem("Player-2",
+		"Player",
+		"Assets/icon48.png",
+		"Genie Media Player (iPad Simulator)",
+		mymediagroup2));
+	mymediagroup2->Items->Append(ref new MediaItem("Player-3",
+		"Player",
+		"Assets/icon48.png",
+		"Genie Media Player (HTC Incredible S)",
+		mymediagroup2));
 	_mymediaGroups->Append(mymediagroup2);
 
 	strTitle = loader->GetString("MyMediaPlaying");
@@ -172,51 +198,11 @@ MediaSource::MediaSource()
 		strTitle,
 		"Assets/ÏÂ±ßÀ¸/option.png");
 	_mymediaGroups->Append(mymediagrou4);
-
-	auto sourcegroup1 = ref new SourcesGroup("SourceGroup-1",
-		"ReadyDLNA: R6200",
-		"Assets/icon48.png");
-	_sourcesGroups->Append(sourcegroup1);
-
-	auto sourcegroup2 = ref new SourcesGroup("SourceGroup-2",
-		"Genie Media Server (iPad Simulator)",
-		"Assets/icon48.png");
-	_sourcesGroups->Append(sourcegroup2);
-
-	auto sourcegroup3 = ref new SourcesGroup("SourceGroup-3",
-		"Genie Media Server (HTC Incredible S)",
-		"Assets/icon48.png");
-	_sourcesGroups->Append(sourcegroup3);
-
-	auto playergroup1 = ref new PlayersGroup("PlayerGroup-1",
-		"Genie Media Player (GT-I9100)",
-		"Assets/icon48.png");
-	_playersGroups->Append(playergroup1);
-
-	auto playergroup2 = ref new PlayersGroup("PlayerGroup-2",
-		"Genie Media Player (iPad Simulator)",
-		"Assets/icon48.png");
-	_playersGroups->Append(playergroup2);
-
-	auto playergroup3 = ref new PlayersGroup("PlayerGroup-3",
-		"Genie Media Player (HTC Incredible S)",
-		"Assets/icon48.png");
-	_playersGroups->Append(playergroup3);
 }
 
 IObservableVector<MyMediaGroup^>^ MediaSource::MyMediaGroups::get()
 {
 	return _mymediaGroups;
-}
-
-IObservableVector<SourcesGroup^>^ MediaSource::SourcesGroups::get()
-{
-	return _sourcesGroups;
-}
-
-IObservableVector<PlayersGroup^>^ MediaSource::PlayersGroups::get()
-{
-	return _playersGroups;
 }
 
 static MediaSource^ _mediaSource = nullptr;
@@ -235,14 +221,22 @@ IIterable<MyMediaGroup^>^ MediaSource::GetMymediaGroups(String^ uniqueId)
 	return _mediaSource->MyMediaGroups;
 }
 
-IIterable<SourcesGroup^>^ MediaSource::GetSourceGroups(String^ uniqueId)
+MyMediaGroup^ MediaSource::GetSourceGroup(String^ uniqueId)
 {
 	Init();
-	return _mediaSource->SourcesGroups;
+	for each (auto group in _mediaSource->MyMediaGroups)
+	{
+		if (group->UniqueId == "MyMediaSource") return group;
+	}
+	return nullptr;
 }
 
-IIterable<PlayersGroup^>^ MediaSource::GetPlayerGroups(String^ uniqueId)
+MyMediaGroup^ MediaSource::GetPlayerGroup(String^ uniqueId)
 {
 	Init();
-	return _mediaSource->PlayersGroups;
+	for each (auto group in _mediaSource->MyMediaGroups)
+	{
+		if (group->UniqueId == "MyMediaPlayer") return group;
+	}
+	return nullptr;
 }

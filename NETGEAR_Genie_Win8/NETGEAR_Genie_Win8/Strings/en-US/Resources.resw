@@ -537,4 +537,33 @@
   <data name="YesButton.Content" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="MyMediaPlayerPageTitle.Text" xml:space="preserve">
+    <value>Player</value>
+    <comment>MyMediaPlayerPage Title</comment>
+  </data>
+  <data name="AllowPlayInNetwork.Text" xml:space="preserve">
+    <value>Allow play in network</value>
+  </data>
+  <data name="MyMediaOptionPageTitle.Text" xml:space="preserve">
+    <value>Option</value>
+    <comment>MyMediaOptionPage Title</comment>
+  </data>
+  <data name="Note.Text" xml:space="preserve">
+    <value>Note:</value>
+  </data>
+  <data name="NoteContent.Text" xml:space="preserve">
+    <value>Restart media service when the wireless network setting is changed. Tap Refresh source folder if there is any change in media folder(s). Share file in network to allow people access to files on this device over the network. Allow people to use this device to play files over the network.</value>
+  </data>
+  <data name="RefreshButton.Content" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="RefreshSourceFolder.Text" xml:space="preserve">
+    <value>Refresh source folder</value>
+  </data>
+  <data name="RestartMediaService.Text" xml:space="preserve">
+    <value>Restart media service</value>
+  </data>
+  <data name="ShareFilesInNetwork.Text" xml:space="preserve">
+    <value>Share files in network</value>
+  </data>
 </root>

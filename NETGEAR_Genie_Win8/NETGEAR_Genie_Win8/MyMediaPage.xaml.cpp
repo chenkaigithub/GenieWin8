@@ -6,6 +6,8 @@
 #include "pch.h"
 #include "MyMediaPage.xaml.h"
 #include "MyMediaSourcePage.xaml.h"
+#include "MyMediaPlayerPage.xaml.h"
+#include "MyMediaOptionPage.xaml.h"
 
 using namespace NETGEAR_Genie_Win8;
 
@@ -67,7 +69,7 @@ void MyMediaPage::MyMedia_ItemClick(Object^ sender, ItemClickEventArgs^ e)
 	}
 	else if (groupId == "MyMediaPlayer")
 	{
-		//Frame->Navigate(TypeName(GuestAccessPage::typeid));
+		Frame->Navigate(TypeName(MyMediaPlayerPage::typeid));
 	}
 	else if (groupId == "MyMediaPlaying")
 	{
@@ -75,6 +77,6 @@ void MyMediaPage::MyMedia_ItemClick(Object^ sender, ItemClickEventArgs^ e)
 	}
 	else if (groupId == "MyMediaOption")
 	{
-		//Frame->Navigate(TypeName(ParentalControlPage::typeid));		
+		Frame->Navigate(TypeName(MyMediaOptionPage::typeid));		
 	} 
 }

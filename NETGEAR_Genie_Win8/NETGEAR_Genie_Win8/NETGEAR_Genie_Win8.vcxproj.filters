@@ -209,6 +209,8 @@
     <Page Include="PopupEnquireOpenDNS.xaml" />
     <Page Include="MyMediaPage.xaml" />
     <Page Include="MyMediaSourcePage.xaml" />
+    <Page Include="MyMediaPlayerPage.xaml" />
+    <Page Include="MyMediaOptionPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\开机画面620x300.png">

@@ -18,8 +18,8 @@
 
         <CollectionViewSource
             x:Name="MyMediaSourcesSource"
-            Source="{Binding sourceGroup}"
-            d:Source="{Binding SourcesGroups, Source={d:DesignInstance Type=data:MediaSource, IsDesignTimeCreatable=True}}"/>
+            Source="{Binding itemSource}"
+            d:Source="{Binding MyMediaGroups[0].Items, Source={d:DesignInstance Type=data:MediaSource, IsDesignTimeCreatable=True}}"/>
     </Page.Resources>
 
     <!--
@@ -75,7 +75,7 @@
                             <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
                         </Border>
                         <!--<Image Source="{Binding Image}" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" AutomationProperties.Name="{Binding Title}"/>-->
-                        <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <TextBlock Text="{Binding Content}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
