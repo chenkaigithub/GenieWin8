@@ -130,12 +130,6 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DataModel\GuestAccessModel.h" />
-    <ClInclude Include="DataModel\MainPageModel.h" />
-    <ClInclude Include="DataModel\MyMediaModel.h" />
-    <ClInclude Include="DataModel\ParentalControlModel.h" />
-    <ClInclude Include="DataModel\TrafficControlModel.h" />
-    <ClInclude Include="DataModel\WifiSettingModel.h" />
     <ClInclude Include="EditChannelPage.xaml.h">
       <DependentUpon>EditChannelPage.xaml</DependentUpon>
     </ClInclude>
@@ -221,6 +215,12 @@
     <ClInclude Include="TrafficLimitationPage.xaml.h">
       <DependentUpon>TrafficLimitationPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="ViewModels\GuestAccessModel.h" />
+    <ClInclude Include="ViewModels\MainPageModel.h" />
+    <ClInclude Include="ViewModels\MyMediaModel.h" />
+    <ClInclude Include="ViewModels\ParentalControlModel.h" />
+    <ClInclude Include="ViewModels\TrafficControlModel.h" />
+    <ClInclude Include="ViewModels\WifiSettingModel.h" />
     <ClInclude Include="WifiSettingPage.xaml.h">
       <DependentUpon>WifiSettingPage.xaml</DependentUpon>
     </ClInclude>
@@ -335,12 +335,6 @@
     <ClCompile Include="Common\LayoutAwarePage.cpp" />
     <ClCompile Include="Common\RichTextColumns.cpp" />
     <ClCompile Include="Common\SuspensionManager.cpp" />
-    <ClCompile Include="DataModel\GuestAccessModel.cpp" />
-    <ClCompile Include="DataModel\MainPageModel.cpp" />
-    <ClCompile Include="DataModel\MyMediaModel.cpp" />
-    <ClCompile Include="DataModel\ParentalControlModel.cpp" />
-    <ClCompile Include="DataModel\TrafficControlModel.cpp" />
-    <ClCompile Include="DataModel\WifiSettingModel.cpp" />
     <ClCompile Include="EditChannelPage.xaml.cpp">
       <DependentUpon>EditChannelPage.xaml</DependentUpon>
     </ClCompile>
@@ -424,6 +418,12 @@
     <ClCompile Include="TrafficLimitationPage.xaml.cpp">
       <DependentUpon>TrafficLimitationPage.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="ViewModels\GuestAccessModel.cpp" />
+    <ClCompile Include="ViewModels\MainPageModel.cpp" />
+    <ClCompile Include="ViewModels\MyMediaModel.cpp" />
+    <ClCompile Include="ViewModels\ParentalControlModel.cpp" />
+    <ClCompile Include="ViewModels\TrafficControlModel.cpp" />
+    <ClCompile Include="ViewModels\WifiSettingModel.cpp" />
     <ClCompile Include="WifiSettingPage.xaml.cpp">
       <DependentUpon>WifiSettingPage.xaml</DependentUpon>
     </ClCompile>

@@ -6,7 +6,7 @@
 #pragma once
 
 #include "App.g.h"
-#include "DataModel\MainPageModel.h" // App.xaml.cpp 及生成的代码所必需的
+#include "ViewModels\MainPageModel.h" // App.xaml.cpp 及生成的代码所必需的
 
 namespace NETGEAR_Genie_Win8
 {

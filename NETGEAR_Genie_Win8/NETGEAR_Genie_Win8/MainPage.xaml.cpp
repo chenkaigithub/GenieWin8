@@ -4,7 +4,7 @@
 //
 
 #include "pch.h"
-#include "DataModel/MainPageModel.h"
+#include "ViewModels/MainPageModel.h"
 #include "MainPage.xaml.h"
 
 using namespace NETGEAR_Genie_Win8;

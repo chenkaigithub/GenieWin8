@@ -7,9 +7,6 @@
     <Filter Include="资产">
       <UniqueIdentifier>a89f72f0-1eac-40b1-bb4e-e06a2cd4c9c8</UniqueIdentifier>
     </Filter>
-    <Filter Include="DataModel">
-      <UniqueIdentifier>18e39a43-c8a6-4ae8-962b-26dd386af7fd</UniqueIdentifier>
-    </Filter>
     <None Include="Common\ReadMe.txt">
       <Filter>通用</Filter>
     </None>
@@ -82,6 +79,9 @@
     <Filter Include="Strings\zh-Hans-CN">
       <UniqueIdentifier>{456623b7-e7dc-4136-991e-a50f83655411}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ViewModels">
+      <UniqueIdentifier>18e39a43-c8a6-4ae8-962b-26dd386af7fd</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -89,18 +89,6 @@
   <ItemGroup>
     <ClCompile Include="App.xaml.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="DataModel\GuestAccessModel.cpp">
-      <Filter>DataModel</Filter>
-    </ClCompile>
-    <ClCompile Include="DataModel\MainPageModel.cpp">
-      <Filter>DataModel</Filter>
-    </ClCompile>
-    <ClCompile Include="DataModel\WifiSettingModel.cpp">
-      <Filter>DataModel</Filter>
-    </ClCompile>
-    <ClCompile Include="DataModel\TrafficControlModel.cpp">
-      <Filter>DataModel</Filter>
-    </ClCompile>
     <ClCompile Include="EditChannelPage.xaml.cpp" />
     <ClCompile Include="EditSecurityPage.xaml.cpp" />
     <ClCompile Include="EditSettingPage.xaml.cpp" />
@@ -123,30 +111,32 @@
     <ClCompile Include="PopupRegisterOpenDNS.xaml.cpp" />
     <ClCompile Include="PopupSettingComplete.xaml.cpp" />
     <ClCompile Include="TrafficLimitationPage.xaml.cpp" />
-    <ClCompile Include="DataModel\MyMediaModel.cpp">
-      <Filter>DataModel</Filter>
-    </ClCompile>
     <ClCompile Include="MyMediaPage.xaml.cpp" />
     <ClCompile Include="MyMediaSourcePage.xaml.cpp" />
-    <ClCompile Include="DataModel\ParentalControlModel.cpp">
-      <Filter>DataModel</Filter>
+    <ClCompile Include="MyMediaOptionPage.xaml.cpp" />
+    <ClCompile Include="MyMediaPlayerPage.xaml.cpp" />
+    <ClCompile Include="ViewModels\GuestAccessModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModels\MainPageModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModels\MyMediaModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModels\ParentalControlModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModels\TrafficControlModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModels\WifiSettingModel.cpp">
+      <Filter>ViewModels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h" />
-    <ClInclude Include="DataModel\GuestAccessModel.h">
-      <Filter>DataModel</Filter>
-    </ClInclude>
-    <ClInclude Include="DataModel\MainPageModel.h">
-      <Filter>DataModel</Filter>
-    </ClInclude>
-    <ClInclude Include="DataModel\WifiSettingModel.h">
-      <Filter>DataModel</Filter>
-    </ClInclude>
-    <ClInclude Include="DataModel\TrafficControlModel.h">
-      <Filter>DataModel</Filter>
-    </ClInclude>
     <ClInclude Include="EditChannelPage.xaml.h" />
     <ClInclude Include="EditSecurityPage.xaml.h" />
     <ClInclude Include="EditSettingPage.xaml.h" />
@@ -169,13 +159,27 @@
     <ClInclude Include="PopupRegisterOpenDNS.xaml.h" />
     <ClInclude Include="PopupSettingComplete.xaml.h" />
     <ClInclude Include="TrafficLimitationPage.xaml.h" />
-    <ClInclude Include="DataModel\MyMediaModel.h">
-      <Filter>DataModel</Filter>
-    </ClInclude>
     <ClInclude Include="MyMediaPage.xaml.h" />
     <ClInclude Include="MyMediaSourcePage.xaml.h" />
-    <ClInclude Include="DataModel\ParentalControlModel.h">
-      <Filter>DataModel</Filter>
+    <ClInclude Include="MyMediaOptionPage.xaml.h" />
+    <ClInclude Include="MyMediaPlayerPage.xaml.h" />
+    <ClInclude Include="ViewModels\GuestAccessModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModels\MainPageModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModels\MyMediaModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModels\ParentalControlModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModels\TrafficControlModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModels\WifiSettingModel.h">
+      <Filter>ViewModels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
