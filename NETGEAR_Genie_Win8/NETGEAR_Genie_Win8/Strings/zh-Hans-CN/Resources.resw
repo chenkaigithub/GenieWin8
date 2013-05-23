@@ -566,4 +566,8 @@
   <data name="ShareFilesInNetwork.Text" xml:space="preserve">
     <value>在网络中共享文件</value>
   </data>
+  <data name="NetworkMapPageTitle.Text" xml:space="preserve">
+    <value>网络映射</value>
+    <comment>NetworkMapPage Title</comment>
+  </data>
 </root>

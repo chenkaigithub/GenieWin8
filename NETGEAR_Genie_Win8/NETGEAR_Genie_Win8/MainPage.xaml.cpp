@@ -71,6 +71,10 @@ void MainPage::ItemView_ItemClick(Object^ sender, ItemClickEventArgs^ e)
 		{
 			Frame->Navigate(TypeName(GuestAccessPage::typeid));
 		}
+		else if (groupId == "NetworkMap")
+		{
+			 Frame->Navigate(TypeName(NetworkMapPage::typeid));
+		}
 		else if (groupId == "TrafficControl")
 		{
 			Frame->Navigate(TypeName(TrafficControlPage::typeid));

@@ -169,6 +169,9 @@
     <ClInclude Include="MyMediaSourcePage.xaml.h">
       <DependentUpon>MyMediaSourcePage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="NetworkMapPage.xaml.h">
+      <DependentUpon>NetworkMapPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="ParentalControlPage.xaml.h">
       <DependentUpon>ParentalControlPage.xaml</DependentUpon>
     </ClInclude>
@@ -257,6 +260,9 @@
     <Page Include="MyMediaSourcePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="NetworkMapPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ParentalControlPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -299,7 +305,14 @@
     <None Include="NETGEAR_Genie_Win8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\devices\AndroidDevice72.png" />
+    <Image Include="Assets\devices\AndroidPhone72.png" />
+    <Image Include="Assets\devices\AndroidTablet72.png" />
+    <Image Include="Assets\devices\HDMNormal72.png" />
+    <Image Include="Assets\devices\networkdev72.png" />
+    <Image Include="Assets\devices\repeater72.png" />
     <Image Include="Assets\icon48.png" />
+    <Image Include="Assets\internet72.png" />
     <Image Include="Assets\Logo.png" />
     <Image Include="Assets\NETGEAR_Genie_ico_150.png" />
     <Image Include="Assets\NETGEAR_Genie_ico_30.png" />
@@ -373,6 +386,9 @@
     </ClCompile>
     <ClCompile Include="MyMediaSourcePage.xaml.cpp">
       <DependentUpon>MyMediaSourcePage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="NetworkMapPage.xaml.cpp">
+      <DependentUpon>NetworkMapPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="ParentalControlPage.xaml.cpp">
       <DependentUpon>ParentalControlPage.xaml</DependentUpon>

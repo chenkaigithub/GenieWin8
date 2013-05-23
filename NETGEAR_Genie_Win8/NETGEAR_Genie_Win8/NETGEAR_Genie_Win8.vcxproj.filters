@@ -133,6 +133,7 @@
     <ClCompile Include="ViewModels\WifiSettingModel.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
+    <ClCompile Include="NetworkMapPage.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="ViewModels\WifiSettingModel.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
+    <ClInclude Include="NetworkMapPage.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -215,6 +217,7 @@
     <Page Include="MyMediaSourcePage.xaml" />
     <Page Include="MyMediaPlayerPage.xaml" />
     <Page Include="MyMediaOptionPage.xaml" />
+    <Page Include="NetworkMapPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\开机画面620x300.png">
@@ -269,6 +272,27 @@
       <Filter>资产</Filter>
     </Image>
     <Image Include="Assets\下边栏\playing.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\internet72.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\devices\AndroidDevice72.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\devices\AndroidPhone72.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\devices\AndroidTablet72.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\devices\HDMNormal72.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\devices\networkdev72.png">
+      <Filter>资产</Filter>
+    </Image>
+    <Image Include="Assets\devices\repeater72.png">
       <Filter>资产</Filter>
     </Image>
   </ItemGroup>

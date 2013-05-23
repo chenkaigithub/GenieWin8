@@ -566,4 +566,8 @@
   <data name="ShareFilesInNetwork.Text" xml:space="preserve">
     <value>Share files in network</value>
   </data>
+  <data name="NetworkMapPageTitle.Text" xml:space="preserve">
+    <value>Network Map</value>
+    <comment>NetworkMapPage Title</comment>
+  </data>
 </root>
