@@ -56,7 +56,10 @@ namespace Microsoft.Samples.Networking.HttpClientSample
         private async void Start_Click(object sender, RoutedEventArgs e)
         {
             GenieSoapApi soapApi = new GenieSoapApi();
-            soapApi.Authenticate();
+            soapApi.Authenticate("admin", "password");
+            soapApi.GetAttachDevice();
+
+
             //GetInfo();
             //if (httpClient.BaseAddress == null)
             //{

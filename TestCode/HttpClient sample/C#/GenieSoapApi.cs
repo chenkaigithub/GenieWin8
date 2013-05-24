@@ -5,29 +5,69 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Data.Xml.Dom;
 
 namespace Microsoft.Samples.Networking.HttpClientSample
 {
     class GenieSoapApi
     {
         HttpClient httpClient;
+        UtilityTool util;
         public GenieSoapApi()
         {
             httpClient = new HttpClient();
+            util = new UtilityTool();
+
         }
-        public async void Authenticate()
+        public async void Authenticate(string username, string password)
         {
             Dictionary<string, string> param = new Dictionary<string,string>();
-            Dictionary<string, string> retParam = new Dictionary<string,string>();
-            param.Add("NewUsername", "admin");
-            param.Add("NewPassword", "password");
-            postSoap("ParentalControl", "Authenticate",5000,param,retParam);
+            param.Add("NewUsername", username);
+            param.Add("NewPassword", password);
+            string retParam = await postSoap("ParentalControl", "Authenticate", 5000, param);
         }
-        public async void postSoap(string module, string method, int port, Dictionary<string,string> param,Dictionary<string,string> retparam)
+        public async Task<Dictionary<string,Dictionary<string,string>>> GetAttachDevice()
         {
-   
-                string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa",port);
-                string soapAction = string.Format("urn:NETGEAR-ROUTER:service:{0}:1#{1}",module,method);
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            string retParam = "";
+            Dictionary<string,Dictionary<string,string>> dicAttachDevice = new Dictionary<string,Dictionary<string,string>>();
+            retParam = await postSoap("DeviceInfo", "GetAttachDevice", 5000, param);
+            if (retParam != null)
+            {
+               retParam = util.subString(retParam, "<NewAttachDevice>", "</NewAttachDevice>");
+               string[] tempArray = retParam.Split('@');
+               string macAdr = ""; 
+               for (int i = 1; i < tempArray.Length; i++)
+               {
+                   Dictionary<string,string> dicRow = new Dictionary<string,string>();
+                   string[] itemArray = tempArray[i].Split(';');
+                   if (itemArray.Length >= 4)
+                   {
+                       dicRow.Add("Ip", itemArray[1]);
+                       dicRow.Add("HostName", itemArray[2]);
+                       macAdr = itemArray[3];
+                       
+
+                   }
+                   if (itemArray.Length >= 5)
+                   {
+                       dicRow.Add("Connect", itemArray[4]);
+                   }
+                   if (itemArray.Length >= 7)
+                   {
+                       dicRow.Add("LinkSpeed", itemArray[5]);
+                       dicRow.Add("Signal", itemArray[6]);
+                   }
+                   dicAttachDevice.Add(macAdr,dicRow);
+               }
+            }
+            return  dicAttachDevice;
+        }
+        public async Task<string> postSoap(string module, string method, int port, Dictionary<string,string> param)
+        {
+
+            string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa", port);
+            string soapAction = string.Format("urn:NETGEAR-ROUTER:service:{0}:1#{1}", module, method);
 
                 string soapBodyMode = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
                + "<SOAP-ENV:Envelope xmlns:SOAPSDK1=\"http://www.w3.org/2001/XMLSchema\" "
@@ -87,6 +127,7 @@ namespace Microsoft.Samples.Networking.HttpClientSample
                 nocache.NoCache = true;
                 request.Headers.CacheControl = nocache;
                 request.Headers.Pragma.Add(new NameValueHeaderValue("no-cache"));
+                //request.Headers.UserAgent.Add(new ProductInfoHeaderValue("SOAP Toolkit 3.0")); 
                 request.Headers.ExpectContinue = false;
                 byte[] resultbt;
                 string resultstr;
@@ -96,18 +137,19 @@ namespace Microsoft.Samples.Networking.HttpClientSample
                     resultbt = await response.Content.ReadAsByteArrayAsync();
                     resultstr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
                     System.Diagnostics.Debug.WriteLine(resultstr);
+                    return resultstr;
                 }
                 catch (HttpRequestException hre)
                 {
-
+                    return "";
                 }
                 catch (TaskCanceledException hce)
                 {
-
+                    return "";
                 }
                 catch (Exception ex)
                 {
-
+                    return "";
                 }
 
             
