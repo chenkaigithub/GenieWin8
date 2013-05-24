@@ -134,6 +134,9 @@
       <Filter>ViewModels</Filter>
     </ClCompile>
     <ClCompile Include="NetworkMapPage.xaml.cpp" />
+    <ClCompile Include="ViewModels\NetworkMapModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -183,6 +186,9 @@
       <Filter>ViewModels</Filter>
     </ClInclude>
     <ClInclude Include="NetworkMapPage.xaml.h" />
+    <ClInclude Include="ViewModels\NetworkMapModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />

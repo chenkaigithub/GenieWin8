@@ -17,3 +17,4 @@
 #include "ViewModels\TrafficControlModel.h"
 #include "ViewModels\MyMediaModel.h"
 #include "ViewModels\ParentalControlModel.h"
+#include "ViewModels\NetworkMapModel.h"

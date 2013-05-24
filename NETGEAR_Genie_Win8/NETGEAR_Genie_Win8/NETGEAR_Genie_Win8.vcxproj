@@ -221,6 +221,7 @@
     <ClInclude Include="ViewModels\GuestAccessModel.h" />
     <ClInclude Include="ViewModels\MainPageModel.h" />
     <ClInclude Include="ViewModels\MyMediaModel.h" />
+    <ClInclude Include="ViewModels\NetworkMapModel.h" />
     <ClInclude Include="ViewModels\ParentalControlModel.h" />
     <ClInclude Include="ViewModels\TrafficControlModel.h" />
     <ClInclude Include="ViewModels\WifiSettingModel.h" />
@@ -437,6 +438,7 @@
     <ClCompile Include="ViewModels\GuestAccessModel.cpp" />
     <ClCompile Include="ViewModels\MainPageModel.cpp" />
     <ClCompile Include="ViewModels\MyMediaModel.cpp" />
+    <ClCompile Include="ViewModels\NetworkMapModel.cpp" />
     <ClCompile Include="ViewModels\ParentalControlModel.cpp" />
     <ClCompile Include="ViewModels\TrafficControlModel.cpp" />
     <ClCompile Include="ViewModels\WifiSettingModel.cpp" />
