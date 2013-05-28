@@ -510,13 +510,13 @@
   <data name="Total.Text" xml:space="preserve">
     <value>Total</value>
   </data>
-  <data name="TrafficControl" xml:space="preserve">
+  <data name="TrafficMeter" xml:space="preserve">
     <value>Traffic Meter</value>
     <comment>Traffic Meter</comment>
   </data>
-  <data name="TrafficControlPageTitle.Text" xml:space="preserve">
+  <data name="TrafficMeterPageTitle.Text" xml:space="preserve">
     <value>Traffic Meter</value>
-    <comment>TrafficControlPage Title</comment>
+    <comment>TrafficMeterPage Title</comment>
   </data>
   <data name="TrafficCtrlSettingPageTitle.Text" xml:space="preserve">
     <value>Traffic Meter</value>
@@ -542,7 +542,7 @@
     <value>Unlimited</value>
     <comment>Unlimited</comment>
   </data>
-  <data name="TrafficMeter.Text" xml:space="preserve">
+  <data name="CheckTrafficMeter.Text" xml:space="preserve">
     <value>Traffic Meter</value>
   </data>
   <data name="UserName.Text" xml:space="preserve">

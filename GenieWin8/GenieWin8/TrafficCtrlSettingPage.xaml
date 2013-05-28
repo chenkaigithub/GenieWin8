@@ -1,0 +1,199 @@
+﻿<common:LayoutAwarePage
+    x:Name="pageRoot"
+    x:Class="GenieWin8.TrafficCtrlSettingPage"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GenieWin8"
+    xmlns:data="using:GenieWin8.Data"
+    xmlns:common="using:GenieWin8.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
+        <!--<x:String x:Key="AppName">流量控制</x:String>-->
+        <CollectionViewSource
+            x:Name="limitPerMonthSource"
+            Source="{Binding limitpermonth}"
+            d:Source="{Binding LimitPerMonth, Source={d:DesignInstance Type=data:TrafficMeterSource, IsDesignTimeCreatable=True}}"/>
+        <CollectionViewSource
+            x:Name="startdateSource"
+            Source="{Binding itemStartDate}"
+            d:Source="{Binding StartDate, Source={d:DesignInstance Type=data:TrafficMeterSource, IsDesignTimeCreatable=True}}"/>
+        <CollectionViewSource
+            x:Name="starttimehourSource"
+            Source="{Binding itemStartTimeHour}"
+            d:Source="{Binding StartTimeHour, Source={d:DesignInstance Type=data:TrafficMeterSource, IsDesignTimeCreatable=True}}"/>
+        <CollectionViewSource
+            x:Name="starttimeminSource"
+            Source="{Binding itemStartTimeMin}"
+            d:Source="{Binding StartTimeMin, Source={d:DesignInstance Type=data:TrafficMeterSource, IsDesignTimeCreatable=True}}"/>
+        <CollectionViewSource
+            x:Name="trafficlimitationSource"
+            Source="{Binding itemTrafficLimitation}"
+            d:Source="{Binding TrafficLimitation, Source={d:DesignInstance Type=data:TrafficMeterSource, IsDesignTimeCreatable=True}}"/>
+
+        <Style x:Key="SaveAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="SaveAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Save"/>
+            <Setter Property="Content" Value="&#xE105;"/>
+        </Style>
+    </Page.Resources>
+
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid Style="{StaticResource LayoutRootStyle}">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFFE7B4" Offset="1"/>
+                <GradientStop Color="#FF058D7A"/>
+                <GradientStop Color="#FFFF645C" Offset="0.75"/>
+                <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
+                <GradientStop Color="#FFC59FB2" Offset="0.3"/>
+                <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
+                <GradientStop Color="#FFFF495A" Offset="0.6"/>
+                <GradientStop Color="#FFFFC547" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Back button and page title -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="TrafficCtrlSettingPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
+            <Button Grid.Column="1" Style="{StaticResource SaveAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Margin="60,0">
+            <Grid DataContext="{Binding Source={StaticResource limitPerMonthSource}}"
+                  d:DataContext="{Binding Source={StaticResource limitPerMonthSource}}" Margin="0,40,0,0">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBox Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" Margin="0,5,5,5"/>
+            </Grid>
+
+            <ListView ItemsSource="{Binding Source={StaticResource startdateSource}}"
+                      SelectionMode="None"
+                      IsItemClickEnabled="True" Margin="0,30,0,0"
+                      ItemClick="StartDate_ItemClick">
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                            <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Content}" FontSize="22"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Grid>
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <TextBlock x:Uid="StartTime" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <Grid DataContext="{Binding Source={StaticResource starttimehourSource}}"
+                      d:DataContext="{Binding Source={StaticResource starttimehourSource}}">
+                    <TextBlock x:Uid="StartTimeHour" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,430,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,260,5"/>
+                </Grid>
+                <Grid DataContext="{Binding Source={StaticResource starttimeminSource}}"
+                  d:DataContext="{Binding Source={StaticResource starttimeminSource}}">
+                    <TextBlock x:Uid="StartTimeMinute" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,5,5"/>
+                </Grid>
+            </Grid>
+
+            <ListView ItemsSource="{Binding Source={StaticResource trafficlimitationSource}}"
+                      SelectionMode="None"
+                      IsItemClickEnabled="True" Margin="0,30,0,0"
+                      ItemClick="TrafficLimitation_ItemClick">
+                <ListView.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </ListView.Background>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                            <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Content}" FontSize="22"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+        <VisualStateManager.VisualStateGroups>
+
+            <!-- Visual states reflect the application's view state -->
+            <VisualStateGroup x:Name="ApplicationViewStates">
+                <VisualState x:Name="FullScreenLandscape"/>
+                <VisualState x:Name="Filled"/>
+
+                <!-- The entire page respects the narrower 100-pixel margin convention for portrait -->
+                <VisualState x:Name="FullScreenPortrait">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <!-- The back button and title have different styles when snapped -->
+                <VisualState x:Name="Snapped">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</common:LayoutAwarePage>

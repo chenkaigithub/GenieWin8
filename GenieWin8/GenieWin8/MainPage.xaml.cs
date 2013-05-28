@@ -68,23 +68,23 @@ namespace GenieWin8
 		        }
 		        else if (groupId == "GuestAccess")
 		        {
-                    //this.Frame.Navigate(typeof(GuestAccessPage), groupId);
+                    this.Frame.Navigate(typeof(GuestAccessPage));
 		        }
 		        else if (groupId == "NetworkMap")
 		        {
-                    //this.Frame.Navigate(typeof(NetworkMapPage), groupId);
+                    this.Frame.Navigate(typeof(NetworkMapPage));
 		        }
-		        else if (groupId == "TrafficControl")
+		        else if (groupId == "TrafficMeter")
 		        {
-                    //this.Frame.Navigate(typeof(TrafficControlPage), groupId);
+                    this.Frame.Navigate(typeof(TrafficMeterPage));
 		        }
 		        else if (groupId == "ParentalControl")
 		        {
-                    //this.Frame.Navigate(typeof(ParentalControlPage), groupId);		
+                    this.Frame.Navigate(typeof(ParentalControlPage));		
 		        }
 		        else if (groupId == "MyMedia")
 		        {
-                    //this.Frame.Navigate(typeof(MyMediaPage), groupId);
+                    this.Frame.Navigate(typeof(MyMediaPage));
 		        }
 		        else if (groupId == "MarketPlace")
 		        {
@@ -94,7 +94,7 @@ namespace GenieWin8
 	        } 
 	        else	//未登录，跳到登陆页面
 	        {
-                //this.Frame.Navigate(typeof(LoginPage), groupId);
+                this.Frame.Navigate(typeof(LoginPage));
 	        }
         }
 
@@ -103,7 +103,7 @@ namespace GenieWin8
         }
         private void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
-            //this.Frame.Navigate(typeof(LoginPage));
+            this.Frame.Navigate(typeof(LoginPage));
         }
         private void LogoutButton_Click(Object sender, RoutedEventArgs e)
         {
@@ -113,15 +113,15 @@ namespace GenieWin8
             if (!AboutPopup.IsOpen)
 	        {
 		        AboutPopup.IsOpen = true;
-		        PopupBackgroundTop.Visibility = Windows.UI.Xaml.Visibility.Visible;
-		        PopupBackground.Visibility = Windows.UI.Xaml.Visibility.Visible;
-		        CloseAboutButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
-		        LicenseButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+		        PopupBackgroundTop.Visibility = Visibility.Visible;
+		        PopupBackground.Visibility = Visibility.Visible;
+		        CloseAboutButton.Visibility = Visibility.Visible;
+		        LicenseButton.Visibility = Visibility.Visible;
 	        }
 	        if (LicensePopup.IsOpen)
 	        {
 		        LicensePopup.IsOpen = false;
-		        CloseLicenseButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+		        CloseLicenseButton.Visibility = Visibility.Collapsed;
 	        }
         }
         private void CloseAboutButton_Click(Object sender, RoutedEventArgs e)
@@ -129,10 +129,10 @@ namespace GenieWin8
             if (AboutPopup.IsOpen)
 	        {
 		        AboutPopup.IsOpen = false;
-		        PopupBackgroundTop.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-		        PopupBackground.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-		        CloseAboutButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                LicenseButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+		        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+		        PopupBackground.Visibility = Visibility.Collapsed;
+		        CloseAboutButton.Visibility = Visibility.Collapsed;
+                LicenseButton.Visibility = Visibility.Collapsed;
 	        }
         }
         private void LicenseButton_Click(Object sender, RoutedEventArgs e)
@@ -141,11 +141,11 @@ namespace GenieWin8
 	        {
 		        LicensePopup.IsOpen = true;
 		        AboutPopup.IsOpen = false;
-		        PopupBackgroundTop.Visibility = Windows.UI.Xaml.Visibility.Visible;
-		        PopupBackground.Visibility = Windows.UI.Xaml.Visibility.Visible;
-		        CloseLicenseButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
-		        CloseAboutButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                LicenseButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+		        PopupBackgroundTop.Visibility = Visibility.Visible;
+		        PopupBackground.Visibility = Visibility.Visible;
+		        CloseLicenseButton.Visibility = Visibility.Visible;
+		        CloseAboutButton.Visibility = Visibility.Collapsed;
+                LicenseButton.Visibility = Visibility.Collapsed;
 	        }
         }
         private void CloseLicenseButton_Click(Object sender, RoutedEventArgs e)
@@ -153,9 +153,9 @@ namespace GenieWin8
             if (LicensePopup.IsOpen)
 	        {
 		        LicensePopup.IsOpen = false;
-		        PopupBackgroundTop.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-		        PopupBackground.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-		        CloseLicenseButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+		        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+		        PopupBackground.Visibility = Visibility.Collapsed;
+		        CloseLicenseButton.Visibility = Visibility.Collapsed;
 	        }
         }
     }
