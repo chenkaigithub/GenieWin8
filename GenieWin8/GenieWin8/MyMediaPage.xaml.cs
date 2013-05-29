@@ -58,11 +58,11 @@ namespace GenieWin8
             var groupId = ((MyMediaGroup)e.ClickedItem).UniqueId;
             if (groupId == "MyMediaSource")
 	        {
-                this.Frame.Navigate(typeof(MyMediaSourcePage));
+                this.Frame.Navigate(typeof(MyMediaSourcePage), groupId);
 	        }
 	        else if (groupId == "MyMediaPlayer")
 	        {
-                this.Frame.Navigate(typeof(MyMediaPlayerPage));
+                this.Frame.Navigate(typeof(MyMediaPlayerPage), groupId);
 	        }
 	        else if (groupId == "MyMediaPlaying")
 	        {

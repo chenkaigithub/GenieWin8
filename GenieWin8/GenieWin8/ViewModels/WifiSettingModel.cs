@@ -132,7 +132,7 @@ namespace GenieWin8.Data
         public static SettingGroup GetChannel(string uniqueId)
         {
             // 对于小型数据集可接受简单线性搜索
-            var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals("Channel"));
+            var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }
@@ -140,7 +140,7 @@ namespace GenieWin8.Data
         public static SettingGroup GetSecurity(string uniqueId)
         {
             // 对于小型数据集可接受简单线性搜索
-            var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals("Security"));
+            var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }

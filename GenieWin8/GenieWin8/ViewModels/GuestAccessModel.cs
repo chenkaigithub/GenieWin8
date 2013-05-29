@@ -116,7 +116,7 @@ namespace GenieWin8.Data
         public static GuestSettingGroup GetTimeSegment(string uniqueId)
         {
             // 对于小型数据集可接受简单线性搜索
-            var matches = _settingSource.EditTimesegSecurity.Where((group) => group.UniqueId.Equals("TimeSegment"));
+            var matches = _settingSource.EditTimesegSecurity.Where((group) => group.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }
@@ -124,7 +124,7 @@ namespace GenieWin8.Data
         public static GuestSettingGroup GetSecurity(string uniqueId)
         {
             // 对于小型数据集可接受简单线性搜索
-            var matches = _settingSource.EditTimesegSecurity.Where((group) => group.UniqueId.Equals("Security"));
+            var matches = _settingSource.EditTimesegSecurity.Where((group) => group.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }

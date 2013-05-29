@@ -17,11 +17,14 @@ namespace GenieWin8.Data
     [Windows.Foundation.Metadata.WebHostHidden]
     public abstract class DeviceCommon : GenieWin8.Common.BindableBase
     {
-        private static Uri _baseUri = new Uri("ms-appx:///");
-
-        public DeviceCommon(String uniqueId)
+        public DeviceCommon(String uniqueId, String deviceName, String IPaddress, String signalStrength, String linkRate, String MACaddress)
         {
             this._uniqueId = uniqueId;
+            this._deviceName = deviceName;
+            this._IPaddress = IPaddress;
+            this._signalStrength = signalStrength;
+            this._linkRate = linkRate;
+            this._MACaddress = MACaddress;
         }
 
         private string _uniqueId = string.Empty;
@@ -29,20 +32,6 @@ namespace GenieWin8.Data
         {
             get { return this._uniqueId; }
             set { this.SetProperty(ref this._uniqueId, value); }
-        }
-    }
-
-    public class DeviceItem : DeviceCommon
-    {
-        public DeviceItem(String uniqueId, String deviceName, String IPaddress, String signalStrength, String linkRate, String MACaddress, DeviceGroup group)
-            : base(uniqueId)
-        {
-            this._deviceName = deviceName;
-            this._IPaddress = IPaddress;
-            this._signalStrength = signalStrength;
-            this._linkRate = linkRate;
-            this._MACaddress = MACaddress;
-            this._group = group;
         }
 
         private string _deviceName = string.Empty;
@@ -79,27 +68,76 @@ namespace GenieWin8.Data
             get { return this._MACaddress; }
             set { this.SetProperty(ref this._MACaddress, value); }
         }
-
-        private DeviceGroup _group;
-        public DeviceGroup Group
-        {
-            get { return this._group; }
-            set { this.SetProperty(ref this._group, value); }
-        }
     }
+
+    //public class DeviceItem : DeviceCommon
+    //{
+    //    public DeviceItem(String uniqueId, String deviceName, String IPaddress, String signalStrength, String linkRate, String MACaddress, DeviceGroup group)
+    //        : base(uniqueId)
+    //    {
+    //        this._deviceName = deviceName;
+    //        this._IPaddress = IPaddress;
+    //        this._signalStrength = signalStrength;
+    //        this._linkRate = linkRate;
+    //        this._MACaddress = MACaddress;
+    //        this._group = group;
+    //    }
+
+    //    private string _deviceName = string.Empty;
+    //    public string DeviceName
+    //    {
+    //        get { return this._deviceName; }
+    //        set { this.SetProperty(ref this._deviceName, value); }
+    //    }
+
+    //    private string _IPaddress = string.Empty;
+    //    public string IPAddress
+    //    {
+    //        get { return this._IPaddress; }
+    //        set { this.SetProperty(ref this._IPaddress, value); }
+    //    }
+
+    //    private string _signalStrength = string.Empty;
+    //    public string SignalStrength
+    //    {
+    //        get { return this._signalStrength; }
+    //        set { this.SetProperty(ref this._signalStrength, value); }
+    //    }
+
+    //    private string _linkRate = string.Empty;
+    //    public string LinkRate
+    //    {
+    //        get { return this._linkRate; }
+    //        set { this.SetProperty(ref this._linkRate, value); }
+    //    }
+
+    //    private string _MACaddress = string.Empty;
+    //    public string MACAddress
+    //    {
+    //        get { return this._MACaddress; }
+    //        set { this.SetProperty(ref this._MACaddress, value); }
+    //    }
+
+    //    private DeviceGroup _group;
+    //    public DeviceGroup Group
+    //    {
+    //        get { return this._group; }
+    //        set { this.SetProperty(ref this._group, value); }
+    //    }
+    //}
 
     public class DeviceGroup : DeviceCommon
     {
-        public DeviceGroup(String uniqueId)
-            : base(uniqueId)
+        public DeviceGroup(String uniqueId, String deviceName, String IPaddress, String signalStrength, String linkRate, String MACaddress)
+            : base(uniqueId, deviceName, IPaddress, signalStrength, linkRate, MACaddress)
         {
         }
 
-        private ObservableCollection<DeviceItem> _items = new ObservableCollection<DeviceItem>();
-        public ObservableCollection<DeviceItem> Items
-        {
-            get { return this._items; }
-        }
+        //private ObservableCollection<DeviceItem> _items = new ObservableCollection<DeviceItem>();
+        //public ObservableCollection<DeviceItem> Items
+        //{
+        //    get { return this._items; }
+        //}
     }
 
     public sealed class DeviceSource
@@ -117,24 +155,46 @@ namespace GenieWin8.Data
             return _deviceSource.DeviceGroups;
         }
 
+        DeviceGroup group;
+        public static DeviceGroup GetGroup(string uniqueId)
+        {
+            // 对于小型数据集可接受简单线性搜索
+            var matches = _deviceSource.DeviceGroups.Where((group) => group.UniqueId.Equals(uniqueId));
+            if (matches.Count() == 1) return matches.First();
+            return null;
+        }
+
         public DeviceSource()
         {
-            var group = new DeviceGroup("DeviceGroup");
-            group.Items.Add(new DeviceItem("Router",
+            var group1 = new DeviceGroup("Router",
                 "WNR3500Lv2",
                 "192.168.1.1",
                 "",
                 "",
-                "20:4E:7F:04:31:3C",
-                group));
-            group.Items.Add(new DeviceItem("LocalDevice",
+                "20:4E:7F:04:31:3C");
+            this.DeviceGroups.Add(group1);
+            var group2 = new DeviceGroup("LocalDevice",
                 "android-25531554966beee3",
                 "192.168.1.25",
                 "78%",
                 "5.5Mbps",
-                "D4:20:6D:D6:37:D6",
-                group));
-            this.DeviceGroups.Add(group);
+                "D4:20:6D:D6:37:D6");
+            this.DeviceGroups.Add(group2);
+            //group.Items.Add(new DeviceItem("Router",
+            //    "WNR3500Lv2",
+            //    "192.168.1.1",
+            //    "",
+            //    "",
+            //    "20:4E:7F:04:31:3C",
+            //    group));
+            //group.Items.Add(new DeviceItem("LocalDevice",
+            //    "android-25531554966beee3",
+            //    "192.168.1.25",
+            //    "78%",
+            //    "5.5Mbps",
+            //    "D4:20:6D:D6:37:D6",
+            //    group));
+            //this.DeviceGroups.Add(group);
         }
     }
 }

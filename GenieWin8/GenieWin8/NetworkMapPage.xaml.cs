@@ -79,9 +79,10 @@ namespace GenieWin8
 		        internet.HorizontalAlignment = HorizontalAlignment.Right;
 		        internet.Margin = new Thickness(0,0,50,0);
 		        internet.Width = 100; internet.Height = 100;
-		
 
-		        Button BtnRouter = new Button();
+
+                Button BtnRouter = new Button();
+                BtnRouter.Name = "Router";
 		        BtnRouter.SetValue(WidthProperty, 150);
 		        BtnRouter.SetValue(HeightProperty, 150);
 		        BtnRouter.HorizontalAlignment = HorizontalAlignment.Center;
@@ -91,6 +92,7 @@ namespace GenieWin8
 		        imgRouter.Stretch = Stretch.UniformToFill;
 		        BtnRouter.Content = imgRouter;
 		        BtnRouter.Margin = new Thickness(0,0,0,0);
+                BtnRouter.Click += new RoutedEventHandler(DeviceButton_Click);
 
 		        if (i != m)
 		        {	
@@ -109,6 +111,7 @@ namespace GenieWin8
 				        if (j == 1)
 				        {
 					        Button BtnDeviceLocal = new Button();
+                            BtnDeviceLocal.Name = "LocalDevice";
 					        BtnDeviceLocal.SetValue(WidthProperty, 100);
 					        BtnDeviceLocal.SetValue(HeightProperty, 100);
 					        BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
@@ -123,11 +126,13 @@ namespace GenieWin8
 					        stpDeviceLocal.Children.Add(imgDeviceLocal);
 					        stpDeviceLocal.Children.Add(DeviceNameTextLocal);
 					        BtnDeviceLocal.Content = stpDeviceLocal;
+                            BtnDeviceLocal.Click += new RoutedEventHandler(DeviceButton_Click);
 					        map.Children.Add(BtnDeviceLocal);
 				        }
 				        else if (j > 1)
 				        {
 					        Button BtnDevice = new Button();
+                            BtnDevice.Name = "Device-" + (6 * i + j - 1).ToString();
 					        BtnDevice.SetValue(WidthProperty, 100);
 					        BtnDevice.SetValue(HeightProperty, 100);
 					        BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
@@ -137,11 +142,12 @@ namespace GenieWin8
 					        imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
 					        imgDevice.Stretch = Stretch.UniformToFill;
 					        TextBlock DeviceNameText = new TextBlock();
-					        DeviceNameText.Text = "device-" + (6*i+j-1).ToString();
+					        DeviceNameText.Text = "Device-" + (6*i+j-1).ToString();
 					        StackPanel stpDevice = new StackPanel();
 					        stpDevice.Children.Add(imgDevice);
 					        stpDevice.Children.Add(DeviceNameText);
 					        BtnDevice.Content = stpDevice;
+                            BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
 					        map.Children.Add(BtnDevice);
 				        }				
 			        }
@@ -163,6 +169,7 @@ namespace GenieWin8
 				        if (j == 1)
 				        {
 					        Button BtnDeviceLocal = new Button();
+                            BtnDeviceLocal.Name = "LocalDevice";
 					        BtnDeviceLocal.SetValue(WidthProperty, 100);
 					        BtnDeviceLocal.SetValue(HeightProperty, 100);
 					        BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
@@ -177,11 +184,13 @@ namespace GenieWin8
 					        stpDeviceLocal.Children.Add(imgDeviceLocal);
 					        stpDeviceLocal.Children.Add(DeviceNameTextLocal);
 					        BtnDeviceLocal.Content = stpDeviceLocal;
+                            BtnDeviceLocal.Click += new RoutedEventHandler(DeviceButton_Click);
 					        map.Children.Add(BtnDeviceLocal);
 				        }
 				        else if (j > 1)
 				        {
 					        Button BtnDevice = new Button();
+                            BtnDevice.Name = "Device-" + (6 * m + j - 1).ToString();
 					        BtnDevice.SetValue(WidthProperty, 100);
 					        BtnDevice.SetValue(HeightProperty, 100);
 					        BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
@@ -191,11 +200,12 @@ namespace GenieWin8
 					        imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
 					        imgDevice.Stretch = Stretch.UniformToFill;
 					        TextBlock DeviceNameText = new TextBlock();
-					        DeviceNameText.Text = "device-" + (6*m+j-1).ToString();
+					        DeviceNameText.Text = "Device-" + (6*m+j-1).ToString();
 					        StackPanel stpDevice = new StackPanel();
 					        stpDevice.Children.Add(imgDevice);
 					        stpDevice.Children.Add(DeviceNameText);
 					        BtnDevice.Content = stpDevice;
+                            BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
 					        map.Children.Add(BtnDevice);
 				        }
 			        }
@@ -206,9 +216,20 @@ namespace GenieWin8
 	        }
         }
 
-        private void Button_Click(Object sender, RoutedEventArgs e)
+        private void DeviceButton_Click(Object sender, RoutedEventArgs e)
         {
-
+            Button btn = (Button)sender;
+            var UniqueId = btn.Name;
+            this.Frame.Navigate(typeof(DeviceInfoPage), UniqueId);
+            //var groupId = ((SettingGroup)e.ClickedItem).UniqueId;
+            //if (groupId == "Channel")
+            //{
+            //    this.Frame.Navigate(typeof(EditChannelPage), groupId);
+            //}
+            //else if (groupId == "Security")
+            //{
+            //    this.Frame.Navigate(typeof(EditSecurityPage), groupId);
+            //}
         }
     }
 }

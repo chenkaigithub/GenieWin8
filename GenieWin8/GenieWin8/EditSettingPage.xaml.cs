@@ -62,11 +62,11 @@ namespace GenieWin8
             var groupId = ((SettingGroup)e.ClickedItem).UniqueId;
 	        if (groupId == "Channel")
 	        {
-                this.Frame.Navigate(typeof(EditChannelPage));
+                this.Frame.Navigate(typeof(EditChannelPage), groupId);
 	        } 
 	        else if(groupId == "Security")
 	        {
-                this.Frame.Navigate(typeof(EditSecurityPage));
+                this.Frame.Navigate(typeof(EditSecurityPage), groupId);
 	        }
         }
     }

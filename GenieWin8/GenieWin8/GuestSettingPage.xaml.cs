@@ -60,11 +60,11 @@ namespace GenieWin8
             var groupId = ((GuestSettingGroup)e.ClickedItem).UniqueId;
             if (groupId == "TimeSegment")
             {
-                this.Frame.Navigate(typeof(GuestTimeSegPage));
+                this.Frame.Navigate(typeof(GuestTimeSegPage), groupId);
             }
             else if (groupId == "Security")
             {
-                this.Frame.Navigate(typeof(GuestSecurityPage));
+                this.Frame.Navigate(typeof(GuestSecurityPage), groupId);
             }
         }
     }

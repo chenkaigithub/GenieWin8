@@ -124,7 +124,7 @@ namespace GenieWin8.Data
         public static MyMediaGroup GetSourceGroup(string uniqueId)
         {
             // 对于小型数据集可接受简单线性搜索
-            var matches = _mediaSource.MyMediaGroups.Where((group) => group.UniqueId.Equals("MyMediaSource"));
+            var matches = _mediaSource.MyMediaGroups.Where((group) => group.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }
@@ -132,7 +132,7 @@ namespace GenieWin8.Data
         public static MyMediaGroup GetPlayerGroup(string uniqueId)
         {
             // 对于小型数据集可接受简单线性搜索
-            var matches = _mediaSource.MyMediaGroups.Where((group) => group.UniqueId.Equals("MyMediaPlayer"));
+            var matches = _mediaSource.MyMediaGroups.Where((group) => group.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }
