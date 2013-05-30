@@ -135,18 +135,6 @@
 
         <FlipView x:Name="MapFlipView" Grid.Row="1"/>
 
-        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
-        <Canvas x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed"/>
-        <Popup x:Name="DeviceInfoPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
-            <local:PopupDeviceInfo/>
-        </Popup>
-        <Button Content="修改" Grid.Row="1" FontSize="22" Width="180" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,480,200,0" BorderBrush="White" Visibility="Collapsed"/>
-        <Button Content="关闭" Grid.Row="1" FontSize="22" Width="180" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,480,0,0" BorderBrush="White" Visibility="Collapsed"/>
-        <Button Content="关闭" Grid.Row="1" FontSize="22" Width="380" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,480,0,0" BorderBrush="White" Visibility="Collapsed"/>
-        <Button Content="文件上传" Grid.Row="1" FontSize="22" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,480,250,0" BorderBrush="White" Visibility="Collapsed"/>
-        <Button Content="修改" Grid.Row="1" FontSize="22" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,480,0,0" BorderBrush="White" Visibility="Collapsed"/>
-        <Button Content="关闭" Grid.Row="1" FontSize="22" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="250,480,0,0" BorderBrush="White" Visibility="Collapsed"/>
-
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

@@ -56,7 +56,7 @@ namespace GenieWin8
         }
 
         private void OnWindowSizeChanged(Object sender, SizeChangedEventArgs e)
-        {
+        {            
             //double Appwidth = e.Size.Width;
 	        //double AppHeight = e.Size.Height;	
 	        double PI = 3.141592653589793;
@@ -67,8 +67,12 @@ namespace GenieWin8
 	        double r2 = height/2 - 100;
 	        //m = （总设备数 - 1（路由器/交换机）-1（本设备））/ 6 的商
 	        //n 为上式得余数，即最后一页除路由器（交换机）和本设备外的设备数
-	        int m = 1;	//满设备(即为8)的映射页数，这里假定为1页
-	        int n = 3;	//最后一页设备数量，这里假定为3
+	        //int m = 1;	//满设备(即为8)的映射页数，这里假定为1页
+	        //int n = 3;	//最后一页设备数量，这里假定为3
+            var Group = DeviceSource.GetGroups();
+            var DeviceNumber = Group.Count();
+            int m = (DeviceNumber - 1 - 1) / 6;
+            int n = (DeviceNumber - 1 - 1) % 6;
 	        for(int i = 0; i < m + 1; i++)
 	        {
 		        Grid map = new Grid();
@@ -82,7 +86,8 @@ namespace GenieWin8
 
 
                 Button BtnRouter = new Button();
-                BtnRouter.Name = "Router";
+                //BtnRouter.Name = "Router";
+                BtnRouter.Name = Group.ElementAt(0).UniqueId;
 		        BtnRouter.SetValue(WidthProperty, 150);
 		        BtnRouter.SetValue(HeightProperty, 150);
 		        BtnRouter.HorizontalAlignment = HorizontalAlignment.Center;
@@ -111,7 +116,8 @@ namespace GenieWin8
 				        if (j == 1)
 				        {
 					        Button BtnDeviceLocal = new Button();
-                            BtnDeviceLocal.Name = "LocalDevice";
+                            //BtnDeviceLocal.Name = "LocalDevice";
+                            BtnDeviceLocal.Name = Group.ElementAt(j).UniqueId;
 					        BtnDeviceLocal.SetValue(WidthProperty, 100);
 					        BtnDeviceLocal.SetValue(HeightProperty, 100);
 					        BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
@@ -121,7 +127,8 @@ namespace GenieWin8
 					        imgDeviceLocal.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
 					        imgDeviceLocal.Stretch = Stretch.UniformToFill;
 					        TextBlock DeviceNameTextLocal = new TextBlock();
-					        DeviceNameTextLocal.Text = "android-25531554966beee3";
+					        //DeviceNameTextLocal.Text = "android-25531554966beee3";
+                            DeviceNameTextLocal.Text = Group.ElementAt(j).DeviceName;
 					        StackPanel stpDeviceLocal = new StackPanel();
 					        stpDeviceLocal.Children.Add(imgDeviceLocal);
 					        stpDeviceLocal.Children.Add(DeviceNameTextLocal);
@@ -132,7 +139,8 @@ namespace GenieWin8
 				        else if (j > 1)
 				        {
 					        Button BtnDevice = new Button();
-                            BtnDevice.Name = "Device-" + (6 * i + j - 1).ToString();
+                            //BtnDevice.Name = "Device-" + (6 * i + j - 1).ToString();
+                            BtnDevice.Name = Group.ElementAt(j).UniqueId;
 					        BtnDevice.SetValue(WidthProperty, 100);
 					        BtnDevice.SetValue(HeightProperty, 100);
 					        BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
@@ -142,7 +150,8 @@ namespace GenieWin8
 					        imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
 					        imgDevice.Stretch = Stretch.UniformToFill;
 					        TextBlock DeviceNameText = new TextBlock();
-					        DeviceNameText.Text = "Device-" + (6*i+j-1).ToString();
+					        //DeviceNameText.Text = "Device-" + (6*i+j-1).ToString();
+                            DeviceNameText.Text = Group.ElementAt(j).DeviceName;
 					        StackPanel stpDevice = new StackPanel();
 					        stpDevice.Children.Add(imgDevice);
 					        stpDevice.Children.Add(DeviceNameText);
@@ -169,7 +178,8 @@ namespace GenieWin8
 				        if (j == 1)
 				        {
 					        Button BtnDeviceLocal = new Button();
-                            BtnDeviceLocal.Name = "LocalDevice";
+                            //BtnDeviceLocal.Name = "LocalDevice";
+                            BtnDeviceLocal.Name = Group.ElementAt(j).UniqueId;
 					        BtnDeviceLocal.SetValue(WidthProperty, 100);
 					        BtnDeviceLocal.SetValue(HeightProperty, 100);
 					        BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
@@ -179,7 +189,8 @@ namespace GenieWin8
 					        imgDeviceLocal.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
 					        imgDeviceLocal.Stretch = Stretch.UniformToFill;
 					        TextBlock DeviceNameTextLocal = new TextBlock();
-					        DeviceNameTextLocal.Text = "android-25531554966beee3";
+					        //DeviceNameTextLocal.Text = "android-25531554966beee3";
+                            DeviceNameTextLocal.Text = Group.ElementAt(j).DeviceName;
 					        StackPanel stpDeviceLocal = new StackPanel();
 					        stpDeviceLocal.Children.Add(imgDeviceLocal);
 					        stpDeviceLocal.Children.Add(DeviceNameTextLocal);
@@ -190,7 +201,8 @@ namespace GenieWin8
 				        else if (j > 1)
 				        {
 					        Button BtnDevice = new Button();
-                            BtnDevice.Name = "Device-" + (6 * m + j - 1).ToString();
+                            //BtnDevice.Name = "Device-" + (6 * m + j - 1).ToString();
+                            BtnDevice.Name = Group.ElementAt(j).UniqueId;
 					        BtnDevice.SetValue(WidthProperty, 100);
 					        BtnDevice.SetValue(HeightProperty, 100);
 					        BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
@@ -200,7 +212,8 @@ namespace GenieWin8
 					        imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
 					        imgDevice.Stretch = Stretch.UniformToFill;
 					        TextBlock DeviceNameText = new TextBlock();
-					        DeviceNameText.Text = "Device-" + (6*m+j-1).ToString();
+					        //DeviceNameText.Text = "Device-" + (6*m+j-1).ToString();
+                            DeviceNameText.Text = Group.ElementAt(j).DeviceName;
 					        StackPanel stpDevice = new StackPanel();
 					        stpDevice.Children.Add(imgDevice);
 					        stpDevice.Children.Add(DeviceNameText);
@@ -221,15 +234,6 @@ namespace GenieWin8
             Button btn = (Button)sender;
             var UniqueId = btn.Name;
             this.Frame.Navigate(typeof(DeviceInfoPage), UniqueId);
-            //var groupId = ((SettingGroup)e.ClickedItem).UniqueId;
-            //if (groupId == "Channel")
-            //{
-            //    this.Frame.Navigate(typeof(EditChannelPage), groupId);
-            //}
-            //else if (groupId == "Security")
-            //{
-            //    this.Frame.Navigate(typeof(EditSecurityPage), groupId);
-            //}
         }
     }
 }

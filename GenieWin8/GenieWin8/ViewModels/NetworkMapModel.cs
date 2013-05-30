@@ -18,10 +18,11 @@ namespace GenieWin8.Data
     [Windows.Foundation.Metadata.WebHostHidden]
     public abstract class DeviceCommon : GenieWin8.Common.BindableBase
     {
-        public DeviceCommon(String uniqueId, String deviceName, String IPaddress, String signalStrength, String linkRate, String MACaddress)
+        public DeviceCommon(String uniqueId, String deviceName, String deviceType, String IPaddress, String signalStrength, String linkRate, String MACaddress)
         {
             this._uniqueId = uniqueId;
             this._deviceName = deviceName;
+            this._deviceType = deviceType;
             this._IPaddress = IPaddress;
             this._signalStrength = signalStrength;
             this._linkRate = linkRate;
@@ -40,6 +41,13 @@ namespace GenieWin8.Data
         {
             get { return this._deviceName; }
             set { this.SetProperty(ref this._deviceName, value); }
+        }
+
+        private string _deviceType = string.Empty;
+        public string DeviceType
+        {
+            get { return this._deviceType; }
+            set { this.SetProperty(ref this._deviceType, value); }
         }
 
         private string _IPaddress = string.Empty;
@@ -129,8 +137,8 @@ namespace GenieWin8.Data
 
     public class DeviceGroup : DeviceCommon
     {
-        public DeviceGroup(String uniqueId, String deviceName, String IPaddress, String signalStrength, String linkRate, String MACaddress)
-            : base(uniqueId, deviceName, IPaddress, signalStrength, linkRate, MACaddress)
+        public DeviceGroup(String uniqueId, String deviceName, String deviceType, String IPaddress, String signalStrength, String linkRate, String MACaddress)
+            : base(uniqueId, deviceName, deviceType, IPaddress, signalStrength, linkRate, MACaddress)
         {
         }
 
@@ -151,7 +159,7 @@ namespace GenieWin8.Data
             get { return this._deviceGroups; }
         }
 
-        public static IEnumerable<DeviceGroup> GetGroups(string uniqueId)
+        public static IEnumerable<DeviceGroup> GetGroups()
         {
             return _deviceSource.DeviceGroups;
         }
@@ -190,11 +198,13 @@ namespace GenieWin8.Data
             //}
             var group1 = new DeviceGroup("Router",
                 "WNR3500Lv2",
+                "",
                 "192.168.1.1",
                 "",
                 "",
                 "20:4E:7F:04:31:3C");
             this.DeviceGroups.Add(group1);
+<<<<<<< HEAD
             
             //group.Items.Add(new DeviceItem("Router",
             //    "WNR3500Lv2",
@@ -211,6 +221,32 @@ namespace GenieWin8.Data
             //    "D4:20:6D:D6:37:D6",
             //    group));
             //this.DeviceGroups.Add(group);
+=======
+            var group2 = new DeviceGroup("LocalDevice",
+                "android-25531554966beee3",
+                "",
+                "192.168.1.25",
+                "78%",
+                "5.5Mbps",
+                "D4:20:6D:D6:37:D6");
+            this.DeviceGroups.Add(group2);
+            var group3 = new DeviceGroup("Device-1",
+                "WN1000RP",
+                "Network Device",
+                "192.168.1.250",
+                "72%",
+                "72.2Mbps",
+                "00:8E:F2:FE:7B:5A");
+            this.DeviceGroups.Add(group3);
+            var group4 = new DeviceGroup("Device-2",
+                "WR3700V4",
+                "Network Device",
+                "192.168.1.100",
+                "",
+                "",
+                "10:0D:7F:51:6F:31");
+            this.DeviceGroups.Add(group4);
+>>>>>>> bfcd6be0ca51dc3e09ab5ca0b84353a429dac79e
         }
     }
 }
