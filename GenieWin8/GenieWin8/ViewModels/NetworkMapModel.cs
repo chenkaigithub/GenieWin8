@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Collections.Specialized;
+using GenieWin8.DataModel;
 
 namespace GenieWin8.Data
 {
@@ -166,6 +167,27 @@ namespace GenieWin8.Data
 
         public DeviceSource()
         {
+            Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+            Dictionary<string,string> deviceInfo = new Dictionary<string,string> ();
+            attachDeviceAll = NetworkMapDodel.attachDeviceDic;
+
+            foreach(string key in attachDeviceAll.Keys)
+            {
+                var group = new DeviceGroup("LocalDevice",
+                 attachDeviceAll[key]["HostName"],
+                 attachDeviceAll[key]["Ip"],
+                 attachDeviceAll[key]["LinkSpeed"],
+                 attachDeviceAll[key]["Signal"],
+                 key);
+                this.DeviceGroups.Add(group);
+            }
+
+            //for (int i = 0; i < attachDeviceAll; i++)
+            //{
+            //   for(int j = 0 j < attachDeviceAll.ke; j++)
+
+            //    deviceInfo = attachDeviceAll;
+            //}
             var group1 = new DeviceGroup("Router",
                 "WNR3500Lv2",
                 "192.168.1.1",
@@ -173,13 +195,7 @@ namespace GenieWin8.Data
                 "",
                 "20:4E:7F:04:31:3C");
             this.DeviceGroups.Add(group1);
-            var group2 = new DeviceGroup("LocalDevice",
-                "android-25531554966beee3",
-                "192.168.1.25",
-                "78%",
-                "5.5Mbps",
-                "D4:20:6D:D6:37:D6");
-            this.DeviceGroups.Add(group2);
+            
             //group.Items.Add(new DeviceItem("Router",
             //    "WNR3500Lv2",
             //    "192.168.1.1",

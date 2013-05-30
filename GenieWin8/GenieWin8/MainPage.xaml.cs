@@ -62,13 +62,15 @@ namespace GenieWin8
             //this.Frame.Navigate(typeof(SplitPage), groupId);
             if (true)	//已登陆
             {
+                GenieSoapApi soapApi = new GenieSoapApi();
 		        var groupId = ((DataGroup)e.ClickedItem).UniqueId;
 		        if (groupId == "WiFiSetting")
 		        {
                     //WifiInfoModel wifiInfo = new WifiInfoModel ();
-                    GenieSoapApi soapApi = new GenieSoapApi();
+                   
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    WifiInfoModel.ssid = dicResponse["NewSSID"];
                     WifiInfoModel.channel = dicResponse["NewChannel"];
                     WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                     dicResponse = await soapApi.GetWPASecurityKeys();
@@ -82,6 +84,9 @@ namespace GenieWin8
 		        }
 		        else if (groupId == "NetworkMap")
 		        {
+                    Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                    responseDic = await soapApi.GetAttachDevice();
+                    NetworkMapDodel.attachDeviceDic = responseDic;
                     this.Frame.Navigate(typeof(NetworkMapPage));
 		        }
 		        else if (groupId == "TrafficMeter")
