@@ -21,9 +21,9 @@ namespace GenieWin8
     /// <summary>
     /// 基本页，提供大多数应用程序通用的特性。
     /// </summary>
-    public sealed partial class EditSettingPage : GenieWin8.Common.LayoutAwarePage
+    public sealed partial class LoginPage : GenieWin8.Common.LayoutAwarePage
     {
-        public EditSettingPage()
+        public LoginPage()
         {
             this.InitializeComponent();
         }
@@ -39,12 +39,6 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            var editName = SettingSource.GetEditName((String)navigationParameter);
-	        this.DefaultViewModel["itemName"] = editName;
-	        var editKey = SettingSource.GetEditKey((String)navigationParameter);
-	        this.DefaultViewModel["itemKey"] = editKey;
-            var channelsecurity = SettingSource.GetChannelSecurity((String)navigationParameter);
-	        this.DefaultViewModel["itemChannelSecurity"] = channelsecurity;
         }
 
         /// <summary>
@@ -57,17 +51,8 @@ namespace GenieWin8
         {
         }
 
-        private void ChannelSecurity_ItemClick(Object sender, ItemClickEventArgs e)
+        private void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
-            var groupId = ((SettingGroup)e.ClickedItem).UniqueId;
-	        if (groupId == "Channel")
-	        {
-                this.Frame.Navigate(typeof(EditChannelPage), groupId);
-	        } 
-	        else if(groupId == "Security")
-	        {
-                this.Frame.Navigate(typeof(EditSecurityPage), groupId);
-	        }
         }
     }
 }

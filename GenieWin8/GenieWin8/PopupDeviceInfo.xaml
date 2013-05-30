@@ -1,0 +1,53 @@
+﻿<UserControl
+    x:Class="GenieWin8.PopupDeviceInfo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GenieWin8"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="470"
+    d:DesignWidth="400">
+    
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,10,0,0">
+                <Image x:Name="DeviceImage" Source="Assets/networkdev72.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock x:Name="DeviceNameTitle" Text="WN2500RP" FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            </StackPanel>
+            <Line Stroke="Gray" X2="400"/>
+            <Grid>
+                <StackPanel x:Name="StpRouter">
+                    <TextBlock x:Uid="Routername" Text="路由器型号" FontSize="20" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="RouterName" Text="WNDR3700v4" FontSize="24" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel x:Name="StpDevice">
+                    <TextBlock x:Uid="Devicename" Text="定制用户名" FontSize="20" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="DeviceName" Text="WN2500RP" FontSize="24" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                </StackPanel>                
+            </Grid>           
+            <StackPanel x:Name="StpType">
+                <TextBlock x:Uid="type" Text="类型" FontSize="20" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="Type" Text="网络设备" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel x:Name="StpIPAddress">
+                <TextBlock x:Uid="ipAddress" Text="IP地址" FontSize="20" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="IPAddress" Text="192.168.1.7" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel x:Name="StpSignalStrength">
+                <TextBlock x:Uid="signalStrength" Text="信号强度" FontSize="20" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="SignalStrength" Text="90%" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel x:Name="StpLinkRate">
+                <TextBlock x:Uid="linkRate" Text="连接速度" FontSize="20" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="LinkRate" Text="8Mbps" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+                <HyperlinkButton Content="这是什么？" Tag="http://www.netgear.com/about/privacypolicy/"
+                        FontSize="18" Margin="10,0,0,0" Padding="0" HorizontalAlignment="Right"/>
+            </StackPanel>
+            <StackPanel x:Name="StpMACAddress">
+                <TextBlock x:Uid="macAddress" Text="MAC地址" FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="MACAddress" Text="20:E5:2A:57:0C:A3" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -510,13 +510,13 @@
   <data name="Total.Text" xml:space="preserve">
     <value>总计</value>
   </data>
-  <data name="TrafficControl" xml:space="preserve">
+  <data name="TrafficMeter" xml:space="preserve">
     <value>流量控制</value>
     <comment>Traffic Meter</comment>
   </data>
-  <data name="TrafficControlPageTitle.Text" xml:space="preserve">
+  <data name="TrafficMeterPageTitle.Text" xml:space="preserve">
     <value>流量控制</value>
-    <comment>TrafficControlPage Title</comment>
+    <comment>TrafficMeterPage Title</comment>
   </data>
   <data name="TrafficCtrlSettingPageTitle.Text" xml:space="preserve">
     <value>流量控制</value>
@@ -542,7 +542,7 @@
     <value>无</value>
     <comment>Unlimited</comment>
   </data>
-  <data name="TrafficMeter.Text" xml:space="preserve">
+  <data name="CheckTrafficMeter.Text" xml:space="preserve">
     <value>流量控制</value>
   </data>
   <data name="UserName.Text" xml:space="preserve">

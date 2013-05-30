@@ -12,13 +12,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Collections.Specialized;
 
-// 此文件定义的数据模型可充当在添加、移除或修改成员时
-// 支持通知的强类型模型的代表性示例。所选
-// 属性名称与标准项模板中的数据绑定一致。
-//
-// 应用程序可以使用此模型作为起始点并以它为基础构建，或完全放弃它并
-// 替换为适合其需求的其他内容。
-
 namespace GenieWin8.Data
 {
     [Windows.Foundation.Metadata.WebHostHidden]
@@ -139,7 +132,7 @@ namespace GenieWin8.Data
         public static SettingGroup GetChannel(string uniqueId)
         {
             // 对于小型数据集可接受简单线性搜索
-            var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals("Channel"));
+            var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }
@@ -147,7 +140,7 @@ namespace GenieWin8.Data
         public static SettingGroup GetSecurity(string uniqueId)
         {
             // 对于小型数据集可接受简单线性搜索
-            var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals("Security"));
+            var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }

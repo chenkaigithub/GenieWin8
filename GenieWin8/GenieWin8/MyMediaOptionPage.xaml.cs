@@ -1,6 +1,4 @@
-﻿using GenieWin8.Data;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,9 +19,9 @@ namespace GenieWin8
     /// <summary>
     /// 基本页，提供大多数应用程序通用的特性。
     /// </summary>
-    public sealed partial class EditSettingPage : GenieWin8.Common.LayoutAwarePage
+    public sealed partial class MyMediaOptionPage : GenieWin8.Common.LayoutAwarePage
     {
-        public EditSettingPage()
+        public MyMediaOptionPage()
         {
             this.InitializeComponent();
         }
@@ -39,12 +37,6 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            var editName = SettingSource.GetEditName((String)navigationParameter);
-	        this.DefaultViewModel["itemName"] = editName;
-	        var editKey = SettingSource.GetEditKey((String)navigationParameter);
-	        this.DefaultViewModel["itemKey"] = editKey;
-            var channelsecurity = SettingSource.GetChannelSecurity((String)navigationParameter);
-	        this.DefaultViewModel["itemChannelSecurity"] = channelsecurity;
         }
 
         /// <summary>
@@ -55,19 +47,6 @@ namespace GenieWin8
         /// <param name="pageState">要使用可序列化状态填充的空字典。</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
-        }
-
-        private void ChannelSecurity_ItemClick(Object sender, ItemClickEventArgs e)
-        {
-            var groupId = ((SettingGroup)e.ClickedItem).UniqueId;
-	        if (groupId == "Channel")
-	        {
-                this.Frame.Navigate(typeof(EditChannelPage), groupId);
-	        } 
-	        else if(groupId == "Security")
-	        {
-                this.Frame.Navigate(typeof(EditSecurityPage), groupId);
-	        }
         }
     }
 }

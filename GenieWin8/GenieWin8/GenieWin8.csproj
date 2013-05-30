@@ -106,6 +106,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DeviceInfoPage.xaml.cs">
+      <DependentUpon>DeviceInfoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditChannelPage.xaml.cs">
       <DependentUpon>EditChannelPage.xaml</DependentUpon>
     </Compile>
@@ -116,14 +119,65 @@
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GenieSoapApi.cs" />
+    <Compile Include="GuestAccessPage.xaml.cs">
+      <DependentUpon>GuestAccessPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GuestSecurityPage.xaml.cs">
+      <DependentUpon>GuestSecurityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GuestSettingPage.xaml.cs">
+      <DependentUpon>GuestSettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GuestTimeSegPage.xaml.cs">
+      <DependentUpon>GuestTimeSegPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaOptionPage.xaml.cs">
+      <DependentUpon>MyMediaOptionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaPage.xaml.cs">
+      <DependentUpon>MyMediaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaPlayerPage.xaml.cs">
+      <DependentUpon>MyMediaPlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaSourcePage.xaml.cs">
+      <DependentUpon>MyMediaSourcePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NetworkMapPage.xaml.cs">
+      <DependentUpon>NetworkMapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ParentalControlPage.xaml.cs">
+      <DependentUpon>ParentalControlPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PopupAbout.xaml.cs">
       <DependentUpon>PopupAbout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PopupDeviceInfo.xaml.cs">
+      <DependentUpon>PopupDeviceInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PopupEnquireOpenDNS.xaml.cs">
+      <DependentUpon>PopupEnquireOpenDNS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PopupFilterLevel.xaml.cs">
+      <DependentUpon>PopupFilterLevel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopupLicense.xaml.cs">
       <DependentUpon>PopupLicense.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PopupLoginOpenDNS.xaml.cs">
+      <DependentUpon>PopupLoginOpenDNS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PopupRegisterOpenDNS.xaml.cs">
+      <DependentUpon>PopupRegisterOpenDNS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PopupSettingComplete.xaml.cs">
+      <DependentUpon>PopupSettingComplete.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\BindableBase.cs" />
@@ -133,8 +187,24 @@
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="UtilityTool.cs" />
+    <Compile Include="StartDatePage.xaml.cs">
+      <DependentUpon>StartDatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrafficCtrlSettingPage.xaml.cs">
+      <DependentUpon>TrafficCtrlSettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrafficLimitationPage.xaml.cs">
+      <DependentUpon>TrafficLimitationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrafficMeterPage.xaml.cs">
+      <DependentUpon>TrafficMeterPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\GuestAccessModel.cs" />
     <Compile Include="ViewModels\MainPageModel.cs" />
+    <Compile Include="ViewModels\MyMediaModel.cs" />
+    <Compile Include="ViewModels\NetworkMapModel.cs" />
+    <Compile Include="ViewModels\ParentalControlModel.cs" />
+    <Compile Include="ViewModels\TrafficMeterModel.cs" />
     <Compile Include="ViewModels\WifiSettingModel.cs" />
     <Compile Include="WifiSettingPage.xaml.cs">
       <DependentUpon>WifiSettingPage.xaml</DependentUpon>
@@ -192,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DeviceInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditChannelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -204,7 +278,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GuestAccessPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GuestSecurityPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GuestSettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GuestTimeSegPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyMediaOptionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyMediaPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyMediaPlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyMediaSourcePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NetworkMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ParentalControlPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,7 +330,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PopupDeviceInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopupEnquireOpenDNS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopupFilterLevel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PopupLicense.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopupLoginOpenDNS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopupRegisterOpenDNS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopupSettingComplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartDatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrafficCtrlSettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrafficLimitationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrafficMeterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
