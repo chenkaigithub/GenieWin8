@@ -72,11 +72,11 @@ namespace GenieWin8
             return util.TraverseXML(result);
         }
 
-        public async void GetWPASecurityKeys()
+        public async Task<Dictionary<string,string>> GetWPASecurityKeys()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             string result = await postSoap("WLANConfiguration", "GetWPASecurityKeys", 5000, param);
-            util.TraverseXML(result);
+            return util.TraverseXML(result);
         }
 
         /// <summary>

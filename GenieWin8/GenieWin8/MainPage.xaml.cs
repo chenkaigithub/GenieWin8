@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GenieWin8.DataModel;
 
 // “项目页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234233 上提供
 
@@ -64,6 +65,15 @@ namespace GenieWin8
 		        var groupId = ((DataGroup)e.ClickedItem).UniqueId;
 		        if (groupId == "WiFiSetting")
 		        {
+                    //WifiInfoModel wifiInfo = new WifiInfoModel ();
+                    GenieSoapApi soapApi = new GenieSoapApi();
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    WifiInfoModel.channel = dicResponse["NewChannel"];
+                    WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                    dicResponse = await soapApi.GetWPASecurityKeys();
+                    WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+                    
                     this.Frame.Navigate(typeof(WifiSettingPage));
 		        }
 		        else if (groupId == "GuestAccess")

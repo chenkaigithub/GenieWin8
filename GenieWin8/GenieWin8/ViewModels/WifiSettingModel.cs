@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Collections.Specialized;
+using GenieWin8.DataModel;
 
 namespace GenieWin8.Data
 {
@@ -147,29 +148,27 @@ namespace GenieWin8.Data
 
         public SettingSource()
         {
-            //GenieSoapApi soapApi = new GenieSoapApi();
-            //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            //dicResponse = await soapApi.GetInfo("WLANConfiguration");
+           
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
 
             var strTitle = loader.GetString("WiFiName");
             var group1 = new SettingGroup("WiFiName",
                 strTitle,
-                "wifiname");
+                WifiInfoModel.ssid);
             this.EditName.Add(group1);
             this.SettingGroups.Add(group1);
 
             strTitle = loader.GetString("Key/Password");
             var group2 = new SettingGroup("Password",
                 strTitle,
-                "password");
+                WifiInfoModel.password);
             this.EditKey.Add(group2);
             this.SettingGroups.Add(group2);
 
             strTitle = loader.GetString("Channel");
             var group3 = new SettingGroup("Channel",
                 strTitle,
-                "Auto");
+                WifiInfoModel.channel);
             group3.Items.Add(new SettingItem("Channel-1",
                 "Channel",
                 "Auto",
