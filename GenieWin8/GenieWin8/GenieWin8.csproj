@@ -118,6 +118,7 @@
     <Compile Include="EditSettingPage.xaml.cs">
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GenieSoapApi.cs" />
     <Compile Include="GuestAccessPage.xaml.cs">
       <DependentUpon>GuestAccessPage.xaml</DependentUpon>
     </Compile>
@@ -182,6 +183,7 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="UtilityTool.cs" />
     <Compile Include="StartDatePage.xaml.cs">
       <DependentUpon>StartDatePage.xaml</DependentUpon>
     </Compile>
