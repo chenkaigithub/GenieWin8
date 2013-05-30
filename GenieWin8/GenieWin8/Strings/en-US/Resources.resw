@@ -570,4 +570,37 @@
   <data name="YesButton.Content" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="btnBack" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="btnFileUpload" xml:space="preserve">
+    <value>FileUpload</value>
+  </data>
+  <data name="btnModify" xml:space="preserve">
+    <value>Modify</value>
+  </data>
+  <data name="btnWhat" xml:space="preserve">
+    <value>What is it?</value>
+  </data>
+  <data name="txtDeviceName" xml:space="preserve">
+    <value>Custom Name</value>
+  </data>
+  <data name="txtIPAddress" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="txtLinkRate" xml:space="preserve">
+    <value>Link Rate</value>
+  </data>
+  <data name="txtMACAddress" xml:space="preserve">
+    <value>MAC Address</value>
+  </data>
+  <data name="txtRoutename" xml:space="preserve">
+    <value>Router Model</value>
+  </data>
+  <data name="txtSignalStrength" xml:space="preserve">
+    <value>Signal Strength</value>
+  </data>
+  <data name="txtType" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

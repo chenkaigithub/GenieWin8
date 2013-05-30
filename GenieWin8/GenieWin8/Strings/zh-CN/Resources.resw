@@ -570,4 +570,37 @@
   <data name="YesButton.Content" xml:space="preserve">
     <value>是</value>
   </data>
+  <data name="btnBack" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="btnFileUpload" xml:space="preserve">
+    <value>上传文件</value>
+  </data>
+  <data name="btnModify" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="btnWhat" xml:space="preserve">
+    <value>这是什么？</value>
+  </data>
+  <data name="txtDeviceName" xml:space="preserve">
+    <value>定制用户名</value>
+  </data>
+  <data name="txtIPAddress" xml:space="preserve">
+    <value>IP地址</value>
+  </data>
+  <data name="txtLinkRate" xml:space="preserve">
+    <value>连接速度</value>
+  </data>
+  <data name="txtMACAddress" xml:space="preserve">
+    <value>MAC地址</value>
+  </data>
+  <data name="txtRoutename" xml:space="preserve">
+    <value>路由器型号</value>
+  </data>
+  <data name="txtSignalStrength" xml:space="preserve">
+    <value>信号强度</value>
+  </data>
+  <data name="txtType" xml:space="preserve">
+    <value>类型</value>
+  </data>
 </root>

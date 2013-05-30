@@ -157,9 +157,6 @@
     <Compile Include="PopupAbout.xaml.cs">
       <DependentUpon>PopupAbout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PopupDeviceInfo.xaml.cs">
-      <DependentUpon>PopupDeviceInfo.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PopupEnquireOpenDNS.xaml.cs">
       <DependentUpon>PopupEnquireOpenDNS.xaml</DependentUpon>
     </Compile>
@@ -325,10 +322,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PopupAbout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PopupDeviceInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
