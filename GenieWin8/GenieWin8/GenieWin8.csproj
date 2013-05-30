@@ -115,6 +115,7 @@
     <Compile Include="EditSettingPage.xaml.cs">
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GenieSoapApi.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -131,6 +132,7 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="UtilityTool.cs" />
     <Compile Include="ViewModels\GuestAccessModel.cs" />
     <Compile Include="ViewModels\MainPageModel.cs" />
     <Compile Include="ViewModels\WifiSettingModel.cs" />

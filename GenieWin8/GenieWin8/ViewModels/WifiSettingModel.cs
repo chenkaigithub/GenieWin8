@@ -154,6 +154,9 @@ namespace GenieWin8.Data
 
         public SettingSource()
         {
+            //GenieSoapApi soapApi = new GenieSoapApi();
+            //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            //dicResponse = await soapApi.GetInfo("WLANConfiguration");
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
 
             var strTitle = loader.GetString("WiFiName");
