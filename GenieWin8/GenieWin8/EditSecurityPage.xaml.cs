@@ -52,5 +52,10 @@ namespace GenieWin8
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
         }
+
+        private async void Security_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            
+        }
     }
 }

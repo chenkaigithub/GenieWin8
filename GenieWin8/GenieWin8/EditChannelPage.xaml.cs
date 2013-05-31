@@ -56,7 +56,7 @@ namespace GenieWin8
 
         private async void ChangeChannelItemClick(object sender, ItemClickEventArgs e)
         {
-            WifiInfoModel.channel = e.ClickedItem.ToString();
+            //WifiInfoModel.channel = channelListView.SelectedItem;
         }
     }
 }

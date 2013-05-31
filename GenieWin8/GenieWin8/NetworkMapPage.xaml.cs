@@ -113,31 +113,31 @@ namespace GenieWin8
 				        line.StrokeThickness = 3;
 				        map.Children.Add(line);
 
-				        if (j == 1)
-				        {
-					        Button BtnDeviceLocal = new Button();
-                            //BtnDeviceLocal.Name = "LocalDevice";
-                            BtnDeviceLocal.Name = Group.ElementAt(j).UniqueId;
-					        BtnDeviceLocal.SetValue(WidthProperty, 100);
-					        BtnDeviceLocal.SetValue(HeightProperty, 100);
-					        BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
-					        BtnDeviceLocal.VerticalAlignment = VerticalAlignment.Top;
-					        BtnDeviceLocal.Margin = new Thickness(width/2 + x - 50, height/2 - y - 50, 0, 0);
-					        Image imgDeviceLocal = new Image();
-					        imgDeviceLocal.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
-					        imgDeviceLocal.Stretch = Stretch.UniformToFill;
-					        TextBlock DeviceNameTextLocal = new TextBlock();
-					        //DeviceNameTextLocal.Text = "android-25531554966beee3";
-                            DeviceNameTextLocal.Text = Group.ElementAt(j).DeviceName;
-					        StackPanel stpDeviceLocal = new StackPanel();
-					        stpDeviceLocal.Children.Add(imgDeviceLocal);
-					        stpDeviceLocal.Children.Add(DeviceNameTextLocal);
-					        BtnDeviceLocal.Content = stpDeviceLocal;
-                            BtnDeviceLocal.Click += new RoutedEventHandler(DeviceButton_Click);
-					        map.Children.Add(BtnDeviceLocal);
-				        }
-				        else if (j > 1)
-				        {
+                        //if (j == 1)
+                        //{
+                        //    Button BtnDeviceLocal = new Button();
+                        //    //BtnDeviceLocal.Name = "LocalDevice";
+                        //    BtnDeviceLocal.Name = Group.ElementAt(j).UniqueId;
+                        //    BtnDeviceLocal.SetValue(WidthProperty, 100);
+                        //    BtnDeviceLocal.SetValue(HeightProperty, 100);
+                        //    BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
+                        //    BtnDeviceLocal.VerticalAlignment = VerticalAlignment.Top;
+                        //    BtnDeviceLocal.Margin = new Thickness(width/2 + x - 50, height/2 - y - 50, 0, 0);
+                        //    Image imgDeviceLocal = new Image();
+                        //    imgDeviceLocal.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
+                        //    imgDeviceLocal.Stretch = Stretch.UniformToFill;
+                        //    TextBlock DeviceNameTextLocal = new TextBlock();
+                        //    //DeviceNameTextLocal.Text = "android-25531554966beee3";
+                        //    DeviceNameTextLocal.Text = Group.ElementAt(j).DeviceName;
+                        //    StackPanel stpDeviceLocal = new StackPanel();
+                        //    stpDeviceLocal.Children.Add(imgDeviceLocal);
+                        //    stpDeviceLocal.Children.Add(DeviceNameTextLocal);
+                        //    BtnDeviceLocal.Content = stpDeviceLocal;
+                        //    BtnDeviceLocal.Click += new RoutedEventHandler(DeviceButton_Click);
+                        //    map.Children.Add(BtnDeviceLocal);
+                        //}
+                        //else if (j > 1)
+                        //{
 					        Button BtnDevice = new Button();
                             //BtnDevice.Name = "Device-" + (6 * i + j - 1).ToString();
                             BtnDevice.Name = Group.ElementAt(j).UniqueId;
@@ -147,7 +147,14 @@ namespace GenieWin8
 					        BtnDevice.VerticalAlignment = VerticalAlignment.Top;
 					        BtnDevice.Margin = new Thickness(width/2 + x - 50, height/2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
 					        Image imgDevice = new Image();
-					        imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
+                            if (BtnDevice.Name == "LocalDevice")
+                            {
+                                imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
+                            }
+                            else
+                            {
+                                imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
+                            }					        
 					        imgDevice.Stretch = Stretch.UniformToFill;
 					        TextBlock DeviceNameText = new TextBlock();
 					        //DeviceNameText.Text = "Device-" + (6*i+j-1).ToString();
@@ -158,7 +165,7 @@ namespace GenieWin8
 					        BtnDevice.Content = stpDevice;
                             BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
 					        map.Children.Add(BtnDevice);
-				        }				
+                        //}				
 			        }
 		        }
 		        else
@@ -175,52 +182,59 @@ namespace GenieWin8
 				        line.StrokeThickness = 3;
 				        map.Children.Add(line);
 
-				        if (j == 1)
-				        {
-					        Button BtnDeviceLocal = new Button();
-                            //BtnDeviceLocal.Name = "LocalDevice";
-                            BtnDeviceLocal.Name = Group.ElementAt(j).UniqueId;
-					        BtnDeviceLocal.SetValue(WidthProperty, 100);
-					        BtnDeviceLocal.SetValue(HeightProperty, 100);
-					        BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
-					        BtnDeviceLocal.VerticalAlignment = VerticalAlignment.Top;
-					        BtnDeviceLocal.Margin = new Thickness(width/2 + x - 50, height/2 - y - 50, 0, 0);
-					        Image imgDeviceLocal = new Image();
-					        imgDeviceLocal.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
-					        imgDeviceLocal.Stretch = Stretch.UniformToFill;
-					        TextBlock DeviceNameTextLocal = new TextBlock();
-					        //DeviceNameTextLocal.Text = "android-25531554966beee3";
-                            DeviceNameTextLocal.Text = Group.ElementAt(j).DeviceName;
-					        StackPanel stpDeviceLocal = new StackPanel();
-					        stpDeviceLocal.Children.Add(imgDeviceLocal);
-					        stpDeviceLocal.Children.Add(DeviceNameTextLocal);
-					        BtnDeviceLocal.Content = stpDeviceLocal;
-                            BtnDeviceLocal.Click += new RoutedEventHandler(DeviceButton_Click);
-					        map.Children.Add(BtnDeviceLocal);
-				        }
-				        else if (j > 1)
-				        {
-					        Button BtnDevice = new Button();
-                            //BtnDevice.Name = "Device-" + (6 * m + j - 1).ToString();
+                        //if (j == 1)
+                        //{
+                        //    Button BtnDeviceLocal = new Button();
+                        //    //BtnDeviceLocal.Name = "LocalDevice";
+                        //    BtnDeviceLocal.Name = Group.ElementAt(j).UniqueId;
+                        //    BtnDeviceLocal.SetValue(WidthProperty, 100);
+                        //    BtnDeviceLocal.SetValue(HeightProperty, 100);
+                        //    BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
+                        //    BtnDeviceLocal.VerticalAlignment = VerticalAlignment.Top;
+                        //    BtnDeviceLocal.Margin = new Thickness(width/2 + x - 50, height/2 - y - 50, 0, 0);
+                        //    Image imgDeviceLocal = new Image();
+                        //    imgDeviceLocal.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
+                        //    imgDeviceLocal.Stretch = Stretch.UniformToFill;
+                        //    TextBlock DeviceNameTextLocal = new TextBlock();
+                        //    //DeviceNameTextLocal.Text = "android-25531554966beee3";
+                        //    DeviceNameTextLocal.Text = Group.ElementAt(j).DeviceName;
+                        //    StackPanel stpDeviceLocal = new StackPanel();
+                        //    stpDeviceLocal.Children.Add(imgDeviceLocal);
+                        //    stpDeviceLocal.Children.Add(DeviceNameTextLocal);
+                        //    BtnDeviceLocal.Content = stpDeviceLocal;
+                        //    BtnDeviceLocal.Click += new RoutedEventHandler(DeviceButton_Click);
+                        //    map.Children.Add(BtnDeviceLocal);
+                        //}
+                        //else if (j > 1)
+                        //{
+                            Button BtnDevice = new Button();
+                            //BtnDevice.Name = "Device-" + (6 * i + j - 1).ToString();
                             BtnDevice.Name = Group.ElementAt(j).UniqueId;
-					        BtnDevice.SetValue(WidthProperty, 100);
-					        BtnDevice.SetValue(HeightProperty, 100);
-					        BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
-					        BtnDevice.VerticalAlignment = VerticalAlignment.Top;
-					        BtnDevice.Margin = new Thickness(width/2 + x - 50, height/2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
-					        Image imgDevice = new Image();
-					        imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
-					        imgDevice.Stretch = Stretch.UniformToFill;
-					        TextBlock DeviceNameText = new TextBlock();
-					        //DeviceNameText.Text = "Device-" + (6*m+j-1).ToString();
+                            BtnDevice.SetValue(WidthProperty, 100);
+                            BtnDevice.SetValue(HeightProperty, 100);
+                            BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
+                            BtnDevice.VerticalAlignment = VerticalAlignment.Top;
+                            BtnDevice.Margin = new Thickness(width / 2 + x - 50, height / 2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
+                            Image imgDevice = new Image();
+                            if (BtnDevice.Name == "LocalDevice")
+                            {
+                                imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
+                            }
+                            else
+                            {
+                                imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
+                            }
+                            imgDevice.Stretch = Stretch.UniformToFill;
+                            TextBlock DeviceNameText = new TextBlock();
+                            //DeviceNameText.Text = "Device-" + (6*i+j-1).ToString();
                             DeviceNameText.Text = Group.ElementAt(j).DeviceName;
-					        StackPanel stpDevice = new StackPanel();
-					        stpDevice.Children.Add(imgDevice);
-					        stpDevice.Children.Add(DeviceNameText);
-					        BtnDevice.Content = stpDevice;
+                            StackPanel stpDevice = new StackPanel();
+                            stpDevice.Children.Add(imgDevice);
+                            stpDevice.Children.Add(DeviceNameText);
+                            BtnDevice.Content = stpDevice;
                             BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
-					        map.Children.Add(BtnDevice);
-				        }
+                            map.Children.Add(BtnDevice);
+                        //}
 			        }
 		        }
 		        map.Children.Add(internet);
