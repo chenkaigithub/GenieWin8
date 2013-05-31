@@ -183,6 +183,7 @@ namespace GenieWin8.Data
             {
                 var group = new DeviceGroup("LocalDevice",
                  attachDeviceAll[key]["HostName"],
+                 attachDeviceAll[key]["Connect"],
                  attachDeviceAll[key]["Ip"],
                  attachDeviceAll[key]["LinkSpeed"],
                  attachDeviceAll[key]["Signal"],
@@ -196,15 +197,15 @@ namespace GenieWin8.Data
 
             //    deviceInfo = attachDeviceAll;
             //}
-            var group1 = new DeviceGroup("Router",
-                "WNR3500Lv2",
-                "",
-                "192.168.1.1",
-                "",
-                "",
-                "20:4E:7F:04:31:3C");
-            this.DeviceGroups.Add(group1);
-<<<<<<< HEAD
+            //var group1 = new DeviceGroup("Router",
+            //    "WNR3500Lv2",
+            //    "",
+            //    "192.168.1.1",
+            //    "",
+            //    "",
+            //    "20:4E:7F:04:31:3C");
+            //this.DeviceGroups.Add(group1);
+
             
             //group.Items.Add(new DeviceItem("Router",
             //    "WNR3500Lv2",
@@ -221,32 +222,32 @@ namespace GenieWin8.Data
             //    "D4:20:6D:D6:37:D6",
             //    group));
             //this.DeviceGroups.Add(group);
-=======
-            var group2 = new DeviceGroup("LocalDevice",
-                "android-25531554966beee3",
-                "",
-                "192.168.1.25",
-                "78%",
-                "5.5Mbps",
-                "D4:20:6D:D6:37:D6");
-            this.DeviceGroups.Add(group2);
-            var group3 = new DeviceGroup("Device-1",
-                "WN1000RP",
-                "Network Device",
-                "192.168.1.250",
-                "72%",
-                "72.2Mbps",
-                "00:8E:F2:FE:7B:5A");
-            this.DeviceGroups.Add(group3);
-            var group4 = new DeviceGroup("Device-2",
-                "WR3700V4",
-                "Network Device",
-                "192.168.1.100",
-                "",
-                "",
-                "10:0D:7F:51:6F:31");
-            this.DeviceGroups.Add(group4);
->>>>>>> bfcd6be0ca51dc3e09ab5ca0b84353a429dac79e
+
+            //var group2 = new DeviceGroup("LocalDevice",
+            //    "android-25531554966beee3",
+            //    "",
+            //    "192.168.1.25",
+            //    "78%",
+            //    "5.5Mbps",
+            //    "D4:20:6D:D6:37:D6");
+            //this.DeviceGroups.Add(group2);
+            //var group3 = new DeviceGroup("Device-1",
+            //    "WN1000RP",
+            //    "Network Device",
+            //    "192.168.1.250",
+            //    "72%",
+            //    "72.2Mbps",
+            //    "00:8E:F2:FE:7B:5A");
+            //this.DeviceGroups.Add(group3);
+            //var group4 = new DeviceGroup("Device-2",
+            //    "WR3700V4",
+            //    "Network Device",
+            //    "192.168.1.100",
+            //    "",
+            //    "",
+            //    "10:0D:7F:51:6F:31");
+            //this.DeviceGroups.Add(group4);
+
         }
     }
 }
