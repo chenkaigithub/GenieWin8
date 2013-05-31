@@ -4,6 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
+using System.Net;
+using System.Net.NetworkInformation;
+using Windows.Networking.Connectivity;
+using Windows.Networking;
+
 
 namespace GenieWin8
 {
@@ -91,10 +96,119 @@ namespace GenieWin8
                     }
                     else if (flag == 1)
                     {
-                        System.Diagnostics.Debug.WriteLine("End");
+                       // System.Diagnostics.Debug.WriteLine("End");
                     }
                 }
             }
+        }
+        //public static IPAddress Find()
+        //{
+        //    List<string> ipAddresses = new List<string>();
+
+        //    var hostnames = NetworkInformation.GetHostNames();
+        //    foreach (var hn in hostnames)
+        //    {
+        //        if (hn.IPInformation != null)
+        //        {
+        //            string ipAddress = hn.DisplayName;
+        //            ipAddresses.Add(ipAddress);
+        //        }
+        //    }
+
+        //    IPAddress address = IPAddress.Parse(ipAddresses[0]);
+        //    return address;
+        //}
+        public string GetLocalHostIp()
+        {
+            //var conProfile = NetworkInformation.GetInternetConnectionProfile();
+            
+            //if (conProfile != null && conProfile.NetworkAdapter != null)
+            //{
+            //    var hostName =
+            //        NetworkInformation.GetHostNames().SingleOrDefault(
+            //            hn =>
+            //            hn.IPInformation.NetworkAdapter != null &&
+            //            hn.IPInformation.NetworkAdapter.NetworkAdapterId ==
+            //               conProfile.NetworkAdapter.NetworkAdapterId);
+
+               
+
+                //if (hostName != null)
+                //{
+                //    //return the ip address
+                //return hostName.CanonicalName;
+                //}
+            //}
+
+
+            var icp = NetworkInformation.GetInternetConnectionProfile();
+
+            if (icp != null && icp.NetworkAdapter != null)
+            {
+                var hostname =
+                    NetworkInformation.GetHostNames().SingleOrDefault(
+                        hn =>
+                        hn.IPInformation != null &&
+                        hn.IPInformation.NetworkAdapter.NetworkAdapterId ==
+                           icp.NetworkAdapter.NetworkAdapterId);
+                System.Diagnostics.Debug.WriteLine("可用网络IP:" + hostname.DisplayName);
+                System.Diagnostics.Debug.WriteLine("网络状态:" + icp.GetNetworkConnectivityLevel());
+                return hostname.DisplayName;
+
+            }
+            return string.Empty;
+         
+        }
+
+        public async Task<string> GetGateway()
+        {
+            //网关地址
+            //string strGateway = "";
+            //获取所有网卡
+            //NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            //遍历数组
+            //foreach (var netWork in nics)
+            //{
+            //    单个网卡的IP对象
+            //    IPInterfaceProperties ip = netWork.GetIPProperties();
+            //    获取该IP对象的网关
+            //    GatewayIPAddressInformationCollection gateways = ip.GatewayAddresses;
+            //    foreach (var gateWay in gateways)
+            //    {
+            //        如果能够Ping通网关
+            //        if (IsPingIP(gateWay.Address.ToString()))
+            //        {
+            //            得到网关地址
+            //            strGateway = gateWay.Address.ToString();
+            //            跳出循环
+            //            break;
+            //        }
+            //    }
+
+            //    如果已经得到网关地址
+            //    if (strGateway.Length > 0)
+            //    {
+            //        跳出循环
+            //        break;
+            //    }
+            //}
+
+            //返回网关地址
+
+
+
+
+            HostName serverHost = new HostName("routerlogin.net");
+
+            var clientSocket = new Windows.Networking.Sockets.StreamSocket();
+
+            // Try to connect to the remote host
+            await clientSocket.ConnectAsync(serverHost, "http");
+
+            // Get the HostName as DisplayName, CanonicalName, Raw with the IpAddress.
+            var ipAddress = clientSocket.Information.RemoteAddress.DisplayName;
+
+            return ipAddress.ToString();
         }
                 
     }

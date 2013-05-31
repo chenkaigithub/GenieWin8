@@ -12,6 +12,7 @@ namespace GenieWin8.DataModel
         public static string password;
         public static string channel;
         public static string securityType;
+        public static string macAddr;
 
 
 

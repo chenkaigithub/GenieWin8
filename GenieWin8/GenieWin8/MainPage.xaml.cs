@@ -84,9 +84,18 @@ namespace GenieWin8
 		        }
 		        else if (groupId == "NetworkMap")
 		        {
+                    UtilityTool util = new UtilityTool();
+                    NetworkMapDodel.geteway = await util.GetGateway();
                     Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
                     responseDic = await soapApi.GetAttachDevice();
                     NetworkMapDodel.attachDeviceDic = responseDic;
+
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    WifiInfoModel.ssid = dicResponse["NewSSID"];
+                    WifiInfoModel.channel = dicResponse["NewChannel"];
+                    WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                    WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
                     this.Frame.Navigate(typeof(NetworkMapPage));
 		        }
 		        else if (groupId == "TrafficMeter")

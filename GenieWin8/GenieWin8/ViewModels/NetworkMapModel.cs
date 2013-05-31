@@ -178,17 +178,43 @@ namespace GenieWin8.Data
             Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
             Dictionary<string,string> deviceInfo = new Dictionary<string,string> ();
             attachDeviceAll = NetworkMapDodel.attachDeviceDic;
-
+            UtilityTool util = new UtilityTool();
+            string loacalIp = util.GetLocalHostIp();
+        
+            var routerGroup = new DeviceGroup("Router",
+                WifiInfoModel.ssid,
+                "",
+                NetworkMapDodel.geteway,
+                "",
+                "",
+                WifiInfoModel.macAddr);
+            this.DeviceGroups.Add(routerGroup);
+            
             foreach(string key in attachDeviceAll.Keys)
             {
-                var group = new DeviceGroup("LocalDevice",
-                 attachDeviceAll[key]["HostName"],
-                 attachDeviceAll[key]["Connect"],
-                 attachDeviceAll[key]["Ip"],
-                 attachDeviceAll[key]["LinkSpeed"],
-                 attachDeviceAll[key]["Signal"],
-                 key);
-                this.DeviceGroups.Add(group);
+                if (loacalIp == attachDeviceAll[key]["Ip"])
+                {
+                    var group = new DeviceGroup("LocalDevice",
+                     attachDeviceAll[key]["HostName"],
+                     attachDeviceAll[key]["Connect"],
+                     attachDeviceAll[key]["Ip"],
+                     attachDeviceAll[key]["LinkSpeed"],
+                     attachDeviceAll[key]["Signal"],
+                     key);
+                    this.DeviceGroups.Add(group);
+                }
+                else
+                {
+                    var group = new DeviceGroup("Device",
+                     attachDeviceAll[key]["HostName"],
+                     attachDeviceAll[key]["Connect"],
+                     attachDeviceAll[key]["Ip"],
+                     attachDeviceAll[key]["LinkSpeed"],
+                     attachDeviceAll[key]["Signal"],
+                     key);
+                    this.DeviceGroups.Add(group);
+                }
+                
             }
 
             //for (int i = 0; i < attachDeviceAll; i++)
