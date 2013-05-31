@@ -40,6 +40,8 @@ namespace GenieWin8
                string macAdr = ""; 
                for (int i = 1; i < tempArray.Length; i++)
                {
+                   if(tempArray[i] != "" && tempArray[i] != null)
+                   {
                    Dictionary<string,string> dicRow = new Dictionary<string,string>();
                    string[] itemArray = tempArray[i].Split(';');
                    if (itemArray.Length >= 4)
@@ -59,7 +61,12 @@ namespace GenieWin8
                        dicRow.Add("LinkSpeed", itemArray[5]);
                        dicRow.Add("Signal", itemArray[6]);
                    }
-                   dicAttachDevice.Add(macAdr,dicRow);
+                   if (macAdr != "")
+                   {
+                       System.Diagnostics.Debug.WriteLine(macAdr);
+                       dicAttachDevice.Add(macAdr, dicRow);
+                   }
+               }
                }
             }
             return  dicAttachDevice;

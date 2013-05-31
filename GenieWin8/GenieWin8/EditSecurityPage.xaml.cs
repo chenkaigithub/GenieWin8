@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GenieWin8.DataModel;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -53,9 +54,22 @@ namespace GenieWin8
         {
         }
 
-        private async void Security_ItemClick(object sender, ItemClickEventArgs e)
+
+        private void Security_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            int index = securityListView.SelectedIndex;
+            switch (index)
+            {
+                case 0:
+                    WifiInfoModel.securityType = "None";
+                    break;
+                case 1:
+                    WifiInfoModel.securityType = "WPA2-PSK";
+                    break;
+                case 2:
+                    WifiInfoModel.securityType = "WPA-PSK/WPA2-PSK";
+                    break;
+            }
         }
     }
 }

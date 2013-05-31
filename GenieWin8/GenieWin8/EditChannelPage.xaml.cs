@@ -54,9 +54,19 @@ namespace GenieWin8
         {
         }
 
-        private async void ChangeChannelItemClick(object sender, ItemClickEventArgs e)
+
+        private void ChangeChannelItemClick(object sender, SelectionChangedEventArgs e)
         {
-            //WifiInfoModel.channel = channelListView.SelectedItem;
+            int index = channelListView.SelectedIndex;
+            if (index == 0)
+            {
+                WifiInfoModel.channel = "Auto";
+            }
+            else
+            {
+                WifiInfoModel.channel = string.Format("{0}",index);
+            }
+
         }
     }
 }

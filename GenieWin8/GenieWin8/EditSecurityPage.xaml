@@ -57,10 +57,10 @@
             <TextBlock x:Name="pageTitle" x:Uid="SecurityPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
-        <ListView Grid.Row="1"
+        <ListView x:Name="securityListView" Grid.Row="1"
                   ItemsSource="{Binding Source={StaticResource securityItemsSource}}"
                   Margin="60,40,60,20" HorizontalAlignment="Center" VerticalAlignment="Top"
-                  ItemClick="Security_ItemClick">
+                  SelectionChanged="Security_SelectionChanged">
             <ListView.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF004F74" Offset="1"/>
