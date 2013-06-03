@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Text" xml:space="preserve">
+    <value>Πληροφορίες</value>
+  </data>
+  <data name="AllowPlayInNetwork.Text" xml:space="preserve">
+    <value>Να επιτρέπεται η αναπαραγωγή στο δίκτυο</value>
+  </data>
+  <data name="Average.Text" xml:space="preserve">
+    <value>Μέση τιμή</value>
+  </data>
+  <data name="btnBack" xml:space="preserve">
+    <value>απόδοση</value>
+  </data>
+  <data name="btnFileUpload" xml:space="preserve">
+    <value>Ανεβάστε το αρχείο</value>
+  </data>
+  <data name="btnModify" xml:space="preserve">
+    <value>Τροποποίηση</value>
+  </data>
+  <data name="btnWhat" xml:space="preserve">
+    <value>Τι είναι;</value>
+  </data>
+  <data name="Bypass.Text" xml:space="preserve">
+    <value>Bypass</value>
+    <comment>Bypass</comment>
+  </data>
+  <data name="CancelButton.Content" xml:space="preserve">
+    <value>Άκυρο</value>
+    <comment>Cancel Button Content</comment>
+  </data>
+  <data name="ChangeCustomizingSetting.Text" xml:space="preserve">
+    <value>Αλλαγή προσαρμοσμένων ρυθμίσεων</value>
+    <comment>Change Customizing Settings</comment>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Κανάλι</value>
+    <comment>Channel</comment>
+  </data>
+  <data name="ChannelPageTitle.Text" xml:space="preserve">
+    <value>Κανάλι</value>
+    <comment>EditChannelPage Title</comment>
+  </data>
+  <data name="CheckAvailability.Content" xml:space="preserve">
+    <value>Ελέγξτε τη διαθεσιμότητα</value>
+  </data>
+  <data name="CheckGuestAccess.Text" xml:space="preserve">
+    <value>Πρόσβαση επισκέπτη</value>
+    <comment>Guest Access CheckBox Content</comment>
+  </data>
+  <data name="CheckParentalControl.Text" xml:space="preserve">
+    <value>Γονικός έλεγχος</value>
+    <comment>Parental Control CheckBox Content</comment>
+  </data>
+  <data name="CheckTrafficMeter.Text" xml:space="preserve">
+    <value>Μέτρηση κυκλοφορίας</value>
+  </data>
+  <data name="CloseAboutButton.Content" xml:space="preserve">
+    <value>Κλείσιμο</value>
+    <comment>CloseAbout Button Content</comment>
+  </data>
+  <data name="CloseLicenseButton.Content" xml:space="preserve">
+    <value>Κλείσιμο</value>
+    <comment>CloseLicense Button Content</comment>
+  </data>
+  <data name="CompleteIllustration.Text" xml:space="preserve">
+    <value>Η εγκατάσταση του Live Parental Controls της NETGEAR με την υποστήριξη της OpenDNS ολοκληρώθηκε με επιτυχία. Την επόμενη φορά που θα εκτελέσετε το βοηθητικό πρόγραμμα διαχείρισης θα μεταβείτε στην οθόνη κατάστασης όπου μπορείτε να κάνετε τα εξής:</value>
+  </data>
+  <data name="ConfirmEmail.Text" xml:space="preserve">
+    <value>Επιβεβαίωση email</value>
+  </data>
+  <data name="ConfirmPassword.Text" xml:space="preserve">
+    <value>Επιβεβαίωση κωδικού πρόσβασης</value>
+  </data>
+  <data name="Copyright.Text" xml:space="preserve">
+    <value>Πνευματικά δικαιώματα (c) 2013, NETGEAR Inc.</value>
+  </data>
+  <data name="CounterStartTime" xml:space="preserve">
+    <value>Ώρα έναρξης μετρητή</value>
+    <comment>Counter Start Time</comment>
+  </data>
+  <data name="CounterStartTimeHour" xml:space="preserve">
+    <value>Ώρα έναρξης-Ώρα</value>
+    <comment>Counter Start Time Hour</comment>
+  </data>
+  <data name="CounterStartTimeMin" xml:space="preserve">
+    <value>Ώρα έναρξης-Λεπτό</value>
+    <comment>Counter Start Time Minute</comment>
+  </data>
+  <data name="Email.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnquireOpenDNS.Text" xml:space="preserve">
+    <value>Για να ορίσετε τους ελέγχους Live Parental Controls, χρειάζεστε ένα λογαριασμό OpenDNS. Μήπως έχετε ήδη ένα λογαριασμό;</value>
+  </data>
+  <data name="EnterRegInformation.Text" xml:space="preserve">
+    <value>Εισαγάγετε παρακάτω τα στοιχεία σας.</value>
+  </data>
+  <data name="EnterUsername_Password.Text" xml:space="preserve">
+    <value>Πληκτρολογήστε το όνομα χρήστη και τον κωδικό πρόσβασης παρακάτω.</value>
+  </data>
+  <data name="FilterLevel" xml:space="preserve">
+    <value>Επίπεδο φιλτραρίσματος</value>
+    <comment>Filtering level</comment>
+  </data>
+  <data name="FiltingIllustration.Text" xml:space="preserve">
+    <value>Όλοι οι υπολογιστές που συνδέονται στο δρομολογητή σας θα προστατεύονται από το περιεχόμενο που επιλέξετε παρακάτω. Μπορείτε να προσαρμόσετε αργότερα τις ρυθμίσεις του Live Parental Controls από τον ιστότοπό μας.</value>
+  </data>
+  <data name="FirmwareVersion.Text" xml:space="preserve">
+    <value>Έκδοση υλικολογισμικού：</value>
+  </data>
+  <data name="GuestAccess" xml:space="preserve">
+    <value>Πρόσβαση επισκέπτη</value>
+    <comment>Guest Access</comment>
+  </data>
+  <data name="GuestAccessPageTitle.Text" xml:space="preserve">
+    <value>Πρόσβαση επισκέπτη</value>
+    <comment>GuestAccessPage Title</comment>
+  </data>
+  <data name="GuestSecurityPageTitle.Text" xml:space="preserve">
+    <value>Ασφάλεια</value>
+    <comment>GuestSecurityPage Title</comment>
+  </data>
+  <data name="GuestSettingPageTitle.Text" xml:space="preserve">
+    <value>Ρυθμίσεις επισκέπτη</value>
+    <comment>GuestSettingPage Title</comment>
+  </data>
+  <data name="GuestTimeSegPageTitle.Text" xml:space="preserve">
+    <value>Χρονική περίοδος</value>
+    <comment>GuestTimeSegPage Title</comment>
+  </data>
+  <data name="GuestWiFiName" xml:space="preserve">
+    <value>Όνομα/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="Illustration-1.Text" xml:space="preserve">
+    <value>*  Να ελέγξετε αν έχει ενεργοποιηθεί το Live Parental Controls</value>
+  </data>
+  <data name="Illustration-2.Text" xml:space="preserve">
+    <value>*  Να ενεργοποιήσετε ή να απενεργοποιήσετε το Live Parental Controls</value>
+  </data>
+  <data name="Illustration-3.Text" xml:space="preserve">
+    <value>*  Να τροποποιήσετε τις βασικές ρυθμίσεις</value>
+  </data>
+  <data name="Illustration-4.Text" xml:space="preserve">
+    <value>*  Να αλλάξετε τις προσαρμοσμένες ρυθμίσεις, όπως ανά χρήστη και ώρα της ημέρας, με βάση το Live Parental Controls</value>
+  </data>
+  <data name="Illustration_High.Text" xml:space="preserve">
+    <value>Παρέχει προστασία από ιστότοπους με περιεχόμενο για ενηλίκους ή παράνομες δραστηριότητες, από ιστότοπους κοινωνικής δικτύωσης, ιστότοπους κοινής χρήσης βίντεο, επιθέσεις από ηλεκτρονικό "ψάρεμα" και γενικότερα ιστότοπους με ανούσιο περιεχόμενο .</value>
+  </data>
+  <data name="Illustration_Low.Text" xml:space="preserve">
+    <value>Παρέχει προστασία από ιστότοπους με πορνογραφικό περιεχόμενο και επιθέσεις από ηλεκτρονικό "ψάρεμα".</value>
+  </data>
+  <data name="Illustration_Medium.Text" xml:space="preserve">
+    <value>Παρέχει προστασία από ιστότοπους με περιεχόμενο για ενηλίκους, με παράνομες δραστηριότητες και επιθέσεις από ηλεκτρονικό "ψάρεμα".</value>
+  </data>
+  <data name="Illustration_Minimum.Text" xml:space="preserve">
+    <value>Παρέχει προστασία μόνο από επιθέσεις από ηλεκτρονικό "ψάρεμα".</value>
+  </data>
+  <data name="Illustration_None.Text" xml:space="preserve">
+    <value>Δεν έχει αποκλειστεί τίποτα.</value>
+  </data>
+  <data name="Key/Password" xml:space="preserve">
+    <value>Κλειδί/κωδικός πρόσβασης</value>
+    <comment>Key/Password</comment>
+  </data>
+  <data name="License.Text" xml:space="preserve">
+    <value>Άδεια χρήσης</value>
+  </data>
+  <data name="LicenseButton.Content" xml:space="preserve">
+    <value>Άδεια χρήσης</value>
+    <comment>License Button Content</comment>
+  </data>
+  <data name="LimitPerMonth" xml:space="preserve">
+    <value>Μηνιαίο όριο (MB)</value>
+    <comment>Monthly Limit</comment>
+  </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>Σύνδεση</value>
+    <comment>Login Button Content</comment>
+  </data>
+  <data name="LoginPageTitle.Text" xml:space="preserve">
+    <value>Σύνδεση</value>
+    <comment>LoginPage Title</comment>
+  </data>
+  <data name="LogoutButton.Content" xml:space="preserve">
+    <value>Αποσύνδεση</value>
+  </data>
+  <data name="MarketPlace" xml:space="preserve">
+    <value>MarketPlace</value>
+    <comment>MarketPlace</comment>
+  </data>
+  <data name="Mbytes.Text" xml:space="preserve">
+    <value>Mbyte</value>
+  </data>
+  <data name="MyMedia" xml:space="preserve">
+    <value>Τα μέσα μου</value>
+    <comment>My Media</comment>
+  </data>
+  <data name="MyMediaOption" xml:space="preserve">
+    <value>Επιλογές</value>
+    <comment>Options</comment>
+  </data>
+  <data name="MyMediaOptionPageTitle.Text" xml:space="preserve">
+    <value>Επιλογές</value>
+    <comment>MyMediaOptionPage Title</comment>
+  </data>
+  <data name="MyMediaPageTitle.Text" xml:space="preserve">
+    <value>Τα μέσα μου</value>
+    <comment>MyMediaPage Title</comment>
+  </data>
+  <data name="MyMediaPlayer" xml:space="preserve">
+    <value>Συσκευή αναπαραγωγής</value>
+    <comment>Player</comment>
+  </data>
+  <data name="MyMediaPlayerPageTitle.Text" xml:space="preserve">
+    <value>Συσκευή αναπαραγωγής</value>
+    <comment>MyMediaPlayerPage Title</comment>
+  </data>
+  <data name="MyMediaPlaying" xml:space="preserve">
+    <value>Αναπαραγωγή</value>
+    <comment>Playing</comment>
+  </data>
+  <data name="MyMediaSource" xml:space="preserve">
+    <value>Πηγή</value>
+    <comment>Source</comment>
+  </data>
+  <data name="MyMediaSourcePageTitle.Text" xml:space="preserve">
+    <value>Πηγή</value>
+    <comment>MyMediaSourcePage Title</comment>
+  </data>
+  <data name="NetworkMap" xml:space="preserve">
+    <value>Χάρτης δικτύου</value>
+    <comment>Network Map</comment>
+  </data>
+  <data name="NetworkMapPageTitle.Text" xml:space="preserve">
+    <value>Χάρτης δικτύου</value>
+    <comment>NetworkMapPage Title</comment>
+  </data>
+  <data name="NextButton.Content" xml:space="preserve">
+    <value>Επόμενο</value>
+  </data>
+  <data name="NoButton.Content" xml:space="preserve">
+    <value>Όχι</value>
+  </data>
+  <data name="Note.Text" xml:space="preserve">
+    <value>Σημείωση:</value>
+  </data>
+  <data name="NoteContent.Text" xml:space="preserve">
+    <value>Επανεκκίνηση υπηρεσίας μέσων όταν αλλάζει η ρύθμιση ασύρματου δικτύου.</value>
+  </data>
+  <data name="OpenDNSUser.Text" xml:space="preserve">
+    <value>Λογαριασμός OpenDNS</value>
+    <comment>OpenDNS User</comment>
+  </data>
+  <data name="OpenDNSUserName.Text" xml:space="preserve">
+    <value>Genie007</value>
+  </data>
+  <data name="ParentalControl" xml:space="preserve">
+    <value>Γονικός έλεγχος</value>
+    <comment>Parental Control</comment>
+  </data>
+  <data name="ParentalControlPageTitle.Text" xml:space="preserve">
+    <value>Γονικός έλεγχος</value>
+    <comment>ParentalControlPage Title</comment>
+  </data>
+  <data name="Password.Text" xml:space="preserve">
+    <value>Κωδικός πρόσβασης</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PasswordTips.Text" xml:space="preserve">
+    <value>(η προεπιλογή είναι \"password\")</value>
+  </data>
+  <data name="PreviousButton.Content" xml:space="preserve">
+    <value>Προηγούμενο</value>
+  </data>
+  <data name="PrivacyPolicy.Content" xml:space="preserve">
+    <value>Πολιτική Προστασίας Προσωπικών Δεδομένων</value>
+  </data>
+  <data name="QRCode" xml:space="preserve">
+    <value>Κωδικός QR</value>
+    <comment>QR Code</comment>
+  </data>
+  <data name="radioButton_High.Content" xml:space="preserve">
+    <value>Υψηλή</value>
+  </data>
+  <data name="radioButton_Low.Content" xml:space="preserve">
+    <value>Χαμηλή</value>
+  </data>
+  <data name="radioButton_Medium.Content" xml:space="preserve">
+    <value>Μέτρια</value>
+  </data>
+  <data name="radioButton_Minimum.Content" xml:space="preserve">
+    <value>Ελάχιστη</value>
+  </data>
+  <data name="radioButton_None.Content" xml:space="preserve">
+    <value>Καμία</value>
+  </data>
+  <data name="RefreshButton.Content" xml:space="preserve">
+    <value>Ανανέωση</value>
+  </data>
+  <data name="RefreshSourceFolder.Text" xml:space="preserve">
+    <value>Ανανέωση φακέλου προέλευσης</value>
+  </data>
+  <data name="RememberPasswordCheckBox.Content" xml:space="preserve">
+    <value>Απομνημόνευση κωδικού πρόσβασης</value>
+    <comment>Remember password CheckBox Content</comment>
+  </data>
+  <data name="RestartMediaService.Text" xml:space="preserve">
+    <value>Επανεκκίνηση υπηρεσίας μέσων</value>
+  </data>
+  <data name="ReturnButton.Content" xml:space="preserve">
+    <value>Να μεταβώ στην οθόνη κατάστασης</value>
+  </data>
+  <data name="RightsReserved.Text" xml:space="preserve">
+    <value>Με την επιφύλαξη παντός δικαιώματος</value>
+  </data>
+  <data name="RouterModel.Text" xml:space="preserve">
+    <value>Μοντέλο δρομολογητή：</value>
+  </data>
+  <data name="ScanQrCodeTips.Text" xml:space="preserve">
+    <value>Scan QRCode to connect</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Ασφάλεια</value>
+    <comment>Security</comment>
+  </data>
+  <data name="SecurityPageTitle.Text" xml:space="preserve">
+    <value>Ασφάλεια</value>
+    <comment>EditSecurityPage Title</comment>
+  </data>
+  <data name="Security_None" xml:space="preserve">
+    <value>None</value>
+    <comment>None</comment>
+  </data>
+  <data name="Security_WPA-PSK+WPA2-PSK" xml:space="preserve">
+    <value>WPA-PSK+WPA2-PSK</value>
+    <comment>WPA-PSK+WPA2-PSK</comment>
+  </data>
+  <data name="Security_WPA2-PSK[AES]" xml:space="preserve">
+    <value>WPA2-PSK[AES]</value>
+    <comment>WPA2-PSK[AES]</comment>
+  </data>
+  <data name="SettingComplete.Text" xml:space="preserve">
+    <value>Η εγκατάσταση ολοκληρώθηκε!</value>
+  </data>
+  <data name="SettingPageTitle.Text" xml:space="preserve">
+    <value>Επεξεργασία ρυθμίσεων</value>
+    <comment>EditSettingPage Title</comment>
+  </data>
+  <data name="SettingPasswordTips.Text" xml:space="preserve">
+    <value>8-63 χαρακτήρες ή 64 δεκαεξαδικές τιμές</value>
+  </data>
+  <data name="ShareFilesInNetwork.Text" xml:space="preserve">
+    <value>Κοινή χρήση αρχείων στο δίκτυο</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Ημέρα έναρξης μετρητή</value>
+    <comment>Counter Start Day</comment>
+  </data>
+  <data name="StartDatePageTitle.Text" xml:space="preserve">
+    <value>Ημέρα</value>
+    <comment>StartDatePage Title</comment>
+  </data>
+  <data name="StartTime.Text" xml:space="preserve">
+    <value>Ώρα έναρξης μετρητή</value>
+  </data>
+  <data name="StartTimeHour.Text" xml:space="preserve">
+    <value>Ώρα</value>
+  </data>
+  <data name="StartTimeMinute.Text" xml:space="preserve">
+    <value>Λεπτό</value>
+  </data>
+  <data name="Support.Text" xml:space="preserve">
+    <value>Με την υποστήριξη της SiteView</value>
+  </data>
+  <data name="Terms_Conditions.Text" xml:space="preserve">
+    <value>Όροι και προϋποθέσεις</value>
+  </data>
+  <data name="TimeSegment" xml:space="preserve">
+    <value>Χρονική περίοδος</value>
+    <comment>Time Period</comment>
+  </data>
+  <data name="TimeSegment_10hours" xml:space="preserve">
+    <value>10 ώρα</value>
+    <comment>10 hours</comment>
+  </data>
+  <data name="TimeSegment_1day" xml:space="preserve">
+    <value>1 ημέρα</value>
+    <comment>1 day</comment>
+  </data>
+  <data name="TimeSegment_1hour" xml:space="preserve">
+    <value>1 ώρα</value>
+    <comment>1 hour</comment>
+  </data>
+  <data name="TimeSegment_1week" xml:space="preserve">
+    <value>1 εβδομάδα</value>
+    <comment>1 week</comment>
+  </data>
+  <data name="TimeSegment_5hours" xml:space="preserve">
+    <value>5 ώρα</value>
+    <comment>5 hours</comment>
+  </data>
+  <data name="TimeSegment_Always" xml:space="preserve">
+    <value>πάντοτε</value>
+    <comment>Always</comment>
+  </data>
+  <data name="Total.Text" xml:space="preserve">
+    <value>Σύνολο</value>
+  </data>
+  <data name="TrafficCtrlSettingPageTitle.Text" xml:space="preserve">
+    <value>Μέτρηση κυκλοφορίας</value>
+    <comment>TrafficCtrlSettingPage Title</comment>
+  </data>
+  <data name="TrafficLimitation" xml:space="preserve">
+    <value>Όριο όγκου κυκλοφορίας</value>
+    <comment>Traffic Volume Limit</comment>
+  </data>
+  <data name="TrafficLimitationPageTitle.Text" xml:space="preserve">
+    <value>Όριο όγκου κυκλοφορίας</value>
+    <comment>TrafficLimitationPage Title</comment>
+  </data>
+  <data name="TrafficLimitation_Download" xml:space="preserve">
+    <value>Λήψη μόνο</value>
+    <comment>Download Only</comment>
+  </data>
+  <data name="TrafficLimitation_DownloadUpload" xml:space="preserve">
+    <value>Μεταφόρτωση και τη λήψη</value>
+    <comment>Download &amp; Upload</comment>
+  </data>
+  <data name="TrafficLimitation_Unlimited" xml:space="preserve">
+    <value>Καμία</value>
+    <comment>Unlimited</comment>
+  </data>
+  <data name="TrafficMeter" xml:space="preserve">
+    <value>Μέτρηση κυκλοφορίας</value>
+    <comment>Traffic Meter</comment>
+  </data>
+  <data name="TrafficMeterPageTitle.Text" xml:space="preserve">
+    <value>Μέτρηση κυκλοφορίας</value>
+    <comment>TrafficMeterPage Title</comment>
+  </data>
+  <data name="txtDeviceName" xml:space="preserve">
+    <value>Προσαρμοσμένο όνομα</value>
+  </data>
+  <data name="txtIPAddress" xml:space="preserve">
+    <value>Διεύθυνση IP</value>
+  </data>
+  <data name="txtLinkRate" xml:space="preserve">
+    <value>Ταχύτητα σύνδεσης</value>
+  </data>
+  <data name="txtMACAddress" xml:space="preserve">
+    <value>Διεύθυνση MAC</value>
+  </data>
+  <data name="txtRoutename" xml:space="preserve">
+    <value>Μοντέλο δρομολογητή</value>
+  </data>
+  <data name="txtSignalStrength" xml:space="preserve">
+    <value>Ισχύς σήματος</value>
+  </data>
+  <data name="txtType" xml:space="preserve">
+    <value>Τύπος</value>
+  </data>
+  <data name="UserName.Text" xml:space="preserve">
+    <value>Όνομα χρήστη</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="Version.Text" xml:space="preserve">
+    <value>Έκδοση：</value>
+  </data>
+  <data name="WiFiName" xml:space="preserve">
+    <value>Όνομα/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="WiFiSetting" xml:space="preserve">
+    <value>Ρυθμίσεις ασύρμ. δικτύου</value>
+    <comment>Wireless Settings</comment>
+  </data>
+  <data name="WifiSettingsPageTitle.Text" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+    <comment>WifiSettingsPage Title</comment>
+  </data>
+  <data name="within_distribution.Text" xml:space="preserve">
+    <value>Εντός της διανομής του NETGEAR genie.</value>
+  </data>
+  <data name="YesButton.Content" xml:space="preserve">
+    <value>Ναι</value>
+  </data>
+</root>

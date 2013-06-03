@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Text" xml:space="preserve">
+    <value>Tietoja</value>
+  </data>
+  <data name="AllowPlayInNetwork.Text" xml:space="preserve">
+    <value>Salli toisto verkossa</value>
+  </data>
+  <data name="Average.Text" xml:space="preserve">
+    <value>Keskimääräinen</value>
+  </data>
+  <data name="btnBack" xml:space="preserve">
+    <value>Palata</value>
+  </data>
+  <data name="btnFileUpload" xml:space="preserve">
+    <value>Lataa tiedosto</value>
+  </data>
+  <data name="btnModify" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="btnWhat" xml:space="preserve">
+    <value>Mikä se on?</value>
+  </data>
+  <data name="Bypass.Text" xml:space="preserve">
+    <value>Bypass</value>
+    <comment>Bypass</comment>
+  </data>
+  <data name="CancelButton.Content" xml:space="preserve">
+    <value>Peruuta</value>
+    <comment>Cancel Button Content</comment>
+  </data>
+  <data name="ChangeCustomizingSetting.Text" xml:space="preserve">
+    <value>Muuta asetuksia</value>
+    <comment>Change Customizing Settings</comment>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Kanava</value>
+    <comment>Channel</comment>
+  </data>
+  <data name="ChannelPageTitle.Text" xml:space="preserve">
+    <value>Kanava</value>
+    <comment>EditChannelPage Title</comment>
+  </data>
+  <data name="CheckAvailability.Content" xml:space="preserve">
+    <value>Tarkista, onko tunnus käytettävissä</value>
+  </data>
+  <data name="CheckGuestAccess.Text" xml:space="preserve">
+    <value>Vieraskäyttö</value>
+    <comment>Guest Access CheckBox Content</comment>
+  </data>
+  <data name="CheckParentalControl.Text" xml:space="preserve">
+    <value>Parental Controls</value>
+    <comment>Parental Control CheckBox Content</comment>
+  </data>
+  <data name="CheckTrafficMeter.Text" xml:space="preserve">
+    <value>Liikennemittari</value>
+  </data>
+  <data name="CloseAboutButton.Content" xml:space="preserve">
+    <value>Sulje</value>
+    <comment>CloseAbout Button Content</comment>
+  </data>
+  <data name="CloseLicenseButton.Content" xml:space="preserve">
+    <value>Sulje</value>
+    <comment>CloseLicense Button Content</comment>
+  </data>
+  <data name="CompleteIllustration.Text" xml:space="preserve">
+    <value>NETGEAR Live Parental Controls powered by OpenDNS -ratkaisun asennus on valmis. Kun seuraavan kerran käynnistät hallinta-apuohjelman, sinut ohjataan tilanäyttöön, jossa voit:</value>
+  </data>
+  <data name="ConfirmEmail.Text" xml:space="preserve">
+    <value>Vahvista sähköposti</value>
+  </data>
+  <data name="ConfirmPassword.Text" xml:space="preserve">
+    <value>Vahvista salasana</value>
+  </data>
+  <data name="Copyright.Text" xml:space="preserve">
+    <value>Copyright (c) 2013, NETGEAR Inc.</value>
+  </data>
+  <data name="CounterStartTime" xml:space="preserve">
+    <value>Laskurin käynnistysaika</value>
+    <comment>Counter Start Time</comment>
+  </data>
+  <data name="CounterStartTimeHour" xml:space="preserve">
+    <value>Käynnistysaika-Tunti</value>
+    <comment>Counter Start Time Hour</comment>
+  </data>
+  <data name="CounterStartTimeMin" xml:space="preserve">
+    <value>Käynnistysaika-Minuutit</value>
+    <comment>Counter Start Time Minute</comment>
+  </data>
+  <data name="Email.Text" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="EnquireOpenDNS.Text" xml:space="preserve">
+    <value>Live Parental Controls -lapsilukkojen määrittäminen vaatii OpenDNS-tilin. Onko sinulla jo tili?</value>
+  </data>
+  <data name="EnterRegInformation.Text" xml:space="preserve">
+    <value>Täytä tietosi alla oleviin kenttiin.</value>
+  </data>
+  <data name="EnterUsername_Password.Text" xml:space="preserve">
+    <value>Kirjoita käyttäjätunnus ja salasana alle.</value>
+  </data>
+  <data name="FilterLevel" xml:space="preserve">
+    <value>Suodatustaso</value>
+    <comment>Filtering level</comment>
+  </data>
+  <data name="FiltingIllustration.Text" xml:space="preserve">
+    <value>Kaikki reitittimeen kytketyt tietokoneet suojataan sisällöltä, jonka voit määrittää seuraavassa. Live Parental Controls -ratkaisua voi muokata myöhemmin web-sivustolla.</value>
+  </data>
+  <data name="FirmwareVersion.Text" xml:space="preserve">
+    <value>Laiteohjelman versio：</value>
+  </data>
+  <data name="GuestAccess" xml:space="preserve">
+    <value>Vieraskäyttö</value>
+    <comment>Guest Access</comment>
+  </data>
+  <data name="GuestAccessPageTitle.Text" xml:space="preserve">
+    <value>Vieraskäyttö</value>
+    <comment>GuestAccessPage Title</comment>
+  </data>
+  <data name="GuestSecurityPageTitle.Text" xml:space="preserve">
+    <value>Suojaus</value>
+    <comment>GuestSecurityPage Title</comment>
+  </data>
+  <data name="GuestSettingPageTitle.Text" xml:space="preserve">
+    <value>Vierasasetukset</value>
+    <comment>GuestSettingPage Title</comment>
+  </data>
+  <data name="GuestTimeSegPageTitle.Text" xml:space="preserve">
+    <value>Ajanjakso</value>
+    <comment>GuestTimeSegPage Title</comment>
+  </data>
+  <data name="GuestWiFiName" xml:space="preserve">
+    <value>Nimi/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="Illustration-1.Text" xml:space="preserve">
+    <value>*  tarkistaa, onko Live Parental Controls käytössä</value>
+  </data>
+  <data name="Illustration-2.Text" xml:space="preserve">
+    <value>*  ottaa Live Parental Controls -ratkaisun käyttöön tai poistaa sen käytöstä</value>
+  </data>
+  <data name="Illustration-3.Text" xml:space="preserve">
+    <value>*  muokata perusasetuksia</value>
+  </data>
+  <data name="Illustration-4.Text" xml:space="preserve">
+    <value>*  mukauttaa asetuksia, kuten käyttäjäkohtaisia tai vuorokauden aikaan perustuvia Live Parental Controls -asetuksia</value>
+  </data>
+  <data name="Illustration_High.Text" xml:space="preserve">
+    <value>Estää pääsyn aikuisviihdesivustoille, yhteisösivustoille, laittomille sivustoille, videoiden jakosivustoille ja muille vastaaville. Lisäksi suojaa tietojenkalasteluyrityksiltä.</value>
+  </data>
+  <data name="Illustration_Low.Text" xml:space="preserve">
+    <value>Estää pääsyn pornografisille sivustoille ja suojaa tietojenkalasteluyrityksiltä.</value>
+  </data>
+  <data name="Illustration_Medium.Text" xml:space="preserve">
+    <value>Estää pääsyn aikuisviihdesivustoille ja laittomille sivustoille sekä suojaa tietojenkalasteluyrityksiltä.</value>
+  </data>
+  <data name="Illustration_Minimum.Text" xml:space="preserve">
+    <value>Suojaa vain tietojenkalasteluyrityksiltä.</value>
+  </data>
+  <data name="Illustration_None.Text" xml:space="preserve">
+    <value>Mitään ei ole estetty.</value>
+  </data>
+  <data name="Key/Password" xml:space="preserve">
+    <value>Tunnus/salasana</value>
+    <comment>Key/Password</comment>
+  </data>
+  <data name="License.Text" xml:space="preserve">
+    <value>Käyttöoikeus</value>
+  </data>
+  <data name="LicenseButton.Content" xml:space="preserve">
+    <value>Käyttöoikeus</value>
+    <comment>License Button Content</comment>
+  </data>
+  <data name="LimitPerMonth" xml:space="preserve">
+    <value>Kuukausiraja (MB)</value>
+    <comment>Monthly Limit</comment>
+  </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>Käyttäjätunnus</value>
+    <comment>Login Button Content</comment>
+  </data>
+  <data name="LoginPageTitle.Text" xml:space="preserve">
+    <value>Käyttäjätunnus</value>
+    <comment>LoginPage Title</comment>
+  </data>
+  <data name="LogoutButton.Content" xml:space="preserve">
+    <value>Uloskirjaus</value>
+  </data>
+  <data name="MarketPlace" xml:space="preserve">
+    <value>MarketPlace</value>
+    <comment>MarketPlace</comment>
+  </data>
+  <data name="Mbytes.Text" xml:space="preserve">
+    <value>megatavua</value>
+  </data>
+  <data name="MyMedia" xml:space="preserve">
+    <value>Omat mediatiedostot</value>
+    <comment>My Media</comment>
+  </data>
+  <data name="MyMediaOption" xml:space="preserve">
+    <value>Valinnat</value>
+    <comment>Options</comment>
+  </data>
+  <data name="MyMediaOptionPageTitle.Text" xml:space="preserve">
+    <value>Valinnat</value>
+    <comment>MyMediaOptionPage Title</comment>
+  </data>
+  <data name="MyMediaPageTitle.Text" xml:space="preserve">
+    <value>Omat mediatiedostot</value>
+    <comment>MyMediaPage Title</comment>
+  </data>
+  <data name="MyMediaPlayer" xml:space="preserve">
+    <value>Soitin</value>
+    <comment>Player</comment>
+  </data>
+  <data name="MyMediaPlayerPageTitle.Text" xml:space="preserve">
+    <value>Soitin</value>
+    <comment>MyMediaPlayerPage Title</comment>
+  </data>
+  <data name="MyMediaPlaying" xml:space="preserve">
+    <value>Toistetaan</value>
+    <comment>Playing</comment>
+  </data>
+  <data name="MyMediaSource" xml:space="preserve">
+    <value>Lähde</value>
+    <comment>Source</comment>
+  </data>
+  <data name="MyMediaSourcePageTitle.Text" xml:space="preserve">
+    <value>Lähde</value>
+    <comment>MyMediaSourcePage Title</comment>
+  </data>
+  <data name="NetworkMap" xml:space="preserve">
+    <value>Verkkokartta</value>
+    <comment>Network Map</comment>
+  </data>
+  <data name="NetworkMapPageTitle.Text" xml:space="preserve">
+    <value>Verkkokartta</value>
+    <comment>NetworkMapPage Title</comment>
+  </data>
+  <data name="NextButton.Content" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="NoButton.Content" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="Note.Text" xml:space="preserve">
+    <value>Huomautus:</value>
+  </data>
+  <data name="NoteContent.Text" xml:space="preserve">
+    <value>Käynnistä mediapalvelu uudelleen, kun langaton verkkoasetus on vaihdettu.</value>
+  </data>
+  <data name="OpenDNSUser.Text" xml:space="preserve">
+    <value>OpenDNS-tili</value>
+    <comment>OpenDNS User</comment>
+  </data>
+  <data name="OpenDNSUserName.Text" xml:space="preserve">
+    <value>Genie007</value>
+  </data>
+  <data name="ParentalControl" xml:space="preserve">
+    <value>Parental Controls</value>
+    <comment>Parental Control</comment>
+  </data>
+  <data name="ParentalControlPageTitle.Text" xml:space="preserve">
+    <value>Parental Controls</value>
+    <comment>ParentalControlPage Title</comment>
+  </data>
+  <data name="Password.Text" xml:space="preserve">
+    <value>Salasana</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PasswordTips.Text" xml:space="preserve">
+    <value>(oletussalasana on password)</value>
+  </data>
+  <data name="PreviousButton.Content" xml:space="preserve">
+    <value>Edellinen</value>
+  </data>
+  <data name="PrivacyPolicy.Content" xml:space="preserve">
+    <value>Yksityisyyden suoja</value>
+  </data>
+  <data name="QRCode" xml:space="preserve">
+    <value>QR-koodi</value>
+    <comment>QR Code</comment>
+  </data>
+  <data name="radioButton_High.Content" xml:space="preserve">
+    <value>Korkea</value>
+  </data>
+  <data name="radioButton_Low.Content" xml:space="preserve">
+    <value>Alhainen</value>
+  </data>
+  <data name="radioButton_Medium.Content" xml:space="preserve">
+    <value>Keskitaso</value>
+  </data>
+  <data name="radioButton_Minimum.Content" xml:space="preserve">
+    <value>Minimaalinen</value>
+  </data>
+  <data name="radioButton_None.Content" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="RefreshButton.Content" xml:space="preserve">
+    <value>Päivitä</value>
+  </data>
+  <data name="RefreshSourceFolder.Text" xml:space="preserve">
+    <value>Päivitä lähdekansio</value>
+  </data>
+  <data name="RememberPasswordCheckBox.Content" xml:space="preserve">
+    <value>Muista salasana</value>
+    <comment>Remember password CheckBox Content</comment>
+  </data>
+  <data name="RestartMediaService.Text" xml:space="preserve">
+    <value>Käynnistä mediapalvelu uudelleen</value>
+  </data>
+  <data name="ReturnButton.Content" xml:space="preserve">
+    <value>Siirry tilanäyttöön</value>
+  </data>
+  <data name="RightsReserved.Text" xml:space="preserve">
+    <value>Kaikki oikeudet pidätetään</value>
+  </data>
+  <data name="RouterModel.Text" xml:space="preserve">
+    <value>Reitittimen malli：</value>
+  </data>
+  <data name="ScanQrCodeTips.Text" xml:space="preserve">
+    <value>Scan QRCode to connect</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Suojaus</value>
+    <comment>Security</comment>
+  </data>
+  <data name="SecurityPageTitle.Text" xml:space="preserve">
+    <value>Suojaus</value>
+    <comment>EditSecurityPage Title</comment>
+  </data>
+  <data name="Security_None" xml:space="preserve">
+    <value>None</value>
+    <comment>None</comment>
+  </data>
+  <data name="Security_WPA-PSK+WPA2-PSK" xml:space="preserve">
+    <value>WPA-PSK+WPA2-PSK</value>
+    <comment>WPA-PSK+WPA2-PSK</comment>
+  </data>
+  <data name="Security_WPA2-PSK[AES]" xml:space="preserve">
+    <value>WPA2-PSK[AES]</value>
+    <comment>WPA2-PSK[AES]</comment>
+  </data>
+  <data name="SettingComplete.Text" xml:space="preserve">
+    <value>Asennus on valmis</value>
+  </data>
+  <data name="SettingPageTitle.Text" xml:space="preserve">
+    <value>Muokkaa asetuksia</value>
+    <comment>EditSettingPage Title</comment>
+  </data>
+  <data name="SettingPasswordTips.Text" xml:space="preserve">
+    <value>8–63 merkkiä tai 64 heksadesimaalista arvoa</value>
+  </data>
+  <data name="ShareFilesInNetwork.Text" xml:space="preserve">
+    <value>Jaa tiedostot verkossa</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Laskurin käynnistyspäivä</value>
+    <comment>Counter Start Day</comment>
+  </data>
+  <data name="StartDatePageTitle.Text" xml:space="preserve">
+    <value>Päivä</value>
+    <comment>StartDatePage Title</comment>
+  </data>
+  <data name="StartTime.Text" xml:space="preserve">
+    <value>Laskurin käynnistysaika</value>
+  </data>
+  <data name="StartTimeHour.Text" xml:space="preserve">
+    <value>Tunti</value>
+  </data>
+  <data name="StartTimeMinute.Text" xml:space="preserve">
+    <value>Minuutit</value>
+  </data>
+  <data name="Support.Text" xml:space="preserve">
+    <value>Powered by SiteView</value>
+  </data>
+  <data name="Terms_Conditions.Text" xml:space="preserve">
+    <value>Käyttöehdot</value>
+  </data>
+  <data name="TimeSegment" xml:space="preserve">
+    <value>Ajanjakso</value>
+    <comment>Time Period</comment>
+  </data>
+  <data name="TimeSegment_10hours" xml:space="preserve">
+    <value>10 tunti</value>
+    <comment>10 hours</comment>
+  </data>
+  <data name="TimeSegment_1day" xml:space="preserve">
+    <value>1 päivä</value>
+    <comment>1 day</comment>
+  </data>
+  <data name="TimeSegment_1hour" xml:space="preserve">
+    <value>1 tunti</value>
+    <comment>1 hour</comment>
+  </data>
+  <data name="TimeSegment_1week" xml:space="preserve">
+    <value>1 viikko</value>
+    <comment>1 week</comment>
+  </data>
+  <data name="TimeSegment_5hours" xml:space="preserve">
+    <value>5 tunti</value>
+    <comment>5 hours</comment>
+  </data>
+  <data name="TimeSegment_Always" xml:space="preserve">
+    <value>Aina</value>
+    <comment>Always</comment>
+  </data>
+  <data name="Total.Text" xml:space="preserve">
+    <value>Yhteensä</value>
+  </data>
+  <data name="TrafficCtrlSettingPageTitle.Text" xml:space="preserve">
+    <value>Liikennemittari</value>
+    <comment>TrafficCtrlSettingPage Title</comment>
+  </data>
+  <data name="TrafficLimitation" xml:space="preserve">
+    <value>Liikennemäärän rajoitus</value>
+    <comment>Traffic Volume Limit</comment>
+  </data>
+  <data name="TrafficLimitationPageTitle.Text" xml:space="preserve">
+    <value>Liikennemäärän rajoitus</value>
+    <comment>TrafficLimitationPage Title</comment>
+  </data>
+  <data name="TrafficLimitation_Download" xml:space="preserve">
+    <value>Lataa vain</value>
+    <comment>Download Only</comment>
+  </data>
+  <data name="TrafficLimitation_DownloadUpload" xml:space="preserve">
+    <value>Lähettämiseen ja lataamiseen</value>
+    <comment>Download &amp; Upload</comment>
+  </data>
+  <data name="TrafficLimitation_Unlimited" xml:space="preserve">
+    <value>Ei mitään</value>
+    <comment>Unlimited</comment>
+  </data>
+  <data name="TrafficMeter" xml:space="preserve">
+    <value>Liikennemittari</value>
+    <comment>Traffic Meter</comment>
+  </data>
+  <data name="TrafficMeterPageTitle.Text" xml:space="preserve">
+    <value>Liikennemittari</value>
+    <comment>TrafficMeterPage Title</comment>
+  </data>
+  <data name="txtDeviceName" xml:space="preserve">
+    <value>Mukautettu nimi</value>
+  </data>
+  <data name="txtIPAddress" xml:space="preserve">
+    <value>IP-osoite</value>
+  </data>
+  <data name="txtLinkRate" xml:space="preserve">
+    <value>Siirtonopeus</value>
+  </data>
+  <data name="txtMACAddress" xml:space="preserve">
+    <value>MAC-osoite</value>
+  </data>
+  <data name="txtRoutename" xml:space="preserve">
+    <value>Reitittimen malli</value>
+  </data>
+  <data name="txtSignalStrength" xml:space="preserve">
+    <value>Signaalin voimakkuus</value>
+  </data>
+  <data name="txtType" xml:space="preserve">
+    <value>Tyyppi</value>
+  </data>
+  <data name="UserName.Text" xml:space="preserve">
+    <value>Käyttäjätunnus</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="Version.Text" xml:space="preserve">
+    <value>Versio：</value>
+  </data>
+  <data name="WiFiName" xml:space="preserve">
+    <value>Nimi/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="WiFiSetting" xml:space="preserve">
+    <value>Langattomat asetukset</value>
+    <comment>Wireless Settings</comment>
+  </data>
+  <data name="WifiSettingsPageTitle.Text" xml:space="preserve">
+    <value>Asetukset</value>
+    <comment>WifiSettingsPage Title</comment>
+  </data>
+  <data name="within_distribution.Text" xml:space="preserve">
+    <value>NETGEAR genien levityksessä.</value>
+  </data>
+  <data name="YesButton.Content" xml:space="preserve">
+    <value>Kyllä</value>
+  </data>
+</root>

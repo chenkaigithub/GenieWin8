@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>GenieWin8_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -215,6 +216,23 @@
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
     <None Include="GenieWin8_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\sl-SI\Resources.resw" />
+    <PRIResource Include="Strings\sk-SK\Resources.resw" />
+    <PRIResource Include="Strings\ru-RU\Resources.resw" />
+    <PRIResource Include="Strings\pt-PT\Resources.resw" />
+    <PRIResource Include="Strings\no-NO\Resources.resw" />
+    <PRIResource Include="Strings\nb-NO\Resources.resw" />
+    <PRIResource Include="Strings\it-IT\Resources.resw" />
+    <PRIResource Include="Strings\fr-FR\Resources.resw" />
+    <PRIResource Include="Strings\fi-FI\Resources.resw" />
+    <PRIResource Include="Strings\el-GR\Resources.resw" />
+    <PRIResource Include="Strings\ar-YE\Resources.resw" />
+    <PRIResource Include="Strings\ar-SD\Resources.resw" />
+    <PRIResource Include="Strings\ar-OM\Resources.resw" />
+    <PRIResource Include="Strings\ar-LB\Resources.resw" />
+    <PRIResource Include="Strings\ar-IQ\Resources.resw" />
+    <PRIResource Include="Strings\ar-DZ\Resources.resw" />
+    <PRIResource Include="Strings\ar-AE\Resources.resw" />
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>

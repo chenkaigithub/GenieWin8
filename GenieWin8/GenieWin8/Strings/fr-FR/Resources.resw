@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Text" xml:space="preserve">
+    <value>A propos de</value>
+  </data>
+  <data name="AllowPlayInNetwork.Text" xml:space="preserve">
+    <value>Autoriser la lecture sur le réseau</value>
+  </data>
+  <data name="Average.Text" xml:space="preserve">
+    <value>Calcul de moyennes</value>
+  </data>
+  <data name="btnBack" xml:space="preserve">
+    <value>retourner</value>
+  </data>
+  <data name="btnFileUpload" xml:space="preserve">
+    <value>Charger un fichier</value>
+  </data>
+  <data name="btnModify" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="btnWhat" xml:space="preserve">
+    <value>Qu\'est-ce que c\'est ?</value>
+  </data>
+  <data name="Bypass.Text" xml:space="preserve">
+    <value>Bypass</value>
+    <comment>Bypass</comment>
+  </data>
+  <data name="CancelButton.Content" xml:space="preserve">
+    <value>Annuler</value>
+    <comment>Cancel Button Content</comment>
+  </data>
+  <data name="ChangeCustomizingSetting.Text" xml:space="preserve">
+    <value>Modifier les paramètres personnalisés</value>
+    <comment>Change Customizing Settings</comment>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Canal</value>
+    <comment>Channel</comment>
+  </data>
+  <data name="ChannelPageTitle.Text" xml:space="preserve">
+    <value>Canal</value>
+    <comment>EditChannelPage Title</comment>
+  </data>
+  <data name="CheckAvailability.Content" xml:space="preserve">
+    <value>Vérifier la disponibilité</value>
+  </data>
+  <data name="CheckGuestAccess.Text" xml:space="preserve">
+    <value>Accès invité</value>
+    <comment>Guest Access CheckBox Content</comment>
+  </data>
+  <data name="CheckParentalControl.Text" xml:space="preserve">
+    <value>Contrôle parental</value>
+    <comment>Parental Control CheckBox Content</comment>
+  </data>
+  <data name="CheckTrafficMeter.Text" xml:space="preserve">
+    <value>Mesure de trafic</value>
+  </data>
+  <data name="CloseAboutButton.Content" xml:space="preserve">
+    <value>Fermer</value>
+    <comment>CloseAbout Button Content</comment>
+  </data>
+  <data name="CloseLicenseButton.Content" xml:space="preserve">
+    <value>Fermer</value>
+    <comment>CloseLicense Button Content</comment>
+  </data>
+  <data name="CompleteIllustration.Text" xml:space="preserve">
+    <value>Vous avez configuré avec succès Live Parental Controls de NETGEAR, application développée par OpenDNS. La prochaine fois que vous lancerez l\'utilitaire de gestion, vous serez redirigé vers l\'écran de statut où vous pourrez effectuer les actions suivantes :</value>
+  </data>
+  <data name="ConfirmEmail.Text" xml:space="preserve">
+    <value>Confirmation de l\'adresse électronique</value>
+  </data>
+  <data name="ConfirmPassword.Text" xml:space="preserve">
+    <value>Confirmation du mot de passe</value>
+  </data>
+  <data name="Copyright.Text" xml:space="preserve">
+    <value>Copyright (c) 2013, NETGEAR Inc.</value>
+  </data>
+  <data name="CounterStartTime" xml:space="preserve">
+    <value>Heure de démarrage du compteur</value>
+    <comment>Counter Start Time</comment>
+  </data>
+  <data name="CounterStartTimeHour" xml:space="preserve">
+    <value>Heure de début du compteur de trafic-Heure</value>
+    <comment>Counter Start Time Hour</comment>
+  </data>
+  <data name="CounterStartTimeMin" xml:space="preserve">
+    <value>Heure de début du compteur de trafic-Minute</value>
+    <comment>Counter Start Time Minute</comment>
+  </data>
+  <data name="Email.Text" xml:space="preserve">
+    <value>Adresse électronique</value>
+  </data>
+  <data name="EnquireOpenDNS.Text" xml:space="preserve">
+    <value>Créez un compte OpenDNS afin de configurer Live Parental Controls. Possédez-vous déjà un compte ?</value>
+  </data>
+  <data name="EnterRegInformation.Text" xml:space="preserve">
+    <value>Veuillez saisir vos informations ci-dessous.</value>
+  </data>
+  <data name="EnterUsername_Password.Text" xml:space="preserve">
+    <value>Veuillez saisir votre nom d\'utilisateur et votre mot de passe ci-dessous.</value>
+  </data>
+  <data name="FilterLevel" xml:space="preserve">
+    <value>Niveau de filtrage</value>
+    <comment>Filtering level</comment>
+  </data>
+  <data name="FiltingIllustration.Text" xml:space="preserve">
+    <value>Tous les ordinateurs connectés à votre routeur seront protégés du contenu que vous sélectionnez ci-dessous. Vous pourrez personnaliser Live Parental Controls ultérieurement sur notre site Web.</value>
+  </data>
+  <data name="FirmwareVersion.Text" xml:space="preserve">
+    <value>Version du micrologiciel (firmware)：</value>
+  </data>
+  <data name="GuestAccess" xml:space="preserve">
+    <value>Accès invité</value>
+    <comment>Guest Access</comment>
+  </data>
+  <data name="GuestAccessPageTitle.Text" xml:space="preserve">
+    <value>Accès invité</value>
+    <comment>GuestAccessPage Title</comment>
+  </data>
+  <data name="GuestSecurityPageTitle.Text" xml:space="preserve">
+    <value>Sécurité</value>
+    <comment>GuestSecurityPage Title</comment>
+  </data>
+  <data name="GuestSettingPageTitle.Text" xml:space="preserve">
+    <value>Paramètres invité</value>
+    <comment>GuestSettingPage Title</comment>
+  </data>
+  <data name="GuestTimeSegPageTitle.Text" xml:space="preserve">
+    <value>Période</value>
+    <comment>GuestTimeSegPage Title</comment>
+  </data>
+  <data name="GuestWiFiName" xml:space="preserve">
+    <value>Nom/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="Illustration-1.Text" xml:space="preserve">
+    <value>*  vérifier si Live Parental Controls est activé</value>
+  </data>
+  <data name="Illustration-2.Text" xml:space="preserve">
+    <value>*  désactiver ou activer Live Parental Controls</value>
+  </data>
+  <data name="Illustration-3.Text" xml:space="preserve">
+    <value>*  modifier les paramètres de base</value>
+  </data>
+  <data name="Illustration-4.Text" xml:space="preserve">
+    <value>*  modifier les paramètres personnalisés de Live Parental Controls, notamment ceux spécifiques à chaque utilisateur ou à un moment de la journée</value>
+  </data>
+  <data name="Illustration_High.Text" xml:space="preserve">
+    <value>Protège contre les sites pour adultes, les sites encourageant des activités illégales, les sites de réseaux sociaux, les sites de partage de vidéos, les attaques par phishing et tout ce qui représente une perte de temps.</value>
+  </data>
+  <data name="Illustration_Low.Text" xml:space="preserve">
+    <value>Protège contre la pornographie et les attaques par phishing.</value>
+  </data>
+  <data name="Illustration_Medium.Text" xml:space="preserve">
+    <value>Protège contre les sites pour adultes, les sites encourageant des activités illégales et les attaques par phishing.</value>
+  </data>
+  <data name="Illustration_Minimum.Text" xml:space="preserve">
+    <value>Protège uniquement contre les attaques par phishing.</value>
+  </data>
+  <data name="Illustration_None.Text" xml:space="preserve">
+    <value>Aucune protection.</value>
+  </data>
+  <data name="Key/Password" xml:space="preserve">
+    <value>Clé/mot de passe</value>
+    <comment>Key/Password</comment>
+  </data>
+  <data name="License.Text" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="LicenseButton.Content" xml:space="preserve">
+    <value>Licence</value>
+    <comment>License Button Content</comment>
+  </data>
+  <data name="LimitPerMonth" xml:space="preserve">
+    <value>Limite mensuelle (Mo)</value>
+    <comment>Monthly Limit</comment>
+  </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>Identifiant de connexion</value>
+    <comment>Login Button Content</comment>
+  </data>
+  <data name="LoginPageTitle.Text" xml:space="preserve">
+    <value>Identifiant de connexion</value>
+    <comment>LoginPage Title</comment>
+  </data>
+  <data name="LogoutButton.Content" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
+  <data name="MarketPlace" xml:space="preserve">
+    <value>MarketPlace</value>
+    <comment>MarketPlace</comment>
+  </data>
+  <data name="Mbytes.Text" xml:space="preserve">
+    <value>MBytes</value>
+  </data>
+  <data name="MyMedia" xml:space="preserve">
+    <value>Mes médias</value>
+    <comment>My Media</comment>
+  </data>
+  <data name="MyMediaOption" xml:space="preserve">
+    <value>Options</value>
+    <comment>Options</comment>
+  </data>
+  <data name="MyMediaOptionPageTitle.Text" xml:space="preserve">
+    <value>Options</value>
+    <comment>MyMediaOptionPage Title</comment>
+  </data>
+  <data name="MyMediaPageTitle.Text" xml:space="preserve">
+    <value>Mes médias</value>
+    <comment>MyMediaPage Title</comment>
+  </data>
+  <data name="MyMediaPlayer" xml:space="preserve">
+    <value>Lecteur</value>
+    <comment>Player</comment>
+  </data>
+  <data name="MyMediaPlayerPageTitle.Text" xml:space="preserve">
+    <value>Lecteur</value>
+    <comment>MyMediaPlayerPage Title</comment>
+  </data>
+  <data name="MyMediaPlaying" xml:space="preserve">
+    <value>Lecture</value>
+    <comment>Playing</comment>
+  </data>
+  <data name="MyMediaSource" xml:space="preserve">
+    <value>Source</value>
+    <comment>Source</comment>
+  </data>
+  <data name="MyMediaSourcePageTitle.Text" xml:space="preserve">
+    <value>Source</value>
+    <comment>MyMediaSourcePage Title</comment>
+  </data>
+  <data name="NetworkMap" xml:space="preserve">
+    <value>Mappage réseau</value>
+    <comment>Network Map</comment>
+  </data>
+  <data name="NetworkMapPageTitle.Text" xml:space="preserve">
+    <value>Mappage réseau</value>
+    <comment>NetworkMapPage Title</comment>
+  </data>
+  <data name="NextButton.Content" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="NoButton.Content" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Note.Text" xml:space="preserve">
+    <value>Remarque :</value>
+  </data>
+  <data name="NoteContent.Text" xml:space="preserve">
+    <value>Redémarrer le service multimédia quand le paramètre de réseau sans fil est modifié.</value>
+  </data>
+  <data name="OpenDNSUser.Text" xml:space="preserve">
+    <value>Compte OpenDNS</value>
+    <comment>OpenDNS User</comment>
+  </data>
+  <data name="OpenDNSUserName.Text" xml:space="preserve">
+    <value>Genie007</value>
+  </data>
+  <data name="ParentalControl" xml:space="preserve">
+    <value>Contrôle parental</value>
+    <comment>Parental Control</comment>
+  </data>
+  <data name="ParentalControlPageTitle.Text" xml:space="preserve">
+    <value>Contrôle parental</value>
+    <comment>ParentalControlPage Title</comment>
+  </data>
+  <data name="Password.Text" xml:space="preserve">
+    <value>Mot de passe</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PasswordTips.Text" xml:space="preserve">
+    <value>(le mot de passe par défaut est « password »)</value>
+  </data>
+  <data name="PreviousButton.Content" xml:space="preserve">
+    <value>Précédent</value>
+  </data>
+  <data name="PrivacyPolicy.Content" xml:space="preserve">
+    <value>Politique de confidentialité</value>
+  </data>
+  <data name="QRCode" xml:space="preserve">
+    <value>Code QR</value>
+    <comment>QR Code</comment>
+  </data>
+  <data name="radioButton_High.Content" xml:space="preserve">
+    <value>Haute</value>
+  </data>
+  <data name="radioButton_Low.Content" xml:space="preserve">
+    <value>Basse</value>
+  </data>
+  <data name="radioButton_Medium.Content" xml:space="preserve">
+    <value>Modérée</value>
+  </data>
+  <data name="radioButton_Minimum.Content" xml:space="preserve">
+    <value>Minimale</value>
+  </data>
+  <data name="radioButton_None.Content" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="RefreshButton.Content" xml:space="preserve">
+    <value>Actualiser</value>
+  </data>
+  <data name="RefreshSourceFolder.Text" xml:space="preserve">
+    <value>Actualiser le dossier source</value>
+  </data>
+  <data name="RememberPasswordCheckBox.Content" xml:space="preserve">
+    <value>Retenir le mot de passe</value>
+    <comment>Remember password CheckBox Content</comment>
+  </data>
+  <data name="RestartMediaService.Text" xml:space="preserve">
+    <value>Redémarrer le service multimédia</value>
+  </data>
+  <data name="ReturnButton.Content" xml:space="preserve">
+    <value>Afficher l\'écran de statut</value>
+  </data>
+  <data name="RightsReserved.Text" xml:space="preserve">
+    <value>Tous droits réservés.</value>
+  </data>
+  <data name="RouterModel.Text" xml:space="preserve">
+    <value>Modèle du routeur：</value>
+  </data>
+  <data name="ScanQrCodeTips.Text" xml:space="preserve">
+    <value>Scan QRCode to connect</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Sécurité</value>
+    <comment>Security</comment>
+  </data>
+  <data name="SecurityPageTitle.Text" xml:space="preserve">
+    <value>Sécurité</value>
+    <comment>EditSecurityPage Title</comment>
+  </data>
+  <data name="Security_None" xml:space="preserve">
+    <value>None</value>
+    <comment>None</comment>
+  </data>
+  <data name="Security_WPA-PSK+WPA2-PSK" xml:space="preserve">
+    <value>WPA-PSK+WPA2-PSK</value>
+    <comment>WPA-PSK+WPA2-PSK</comment>
+  </data>
+  <data name="Security_WPA2-PSK[AES]" xml:space="preserve">
+    <value>WPA2-PSK[AES]</value>
+    <comment>WPA2-PSK[AES]</comment>
+  </data>
+  <data name="SettingComplete.Text" xml:space="preserve">
+    <value>Installation terminée !</value>
+  </data>
+  <data name="SettingPageTitle.Text" xml:space="preserve">
+    <value>Modifier les paramètres</value>
+    <comment>EditSettingPage Title</comment>
+  </data>
+  <data name="SettingPasswordTips.Text" xml:space="preserve">
+    <value>De 8 à 63 caractères ou 64 valeurs hexadécimales</value>
+  </data>
+  <data name="ShareFilesInNetwork.Text" xml:space="preserve">
+    <value>Partager les fichiers sur le réseau</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Jour de démarrage du compteur</value>
+    <comment>Counter Start Day</comment>
+  </data>
+  <data name="StartDatePageTitle.Text" xml:space="preserve">
+    <value>Jour</value>
+    <comment>StartDatePage Title</comment>
+  </data>
+  <data name="StartTime.Text" xml:space="preserve">
+    <value>Heure de démarrage du compteur</value>
+  </data>
+  <data name="StartTimeHour.Text" xml:space="preserve">
+    <value>Heure</value>
+  </data>
+  <data name="StartTimeMinute.Text" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="Support.Text" xml:space="preserve">
+    <value>Développé par SiteView</value>
+  </data>
+  <data name="Terms_Conditions.Text" xml:space="preserve">
+    <value>Conditions générales</value>
+  </data>
+  <data name="TimeSegment" xml:space="preserve">
+    <value>Période</value>
+    <comment>Time Period</comment>
+  </data>
+  <data name="TimeSegment_10hours" xml:space="preserve">
+    <value>10 heure</value>
+    <comment>10 hours</comment>
+  </data>
+  <data name="TimeSegment_1day" xml:space="preserve">
+    <value>1 jour</value>
+    <comment>1 day</comment>
+  </data>
+  <data name="TimeSegment_1hour" xml:space="preserve">
+    <value>1 heure</value>
+    <comment>1 hour</comment>
+  </data>
+  <data name="TimeSegment_1week" xml:space="preserve">
+    <value>1 semaine</value>
+    <comment>1 week</comment>
+  </data>
+  <data name="TimeSegment_5hours" xml:space="preserve">
+    <value>5 heure</value>
+    <comment>5 hours</comment>
+  </data>
+  <data name="TimeSegment_Always" xml:space="preserve">
+    <value>toujours</value>
+    <comment>Always</comment>
+  </data>
+  <data name="Total.Text" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TrafficCtrlSettingPageTitle.Text" xml:space="preserve">
+    <value>Mesure de trafic</value>
+    <comment>TrafficCtrlSettingPage Title</comment>
+  </data>
+  <data name="TrafficLimitation" xml:space="preserve">
+    <value>Limite de trafic</value>
+    <comment>Traffic Volume Limit</comment>
+  </data>
+  <data name="TrafficLimitationPageTitle.Text" xml:space="preserve">
+    <value>Limite de trafic</value>
+    <comment>TrafficLimitationPage Title</comment>
+  </data>
+  <data name="TrafficLimitation_Download" xml:space="preserve">
+    <value>Télécharger seulement</value>
+    <comment>Download Only</comment>
+  </data>
+  <data name="TrafficLimitation_DownloadUpload" xml:space="preserve">
+    <value>Chargement et le téléchargement</value>
+    <comment>Download &amp; Upload</comment>
+  </data>
+  <data name="TrafficLimitation_Unlimited" xml:space="preserve">
+    <value>Aucun</value>
+    <comment>Unlimited</comment>
+  </data>
+  <data name="TrafficMeter" xml:space="preserve">
+    <value>Mesure de trafic</value>
+    <comment>Traffic Meter</comment>
+  </data>
+  <data name="TrafficMeterPageTitle.Text" xml:space="preserve">
+    <value>Mesure de trafic</value>
+    <comment>TrafficMeterPage Title</comment>
+  </data>
+  <data name="txtDeviceName" xml:space="preserve">
+    <value>Nom personnalisé</value>
+  </data>
+  <data name="txtIPAddress" xml:space="preserve">
+    <value>Adresse IP</value>
+  </data>
+  <data name="txtLinkRate" xml:space="preserve">
+    <value>Vitesse du lien</value>
+  </data>
+  <data name="txtMACAddress" xml:space="preserve">
+    <value>Adresse MAC</value>
+  </data>
+  <data name="txtRoutename" xml:space="preserve">
+    <value>Modèle du routeur</value>
+  </data>
+  <data name="txtSignalStrength" xml:space="preserve">
+    <value>Force du signal</value>
+  </data>
+  <data name="txtType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="UserName.Text" xml:space="preserve">
+    <value>Identifiant</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="Version.Text" xml:space="preserve">
+    <value>Version：</value>
+  </data>
+  <data name="WiFiName" xml:space="preserve">
+    <value>Nom/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="WiFiSetting" xml:space="preserve">
+    <value>Paramètres réseau sans fil</value>
+    <comment>Wireless Settings</comment>
+  </data>
+  <data name="WifiSettingsPageTitle.Text" xml:space="preserve">
+    <value>Paramètres</value>
+    <comment>WifiSettingsPage Title</comment>
+  </data>
+  <data name="within_distribution.Text" xml:space="preserve">
+    <value>Dans la distribution NETGEAR genie.</value>
+  </data>
+  <data name="YesButton.Content" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+</root>
