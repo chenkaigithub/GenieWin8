@@ -189,9 +189,11 @@ namespace GenieWin8.Data
                 "",
                 WifiInfoModel.macAddr);
             this.DeviceGroups.Add(routerGroup);
-            
+
+            int i = 0;
             foreach(string key in attachDeviceAll.Keys)
             {
+                i++;
                 if (loacalIp == attachDeviceAll[key]["Ip"])
                 {
                     var group = new DeviceGroup("LocalDevice",
@@ -205,7 +207,7 @@ namespace GenieWin8.Data
                 }
                 else
                 {
-                    var group = new DeviceGroup("Device",
+                    var group = new DeviceGroup("Device" + i.ToString(),
                      attachDeviceAll[key]["HostName"],
                      attachDeviceAll[key]["Connect"],
                      attachDeviceAll[key]["Ip"],
