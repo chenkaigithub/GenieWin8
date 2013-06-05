@@ -63,11 +63,11 @@ namespace GenieWin8
             if (true)	//已登陆
             {
                 GenieSoapApi soapApi = new GenieSoapApi();
-		        var groupId = ((DataGroup)e.ClickedItem).UniqueId;
-		        if (groupId == "WiFiSetting")
-		        {
+                var groupId = ((DataGroup)e.ClickedItem).UniqueId;
+                if (groupId == "WiFiSetting")
+                {
                     //WifiInfoModel wifiInfo = new WifiInfoModel ();
-                   
+
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetInfo("WLANConfiguration");
                     WifiInfoModel.ssid = dicResponse["NewSSID"];
@@ -75,15 +75,15 @@ namespace GenieWin8
                     WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                     dicResponse = await soapApi.GetWPASecurityKeys();
                     WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
-                    
+
                     this.Frame.Navigate(typeof(WifiSettingPage));
-		        }
-		        else if (groupId == "GuestAccess")
-		        {
+                }
+                else if (groupId == "GuestAccess")
+                {
                     this.Frame.Navigate(typeof(GuestAccessPage));
-		        }
-		        else if (groupId == "NetworkMap")
-		        {
+                }
+                else if (groupId == "NetworkMap")
+                {
                     UtilityTool util = new UtilityTool();
                     NetworkMapDodel.geteway = await util.GetGateway();
                     Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
@@ -97,29 +97,29 @@ namespace GenieWin8
                     WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                     WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
                     this.Frame.Navigate(typeof(NetworkMapPage));
-		        }
-		        else if (groupId == "TrafficMeter")
-		        {
+                }
+                else if (groupId == "TrafficMeter")
+                {
                     this.Frame.Navigate(typeof(TrafficMeterPage));
-		        }
-		        else if (groupId == "ParentalControl")
-		        {
-                    this.Frame.Navigate(typeof(ParentalControlPage));		
-		        }
-		        else if (groupId == "MyMedia")
-		        {
+                }
+                else if (groupId == "ParentalControl")
+                {
+                    this.Frame.Navigate(typeof(ParentalControlPage));
+                }
+                else if (groupId == "MyMedia")
+                {
                     this.Frame.Navigate(typeof(MyMediaPage));
-		        }
-		        else if (groupId == "MarketPlace")
-		        {
-			        var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
-			        await Windows.System.Launcher.LaunchUriAsync(uri);
-		        }
-	        } 
-	        else	//未登录，跳到登陆页面
-	        {
+                }
+                else if (groupId == "MarketPlace")
+                {
+                    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+                    await Windows.System.Launcher.LaunchUriAsync(uri);
+                }
+            }
+            else	//未登录，跳到登陆页面
+            {
                 this.Frame.Navigate(typeof(LoginPage));
-	        }
+            }
         }
 
         private void SearchButton_Click(Object sender, RoutedEventArgs e)
@@ -135,52 +135,52 @@ namespace GenieWin8
         private void AboutButton_Click(Object sender, RoutedEventArgs e)
         {
             if (!AboutPopup.IsOpen)
-	        {
-		        AboutPopup.IsOpen = true;
-		        PopupBackgroundTop.Visibility = Visibility.Visible;
-		        PopupBackground.Visibility = Visibility.Visible;
-		        CloseAboutButton.Visibility = Visibility.Visible;
-		        LicenseButton.Visibility = Visibility.Visible;
-	        }
-	        if (LicensePopup.IsOpen)
-	        {
-		        LicensePopup.IsOpen = false;
-		        CloseLicenseButton.Visibility = Visibility.Collapsed;
-	        }
+            {
+                AboutPopup.IsOpen = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                CloseAboutButton.Visibility = Visibility.Visible;
+                LicenseButton.Visibility = Visibility.Visible;
+            }
+            if (LicensePopup.IsOpen)
+            {
+                LicensePopup.IsOpen = false;
+                CloseLicenseButton.Visibility = Visibility.Collapsed;
+            }
         }
         private void CloseAboutButton_Click(Object sender, RoutedEventArgs e)
         {
             if (AboutPopup.IsOpen)
-	        {
-		        AboutPopup.IsOpen = false;
-		        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-		        PopupBackground.Visibility = Visibility.Collapsed;
-		        CloseAboutButton.Visibility = Visibility.Collapsed;
+            {
+                AboutPopup.IsOpen = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                CloseAboutButton.Visibility = Visibility.Collapsed;
                 LicenseButton.Visibility = Visibility.Collapsed;
-	        }
+            }
         }
         private void LicenseButton_Click(Object sender, RoutedEventArgs e)
         {
-	        if (!LicensePopup.IsOpen)
-	        {
-		        LicensePopup.IsOpen = true;
-		        AboutPopup.IsOpen = false;
-		        PopupBackgroundTop.Visibility = Visibility.Visible;
-		        PopupBackground.Visibility = Visibility.Visible;
-		        CloseLicenseButton.Visibility = Visibility.Visible;
-		        CloseAboutButton.Visibility = Visibility.Collapsed;
+            if (!LicensePopup.IsOpen)
+            {
+                LicensePopup.IsOpen = true;
+                AboutPopup.IsOpen = false;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                CloseLicenseButton.Visibility = Visibility.Visible;
+                CloseAboutButton.Visibility = Visibility.Collapsed;
                 LicenseButton.Visibility = Visibility.Collapsed;
-	        }
+            }
         }
         private void CloseLicenseButton_Click(Object sender, RoutedEventArgs e)
         {
             if (LicensePopup.IsOpen)
-	        {
-		        LicensePopup.IsOpen = false;
-		        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-		        PopupBackground.Visibility = Visibility.Collapsed;
-		        CloseLicenseButton.Visibility = Visibility.Collapsed;
-	        }
+            {
+                LicensePopup.IsOpen = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                CloseLicenseButton.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

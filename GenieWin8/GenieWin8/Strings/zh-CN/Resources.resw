@@ -603,4 +603,7 @@
   <data name="txtType" xml:space="preserve">
     <value>类型</value>
   </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>应用</value>
+  </data>
 </root>

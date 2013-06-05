@@ -603,4 +603,7 @@
   <data name="txtType" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
 </root>

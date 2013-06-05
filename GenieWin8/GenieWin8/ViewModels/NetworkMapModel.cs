@@ -15,69 +15,69 @@ using GenieWin8.DataModel;
 
 namespace GenieWin8.Data
 {
-    [Windows.Foundation.Metadata.WebHostHidden]
-    public abstract class DeviceCommon : GenieWin8.Common.BindableBase
-    {
-        public DeviceCommon(String uniqueId, String deviceName, String deviceType, String IPaddress, String signalStrength, String linkRate, String MACaddress)
-        {
-            this._uniqueId = uniqueId;
-            this._deviceName = deviceName;
-            this._deviceType = deviceType;
-            this._IPaddress = IPaddress;
-            this._signalStrength = signalStrength;
-            this._linkRate = linkRate;
-            this._MACaddress = MACaddress;
-        }
+    //[Windows.Foundation.Metadata.WebHostHidden]
+    //public abstract class DeviceCommon : GenieWin8.Common.BindableBase
+    //{
+    //    public DeviceCommon(String uniqueId, String deviceName, String deviceType, String IPaddress, String signalStrength, String linkRate, String MACaddress)
+    //    {
+    //        this._uniqueId = uniqueId;
+    //        this._deviceName = deviceName;
+    //        this._deviceType = deviceType;
+    //        this._IPaddress = IPaddress;
+    //        this._signalStrength = signalStrength;
+    //        this._linkRate = linkRate;
+    //        this._MACaddress = MACaddress;
+    //    }
 
-        private string _uniqueId = string.Empty;
-        public string UniqueId
-        {
-            get { return this._uniqueId; }
-            set { this.SetProperty(ref this._uniqueId, value); }
-        }
+    //    private string _uniqueId = string.Empty;
+    //    public string UniqueId
+    //    {
+    //        get { return this._uniqueId; }
+    //        set { this.SetProperty(ref this._uniqueId, value); }
+    //    }
 
-        private string _deviceName = string.Empty;
-        public string DeviceName
-        {
-            get { return this._deviceName; }
-            set { this.SetProperty(ref this._deviceName, value); }
-        }
+    //    private string _deviceName = string.Empty;
+    //    public string DeviceName
+    //    {
+    //        get { return this._deviceName; }
+    //        set { this.SetProperty(ref this._deviceName, value); }
+    //    }
 
-        private string _deviceType = string.Empty;
-        public string DeviceType
-        {
-            get { return this._deviceType; }
-            set { this.SetProperty(ref this._deviceType, value); }
-        }
+    //    private string _deviceType = string.Empty;
+    //    public string DeviceType
+    //    {
+    //        get { return this._deviceType; }
+    //        set { this.SetProperty(ref this._deviceType, value); }
+    //    }
 
-        private string _IPaddress = string.Empty;
-        public string IPAddress
-        {
-            get { return this._IPaddress; }
-            set { this.SetProperty(ref this._IPaddress, value); }
-        }
+    //    private string _IPaddress = string.Empty;
+    //    public string IPAddress
+    //    {
+    //        get { return this._IPaddress; }
+    //        set { this.SetProperty(ref this._IPaddress, value); }
+    //    }
 
-        private string _signalStrength = string.Empty;
-        public string SignalStrength
-        {
-            get { return this._signalStrength; }
-            set { this.SetProperty(ref this._signalStrength, value); }
-        }
+    //    private string _signalStrength = string.Empty;
+    //    public string SignalStrength
+    //    {
+    //        get { return this._signalStrength; }
+    //        set { this.SetProperty(ref this._signalStrength, value); }
+    //    }
 
-        private string _linkRate = string.Empty;
-        public string LinkRate
-        {
-            get { return this._linkRate; }
-            set { this.SetProperty(ref this._linkRate, value); }
-        }
+    //    private string _linkRate = string.Empty;
+    //    public string LinkRate
+    //    {
+    //        get { return this._linkRate; }
+    //        set { this.SetProperty(ref this._linkRate, value); }
+    //    }
 
-        private string _MACaddress = string.Empty;
-        public string MACAddress
-        {
-            get { return this._MACaddress; }
-            set { this.SetProperty(ref this._MACaddress, value); }
-        }
-    }
+    //    private string _MACaddress = string.Empty;
+    //    public string MACAddress
+    //    {
+    //        get { return this._MACaddress; }
+    //        set { this.SetProperty(ref this._MACaddress, value); }
+    //    }
+    //}
 
     //public class DeviceItem : DeviceCommon
     //{
@@ -135,18 +135,31 @@ namespace GenieWin8.Data
     //    }
     //}
 
-    public class DeviceGroup : DeviceCommon
+    //public class DeviceGroup : DeviceCommon
+    //{
+    //    public DeviceGroup(String uniqueId, String deviceName, String deviceType, String IPaddress, String signalStrength, String linkRate, String MACaddress)
+    //        : base(uniqueId, deviceName, deviceType, IPaddress, signalStrength, linkRate, MACaddress)
+    //    {
+    //    }
+
+    //    //private ObservableCollection<DeviceItem> _items = new ObservableCollection<DeviceItem>();
+    //    //public ObservableCollection<DeviceItem> Items
+    //    //{
+    //    //    get { return this._items; }
+    //    //}
+    //}
+    public class DeviceGroup
     {
-        public DeviceGroup(String uniqueId, String deviceName, String deviceType, String IPaddress, String signalStrength, String linkRate, String MACaddress)
-            : base(uniqueId, deviceName, deviceType, IPaddress, signalStrength, linkRate, MACaddress)
+        public DeviceGroup(Node node)
         {
+            this._node = node;
         }
 
-        //private ObservableCollection<DeviceItem> _items = new ObservableCollection<DeviceItem>();
-        //public ObservableCollection<DeviceItem> Items
-        //{
-        //    get { return this._items; }
-        //}
+        private Node _node = null;
+        public Node NODE
+        {
+            get { return this._node; }
+        }
     }
 
     public sealed class DeviceSource
@@ -168,7 +181,7 @@ namespace GenieWin8.Data
         public static DeviceGroup GetGroup(string uniqueId)
         {
             // 对于小型数据集可接受简单线性搜索
-            var matches = _deviceSource.DeviceGroups.Where((group) => group.UniqueId.Equals(uniqueId));
+            var matches = _deviceSource.DeviceGroups.Where((group) => group.NODE.uniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }
@@ -176,47 +189,70 @@ namespace GenieWin8.Data
         public DeviceSource()
         {
             Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-            Dictionary<string,string> deviceInfo = new Dictionary<string,string> ();
+            Dictionary<string, string> deviceInfo = new Dictionary<string, string>();
             attachDeviceAll = NetworkMapDodel.attachDeviceDic;
             UtilityTool util = new UtilityTool();
             string loacalIp = util.GetLocalHostIp();
-        
-            var routerGroup = new DeviceGroup("Router",
-                WifiInfoModel.ssid,
-                "",
-                NetworkMapDodel.geteway,
-                "",
-                "",
-                WifiInfoModel.macAddr);
+
+            //var routerGroup = new DeviceGroup("Router",
+            //    WifiInfoModel.ssid,
+            //    "",
+            //    NetworkMapDodel.geteway,
+            //    "",
+            //    "",
+            //    WifiInfoModel.macAddr);
+            Node NodeRouter = new Node();
+            NodeRouter.uniqueId = "Router";
+            NodeRouter.deviceName = WifiInfoModel.ssid;
+            NodeRouter.IPaddress = NetworkMapDodel.geteway;
+            NodeRouter.MACaddress = WifiInfoModel.macAddr;
+            var routerGroup = new DeviceGroup(NodeRouter);
             this.DeviceGroups.Add(routerGroup);
 
             int i = 0;
-            foreach(string key in attachDeviceAll.Keys)
+            foreach (string key in attachDeviceAll.Keys)
             {
                 i++;
+                Node NodeDevice = new Node();
                 if (loacalIp == attachDeviceAll[key]["Ip"])
                 {
-                    var group = new DeviceGroup("LocalDevice",
-                     attachDeviceAll[key]["HostName"],
-                     attachDeviceAll[key]["Connect"],
-                     attachDeviceAll[key]["Ip"],
-                     attachDeviceAll[key]["LinkSpeed"],
-                     attachDeviceAll[key]["Signal"],
-                     key);
-                    this.DeviceGroups.Add(group);
+                    NodeDevice.uniqueId = "LocalDevice";
                 }
                 else
                 {
-                    var group = new DeviceGroup("Device" + i.ToString(),
-                     attachDeviceAll[key]["HostName"],
-                     attachDeviceAll[key]["Connect"],
-                     attachDeviceAll[key]["Ip"],
-                     attachDeviceAll[key]["LinkSpeed"],
-                     attachDeviceAll[key]["Signal"],
-                     key);
-                    this.DeviceGroups.Add(group);
+                    NodeDevice.uniqueId = "Device" + i.ToString();
                 }
-                
+                NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+                NodeDevice.deviceType = attachDeviceAll[key]["Connect"];
+                NodeDevice.IPaddress = attachDeviceAll[key]["Ip"];
+                NodeDevice.linkRate = attachDeviceAll[key]["LinkSpeed"];
+                NodeDevice.signalStrength = attachDeviceAll[key]["Signal"];
+                NodeDevice.MACaddress = key;
+                var group = new DeviceGroup(NodeDevice);
+                this.DeviceGroups.Add(group);
+                //if (loacalIp == attachDeviceAll[key]["Ip"])
+                //{
+                //    var group = new DeviceGroup("LocalDevice",
+                //     attachDeviceAll[key]["HostName"],
+                //     attachDeviceAll[key]["Connect"],
+                //     attachDeviceAll[key]["Ip"],
+                //     attachDeviceAll[key]["LinkSpeed"],
+                //     attachDeviceAll[key]["Signal"],
+                //     key);
+                //    this.DeviceGroups.Add(group);
+                //}
+                //else
+                //{
+                //    var group = new DeviceGroup("Device" + i.ToString(),
+                //     attachDeviceAll[key]["HostName"],
+                //     attachDeviceAll[key]["Connect"],
+                //     attachDeviceAll[key]["Ip"],
+                //     attachDeviceAll[key]["LinkSpeed"],
+                //     attachDeviceAll[key]["Signal"],
+                //     key);
+                //    this.DeviceGroups.Add(group);
+                //}
+
             }
 
             //for (int i = 0; i < attachDeviceAll; i++)
@@ -234,7 +270,7 @@ namespace GenieWin8.Data
             //    "20:4E:7F:04:31:3C");
             //this.DeviceGroups.Add(group1);
 
-            
+
             //group.Items.Add(new DeviceItem("Router",
             //    "WNR3500Lv2",
             //    "192.168.1.1",

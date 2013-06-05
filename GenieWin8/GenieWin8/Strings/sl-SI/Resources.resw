@@ -603,4 +603,7 @@
   <data name="YesButton.Content" xml:space="preserve">
     <value>Da</value>
   </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>Uporabi</value>
+  </data>
 </root>

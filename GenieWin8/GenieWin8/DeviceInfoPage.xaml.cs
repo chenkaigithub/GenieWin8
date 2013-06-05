@@ -45,7 +45,7 @@ namespace GenieWin8
             var Group = DeviceSource.GetGroup((String)(navigationParameter));
 
             StpTitle.Children.Clear();
-            StpDeviceInfo.Children.Clear();
+            //StpDeviceInfo.Children.Clear();
 
             Image TitleImage = new Image();
             TitleImage.HorizontalAlignment = HorizontalAlignment.Left;
@@ -54,7 +54,8 @@ namespace GenieWin8
             TitleImage.Width = 100; TitleImage.Height = 100;
 
             TextBlock Title = new TextBlock();
-            Title.Text = Group.DeviceName;
+            //Title.Text = Group.DeviceName;
+            Title.Text = Group.NODE.deviceName;
             Title.FontSize = 40;
             Title.VerticalAlignment = VerticalAlignment.Center;
             Title.Margin = new Thickness(10, 0, 0, 0);
@@ -62,179 +63,244 @@ namespace GenieWin8
 
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             //DeviceName
-            TextBlock txtDeviceName = new TextBlock();
+            //TextBlock txtDeviceName = new TextBlock();
             var strtext = loader.GetString("txtDeviceName");
             txtDeviceName.Text = strtext;
             txtDeviceName.FontSize = 25;
             txtDeviceName.Margin = new Thickness(10, 10, 0, 0);
             txtDeviceName.HorizontalAlignment = HorizontalAlignment.Left;
-            TextBlock DeviceName = new TextBlock();
-            DeviceName.Text = Group.DeviceName;
-            DeviceName.FontSize = 30;
-            DeviceName.HorizontalAlignment = HorizontalAlignment.Center;
+            //TextBlock txtBlockDeviceName = new TextBlock();
+            //DeviceName.Text = Group.DeviceName;
+            txtBlockDeviceName.Text = Group.NODE.deviceName;
+            txtBlockDeviceName.FontSize = 30;
+            txtBlockDeviceName.HorizontalAlignment = HorizontalAlignment.Center;
+            //TextBox txtBoxDeviceName = new TextBox();
+            txtBoxDeviceName.Text = Group.NODE.deviceName;
+            txtBoxDeviceName.FontSize = 30;
+            txtBoxDeviceName.HorizontalAlignment = HorizontalAlignment.Center;
+            txtBoxDeviceName.Width = 200;
+            txtBoxDeviceName.Visibility = Visibility.Collapsed;
 
-            StackPanel StpDeviceName = new StackPanel();
-            StpDeviceName.Children.Add(txtDeviceName);
-            StpDeviceName.Children.Add(DeviceName);
+            //StackPanel StpDeviceName = new StackPanel();
+            //StpDeviceName.Children.Add(txtDeviceName);
+            //StpDeviceName.Children.Add(txtBlockDeviceName);
+            //StpDeviceName.Children.Add(txtBoxDeviceName);
 
             //Type
-            TextBlock txtType = new TextBlock();
-            strtext = loader.GetString("txtType");
-            txtType.Text = strtext;
-            txtType.FontSize = 25;
-            txtType.Margin = new Thickness(10, 10, 0, 0);
-            txtType.HorizontalAlignment = HorizontalAlignment.Left;
-            TextBlock Type = new TextBlock();
-            Type.Text = Group.DeviceType;
-            Type.FontSize = 30;
-            Type.HorizontalAlignment = HorizontalAlignment.Center;
+            //StackPanel StpType = new StackPanel();
+            if (Group.NODE.deviceType != null)
+            {
+                //TextBlock txtType = new TextBlock();
+                strtext = loader.GetString("txtType");
+                txtType.Text = strtext;
+                txtType.FontSize = 25;
+                txtType.Margin = new Thickness(10, 10, 0, 0);
+                txtType.HorizontalAlignment = HorizontalAlignment.Left;
+                //TextBlock Type = new TextBlock();
+                //Type.Text = Group.DeviceType;
+                Type.Text = Group.NODE.deviceType;
+                Type.FontSize = 30;
+                Type.HorizontalAlignment = HorizontalAlignment.Center;
 
-            StackPanel StpType = new StackPanel();
-            StpType.Children.Add(txtType);
-            StpType.Children.Add(Type);
+                //ComboBox ComboType = new ComboBox();
+                //ComboType.Items.Add("Router");
+                //ComboType.Items.Add("Network Device");
+                //ComboType.Items.Add("Windows PC");
+                //ComboType.Width = 200;
+                //ComboType.HorizontalAlignment = HorizontalAlignment.Center;
+
+
+                //StpType.Children.Add(txtType);
+                //StpType.Children.Add(Type);
+            }
 
             //IPAddress
-            TextBlock txtIPAddress = new TextBlock();
+            //TextBlock txtIPAddress = new TextBlock();
             strtext = loader.GetString("txtIPAddress");
             txtIPAddress.Text = strtext;
             txtIPAddress.FontSize = 25;
             txtIPAddress.Margin = new Thickness(10, 10, 0, 0);
             txtIPAddress.HorizontalAlignment = HorizontalAlignment.Left;
-            TextBlock IPAddress = new TextBlock();
-            IPAddress.Text = Group.IPAddress;
+            //TextBlock IPAddress = new TextBlock();
+            //IPAddress.Text = Group.IPAddress;
+            IPAddress.Text = Group.NODE.IPaddress;
             IPAddress.FontSize = 30;
             IPAddress.HorizontalAlignment = HorizontalAlignment.Center;
 
-            StackPanel StpIPAddress = new StackPanel();
-            StpIPAddress.Children.Add(txtIPAddress);
-            StpIPAddress.Children.Add(IPAddress);
+            //StackPanel StpIPAddress = new StackPanel();
+            //StpIPAddress.Children.Add(txtIPAddress);
+            //StpIPAddress.Children.Add(IPAddress);
 
             //SignalStrength
-            TextBlock txtSignalStrength = new TextBlock();
-            strtext = loader.GetString("txtSignalStrength");
-            txtSignalStrength.Text = strtext;
-            txtSignalStrength.FontSize = 25;
-            txtSignalStrength.Margin = new Thickness(10, 10, 0, 0);
-            txtSignalStrength.HorizontalAlignment = HorizontalAlignment.Left;
-            TextBlock SignalStrength = new TextBlock();
-            SignalStrength.Text = Group.SignalStrength;
-            SignalStrength.FontSize = 30;
-            SignalStrength.HorizontalAlignment = HorizontalAlignment.Center;
+            //StackPanel StpSignalStrength = new StackPanel();
+            if (Group.NODE.signalStrength != null)
+            {
+                //TextBlock txtSignalStrength = new TextBlock();
+                strtext = loader.GetString("txtSignalStrength");
+                txtSignalStrength.Text = strtext;
+                txtSignalStrength.FontSize = 25;
+                txtSignalStrength.Margin = new Thickness(10, 10, 0, 0);
+                txtSignalStrength.HorizontalAlignment = HorizontalAlignment.Left;
+                //TextBlock SignalStrength = new TextBlock();
+                //SignalStrength.Text = Group.SignalStrength;
+                SignalStrength.Text = Group.NODE.signalStrength;
+                SignalStrength.FontSize = 30;
+                SignalStrength.HorizontalAlignment = HorizontalAlignment.Center;
 
-            StackPanel StpSignalStrength = new StackPanel();
-            StpSignalStrength.Children.Add(txtSignalStrength);
-            StpSignalStrength.Children.Add(SignalStrength);
+
+                //StpSignalStrength.Children.Add(txtSignalStrength);
+                //StpSignalStrength.Children.Add(SignalStrength);
+            }
 
             //LinkRate
-            TextBlock txtLinkRate = new TextBlock();
-            strtext = loader.GetString("txtLinkRate");
-            txtLinkRate.Text = strtext;
-            txtLinkRate.FontSize = 25;
-            txtLinkRate.Margin = new Thickness(10, 10, 0, 0);
-            txtLinkRate.HorizontalAlignment = HorizontalAlignment.Left;
-            TextBlock LinkRate = new TextBlock();
-            LinkRate.Text = Group.LinkRate;
-            LinkRate.FontSize = 30;
-            LinkRate.HorizontalAlignment = HorizontalAlignment.Center;
-            HyperlinkButton btnWhat = new HyperlinkButton();
-            strtext = loader.GetString("btnWhat");
-            btnWhat.Content = strtext;
-            btnWhat.Tag = "http://support.netgear.com/app/answers/list/kw/link%20rate";
-            btnWhat.FontSize = 20;
-            btnWhat.Margin = new Thickness(10, 0, 0, 0);
-            btnWhat.Padding = new Thickness(0, 0, 0, 0);
-            btnWhat.HorizontalAlignment = HorizontalAlignment.Right;
+            //StackPanel StpLinkRate = new StackPanel();
+            if (Group.NODE.linkRate != null)
+            {
+                //TextBlock txtLinkRate = new TextBlock();
+                strtext = loader.GetString("txtLinkRate");
+                txtLinkRate.Text = strtext;
+                txtLinkRate.FontSize = 25;
+                txtLinkRate.Margin = new Thickness(10, 10, 0, 0);
+                txtLinkRate.HorizontalAlignment = HorizontalAlignment.Left;
+                //TextBlock LinkRate = new TextBlock();
+                //LinkRate.Text = Group.LinkRate;
+                LinkRate.Text = Group.NODE.linkRate;
+                LinkRate.FontSize = 30;
+                LinkRate.HorizontalAlignment = HorizontalAlignment.Center;
+                //HyperlinkButton btnWhat = new HyperlinkButton();
+                strtext = loader.GetString("btnWhat");
+                btnWhat.Content = strtext;
+                btnWhat.Tag = "http://support.netgear.com/app/answers/list/kw/link%20rate";
+                btnWhat.FontSize = 20;
+                btnWhat.Margin = new Thickness(10, 0, 0, 0);
+                btnWhat.Padding = new Thickness(0, 0, 0, 0);
+                btnWhat.HorizontalAlignment = HorizontalAlignment.Right;
 
-            StackPanel StpLinkRate = new StackPanel();
-            StpLinkRate.Children.Add(txtLinkRate);
-            StpLinkRate.Children.Add(LinkRate);
-            StpLinkRate.Children.Add(btnWhat);
+
+                //StpLinkRate.Children.Add(txtLinkRate);
+                //StpLinkRate.Children.Add(LinkRate);
+                //StpLinkRate.Children.Add(btnWhat);
+            }
 
             //MACAddress
-            TextBlock txtMACAddress = new TextBlock();
+            //TextBlock txtMACAddress = new TextBlock();
             strtext = loader.GetString("txtMACAddress");
             txtMACAddress.Text = strtext;
             txtMACAddress.FontSize = 25;
             txtMACAddress.Margin = new Thickness(10, 0, 0, 0);
             txtMACAddress.HorizontalAlignment = HorizontalAlignment.Left;
-            TextBlock MACAddress = new TextBlock();
-            MACAddress.Text = Group.MACAddress;
+            //TextBlock MACAddress = new TextBlock();
+            //MACAddress.Text = Group.MACAddress;
+            MACAddress.Text = Group.NODE.MACaddress;
             MACAddress.FontSize = 30;
             MACAddress.HorizontalAlignment = HorizontalAlignment.Center;
 
-            StackPanel StpMACAddress = new StackPanel();
-            StpMACAddress.Children.Add(txtMACAddress);
-            StpMACAddress.Children.Add(MACAddress);
+            //StackPanel StpMACAddress = new StackPanel();
+            //StpMACAddress.Children.Add(txtMACAddress);
+            //StpMACAddress.Children.Add(MACAddress);
 
             //Buttons
-            Button btnBack = new Button();
+            //Button btnBack = new Button();
             strtext = loader.GetString("btnBack");
             btnBack.Content = strtext;
             btnBack.FontSize = 25;
             btnBack.Width = 200;
             btnBack.HorizontalAlignment = HorizontalAlignment.Center;
             btnBack.Click += new RoutedEventHandler(BackButton_Click);
-            Button btnModify = new Button();
+            //Button btnModify = new Button();
             strtext = loader.GetString("btnModify");
             btnModify.Content = strtext;
             btnModify.FontSize = 25;
             btnModify.Width = 200;
             btnModify.HorizontalAlignment = HorizontalAlignment.Center;
-            Button btnFileUpload = new Button();
+            btnModify.Click += new RoutedEventHandler(ModifyButton_Click);
+            strtext = loader.GetString("btnApply");
+            btnApply.Content = strtext;
+            btnApply.FontSize = 25;
+            btnApply.Width = 200;
+            btnApply.HorizontalAlignment = HorizontalAlignment.Center;
+            btnApply.Click += new RoutedEventHandler(ApplyButton_Click);
+            //Button btnFileUpload = new Button();
             strtext = loader.GetString("btnFileUpload");
             btnFileUpload.Content = strtext;
             btnFileUpload.FontSize = 25;
             btnFileUpload.Width = 200;
             btnFileUpload.HorizontalAlignment = HorizontalAlignment.Center;
 
-            if (Group.UniqueId == "Router")
+            if (Group.NODE.uniqueId == "Router")
             {
                 Uri _baseUri = new Uri("ms-appx:///");
                 TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/repeater72.png"));
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
 
-                TextBlock txtRoutename = new TextBlock();
+                //TextBlock txtRoutename = new TextBlock();
                 strtext = loader.GetString("txtRoutename");
                 txtRoutename.Text = strtext;
                 txtRoutename.FontSize = 25;
                 txtRoutename.Margin = new Thickness(10, 10, 0, 0);
                 txtRoutename.HorizontalAlignment = HorizontalAlignment.Left;
-                TextBlock RouteName = new TextBlock();
-                RouteName.Text = Group.DeviceName;
+                //TextBlock RouteName = new TextBlock();
+                //RouteName.Text = Group.DeviceName;
+                RouteName.Text = Group.NODE.deviceName;
                 RouteName.FontSize = 30;
                 RouteName.HorizontalAlignment = HorizontalAlignment.Center;
 
-                StackPanel StpRouter = new StackPanel();
-                StpRouter.Children.Add(txtRoutename);
-                StpRouter.Children.Add(RouteName);
+                //StackPanel StpRouter = new StackPanel();
+                //StpRouter.Children.Add(txtRoutename);
+                //StpRouter.Children.Add(RouteName);
 
-                Grid GridButton = new Grid();
+                //Grid GridButton = new Grid();
                 btnBack.Margin = new Thickness(0, 10, 0, 0);
-                GridButton.Children.Add(btnBack);
+                //GridButton.Children.Add(btnBack);
 
-                StpDeviceInfo.Children.Add(StpRouter);
-                StpDeviceInfo.Children.Add(StpIPAddress);
-                StpDeviceInfo.Children.Add(StpMACAddress);
-                StpDeviceInfo.Children.Add(GridButton);
+                StpRouter.Visibility = Visibility.Visible;
+                StpDeviceName.Visibility = Visibility.Collapsed;
+                StpType.Visibility = Visibility.Collapsed;
+                StpLinkRate.Visibility = Visibility.Collapsed;
+                StpSignalStrength.Visibility = Visibility.Collapsed;
+                btnBack.Visibility = Visibility.Visible;
+                btnFileUpload.Visibility = Visibility.Collapsed;
+                btnModify.Visibility = Visibility.Collapsed;
+                btnApply.Visibility = Visibility.Collapsed;
+                //StpDeviceInfo.Children.Add(StpRouter);
+                //StpDeviceInfo.Children.Add(StpIPAddress);
+                //StpDeviceInfo.Children.Add(StpMACAddress);
+                //StpDeviceInfo.Children.Add(GridButton);
             }
-            else if (Group.UniqueId == "LocalDevice")
+            else if (Group.NODE.uniqueId == "LocalDevice")
             {
                 Uri _baseUri = new Uri("ms-appx:///");
                 TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
 
-                Grid GridButton = new Grid();
+                //Grid GridButton = new Grid();
                 btnBack.Margin = new Thickness(0, 10, 0, 0);
-                GridButton.Children.Add(btnBack);
+                //GridButton.Children.Add(btnBack);
 
-                StpDeviceInfo.Children.Add(StpDeviceName);
-                StpDeviceInfo.Children.Add(StpIPAddress);
-                StpDeviceInfo.Children.Add(StpSignalStrength);
-                StpDeviceInfo.Children.Add(StpLinkRate);
-                StpDeviceInfo.Children.Add(StpMACAddress);
-                StpDeviceInfo.Children.Add(GridButton);
+                StpRouter.Visibility = Visibility.Collapsed;
+                StpDeviceName.Visibility = Visibility.Visible;
+                StpType.Visibility = Visibility.Collapsed;
+                //StpDeviceInfo.Children.Add(StpDeviceName);
+                //StpDeviceInfo.Children.Add(StpIPAddress);
+                //StpDeviceInfo.Children.Add(StpSignalStrength);
+                //if (Group.NODE.linkRate != null) StpDeviceInfo.Children.Add(StpLinkRate);
+                //if (Group.NODE.signalStrength != null) StpDeviceInfo.Children.Add(StpMACAddress);
+                //StpDeviceInfo.Children.Add(GridButton);
+                if (Group.NODE.linkRate == null)
+                    StpLinkRate.Visibility = Visibility.Collapsed;
+                else
+                    StpLinkRate.Visibility = Visibility.Visible;
+                if (Group.NODE.signalStrength == null)
+                    StpSignalStrength.Visibility = Visibility.Collapsed;
+                else
+                    StpSignalStrength.Visibility = Visibility.Visible;
+
+                btnBack.Visibility = Visibility.Visible;
+                btnFileUpload.Visibility = Visibility.Collapsed;
+                btnModify.Visibility = Visibility.Collapsed;
+                btnApply.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -243,19 +309,41 @@ namespace GenieWin8
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
 
-                Grid GridButton = new Grid();
+                //Grid GridButton = new Grid();
                 btnBack.Margin = new Thickness(200, 10, 0, 0);
                 btnModify.Margin = new Thickness(0, 10, 200, 0);
-                GridButton.Children.Add(btnBack);
-                GridButton.Children.Add(btnModify);
+                btnApply.Margin = new Thickness(0, 10, 200, 0);
+                //GridButton.Children.Add(btnBack);
+                //GridButton.Children.Add(btnModify);
 
-                StpDeviceInfo.Children.Add(StpDeviceName);
-                if (Group.DeviceType != "") StpDeviceInfo.Children.Add(StpType);                    
-                if (Group.IPAddress != "") StpDeviceInfo.Children.Add(StpIPAddress);
-                if (Group.SignalStrength != "") StpDeviceInfo.Children.Add(StpSignalStrength);
-                if (Group.LinkRate != "") StpDeviceInfo.Children.Add(StpLinkRate);
-                if (Group.MACAddress != "") StpDeviceInfo.Children.Add(StpMACAddress);
-                StpDeviceInfo.Children.Add(GridButton);
+                StpRouter.Visibility = Visibility.Collapsed;
+                StpDeviceName.Visibility = Visibility.Visible;
+                //StpDeviceInfo.Children.Add(StpDeviceName);
+                //if (Group.NODE.deviceType != null) StpDeviceInfo.Children.Add(StpType);                    
+                //StpDeviceInfo.Children.Add(StpIPAddress);
+                //if (Group.NODE.signalStrength != null) StpDeviceInfo.Children.Add(StpSignalStrength);
+                //if (Group.NODE.linkRate != null) StpDeviceInfo.Children.Add(StpLinkRate);
+                //StpDeviceInfo.Children.Add(StpMACAddress);
+                //StpDeviceInfo.Children.Add(GridButton);
+                if (Group.NODE.deviceType == null)
+                    StpType.Visibility = Visibility.Collapsed;
+                else
+                    StpType.Visibility = Visibility.Visible;
+
+                if (Group.NODE.signalStrength == null)
+                    StpSignalStrength.Visibility = Visibility.Collapsed;
+                else
+                    StpSignalStrength.Visibility = Visibility.Visible;
+
+                if (Group.NODE.linkRate == null)
+                    StpLinkRate.Visibility = Visibility.Collapsed;
+                else
+                    StpLinkRate.Visibility = Visibility.Visible;
+
+                btnBack.Visibility = Visibility.Visible;
+                btnFileUpload.Visibility = Visibility.Collapsed;
+                btnModify.Visibility = Visibility.Visible;
+                btnApply.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -272,6 +360,19 @@ namespace GenieWin8
         private void BackButton_Click(Object sender, RoutedEventArgs e)
         {
             this.Frame.GoBack();
+        }
+
+        private void ModifyButton_Click(Object sender, RoutedEventArgs e)
+        {
+            txtBlockDeviceName.Visibility = Visibility.Collapsed;
+            txtBoxDeviceName.Visibility = Visibility.Visible;
+            btnModify.Visibility = Visibility.Collapsed;
+            btnApply.Visibility = Visibility.Visible;
+        }
+
+        private void ApplyButton_Click(Object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
