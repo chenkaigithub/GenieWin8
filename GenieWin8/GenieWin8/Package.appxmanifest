@@ -19,9 +19,19 @@
         <DefaultTile ShowName="noLogos" />
         <SplashScreen Image="Assets\开机画面620x300.png" BackgroundColor="#E4E8ED" />
       </VisualElements>
+      <Extensions>
+        <Extension Category="windows.fileTypeAssociation">
+          <FileTypeAssociation Name="custom_device_info">
+            <SupportedFileTypes>
+              <FileType>.txt</FileType>
+            </SupportedFileTypes>
+          </FileTypeAssociation>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>
+    <Capability Name="documentsLibrary" />
     <Capability Name="enterpriseAuthentication" />
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />

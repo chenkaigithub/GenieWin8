@@ -76,9 +76,9 @@ namespace GenieWin8
             txtBlockDeviceName.HorizontalAlignment = HorizontalAlignment.Center;
             //TextBox txtBoxDeviceName = new TextBox();
             txtBoxDeviceName.Text = Group.NODE.deviceName;
-            txtBoxDeviceName.FontSize = 30;
+            txtBoxDeviceName.FontSize = 26;
             txtBoxDeviceName.HorizontalAlignment = HorizontalAlignment.Center;
-            txtBoxDeviceName.Width = 200;
+            txtBoxDeviceName.Width = 400;
             txtBoxDeviceName.Visibility = Visibility.Collapsed;
 
             //StackPanel StpDeviceName = new StackPanel();
@@ -103,11 +103,41 @@ namespace GenieWin8
                 Type.HorizontalAlignment = HorizontalAlignment.Center;
 
                 //ComboBox ComboType = new ComboBox();
-                //ComboType.Items.Add("Router");
-                //ComboType.Items.Add("Network Device");
-                //ComboType.Items.Add("Windows PC");
-                //ComboType.Width = 200;
-                //ComboType.HorizontalAlignment = HorizontalAlignment.Center;
+                ComboType.Items.Add("Router");
+                ComboType.Items.Add("Network Device");
+                ComboType.Items.Add("Windows PC");
+                ComboType.Items.Add("Blu-ray Player");
+                ComboType.Items.Add("Bridge");
+                ComboType.Items.Add("Cable STB");
+                ComboType.Items.Add("Gaming Console");
+                ComboType.Items.Add("Amazon Kindle");
+                ComboType.Items.Add("iPad Mini");
+                ComboType.Items.Add("iPhone5");
+                ComboType.Items.Add("iMac");
+                ComboType.Items.Add("iPad");
+                ComboType.Items.Add("iPhone");
+                ComboType.Items.Add("iPod Touch");
+                ComboType.Items.Add("Linux PC");
+                ComboType.Items.Add("MacBook");
+                ComboType.Items.Add("Mac Mini");
+                ComboType.Items.Add("Mac Pro");
+                ComboType.Items.Add("Media Device");
+                ComboType.Items.Add("Smart Phone");
+                ComboType.Items.Add("Storage");
+                ComboType.Items.Add("Switch");
+                ComboType.Items.Add("Printer");
+                ComboType.Items.Add("Repeater");
+                ComboType.Items.Add("Satellite STB");
+                ComboType.Items.Add("Scanner");
+                ComboType.Items.Add("SlingBox");
+                ComboType.Items.Add("Other STB");
+                ComboType.Items.Add("Tablet");
+                ComboType.Items.Add("TV");
+                ComboType.Items.Add("UNIX PC");
+                //ComboType.SelectedIndex = 1;
+                ComboType.Width = 400;
+                ComboType.HorizontalAlignment = HorizontalAlignment.Center;
+                ComboType.Visibility = Visibility.Collapsed;
 
 
                 //StpType.Children.Add(txtType);
@@ -366,13 +396,20 @@ namespace GenieWin8
         {
             txtBlockDeviceName.Visibility = Visibility.Collapsed;
             txtBoxDeviceName.Visibility = Visibility.Visible;
+            Type.Visibility = Visibility.Collapsed;
+            ComboType.Visibility = Visibility.Visible;
             btnModify.Visibility = Visibility.Collapsed;
             btnApply.Visibility = Visibility.Visible;
         }
 
         private void ApplyButton_Click(Object sender, RoutedEventArgs e)
         {
-
+            txtBlockDeviceName.Visibility = Visibility.Visible;
+            txtBoxDeviceName.Visibility = Visibility.Collapsed;
+            Type.Visibility = Visibility.Visible;
+            ComboType.Visibility = Visibility.Collapsed;
+            btnModify.Visibility = Visibility.Visible;
+            btnApply.Visibility = Visibility.Collapsed;
         }
     }
 }

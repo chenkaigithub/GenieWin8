@@ -11,6 +11,7 @@ namespace GenieWin8.DataModel
     {
         public static Dictionary<string, Dictionary<string, string>> attachDeviceDic = new Dictionary<string, Dictionary<string, string>>();
         public static string geteway;
+        public static string fileContent;
     }
 
     public class Node

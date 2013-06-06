@@ -42,31 +42,31 @@ namespace GenieWin8
                {
                    if(tempArray[i] != "" && tempArray[i] != null)
                    {
-                   Dictionary<string,string> dicRow = new Dictionary<string,string>();
-                   string[] itemArray = tempArray[i].Split(';');
-                   if (itemArray.Length >= 4)
-                   {
-                       dicRow.Add("Ip", itemArray[1]);
-                       dicRow.Add("HostName", itemArray[2]);
-                       macAdr = itemArray[3];
-                       
+                       Dictionary<string, string> dicRow = new Dictionary<string, string>();
+                       string[] itemArray = tempArray[i].Split(';');
+                       if (itemArray.Length >= 4)
+                       {
+                           dicRow.Add("Ip", itemArray[1]);
+                           dicRow.Add("HostName", itemArray[2]);
+                           macAdr = itemArray[3];
 
+
+                       }
+                       if (itemArray.Length >= 5)
+                       {
+                           dicRow.Add("Connect", itemArray[4]);
+                       }
+                       if (itemArray.Length >= 7)
+                       {
+                           dicRow.Add("LinkSpeed", itemArray[5]);
+                           dicRow.Add("Signal", itemArray[6]);
+                       }
+                       if (macAdr != "")
+                       {
+                           System.Diagnostics.Debug.WriteLine(macAdr);
+                           dicAttachDevice.Add(macAdr, dicRow);
+                       }
                    }
-                   if (itemArray.Length >= 5)
-                   {
-                       dicRow.Add("Connect", itemArray[4]);
-                   }
-                   if (itemArray.Length >= 7)
-                   {
-                       dicRow.Add("LinkSpeed", itemArray[5]);
-                       dicRow.Add("Signal", itemArray[6]);
-                   }
-                   if (macAdr != "")
-                   {
-                       System.Diagnostics.Debug.WriteLine(macAdr);
-                       dicAttachDevice.Add(macAdr, dicRow);
-                   }
-               }
                }
             }
             return  dicAttachDevice;

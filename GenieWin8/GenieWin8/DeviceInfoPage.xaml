@@ -74,6 +74,7 @@
                     <StackPanel x:Name="StpType">
                         <TextBlock x:Name="txtType"/>
                         <TextBlock x:Name="Type"/>
+                        <ComboBox x:Name="ComboType"/>
                     </StackPanel>
                     <StackPanel x:Name="StpIPAddress">
                         <TextBlock x:Name="txtIPAddress"/>

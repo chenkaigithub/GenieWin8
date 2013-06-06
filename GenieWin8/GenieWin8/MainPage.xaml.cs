@@ -16,6 +16,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
+using Windows.Storage;
+using System.IO;
+using System.Threading.Tasks;
 
 // “项目页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234233 上提供
 
@@ -96,6 +99,7 @@ namespace GenieWin8
                     WifiInfoModel.channel = dicResponse["NewChannel"];
                     WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                     WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
+                    NetworkMapDodel.fileContent = await ReadDeviceInfoFile();
                     this.Frame.Navigate(typeof(NetworkMapPage));
                 }
                 else if (groupId == "TrafficMeter")
@@ -181,6 +185,25 @@ namespace GenieWin8
                 PopupBackground.Visibility = Visibility.Collapsed;
                 CloseLicenseButton.Visibility = Visibility.Collapsed;
             }
+        }
+
+        public async Task<string> ReadDeviceInfoFile()
+        {
+            string fileContent = string.Empty;
+            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            try
+            {
+                StorageFile file = await storageFolder.GetFileAsync("CustomDeviceInfo.txt");    //CustomDeviceInfo.txt中保存本地修改的设备信息，包括设备MAC地址、设备名和设备类型，格式为"MACAddress,DeviceName,DeviceType;"
+                if (file != null)
+                {
+                    fileContent = await FileIO.ReadTextAsync(file);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+
+            }
+            return fileContent;
         }
     }
 }

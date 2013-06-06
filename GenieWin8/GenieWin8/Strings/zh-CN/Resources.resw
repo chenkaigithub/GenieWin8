@@ -606,4 +606,100 @@
   <data name="btnApply" xml:space="preserve">
     <value>应用</value>
   </data>
+  <data name="amazonkindledev" xml:space="preserve">
+    <value>亚马逊Kindle</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>蓝牙播放器</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>网桥</value>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>线缆 STB</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>相机</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>游戏控制台</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>路由器</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="ipadmini" xml:space="preserve">
+    <value>iPad Mini</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone5</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>Linux PC</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>媒体设备</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>智能手机</value>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>存储</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>网络设备</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>打印机</value>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>中继器</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>卫星 STB</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>扫描仪</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>其他 STB</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>交换机</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>平板电脑</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>电视</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>UNIX PC</value>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>Windows PC</value>
+  </data>
 </root>
