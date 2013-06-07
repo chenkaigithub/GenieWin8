@@ -606,4 +606,103 @@
   <data name="btnApply" xml:space="preserve">
     <value>Εφαρμογή</value>
   </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>Συσκευή Android</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>Τηλέφωνο Android</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>Tablet Android</value>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>Συσκευή αναπαραγωγής Blu-ray</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>Γέφυρα</value>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>Καλωδιακός αποκωδικοποιητής</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>Κάμερα</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>Κονσόλα παιχνιδιών</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>Δρομολογητής</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>Υπολογιστής Linux</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>Συσκευή μέσων</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>Smartphone</value>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>Συσκευή δικτύου</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>Εκτυπωτής</value>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>Επαναλήπτης</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>Δορυφορικός αποκωδικοποιητής</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>Σαρωτής</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>Άλλος αποκωδικοποιητής</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>Μεταγωγέας</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>Tablet</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>Τηλεόραση</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>Υπολογιστής UNIX</value>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>Υπολογιστής Windows</value>
+  </data>
 </root>

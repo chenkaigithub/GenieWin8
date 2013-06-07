@@ -606,4 +606,103 @@
   <data name="btnApply" xml:space="preserve">
     <value>تطبيق</value>
   </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>جهاز Android</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>هاتف Android</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>جهاز Android اللوحي</value>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>مشغّل Blu-ray</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>الجسر</value>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>كبل STB</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>كاميرا</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>وحدة تحكم الألعاب</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>موجه</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>كمبيوتر Linux</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>جهاز الوسائط</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>الهاتف الذكي</value>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>تخزين</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>جهاز الشبكة</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>طابعة</value>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>جهاز تكرار</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>الأقمار الصناعية STB</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>ماسحة ضوئية</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>STB آخر</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>التبديل</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>الجهاز اللوحي</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>تلفزيون</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>كمبيوتر يعمل بنظام UNIX</value>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>"كمبيوتر يعمل بنظام Windows</value>
+  </data>
 </root>

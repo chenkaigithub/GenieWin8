@@ -606,4 +606,103 @@
   <data name="btnApply" xml:space="preserve">
     <value>Aplicar</value>
   </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>Dispositivo Android</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>Telefone Android</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>Tablet Android</value>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>Blu-ray Player</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>Ponte</value>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>STB a cabo</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>Câmera</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>Console de jogos</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>Roteador</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>Linux PC</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>Dispositivo de mídia</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>Smartphone</value>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>Armazenamento</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>Dispositivo de rede</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>Impressora</value>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>Repetição</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>STB via satélite</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>Scanner</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>Outro STB</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>Switch</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>Tablet</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>TV</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>UNIX PC</value>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>Windows PC</value>
+  </data>
 </root>

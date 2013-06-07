@@ -702,4 +702,16 @@
   <data name="windowspc" xml:space="preserve">
     <value>Windows PC</value>
   </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>Android 设备</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>Android 手机</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>Android 平板电脑</value>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
 </root>

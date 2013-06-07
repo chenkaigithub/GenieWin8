@@ -214,6 +214,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="Assets\Thumbs.db" />
     <None Include="Common\ReadMe.txt" />
     <None Include="GenieWin8_TemporaryKey.pfx" />
     <PRIResource Include="Strings\sl-SI\Resources.resw" />
@@ -237,36 +238,63 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\AndroidDevice72.png" />
-    <Content Include="Assets\AndroidPhone72.png" />
-    <Content Include="Assets\AndroidTablet72.png" />
+    <Content Include="Assets\androiddevice.png" />
+    <Content Include="Assets\androidphone.png" />
+    <Content Include="Assets\androidtablet.png" />
     <Content Include="Assets\appstore.png" />
+    <Content Include="Assets\blurayplayer.png" />
+    <Content Include="Assets\bridge.png" />
     <Content Include="Assets\browse.png" />
+    <Content Include="Assets\cablestb.png" />
+    <Content Include="Assets\cameradev.png" />
     <Content Include="Assets\device.png" />
+    <Content Include="Assets\dvr.png" />
+    <Content Include="Assets\gamedev.png" />
+    <Content Include="Assets\gatewaydev.png" />
     <Content Include="Assets\guestaccess.png" />
-    <Content Include="Assets\HDMNormal72.png" />
     <Content Include="Assets\icon48.png" />
+    <Content Include="Assets\imacdev.png" />
     <Content Include="Assets\internet72.png" />
+    <Content Include="Assets\ipad.png" />
+    <Content Include="Assets\iphone.png" />
+    <Content Include="Assets\ipodtouch.png" />
+    <Content Include="Assets\linuxpc.png" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\macbookdev.png" />
+    <Content Include="Assets\macminidev.png" />
+    <Content Include="Assets\macprodev.png" />
     <Content Include="Assets\map.png" />
+    <Content Include="Assets\mediadev.png" />
+    <Content Include="Assets\mobiledev.png" />
     <Content Include="Assets\mymedia.png" />
     <Content Include="Assets\NETGEAR_Genie_ico_150.png" />
     <Content Include="Assets\NETGEAR_Genie_ico_30.png" />
     <Content Include="Assets\NETGEAR_Genie_ico_50.png" />
     <Content Include="Assets\NETGEAR_Genie_Logo_white_green.png" />
-    <Content Include="Assets\networkdev72.png" />
+    <Content Include="Assets\netstoragedev.png" />
+    <Content Include="Assets\networkdev.png" />
     <Content Include="Assets\option.png" />
     <Content Include="Assets\parentalcontrols.png" />
     <Content Include="Assets\playing.png" />
+    <Content Include="Assets\printerdev.png" />
     <Content Include="Assets\qrcode.png" />
-    <Content Include="Assets\repeater72.png" />
+    <Content Include="Assets\repeater.png" />
+    <Content Include="Assets\satellitestb.png" />
+    <Content Include="Assets\scannerdev.png" />
+    <Content Include="Assets\slingbox.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
+    <Content Include="Assets\stb.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="Assets\switchdev.png" />
+    <Content Include="Assets\tablepc.png" />
     <Content Include="Assets\traffic.png" />
+    <Content Include="Assets\tv.png" />
+    <Content Include="Assets\unixpc.png" />
+    <Content Include="Assets\windowspc.png" />
     <Content Include="Assets\wireless.png" />
     <Content Include="Assets\开机画面620x300.png" />
   </ItemGroup>

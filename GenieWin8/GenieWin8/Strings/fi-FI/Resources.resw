@@ -606,4 +606,103 @@
   <data name="btnApply" xml:space="preserve">
     <value>Käytä</value>
   </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>Android-laite</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>Android-puhelin</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>Android-tablet</value>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>Blu-ray-soitin</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>Silta</value>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>Kaapeliverkon digisovitin</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>Pelikonsoli</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>Reititin</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>Linux-tietokone</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>Medialaite</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>Älypuhelin</value>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>Tallennusväline</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>Verkkolaite</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>Tulostin</value>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>Toistin</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>Satelliittiverkon digisovitin</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>Skanneri</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>Muu digisovitin</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>Kytkin</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>Tablet</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>TV</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>UNIX-tietokone</value>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>Windows-tietokone</value>
+  </data>
 </root>

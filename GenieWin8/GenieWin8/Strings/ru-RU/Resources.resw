@@ -606,4 +606,103 @@
   <data name="btnApply" xml:space="preserve">
     <value>Применить</value>
   </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>Устройство с ОС Android</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>Телефон с ОС Android</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>Планшет с ОС Android</value>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>Плеер Blu-ray</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>Мост</value>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>Кабельная STB</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>Камера</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>Игровая приставка</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>Маршрутизатор</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>Linux PC</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>Мультимедийное устройство</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>Смартфон</value>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>Устройство хранения</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>Сетевое устройство</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>Принтер</value>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>Повторитель</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>Спутниковая STB</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>Сканер</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>Другая STB</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>Коммутатор</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>Планшет</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>Телевизор</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>ПК с UNIX</value>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>ПК с Windows</value>
+  </data>
 </root>

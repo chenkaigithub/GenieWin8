@@ -606,4 +606,103 @@
   <data name="btnApply" xml:space="preserve">
     <value>Uporabi</value>
   </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>Naprava Android</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>Telefon Android</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>Tablični računalnik Android</value>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>Predvajalnik Blu-ray</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>Most</value>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>Kabelski sprejemnik</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>Igralna konzola</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>Usmerjevalnik</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>Osebni računalnik Linux</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>Medij</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>Pametni telefon</value>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>Pomnilnik</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>Omrežna naprava</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>Tiskalnik</value>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>Ponavljalnik</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>Satelitski sprejemnik</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>Optični bralnik</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>Drug sprejemnik</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>Stikalo</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>Tablični računalnik</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>TV</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>Osebni računalnik UNIX</value>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>Osebni računalnik Windows</value>
+  </data>
 </root>

@@ -228,18 +228,6 @@ namespace GenieWin8.Data
             var routerGroup = new DeviceGroup(NodeRouter);
             this.DeviceGroups.Add(routerGroup);
 
-            //if (fileContent != "")
-            //{
-            //    string[] AllDeviceInfo = fileContent.Split(';');
-            //    for (int i = 0; i < AllDeviceInfo.Length; i++)
-            //    {
-            //        if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
-            //        {
-            //            string[] DeviceInfo = AllDeviceInfo[i].Split(',');
-            //        }
-            //    }
-            //}
-
             int num = 0;
             foreach (string key in attachDeviceAll.Keys)
             {
@@ -255,6 +243,7 @@ namespace GenieWin8.Data
                     NodeDevice.uniqueId = "Device" + num.ToString();
                 }
 
+                bool bFound = false;
                 if (NetworkMapDodel.fileContent != "")
                 {
                     string[] AllDeviceInfo = NetworkMapDodel.fileContent.Split(';');
@@ -265,6 +254,7 @@ namespace GenieWin8.Data
                             string[] DeviceInfo = AllDeviceInfo[i].Split(',');
                             if (DeviceInfo[0] == key)
                             {
+                                bFound = true;
                                 if (DeviceInfo[1] != "")
                                     NodeDevice.deviceName = DeviceInfo[1];
                                 else
@@ -273,20 +263,25 @@ namespace GenieWin8.Data
                                 if (DeviceInfo[2] != "")
                                     NodeDevice.deviceType = DeviceInfo[2];
                                 else
-                                    NodeDevice.deviceType = "Network Device";
+                                    NodeDevice.deviceType = "networkdev";
                             }
-                            else
-                            {
-                                NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
-                                NodeDevice.deviceType = "Network Device";
-                            }
+                            //else
+                            //{
+                            //    NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+                            //    NodeDevice.deviceType = "networkdev";
+                            //}
                         }                        
+                    }
+                    if (!bFound)
+                    {
+                        NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+                        NodeDevice.deviceType = "networkdev";
                     }
                 }
                 else
                 {
                     NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
-                    NodeDevice.deviceType = "Network Device";
+                    NodeDevice.deviceType = "networkdev";
                 }
                 //NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
                 //NodeDevice.deviceType = attachDeviceAll[key]["Connect"];

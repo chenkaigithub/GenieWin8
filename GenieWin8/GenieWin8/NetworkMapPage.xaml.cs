@@ -91,7 +91,7 @@ namespace GenieWin8
                 BtnRouter.HorizontalAlignment = HorizontalAlignment.Center;
                 BtnRouter.VerticalAlignment = VerticalAlignment.Center;
                 Image imgRouter = new Image();
-                imgRouter.Source = new BitmapImage(new Uri(_baseUri, "Assets/repeater72.png"));
+                imgRouter.Source = new BitmapImage(new Uri(_baseUri, "Assets/gatewaydev.png"));
                 imgRouter.Stretch = Stretch.UniformToFill;
                 BtnRouter.Content = imgRouter;
                 BtnRouter.Margin = new Thickness(0, 0, 0, 0);
@@ -146,14 +146,125 @@ namespace GenieWin8
                             BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
                             BtnDevice.VerticalAlignment = VerticalAlignment.Top;
                             BtnDevice.Margin = new Thickness(width / 2 + x - 50, height / 2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
-                            Image imgDevice = new Image();
-                            if (BtnDevice.Name == "LocalDevice")
+                            Image imgDevice = new Image();                            
+                            //if (BtnDevice.Name == "LocalDevice")
+                            //{
+                            //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                            //}
+                            //else
+                            //{
+                            //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
+                            //}
+                            switch (Group.ElementAt(7 * i + j).NODE.deviceType)
                             {
-                                imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
-                            }
-                            else
-                            {
-                                imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
+                                case "gatewaydev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/gatewaydev.png"));
+                                    break;
+                                case "networkdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
+                                    break;
+                                case "windowspc":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/windowspc.png"));
+                                    break;
+                                case "blurayplayer":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/blurayplayer.png"));
+                                    break;
+                                case "bridge":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/bridge.png"));
+                                    break;
+                                case "cablestb":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/cablestb.png"));
+                                    break;
+                                case "cameradev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/cameradev.png"));
+                                    break;
+                                case "gamedev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/gamedev.png"));
+                                    break;
+                                //case "amazonkindledev":
+                                //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                                //    break;
+                                //case "ipadmini":
+                                //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                                //    break;
+                                //case "iphone5":
+                                //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                                //    break;
+                                case "imacdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/imacdev.png"));
+                                    break;
+                                case "ipad":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipad.png"));
+                                    break;
+                                case "iphone":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/iphone.png"));
+                                    break;
+                                case "ipodtouch":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipodtouch.png"));
+                                    break;
+                                case "linuxpc":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/linuxpc.png"));
+                                    break;
+                                case "macbookdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/macbookdev.png"));
+                                    break;
+                                case "macminidev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/macminidev.png"));
+                                    break;
+                                case "macprodev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/macprodev.png"));
+                                    break;
+                                case "mediadev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/mediadev.png"));
+                                    break;
+                                case "mobiledev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/mobiledev.png"));
+                                    break;
+                                case "netstoragedev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/netstoragedev.png"));
+                                    break;
+                                case "switchdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/switchdev.png"));
+                                    break;
+                                case "printerdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/printerdev.png"));
+                                    break;
+                                case "repeater":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/repeater.png"));
+                                    break;
+                                case "satellitestb":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/satellitestb.png"));
+                                    break;
+                                case "scannerdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/scannerdev.png"));
+                                    break;
+                                case "slingbox":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/slingbox.png"));
+                                    break;
+                                case "stb":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/stb.png"));
+                                    break;
+                                case "tablepc":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/tablepc.png"));
+                                    break;
+                                case "tv":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/tv.png"));
+                                    break;
+                                case "unixpc":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/unixpc.png"));
+                                    break;
+                                case "androiddevice":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androiddevice.png"));
+                                    break;
+                                case "androidphone":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                                    break;
+                                case "androidtablet":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidtablet.png"));
+                                    break;
+                                case "dvr":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/dvr.png"));
+                                    break;
                             }
                             imgDevice.Stretch = Stretch.UniformToFill;
                             TextBlock DeviceNameText = new TextBlock();
@@ -219,13 +330,124 @@ namespace GenieWin8
                             BtnDevice.VerticalAlignment = VerticalAlignment.Top;
                             BtnDevice.Margin = new Thickness(width / 2 + x - 50, height / 2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
                             Image imgDevice = new Image();
-                            if (BtnDevice.Name == "LocalDevice")
+                            //if (BtnDevice.Name == "LocalDevice")
+                            //{
+                            //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                            //}
+                            //else
+                            //{
+                            //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
+                            //}
+                            switch (Group.ElementAt(7 * i + j).NODE.deviceType)
                             {
-                                imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
-                            }
-                            else
-                            {
-                                imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev72.png"));
+                                case "gatewaydev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/gatewaydev.png"));
+                                    break;
+                                case "networkdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
+                                    break;
+                                case "windowspc":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/windowspc.png"));
+                                    break;
+                                case "blurayplayer":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/blurayplayer.png"));
+                                    break;
+                                case "bridge":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/bridge.png"));
+                                    break;
+                                case "cablestb":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/cablestb.png"));
+                                    break;
+                                case "cameradev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/cameradev.png"));
+                                    break;
+                                case "gamedev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/gamedev.png"));
+                                    break;
+                                //case "amazonkindledev":
+                                //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                                //    break;
+                                //case "ipadmini":
+                                //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                                //    break;
+                                //case "iphone5":
+                                //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                                //    break;
+                                case "imacdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/imacdev.png"));
+                                    break;
+                                case "ipad":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipad.png"));
+                                    break;
+                                case "iphone":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/iphone.png"));
+                                    break;
+                                case "ipodtouch":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipodtouch.png"));
+                                    break;
+                                case "linuxpc":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/linuxpc.png"));
+                                    break;
+                                case "macbookdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/macbookdev.png"));
+                                    break;
+                                case "macminidev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/macminidev.png"));
+                                    break;
+                                case "macprodev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/macprodev.png"));
+                                    break;
+                                case "mediadev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/mediadev.png"));
+                                    break;
+                                case "mobiledev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/mobiledev.png"));
+                                    break;
+                                case "netstoragedev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/netstoragedev.png"));
+                                    break;
+                                case "switchdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/switchdev.png"));
+                                    break;
+                                case "printerdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/printerdev.png"));
+                                    break;
+                                case "repeater":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/repeater.png"));
+                                    break;
+                                case "satellitestb":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/satellitestb.png"));
+                                    break;
+                                case "scannerdev":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/scannerdev.png"));
+                                    break;
+                                case "slingbox":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/slingbox.png"));
+                                    break;
+                                case "stb":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/stb.png"));
+                                    break;
+                                case "tablepc":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/tablepc.png"));
+                                    break;
+                                case "tv":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/tv.png"));
+                                    break;
+                                case "unixpc":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/unixpc.png"));
+                                    break;
+                                case "androiddevice":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androiddevice.png"));
+                                    break;
+                                case "androidphone":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                                    break;
+                                case "androidtablet":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidtablet.png"));
+                                    break;
+                                case "dvr":
+                                    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/dvr.png"));
+                                    break;
                             }
                             imgDevice.Stretch = Stretch.UniformToFill;
                             TextBlock DeviceNameText = new TextBlock();
