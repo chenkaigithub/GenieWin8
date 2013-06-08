@@ -17,6 +17,9 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI;
+using GenieWin8.DataModel;
+using Windows.Storage;
+using System.Threading.Tasks;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -474,6 +477,44 @@ namespace GenieWin8
             Button btn = (Button)sender;
             var UniqueId = btn.Name;
             this.Frame.Navigate(typeof(DeviceInfoPage), UniqueId);
+        }
+
+        private async void RefreshButton_Click(Object sender, RoutedEventArgs e)
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            UtilityTool util = new UtilityTool();
+            NetworkMapDodel.geteway = await util.GetGateway();
+            Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+            responseDic = await soapApi.GetAttachDevice();
+            NetworkMapDodel.attachDeviceDic = responseDic;
+
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            WifiInfoModel.ssid = dicResponse["NewSSID"];
+            WifiInfoModel.channel = dicResponse["NewChannel"];
+            WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+            WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
+            NetworkMapDodel.fileContent = await ReadDeviceInfoFile();
+            this.Frame.Navigate(typeof(NetworkMapPage));
+        }
+
+        public async Task<string> ReadDeviceInfoFile()
+        {
+            string fileContent = string.Empty;
+            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            try
+            {
+                StorageFile file = await storageFolder.GetFileAsync("CustomDeviceInfo.txt");    //CustomDeviceInfo.txt中保存本地修改的设备信息，包括设备MAC地址、设备名和设备类型，格式为"MACAddress,DeviceName,DeviceType;"
+                if (file != null)
+                {
+                    fileContent = await FileIO.ReadTextAsync(file);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+
+            }
+            return fileContent;
         }
     }
 }
