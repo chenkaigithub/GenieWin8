@@ -289,6 +289,7 @@ namespace GenieWin8.Data
                 NodeDevice.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
                 NodeDevice.signalStrength = attachDeviceAll[key]["Signal"]+"%";
                 NodeDevice.MACaddress = key;
+                NodeDevice.connectType = attachDeviceAll[key]["Connect"];
                 var group = new DeviceGroup(NodeDevice);
                 this.DeviceGroups.Add(group);
                 //if (loacalIp == attachDeviceAll[key]["Ip"])
