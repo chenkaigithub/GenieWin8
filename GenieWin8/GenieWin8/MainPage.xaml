@@ -34,7 +34,7 @@
                     <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,20,0,0"/>
                 </StackPanel>
             </Grid>
-        </DataTemplate>
+        </DataTemplate>       
 
         <Style x:Key="AboutAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
             <Setter Property="AutomationProperties.AutomationId" Value="AboutAppBarButton"/>
@@ -107,9 +107,20 @@
             IsItemClickEnabled="True"
             ItemClick="ItemView_ItemClick"/>
 
+        <!--<ProgressRing x:Name="InProgress"
+                      IsActive="false"
+                      Grid.Row="1"
+                      Height="60"
+                      Width="60"/>-->
+
         <!--关于-->
         <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
-        <Canvas x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
+            <ProgressRing x:Name="InProgress"
+                      IsActive="false"
+                      Height="60"
+                      Width="60"/>
+        </Grid>
         <Popup x:Name="AboutPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,100,300,0">
             <local:PopupAbout/>
         </Popup>

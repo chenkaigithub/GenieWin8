@@ -86,6 +86,9 @@ namespace GenieWin8
                 }
                 else if (groupId == "NetworkMap")
                 {
+                    InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
                     UtilityTool util = new UtilityTool();
                     NetworkMapDodel.geteway = await util.GetGateway();
                     Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
@@ -99,6 +102,9 @@ namespace GenieWin8
                     WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                     WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
                     NetworkMapDodel.fileContent = await ReadDeviceInfoFile();
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(NetworkMapPage));
                 }
                 else if (groupId == "TrafficMeter")

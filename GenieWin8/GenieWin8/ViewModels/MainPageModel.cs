@@ -222,49 +222,49 @@ namespace GenieWin8.Data
             var strTitle = loader.GetString("WiFiSetting");
             var group1 = new DataGroup("WiFiSetting",
                     strTitle,
-                    "Assets/wireless.png");         
+                    "Assets/MainPage/wireless.png");         
             this.AllGroups.Add(group1);
 
             strTitle = loader.GetString("GuestAccess");
             var group2 = new DataGroup("GuestAccess",
                     strTitle,
-                    "Assets/guestaccess.png");            
+                    "Assets/MainPage/guestaccess.png");            
             this.AllGroups.Add(group2);
 
             strTitle = loader.GetString("NetworkMap");
             var group3 = new DataGroup("NetworkMap",
                     strTitle,
-                    "Assets/map.png");
+                    "Assets/MainPage/map.png");
             this.AllGroups.Add(group3);
 
             strTitle = loader.GetString("ParentalControl");
             var group4 = new DataGroup("ParentalControl",
                     strTitle,
-                    "Assets/parentalcontrols.png");
+                    "Assets/MainPage/parentalcontrols.png");
             this.AllGroups.Add(group4);
 
             strTitle = loader.GetString("TrafficMeter");
             var group5 = new DataGroup("TrafficMeter",
                     strTitle,
-                    "Assets/traffic.png");
+                    "Assets/MainPage/traffic.png");
             this.AllGroups.Add(group5);
 
             strTitle = loader.GetString("MyMedia");
             var group6 = new DataGroup("MyMedia",
                     strTitle,
-                    "Assets/mymedia.png");
+                    "Assets/MainPage/mymedia.png");
             this.AllGroups.Add(group6);
 
             strTitle = loader.GetString("QRCode");
             var group7 = new DataGroup("QRCode",
                     strTitle,
-                    "Assets/qrcode.png");
+                    "Assets/MainPage/qrcode.png");
             this.AllGroups.Add(group7);
 
             strTitle = loader.GetString("MarketPlace");
             var group8 = new DataGroup("MarketPlace",
                     strTitle,
-                    "Assets/appstore.png");
+                    "Assets/MainPage/appstore.png");
             this.AllGroups.Add(group8);
         }
     }

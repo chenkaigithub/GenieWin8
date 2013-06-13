@@ -526,7 +526,7 @@ namespace GenieWin8
             if (Group.NODE.uniqueId == "Router")
             {
                 Uri _baseUri = new Uri("ms-appx:///");
-                TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/gatewaydev.png"));
+                TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
 
@@ -571,112 +571,112 @@ namespace GenieWin8
                 switch (Group.NODE.deviceType)
                 {
                     case "gatewaydev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/gatewaydev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
                         break;
                     case "networkdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/networkdev.png"));
                         break;
                     case "windowspc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/windowspc.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowspc.png"));
                         break;
                     case "blurayplayer":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/blurayplayer.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/blurayplayer.png"));
                         break;
                     case "bridge":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/bridge.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/bridge.png"));
                         break;
                     case "cablestb":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/cablestb.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cablestb.png"));
                         break;
                     case "cameradev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/cameradev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cameradev.png"));
                         break;
                     case "gamedev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/gamedev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gamedev.png"));
                         break;
                     //case "amazonkindledev":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
                     //    break;
                     //case "ipadmini":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
                     //    break;
                     //case "iphone5":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
                     //    break;
                     case "imacdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/imacdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/imacdev.png"));
                         break;
                     case "ipad":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipad.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipad.png"));
                         break;
                     case "iphone":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/iphone.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone.png"));
                         break;
                     case "ipodtouch":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipodtouch.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipodtouch.png"));
                         break;
                     case "linuxpc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/linuxpc.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/linuxpc.png"));
                         break;
                     case "macbookdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/macbookdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macbookdev.png"));
                         break;
                     case "macminidev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/macminidev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macminidev.png"));
                         break;
                     case "macprodev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/macprodev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macprodev.png"));
                         break;
                     case "mediadev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/mediadev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mediadev.png"));
                         break;
                     case "mobiledev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/mobiledev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mobiledev.png"));
                         break;
                     case "netstoragedev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/netstoragedev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/netstoragedev.png"));
                         break;
                     case "switchdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/switchdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/switchdev.png"));
                         break;
                     case "printerdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/printerdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/printerdev.png"));
                         break;
                     case "repeater":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/repeater.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/repeater.png"));
                         break;
                     case "satellitestb":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/satellitestb.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/satellitestb.png"));
                         break;
                     case "scannerdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/scannerdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/scannerdev.png"));
                         break;
                     case "slingbox":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/slingbox.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/slingbox.png"));
                         break;
                     case "stb":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/stb.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/stb.png"));
                         break;
                     case "tablepc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/tablepc.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tablepc.png"));
                         break;
                     case "tv":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/tv.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tv.png"));
                         break;
                     case "unixpc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/unixpc.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/unixpc.png"));
                         break;
                     case "androiddevice":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androiddevice.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androiddevice.png"));
                         break;
                     case "androidphone":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
                         break;
                     case "androidtablet":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidtablet.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidtablet.png"));
                         break;
                     case "dvr":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/dvr.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/dvr.png"));
                         break;
                 }
                 StpTitle.Children.Add(TitleImage);
@@ -716,112 +716,112 @@ namespace GenieWin8
                 switch (Group.NODE.deviceType)
                 {
                     case "gatewaydev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/gatewaydev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
                         break;
                     case "networkdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/networkdev.png"));
                         break;
                     case "windowspc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/windowspc.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowspc.png"));
                         break;
                     case "blurayplayer":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/blurayplayer.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/blurayplayer.png"));
                         break;
                     case "bridge":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/bridge.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/bridge.png"));
                         break;
                     case "cablestb":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/cablestb.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cablestb.png"));
                         break;
                     case "cameradev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/cameradev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cameradev.png"));
                         break;
                     case "gamedev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/gamedev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gamedev.png"));
                         break;
                     //case "amazonkindledev":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
                     //    break;
                     //case "ipadmini":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
                     //    break;
                     //case "iphone5":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
                     //    break;
                     case "imacdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/imacdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/imacdev.png"));
                         break;
                     case "ipad":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipad.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipad.png"));
                         break;
                     case "iphone":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/iphone.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone.png"));
                         break;
                     case "ipodtouch":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipodtouch.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipodtouch.png"));
                         break;
                     case "linuxpc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/linuxpc.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/linuxpc.png"));
                         break;
                     case "macbookdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/macbookdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macbookdev.png"));
                         break;
                     case "macminidev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/macminidev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macminidev.png"));
                         break;
                     case "macprodev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/macprodev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macprodev.png"));
                         break;
                     case "mediadev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/mediadev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mediadev.png"));
                         break;
                     case "mobiledev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/mobiledev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mobiledev.png"));
                         break;
                     case "netstoragedev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/netstoragedev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/netstoragedev.png"));
                         break;
                     case "switchdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/switchdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/switchdev.png"));
                         break;
                     case "printerdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/printerdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/printerdev.png"));
                         break;
                     case "repeater":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/repeater.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/repeater.png"));
                         break;
                     case "satellitestb":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/satellitestb.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/satellitestb.png"));
                         break;
                     case "scannerdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/scannerdev.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/scannerdev.png"));
                         break;
                     case "slingbox":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/slingbox.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/slingbox.png"));
                         break;
                     case "stb":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/stb.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/stb.png"));
                         break;
                     case "tablepc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/tablepc.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tablepc.png"));
                         break;
                     case "tv":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/tv.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tv.png"));
                         break;
                     case "unixpc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/unixpc.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/unixpc.png"));
                         break;
                     case "androiddevice":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androiddevice.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androiddevice.png"));
                         break;
                     case "androidphone":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
                         break;
                     case "androidtablet":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidtablet.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidtablet.png"));
                         break;
                     case "dvr":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/dvr.png"));
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/dvr.png"));
                         break;
                 }
                 StpTitle.Children.Add(TitleImage);
@@ -905,42 +905,42 @@ namespace GenieWin8
             switch (ComboType.SelectedIndex)
             {
                 case 0:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/gatewaydev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
                     customDeviceType = "gatewaydev";
                     Type.Text = loader.GetString("gatewaydev");
                     break;
                 case 1:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/networkdev.png"));
                     customDeviceType = "networkdev";
                     Type.Text = loader.GetString("networkdev");
                     break;
                 case 2:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/windowspc.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowspc.png"));
                     customDeviceType = "windowspc";
                     Type.Text = loader.GetString("windowspc");
                     break;
                 case 3:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/blurayplayer.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/blurayplayer.png"));
                     customDeviceType = "blurayplayer";
                     Type.Text = loader.GetString("blurayplayer");
                     break;
                 case 4:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/bridge.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/bridge.png"));
                     customDeviceType = "bridge";
                     Type.Text = loader.GetString("bridge");
                     break;
                 case 5:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/cablestb.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cablestb.png"));
                     customDeviceType = "cablestb";
                     Type.Text = loader.GetString("cablestb");
                     break;
                 case 6:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/cameradev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cameradev.png"));
                     customDeviceType = "cameradev";
                     Type.Text = loader.GetString("cameradev");
                     break;
                 case 7:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/gamedev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gamedev.png"));
                     customDeviceType = "gamedev";
                     Type.Text = loader.GetString("gamedev");
                     break;
@@ -957,127 +957,127 @@ namespace GenieWin8
                 //    Type.Text = loader.GetString("iphone5");
                 //    break;
                 case 8:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/imacdev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/imacdev.png"));
                     customDeviceType = "imacdev";
                     Type.Text = loader.GetString("imacdev");
                     break;
                 case 9:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipad.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipad.png"));
                     customDeviceType = "ipad";
                     Type.Text = loader.GetString("ipad");
                     break;
                 case 10:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/iphone.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone.png"));
                     customDeviceType = "iphone";
                     Type.Text = loader.GetString("iphone");
                     break;
                 case 11:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/ipodtouch.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipodtouch.png"));
                     customDeviceType = "ipodtouch";
                     Type.Text = loader.GetString("ipodtouch");
                     break;
                 case 12:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/linuxpc.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/linuxpc.png"));
                     customDeviceType = "linuxpc";
                     Type.Text = loader.GetString("linuxpc");
                     break;
                 case 13:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/macbookdev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macbookdev.png"));
                     customDeviceType = "macbookdev";
                     Type.Text = loader.GetString("macbookdev");
                     break;
                 case 14:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/macminidev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macminidev.png"));
                     customDeviceType = "macminidev";
                     Type.Text = loader.GetString("macminidev");
                     break;
                 case 15:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/macprodev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macprodev.png"));
                     customDeviceType = "macprodev";
                     Type.Text = loader.GetString("macprodev");
                     break;
                 case 16:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/mediadev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mediadev.png"));
                     customDeviceType = "mediadev";
                     Type.Text = loader.GetString("mediadev");
                     break;
                 case 17:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/mobiledev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mobiledev.png"));
                     customDeviceType = "mobiledev";
                     Type.Text = loader.GetString("mobiledev");
                     break;
                 case 18:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/netstoragedev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/netstoragedev.png"));
                     customDeviceType = "netstoragedev";
                     Type.Text = loader.GetString("netstoragedev");
                     break;
                 case 19:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/switchdev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/switchdev.png"));
                     customDeviceType = "switchdev";
                     Type.Text = loader.GetString("switchdev");
                     break;
                 case 20:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/printerdev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/printerdev.png"));
                     customDeviceType = "printerdev";
                     Type.Text = loader.GetString("printerdev");
                     break;
                 case 21:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/repeater.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/repeater.png"));
                     customDeviceType = "repeater";
                     Type.Text = loader.GetString("repeater");
                     break;
                 case 22:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/satellitestb.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/satellitestb.png"));
                     customDeviceType = "satellitestb";
                     Type.Text = loader.GetString("satellitestb");
                     break;
                 case 23:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/scannerdev.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/scannerdev.png"));
                     customDeviceType = "scannerdev";
                     Type.Text = loader.GetString("scannerdev");
                     break;
                 case 24:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/slingbox.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/slingbox.png"));
                     customDeviceType = "slingbox";
                     Type.Text = loader.GetString("slingbox");
                     break;
                 case 25:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/stb.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/stb.png"));
                     customDeviceType = "stb";
                     Type.Text = loader.GetString("stb");
                     break;
                 case 26:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/tablepc.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tablepc.png"));
                     customDeviceType = "tablepc";
                     Type.Text = loader.GetString("tablepc");
                     break;
                 case 27:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/tv.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tv.png"));
                     customDeviceType = "tv";
                     Type.Text = loader.GetString("tv");
                     break;
                 case 28:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/unixpc.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/unixpc.png"));
                     customDeviceType = "unixpc";
                     Type.Text = loader.GetString("unixpc");
                     break;
                 case 29:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androiddevice.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androiddevice.png"));
                     customDeviceType = "androiddevice";
                     Type.Text = loader.GetString("androiddevice");
                     break;
                 case 30:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
                     customDeviceType = "androidphone";
                     Type.Text = loader.GetString("androidphone");
                     break;
                 case 31:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidtablet.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidtablet.png"));
                     customDeviceType = "androidtablet";
                     Type.Text = loader.GetString("androidtablet");
                     break;
                 case 32:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/dvr.png"));
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/dvr.png"));
                     customDeviceType = "dvr";
                     Type.Text = loader.GetString("dvr");
                     break;

@@ -144,20 +144,20 @@ namespace GenieWin8.Data
             var strTitle = loader.GetString("MyMediaSource");
             var mymediagroup1 = new MyMediaGroup("MyMediaSource",
                 strTitle,
-                "Assets/browse.png");
+                "Assets/MyMedia/browse.png");
             mymediagroup1.Items.Add(new MediaItem("Source-1",
                 "Source",
-                "Assets/icon48.png",
+                "Assets/MyMedia/icon48.png",
                 "ReadyDLNA: R6200",
                 mymediagroup1));
             mymediagroup1.Items.Add(new MediaItem("Source-2",
                 "Source",
-                "Assets/icon48.png",
+                "Assets/MyMedia/icon48.png",
                 "Genie Media Server (iPad Simulator)",
                 mymediagroup1));
             mymediagroup1.Items.Add(new MediaItem("Source-3",
                 "Source",
-                "Assets/icon48.png",
+                "Assets/MyMedia/icon48.png",
                 "Genie Media Server (HTC Incredible S)",
                 mymediagroup1));
             this.MyMediaGroups.Add(mymediagroup1);
@@ -165,20 +165,20 @@ namespace GenieWin8.Data
             strTitle = loader.GetString("MyMediaPlayer");
             var mymediagroup2 = new MyMediaGroup("MyMediaPlayer",
                 strTitle,
-                "Assets/device.png");
+                "Assets/MyMedia/device.png");
             mymediagroup2.Items.Add(new MediaItem("Player-1",
                 "Player",
-                "Assets/icon48.png",
+                "Assets/MyMedia/icon48.png",
                 "Genie Media Player (GT-I9100)",
                 mymediagroup2));
             mymediagroup2.Items.Add(new MediaItem("Player-2",
                 "Player",
-                "Assets/icon48.png",
+                "Assets/MyMedia/icon48.png",
                 "Genie Media Player (iPad Simulator)",
                 mymediagroup2));
             mymediagroup2.Items.Add(new MediaItem("Player-3",
                 "Player",
-                "Assets/icon48.png",
+                "Assets/MyMedia/icon48.png",
                 "Genie Media Player (HTC Incredible S)",
                 mymediagroup2));
             this.MyMediaGroups.Add(mymediagroup2);
@@ -186,13 +186,13 @@ namespace GenieWin8.Data
             strTitle = loader.GetString("MyMediaPlaying");
             var mymediagroup3 = new MyMediaGroup("MyMediaPlaying",
                     strTitle,
-                    "Assets/playing.png");
+                    "Assets/MyMedia/playing.png");
             this.MyMediaGroups.Add(mymediagroup3);
 
             strTitle = loader.GetString("MyMediaOption");
             var mymediagrou4 = new MyMediaGroup("MyMediaOption",
                     strTitle,
-                    "Assets/option.png");
+                    "Assets/MyMedia/option.png");
             this.MyMediaGroups.Add(mymediagrou4);
         }
     }
