@@ -41,7 +41,17 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var channelGroup = SettingSource.GetChannel((String)(navigationParameter));
+            string channel = WifiInfoModel.channel;
             this.DefaultViewModel["itemChannel"] = channelGroup.Items;
+            if (channel == "Auto")
+            {
+                channelListView.SelectedIndex = 0;
+            } 
+            else
+            {
+                int result = int.Parse(channel);
+                channelListView.SelectedIndex = result;
+            }          
         }
 
         /// <summary>
@@ -64,9 +74,9 @@ namespace GenieWin8
             }
             else
             {
-                WifiInfoModel.channel = string.Format("{0}",index);
+                WifiInfoModel.channel = string.Format("{0}", index);
             }
-
+            this.Frame.Navigate(typeof(EditSettingPage));
         }
     }
 }

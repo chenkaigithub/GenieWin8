@@ -41,7 +41,20 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var securityGroup = SettingSource.GetSecurity((String)(navigationParameter));
+            string securityType = WifiInfoModel.securityType;
             this.DefaultViewModel["itemSecurity"] = securityGroup.Items;
+            switch (securityType)
+            {
+                case "None":
+                    securityListView.SelectedIndex = 0;
+                    break;
+                case "WPA2-PSK":
+                    securityListView.SelectedIndex = 1;
+                    break;
+                case "WPA-PSK/WPA2-PSK":
+                    securityListView.SelectedIndex = 2;
+                    break;
+            }
         }
 
         /// <summary>
@@ -70,6 +83,7 @@ namespace GenieWin8
                     WifiInfoModel.securityType = "WPA-PSK/WPA2-PSK";
                     break;
             }
+            this.Frame.Navigate(typeof(EditSettingPage));
         }
     }
 }

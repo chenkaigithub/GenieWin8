@@ -68,12 +68,12 @@ namespace GenieWin8
             double height = Window.Current.Bounds.Height - 140;
             double r1 = width / 2 - 100;
             double r2 = height / 2 - 100;
-            //m = （总设备数 - 1（路由器/交换机）-1（本设备））/ 6 的商
+            //m = （总设备数 - 1（路由器/交换机））/ 6 的商
             //n 为上式得余数，即最后一页除路由器（交换机）和本设备外的设备数
             var Group = DeviceSource.GetGroups();
             var DeviceNumber = Group.Count();
-            int m = (DeviceNumber - 1) / 6;
-            int n = (DeviceNumber - 1) % 6;
+            int m = (DeviceNumber - 1) / 7;
+            int n = (DeviceNumber - 1) % 7;
             for (int i = 0; i < m + 1; i++)
             {
                 //Grid map = new Grid();

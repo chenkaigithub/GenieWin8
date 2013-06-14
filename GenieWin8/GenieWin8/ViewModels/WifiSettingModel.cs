@@ -93,7 +93,8 @@ namespace GenieWin8.Data
         }
 
         public static IEnumerable<SettingGroup> GetGroups(string uniqueId)
-        {          
+        {
+            _settingSource = new SettingSource();
             return _settingSource.SettingGroups;
         }
 
@@ -127,6 +128,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<SettingGroup> GetChannelSecurity(string uniqueId)
         {
+            _settingSource = new SettingSource();
             return _settingSource.EditChannelSecurity;
         }
 
@@ -223,7 +225,7 @@ namespace GenieWin8.Data
             strTitle = loader.GetString("Security");
             var group4 = new SettingGroup("Security",
                 strTitle,
-                "WPA2-PSK[AES]");
+                WifiInfoModel.securityType);
             var strContent = loader.GetString("Security_None");
             group4.Items.Add(new SettingItem("Security-1",
                 "Security",

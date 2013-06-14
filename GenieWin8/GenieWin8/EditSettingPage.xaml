@@ -67,7 +67,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+            <Button x:Name="backButton" Click="GoBack_Click" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" x:Uid="SettingPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
             <Button Grid.Column="1" Style="{StaticResource SaveAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
