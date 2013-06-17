@@ -82,6 +82,10 @@ namespace GenieWin8
                 }
                 else if (groupId == "GuestAccess")
                 {
+                    //await soapApi.GetGuestAccessNetworkInfo();
+                    //await soapApi.SetGuestAccessEnabled();
+                    //await soapApi.SetGuestAccessEnabled2("NETGEAR-Guest", "WPA2-PSK", "stieview");
+                    await soapApi.SetGuestAccessNetwork("NETGEAR-Guest", "None", "");
                     this.Frame.Navigate(typeof(GuestAccessPage));
                 }
                 else if (groupId == "NetworkMap")
@@ -210,5 +214,6 @@ namespace GenieWin8
             }
             return fileContent;
         }
+
     }
 }

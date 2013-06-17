@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 
@@ -145,9 +146,77 @@ namespace GenieWin8
             Dictionary<string, string> param = new Dictionary<string, string>();
             await postSoap("ParentalControl", "GetEnableStatus", 5000, param);
         }
+
+        public async Task<Dictionary<string, string>> GetGuestAccessEnabled()
+        {
+            string result = await postSoap("WLANConfiguration", "GetGuestAccessEnabled",5000,new Dictionary<string,string>());
+            return util.TraverseXML(result);
+        }
+
+        /// <summary>
+        /// GetGuestAccessNetworkInfo
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> GetGuestAccessNetworkInfo()
+        {
+            Dictionary<string, string> tempResult = new Dictionary<string, string>();
+            tempResult = await GetGuestAccessEnabled();
+            if(int.Parse(tempResult["ResponseCode"])!=0)
+            {
+                return new Dictionary<string,string>();
+            }
+          
+            if (int.Parse(tempResult["NewGuestAccessEnabled"]) == 1)
+            {
+                string result = await postSoap("WLANConfiguration", "GetGuestAccessNetworkInfo", 5000, new Dictionary<string, string>());
+                return util.TraverseXML(result);
+            }
+            tempResult.Clear();
+            tempResult.Add("ResponseCode","-1");
+            return tempResult;
+        }
+
+        public async Task<Dictionary<string, string>> SetGuestAccessEnabled()
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("newGuestAccessEnabled","0");
+            string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled", 5000, param);
+            return util.TraverseXML(result);
+        }
+
+        public async Task<Dictionary<string, string>> SetGuestAccessEnabled2(string newSSID, string newSecurityMode, string newKey)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewSSID",newSSID);
+            param.Add("NewSecurityMode", newSecurityMode);
+            param.Add("NewKey1", newKey);
+            param.Add("NewKey2", "0");
+            param.Add("NewKey3", "0");
+            param.Add("NewKey4", "0");
+            param.Add("NewGuestAccessEnabled", "1");
+            string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled2", 5000, param);
+            return util.TraverseXML(result);
+        }
+
+        public async Task<Dictionary<string, string>> SetGuestAccessNetwork(string newSSID, string newSecurityMode, string newKey)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewSSID", newSSID);
+            param.Add("NewSecurityMode", newSecurityMode);
+            param.Add("NewKey1", newKey);
+            param.Add("NewKey2", "0");
+            param.Add("NewKey3", "0");
+            param.Add("NewKey4", "0");
+            string result = await postSoap("WLANConfiguration", "SetGuestAccessNetwork", 5000, param);
+            return util.TraverseXML(result);
+        }
+
         public async Task<string> postSoap(string module, string method, int port, Dictionary<string,string> param)
         {
-
+            if (isSetApi(method))
+            {
+                ConfigurationStarted();
+            }
             string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa", port);
             string soapAction = string.Format("urn:NETGEAR-ROUTER:service:{0}:1#{1}", module, method);
 
@@ -234,19 +303,33 @@ namespace GenieWin8
                     return "";
                 }
 
+            if(isSetApi(method))
+            {
+                ConfigurationFinished();
+            }
             
         }
-        public async void ConfigurationStarted(string host, int port)
+        public async void ConfigurationStarted()
         {
              Dictionary<string, string> param = new Dictionary<string,string>();
              await postSoap("DeviceConfig", "ConfigurationStarted", 5000, param);
         }
-        public async void ConfigurationFinished(string host, int port)
+        public async void ConfigurationFinished()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewStatus", "ChangesApplied");
             await postSoap("DeviceConfig", "ConfigurationFinished", 5000, param);
         }
-       
+
+        public bool isSetApi(string method)
+        {
+            Regex rgx = new Regex ("^Set");
+            Regex regex = new Regex("^Enable");
+            return (rgx.IsMatch(method) || regex.IsMatch(method) 
+                || method.Contains("UpdateNewFirmware") 
+                || method.Contains("PressWPSPBC")
+                || method.Contains("Reboot")
+                    );
+        }
     }
 }
