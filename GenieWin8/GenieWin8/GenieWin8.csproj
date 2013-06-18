@@ -204,7 +204,7 @@
     <Compile Include="ViewModels\MyMediaModel.cs" />
     <Compile Include="ViewModels\NetworkMapModel.cs" />
     <Compile Include="ViewModels\ParentalControlModel.cs" />
-    <Compile Include="TrafficMeterModel.cs" />
+    <Compile Include="ViewModels\TrafficMeterModel.cs" />
     <Compile Include="ViewModels\WifiSettingModel.cs" />
     <Compile Include="WifiSettingPage.xaml.cs">
       <DependentUpon>WifiSettingPage.xaml</DependentUpon>

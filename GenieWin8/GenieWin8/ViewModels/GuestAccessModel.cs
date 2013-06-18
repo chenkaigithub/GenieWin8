@@ -102,6 +102,17 @@ namespace GenieWin8.Data
             return _settingSource.EditName;
         }
 
+        private ObservableCollection<GuestSettingGroup> _editKey = new ObservableCollection<GuestSettingGroup>();
+        public ObservableCollection<GuestSettingGroup> EditKey
+        {
+            get { return this._editKey; }
+        }
+
+        public static IEnumerable<GuestSettingGroup> GetEditKey(string uniqueId)
+        {
+            return _settingSource.EditKey;
+        }
+
         private ObservableCollection<GuestSettingGroup> _editTimesegSecurity = new ObservableCollection<GuestSettingGroup>();
         public ObservableCollection<GuestSettingGroup> EditTimesegSecurity
         {
@@ -140,64 +151,71 @@ namespace GenieWin8.Data
             this.EditName.Add(group1);
             this.GuestSettingGroups.Add(group1);
 
+            strTitle = loader.GetString("Key/Password");
+            var group2 = new GuestSettingGroup("Password",
+                strTitle,
+                "");
+            this.EditKey.Add(group2);
+            this.GuestSettingGroups.Add(group2);
+
             strTitle = loader.GetString("TimeSegment");
-            var group2 = new GuestSettingGroup("TimeSegment",
+            var group3 = new GuestSettingGroup("TimeSegment",
                 strTitle,
                 "Always");
             var strContent = loader.GetString("TimeSegment_Always");
-            group2.Items.Add(new GuestSettingItem("TimeSegment-1",
+            group3.Items.Add(new GuestSettingItem("TimeSegment-1",
                 "TimeSegment",
                 strContent,
-                group2));
+                group3));
             strContent = loader.GetString("TimeSegment_1hour");
-            group2.Items.Add(new GuestSettingItem("TimeSegment-2",
+            group3.Items.Add(new GuestSettingItem("TimeSegment-2",
                 "TimeSegment",
                 strContent,
-                group2));
+                group3));
             strContent = loader.GetString("TimeSegment_5hours");
-            group2.Items.Add(new GuestSettingItem("TimeSegment-3",
+            group3.Items.Add(new GuestSettingItem("TimeSegment-3",
                 "TimeSegment",
                 strContent,
-                group2));
+                group3));
             strContent = loader.GetString("TimeSegment_10hours");
-            group2.Items.Add(new GuestSettingItem("TimeSegment-4",
+            group3.Items.Add(new GuestSettingItem("TimeSegment-4",
                 "TimeSegment",
                 strContent,
-                group2));
+                group3));
             strContent = loader.GetString("TimeSegment_1day");
-            group2.Items.Add(new GuestSettingItem("TimeSegment-5",
+            group3.Items.Add(new GuestSettingItem("TimeSegment-5",
                 "TimeSegment",
                 strContent,
-                group2));
+                group3));
             strContent = loader.GetString("TimeSegment_1week");
-            group2.Items.Add(new GuestSettingItem("TimeSegment-6",
+            group3.Items.Add(new GuestSettingItem("TimeSegment-6",
                 "TimeSegment",
-                strContent,
-                group2));
-            this.EditTimesegSecurity.Add(group2);
-            this.GuestSettingGroups.Add(group2);
-
-            strTitle = loader.GetString("Security");
-            var group3 = new GuestSettingGroup("Security",
-                strTitle,
-                "WPA2-PSK[AES]");
-            strContent = loader.GetString("Security_None");
-            group3.Items.Add(new GuestSettingItem("Security-1",
-                "Security",
-                strContent,
-                group3));
-            strContent = loader.GetString("Security_WPA2-PSK[AES]");
-            group3.Items.Add(new GuestSettingItem("Security-2",
-                "Security",
-                strContent,
-                group3));
-            strContent = loader.GetString("Security_WPA-PSK+WPA2-PSK");
-            group3.Items.Add(new GuestSettingItem("Security-3",
-                "Security",
                 strContent,
                 group3));
             this.EditTimesegSecurity.Add(group3);
             this.GuestSettingGroups.Add(group3);
+
+            strTitle = loader.GetString("Security");
+            var group4 = new GuestSettingGroup("Security",
+                strTitle,
+                "WPA2-PSK[AES]");
+            strContent = loader.GetString("Security_None");
+            group4.Items.Add(new GuestSettingItem("Security-1",
+                "Security",
+                strContent,
+                group4));
+            strContent = loader.GetString("Security_WPA2-PSK[AES]");
+            group4.Items.Add(new GuestSettingItem("Security-2",
+                "Security",
+                strContent,
+                group4));
+            strContent = loader.GetString("Security_WPA-PSK+WPA2-PSK");
+            group4.Items.Add(new GuestSettingItem("Security-3",
+                "Security",
+                strContent,
+                group4));
+            this.EditTimesegSecurity.Add(group4);
+            //this.GuestSettingGroups.Add(group4);
         }
     }
 }

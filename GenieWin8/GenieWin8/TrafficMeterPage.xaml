@@ -32,7 +32,7 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
+    <Grid Style="{StaticResource LayoutRootStyle}" SizeChanged="OnWindowSizeChanged">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
@@ -77,10 +77,11 @@
                         </LinearGradientBrush>
                     </Grid.Background>
                     <TextBlock x:Uid="CheckTrafficMeter" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0"/>
-                    <CheckBox HorizontalAlignment="Right" FontSize="24" IsChecked="True"/>
+                    <CheckBox x:Name="checkTrafficMeter" HorizontalAlignment="Right" FontSize="24" IsChecked="True" Click="checkTrafficMeter_Click"/>
                 </Grid>
 
-                <ListView ItemsSource="{Binding Source={StaticResource trafficMeterSource}}"
+                <ListView x:Name="TrafficMeterList"
+                          ItemsSource="{Binding Source={StaticResource trafficMeterSource}}"
                           SelectionMode="None"
                           IsItemClickEnabled="True"
                           Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
@@ -101,35 +102,36 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Canvas Grid.Row="1"  Background="White" Margin="0,40,0,0" Height="800">
-                    <TextBlock x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
+                <Canvas x:Name="TotalCanvas" Grid.Row="1"  Background="White" Margin="0,40,0,0" Height="800">
+                    <TextBlock x:Name="TextMbytesTotal" x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
                         <TextBlock.RenderTransform>
                             <CompositeTransform Rotation="270"/>
                         </TextBlock.RenderTransform>
                     </TextBlock>
-                    <TextBlock x:Uid="Total" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="500,20,0,0"/>
-                    <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
+                    <TextBlock x:Name="TextTotal" x:Uid="Total" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <!--<Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="750" X2="1200" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="100" X2="1200" Y2="100" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="230" X2="1200" Y2="230" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="360" X2="1200" Y2="360" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="490" X2="1200" Y2="490" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="620" X2="1200" Y2="620" Width="1246" Height="800" />
+                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="620" X2="1200" Y2="620" Width="1246" Height="800" />-->
                 </Canvas>
-                <Canvas Grid.Row="1"  Background="White" Height="800" Margin="0,40,0,0">
-                    <TextBlock x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
+                
+                <Canvas x:Name="AverageCanvas" Grid.Row="1"  Background="White" Height="800" Margin="0,40,0,0">
+                    <TextBlock x:Name="TextMbytesAverage" x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
                         <TextBlock.RenderTransform>
                             <CompositeTransform Rotation="270"/>
                         </TextBlock.RenderTransform>
                     </TextBlock>
-                    <TextBlock x:Uid="Average" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="500,20,0,0"/>
-                    <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
+                    <TextBlock x:Name="TextAverage" x:Uid="Average" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <!--<Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="750" X2="1200" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="100" X2="1200" Y2="100" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="230" X2="1200" Y2="230" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="360" X2="1200" Y2="360" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="490" X2="1200" Y2="490" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="620" X2="1200" Y2="620" Width="1246" Height="800" />
+                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="620" X2="1200" Y2="620" Width="1246" Height="800" />-->
                 </Canvas>
             </StackPanel>
         </ScrollViewer>

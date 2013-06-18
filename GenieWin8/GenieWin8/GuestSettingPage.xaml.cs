@@ -41,6 +41,8 @@ namespace GenieWin8
         {
             var editName = GuestSettingSource.GetEditName((String)navigationParameter);
             this.DefaultViewModel["itemName"] = editName;
+            var editKey = GuestSettingSource.GetEditKey((String)navigationParameter);
+            this.DefaultViewModel["itemKey"] = editKey;
             var timesegSecurity = GuestSettingSource.GetTimesegSecurity((String)navigationParameter);
             this.DefaultViewModel["itemTimesegSecurity"] = timesegSecurity;
         }

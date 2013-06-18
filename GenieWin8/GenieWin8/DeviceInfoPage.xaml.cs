@@ -216,79 +216,276 @@ namespace GenieWin8
                 Type.FontSize = 30;
                 Type.HorizontalAlignment = HorizontalAlignment.Center;
 
+                for (int i = 0; i < 33; i++ )
+                {
+                    Image imgDevice = new Image();
+                    Uri _baseUri = new Uri("ms-appx:///");
+                    imgDevice.Stretch = Stretch.UniformToFill;
+                    imgDevice.Width = 25;
+                    imgDevice.Height = 25;
+                    StackPanel stpDevice = new StackPanel();
+                    stpDevice.Orientation = Orientation.Horizontal;
+                    TextBlock texttype = new TextBlock();
+                    texttype.Margin = new Thickness(5, 0, 0, 0);
+                    switch (i)
+                    {
+                        case 0:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
+                            strtext = loader.GetString("gatewaydev");
+                            texttype.Text = strtext;
+                            break;
+                        case 1:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/networkdev.png"));
+                            strtext = loader.GetString("networkdev");
+                            texttype.Text = strtext;
+                            break;
+                        case 2:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowspc.png"));
+                            strtext = loader.GetString("windowspc");
+                            texttype.Text = strtext;
+                            break;
+                        case 3:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/blurayplayer.png"));
+                            strtext = loader.GetString("blurayplayer");
+                            texttype.Text = strtext;
+                            break;
+                        case 4:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/bridge.png"));
+                            strtext = loader.GetString("bridge");
+                            texttype.Text = strtext;
+                            break;
+                        case 5:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cablestb.png"));
+                            strtext = loader.GetString("cablestb");
+                            texttype.Text = strtext;
+                            break;
+                        case 6:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cameradev.png"));
+                            strtext = loader.GetString("cameradev");
+                            texttype.Text = strtext;
+                            break;
+                        case 7:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gamedev.png"));
+                            strtext = loader.GetString("gamedev");
+                            texttype.Text = strtext;
+                            break;
+                        case 8:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/imacdev.png"));
+                            strtext = loader.GetString("imacdev");
+                            texttype.Text = strtext;
+                            break;
+                        case 9:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipad.png"));
+                            strtext = loader.GetString("ipad");
+                            texttype.Text = strtext;
+                            break;
+                        case 10:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone.png"));
+                            strtext = loader.GetString("iphone");
+                            texttype.Text = strtext;
+                            break;
+                        case 11:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipodtouch.png"));
+                            strtext = loader.GetString("ipodtouch");
+                            texttype.Text = strtext;
+                            break;
+                        case 12:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/linuxpc.png"));
+                            strtext = loader.GetString("linuxpc");
+                            texttype.Text = strtext;
+                            break;
+                        case 13:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macbookdev.png"));
+                            strtext = loader.GetString("macbookdev");
+                            texttype.Text = strtext;
+                            break;
+                        case 14:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macminidev.png"));
+                            strtext = loader.GetString("macminidev");
+                            texttype.Text = strtext;
+                            break;
+                        case 15:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macprodev.png"));
+                            strtext = loader.GetString("macprodev");
+                            texttype.Text = strtext;
+                            break;
+                        case 16:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mediadev.png"));
+                            strtext = loader.GetString("mediadev");
+                            texttype.Text = strtext;
+                            break;
+                        case 17:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mobiledev.png"));
+                            strtext = loader.GetString("mobiledev");
+                            texttype.Text = strtext;
+                            break;
+                        case 18:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/netstoragedev.png"));
+                            strtext = loader.GetString("netstoragedev");
+                            texttype.Text = strtext;
+                            break;
+                        case 19:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/switchdev.png"));
+                            strtext = loader.GetString("switchdev");
+                            texttype.Text = strtext;
+                            break;
+                        case 20:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/printerdev.png"));
+                            strtext = loader.GetString("printerdev");
+                            texttype.Text = strtext;
+                            break;
+                        case 21:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/repeater.png"));
+                            strtext = loader.GetString("repeater");
+                            texttype.Text = strtext;
+                            break;
+                        case 22:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/satellitestb.png"));
+                            strtext = loader.GetString("satellitestb");
+                            texttype.Text = strtext;
+                            break;
+                        case 23:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/scannerdev.png"));
+                            strtext = loader.GetString("scannerdev");
+                            texttype.Text = strtext;
+                            break;
+                        case 24:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/slingbox.png"));
+                            strtext = loader.GetString("slingbox");
+                            texttype.Text = strtext;
+                            break;
+                        case 25:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/stb.png"));
+                            strtext = loader.GetString("stb");
+                            texttype.Text = strtext;
+                            break;
+                        case 26:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tablepc.png"));
+                            strtext = loader.GetString("tablepc");
+                            texttype.Text = strtext;
+                            break;
+                        case 27:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tv.png"));
+                            strtext = loader.GetString("tv");
+                            texttype.Text = strtext;
+                            break;
+                        case 28:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/unixpc.png"));
+                            strtext = loader.GetString("unixpc");
+                            texttype.Text = strtext;
+                            break;
+                        case 29:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androiddevice.png"));
+                            strtext = loader.GetString("androiddevice");
+                            texttype.Text = strtext;
+                            break;
+                        case 30:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
+                            strtext = loader.GetString("androidphone");
+                            texttype.Text = strtext;
+                            break;
+                        case 31:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidtablet.png"));
+                            strtext = loader.GetString("androidtablet");
+                            texttype.Text = strtext;
+                            break;
+                        case 32:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/dvr.png"));
+                            strtext = loader.GetString("dvr");
+                            texttype.Text = strtext;
+                            break;
+                    }
+                    stpDevice.Children.Add(imgDevice);
+                    stpDevice.Children.Add(texttype);
+                    ComboType.Items.Add(stpDevice);
+                }
                 //ComboBox ComboType = new ComboBox();
-                strtext = loader.GetString("gatewaydev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("networkdev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("windowspc");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("blurayplayer");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("bridge");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("cablestb");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("cameradev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("gamedev");
-                ComboType.Items.Add(strtext);
-                //strtext = loader.GetString("amazonkindledev");
+                //Image imgDevice = new Image();
+                //Uri _baseUri = new Uri("ms-appx:///");
+                //imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
+                //imgDevice.Stretch = Stretch.UniformToFill;
+                //imgDevice.Width = 25;
+                //imgDevice.Height = 25;
+                //StackPanel stpDevice = new StackPanel();
+                //stpDevice.Orientation = Orientation.Horizontal;
+                //strtext = loader.GetString("gatewaydev");
+                //TextBlock texttype = new TextBlock();
+                //texttype.Text = strtext;
+                //texttype.Margin = new Thickness(5, 0, 0, 0);
+                //stpDevice.Children.Add(imgDevice);
+                //stpDevice.Children.Add(texttype);
+                //ComboType.Items.Add(stpDevice);
+
+                //strtext = loader.GetString("networkdev");
                 //ComboType.Items.Add(strtext);
-                //strtext = loader.GetString("ipadmini");
+                //strtext = loader.GetString("windowspc");
                 //ComboType.Items.Add(strtext);
-                //strtext = loader.GetString("iphone5");
+                //strtext = loader.GetString("blurayplayer");
                 //ComboType.Items.Add(strtext);
-                strtext = loader.GetString("imacdev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("ipad");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("iphone");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("ipodtouch");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("linuxpc");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("macbookdev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("macminidev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("macprodev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("mediadev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("mobiledev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("netstoragedev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("switchdev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("printerdev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("repeater");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("satellitestb");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("scannerdev");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("slingbox");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("stb");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("tablepc");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("tv");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("unixpc");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("androiddevice");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("androidphone");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("androidtablet");
-                ComboType.Items.Add(strtext);
-                strtext = loader.GetString("dvr");
-                ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("bridge");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("cablestb");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("cameradev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("gamedev");
+                //ComboType.Items.Add(strtext);
+                ////strtext = loader.GetString("amazonkindledev");
+                ////ComboType.Items.Add(strtext);
+                ////strtext = loader.GetString("ipadmini");
+                ////ComboType.Items.Add(strtext);
+                ////strtext = loader.GetString("iphone5");
+                ////ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("imacdev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("ipad");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("iphone");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("ipodtouch");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("linuxpc");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("macbookdev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("macminidev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("macprodev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("mediadev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("mobiledev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("netstoragedev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("switchdev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("printerdev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("repeater");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("satellitestb");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("scannerdev");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("slingbox");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("stb");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("tablepc");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("tv");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("unixpc");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("androiddevice");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("androidphone");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("androidtablet");
+                //ComboType.Items.Add(strtext);
+                //strtext = loader.GetString("dvr");
+                //ComboType.Items.Add(strtext);
                 switch (Group.NODE.deviceType)
                 {
                     case "gatewaydev":

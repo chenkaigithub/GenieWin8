@@ -26,6 +26,18 @@ namespace GenieWin8
         public GuestAccessPage()
         {
             this.InitializeComponent();
+            if (checkGuestSetting.IsChecked == true)
+            {
+                GuestSettingsList.Visibility = Visibility.Visible;
+                textScanQRCode.Visibility = Visibility.Visible;
+                imageQRCode.Visibility = Visibility.Visible;
+            } 
+            else if (checkGuestSetting.IsChecked == false)
+            {
+                GuestSettingsList.Visibility = Visibility.Collapsed;
+                textScanQRCode.Visibility = Visibility.Collapsed;
+                imageQRCode.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>
@@ -56,6 +68,22 @@ namespace GenieWin8
         private void GuestSetting_ItemClick(Object sender, ItemClickEventArgs e)
         {
             this.Frame.Navigate(typeof(GuestSettingPage));
+        }
+
+        private void checkGuestSetting_Click(Object sender, RoutedEventArgs e)
+        {
+            if (checkGuestSetting.IsChecked == true)
+            {
+                GuestSettingsList.Visibility = Visibility.Visible;
+                textScanQRCode.Visibility = Visibility.Visible;
+                imageQRCode.Visibility = Visibility.Visible;
+            }
+            else if (checkGuestSetting.IsChecked == false)
+            {
+                GuestSettingsList.Visibility = Visibility.Collapsed;
+                textScanQRCode.Visibility = Visibility.Collapsed;
+                imageQRCode.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
