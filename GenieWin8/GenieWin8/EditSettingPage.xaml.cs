@@ -83,5 +83,24 @@ namespace GenieWin8
             WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
             this.Frame.Navigate(typeof(WifiSettingPage));
         }
+
+        private async void WifiSettingSave_Click(object sender, RoutedEventArgs e)
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+
+            string ssid = SSID.Text.Trim();
+            string password = pwd.Text.Trim();
+            if (ssid != "" && ssid != null)
+            {
+                if (WifiInfoModel.securityType.CompareTo("None") == 0)
+                {
+                    await soapApi.SetWLANNoSecurity(ssid, "US", WifiInfoModel.channel, "217Mbps");
+                }
+                else
+                {
+                    await soapApi.SetWLANWEPByPassphrase(ssid, "US", WifiInfoModel.channel, "217Mbps", WifiInfoModel.securityType, password);
+                }
+            }
+        }
     }
 }

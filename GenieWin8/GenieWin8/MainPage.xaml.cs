@@ -85,7 +85,8 @@ namespace GenieWin8
                     //await soapApi.GetGuestAccessNetworkInfo();
                     //await soapApi.SetGuestAccessEnabled();
                     //await soapApi.SetGuestAccessEnabled2("NETGEAR-Guest", "WPA2-PSK", "stieview");
-                    await soapApi.SetGuestAccessNetwork("NETGEAR-Guest", "None", "");
+                    //await soapApi.SetGuestAccessNetwork("NETGEAR-Guest", "None", "");
+                    await soapApi.GetCurrentSetting();
                     this.Frame.Navigate(typeof(GuestAccessPage));
                 }
                 else if (groupId == "NetworkMap")

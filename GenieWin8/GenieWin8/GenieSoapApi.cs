@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -14,10 +15,12 @@ namespace GenieWin8
     {
         HttpClient httpClient;
         UtilityTool util;
+        bool retOK;
         public GenieSoapApi()
         {
             httpClient = new HttpClient();
             util = new UtilityTool();
+            retOK = false;
 
         }
         public async Task<Dictionary<string,string>> Authenticate(string username, string password)
@@ -287,7 +290,20 @@ namespace GenieWin8
                     HttpResponseMessage response = await httpClient.SendAsync(request);
                     resultbt = await response.Content.ReadAsByteArrayAsync();
                     resultstr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
+                    HttpStatusCode statusCode = response.StatusCode;
+                    if (statusCode == HttpStatusCode.OK)
+                    {
+                        retOK = true;
+                    }
+                    else
+                    {
+                        retOK = false;
+                    }
                     System.Diagnostics.Debug.WriteLine(resultstr);
+                    if (retOK && isSetApi(method))
+                    {
+                        ConfigurationFinished();
+                    }
                     return resultstr;
                 }
                 catch (HttpRequestException hre)
@@ -302,11 +318,6 @@ namespace GenieWin8
                 {
                     return "";
                 }
-
-            if(isSetApi(method))
-            {
-                ConfigurationFinished();
-            }
             
         }
         public async void ConfigurationStarted()
@@ -330,6 +341,42 @@ namespace GenieWin8
                 || method.Contains("PressWPSPBC")
                 || method.Contains("Reboot")
                     );
+        }
+
+        public async Task<Dictionary<string, string>> GetCurrentSetting()
+        {
+            Dictionary<string, string> resultDic = new Dictionary<string, string>();
+            string url = "http://routerlogin.net/currentsetting.htm";
+            string resultStr ;
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+           
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+               byte[] resultbt = await response.Content.ReadAsByteArrayAsync();
+                
+                resultStr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
+                if (resultStr.Length > 0)
+                {
+                    
+                }
+              
+                System.Diagnostics.Debug.WriteLine(resultStr);
+            }
+            catch (HttpRequestException hre)
+            {
+                
+            }
+            catch (TaskCanceledException hce)
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            
+            return resultDic;
         }
     }
 }
