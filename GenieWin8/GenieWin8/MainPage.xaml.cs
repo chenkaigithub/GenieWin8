@@ -118,6 +118,7 @@ namespace GenieWin8
                 }
                 else if (groupId == "ParentalControl")
                 {
+                    await soapApi.GetDNSMasqDeviceID();
                     this.Frame.Navigate(typeof(ParentalControlPage));
                 }
                 else if (groupId == "MyMedia")

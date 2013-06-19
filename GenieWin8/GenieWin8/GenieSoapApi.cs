@@ -156,28 +156,71 @@ namespace GenieWin8
             return util.TraverseXML(result);
         }
 
-        public async Task<Dictionary<string,string>> GetDNSMasqDeviceID()
+        ////------------------------------------------ ParentalControl Soap api-----------------------------------------------------------
+        /// <summary>
+        /// ****************** GetDNSMasqDeviceID ******************
+        /// 获得<NewDeviceID>0000111111111111</NewDeviceID> 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> GetDNSMasqDeviceID(string newMACAddress = "default")
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            param.Add("NewMACAddress", "default");
+            param.Add("NewMACAddress", newMACAddress);
             string result = await postSoap("ParentalControl", "GetDNSMasqDeviceID", 5000, param);
             return util.TraverseXML(result);
         }
-        public async void SetDNSMasqDeviceID(string macAddress)
+
+        /// <summary>
+        /// *********************SetDNSMasqDeviceID**************
+        /// </summary>
+        /// <param name="macAddress">default</param>
+        /// <param name="deviceID"></param>
+        /// <returns>0: Success;1: Maxed out (can’t add more);2: Error;401:  Not authenticated;</returns>
+        public async Task<Dictionary<string,string>> SetDNSMasqDeviceID(string macAddress,string deviceID)
         {
- 
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewMACAddress",macAddress);
+            param.Add("NewDeviceID", deviceID);
+            string result = await postSoap("ParentalControl","SetDNSMasqDeviceID",5000,param);
+            return util.TraverseXML(result);
         }
 
         /// <summary>
         /// ***********************GetEnableStatus***********
         /// 说明：检测路由器是否支持家长控制
+        ///
         /// </summary>
-        public async void GetEnableStatus()
+        public async Task<Dictionary<string,string>> GetEnableStatus()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            await postSoap("ParentalControl", "GetEnableStatus", 5000, param);
+            string result = await postSoap("ParentalControl", "GetEnableStatus", 5000, param);
+            return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// ******************EnableParentalControl*************
+        /// 开启或关闭家长控制
+        /// newEnable :1(enable),0(disable)
+        /// </summary>
+        /// <param name="newEnable"></param>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> EnableParentalControl(string newEnable)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewEnable",newEnable);
+            string result = await postSoap("ParentalControl", "EnableParentalControl", 5000, param);
+            return util.TraverseXML(result);
+        }
+
+        public async Task<Dictionary<string, string>> DeleteMACAddress(string macAddress)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewMACAddress",macAddress);
+            string result = await postSoap("ParentalControl", "DeleteMACAddress", 5000, param);
+            return util.TraverseXML(result);
+        }
+
+        ////-----------------------------------------Guest Acccess Soap API---------------------------------------------------------
         /// <summary>
         /// *******************GetGuestAccessEnabled*******
         /// check router support Guest access
@@ -275,9 +318,10 @@ namespace GenieWin8
 
         /// <summary>
         /// *****************EnableTrafficMeter api*******************
+        /// 启用或者禁用流量控制
         /// ResponseCode:0 (no error), 1 (reboot required)
         /// newTrafficMeterEnable = 1 （enable）
-        /// newTrafficMeterEnable = 1 （disable）
+        /// newTrafficMeterEnable = 0 （disable）
         /// </summary>
         /// <param name="newTrafficMeterEnable"></param>
         /// <returns></returns>
@@ -290,6 +334,11 @@ namespace GenieWin8
 
         }
 
+        /// <summary>
+        /// 获取当前路由器的流量控制功能状态
+        /// NewTrafficMeterEnable：1（enabled），0（disabled），2（Traffic Meter service is not supported）
+        /// </summary>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> GetTrafficMeterEnabled()
         {
             string result = await postSoap("DeviceConfig", "GetTrafficMeterEnabled",5000,new Dictionary<string,string>());
@@ -373,7 +422,7 @@ namespace GenieWin8
 
 
         /// <summary>
-        ///     send soap api
+        ///    *************** send soap api***************
         /// </summary>
         /// <param name="module"></param>
         /// <param name="method"></param>
@@ -486,11 +535,20 @@ namespace GenieWin8
                 }
             
         }
+        /// <summary>
+        /// ***************ConfigurationStarted***********
+        /// SOAP api 设置开始
+        /// </summary>
         public async void ConfigurationStarted()
         {
              Dictionary<string, string> param = new Dictionary<string,string>();
              await postSoap("DeviceConfig", "ConfigurationStarted", 5000, param);
         }
+
+        /// <summary>
+        /// ***************ConfigurationFinished***********
+        /// soap api 完成设置
+        /// </summary>
         public async void ConfigurationFinished()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -498,6 +556,11 @@ namespace GenieWin8
             await postSoap("DeviceConfig", "ConfigurationFinished", 5000, param);
         }
 
+        /// <summary>
+        /// 判断Genie SOAP api 是否进行设置
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
         public bool isSetApi(string method)
         {
             Regex rgx = new Regex ("^Set");
