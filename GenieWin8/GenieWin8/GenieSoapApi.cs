@@ -23,6 +23,13 @@ namespace GenieWin8
             retOK = false;
 
         }
+
+        /// <summary>
+        /// *****************路由器认证*************
+        /// </summary>
+        /// <param name="username">admin</param>
+        /// <param name="password">password</param>
+        /// <returns></returns>
         public async Task<Dictionary<string,string>> Authenticate(string username, string password)
         {
             Dictionary<string, string> param = new Dictionary<string,string>();
@@ -31,6 +38,11 @@ namespace GenieWin8
             string retParam = await postSoap("ParentalControl", "Authenticate", 5000, param);
             return util.TraverseXML(retParam);
         }
+
+        /// <summary>
+        /// *********************GetAttachDevice*************
+        /// </summary>
+        /// <returns></returns>
         public async Task<Dictionary<string,Dictionary<string,string>>> GetAttachDevice()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -75,7 +87,11 @@ namespace GenieWin8
             }
             return  dicAttachDevice;
         }
-
+        /// <summary>
+        /// ************GetInfo*********Get router basic information*****************
+        /// </summary>
+        /// <param name="module">WLANConfiguration||DeviceInfo</param>
+        /// <returns></returns>
         public async Task<Dictionary<string,string>> GetInfo(string module)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -83,6 +99,11 @@ namespace GenieWin8
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// **************GetWPASecurityKeys*************
+        /// 获取WiFi密码
+        /// </summary>
+        /// <returns>NewWPAPassphrase</returns>
         public async Task<Dictionary<string,string>> GetWPASecurityKeys()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -91,7 +112,8 @@ namespace GenieWin8
         }
 
         /// <summary>
-        /// *******************参数格式*************
+        /// -----------安全类型为None时调用--------
+        /// **************SetWLANNoSecurity*****参数格式*****************
         /// SetWLANWEPByPassphrase("4500v2-2G", "US", "9", "217Mbps");
         /// </summary>
         /// <param name="ssid"></param>
@@ -112,6 +134,7 @@ namespace GenieWin8
         //////**************参数格式**************
         /// <summary>
         /// 设置Wirless Setting
+        /// 说明：安全类型为"WPA-PSK/WPA2-PSK"或者"WPA2-PSK"时调用
         /// </summary>
         /// <param name="ssid"></param>
         /// <param name="region"></param>
@@ -144,12 +167,22 @@ namespace GenieWin8
         {
  
         }
+
+        /// <summary>
+        /// ***********************GetEnableStatus***********
+        /// 说明：检测路由器是否支持家长控制
+        /// </summary>
         public async void GetEnableStatus()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             await postSoap("ParentalControl", "GetEnableStatus", 5000, param);
         }
 
+        /// <summary>
+        /// *******************GetGuestAccessEnabled*******
+        /// check router support Guest access
+        /// </summary>
+        /// <returns>NewGuestAccessEnabled：1（enable）,0(not enable)</returns>
         public async Task<Dictionary<string, string>> GetGuestAccessEnabled()
         {
             string result = await postSoap("WLANConfiguration", "GetGuestAccessEnabled",5000,new Dictionary<string,string>());
@@ -157,9 +190,12 @@ namespace GenieWin8
         }
 
         /// <summary>
-        /// GetGuestAccessNetworkInfo
+        /// *********************GetGuestAccessNetworkInfo***********
+        /// 获得访客网络信息
         /// </summary>
-        /// <returns></returns>
+        /// <returns> <NewSSID>NETGEAR-Guest</NewSSID>
+        //<NewSecurityMode>None</NewSecurityMode>
+        //<NewKey>密码</NewKey></returns>
         public async Task<Dictionary<string, string>> GetGuestAccessNetworkInfo()
         {
             Dictionary<string, string> tempResult = new Dictionary<string, string>();
@@ -179,6 +215,11 @@ namespace GenieWin8
             return tempResult;
         }
 
+        /// <summary>
+        /// *************SetGuestAccessEnabled*************
+        /// 禁用访客访问
+        /// </summary>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> SetGuestAccessEnabled()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -187,6 +228,15 @@ namespace GenieWin8
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// *********************SetGuestAccessEnabled2***************
+        /// 条件：访客访问网络已被禁用
+        /// 功能：启用访客访问并设置访客网络信息
+        /// </summary>
+        /// <param name="newSSID"></param>
+        /// <param name="newSecurityMode"></param>
+        /// <param name="newKey"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> SetGuestAccessEnabled2(string newSSID, string newSecurityMode, string newKey)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -201,6 +251,15 @@ namespace GenieWin8
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// ********************SetGuestAccessNetwork*********************
+        /// 条件：访客网络已启用
+        /// 当访客访问没有被禁用时修改访客网络信息
+        /// </summary>
+        /// <param name="newSSID"></param>
+        /// <param name="newSecurityMode"></param>
+        /// <param name="newKey"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> SetGuestAccessNetwork(string newSSID, string newSecurityMode, string newKey)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -214,6 +273,113 @@ namespace GenieWin8
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// *****************EnableTrafficMeter api*******************
+        /// ResponseCode:0 (no error), 1 (reboot required)
+        /// newTrafficMeterEnable = 1 （enable）
+        /// newTrafficMeterEnable = 1 （disable）
+        /// </summary>
+        /// <param name="newTrafficMeterEnable"></param>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> EnableTrafficMeter(string newTrafficMeterEnable)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewTrafficMeterEnable",newTrafficMeterEnable);
+            string result = await postSoap("DeviceConfig", "EnableTrafficMeter",5000,param);
+            return util.TraverseXML(result);
+
+        }
+
+        public async Task<Dictionary<string, string>> GetTrafficMeterEnabled()
+        {
+            string result = await postSoap("DeviceConfig", "GetTrafficMeterEnabled",5000,new Dictionary<string,string>());
+            return util.TraverseXML(result);
+        }
+
+        /// <summary>
+        /// **************GetTrafficMeterOptions api****** return soap value***********************
+        ///   <m:GetTrafficMeterOptionsResponse        //xmlns:m="urn:NETGEAT-ROUTER:service:DeviceConfig:1">
+        //    <NewControlOption>No limit</NewControlOption>
+        //    <NewMonthlyLimit>0</NewMonthlyLimit>
+        //    <RestartHour>00</RestartHour>
+        //    <RestartMinute>00</RestartMinute>
+        //    <RestartDay>1</RestartDay>
+        //</m:GetTrafficMeterOptionsResponse>
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        public async Task<Dictionary<string, string>> GetTrafficMeterOptions()
+        {
+            Dictionary<string, string> resultDic = new Dictionary<string, string>();
+            string result = await postSoap("DeviceConfig", "GetTrafficMeterOptions",5000,new Dictionary<string,string>());
+            resultDic = util.TraverseXML(result);
+            return resultDic;
+        }
+
+        /// <summary>
+        ///**********GetTrafficMeterStatistics soap api return result***************************
+        ///获得路由器流量信息
+        ///   <m:GetTrafficMeterStatisticsResponse
+        //    xmlns:m="urn:NETGEAT-ROUTER:service:DeviceConfig:1">
+        //    <NewTodayConnectionTime>--:--</NewTodayConnectionTime>
+        //    <NewTodayUpload>0.10</NewTodayUpload>
+        //    <NewTodayDownload>0.50</NewTodayDownload>
+        //    <NewYesterdayConnectionTime>--:--</NewYesterdayConnectionTime>
+        //    <NewYesterdayUpload>0.00</NewYesterdayUpload>
+        //    <NewYesterdayDownload>0.00</NewYesterdayDownload>
+        //    <NewWeekConnectionTime>--:--</NewWeekConnectionTime>
+        //    <NewWeekUpload>0.10/0.01</NewWeekUpload>
+        //    <NewWeekDownload>0.50/0.07</NewWeekDownload>
+        //    <NewMonthConnectionTime>--:--</NewMonthConnectionTime>
+        //    <NewMonthUpload>0.10/0.00</NewMonthUpload>
+        //    <NewMonthDownload>0.50/0.02</NewMonthDownload>
+        //    <NewLastMonthConnectionTime>--:--</NewLastMonthConnectionTime>
+        //    <NewLastMonthUpload>1628/54.29</NewLastMonthUpload>
+        //    <NewLastMonthDownload>4887/162.91</NewLastMonthDownload>
+        //</m:GetTrafficMeterStatisticsResponse>
+        //<ResponseCode>000</ResponseCode
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> GetTrafficMeterStatistics()
+        {
+            Dictionary<string, string> resultDic = new Dictionary<string, string>();
+            string result = await postSoap("DeviceConfig", "GetTrafficMeterStatistics", 5000, new Dictionary<string, string>());
+            resultDic = util.TraverseXML(result);
+            return resultDic;
+        }
+
+        /// <summary>
+        /// **************** SetTrafficMeterOptions api**************
+        ///  ResponseCode:0 (no error), 1 (reboot required)
+        /// </summary>
+        /// <param name="newControlOption">No Limit|Download only|Both directions</param>
+        /// <param name="newMonthlyLimit">Integer, <=1000000 (Mbps)</param>
+        /// <param name="restartHour">0~24</param>
+        /// <param name="restartMinute">0~60</param>
+        /// <param name="restartDay">1~31</param>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> SetTrafficMeterOptions(string newControlOption,string newMonthlyLimit,string restartHour,string restartMinute, string restartDay)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewControlOption",newControlOption);
+            param.Add("NewMonthlyLimit",newMonthlyLimit);
+            param.Add("RestartHour",restartHour);
+            param.Add("RestartMinute",restartMinute);
+            param.Add("RestartDay",restartDay);
+            string result = await postSoap("DeviceConfig", "SetTrafficMeterOptions",5000,param);
+            return util.TraverseXML(result);
+        }
+
+
+
+        /// <summary>
+        ///     send soap api
+        /// </summary>
+        /// <param name="module"></param>
+        /// <param name="method"></param>
+        /// <param name="port"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
         public async Task<string> postSoap(string module, string method, int port, Dictionary<string,string> param)
         {
             if (isSetApi(method))
@@ -343,6 +509,10 @@ namespace GenieWin8
                     );
         }
 
+        /// <summary>
+        /// 判断是否为netgear路由器，并获得路由器的一些信息
+        /// </summary>
+        /// <returns>Firmware=V1.0.1.20_1.0.40 RegionTag=WNDR4500_NA Region=us Model=WNDR4500 InternetConnectionStatus=Up ParentalControlSupported=1 SOAPVersion=1.15 ReadyShareSupportedLevel=7</returns>
         public async Task<Dictionary<string, string>> GetCurrentSetting()
         {
             Dictionary<string, string> resultDic = new Dictionary<string, string>();
@@ -358,7 +528,12 @@ namespace GenieWin8
                 resultStr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
                 if (resultStr.Length > 0)
                 {
-                    
+                    string[] split_r_n = resultStr.Split(new []{"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+                    foreach(string item in split_r_n)
+                    {
+                        string[] splitValue = item.Split(new []{"="}, StringSplitOptions.RemoveEmptyEntries);
+                        resultDic.Add(splitValue[0],splitValue[1]);
+                    }
                 }
               
                 System.Diagnostics.Debug.WriteLine(resultStr);
