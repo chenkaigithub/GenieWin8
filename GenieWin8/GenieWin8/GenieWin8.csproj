@@ -122,6 +122,7 @@
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GenieSoapApi.cs" />
+    <Compile Include="GenieWebApi.cs" />
     <Compile Include="GuestAccessPage.xaml.cs">
       <DependentUpon>GuestAccessPage.xaml</DependentUpon>
     </Compile>

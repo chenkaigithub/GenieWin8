@@ -73,7 +73,9 @@ namespace GenieWin8
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetInfo("WLANConfiguration");
                     WifiInfoModel.ssid = dicResponse["NewSSID"];
+                    WifiInfoModel.region = dicResponse["NewRegion"];
                     WifiInfoModel.channel = dicResponse["NewChannel"];
+                    WifiInfoModel.wirelessMode = dicResponse["NewWirelessMode"];
                     WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                     dicResponse = await soapApi.GetWPASecurityKeys();
                     WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
@@ -118,7 +120,11 @@ namespace GenieWin8
                 }
                 else if (groupId == "ParentalControl")
                 {
-                    await soapApi.GetDNSMasqDeviceID();
+                    //await soapApi.GetDNSMasqDeviceID();
+                    GenieWebApi webApi = new GenieWebApi();
+                    
+
+                    await webApi.BeginLogin("genie007","12345678");
                     this.Frame.Navigate(typeof(ParentalControlPage));
                 }
                 else if (groupId == "MyMedia")

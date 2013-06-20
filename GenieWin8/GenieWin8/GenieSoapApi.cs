@@ -347,7 +347,8 @@ namespace GenieWin8
 
         /// <summary>
         /// **************GetTrafficMeterOptions api****** return soap value***********************
-        ///   <m:GetTrafficMeterOptionsResponse        //xmlns:m="urn:NETGEAT-ROUTER:service:DeviceConfig:1">
+        ///   <m:GetTrafficMeterOptionsResponse
+        //xmlns:m="urn:NETGEAT-ROUTER:service:DeviceConfig:1">
         //    <NewControlOption>No limit</NewControlOption>
         //    <NewMonthlyLimit>0</NewMonthlyLimit>
         //    <RestartHour>00</RestartHour>
@@ -433,7 +434,7 @@ namespace GenieWin8
         {
             if (isSetApi(method))
             {
-                ConfigurationStarted();
+                ConfigurationStarted(5000);
             }
             string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa", port);
             string soapAction = string.Format("urn:NETGEAR-ROUTER:service:{0}:1#{1}", module, method);
@@ -517,7 +518,7 @@ namespace GenieWin8
                     System.Diagnostics.Debug.WriteLine(resultstr);
                     if (retOK && isSetApi(method))
                     {
-                        ConfigurationFinished();
+                        ConfigurationFinished(5000);
                     }
                     return resultstr;
                 }
@@ -539,21 +540,119 @@ namespace GenieWin8
         /// ***************ConfigurationStarted***********
         /// SOAP api 设置开始
         /// </summary>
-        public async void ConfigurationStarted()
+        public async void ConfigurationStarted(int port)
         {
-             Dictionary<string, string> param = new Dictionary<string,string>();
-             await postSoap("DeviceConfig", "ConfigurationStarted", 5000, param);
+             //Dictionary<string, string> param = new Dictionary<string,string>();
+             //await postSoap("DeviceConfig", "ConfigurationStarted", 5000, param);
+            string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa", port);
+            string soapAction = string.Format("urn:NETGEAR-ROUTER:service:DeviceConfig:1#ConfigurationStarted");
+
+            string soapBodyMode = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
+           + "<SOAP-ENV:Envelope xmlns:SOAPSDK1=\"http://www.w3.org/2001/XMLSchema\" "
+            + "xmlns:SOAPSDK2=\"http://www.w3.org/2001/XMLSchema-instance\" "
+             + "xmlns:SOAPSDK3=\"http://schemas.xmlsoap.org/soap/encoding/\" "
+              + "xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+               + "<SOAP-ENV:Header>"
+                + "<SessionID>58DEE6006A88A967E89A</SessionID>"
+                 + "</SOAP-ENV:Header>"
+                  + "<SOAP-ENV:Body>"
+                   + "<M1:ConfigurationStarted xmlns:M1=\"urn:NETGEAR-ROUTER:service:DeviceConfig:1\">"
+                        + "<NewSessionID>58DEE6006A88A967E89A</NewSessionID>"
+                   + "</M1:ConfigurationStarted>"
+                 + "</SOAP-ENV:Body>"
+           + "</SOAP-ENV:Envelope>";
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, resourceAddress);
+            StringContent soapContent = new StringContent(soapBodyMode, Encoding.UTF8, "text/xml");
+            request.Content = soapContent;
+            request.Content.Headers.Add("SOAPAction", soapAction);
+            CacheControlHeaderValue nocache = new CacheControlHeaderValue();
+            nocache.NoCache = true;
+            request.Headers.CacheControl = nocache;
+            request.Headers.Pragma.Add(new NameValueHeaderValue("no-cache"));
+            //request.Headers.UserAgent.Add(new ProductInfoHeaderValue("SOAP Toolkit 3.0")); 
+            request.Headers.ExpectContinue = false;
+            byte[] resultbt;
+            string resultstr;
+            try
+            {
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+                resultbt = await response.Content.ReadAsByteArrayAsync();
+                resultstr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
+
+                // return resultstr;
+            }
+            catch (HttpRequestException hre)
+            {
+                // return "";
+            }
+            catch (TaskCanceledException hce)
+            {
+                //   return "";
+            }
+            catch (Exception ex)
+            {
+                // return "";
+            }
         }
 
         /// <summary>
         /// ***************ConfigurationFinished***********
         /// soap api 完成设置
         /// </summary>
-        public async void ConfigurationFinished()
+        public async void ConfigurationFinished(int port)
         {
-            Dictionary<string, string> param = new Dictionary<string, string>();
-            param.Add("NewStatus", "ChangesApplied");
-            await postSoap("DeviceConfig", "ConfigurationFinished", 5000, param);
+            //Dictionary<string, string> param = new Dictionary<string, string>();
+            //param.Add("NewStatus", "ChangesApplied");
+            //await postSoap("DeviceConfig", "ConfigurationFinished", 5000, param);
+            string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa", port);
+            string soapAction = string.Format("urn:NETGEAR-ROUTER:service:DeviceConfig:1#ConfigurationFinished");
+
+            string soapBodyMode = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
+           + "<SOAP-ENV:Envelope xmlns:SOAPSDK1=\"http://www.w3.org/2001/XMLSchema\" "
+            + "xmlns:SOAPSDK2=\"http://www.w3.org/2001/XMLSchema-instance\" "
+             + "xmlns:SOAPSDK3=\"http://schemas.xmlsoap.org/soap/encoding/\" "
+              + "xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+               + "<SOAP-ENV:Header>"
+                + "<SessionID>58DEE6006A88A967E89A</SessionID>"
+                 + "</SOAP-ENV:Header>"
+                  + "<SOAP-ENV:Body>"
+                   + "<M1:ConfigurationFinished xmlns:M1=\"urn:NETGEAR-ROUTER:service:DeviceConfig:1\">"
+                        + "<NewStatus>ChangesApplied</NewStatus>"
+                   + "</M1:ConfigurationFinished>"
+                 + "</SOAP-ENV:Body>"
+           + "</SOAP-ENV:Envelope>";
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, resourceAddress);
+            StringContent soapContent = new StringContent(soapBodyMode, Encoding.UTF8, "text/xml");
+            request.Content = soapContent;
+            request.Content.Headers.Add("SOAPAction", soapAction);
+            CacheControlHeaderValue nocache = new CacheControlHeaderValue();
+            nocache.NoCache = true;
+            request.Headers.CacheControl = nocache;
+            request.Headers.Pragma.Add(new NameValueHeaderValue("no-cache"));
+            //request.Headers.UserAgent.Add(new ProductInfoHeaderValue("SOAP Toolkit 3.0")); 
+            request.Headers.ExpectContinue = false;
+            byte[] resultbt;
+            string resultstr;
+            try
+            {
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+                resultbt = await response.Content.ReadAsByteArrayAsync();
+                resultstr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
+
+                // return resultstr;
+            }
+            catch (HttpRequestException hre)
+            {
+                // return "";
+            }
+            catch (TaskCanceledException hce)
+            {
+                //   return "";
+            }
+            catch (Exception ex)
+            {
+                // return "";
+            }
         }
 
         /// <summary>
@@ -616,5 +715,7 @@ namespace GenieWin8
             
             return resultDic;
         }
+
+        
     }
 }

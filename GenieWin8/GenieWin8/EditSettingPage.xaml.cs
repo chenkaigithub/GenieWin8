@@ -94,11 +94,11 @@ namespace GenieWin8
             {
                 if (WifiInfoModel.securityType.CompareTo("None") == 0)
                 {
-                    await soapApi.SetWLANNoSecurity(ssid, "US", WifiInfoModel.channel, "217Mbps");
+                    await soapApi.SetWLANNoSecurity(ssid, WifiInfoModel.region, WifiInfoModel.channel, WifiInfoModel.wirelessMode);
                 }
                 else
                 {
-                    await soapApi.SetWLANWEPByPassphrase(ssid, "US", WifiInfoModel.channel, "217Mbps", WifiInfoModel.securityType, password);
+                    await soapApi.SetWLANWEPByPassphrase(ssid, WifiInfoModel.region, WifiInfoModel.channel, WifiInfoModel.wirelessMode, WifiInfoModel.securityType, password);
                 }
             }
         }
