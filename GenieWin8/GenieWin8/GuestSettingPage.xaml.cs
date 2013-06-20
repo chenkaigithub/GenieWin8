@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GenieWin8.DataModel;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -45,6 +46,14 @@ namespace GenieWin8
             this.DefaultViewModel["itemKey"] = editKey;
             var timesegSecurity = GuestSettingSource.GetTimesegSecurity((String)navigationParameter);
             this.DefaultViewModel["itemTimesegSecurity"] = timesegSecurity;
+            if (GuestAccessInfoModel.securityType == "None")
+            {
+                gridKey.Visibility = Visibility.Collapsed;
+            } 
+            else
+            {
+                gridKey.Visibility = Visibility.Visible;
+            }
         }
 
         /// <summary>
@@ -67,6 +76,39 @@ namespace GenieWin8
             else if (groupId == "Security")
             {
                 this.Frame.Navigate(typeof(GuestSecurityPage), groupId);
+            }
+        }
+
+        private async void GoBack_Click(Object sender, RoutedEventArgs e)
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetGuestAccessNetworkInfo();
+            GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
+            GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
+            if (dicResponse["NewSecurityMode"] != "None")
+                GuestAccessInfoModel.password = dicResponse["NewKey"];
+            else
+                GuestAccessInfoModel.password = "";
+            if (GuestAccessInfoModel.timePeriod == null)
+                GuestAccessInfoModel.timePeriod = "Always";
+            this.Frame.Navigate(typeof(GuestAccessPage));
+        }
+
+        private async void GuestSettingSave_Click(object sender, RoutedEventArgs e)
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+
+            string ssid = SSID.Text.Trim();
+            string password = Password.Text.Trim();
+            if (ssid != "" && ssid != null)
+            {
+                if (GuestAccessInfoModel.securityType.CompareTo("None") == 0)
+                {
+                    GuestAccessInfoModel.password = "";
+                    password = "";
+                }
+                await soapApi.SetGuestAccessNetwork(ssid, GuestAccessInfoModel.securityType, password);
             }
         }
     }

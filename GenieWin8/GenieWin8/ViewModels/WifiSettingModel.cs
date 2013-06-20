@@ -117,6 +117,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<SettingGroup> GetEditKey(string uniqueId)
         {
+            _settingSource = new SettingSource();
             return _settingSource.EditKey;
         }
 

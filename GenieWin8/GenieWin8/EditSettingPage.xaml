@@ -79,7 +79,7 @@
                 <TextBox x:Name="SSID" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40"/>
             </Grid>
 
-            <Grid DataContext="{Binding Source={StaticResource editKeySource}}"
+            <Grid x:Name ="gridKey" DataContext="{Binding Source={StaticResource editKeySource}}"
                   d:DataContext="{Binding Source={StaticResource editKeySource}}" Margin="0,30,0,0">
                 <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
                 <TextBox x:Name="pwd" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40"/>

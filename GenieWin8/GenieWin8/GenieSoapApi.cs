@@ -347,7 +347,8 @@ namespace GenieWin8
 
         /// <summary>
         /// **************GetTrafficMeterOptions api****** return soap value***********************
-        ///   <m:GetTrafficMeterOptionsResponse        //xmlns:m="urn:NETGEAT-ROUTER:service:DeviceConfig:1">
+        ///   <m:GetTrafficMeterOptionsResponse
+        //xmlns:m="urn:NETGEAT-ROUTER:service:DeviceConfig:1">
         //    <NewControlOption>No limit</NewControlOption>
         //    <NewMonthlyLimit>0</NewMonthlyLimit>
         //    <RestartHour>00</RestartHour>

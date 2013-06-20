@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
 using Windows.Storage;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 // “项目页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234233 上提供
 
@@ -69,7 +70,9 @@ namespace GenieWin8
                 if (groupId == "WiFiSetting")
                 {
                     //WifiInfoModel wifiInfo = new WifiInfoModel ();
-
+                    InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetInfo("WLANConfiguration");
                     WifiInfoModel.ssid = dicResponse["NewSSID"];
@@ -77,7 +80,9 @@ namespace GenieWin8
                     WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                     dicResponse = await soapApi.GetWPASecurityKeys();
                     WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
-
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(WifiSettingPage));
                 }
                 else if (groupId == "GuestAccess")
@@ -87,7 +92,40 @@ namespace GenieWin8
                     //await soapApi.SetGuestAccessEnabled2("NETGEAR-Guest", "WPA2-PSK", "stieview");
                     //await soapApi.SetGuestAccessNetwork("NETGEAR-Guest", "None", "");
                     //await soapApi.GetCurrentSetting();
-                    this.Frame.Navigate(typeof(GuestAccessPage));
+                    InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetGuestAccessEnabled();
+                    GuestAccessInfoModel.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
+                    if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
+                    {
+                        if (dicResponse["NewGuestAccessEnabled"] == "1")
+                        {
+                            Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                            dicResponse2 = await soapApi.GetGuestAccessNetworkInfo();
+                            GuestAccessInfoModel.ssid = dicResponse2["NewSSID"];
+                            GuestAccessInfoModel.securityType = dicResponse2["NewSecurityMode"];
+                            if (dicResponse2["NewSecurityMode"] != "None")
+                                GuestAccessInfoModel.password = dicResponse2["NewKey"];
+                            else
+                                GuestAccessInfoModel.password = "";
+                        }
+                        if (GuestAccessInfoModel.timePeriod == null)
+                            GuestAccessInfoModel.timePeriod = "Always";
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        this.Frame.Navigate(typeof(GuestAccessPage));
+                    }
+                    else if (dicResponse["NewGuestAccessEnabled"] == "2")
+                    {
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        var messageDialog = new MessageDialog("The router does not support this function.");
+                        await messageDialog.ShowAsync();
+                    }
                 }
                 else if (groupId == "NetworkMap")
                 {

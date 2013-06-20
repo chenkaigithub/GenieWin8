@@ -57,9 +57,10 @@
             <TextBlock x:Name="pageTitle" x:Uid="GuestTimeSegPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
-        <ListView Grid.Row="1"
+        <ListView x:Name="timePeriodListView" Grid.Row="1"
                   ItemsSource="{Binding Source={StaticResource TimeSegmentSource}}"
-                  Margin="60,30,60,20" HorizontalAlignment="Center" VerticalAlignment="Top">
+                  Margin="60,30,60,20" HorizontalAlignment="Center" VerticalAlignment="Top"
+                  SelectionChanged="ChangeTimePeriodClick">
             <ListView.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF004F74" Offset="1"/>
