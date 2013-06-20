@@ -13,6 +13,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GenieWin8.DataModel;
+using Windows.UI.Popups;
+using Windows.Storage;
+using System.Threading.Tasks;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -37,8 +41,18 @@ namespace GenieWin8
         /// </param>
         /// <param name="pageState">此页在以前会话期间保留的状态
         /// 字典。首次访问页面时为 null。</param>
-        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
-        {
+        protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        {       
+            MainPageInfo.password = await ReadPasswordFromFile();
+            if (MainPageInfo.password == "")
+            {
+                checkRememberPassword.IsChecked = false;
+            } 
+            else
+            {
+                checkRememberPassword.IsChecked = true;
+            }
+            tbPassword.Password = MainPageInfo.password;
         }
 
         /// <summary>
@@ -51,8 +65,78 @@ namespace GenieWin8
         {
         }
 
-        private void LoginButton_Click(Object sender, RoutedEventArgs e)
+        private async void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
+            string Username = tbUserName.Text.Trim();
+            string Password = tbPassword.Password;
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetCurrentSetting();
+            if (dicResponse.Count > 0 && dicResponse["Firmware"] != "" && dicResponse["Model"] != "")
+            {
+                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                dicResponse2 = await soapApi.Authenticate(Username, Password);
+                if (int.Parse(dicResponse2["ResponseCode"]) == 0)
+                {
+                    MainPageInfo.bLogin = true;
+                    if (checkRememberPassword.IsChecked == true)
+                    {
+                        MainPageInfo.password = Password;
+                    }
+                    else
+                    {
+                        MainPageInfo.password = "";                       
+                    }
+                    WritePasswordToFile();
+                    this.Frame.GoBack();
+                }
+                else if (int.Parse(dicResponse2["ResponseCode"]) == 401)
+                {
+                    var messageDialog = new MessageDialog("Login failed. Please re-enter the correct admin password for your NETGEAR router.");
+                    await messageDialog.ShowAsync();
+                }
+            }
+            else
+            {
+                var messageDialog = new MessageDialog("Login failed! Please check to see if this computer is connected to the NETGEAR router.");
+                await messageDialog.ShowAsync();
+            }
+        }
+
+        public async void WritePasswordToFile()
+        {
+            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            StorageFile file = await storageFolder.CreateFileAsync("Password.txt", CreationCollisionOption.ReplaceExisting);
+            try
+            {
+                if (file != null)
+                {
+                    await FileIO.WriteTextAsync(file, MainPageInfo.password);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+
+            }
+        }
+
+        public async Task<string> ReadPasswordFromFile()
+        {
+            string fileContent = string.Empty;
+            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            try
+            {
+                StorageFile file = await storageFolder.GetFileAsync("Password.txt");
+                if (file != null)
+                {
+                    fileContent = await FileIO.ReadTextAsync(file);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+
+            }
+            return fileContent;
         }
     }
 }

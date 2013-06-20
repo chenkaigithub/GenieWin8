@@ -49,6 +49,16 @@ namespace GenieWin8
             // TODO: 创建适用于问题域的合适数据模型以替换示例数据
             var dataGroups = DataSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Items"] = dataGroups;
+            if (MainPageInfo.bLogin)
+            {
+                btnLogin.Visibility = Visibility.Collapsed;
+                btnLogout.Visibility = Visibility.Visible;
+            } 
+            else
+            {
+                btnLogin.Visibility = Visibility.Visible;
+                btnLogout.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>
@@ -63,10 +73,10 @@ namespace GenieWin8
             // 通过将所需信息作为导航参数传入来配置新页
             //var groupId = ((SampleDataGroup)e.ClickedItem).UniqueId;
             //this.Frame.Navigate(typeof(SplitPage), groupId);
-            if (true)	//已登陆
+            var groupId = ((DataGroup)e.ClickedItem).UniqueId;
+            if (MainPageInfo.bLogin)	//已登陆
             {
-                GenieSoapApi soapApi = new GenieSoapApi();
-                var groupId = ((DataGroup)e.ClickedItem).UniqueId;
+                GenieSoapApi soapApi = new GenieSoapApi();                
                 if (groupId == "WiFiSetting")
                 {
                     //WifiInfoModel wifiInfo = new WifiInfoModel ();
@@ -158,20 +168,20 @@ namespace GenieWin8
                 {
                     await soapApi.GetDNSMasqDeviceID();
                     this.Frame.Navigate(typeof(ParentalControlPage));
-                }
-                else if (groupId == "MyMedia")
-                {
-                    this.Frame.Navigate(typeof(MyMediaPage));
-                }
-                else if (groupId == "MarketPlace")
-                {
-                    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
-                    await Windows.System.Launcher.LaunchUriAsync(uri);
-                }
+                }               
             }
             else	//未登录，跳到登陆页面
             {
                 this.Frame.Navigate(typeof(LoginPage));
+            }
+            if (groupId == "MyMedia")
+            {
+                this.Frame.Navigate(typeof(MyMediaPage));
+            }
+            else if (groupId == "MarketPlace")
+            {
+                var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+                await Windows.System.Launcher.LaunchUriAsync(uri);
             }
         }
 
@@ -184,6 +194,9 @@ namespace GenieWin8
         }
         private void LogoutButton_Click(Object sender, RoutedEventArgs e)
         {
+            MainPageInfo.bLogin = false;
+            btnLogin.Visibility = Visibility.Visible;
+            btnLogout.Visibility = Visibility.Collapsed;
         }
         private void AboutButton_Click(Object sender, RoutedEventArgs e)
         {

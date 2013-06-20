@@ -108,6 +108,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\GuestAccessInfoModel.cs" />
+    <Compile Include="DataModel\MainPageInfo.cs" />
     <Compile Include="DataModel\NetworkMapDodel.cs" />
     <Compile Include="DataModel\WifiInfoModel.cs" />
     <Compile Include="DeviceInfoPage.xaml.cs">
