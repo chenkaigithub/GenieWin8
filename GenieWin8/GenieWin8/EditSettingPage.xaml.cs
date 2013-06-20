@@ -46,6 +46,14 @@ namespace GenieWin8
 	        this.DefaultViewModel["itemKey"] = editKey;
             var channelsecurity = SettingSource.GetChannelSecurity((String)navigationParameter);
 	        this.DefaultViewModel["itemChannelSecurity"] = channelsecurity;
+            if (WifiInfoModel.securityType == "None")
+            {
+                gridKey.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                gridKey.Visibility = Visibility.Visible;
+            }
         }
 
         /// <summary>

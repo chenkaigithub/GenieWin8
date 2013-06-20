@@ -203,8 +203,8 @@
     <Page.BottomAppBar>
         <AppBar Padding="10,0,10,0">
             <Grid>
-                <Button x:Uid="LoginButton" Click="LoginButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"/>
-                <Button x:Uid="LogoutButton" Click="LogoutButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150" Visibility="Collapsed"/>
+                <Button x:Name="btnLogin" x:Uid="LoginButton" Click="LoginButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"/>
+                <Button x:Name="btnLogout" x:Uid="LogoutButton" Click="LogoutButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"/>
                 <Button Click="AboutButton_Click" Style="{StaticResource AboutAppBarButtonStyle}" HorizontalAlignment="Right"/>
             </Grid>
         </AppBar>

@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Collections.Specialized;
+using GenieWin8.DataModel;
 
 namespace GenieWin8.Data
 {
@@ -88,6 +89,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<GuestSettingGroup> GetGroups(string uniqueId)
         {
+            _settingSource = new GuestSettingSource();
             return _settingSource.GuestSettingGroups;
         }
 
@@ -110,6 +112,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<GuestSettingGroup> GetEditKey(string uniqueId)
         {
+            _settingSource = new GuestSettingSource();
             return _settingSource.EditKey;
         }
 
@@ -121,6 +124,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<GuestSettingGroup> GetTimesegSecurity(string uniqueId)
         {
+            _settingSource = new GuestSettingSource();
             return _settingSource.EditTimesegSecurity;
         }
 
@@ -134,6 +138,7 @@ namespace GenieWin8.Data
 
         public static GuestSettingGroup GetSecurity(string uniqueId)
         {
+            _settingSource = new GuestSettingSource();
             // 对于小型数据集可接受简单线性搜索
             var matches = _settingSource.EditTimesegSecurity.Where((group) => group.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
@@ -147,21 +152,21 @@ namespace GenieWin8.Data
             var strTitle = loader.GetString("GuestWiFiName");
             var group1 = new GuestSettingGroup("GuestWiFiName",
                 strTitle,
-                "wifiname");
+                GuestAccessInfoModel.ssid);
             this.EditName.Add(group1);
             this.GuestSettingGroups.Add(group1);
 
             strTitle = loader.GetString("Key/Password");
             var group2 = new GuestSettingGroup("Password",
                 strTitle,
-                "");
+                GuestAccessInfoModel.password);
             this.EditKey.Add(group2);
             this.GuestSettingGroups.Add(group2);
 
             strTitle = loader.GetString("TimeSegment");
             var group3 = new GuestSettingGroup("TimeSegment",
                 strTitle,
-                "Always");
+                GuestAccessInfoModel.timePeriod);
             var strContent = loader.GetString("TimeSegment_Always");
             group3.Items.Add(new GuestSettingItem("TimeSegment-1",
                 "TimeSegment",
@@ -196,9 +201,18 @@ namespace GenieWin8.Data
             this.GuestSettingGroups.Add(group3);
 
             strTitle = loader.GetString("Security");
+            string securityType;
+            if (GuestAccessInfoModel.securityType == "Mixed WPA")
+            {
+                securityType = "WPA-PSK/WPA2-PSK";
+            } 
+            else
+            {
+                securityType = GuestAccessInfoModel.securityType;
+            }
             var group4 = new GuestSettingGroup("Security",
                 strTitle,
-                "WPA2-PSK[AES]");
+                securityType);
             strContent = loader.GetString("Security_None");
             group4.Items.Add(new GuestSettingItem("Security-1",
                 "Security",

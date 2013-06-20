@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GenieWin8.DataModel;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -40,7 +41,29 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var TimeSegGroup = GuestSettingSource.GetTimeSegment((String)navigationParameter);
+            string timePeriod = GuestAccessInfoModel.timePeriod;
             this.DefaultViewModel["itemTimeseg"] = TimeSegGroup.Items;
+            switch (timePeriod)
+            {
+                case "Always":
+                    timePeriodListView.SelectedIndex = 0;
+                    break;
+                case "1 hour":
+                    timePeriodListView.SelectedIndex = 1;
+                    break;
+                case "5 hours":
+                    timePeriodListView.SelectedIndex = 2;
+                    break;
+                case "10 hours":
+                    timePeriodListView.SelectedIndex = 3;
+                    break;
+                case "1 day":
+                    timePeriodListView.SelectedIndex = 4;
+                    break;
+                case "1 week":
+                    timePeriodListView.SelectedIndex = 5;
+                    break;
+            }
         }
 
         /// <summary>
@@ -51,6 +74,33 @@ namespace GenieWin8
         /// <param name="pageState">要使用可序列化状态填充的空字典。</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        private void ChangeTimePeriodClick(object sender, SelectionChangedEventArgs e)
+        {
+            int index = timePeriodListView.SelectedIndex;
+            switch (index)
+            {
+                case 0:
+                    GuestAccessInfoModel.timePeriod = "Always";
+                    break;
+                case 1:
+                    GuestAccessInfoModel.timePeriod = "1 hour";
+                    break;
+                case 2:
+                    GuestAccessInfoModel.timePeriod = "5 hours";
+                    break;
+                case 3:
+                    GuestAccessInfoModel.timePeriod = "10 hours";
+                    break;
+                case 4:
+                    GuestAccessInfoModel.timePeriod = "1 day";
+                    break;
+                case 5:
+                    GuestAccessInfoModel.timePeriod = "1 week";
+                    break;
+            }
+            this.Frame.Navigate(typeof(GuestSettingPage));
         }
     }
 }

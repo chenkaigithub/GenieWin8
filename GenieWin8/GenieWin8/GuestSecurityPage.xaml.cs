@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GenieWin8.DataModel;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -40,7 +41,20 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var securityGroup = GuestSettingSource.GetSecurity((String)navigationParameter);
-            this.DefaultViewModel["itemSecurity"] = securityGroup.Items;
+            string securityType = GuestAccessInfoModel.securityType;
+            this.DefaultViewModel["itemSecurity"] = securityGroup.Items;           
+            switch (securityType)
+            {
+                case "None":
+                    securityListView.SelectedIndex = 0;
+                    break;
+                case "WPA2-PSK":
+                    securityListView.SelectedIndex = 1;
+                    break;
+                case "Mixed WPA":
+                    securityListView.SelectedIndex = 2;
+                    break;
+            }
         }
 
         /// <summary>
@@ -51,6 +65,24 @@ namespace GenieWin8
         /// <param name="pageState">要使用可序列化状态填充的空字典。</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        private void Security_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = securityListView.SelectedIndex;
+            switch (index)
+            {
+                case 0:
+                    GuestAccessInfoModel.securityType = "None";
+                    break;
+                case 1:
+                    GuestAccessInfoModel.securityType = "WPA2-PSK";
+                    break;
+                case 2:
+                    GuestAccessInfoModel.securityType = "Mixed WPA";
+                    break;
+            }
+            this.Frame.Navigate(typeof(GuestSettingPage));
         }
     }
 }

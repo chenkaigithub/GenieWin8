@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GenieWin8.DataModel;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -26,17 +27,19 @@ namespace GenieWin8
         public GuestAccessPage()
         {
             this.InitializeComponent();
-            if (checkGuestSetting.IsChecked == true)
+            if (GuestAccessInfoModel.isGuestAccessEnabled == "0")
             {
-                GuestSettingsList.Visibility = Visibility.Visible;
-                textScanQRCode.Visibility = Visibility.Visible;
-                imageQRCode.Visibility = Visibility.Visible;
-            } 
-            else if (checkGuestSetting.IsChecked == false)
-            {
+                checkGuestSetting.IsChecked = false;
                 GuestSettingsList.Visibility = Visibility.Collapsed;
                 textScanQRCode.Visibility = Visibility.Collapsed;
                 imageQRCode.Visibility = Visibility.Collapsed;
+            }
+            else if (GuestAccessInfoModel.isGuestAccessEnabled == "1")
+            {
+                checkGuestSetting.IsChecked = true;
+                GuestSettingsList.Visibility = Visibility.Visible;
+                textScanQRCode.Visibility = Visibility.Visible;
+                imageQRCode.Visibility = Visibility.Visible;             
             }
         }
 
