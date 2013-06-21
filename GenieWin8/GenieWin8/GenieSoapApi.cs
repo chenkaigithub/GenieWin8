@@ -277,7 +277,7 @@ namespace GenieWin8
         /// 功能：启用访客访问并设置访客网络信息
         /// </summary>
         /// <param name="newSSID"></param>
-        /// <param name="newSecurityMode"></param>
+        /// <param name="newSecurityMode">None||WPA-PSK/WPA2-PSK||WPA2-PSK</param>
         /// <param name="newKey"></param>
         /// <returns></returns>
         public async Task<Dictionary<string, string>> SetGuestAccessEnabled2(string newSSID, string newSecurityMode, string newKey)
@@ -300,7 +300,7 @@ namespace GenieWin8
         /// 当访客访问没有被禁用时修改访客网络信息
         /// </summary>
         /// <param name="newSSID"></param>
-        /// <param name="newSecurityMode"></param>
+        /// <param name="newSecurityMode">None||WPA-PSK/WPA2-PSK||WPA2-PSK</param>
         /// <param name="newKey"></param>
         /// <returns></returns>
         public async Task<Dictionary<string, string>> SetGuestAccessNetwork(string newSSID, string newSecurityMode, string newKey)

@@ -51,7 +51,7 @@ namespace GenieWin8
                 case "WPA2-PSK":
                     securityListView.SelectedIndex = 1;
                     break;
-                case "Mixed WPA":
+                case "WPA-PSK/WPA2-PSK":
                     securityListView.SelectedIndex = 2;
                     break;
             }
@@ -79,7 +79,7 @@ namespace GenieWin8
                     GuestAccessInfoModel.securityType = "WPA2-PSK";
                     break;
                 case 2:
-                    GuestAccessInfoModel.securityType = "Mixed WPA";
+                    GuestAccessInfoModel.securityType = "WPA-PSK/WPA2-PSK";
                     break;
             }
             this.Frame.Navigate(typeof(GuestSettingPage));
