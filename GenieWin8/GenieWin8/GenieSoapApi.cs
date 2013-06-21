@@ -241,21 +241,21 @@ namespace GenieWin8
         //<NewKey>密码</NewKey></returns>
         public async Task<Dictionary<string, string>> GetGuestAccessNetworkInfo()
         {
-            Dictionary<string, string> tempResult = new Dictionary<string, string>();
-            tempResult = await GetGuestAccessEnabled();
-            if(int.Parse(tempResult["ResponseCode"])!=0)
-            {
-                return new Dictionary<string,string>();
-            }
+          //  Dictionary<string, string> tempResult = new Dictionary<string, string>();
+           // tempResult = await GetGuestAccessEnabled();
+          //  if(int.Parse(tempResult["ResponseCode"])!=0)
+          //  {
+          //      return new Dictionary<string,string>();
+           // }
           
-            if (int.Parse(tempResult["NewGuestAccessEnabled"]) == 1)
-            {
+            //if (int.Parse(tempResult["NewGuestAccessEnabled"]) == 1)
+            //{
                 string result = await postSoap("WLANConfiguration", "GetGuestAccessNetworkInfo", 5000, new Dictionary<string, string>());
                 return util.TraverseXML(result);
-            }
-            tempResult.Clear();
-            tempResult.Add("ResponseCode","-1");
-            return tempResult;
+           // }
+            //tempResult.Clear();
+           // tempResult.Add("ResponseCode","-1");
+            //return tempResult;
         }
 
         /// <summary>
