@@ -39,7 +39,7 @@ namespace GenieWin8
                 checkGuestSetting.IsChecked = true;
                 GuestSettingsList.Visibility = Visibility.Visible;
                 textScanQRCode.Visibility = Visibility.Visible;
-                imageQRCode.Visibility = Visibility.Visible;             
+                imageQRCode.Visibility = Visibility.Visible;
             }
         }
 
@@ -52,8 +52,33 @@ namespace GenieWin8
         /// </param>
         /// <param name="pageState">此页在以前会话期间保留的状态
         /// 字典。首次访问页面时为 null。</param>
-        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetGuestAccessEnabled();
+            GuestAccessInfoModel.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
+            if (GuestAccessInfoModel.isGuestAccessEnabled == "0")
+            {
+                checkGuestSetting.IsChecked = false;
+                GuestSettingsList.Visibility = Visibility.Collapsed;
+                textScanQRCode.Visibility = Visibility.Collapsed;
+                imageQRCode.Visibility = Visibility.Collapsed;
+            }
+            else if (GuestAccessInfoModel.isGuestAccessEnabled == "1")
+            {
+                checkGuestSetting.IsChecked = true;
+                GuestSettingsList.Visibility = Visibility.Visible;
+                textScanQRCode.Visibility = Visibility.Visible;
+                imageQRCode.Visibility = Visibility.Visible;
+            }
+            dicResponse = await soapApi.GetGuestAccessNetworkInfo();
+            GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
+            GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
+            if (dicResponse["NewSecurityMode"] != "None")
+                GuestAccessInfoModel.password = dicResponse["NewKey"];
+            else
+                GuestAccessInfoModel.password = "";
             var GuestSettingGroup = GuestSettingSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = GuestSettingGroup;
         }
@@ -73,16 +98,28 @@ namespace GenieWin8
             this.Frame.Navigate(typeof(GuestSettingPage));
         }
 
-        private void checkGuestSetting_Click(Object sender, RoutedEventArgs e)
+        private async void checkGuestSetting_Click(Object sender, RoutedEventArgs e)
         {
+            GenieSoapApi soapApi = new GenieSoapApi();
             if (checkGuestSetting.IsChecked == true)
-            {
+            {           
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await soapApi.GetGuestAccessNetworkInfo();
+                GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
+                GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
+                if (dicResponse["NewSecurityMode"] != "None")
+                    GuestAccessInfoModel.password = dicResponse["NewKey"];
+                else
+                    GuestAccessInfoModel.password = "";
+                dicResponse = await soapApi.SetGuestAccessEnabled2(GuestAccessInfoModel.ssid, GuestAccessInfoModel.securityType, GuestAccessInfoModel.password);
                 GuestSettingsList.Visibility = Visibility.Visible;
                 textScanQRCode.Visibility = Visibility.Visible;
                 imageQRCode.Visibility = Visibility.Visible;
             }
             else if (checkGuestSetting.IsChecked == false)
             {
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await soapApi.SetGuestAccessEnabled();
                 GuestSettingsList.Visibility = Visibility.Collapsed;
                 textScanQRCode.Visibility = Visibility.Collapsed;
                 imageQRCode.Visibility = Visibility.Collapsed;

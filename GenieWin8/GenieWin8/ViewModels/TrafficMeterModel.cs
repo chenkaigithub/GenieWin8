@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Collections.Specialized;
+using GenieWin8.DataModel;
 
 namespace GenieWin8.Data
 {
@@ -88,6 +89,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<TrafficMeterGroup> GetGroups(string uniqueId)
         {
+            __trafficMeterSource = new TrafficMeterSource();
             return __trafficMeterSource.TrafficMeterGroups;
         }
 
@@ -99,6 +101,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<TrafficMeterGroup> GetLimitPerMonth(string uniqueId)
         {
+            __trafficMeterSource = new TrafficMeterSource();
             return __trafficMeterSource.LimitPerMonth;
         }
 
@@ -110,6 +113,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<TrafficMeterGroup> GetStartDate(string uniqueId)
         {
+            __trafficMeterSource = new TrafficMeterSource();
             return __trafficMeterSource.StartDate;
         }
 
@@ -121,6 +125,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<TrafficMeterGroup> GetStartTimeHour(string uniqueId)
         {
+            __trafficMeterSource = new TrafficMeterSource();
             return __trafficMeterSource.StartTimeHour;
         }
 
@@ -132,6 +137,7 @@ namespace GenieWin8.Data
 
         public static IEnumerable<TrafficMeterGroup> GetStartTimeMin(string uniqueId)
         {
+            __trafficMeterSource = new TrafficMeterSource();
             return __trafficMeterSource.StartTimeMin;
         }
 
@@ -143,11 +149,13 @@ namespace GenieWin8.Data
 
         public static IEnumerable<TrafficMeterGroup> GetTrafficLimitation(string uniqueId)
         {
+            __trafficMeterSource = new TrafficMeterSource();
             return __trafficMeterSource.TrafficLimitation;
         }
 
         public static TrafficMeterGroup GetStartDateItems(string uniqueId)
         {
+            __trafficMeterSource = new TrafficMeterSource();
             // 对于小型数据集可接受简单线性搜索
             var matches = __trafficMeterSource.StartDate.Where((group) => group.UniqueId.Equals("StartDate"));
             if (matches.Count() == 1) return matches.First();
@@ -156,6 +164,7 @@ namespace GenieWin8.Data
 
         public static TrafficMeterGroup GetTrafficLimitationItems(string uniqueId)
         {
+            __trafficMeterSource = new TrafficMeterSource();
             // 对于小型数据集可接受简单线性搜索
             var matches = __trafficMeterSource.TrafficLimitation.Where((group) => group.UniqueId.Equals("TrafficLimitation"));
             if (matches.Count() == 1) return matches.First();
@@ -169,14 +178,14 @@ namespace GenieWin8.Data
             var strTitle = loader.GetString("LimitPerMonth");
             var group1 = new TrafficMeterGroup("LimitPerMonth",
                     strTitle,
-                    "limitpermonth");
+                    TrafficMeterInfoModel.MonthlyLimit);
             this.LimitPerMonth.Add(group1);
             this.TrafficMeterGroups.Add(group1);
 
             strTitle = loader.GetString("StartDate");
             var group2 = new TrafficMeterGroup("StartDate",
                 strTitle,
-                "1");
+                TrafficMeterInfoModel.RestartDay);
             group2.Items.Add(new TrafficMeterItem("StartDate-1",
                 "StartDate",
                 "1",
@@ -289,15 +298,15 @@ namespace GenieWin8.Data
                 "StartDate",
                 "28",
                 group2));
-            group2.Items.Add(new TrafficMeterItem("StartDate-29",
-                "StartDate",
-                "29",
-                group2));
+            //group2.Items.Add(new TrafficMeterItem("StartDate-29",
+            //    "StartDate",
+            //    "29",
+            //    group2));
             this.StartDate.Add(group2);
             this.TrafficMeterGroups.Add(group2);
 
-            String STARTTIME_HOUR = "hour";
-            String STARTTIME_MINUTE = "minute";
+            String STARTTIME_HOUR = TrafficMeterInfoModel.RestartHour;
+            String STARTTIME_MINUTE = TrafficMeterInfoModel.RestartMinute;
             strTitle = loader.GetString("CounterStartTimeHour");
             var hour = new TrafficMeterGroup("StartTimeHour",
                     strTitle,
@@ -315,10 +324,23 @@ namespace GenieWin8.Data
             this.TrafficMeterGroups.Add(group3);
 
             strTitle = loader.GetString("TrafficLimitation");
+            string strContent = null;
+            if (TrafficMeterInfoModel.ControlOption == "No Limit")
+            {
+                strContent = loader.GetString("TrafficLimitation_Unlimited");
+            }
+            else if (TrafficMeterInfoModel.ControlOption == "Download only")
+            {
+                strContent = loader.GetString("TrafficLimitation_Download");
+            }
+            else if (TrafficMeterInfoModel.ControlOption == "Both directions")
+            {
+                strContent = loader.GetString("TrafficLimitation_DownloadUpload");
+            }
             var group4 = new TrafficMeterGroup("TrafficLimitation",
                     strTitle,
-                    "Unlimited");
-            var strContent = loader.GetString("TrafficLimitation_Unlimited");
+                    strContent);
+            strContent = loader.GetString("TrafficLimitation_Unlimited");
             group4.Items.Add(new TrafficMeterItem("TrafficLimitation-1",
                 "TrafficLimitation",
                 strContent,

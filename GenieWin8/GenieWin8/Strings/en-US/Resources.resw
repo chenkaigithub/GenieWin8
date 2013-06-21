@@ -274,7 +274,7 @@
     <comment>License Button Content</comment>
   </data>
   <data name="LimitPerMonth" xml:space="preserve">
-    <value>Monthly Limit</value>
+    <value>Monthly Limit (MB)</value>
     <comment>Monthly Limit</comment>
   </data>
   <data name="LoginButton.Content" xml:space="preserve">

@@ -75,9 +75,9 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+            <Button x:Name="backButton" Click="GoBack_Click" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" x:Uid="TrafficCtrlSettingPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
-            <Button Grid.Column="1" Style="{StaticResource SaveAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Button x:Name="TrafficMeterSettingSave" Click="TrafficMeterSettingSave_Click" Grid.Column="1" Style="{StaticResource SaveAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
         <StackPanel Grid.Row="1" Margin="60,0">
@@ -93,7 +93,7 @@
                     </LinearGradientBrush>
                 </Grid.Background>
                 <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                <TextBox Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" Margin="0,5,5,5"/>
+                <TextBox x:Name="monthlyLimit" Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" Margin="0,5,5,5"/>
             </Grid>
 
             <ListView ItemsSource="{Binding Source={StaticResource startdateSource}}"
@@ -133,12 +133,12 @@
                 <Grid DataContext="{Binding Source={StaticResource starttimehourSource}}"
                       d:DataContext="{Binding Source={StaticResource starttimehourSource}}">
                     <TextBlock x:Uid="StartTimeHour" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,430,0" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,260,5"/>
+                    <TextBox x:Name="restartHour" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,260,5"/>
                 </Grid>
                 <Grid DataContext="{Binding Source={StaticResource starttimeminSource}}"
                   d:DataContext="{Binding Source={StaticResource starttimeminSource}}">
                     <TextBlock x:Uid="StartTimeMinute" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,5,5"/>
+                    <TextBox x:Name="restartMinute" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,5,5"/>
                 </Grid>
             </Grid>
 

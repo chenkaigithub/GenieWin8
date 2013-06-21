@@ -113,17 +113,14 @@ namespace GenieWin8
                     GuestAccessInfoModel.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
                     if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
                     {
-                        if (dicResponse["NewGuestAccessEnabled"] == "1")
-                        {
-                            Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                            dicResponse2 = await soapApi.GetGuestAccessNetworkInfo();
-                            GuestAccessInfoModel.ssid = dicResponse2["NewSSID"];
-                            GuestAccessInfoModel.securityType = dicResponse2["NewSecurityMode"];
-                            if (dicResponse2["NewSecurityMode"] != "None")
-                                GuestAccessInfoModel.password = dicResponse2["NewKey"];
-                            else
-                                GuestAccessInfoModel.password = "";
-                        }
+                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                        dicResponse2 = await soapApi.GetGuestAccessNetworkInfo();
+                        GuestAccessInfoModel.ssid = dicResponse2["NewSSID"];
+                        GuestAccessInfoModel.securityType = dicResponse2["NewSecurityMode"];
+                        if (dicResponse2["NewSecurityMode"] != "None")
+                            GuestAccessInfoModel.password = dicResponse2["NewKey"];
+                        else
+                            GuestAccessInfoModel.password = "";
                         if (GuestAccessInfoModel.timePeriod == null)
                             GuestAccessInfoModel.timePeriod = "Always";
                         InProgress.IsActive = false;
@@ -165,7 +162,35 @@ namespace GenieWin8
                 }
                 else if (groupId == "TrafficMeter")
                 {
-                    this.Frame.Navigate(typeof(TrafficMeterPage));
+                    //this.Frame.Navigate(typeof(TrafficMeterPage));
+                    InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetTrafficMeterEnabled();
+                    TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+                    if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
+                    {
+                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                        dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                        TrafficMeterInfoModel.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                        TrafficMeterInfoModel.RestartHour = dicResponse2["RestartHour"];
+                        TrafficMeterInfoModel.RestartMinute = dicResponse2["RestartMinute"];
+                        TrafficMeterInfoModel.RestartDay = dicResponse2["RestartDay"];
+                        TrafficMeterInfoModel.ControlOption = dicResponse2["NewControlOption"];
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        this.Frame.Navigate(typeof(TrafficMeterPage));
+                    }
+                    else if (dicResponse["NewTrafficMeterEnable"] == "2")
+                    {
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        var messageDialog = new MessageDialog("The router does not support this function.");
+                        await messageDialog.ShowAsync();
+                    }
                 }
                 else if (groupId == "ParentalControl")
                 {

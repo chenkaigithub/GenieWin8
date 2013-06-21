@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI;
 using Windows.UI.Text;
+using GenieWin8.DataModel;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -29,17 +30,19 @@ namespace GenieWin8
         public TrafficMeterPage()
         {
             this.InitializeComponent();
-            if (checkTrafficMeter.IsChecked == true)
+            if (TrafficMeterInfoModel.isTrafficMeterEnabled == "0")
             {
-                TrafficMeterList.Visibility = Visibility.Visible;
-                TotalCanvas.Visibility = Visibility.Visible;
-                AverageCanvas.Visibility = Visibility.Visible;
-            }
-            else if (checkTrafficMeter.IsChecked == false)
-            {
+                checkTrafficMeter.IsChecked = false;
                 TrafficMeterList.Visibility = Visibility.Collapsed;
                 TotalCanvas.Visibility = Visibility.Collapsed;
                 AverageCanvas.Visibility = Visibility.Collapsed;
+            }
+            else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "1")
+            {
+                checkTrafficMeter.IsChecked = true;
+                TrafficMeterList.Visibility = Visibility.Visible;
+                TotalCanvas.Visibility = Visibility.Visible;
+                AverageCanvas.Visibility = Visibility.Visible;
             }
         }
 
@@ -52,8 +55,32 @@ namespace GenieWin8
         /// </param>
         /// <param name="pageState">此页在以前会话期间保留的状态
         /// 字典。首次访问页面时为 null。</param>
-        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetTrafficMeterEnabled();
+            TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+            if (GuestAccessInfoModel.isGuestAccessEnabled == "0")
+            {
+                checkTrafficMeter.IsChecked = false;
+                TrafficMeterList.Visibility = Visibility.Collapsed;
+                TotalCanvas.Visibility = Visibility.Collapsed;
+                AverageCanvas.Visibility = Visibility.Collapsed;
+            }
+            else if (GuestAccessInfoModel.isGuestAccessEnabled == "1")
+            {
+                checkTrafficMeter.IsChecked = true;
+                TrafficMeterList.Visibility = Visibility.Visible;
+                TotalCanvas.Visibility = Visibility.Visible;
+                AverageCanvas.Visibility = Visibility.Visible;
+            }
+            dicResponse = await soapApi.GetTrafficMeterOptions();
+            TrafficMeterInfoModel.MonthlyLimit = dicResponse["NewMonthlyLimit"];
+            TrafficMeterInfoModel.RestartHour = dicResponse["RestartHour"];
+            TrafficMeterInfoModel.RestartMinute = dicResponse["RestartMinute"];
+            TrafficMeterInfoModel.RestartDay = dicResponse["RestartDay"];
+            TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
             var groups = TrafficMeterSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = groups;
         }
@@ -153,16 +180,23 @@ namespace GenieWin8
             }
         }
 
-        private void checkTrafficMeter_Click(Object sender, RoutedEventArgs e)
+        private async void checkTrafficMeter_Click(Object sender, RoutedEventArgs e)
         {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            string trafficMeterEnable;
             if (checkTrafficMeter.IsChecked == true)
             {
+                trafficMeterEnable = "1";                
+                dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
                 TrafficMeterList.Visibility = Visibility.Visible;
                 TotalCanvas.Visibility = Visibility.Visible;
                 AverageCanvas.Visibility = Visibility.Visible;
             }
             else if (checkTrafficMeter.IsChecked == false)
             {
+                trafficMeterEnable = "0";
+                dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
                 TrafficMeterList.Visibility = Visibility.Collapsed;
                 TotalCanvas.Visibility = Visibility.Collapsed;
                 AverageCanvas.Visibility = Visibility.Collapsed;

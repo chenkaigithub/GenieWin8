@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GenieWin8.DataModel;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -69,6 +70,34 @@ namespace GenieWin8
         private void TrafficLimitation_ItemClick(Object sender, ItemClickEventArgs e)
         {
             this.Frame.Navigate(typeof(TrafficLimitationPage));
+        }
+
+        private async void GoBack_Click(Object sender, RoutedEventArgs e)
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetTrafficMeterOptions();
+            TrafficMeterInfoModel.MonthlyLimit = dicResponse["NewMonthlyLimit"];
+            TrafficMeterInfoModel.RestartHour = dicResponse["RestartHour"];
+            TrafficMeterInfoModel.RestartMinute = dicResponse["RestartMinute"];
+            TrafficMeterInfoModel.RestartDay = dicResponse["RestartDay"];
+            TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
+            this.Frame.Navigate(typeof(TrafficMeterPage));
+        }
+
+        private async void TrafficMeterSettingSave_Click(object sender, RoutedEventArgs e)
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+
+            string MonthlyLimit = monthlyLimit.Text.Trim();
+            string RestartHour = restartHour.Text.Trim();
+            string RestartMinute = restartMinute.Text.Trim();
+            if (MonthlyLimit != "" && MonthlyLimit != null && int.Parse(MonthlyLimit) <= 1000000
+                && RestartHour != "" && RestartHour != null && int.Parse(RestartHour) >= 0 && int.Parse(RestartHour) <= 24
+                && RestartMinute != "" && RestartMinute != null && int.Parse(RestartMinute) >=0 && int.Parse(RestartMinute) <= 60)
+            {
+                await soapApi.SetTrafficMeterOptions(TrafficMeterInfoModel.ControlOption, MonthlyLimit, RestartHour, RestartMinute, TrafficMeterInfoModel.RestartDay);
+            }
         }
     }
 }

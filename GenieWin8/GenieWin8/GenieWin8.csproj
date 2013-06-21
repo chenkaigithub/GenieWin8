@@ -110,6 +110,7 @@
     <Compile Include="DataModel\GuestAccessInfoModel.cs" />
     <Compile Include="DataModel\MainPageInfo.cs" />
     <Compile Include="DataModel\NetworkMapDodel.cs" />
+    <Compile Include="DataModel\TrafficMeterInfoModel.cs" />
     <Compile Include="DataModel\WifiInfoModel.cs" />
     <Compile Include="DeviceInfoPage.xaml.cs">
       <DependentUpon>DeviceInfoPage.xaml</DependentUpon>
