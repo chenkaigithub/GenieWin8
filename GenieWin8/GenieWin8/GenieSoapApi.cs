@@ -266,7 +266,7 @@ namespace GenieWin8
         public async Task<Dictionary<string, string>> SetGuestAccessEnabled()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            param.Add("newGuestAccessEnabled","0");
+            param.Add("NewGuestAccessEnabled", "0");
             string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled", 5000, param);
             return util.TraverseXML(result);
         }
@@ -316,6 +316,7 @@ namespace GenieWin8
             return util.TraverseXML(result);
         }
 
+        ////------------------------------ TrafficMeter Control soap api ----------------------------------
         /// <summary>
         /// *****************EnableTrafficMeter api*******************
         /// 启用或者禁用流量控制
@@ -434,7 +435,7 @@ namespace GenieWin8
         {
             if (isSetApi(method))
             {
-                ConfigurationStarted(5000);
+                await ConfigurationStarted(5000);
             }
             string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa", port);
             string soapAction = string.Format("urn:NETGEAR-ROUTER:service:{0}:1#{1}", module, method);
@@ -515,10 +516,9 @@ namespace GenieWin8
                     {
                         retOK = false;
                     }
-                    System.Diagnostics.Debug.WriteLine(resultstr);
                     if (retOK && isSetApi(method))
                     {
-                        ConfigurationFinished(5000);
+                        await ConfigurationFinished(5000);
                     }
                     return resultstr;
                 }
@@ -540,9 +540,9 @@ namespace GenieWin8
         /// ***************ConfigurationStarted***********
         /// SOAP api 设置开始
         /// </summary>
-        public async void ConfigurationStarted(int port)
+        public async Task<Dictionary<string,string>> ConfigurationStarted(int port)
         {
-             //Dictionary<string, string> param = new Dictionary<string,string>();
+             Dictionary<string, string> param = new Dictionary<string,string>();
              //await postSoap("DeviceConfig", "ConfigurationStarted", 5000, param);
             string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa", port);
             string soapAction = string.Format("urn:NETGEAR-ROUTER:service:DeviceConfig:1#ConfigurationStarted");
@@ -552,9 +552,6 @@ namespace GenieWin8
             + "xmlns:SOAPSDK2=\"http://www.w3.org/2001/XMLSchema-instance\" "
              + "xmlns:SOAPSDK3=\"http://schemas.xmlsoap.org/soap/encoding/\" "
               + "xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-               + "<SOAP-ENV:Header>"
-                + "<SessionID>58DEE6006A88A967E89A</SessionID>"
-                 + "</SOAP-ENV:Header>"
                   + "<SOAP-ENV:Body>"
                    + "<M1:ConfigurationStarted xmlns:M1=\"urn:NETGEAR-ROUTER:service:DeviceConfig:1\">"
                         + "<NewSessionID>58DEE6006A88A967E89A</NewSessionID>"
@@ -578,20 +575,20 @@ namespace GenieWin8
                 HttpResponseMessage response = await httpClient.SendAsync(request);
                 resultbt = await response.Content.ReadAsByteArrayAsync();
                 resultstr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
-
-                // return resultstr;
+                param = util.TraverseXML(resultstr);
+                return param;
             }
             catch (HttpRequestException hre)
             {
-                // return "";
+                return param;
             }
             catch (TaskCanceledException hce)
             {
-                //   return "";
+                return param;
             }
             catch (Exception ex)
             {
-                // return "";
+                return param;
             }
         }
 
@@ -599,11 +596,12 @@ namespace GenieWin8
         /// ***************ConfigurationFinished***********
         /// soap api 完成设置
         /// </summary>
-        public async void ConfigurationFinished(int port)
+        public async Task<string> ConfigurationFinished(int port)
         {
             //Dictionary<string, string> param = new Dictionary<string, string>();
             //param.Add("NewStatus", "ChangesApplied");
             //await postSoap("DeviceConfig", "ConfigurationFinished", 5000, param);
+
             string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa", port);
             string soapAction = string.Format("urn:NETGEAR-ROUTER:service:DeviceConfig:1#ConfigurationFinished");
 
@@ -639,19 +637,19 @@ namespace GenieWin8
                 resultbt = await response.Content.ReadAsByteArrayAsync();
                 resultstr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
 
-                // return resultstr;
+                 return resultstr;
             }
             catch (HttpRequestException hre)
             {
-                // return "";
+                 return "";
             }
             catch (TaskCanceledException hce)
             {
-                //   return "";
+                   return "";
             }
             catch (Exception ex)
             {
-                // return "";
+                 return "";
             }
         }
 

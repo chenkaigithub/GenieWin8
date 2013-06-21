@@ -28,7 +28,11 @@ namespace GenieWin8
         /////遍历xml/////////
         public Dictionary<string,string> TraverseXML(string xml)
         {
-            responseDic = new Dictionary<string,string>();
+            responseDic = new Dictionary<string, string>();
+            if(xml == null ||xml == "")
+            {
+                return responseDic;
+            }
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xml);
             XmlNodeList xnl = xmlDoc.DocumentElement.ChildNodes;

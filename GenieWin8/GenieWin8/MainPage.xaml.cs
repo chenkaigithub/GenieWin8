@@ -99,6 +99,7 @@ namespace GenieWin8
                 }
                 else if (groupId == "GuestAccess")
                 {
+                    //await soapApi.GetGuestAccessEnabled();
                     //await soapApi.GetGuestAccessNetworkInfo();
                     //await soapApi.SetGuestAccessEnabled();
                     //await soapApi.SetGuestAccessEnabled2("NETGEAR-Guest", "WPA2-PSK", "stieview");
