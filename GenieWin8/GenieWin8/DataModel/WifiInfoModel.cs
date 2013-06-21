@@ -16,9 +16,7 @@ namespace GenieWin8.DataModel
         public static string macAddr;
         public static string region;
         public static string wirelessMode;
-
-
-        public static string macAddr;        
+       
 
 
 
