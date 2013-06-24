@@ -8,6 +8,10 @@ using System.Net;
 using System.Net.NetworkInformation;
 using Windows.Networking.Connectivity;
 using Windows.Networking;
+using System.Runtime.Serialization.Json;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 
 namespace GenieWin8
@@ -18,18 +22,18 @@ namespace GenieWin8
         private string dicKey;
         public UtilityTool()
         { }
-        public string SubString(string source ,string start, string end)
+        public string SubString(string source, string start, string end)
         {
             int s = source.IndexOf(start);
             int e = source.IndexOf(end);
-            return source.Substring(s+start.Length, e - s - end.Length +1);
+            return source.Substring(s + start.Length, e - s - end.Length + 1);
         }
 
         /////遍历xml/////////
-        public Dictionary<string,string> TraverseXML(string xml)
+        public Dictionary<string, string> TraverseXML(string xml)
         {
             responseDic = new Dictionary<string, string>();
-            if(xml == null ||xml == "")
+            if (xml == null || xml == "")
             {
                 return responseDic;
             }
@@ -37,7 +41,7 @@ namespace GenieWin8
             xmlDoc.LoadXml(xml);
             XmlNodeList xnl = xmlDoc.DocumentElement.ChildNodes;
             string root = xmlDoc.FirstChild.NextSibling.NodeName;
-            foreach(IXmlNode xn in xnl)
+            foreach (IXmlNode xn in xnl)
             {
                 IXmlNode child = xn.FirstChild;
                 if (child != null)
@@ -49,26 +53,26 @@ namespace GenieWin8
 
         }
 
-        private void NodeOperate(IXmlNode xn,string root)
+        private void NodeOperate(IXmlNode xn, string root)
         {
-            
+
             if (xn.HasChildNodes())
             {
                 dicKey = xn.NodeName;
                 System.Diagnostics.Debug.WriteLine(xn.NodeName + "\n");
                 //System.Diagnostics.Debug.WriteLine("\n");
                 IXmlNode childNode = xn.FirstChild;
-                
-                NodeOperate(childNode,root);
+
+                NodeOperate(childNode, root);
 
             }
             else
             {
-                
+
                 //System.Diagnostics.Debug.WriteLine(xn.NodeName + "\n");
                 System.Diagnostics.Debug.WriteLine(xn.InnerText);
                 //System.Diagnostics.Debug.WriteLine("\n");
-                string dicValue = xn.InnerText.Trim() ;
+                string dicValue = xn.InnerText.Trim();
                 if (dicValue != "")
                 {
                     responseDic.Add(dicKey, dicValue);
@@ -76,7 +80,7 @@ namespace GenieWin8
                 if (xn.NextSibling != null)
                 {
 
-                    NodeOperate(xn.NextSibling,root);
+                    NodeOperate(xn.NextSibling, root);
                 }
                 else
                 {
@@ -96,11 +100,11 @@ namespace GenieWin8
                     }
                     if (flag == 0)
                     {
-                        NodeOperate(xn.NextSibling,root);
+                        NodeOperate(xn.NextSibling, root);
                     }
                     else if (flag == 1)
                     {
-                       // System.Diagnostics.Debug.WriteLine("End");
+                        // System.Diagnostics.Debug.WriteLine("End");
                     }
                 }
             }
@@ -125,7 +129,7 @@ namespace GenieWin8
         public string GetLocalHostIp()
         {
             //var conProfile = NetworkInformation.GetInternetConnectionProfile();
-            
+
             //if (conProfile != null && conProfile.NetworkAdapter != null)
             //{
             //    var hostName =
@@ -135,13 +139,13 @@ namespace GenieWin8
             //            hn.IPInformation.NetworkAdapter.NetworkAdapterId ==
             //               conProfile.NetworkAdapter.NetworkAdapterId);
 
-               
 
-                //if (hostName != null)
-                //{
-                //    //return the ip address
-                //return hostName.CanonicalName;
-                //}
+
+            //if (hostName != null)
+            //{
+            //    //return the ip address
+            //return hostName.CanonicalName;
+            //}
             //}
 
 
@@ -161,7 +165,7 @@ namespace GenieWin8
 
             }
             return string.Empty;
-         
+
         }
 
         public async Task<string> GetGateway()
@@ -214,6 +218,13 @@ namespace GenieWin8
 
             return ipAddress.ToString();
         }
-                
+
+
+        public JObject ConvertJsonToObject(string jsonText)
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
+            return jo;
+        }
+
     }
 }
