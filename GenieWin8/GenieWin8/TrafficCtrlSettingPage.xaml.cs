@@ -64,11 +64,17 @@ namespace GenieWin8
 
         private void StartDate_ItemClick(Object sender, ItemClickEventArgs e)
         {
+            TrafficMeterInfoModel.MonthlyLimit = monthlyLimit.Text.Trim();
+            TrafficMeterInfoModel.RestartHour = restartHour.Text.Trim();
+            TrafficMeterInfoModel.RestartMinute = restartMinute.Text.Trim();
             this.Frame.Navigate(typeof(StartDatePage));
         }
 
         private void TrafficLimitation_ItemClick(Object sender, ItemClickEventArgs e)
         {
+            TrafficMeterInfoModel.MonthlyLimit = monthlyLimit.Text.Trim();
+            TrafficMeterInfoModel.RestartHour = restartHour.Text.Trim();
+            TrafficMeterInfoModel.RestartMinute = restartMinute.Text.Trim();
             this.Frame.Navigate(typeof(TrafficLimitationPage));
         }
 

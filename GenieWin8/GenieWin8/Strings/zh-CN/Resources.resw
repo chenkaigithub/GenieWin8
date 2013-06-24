@@ -714,4 +714,28 @@
   <data name="dvr" xml:space="preserve">
     <value>DVR</value>
   </data>
+  <data name="LastMonthTotal.Text" xml:space="preserve">
+    <value>上个月</value>
+  </data>
+  <data name="MonthTotal.Text" xml:space="preserve">
+    <value>本月</value>
+  </data>
+  <data name="TodayTotal.Text" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="WeekTotal.Text" xml:space="preserve">
+    <value>本周</value>
+  </data>
+  <data name="YesterdayTotal.Text" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="LastMonthAvg.Text" xml:space="preserve">
+    <value>上个月</value>
+  </data>
+  <data name="MonthAvg.Text" xml:space="preserve">
+    <value>本月</value>
+  </data>
+  <data name="WeekAvg.Text" xml:space="preserve">
+    <value>本周</value>
+  </data>
 </root>

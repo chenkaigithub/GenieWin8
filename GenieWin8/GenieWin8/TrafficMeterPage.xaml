@@ -65,7 +65,7 @@
         </Grid>
 
         <ScrollViewer Grid.Row="1">
-            <StackPanel VerticalAlignment="Top" Margin="60,40,60,0">
+            <StackPanel VerticalAlignment="Top" Margin="60,40">
                 <Grid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -102,13 +102,34 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Canvas x:Name="TotalCanvas" Grid.Row="1"  Background="White" Margin="0,40,0,0" Height="800">
+                <Canvas x:Name="TotalCanvas" Grid.Row="1"  Background="White" Margin="0,40,0,0" Height="850">
                     <TextBlock x:Name="TextMbytesTotal" x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
                         <TextBlock.RenderTransform>
                             <CompositeTransform Rotation="270"/>
                         </TextBlock.RenderTransform>
                     </TextBlock>
                     <TextBlock x:Name="TextTotal" x:Uid="Total" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="TodayTotal" x:Uid="TodayTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="TodayUploadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="TodayDownloadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="YesterdayTotal" x:Uid="YesterdayTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="YesterdayUploadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="YesterdayDownloadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="WeekTotal" x:Uid="WeekTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="WeekUploadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="WeekDownloadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="MonthTotal" x:Uid="MonthTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="MonthUploadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="MonthDownloadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="LastMonthTotal" x:Uid="LastMonthTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="LastMonthUploadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="LastMonthDownloadTotal" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="TotalMbytes_0" Text="0" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,740,0,0"/>
+                    <TextBlock x:Name="TotalMbytes_1" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,610,0,0"/>
+                    <TextBlock x:Name="TotalMbytes_2" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,480,0,0"/>
+                    <TextBlock x:Name="TotalMbytes_3" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,350,0,0"/>
+                    <TextBlock x:Name="TotalMbytes_4" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,220,0,0"/>
+                    <TextBlock x:Name="TotalMbytes_5" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,90,0,0"/>
                     <!--<Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="750" X2="1200" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="100" X2="1200" Y2="100" Width="1246" Height="800" />
@@ -118,13 +139,28 @@
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="620" X2="1200" Y2="620" Width="1246" Height="800" />-->
                 </Canvas>
                 
-                <Canvas x:Name="AverageCanvas" Grid.Row="1"  Background="White" Height="800" Margin="0,40,0,0">
+                <Canvas x:Name="AverageCanvas" Grid.Row="1"  Background="White" Height="850" Margin="0,40,0,0">
                     <TextBlock x:Name="TextMbytesAverage" x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
                         <TextBlock.RenderTransform>
                             <CompositeTransform Rotation="270"/>
                         </TextBlock.RenderTransform>
                     </TextBlock>
                     <TextBlock x:Name="TextAverage" x:Uid="Average" Foreground="Black" FontFamily="Global User Interface" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="WeekAvg" x:Uid="WeekAvg" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="WeekUploadAvg" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="WeekDownloadAvg" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="MonthAvg" x:Uid="MonthAvg" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="MonthUploadAvg" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="MonthDownloadAvg" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="LastMonthAvg" x:Uid="LastMonthAvg" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="LastMonthUploadAvg" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="LastMonthDownloadAvg" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="AvgMbytes_0" Text="0" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,740,0,0"/>
+                    <TextBlock x:Name="AvgMbytes_1" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,610,0,0"/>
+                    <TextBlock x:Name="AvgMbytes_2" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,480,0,0"/>
+                    <TextBlock x:Name="AvgMbytes_3" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,350,0,0"/>
+                    <TextBlock x:Name="AvgMbytes_4" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,220,0,0"/>
+                    <TextBlock x:Name="AvgMbytes_5" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,90,0,0"/>
                     <!--<Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="750" X2="1200" Y2="750" Width="1246" Height="800" />
                     <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="100" X2="1200" Y2="100" Width="1246" Height="800" />

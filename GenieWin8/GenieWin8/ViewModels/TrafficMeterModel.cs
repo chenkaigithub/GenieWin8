@@ -154,8 +154,7 @@ namespace GenieWin8.Data
         }
 
         public static TrafficMeterGroup GetStartDateItems(string uniqueId)
-        {
-            __trafficMeterSource = new TrafficMeterSource();
+        {           
             // 对于小型数据集可接受简单线性搜索
             var matches = __trafficMeterSource.StartDate.Where((group) => group.UniqueId.Equals("StartDate"));
             if (matches.Count() == 1) return matches.First();
@@ -325,7 +324,7 @@ namespace GenieWin8.Data
 
             strTitle = loader.GetString("TrafficLimitation");
             string strContent = null;
-            if (TrafficMeterInfoModel.ControlOption == "No Limit")
+            if (TrafficMeterInfoModel.ControlOption == "No limit")
             {
                 strContent = loader.GetString("TrafficLimitation_Unlimited");
             }

@@ -178,6 +178,17 @@ namespace GenieWin8
                         TrafficMeterInfoModel.RestartMinute = dicResponse2["RestartMinute"];
                         TrafficMeterInfoModel.RestartDay = dicResponse2["RestartDay"];
                         TrafficMeterInfoModel.ControlOption = dicResponse2["NewControlOption"];
+                        dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                        TrafficMeterInfoModel.TodayUpload = dicResponse2["NewTodayUpload"];
+                        TrafficMeterInfoModel.TodayDownload = dicResponse2["NewTodayDownload"];
+                        TrafficMeterInfoModel.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+                        TrafficMeterInfoModel.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+                        TrafficMeterInfoModel.WeekUpload = dicResponse2["NewWeekUpload"];
+                        TrafficMeterInfoModel.WeekDownload = dicResponse2["NewWeekDownload"];
+                        TrafficMeterInfoModel.MonthUpload = dicResponse2["NewMonthUpload"];
+                        TrafficMeterInfoModel.MonthDownload = dicResponse2["NewMonthDownload"];
+                        TrafficMeterInfoModel.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+                        TrafficMeterInfoModel.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
                         InProgress.IsActive = false;
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;

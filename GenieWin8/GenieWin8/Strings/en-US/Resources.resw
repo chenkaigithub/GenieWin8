@@ -714,4 +714,28 @@
   <data name="dvr" xml:space="preserve">
     <value>DVR</value>
   </data>
+  <data name="LastMonthTotal.Text" xml:space="preserve">
+    <value>Last month</value>
+  </data>
+  <data name="MonthTotal.Text" xml:space="preserve">
+    <value>This month</value>
+  </data>
+  <data name="TodayTotal.Text" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="WeekTotal.Text" xml:space="preserve">
+    <value>This week</value>
+  </data>
+  <data name="YesterdayTotal.Text" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="LastMonthAvg.Text" xml:space="preserve">
+    <value>Last month</value>
+  </data>
+  <data name="MonthAvg.Text" xml:space="preserve">
+    <value>This month</value>
+  </data>
+  <data name="WeekAvg.Text" xml:space="preserve">
+    <value>This week</value>
+  </data>
 </root>

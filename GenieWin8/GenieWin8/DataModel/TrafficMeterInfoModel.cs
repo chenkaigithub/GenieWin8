@@ -15,5 +15,16 @@ namespace GenieWin8.DataModel
         public static string ControlOption;
 
         public static string isTrafficMeterEnabled;
+
+        public static string TodayUpload;
+        public static string TodayDownload;
+        public static string YesterdayUpload;
+        public static string YesterdayDownload;
+        public static string WeekUpload;
+        public static string WeekDownload;
+        public static string MonthUpload;
+        public static string MonthDownload;
+        public static string LastMonthUpload;
+        public static string LastMonthDownload;
     }
 }

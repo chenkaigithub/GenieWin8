@@ -57,9 +57,10 @@
             <TextBlock x:Name="pageTitle" x:Uid="TrafficLimitationPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
-        <ListView Grid.Row="1"
+        <ListView x:Name="controlOptionsListView" Grid.Row="1"
                   ItemsSource="{Binding Source={StaticResource trafficlimitationItemsSource}}"
-                  Margin="60,30,60,20" HorizontalAlignment="Center" VerticalAlignment="Top">
+                  Margin="60,30,60,20" HorizontalAlignment="Center" VerticalAlignment="Top"
+                  SelectionChanged="ControlOptions_SelectionChanged">
             <ListView.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF004F74" Offset="1"/>
