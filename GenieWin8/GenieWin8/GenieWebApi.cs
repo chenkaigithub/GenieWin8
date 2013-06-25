@@ -20,6 +20,14 @@ namespace GenieWin8
             util = new UtilityTool();
         }
 
+        /// <summary>
+        /// 注册OpenDNS账号时检测用户名是否已存在
+        /// 返回结果：
+        /// status："success"||"failure"
+        /// available："no"||"yes"
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>{"status":"success","response":{"available":"no"}}</returns>
         public async Task<Dictionary<string,string>> CheckNameAvailable(string username)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -47,15 +55,49 @@ namespace GenieWin8
             return retParam;
         }
 
-        public async void CreateAccount(string username, string password, string email)
+        /// <summary>
+        /// 创建OpenDNS账号
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<Dictionary<string,string>> CreateAccount(string username, string password, string email)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("username", username);
             param.Add("password", password);
             param.Add("email", email);
-            await WebApiPost("account_create", param);
+            string retText = await WebApiPost("account_create", param);
+            Dictionary<string, string> retParam = new Dictionary<string, string>();
+            if (retText != "")
+            {
+                JObject jo = util.ConvertJsonToObject(retText);
+                string status = jo["status"].ToString().ToLower();
+                retParam.Add("status", status);
+                if (status == "success")
+                {
+                    string token = jo["response"]["token"].ToString();
+                    retParam.Add("available", token);
+                }
+                else
+                {
+                    string errorCode = jo["error"].ToString();
+                    string errorMessage = jo["error_message"].ToString();
+                    retParam.Add("error", errorCode);
+                    retParam.Add("error_message", errorMessage);
+                }
+            }
+            return retParam;
         }
 
+        /// <summary>
+        /// 登陆OpenDNS
+        /// {"status":"success","response":{"token":"152AACB03FCAEBC6FC52AFD7DBB0DA35"}}
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> BeginLogin(string username, string password)
         {
             Dictionary<string,string> param = new Dictionary<string,string> ();
@@ -113,22 +155,66 @@ namespace GenieWin8
             return retParam;
         }
 
-        public async void GetDevice(string token,string deviceKey)
+        public async Task<Dictionary<string,string>> GetDevice(string token,string deviceKey)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("token", token);
             param.Add("device_key", deviceKey);
-            await WebApiPost("device_get", param);
+            string retText = await WebApiPost("device_get", param);
+            Dictionary<string, string> retParam = new Dictionary<string, string>();
+            if (retText != "")
+            {
+                JObject jo = util.ConvertJsonToObject(retText);
+                string status = jo["status"].ToString().ToLower();
+                retParam.Add("status", status);
+                if (status == "success")
+                {
+
+                }
+                else
+                {
+                    string errorCode = jo["error"].ToString();
+                    string errorMessage = jo["error_message"].ToString();
+                    retParam.Add("error", errorCode);
+                    retParam.Add("error_message", errorMessage);
+                }
+            }
+            return retParam;
         }
 
-        public async void CreateDevice(string token,string deviceKey)
+        public async Task<Dictionary<string,string>> CreateDevice(string token,string deviceKey)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("token", token);
             param.Add("device_key", deviceKey);
-            await WebApiPost("device_create", param);
+            string retText = await WebApiPost("device_create", param);
+            Dictionary<string, string> retParam = new Dictionary<string, string>();
+            if (retText != "")
+            {
+                JObject jo = util.ConvertJsonToObject(retText);
+                string status = jo["status"].ToString().ToLower();
+                retParam.Add("status", status);
+                if (status == "success")
+                {
+
+                }
+                else
+                {
+                    string errorCode = jo["error"].ToString();
+                    string errorMessage = jo["error_message"].ToString();
+                    retParam.Add("error", errorCode);
+                    retParam.Add("error_message", errorMessage);
+                }
+            }
+            return retParam;
         }
 
+        /// <summary>
+        /// 获取过滤等级
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string,string>> GetFilters(string token, string deviceId)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -157,6 +243,13 @@ namespace GenieWin8
             return retParam;
         }
 
+        /// <summary>
+        /// 设置过滤等级
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="deviceId"></param>
+        /// <param name="bundle">None||Minimal||Low||Moderate||High</param>
+        /// <returns></returns>
         public async Task<Dictionary<string,string>> SetFilters(string token, string deviceId,string bundle)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -185,11 +278,30 @@ namespace GenieWin8
             return retParam;
         }
 
-        public async void AccountRelay(string token)
+        public async Task<Dictionary<string,string>> AccountRelay(string token)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("token", token);
-            await WebApiPost("account_relay", param);
+            string retText = await WebApiPost("account_relay", param);
+            Dictionary<string, string> retParam = new Dictionary<string, string>();
+            if (retText != "")
+            {
+                JObject jo = util.ConvertJsonToObject(retText);
+                string status = jo["status"].ToString().ToLower();
+                retParam.Add("status", status);
+                if (status == "success")
+                {
+
+                }
+                else
+                {
+                    string errorCode = jo["error"].ToString();
+                    string errorMessage = jo["error_message"].ToString();
+                    retParam.Add("error", errorCode);
+                    retParam.Add("error_message", errorMessage);
+                }
+            }
+            return retParam;
         }
 
         /// <summary>
@@ -224,20 +336,68 @@ namespace GenieWin8
             return retParam;
         }
 
-        public async void GetDeviceChild(string parentDeviceId, string username, string password)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parentDeviceId"></param>
+        /// <param name="username"></param>
+        /// <param name="device_password"></param>
+        public async Task<Dictionary<string, string>> GetDeviceChild(string parentDeviceId, string device_username, string device_password)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("parent_device_id", parentDeviceId);
-            param.Add("device_username", username);
-            param.Add("device_password", password);
-            await WebApiPost("device_child_get", param);
+            param.Add("device_username", device_username);
+            param.Add("device_password", device_password);
+            string retText = await WebApiPost("device_child_get", param);
+            Dictionary<string, string> retParam = new Dictionary<string, string>();
+            if (retText != "")
+            {
+                JObject jo = util.ConvertJsonToObject(retText);
+                string status = jo["status"].ToString().ToLower();
+                retParam.Add("status", status);
+                if (status == "success")
+                {
+
+                }
+                else
+                {
+                    string errorCode = jo["error"].ToString();
+                    string errorMessage = jo["error_message"].ToString();
+                    retParam.Add("error", errorCode);
+                    retParam.Add("error_message", errorMessage);
+                }
+            }
+            return retParam;
         }
 
-        public async void GetUserForChildDeviceId(string childDeviceId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="childDeviceId"></param>
+        public async Task<Dictionary<string,string>> GetUserForChildDeviceId(string childDeviceId)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("device_id", childDeviceId);
-            await WebApiPost("device_child_username_get", param);
+            string retText = await WebApiPost("device_child_username_get", param);
+            Dictionary<string, string> retParam = new Dictionary<string, string>();
+            if (retText != "")
+            {
+                JObject jo = util.ConvertJsonToObject(retText);
+                string status = jo["status"].ToString().ToLower();
+                retParam.Add("status", status);
+                if (status == "success")
+                {
+
+                }
+                else
+                {
+                    string errorCode = jo["error"].ToString();
+                    string errorMessage = jo["error_message"].ToString();
+                    retParam.Add("error", errorCode);
+                    retParam.Add("error_message", errorMessage);
+                }
+            }
+            return retParam;
         }
 
         public async Task<string> WebApiPost(string function, Dictionary<string, string> param)
