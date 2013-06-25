@@ -321,23 +321,21 @@ namespace GenieWin8
             TodayDownloadTotal.Text = TrafficMeterInfoModel.TodayDownload;
             TodayDownloadTotal.TextAlignment = TextAlignment.Center;
             TodayDownloadTotal.Width = intervalTotal;
-            if (TodayDownloadHeight < 10)
-            {
-                TodayDownloadTotal.Margin = new Thickness(100 + intervalTotal, 0, 0, 750 - TodayDownloadHeight);
-            } 
-            else
-            {
-                TodayDownloadTotal.Margin = new Thickness(100 + intervalTotal, 750 - TodayDownloadHeight / 2, 0, 0);
-            }
+            TodayDownloadTotal.Margin = new Thickness(100 + intervalTotal, 750 - TodayDownloadHeight / 2 - 20, 0, 0);
             double TodayUploadHeight = double.Parse(TrafficMeterInfoModel.TodayUpload) / maxOrdinateTotal * 650;
             Rectangle rectTodayUpload = new Rectangle();
             rectTodayUpload.Fill = new SolidColorBrush(Colors.Gray);
             rectTodayUpload.Height = TodayUploadHeight;
             rectTodayUpload.Width = intervalTotal;
             rectTodayUpload.Margin = new Thickness(100 + intervalTotal, 750 - TodayDownloadHeight - TodayUploadHeight, 0, 0);
+            TodayUploadTotal.Text = TrafficMeterInfoModel.TodayUpload;
+            TodayUploadTotal.TextAlignment = TextAlignment.Center;
+            TodayUploadTotal.Width = intervalTotal;
+            TodayUploadTotal.Margin = new Thickness(100 + intervalTotal, 750 - TodayDownloadHeight - TodayUploadHeight - 40, 0, 0);
             TotalCanvas.Children.Add(rectTodayDownload);
             TotalCanvas.Children.Add(rectTodayUpload);
             TotalCanvas.Children.Add(TodayDownloadTotal);
+            TotalCanvas.Children.Add(TodayUploadTotal);
 
             //Total Yesterday
             double YesterdayDownloadHeight = double.Parse(TrafficMeterInfoModel.YesterdayDownload) / maxOrdinateTotal * 650;
@@ -349,23 +347,21 @@ namespace GenieWin8
             YesterdayDownloadTotal.Text = TrafficMeterInfoModel.YesterdayDownload;
             YesterdayDownloadTotal.TextAlignment = TextAlignment.Center;
             YesterdayDownloadTotal.Width = intervalTotal;
-            if (YesterdayDownloadHeight < 10)
-            {
-                YesterdayDownloadTotal.Margin = new Thickness(100 + intervalTotal * 3, 0, 0, 750 - YesterdayDownloadHeight);
-            }
-            else
-            {
-                YesterdayDownloadTotal.Margin = new Thickness(100 + intervalTotal * 3, 750 - YesterdayDownloadHeight / 2, 0, 0);
-            }
+            YesterdayDownloadTotal.Margin = new Thickness(100 + intervalTotal * 3, 750 - YesterdayDownloadHeight / 2 - 20, 0, 0);
             double YesterdayUploadHeight = double.Parse(TrafficMeterInfoModel.YesterdayUpload) / maxOrdinateTotal * 650;
             Rectangle rectYesterdayUpload = new Rectangle();
             rectYesterdayUpload.Fill = new SolidColorBrush(Colors.Gray);
             rectYesterdayUpload.Height = YesterdayUploadHeight;
             rectYesterdayUpload.Width = intervalTotal;
             rectYesterdayUpload.Margin = new Thickness(100 + intervalTotal * 3, 750 - YesterdayDownloadHeight - YesterdayUploadHeight, 0, 0);
+            YesterdayUploadTotal.Text = TrafficMeterInfoModel.YesterdayUpload;
+            YesterdayUploadTotal.TextAlignment = TextAlignment.Center;
+            YesterdayUploadTotal.Width = intervalTotal;
+            YesterdayUploadTotal.Margin = new Thickness(100 + intervalTotal * 3, 750 - YesterdayDownloadHeight - YesterdayUploadHeight - 40, 0, 0);
             TotalCanvas.Children.Add(rectYesterdayDownload);
             TotalCanvas.Children.Add(rectYesterdayUpload);
             TotalCanvas.Children.Add(YesterdayDownloadTotal);
+            TotalCanvas.Children.Add(YesterdayUploadTotal);
 
             //Total This week
             double WeekDownloadHeight = double.Parse(WeekDownload[0]) / maxOrdinateTotal * 650;
@@ -377,23 +373,21 @@ namespace GenieWin8
             WeekDownloadTotal.Text = WeekDownload[0];
             WeekDownloadTotal.TextAlignment = TextAlignment.Center;
             WeekDownloadTotal.Width = intervalTotal;
-            if (WeekDownloadHeight < 10)
-            {
-                WeekDownloadTotal.Margin = new Thickness(100 + intervalTotal * 5, 0, 0, 750 - WeekDownloadHeight);
-            }
-            else
-            {
-                WeekDownloadTotal.Margin = new Thickness(100 + intervalTotal * 5, 750 - WeekDownloadHeight / 2, 0, 0);
-            }
+            WeekDownloadTotal.Margin = new Thickness(100 + intervalTotal * 5, 750 - WeekDownloadHeight / 2 - 20, 0, 0);
             double WeekUploadHeight = double.Parse(WeekUpload[0]) / maxOrdinateTotal * 650;
             Rectangle rectWeekUpload = new Rectangle();
             rectWeekUpload.Fill = new SolidColorBrush(Colors.Gray);
             rectWeekUpload.Height = WeekUploadHeight;
             rectWeekUpload.Width = intervalTotal;
             rectWeekUpload.Margin = new Thickness(100 + intervalTotal * 5, 750 - WeekDownloadHeight - WeekUploadHeight, 0, 0);
+            WeekUploadTotal.Text = WeekUpload[0];
+            WeekUploadTotal.TextAlignment = TextAlignment.Center;
+            WeekUploadTotal.Width = intervalTotal;
+            WeekUploadTotal.Margin = new Thickness(100 + intervalTotal * 5, 750 - WeekDownloadHeight - WeekUploadHeight - 40, 0, 0);
             TotalCanvas.Children.Add(rectWeekDownload);
             TotalCanvas.Children.Add(rectWeekUpload);
             TotalCanvas.Children.Add(WeekDownloadTotal);
+            TotalCanvas.Children.Add(WeekUploadTotal);
 
             //Total This month
             double MonthDownloadHeight = double.Parse(MonthDownload[0]) / maxOrdinateTotal * 650;
@@ -405,23 +399,21 @@ namespace GenieWin8
             MonthDownloadTotal.Text = MonthDownload[0];
             MonthDownloadTotal.TextAlignment = TextAlignment.Center;
             MonthDownloadTotal.Width = intervalTotal;
-            if (MonthDownloadHeight < 10)
-            {
-                MonthDownloadTotal.Margin = new Thickness(100 + intervalTotal * 7, 0, 0, 750 - MonthDownloadHeight);
-            }
-            else
-            {
-                MonthDownloadTotal.Margin = new Thickness(100 + intervalTotal * 7, 750 - MonthDownloadHeight / 2, 0, 0);
-            }
+            MonthDownloadTotal.Margin = new Thickness(100 + intervalTotal * 7, 750 - MonthDownloadHeight / 2 - 20, 0, 0);
             double MonthUploadHeight = double.Parse(MonthUpload[0]) / maxOrdinateTotal * 650;
             Rectangle rectMonthUpload = new Rectangle();
             rectMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
             rectMonthUpload.Height = MonthUploadHeight;
             rectMonthUpload.Width = intervalTotal;
             rectMonthUpload.Margin = new Thickness(100 + intervalTotal * 7, 750 - MonthDownloadHeight - MonthUploadHeight, 0, 0);
+            MonthUploadTotal.Text = MonthUpload[0];
+            MonthUploadTotal.TextAlignment = TextAlignment.Center;
+            MonthUploadTotal.Width = intervalTotal;
+            MonthUploadTotal.Margin = new Thickness(100 + intervalTotal * 7, 750 - MonthDownloadHeight - MonthUploadHeight - 40, 0, 0);
             TotalCanvas.Children.Add(rectMonthDownload);
             TotalCanvas.Children.Add(rectMonthUpload);
             TotalCanvas.Children.Add(MonthDownloadTotal);
+            TotalCanvas.Children.Add(MonthUploadTotal);
 
             //Total Last month
             double LastMonthDownloadHeight = double.Parse(LastMonthDownload[0]) / maxOrdinateTotal * 650;
@@ -433,23 +425,21 @@ namespace GenieWin8
             LastMonthDownloadTotal.Text = LastMonthDownload[0];
             LastMonthDownloadTotal.TextAlignment = TextAlignment.Center;
             LastMonthDownloadTotal.Width = intervalTotal;
-            if (LastMonthDownloadHeight < 10)
-            {
-                LastMonthDownloadTotal.Margin = new Thickness(100 + intervalTotal * 9, 0, 0, 750 - LastMonthDownloadHeight);
-            }
-            else
-            {
-                LastMonthDownloadTotal.Margin = new Thickness(100 + intervalTotal * 9, 750 - LastMonthDownloadHeight / 2, 0, 0);
-            }
+            LastMonthDownloadTotal.Margin = new Thickness(100 + intervalTotal * 9, 750 - LastMonthDownloadHeight / 2 - 20, 0, 0);
             double LastMonthUploadHeight = double.Parse(LastMonthUpload[0]) / maxOrdinateTotal * 650;
             Rectangle rectLastMonthUpload = new Rectangle();
             rectLastMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
             rectLastMonthUpload.Height = LastMonthUploadHeight;
             rectLastMonthUpload.Width = intervalTotal;
             rectLastMonthUpload.Margin = new Thickness(100 + intervalTotal * 9, 750 - LastMonthDownloadHeight - LastMonthUploadHeight, 0, 0);
+            LastMonthUploadTotal.Text = LastMonthUpload[0];
+            LastMonthUploadTotal.TextAlignment = TextAlignment.Center;
+            LastMonthUploadTotal.Width = intervalTotal;
+            LastMonthUploadTotal.Margin = new Thickness(100 + intervalTotal * 9, 750 - LastMonthDownloadHeight - LastMonthUploadHeight - 40, 0, 0);
             TotalCanvas.Children.Add(rectLastMonthDownload);
             TotalCanvas.Children.Add(rectLastMonthUpload);
             TotalCanvas.Children.Add(LastMonthDownloadTotal);
+            TotalCanvas.Children.Add(LastMonthUploadTotal);
 
             //Average This week
             double AvgWeekDownloadHeight = double.Parse(WeekDownload[1]) / maxOrdinateAvg * 650;
@@ -461,23 +451,21 @@ namespace GenieWin8
             WeekDownloadAvg.Text = WeekDownload[1];
             WeekDownloadAvg.TextAlignment = TextAlignment.Center;
             WeekDownloadAvg.Width = intervalAvg;
-            if (AvgWeekDownloadHeight < 10)
-            {
-                WeekDownloadAvg.Margin = new Thickness(100 + intervalAvg, 0, 0, 750 - AvgWeekDownloadHeight);
-            }
-            else
-            {
-                WeekDownloadAvg.Margin = new Thickness(100 + intervalAvg, 750 - AvgWeekDownloadHeight / 2, 0, 0);
-            }
+            WeekDownloadAvg.Margin = new Thickness(100 + intervalAvg, 750 - AvgWeekDownloadHeight / 2 - 20, 0, 0);
             double AvgWeekUploadHeight = double.Parse(WeekUpload[1]) / maxOrdinateAvg * 650;
             Rectangle AvgrectWeekUpload = new Rectangle();
             AvgrectWeekUpload.Fill = new SolidColorBrush(Colors.Gray);
             AvgrectWeekUpload.Height = AvgWeekUploadHeight;
             AvgrectWeekUpload.Width = intervalAvg;
             AvgrectWeekUpload.Margin = new Thickness(100 + intervalAvg, 750 - AvgWeekDownloadHeight - AvgWeekUploadHeight, 0, 0);
+            WeekUploadAvg.Text = WeekUpload[1];
+            WeekUploadAvg.TextAlignment = TextAlignment.Center;
+            WeekUploadAvg.Width = intervalAvg;
+            WeekUploadAvg.Margin = new Thickness(100 + intervalAvg, 750 - AvgWeekDownloadHeight - AvgWeekUploadHeight - 40, 0, 0);
             AverageCanvas.Children.Add(AvgrectWeekDownload);
             AverageCanvas.Children.Add(AvgrectWeekUpload);
             AverageCanvas.Children.Add(WeekDownloadAvg);
+            AverageCanvas.Children.Add(WeekUploadAvg);
 
             //Average This month
             double AvgMonthDownloadHeight = double.Parse(MonthDownload[1]) / maxOrdinateAvg * 650;
@@ -489,23 +477,21 @@ namespace GenieWin8
             MonthDownloadAvg.Text = MonthDownload[1];
             MonthDownloadAvg.TextAlignment = TextAlignment.Center;
             MonthDownloadAvg.Width = intervalAvg;
-            if (AvgMonthDownloadHeight < 10)
-            {
-                MonthDownloadAvg.Margin = new Thickness(100 + intervalAvg * 3, 0, 0, 750 - AvgMonthDownloadHeight);
-            }
-            else
-            {
-                MonthDownloadAvg.Margin = new Thickness(100 + intervalAvg * 3, 750 - AvgMonthDownloadHeight / 2, 0, 0);
-            }
+            MonthDownloadAvg.Margin = new Thickness(100 + intervalAvg * 3, 750 - AvgMonthDownloadHeight / 2 - 20, 0, 0);
             double AvgMonthUploadHeight = double.Parse(MonthUpload[1]) / maxOrdinateAvg * 650;
             Rectangle AvgrectMonthUpload = new Rectangle();
             AvgrectMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
             AvgrectMonthUpload.Height = AvgMonthUploadHeight;
             AvgrectMonthUpload.Width = intervalAvg;
             AvgrectMonthUpload.Margin = new Thickness(100 + intervalAvg * 3, 750 - AvgMonthDownloadHeight - AvgMonthUploadHeight, 0, 0);
+            MonthUploadAvg.Text = MonthUpload[1];
+            MonthUploadAvg.TextAlignment = TextAlignment.Center;
+            MonthUploadAvg.Width = intervalAvg;
+            MonthUploadAvg.Margin = new Thickness(100 + intervalAvg * 3, 750 - AvgMonthDownloadHeight - AvgMonthUploadHeight - 40, 0, 0);
             AverageCanvas.Children.Add(AvgrectMonthDownload);
             AverageCanvas.Children.Add(AvgrectMonthUpload);
             AverageCanvas.Children.Add(MonthDownloadAvg);
+            AverageCanvas.Children.Add(MonthUploadAvg);
 
             //Average Last month
             double AvgLastMonthDownloadHeight = double.Parse(LastMonthDownload[1]) / maxOrdinateAvg * 650;
@@ -517,23 +503,21 @@ namespace GenieWin8
             LastMonthDownloadAvg.Text = LastMonthDownload[1];
             LastMonthDownloadAvg.TextAlignment = TextAlignment.Center;
             LastMonthDownloadAvg.Width = intervalAvg;
-            if (AvgLastMonthDownloadHeight < 10)
-            {
-                LastMonthDownloadAvg.Margin = new Thickness(100 + intervalAvg * 5, 0, 0, 750 - AvgLastMonthDownloadHeight);
-            }
-            else
-            {
-                LastMonthDownloadAvg.Margin = new Thickness(100 + intervalAvg * 5, 750 - AvgLastMonthDownloadHeight / 2, 0, 0);
-            }
+            LastMonthDownloadAvg.Margin = new Thickness(100 + intervalAvg * 5, 750 - AvgLastMonthDownloadHeight / 2 - 20, 0, 0);
             double AvgLastMonthUploadHeight = double.Parse(LastMonthUpload[1]) / maxOrdinateAvg * 650;
             Rectangle AvgrectLastMonthUpload = new Rectangle();
             AvgrectLastMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
             AvgrectLastMonthUpload.Height = AvgLastMonthUploadHeight;
             AvgrectLastMonthUpload.Width = intervalAvg;
             AvgrectLastMonthUpload.Margin = new Thickness(100 + intervalAvg * 5, 750 - AvgLastMonthDownloadHeight - AvgLastMonthUploadHeight, 0, 0);
+            LastMonthUploadAvg.Text = LastMonthUpload[1];
+            LastMonthUploadAvg.TextAlignment = TextAlignment.Center;
+            LastMonthUploadAvg.Width = intervalAvg;
+            LastMonthUploadAvg.Margin = new Thickness(100 + intervalAvg * 5, 750 - AvgLastMonthDownloadHeight - AvgLastMonthUploadHeight - 40, 0, 0);
             AverageCanvas.Children.Add(AvgrectLastMonthDownload);
             AverageCanvas.Children.Add(AvgrectLastMonthUpload);
             AverageCanvas.Children.Add(LastMonthDownloadAvg);
+            AverageCanvas.Children.Add(LastMonthUploadAvg);
         }
 
         private async void checkTrafficMeter_Click(Object sender, RoutedEventArgs e)
