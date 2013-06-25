@@ -155,6 +155,12 @@ namespace GenieWin8
             return retParam;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="deviceKey">modelName-MacAddress</param>
+        /// <returns></returns>
         public async Task<Dictionary<string,string>> GetDevice(string token,string deviceKey)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -169,7 +175,8 @@ namespace GenieWin8
                 retParam.Add("status", status);
                 if (status == "success")
                 {
-
+                    string deviceId = jo["response"]["device_id"].ToString();
+                    retParam.Add("device_id", deviceId);
                 }
                 else
                 {
@@ -196,7 +203,8 @@ namespace GenieWin8
                 retParam.Add("status", status);
                 if (status == "success")
                 {
-
+                    string deviceId = jo["response"]["device_id"].ToString();
+                    retParam.Add("device_id", deviceId);
                 }
                 else
                 {
@@ -278,6 +286,13 @@ namespace GenieWin8
             return retParam;
         }
 
+        /// <summary>
+        /// 更改定制的设置api
+        /// api_key=3D8C85A77ADA886B967984DF1F8B3711&method=account_relay&token=152AACB03FCAEBC6FC52AFD7DBB0DA35
+        /// {"status":"success","response":{"relay_token":"53408EFD4C7B16BB733B39CA469B20F6"}}
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string,string>> AccountRelay(string token)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -291,7 +306,8 @@ namespace GenieWin8
                 retParam.Add("status", status);
                 if (status == "success")
                 {
-
+                    string relayToken = jo["response"]["relay_token"].ToString();
+                    retParam.Add("relay_token",relayToken);
                 }
                 else
                 {
@@ -337,11 +353,13 @@ namespace GenieWin8
         }
 
         /// <summary>
-        /// 
+        /// 登录bypass 账号api
+        /// api_key=3D8C85A77ADA886B967984DF1F8B3711&device_password=123456&device_username=user1&method=device_child_get&parent_device_id=0000EE04911BF768
+        /// {"status":"success","response":"00000F94FFFCA330"}
         /// </summary>
         /// <param name="parentDeviceId"></param>
-        /// <param name="username"></param>
-        /// <param name="device_password"></param>
+        /// <param name="username">bypass 用户名</param>
+        /// <param name="device_password">bypass 密码</param>
         public async Task<Dictionary<string, string>> GetDeviceChild(string parentDeviceId, string device_username, string device_password)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -357,7 +375,8 @@ namespace GenieWin8
                 retParam.Add("status", status);
                 if (status == "success")
                 {
-
+                    string childDeviceId = jo["response"].ToString();
+                    retParam.Add("child_device_id", childDeviceId);
                 }
                 else
                 {
@@ -371,7 +390,7 @@ namespace GenieWin8
         }
 
         /// <summary>
-        /// 
+        /// 通过childDeviceId获取当前设备的bypass用户
         /// </summary>
         /// <param name="childDeviceId"></param>
         public async Task<Dictionary<string,string>> GetUserForChildDeviceId(string childDeviceId)
@@ -387,7 +406,8 @@ namespace GenieWin8
                 retParam.Add("status", status);
                 if (status == "success")
                 {
-
+                    string bypassUserName = jo["response"].ToString();
+                    retParam.Add("bypass_user",bypassUserName);
                 }
                 else
                 {
