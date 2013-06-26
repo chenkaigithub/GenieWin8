@@ -24,5 +24,28 @@ namespace GenieWin8
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// 验证邮箱是否合法
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private bool ValidateEmail(string email)
+        {
+            string regexEmail = @"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+            System.Text.RegularExpressions.RegexOptions options = ((System.Text.RegularExpressions.RegexOptions.IgnorePatternWhitespace
+
+                | System.Text.RegularExpressions.RegexOptions.Multiline)
+                        | System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            System.Text.RegularExpressions.Regex regEmail = new System.Text.RegularExpressions.Regex(regexEmail, options);
+            if (regEmail.IsMatch(email))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
