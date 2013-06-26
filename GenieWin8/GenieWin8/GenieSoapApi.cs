@@ -15,7 +15,15 @@ namespace GenieWin8
     {
         HttpClient httpClient;
         UtilityTool util;
-        bool retOK;
+        bool retOK;///发送soap是否返回200 OK
+       
+        public enum _InnerFlags
+        {
+            NONE,
+            IS_CGDG = 1 << 0,
+            IS_5000PORT = 1 << 1
+        };
+        public static _InnerFlags flag = _InnerFlags.NONE;
         public GenieSoapApi()
         {
             httpClient = new HttpClient();
@@ -35,7 +43,7 @@ namespace GenieWin8
             Dictionary<string, string> param = new Dictionary<string,string>();
             param.Add("NewUsername", username);
             param.Add("NewPassword", password);
-            string retParam = await postSoap("ParentalControl", "Authenticate", 5000, param);
+            string retParam = await postSoap("ParentalControl", "Authenticate", param);
             return util.TraverseXML(retParam);
         }
 
@@ -48,7 +56,7 @@ namespace GenieWin8
             Dictionary<string, string> param = new Dictionary<string, string>();
             string retParam = "";
             Dictionary<string,Dictionary<string,string>> dicAttachDevice = new Dictionary<string,Dictionary<string,string>>();
-            retParam = await postSoap("DeviceInfo", "GetAttachDevice", 5000, param);
+            retParam = await postSoap("DeviceInfo", "GetAttachDevice", param);
             if (retParam != null)
             {
                retParam = util.SubString(retParam, "<NewAttachDevice>", "</NewAttachDevice>");
@@ -95,7 +103,7 @@ namespace GenieWin8
         public async Task<Dictionary<string,string>> GetInfo(string module)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            string result = await postSoap(module, "GetInfo", 5000, param);
+            string result = await postSoap(module, "GetInfo", param);
             return util.TraverseXML(result);
         }
 
@@ -107,7 +115,7 @@ namespace GenieWin8
         public async Task<Dictionary<string,string>> GetWPASecurityKeys()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            string result = await postSoap("WLANConfiguration", "GetWPASecurityKeys", 5000, param);
+            string result = await postSoap("WLANConfiguration", "GetWPASecurityKeys", param);
             return util.TraverseXML(result);
         }
 
@@ -127,7 +135,7 @@ namespace GenieWin8
             param.Add("NewRegion",region);
             param.Add("NewChannel",channel);
             param.Add("NewWirelessMode",wirelessMode);
-            string result = await postSoap("WLANConfiguration", "SetWLANNoSecurity", 5000, param);
+            string result = await postSoap("WLANConfiguration", "SetWLANNoSecurity", param);
             return util.TraverseXML(result);
         }
 
@@ -152,7 +160,7 @@ namespace GenieWin8
             param.Add("NewWirelessMode", wirelessMode);
             param.Add("NewWPAEncryptionModes", encryptionModes);
             param.Add("NewWPAPassphrase", wpaPassphrase);
-            string result = await postSoap("WLANConfiguration", "SetWLANWEPByPassphrase", 5000, param);
+            string result = await postSoap("WLANConfiguration", "SetWLANWEPByPassphrase", param);
             return util.TraverseXML(result);
         }
 
@@ -166,7 +174,7 @@ namespace GenieWin8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewMACAddress", newMACAddress);
-            string result = await postSoap("ParentalControl", "GetDNSMasqDeviceID", 5000, param);
+            string result = await postSoap("ParentalControl", "GetDNSMasqDeviceID", param);
             return util.TraverseXML(result);
         }
 
@@ -181,19 +189,19 @@ namespace GenieWin8
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewMACAddress",macAddress);
             param.Add("NewDeviceID", deviceID);
-            string result = await postSoap("ParentalControl","SetDNSMasqDeviceID",5000,param);
+            string result = await postSoap("ParentalControl","SetDNSMasqDeviceID",param);
             return util.TraverseXML(result);
         }
 
         /// <summary>
         /// ***********************GetEnableStatus***********
-        /// 说明：检测路由器是否支持家长控制
-        ///
+        /// 说明：检测路由器是否开启家长控制
+        ///<ParentalControl>0</ParentalControl> 1：已开启
         /// </summary>
         public async Task<Dictionary<string,string>> GetEnableStatus()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            string result = await postSoap("ParentalControl", "GetEnableStatus", 5000, param);
+            string result = await postSoap("ParentalControl", "GetEnableStatus", param);
             return util.TraverseXML(result);
         }
 
@@ -208,7 +216,7 @@ namespace GenieWin8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewEnable",newEnable);
-            string result = await postSoap("ParentalControl", "EnableParentalControl", 5000, param);
+            string result = await postSoap("ParentalControl", "EnableParentalControl", param);
             return util.TraverseXML(result);
         }
 
@@ -216,7 +224,7 @@ namespace GenieWin8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewMACAddress",macAddress);
-            string result = await postSoap("ParentalControl", "DeleteMACAddress", 5000, param);
+            string result = await postSoap("ParentalControl", "DeleteMACAddress", param);
             return util.TraverseXML(result);
         }
 
@@ -228,7 +236,7 @@ namespace GenieWin8
         /// <returns>NewGuestAccessEnabled：1（enable）,0(not enable)</returns>
         public async Task<Dictionary<string, string>> GetGuestAccessEnabled()
         {
-            string result = await postSoap("WLANConfiguration", "GetGuestAccessEnabled",5000,new Dictionary<string,string>());
+            string result = await postSoap("WLANConfiguration", "GetGuestAccessEnabled",new Dictionary<string,string>());
             return util.TraverseXML(result);
         }
 
@@ -250,7 +258,7 @@ namespace GenieWin8
           
             //if (int.Parse(tempResult["NewGuestAccessEnabled"]) == 1)
             //{
-                string result = await postSoap("WLANConfiguration", "GetGuestAccessNetworkInfo", 5000, new Dictionary<string, string>());
+                string result = await postSoap("WLANConfiguration", "GetGuestAccessNetworkInfo", new Dictionary<string, string>());
                 return util.TraverseXML(result);
            // }
             //tempResult.Clear();
@@ -267,7 +275,7 @@ namespace GenieWin8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewGuestAccessEnabled", "0");
-            string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled", 5000, param);
+            string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled", param);
             return util.TraverseXML(result);
         }
 
@@ -290,7 +298,7 @@ namespace GenieWin8
             param.Add("NewKey3", "0");
             param.Add("NewKey4", "0");
             param.Add("NewGuestAccessEnabled", "1");
-            string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled2", 5000, param);
+            string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled2", param);
             return util.TraverseXML(result);
         }
 
@@ -312,7 +320,7 @@ namespace GenieWin8
             param.Add("NewKey2", "0");
             param.Add("NewKey3", "0");
             param.Add("NewKey4", "0");
-            string result = await postSoap("WLANConfiguration", "SetGuestAccessNetwork", 5000, param);
+            string result = await postSoap("WLANConfiguration", "SetGuestAccessNetwork", param);
             return util.TraverseXML(result);
         }
 
@@ -330,7 +338,7 @@ namespace GenieWin8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewTrafficMeterEnable",newTrafficMeterEnable);
-            string result = await postSoap("DeviceConfig", "EnableTrafficMeter",5000,param);
+            string result = await postSoap("DeviceConfig", "EnableTrafficMeter",param);
             return util.TraverseXML(result);
 
         }
@@ -342,7 +350,7 @@ namespace GenieWin8
         /// <returns></returns>
         public async Task<Dictionary<string, string>> GetTrafficMeterEnabled()
         {
-            string result = await postSoap("DeviceConfig", "GetTrafficMeterEnabled",5000,new Dictionary<string,string>());
+            string result = await postSoap("DeviceConfig", "GetTrafficMeterEnabled",new Dictionary<string,string>());
             return util.TraverseXML(result);
         }
 
@@ -362,7 +370,7 @@ namespace GenieWin8
         public async Task<Dictionary<string, string>> GetTrafficMeterOptions()
         {
             Dictionary<string, string> resultDic = new Dictionary<string, string>();
-            string result = await postSoap("DeviceConfig", "GetTrafficMeterOptions",5000,new Dictionary<string,string>());
+            string result = await postSoap("DeviceConfig", "GetTrafficMeterOptions",new Dictionary<string,string>());
             resultDic = util.TraverseXML(result);
             return resultDic;
         }
@@ -394,7 +402,7 @@ namespace GenieWin8
         public async Task<Dictionary<string, string>> GetTrafficMeterStatistics()
         {
             Dictionary<string, string> resultDic = new Dictionary<string, string>();
-            string result = await postSoap("DeviceConfig", "GetTrafficMeterStatistics", 5000, new Dictionary<string, string>());
+            string result = await postSoap("DeviceConfig", "GetTrafficMeterStatistics", new Dictionary<string, string>());
             resultDic = util.TraverseXML(result);
             return resultDic;
         }
@@ -417,10 +425,40 @@ namespace GenieWin8
             param.Add("RestartHour",restartHour);
             param.Add("RestartMinute",restartMinute);
             param.Add("RestartDay",restartDay);
-            string result = await postSoap("DeviceConfig", "SetTrafficMeterOptions",5000,param);
+            string result = await postSoap("DeviceConfig", "SetTrafficMeterOptions",param);
             return util.TraverseXML(result);
         }
 
+        public async Task<string> postSoap(string module, string method, Dictionary<string, string> param)
+        {
+            int port;
+            if ((flag & _InnerFlags.IS_5000PORT)!=0)
+            {
+                port = 5000;
+            }
+            else
+            {
+                port = 80;
+            }
+            string retText =  await _postSoap(module,method,port,param);
+            if (!retOK)
+            {
+                if ((flag & _InnerFlags.IS_5000PORT) != 0)
+                {
+                    port = 80;
+                }
+                else
+                {
+                    port = 5000;
+                }
+                retText = await _postSoap(module, method, port, param);
+                if (retOK)
+                {
+                    flag = flag ^ _InnerFlags.IS_5000PORT;
+                }
+            }
+            return retText;
+        }
 
 
         /// <summary>
@@ -431,11 +469,11 @@ namespace GenieWin8
         /// <param name="port"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<string> postSoap(string module, string method, int port, Dictionary<string,string> param)
+        public async Task<string> _postSoap(string module, string method, int port, Dictionary<string,string> param)
         {
             if (isSetApi(method))
             {
-                await ConfigurationStarted(5000);
+                await ConfigurationStarted(port);
             }
             string resourceAddress = string.Format("http://routerlogin.com:{0}/soap/server_sa", port);
             string soapAction = string.Format("urn:NETGEAR-ROUTER:service:{0}:1#{1}", module, method);
@@ -518,7 +556,7 @@ namespace GenieWin8
                     }
                     if (retOK && isSetApi(method))
                     {
-                        await ConfigurationFinished(5000);
+                        await ConfigurationFinished(port);
                     }
                     return resultstr;
                 }
@@ -695,7 +733,10 @@ namespace GenieWin8
                         resultDic.Add(splitValue[0],splitValue[1]);
                     }
                 }
-              
+                if (resultDic.Count > 0)
+                {
+                    setRouteType(resultDic["Model"]);
+                }
                 System.Diagnostics.Debug.WriteLine(resultStr);
             }
             catch (HttpRequestException hre)
@@ -714,6 +755,22 @@ namespace GenieWin8
             return resultDic;
         }
 
-        
+        public void setRouteType(string routerType)
+        {
+            Regex rgcg = new Regex("^CG");
+            Regex regdg = new Regex("^DG");
+            string[] strType = { "WNDR3400", "WNDR4500" };
+            if (rgcg.IsMatch(routerType) || regdg.IsMatch(routerType))
+            {
+                flag |= _InnerFlags.IS_CGDG;
+            }
+            for (int i = 0; i < strType.Length; i++)
+            {
+                if (routerType.Contains(strType[i]))
+                {
+                    flag |= _InnerFlags.IS_5000PORT;
+                }
+            }
+        }
     }
 }

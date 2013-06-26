@@ -208,7 +208,7 @@ namespace GenieWin8
                     //await soapApi.GetDNSMasqDeviceID();
                     GenieWebApi webApi = new GenieWebApi();
                     Dictionary<string, string> loginParam = new Dictionary<string, string>();
-                    loginParam = await webApi.GetDevice("152AACB03FCAEBC6FC52AFD7DBB0DA35", "WNR3500Lv2-204E7F04313C");
+                    //loginParam = await webApi.GetDevice("152AACB03FCAEBC6FC52AFD7DBB0DA35", "WNR3500Lv2-204E7F04313C");
                     //loginParam = await webApi.BeginLogin("genie007","12345678");
                     if (loginParam.Count() > 0)
                     {
