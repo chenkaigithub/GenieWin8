@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Popups;
+using GenieWin8.DataModel;
 
 // “用户控件”项模板在 http://go.microsoft.com/fwlink/?LinkId=234236 上提供
 
@@ -23,6 +25,32 @@ namespace GenieWin8
         public PopupLoginOpenDNS()
         {
             this.InitializeComponent();
+        }
+
+        private void IsBlankUsername(Object sender, RoutedEventArgs e)
+        {
+            if (username.Text == "")
+            {
+                ParentalControlInfo.IsEmptyUsername = true;
+            }
+            else
+            {
+                ParentalControlInfo.Username = username.Text;
+                ParentalControlInfo.IsEmptyUsername = false;
+            }
+        }
+
+        private void IsBlankPassword(Object sender, RoutedEventArgs e)
+        {
+            if (password.Password == "")
+            {
+                ParentalControlInfo.IsEmptyPassword = true;
+            }
+            else
+            {
+                ParentalControlInfo.Password = password.Password;
+                ParentalControlInfo.IsEmptyPassword = false;
+            }
         }
     }
 }

@@ -205,16 +205,34 @@ namespace GenieWin8
                 }
                 else if (groupId == "ParentalControl")
                 {
-                    //await soapApi.GetDNSMasqDeviceID();
-                    GenieWebApi webApi = new GenieWebApi();
-                    Dictionary<string, string> loginParam = new Dictionary<string, string>();
-                    //loginParam = await webApi.GetDevice("152AACB03FCAEBC6FC52AFD7DBB0DA35", "WNR3500Lv2-204E7F04313C");
-                    //loginParam = await webApi.BeginLogin("genie007","12345678");
-                    if (loginParam.Count() > 0)
+                    InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+
+                    //这里需要判断是否已连接因特网
+
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetCurrentSetting();
+                    if (dicResponse["ParentalControlSupported"] == "1")
                     {
- 
+                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                        dicResponse2 = await soapApi.GetEnableStatus();
+                        ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
+                        dicResponse2 = await soapApi.GetDNSMasqDeviceID("default");
+                        ParentalControlInfo.DeviceId = dicResponse2["NewDeviceID"];
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        this.Frame.Navigate(typeof(ParentalControlPage));
                     }
-                    this.Frame.Navigate(typeof(ParentalControlPage));
+                    else
+                    {
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        var messageDialog = new MessageDialog("The router does not support this function.");
+                        await messageDialog.ShowAsync();
+                    }
                 }               
             }
             else	//未登录，跳到登陆页面

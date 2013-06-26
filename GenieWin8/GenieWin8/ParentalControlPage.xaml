@@ -61,7 +61,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoHome" IsEnabled="{Binding Frame.CanGoHome, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" x:Uid="ParentalControlPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
-            <Button Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Button Click="Refresh_Click" Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
         <StackPanel Grid.Row="1"
@@ -77,10 +77,11 @@
                     </LinearGradientBrush>
                 </Grid.Background>
                 <TextBlock x:Uid="CheckParentalControl" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0"/>
-                <CheckBox HorizontalAlignment="Right" FontSize="24" IsChecked="True"/>
+                <CheckBox x:Name="checkPatentalControl" HorizontalAlignment="Right" FontSize="24" IsChecked="True" Click="checkParentalControl_Click"/>
             </Grid>
 
-            <ListView ItemsSource="{Binding Source={StaticResource filterLevelSource}}"
+            <ListView x:Name="FilterLevelListView"
+                      ItemsSource="{Binding Source={StaticResource filterLevelSource}}"
                       SelectionMode="None"
                       IsItemClickEnabled="True"
                       Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
@@ -106,7 +107,8 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ListView SelectionMode="None"
+            <ListView x:Name="ChangeCustomSettings"
+                      SelectionMode="None"
                       IsItemClickEnabled="True"
                       Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
                       ItemClick="ChangeSetting_ItemClick">
@@ -122,7 +124,7 @@
                 <TextBlock x:Uid="ChangeCustomizingSetting"  FontSize="24" FontWeight="Bold"/>
             </ListView>
 
-            <StackPanel Margin="0,20,0,0">
+            <StackPanel x:Name="stpOpenDNSAccount" Margin="0,20,0,0">
                 <StackPanel.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <LinearGradientBrush.RelativeTransform>
@@ -136,7 +138,8 @@
                 <TextBlock x:Uid="OpenDNSUserName"  FontSize="22" VerticalAlignment="Center" Margin="10,5,0,0"/>
             </StackPanel>
 
-            <ListView SelectionMode="None"
+            <ListView x:Name="BypassAccount"
+                      SelectionMode="None"
                       IsItemClickEnabled="True"
                       Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
                       ItemClick="Bypass_ItemClick">

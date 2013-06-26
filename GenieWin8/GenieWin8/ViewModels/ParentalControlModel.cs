@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Collections.Specialized;
+using GenieWin8.DataModel;
 
 namespace GenieWin8.Data
 {

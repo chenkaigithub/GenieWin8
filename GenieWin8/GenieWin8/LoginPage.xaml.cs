@@ -67,6 +67,9 @@ namespace GenieWin8
 
         private async void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
+            PopupBackground.Visibility = Visibility.Visible;
+
             string Username = tbUserName.Text.Trim();
             string Password = tbPassword.Password;
             GenieSoapApi soapApi = new GenieSoapApi();
@@ -87,17 +90,23 @@ namespace GenieWin8
                     {
                         MainPageInfo.password = "";                       
                     }
+                    InProgress.IsActive = false;
+                    PopupBackground.Visibility = Visibility.Collapsed;
                     WritePasswordToFile();
                     this.Frame.GoBack();
                 }
                 else if (int.Parse(dicResponse2["ResponseCode"]) == 401)
                 {
+                    InProgress.IsActive = false;
+                    PopupBackground.Visibility = Visibility.Collapsed;
                     var messageDialog = new MessageDialog("Login failed. Please re-enter the correct admin password for your NETGEAR router.");
                     await messageDialog.ShowAsync();
                 }
             }
             else
             {
+                InProgress.IsActive = false;
+                PopupBackground.Visibility = Visibility.Collapsed;
                 var messageDialog = new MessageDialog("Login failed! Please check to see if this computer is connected to the NETGEAR router.");
                 await messageDialog.ShowAsync();
             }

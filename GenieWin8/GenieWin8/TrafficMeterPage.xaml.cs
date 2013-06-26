@@ -555,5 +555,18 @@ namespace GenieWin8
             }
             return max;
         }
+
+        private async void Refresh_Click(Object sender, RoutedEventArgs e)
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetTrafficMeterOptions();
+            TrafficMeterInfoModel.MonthlyLimit = dicResponse["NewMonthlyLimit"];
+            TrafficMeterInfoModel.RestartHour = dicResponse["RestartHour"];
+            TrafficMeterInfoModel.RestartMinute = dicResponse["RestartMinute"];
+            TrafficMeterInfoModel.RestartDay = dicResponse["RestartDay"];
+            TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
+            this.Frame.Navigate(typeof(TrafficMeterPage));
+        }
     }
 }

@@ -125,5 +125,21 @@ namespace GenieWin8
                 imageQRCode.Visibility = Visibility.Collapsed;
             }
         }
+
+        private async void Refresh_Click(Object sender, RoutedEventArgs e)
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetGuestAccessNetworkInfo();
+            GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
+            GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
+            if (dicResponse["NewSecurityMode"] != "None")
+                GuestAccessInfoModel.password = dicResponse["NewKey"];
+            else
+                GuestAccessInfoModel.password = "";
+            if (GuestAccessInfoModel.timePeriod == null)
+                GuestAccessInfoModel.timePeriod = "Always";
+            this.Frame.Navigate(typeof(GuestAccessPage));
+        }
     }
 }

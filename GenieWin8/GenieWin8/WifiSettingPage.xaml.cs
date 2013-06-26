@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using GenieWin8.DataModel;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -56,6 +57,19 @@ namespace GenieWin8
         private void Setting_ItemClick(Object sender, ItemClickEventArgs e)
         {
             this.Frame.Navigate(typeof(EditSettingPage));
+        }
+
+        private async void Refresh_Click(Object sender, RoutedEventArgs e)
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            WifiInfoModel.ssid = dicResponse["NewSSID"];
+            WifiInfoModel.channel = dicResponse["NewChannel"];
+            WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+            dicResponse = await soapApi.GetWPASecurityKeys();
+            WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+            this.Frame.Navigate(typeof(WifiSettingPage));
         }
     }
 }
