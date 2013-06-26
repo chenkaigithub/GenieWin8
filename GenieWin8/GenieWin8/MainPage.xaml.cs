@@ -237,17 +237,18 @@ namespace GenieWin8
             }
             else	//未登录，跳到登陆页面
             {
-                this.Frame.Navigate(typeof(LoginPage));
-            }
-            if (groupId == "MyMedia")
-            {
-                this.Frame.Navigate(typeof(MyMediaPage));
-            }
-            else if (groupId == "MarketPlace")
-            {
-                var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
-                await Windows.System.Launcher.LaunchUriAsync(uri);
-            }
+                if (groupId == "MyMedia")
+                {
+                    this.Frame.Navigate(typeof(MyMediaPage));
+                }
+                else if (groupId == "MarketPlace")
+                {
+                    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+                    await Windows.System.Launcher.LaunchUriAsync(uri);
+                }
+                else
+                    this.Frame.Navigate(typeof(LoginPage));
+            }         
         }
 
         private void SearchButton_Click(Object sender, RoutedEventArgs e)
