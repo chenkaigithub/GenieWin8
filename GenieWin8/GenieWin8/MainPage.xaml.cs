@@ -210,28 +210,37 @@ namespace GenieWin8
                     PopupBackground.Visibility = Visibility.Visible;
 
                     //这里需要判断是否已连接因特网
-
-                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetCurrentSetting();
-                    if (dicResponse["ParentalControlSupported"] == "1")
+                    UtilityTool util = new UtilityTool();
+                    bool isConnectToInternet = util.IsConnectedToInternet();
+                    if (!isConnectToInternet)
                     {
-                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                        dicResponse2 = await soapApi.GetEnableStatus();
-                        ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
-                        dicResponse2 = await soapApi.GetDNSMasqDeviceID("default");
-                        ParentalControlInfo.DeviceId = dicResponse2["NewDeviceID"];
-                        InProgress.IsActive = false;
-                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Collapsed;
-                        this.Frame.Navigate(typeof(ParentalControlPage));
+                        var messageDialog = new MessageDialog("You don't appear to be connected to the Internet.Please connect to the Internet through your NETGEAR router and try again.");
+                        await messageDialog.ShowAsync();
                     }
                     else
                     {
-                        InProgress.IsActive = false;
-                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Collapsed;
-                        var messageDialog = new MessageDialog("The router does not support this function.");
-                        await messageDialog.ShowAsync();
+                        Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                        dicResponse = await soapApi.GetCurrentSetting();
+                        if (dicResponse["ParentalControlSupported"] == "1")
+                        {
+                            Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                            dicResponse2 = await soapApi.GetEnableStatus();
+                            ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
+                            dicResponse2 = await soapApi.GetDNSMasqDeviceID("default");
+                            ParentalControlInfo.DeviceId = dicResponse2["NewDeviceID"];
+                            InProgress.IsActive = false;
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                            PopupBackground.Visibility = Visibility.Collapsed;
+                            this.Frame.Navigate(typeof(ParentalControlPage));
+                        }
+                        else
+                        {
+                            InProgress.IsActive = false;
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                            PopupBackground.Visibility = Visibility.Collapsed;
+                            var messageDialog = new MessageDialog("The router does not support this function.");
+                            await messageDialog.ShowAsync();
+                        }
                     }
                 }               
             }

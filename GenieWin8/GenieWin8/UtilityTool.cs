@@ -30,6 +30,11 @@ namespace GenieWin8
         }
 
         /////遍历xml/////////
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
         public Dictionary<string, string> TraverseXML(string xml)
         {
             responseDic = new Dictionary<string, string>();
@@ -126,6 +131,11 @@ namespace GenieWin8
         //    IPAddress address = IPAddress.Parse(ipAddresses[0]);
         //    return address;
         //}
+
+        /// <summary>
+        /// 获取本机ip地址
+        /// </summary>
+        /// <returns></returns>
         public string GetLocalHostIp()
         {
             //var conProfile = NetworkInformation.GetInternetConnectionProfile();
@@ -168,6 +178,10 @@ namespace GenieWin8
 
         }
 
+        /// <summary>
+        /// 获取网关
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetGateway()
         {
             //网关地址
@@ -207,7 +221,6 @@ namespace GenieWin8
 
 
             HostName serverHost = new HostName("routerlogin.net");
-
             var clientSocket = new Windows.Networking.Sockets.StreamSocket();
 
             // Try to connect to the remote host
@@ -219,7 +232,28 @@ namespace GenieWin8
             return ipAddress.ToString();
         }
 
+        /// <summary>
+        /// 判断是否有Internet
+        /// </summary>
+        /// <returns></returns>
+        public bool IsConnectedToInternet()
+        {
+            bool connected = false;
+            ConnectionProfile cp = NetworkInformation.GetInternetConnectionProfile();
+            if (cp != null)
+            {
+                NetworkConnectivityLevel cl = cp.GetNetworkConnectivityLevel();
+                connected = cl == NetworkConnectivityLevel.InternetAccess;
+            }
+            return connected;
+        }
+ 
 
+        /// <summary>
+        /// 将json字符串转换成JObject对象
+        /// </summary>
+        /// <param name="jsonText"></param>
+        /// <returns></returns>
         public JObject ConvertJsonToObject(string jsonText)
         {
             JObject jo = (JObject)JsonConvert.DeserializeObject(jsonText);
