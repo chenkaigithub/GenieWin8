@@ -123,6 +123,7 @@ namespace GenieWin8
                                };
             double maxTotalValue = Max(arryTotal);
             double maxAvgValue = Max(arryAvg);
+            //纵坐标取值范围计算
             int maxOrdinateTotal = 0;
             int maxOrdinateAvg = 0;
             if (maxTotalValue >= 0 && maxTotalValue <= 10)
@@ -245,6 +246,7 @@ namespace GenieWin8
             AverageCanvas.Children.Add(MonthAvg);
             AverageCanvas.Children.Add(LastMonthAvg);
 
+            //流量图的坐标线条绘制
             Line TotalYaxis = new Line();
             TotalYaxis.Stroke = new SolidColorBrush(Colors.Black);
             TotalYaxis.StrokeThickness = 3;
@@ -311,6 +313,7 @@ namespace GenieWin8
                 AverageCanvas.Children.Add(line);
             }
 
+            //流量矩形图绘制
             //Total Today
             double TodayDownloadHeight = double.Parse(TrafficMeterInfoModel.TodayDownload) / maxOrdinateTotal * 650;
             Rectangle rectTodayDownload = new Rectangle();

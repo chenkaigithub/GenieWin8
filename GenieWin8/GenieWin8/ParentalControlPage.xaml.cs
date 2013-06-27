@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
 using Windows.UI.Popups;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -72,6 +74,14 @@ namespace GenieWin8
         {           
             var FilterLevelGroup = FilterLevelSource.GetGroup((String)navigationParameter);
             this.DefaultViewModel["Group"] = FilterLevelGroup;
+            if (ParentalControlInfo.Username != null)
+            {
+                OpenDNSUserName.Text = ParentalControlInfo.Username;
+            }
+            else
+            {
+                OpenDNSUserName.Text = "";
+            }
         }
 
         /// <summary>
@@ -102,11 +112,33 @@ namespace GenieWin8
 	        await Windows.System.Launcher.LaunchUriAsync(uri);
         }
 
-        private void Bypass_ItemClick(Object sender, ItemClickEventArgs e)
+        private async void Bypass_ItemClick(Object sender, ItemClickEventArgs e)
         {
-
+            ParentalControlInfo.BypassAccounts = "";
+            GenieWebApi webApi = new GenieWebApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await webApi.GetUsersForDeviceId(ParentalControlInfo.DeviceId);
+            if (dicResponse["status"] == "success")
+            {
+                var jarry = JArray.Parse(dicResponse["bypassUsers"]);
+                if (jarry != null)
+                {
+                    for (int i = 0; i < jarry.Count; i++)
+                    {
+                        string user = jarry[i].ToString();
+                        ParentalControlInfo.BypassAccounts = ParentalControlInfo.BypassAccounts + user + ";";
+                    }
+                }
+                this.Frame.Navigate(typeof(BypassAccountPage));
+            }
+            else
+            {
+                var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                await messageDialog.ShowAsync();
+            } 
         }
 
+        //没有OpenDNS账号
         private void NoButton_Click(Object sender, RoutedEventArgs e)
         {
             if (EnquirePopup.IsOpen)
@@ -121,6 +153,7 @@ namespace GenieWin8
 	        }
         }
 
+        //拥有OpenDNS账号
         private void YesButton_Click(Object sender, RoutedEventArgs e)
         {
             if (EnquirePopup.IsOpen)
@@ -135,6 +168,7 @@ namespace GenieWin8
 	        }
         }
 
+        //注册上一步
         private void RegisterPreviousButton_Click(Object sender, RoutedEventArgs e)
         {
             if (RegisterPopup.IsOpen)
@@ -149,6 +183,7 @@ namespace GenieWin8
 	        }
         }
 
+        //注册下一步
         private async void RegisterNextButton_Click(Object sender, RoutedEventArgs e)
         {
             if (ParentalControlInfo.IsUsernameAvailable == false || ParentalControlInfo.IsEmptyUsername == true || ParentalControlInfo.IsEmptyPassword == true
@@ -183,6 +218,7 @@ namespace GenieWin8
             }          
         }
 
+        //登陆上一步
         private void LoginPreviousButton_Click(Object sender, RoutedEventArgs e)
         {
             if (LoginPopup.IsOpen)
@@ -197,6 +233,7 @@ namespace GenieWin8
 	        }
         }
 
+        //登陆下一步
         private async void LoginNextButton_Click(Object sender, RoutedEventArgs e)
         {
             if (ParentalControlInfo.IsEmptyUsername == true || ParentalControlInfo.IsEmptyPassword == true)
@@ -247,6 +284,7 @@ namespace GenieWin8
             }
         }
 
+        //设置过滤等级上一步
         private void FilterLvPreviousButton_Click(Object sender, RoutedEventArgs e)
         {
             if (FilterLevelPopup.IsOpen)
@@ -261,6 +299,7 @@ namespace GenieWin8
 	        }
         }
 
+        //设置过滤等级下一步
         private async void FilterLvNextButton_Click(Object sender, RoutedEventArgs e)
         {
             GenieWebApi webApi = new GenieWebApi();
@@ -285,6 +324,7 @@ namespace GenieWin8
             }           
         }
 
+        //返回状态页面
         private void ReturnToStatusButton_Click(Object sender, RoutedEventArgs e)
         {
             if (SettingCompletePopup.IsOpen)
@@ -329,7 +369,7 @@ namespace GenieWin8
             ParentalControlInfo.isParentalControlEnabled = dicResponse["ParentalControl"];
             dicResponse = await soapApi.GetDNSMasqDeviceID("default");
             ParentalControlInfo.DeviceId = dicResponse["NewDeviceID"];
-            this.Frame.Navigate(typeof(TrafficMeterPage));
+            this.Frame.Navigate(typeof(ParentalControlPage));
         }
     }
 }

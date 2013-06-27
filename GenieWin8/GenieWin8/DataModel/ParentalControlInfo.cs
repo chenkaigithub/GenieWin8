@@ -25,5 +25,8 @@ namespace GenieWin8.DataModel
 
         public static string token;
         public static string filterLevel;
+
+        public static string BypassAccounts;
+        public static string BypassUsername;
     }
 }

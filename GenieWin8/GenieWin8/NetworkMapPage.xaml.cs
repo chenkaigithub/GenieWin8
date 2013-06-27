@@ -76,30 +76,6 @@ namespace GenieWin8
             int n = (DeviceNumber - 1) % 7;
             for (int i = 0; i < m + 1; i++)
             {
-                //Grid map = new Grid();
-
-                //Image internet = new Image();
-                //Uri _baseUri = new Uri("ms-appx:///");
-                //internet.Source = new BitmapImage(new Uri(_baseUri, "Assets/internet72.png"));
-                //internet.HorizontalAlignment = HorizontalAlignment.Right;
-                //internet.Margin = new Thickness(0, 0, 50, 0);
-                //internet.Width = 100; internet.Height = 100;
-
-
-                //Button BtnRouter = new Button();
-                ////BtnRouter.Name = "Router";
-                //BtnRouter.Name = Group.ElementAt(0).NODE.uniqueId;
-                //BtnRouter.SetValue(WidthProperty, 150);
-                //BtnRouter.SetValue(HeightProperty, 150);
-                //BtnRouter.HorizontalAlignment = HorizontalAlignment.Center;
-                //BtnRouter.VerticalAlignment = VerticalAlignment.Center;
-                //Image imgRouter = new Image();
-                //imgRouter.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
-                //imgRouter.Stretch = Stretch.UniformToFill;
-                //BtnRouter.Content = imgRouter;
-                //BtnRouter.Margin = new Thickness(0, 0, 0, 0);
-                //BtnRouter.Click += new RoutedEventHandler(DeviceButton_Click);
-
                 if (i != m)
                 {
                     Grid map = new Grid();
@@ -169,32 +145,7 @@ namespace GenieWin8
                         }
                         map.Children.Add(line);
                         map.Children.Add(imgSignal);
-
-                        //if (j == 1)
-                        //{
-                        //    Button BtnDeviceLocal = new Button();
-                        //    //BtnDeviceLocal.Name = "LocalDevice";
-                        //    BtnDeviceLocal.Name = Group.ElementAt(j).UniqueId;
-                        //    BtnDeviceLocal.SetValue(WidthProperty, 100);
-                        //    BtnDeviceLocal.SetValue(HeightProperty, 100);
-                        //    BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
-                        //    BtnDeviceLocal.VerticalAlignment = VerticalAlignment.Top;
-                        //    BtnDeviceLocal.Margin = new Thickness(width/2 + x - 50, height/2 - y - 50, 0, 0);
-                        //    Image imgDeviceLocal = new Image();
-                        //    imgDeviceLocal.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
-                        //    imgDeviceLocal.Stretch = Stretch.UniformToFill;
-                        //    TextBlock DeviceNameTextLocal = new TextBlock();
-                        //    //DeviceNameTextLocal.Text = "android-25531554966beee3";
-                        //    DeviceNameTextLocal.Text = Group.ElementAt(j).DeviceName;
-                        //    StackPanel stpDeviceLocal = new StackPanel();
-                        //    stpDeviceLocal.Children.Add(imgDeviceLocal);
-                        //    stpDeviceLocal.Children.Add(DeviceNameTextLocal);
-                        //    BtnDeviceLocal.Content = stpDeviceLocal;
-                        //    BtnDeviceLocal.Click += new RoutedEventHandler(DeviceButton_Click);
-                        //    map.Children.Add(BtnDeviceLocal);
-                        //}
-                        //else if (j > 1)
-                        //{
+                       
                         if (j > 0)
                         {
                             Button BtnDevice = new Button();
@@ -205,15 +156,7 @@ namespace GenieWin8
                             BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
                             BtnDevice.VerticalAlignment = VerticalAlignment.Top;
                             BtnDevice.Margin = new Thickness(width / 2 + x - 50, height / 2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
-                            Image imgDevice = new Image();                            
-                            //if (BtnDevice.Name == "LocalDevice")
-                            //{
-                            //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
-                            //}
-                            //else
-                            //{
-                            //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
-                            //}
+                            Image imgDevice = new Image();
                             switch (Group.ElementAt(7 * i + j).NODE.deviceType)
                             {
                                 case "gatewaydev":
@@ -415,31 +358,6 @@ namespace GenieWin8
                             map.Children.Add(line);
                             map.Children.Add(imgSignal);
 
-                            //if (j == 1)
-                            //{
-                            //    Button BtnDeviceLocal = new Button();
-                            //    //BtnDeviceLocal.Name = "LocalDevice";
-                            //    BtnDeviceLocal.Name = Group.ElementAt(j).UniqueId;
-                            //    BtnDeviceLocal.SetValue(WidthProperty, 100);
-                            //    BtnDeviceLocal.SetValue(HeightProperty, 100);
-                            //    BtnDeviceLocal.HorizontalAlignment = HorizontalAlignment.Left;
-                            //    BtnDeviceLocal.VerticalAlignment = VerticalAlignment.Top;
-                            //    BtnDeviceLocal.Margin = new Thickness(width/2 + x - 50, height/2 - y - 50, 0, 0);
-                            //    Image imgDeviceLocal = new Image();
-                            //    imgDeviceLocal.Source = new BitmapImage(new Uri(_baseUri, "Assets/AndroidPhone72.png"));
-                            //    imgDeviceLocal.Stretch = Stretch.UniformToFill;
-                            //    TextBlock DeviceNameTextLocal = new TextBlock();
-                            //    //DeviceNameTextLocal.Text = "android-25531554966beee3";
-                            //    DeviceNameTextLocal.Text = Group.ElementAt(j).DeviceName;
-                            //    StackPanel stpDeviceLocal = new StackPanel();
-                            //    stpDeviceLocal.Children.Add(imgDeviceLocal);
-                            //    stpDeviceLocal.Children.Add(DeviceNameTextLocal);
-                            //    BtnDeviceLocal.Content = stpDeviceLocal;
-                            //    BtnDeviceLocal.Click += new RoutedEventHandler(DeviceButton_Click);
-                            //    map.Children.Add(BtnDeviceLocal);
-                            //}
-                            //else if (j > 1)
-                            //{
                             if (j > 0)
                             {
                                 Button BtnDevice = new Button();
@@ -451,14 +369,6 @@ namespace GenieWin8
                                 BtnDevice.VerticalAlignment = VerticalAlignment.Top;
                                 BtnDevice.Margin = new Thickness(width / 2 + x - 50, height / 2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
                                 Image imgDevice = new Image();
-                                //if (BtnDevice.Name == "LocalDevice")
-                                //{
-                                //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
-                                //}
-                                //else
-                                //{
-                                //    imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
-                                //}
                                 switch (Group.ElementAt(7 * i + j).NODE.deviceType)
                                 {
                                     case "gatewaydev":
@@ -588,9 +498,6 @@ namespace GenieWin8
                         MapFlipView.Items.Add(map);
                     }
                 }
-                //map.Children.Add(internet);
-                //map.Children.Add(BtnRouter);
-                //MapFlipView.Items.Add(map);
             }
         }
 
