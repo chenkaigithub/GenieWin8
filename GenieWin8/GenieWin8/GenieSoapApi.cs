@@ -220,6 +220,11 @@ namespace GenieWin8
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// bypass 账号注销
+        /// </summary>
+        /// <param name="macAddress">本机的mac地址</param>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> DeleteMACAddress(string macAddress)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -429,6 +434,13 @@ namespace GenieWin8
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// 第一次调用SOAP api默认为80端口，如果不通，换5000端口
+        /// </summary>
+        /// <param name="module"></param>
+        /// <param name="method"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
         public async Task<string> postSoap(string module, string method, Dictionary<string, string> param)
         {
             int port;

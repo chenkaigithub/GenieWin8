@@ -446,6 +446,10 @@ namespace GenieWin8
                 byte[] resultbt = await response.Content.ReadAsByteArrayAsync();
                 string resultstr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
                // HttpStatusCode statusCode = response.StatusCode;
+                if (resultstr == null)
+                {
+                    return "";
+                }
                 return resultstr;
             }
             catch (HttpRequestException hre)

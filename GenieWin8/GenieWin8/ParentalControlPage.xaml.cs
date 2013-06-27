@@ -209,36 +209,39 @@ namespace GenieWin8
                 GenieWebApi webApi = new GenieWebApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await webApi.BeginLogin(ParentalControlInfo.Username, ParentalControlInfo.Password);
-                if (dicResponse["status"] != "success")
+                if (dicResponse.Count > 0)
                 {
-                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                    await messageDialog.ShowAsync();
-                }
-                else
-                {
-                    ParentalControlInfo.IsOpenDNSLoggedIn = true;
-                    ParentalControlInfo.token = dicResponse["token"];
-                    Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                    dicResponse2 = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
-                    if (dicResponse2["status"] != "success")
+                    if (dicResponse["status"] != "success")
                     {
-                        ParentalControlInfo.filterLevel = "";
-                    } 
+                        var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                        await messageDialog.ShowAsync();
+                    }
                     else
                     {
-                        ParentalControlInfo.filterLevel = dicResponse2["bundle"];
-                    }
-                    PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();       //再次初始化 PopupFilterLevel，标识出过滤等级
+                        ParentalControlInfo.IsOpenDNSLoggedIn = true;
+                        ParentalControlInfo.token = dicResponse["token"];
+                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                        dicResponse2 = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
+                        if (dicResponse2["status"] != "success")
+                        {
+                            ParentalControlInfo.filterLevel = "";
+                        }
+                        else
+                        {
+                            ParentalControlInfo.filterLevel = dicResponse2["bundle"];
+                        }
+                        PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();       //再次初始化 PopupFilterLevel，标识出过滤等级
 
-                    if (LoginPopup.IsOpen)
-                    {
-                        LoginPopup.IsOpen = false;
-                        FilterLevelPopup.IsOpen = true;
-                        PopupBackground.Visibility = Visibility.Visible;
-                        LoginPreviousButton.Visibility = Visibility.Collapsed;
-                        LoginNextButton.Visibility = Visibility.Collapsed;
-                        FilterLvPreviousButton.Visibility = Visibility.Visible;
-                        FilterLvNextButton.Visibility = Visibility.Visible;
+                        if (LoginPopup.IsOpen)
+                        {
+                            LoginPopup.IsOpen = false;
+                            FilterLevelPopup.IsOpen = true;
+                            PopupBackground.Visibility = Visibility.Visible;
+                            LoginPreviousButton.Visibility = Visibility.Collapsed;
+                            LoginNextButton.Visibility = Visibility.Collapsed;
+                            FilterLvPreviousButton.Visibility = Visibility.Visible;
+                            FilterLvNextButton.Visibility = Visibility.Visible;
+                        }
                     }
                 }
             }
