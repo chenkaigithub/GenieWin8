@@ -232,6 +232,25 @@ namespace GenieWin8
             return ipAddress.ToString();
         }
 
+        //public enum NetworkConnectivityLevel
+        //{
+        // 摘要:
+        //     无连接。
+        // None = 0,
+        //
+        // 摘要:
+        //     仅本地网络访问。
+        //   LocalAccess = 1,
+        //
+        // 摘要:
+        //     受限的 internet 访问。
+        //  ConstrainedInternetAccess = 2,
+        //
+        // 摘要:
+        //     本地和 internet 访问。
+        // InternetAccess = 3,
+        // }
+
         /// <summary>
         /// 判断是否有Internet
         /// </summary>
