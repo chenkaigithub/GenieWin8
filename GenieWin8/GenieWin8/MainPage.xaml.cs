@@ -248,6 +248,10 @@ namespace GenieWin8
             {
                 if (groupId == "MyMedia")
                 {
+                    //UtilityTool util = new UtilityTool();
+                    //util.GetMACAddress();
+                    //GenieFcml fcml = new GenieFcml();
+                    //fcml.Init("siteviewgenietest@gmail.com", "siteview");
                     this.Frame.Navigate(typeof(MyMediaPage));
                 }
                 else if (groupId == "MarketPlace")
