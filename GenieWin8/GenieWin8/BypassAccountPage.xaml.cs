@@ -40,8 +40,17 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            var bypassAccount = FilterLevelSource.GetBypassAccounts((String)navigationParameter);
-            this.DefaultViewModel["itemBypassAccount"] = bypassAccount;
+            if (ParentalControlInfo.BypassAccounts != null)
+            {
+                string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
+                for (int i = 0; i < bypassAccount.Length; i++)
+                {
+                    if (bypassAccount[i] != null && bypassAccount[i] != "")
+                    {
+                        bypassAccountListBox.Items.Add(bypassAccount[i]);
+                    }
+                }
+            }  
         }
 
         /// <summary>
