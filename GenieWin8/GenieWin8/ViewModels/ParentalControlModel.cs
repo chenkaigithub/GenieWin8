@@ -84,9 +84,34 @@ namespace GenieWin8.Data
             return _filterLevelSource.FilterLevelGroups;
         }
 
+        private ObservableCollection<FilterLevelGroup> _bypassAccounts = new ObservableCollection<FilterLevelGroup>();
+        public ObservableCollection<FilterLevelGroup> BypassAccounts
+        {
+            get { return this._bypassAccounts; }
+        }
+
+        public static IEnumerable<FilterLevelGroup> GetBypassAccounts(string uniqueId)
+        {
+            _filterLevelSource = new FilterLevelSource();
+            return _filterLevelSource.BypassAccounts;
+        }
+
         public FilterLevelSource()
         {
-            
+            if (ParentalControlInfo.BypassAccounts != null)
+            {
+                string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
+                for (int i = 0; i < bypassAccount.Length; i++)
+                {
+                    if (bypassAccount[i] != null && bypassAccount[i] != "")
+                    {
+                        var group = new FilterLevelGroup("BypassAccount",
+                            bypassAccount[i],
+                            "");
+                        this.BypassAccounts.Add(group);
+                    }
+                }
+            }           
         }
     }
 }

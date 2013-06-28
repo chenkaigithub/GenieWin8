@@ -104,6 +104,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BypassAccountLoginPage.xaml.cs">
+      <DependentUpon>BypassAccountLoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BypassAccountPage.xaml.cs">
+      <DependentUpon>BypassAccountPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\GuestAccessInfoModel.cs" />
     <Compile Include="DataModel\MainPageInfo.cs" />
     <Compile Include="DataModel\NetworkMapDodel.cs" />
@@ -314,6 +320,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="BypassAccountLoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BypassAccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -135,7 +135,7 @@
                     </LinearGradientBrush>
                 </StackPanel.Background>
                 <TextBlock x:Uid="OpenDNSUser"  FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="10,5,0,0"/>
-                <TextBlock x:Uid="OpenDNSUserName"  FontSize="22" VerticalAlignment="Center" Margin="10,5,0,0"/>
+                <TextBlock x:Name="OpenDNSUserName"  FontSize="22" VerticalAlignment="Center" Margin="10,5,0,0"/>
             </StackPanel>
 
             <ListView x:Name="BypassAccount"
@@ -152,7 +152,10 @@
                         <GradientStop Color="#FF50C6FD"/>
                     </LinearGradientBrush>
                 </ListView.Background>
-                <TextBlock x:Uid="Bypass" FontSize="24" FontWeight="Bold"/>
+                <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                    <TextBlock x:Uid="Bypass" FontSize="24" FontWeight="Bold"/>
+                    <TextBlock x:Name="bypassaccount" FontSize="22"/>
+                </StackPanel>               
             </ListView>
         </StackPanel>
 

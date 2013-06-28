@@ -370,9 +370,6 @@
     <value>Account OpenDNS</value>
     <comment>OpenDNS User</comment>
   </data>
-  <data name="OpenDNSUserName.Text" xml:space="preserve">
-    <value>Genie007</value>
-  </data>
   <data name="ParentalControl" xml:space="preserve">
     <value>Parental Controls</value>
     <comment>Parental Control</comment>
