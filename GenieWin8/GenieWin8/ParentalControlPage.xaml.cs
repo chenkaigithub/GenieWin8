@@ -82,6 +82,15 @@ namespace GenieWin8
             {
                 OpenDNSUserName.Text = "";
             }
+
+            if (ParentalControlInfo.BypassUsername != null)
+            {
+                bypassaccount.Text = ParentalControlInfo.BypassUsername;
+            }
+            else
+            {
+                bypassaccount.Text = "";
+            }
         }
 
         /// <summary>

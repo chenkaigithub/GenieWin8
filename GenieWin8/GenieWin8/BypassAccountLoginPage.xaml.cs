@@ -61,6 +61,8 @@ namespace GenieWin8
             dicResponse = await webApi.GetDeviceChild(ParentalControlInfo.DeviceId, Username, Password);
             if (dicResponse["status"] == "success")
             {
+                ParentalControlInfo.BypassUsername = Username;
+                this.Frame.Navigate(typeof(ParentalControlPage));
             } 
             else
             {
