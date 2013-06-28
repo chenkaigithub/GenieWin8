@@ -54,6 +54,9 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetGuestAccessEnabled();
@@ -81,6 +84,9 @@ namespace GenieWin8
                 GuestAccessInfoModel.password = "";
             var GuestSettingGroup = GuestSettingSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = GuestSettingGroup;
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -100,6 +106,9 @@ namespace GenieWin8
 
         private async void checkGuestSetting_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             if (checkGuestSetting.IsChecked == true)
             {           
@@ -124,21 +133,13 @@ namespace GenieWin8
                 textScanQRCode.Visibility = Visibility.Collapsed;
                 imageQRCode.Visibility = Visibility.Collapsed;
             }
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
-        private async void Refresh_Click(Object sender, RoutedEventArgs e)
+        private void Refresh_Click(Object sender, RoutedEventArgs e)
         {
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetGuestAccessNetworkInfo();
-            GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
-            GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
-            if (dicResponse["NewSecurityMode"] != "None")
-                GuestAccessInfoModel.password = dicResponse["NewKey"];
-            else
-                GuestAccessInfoModel.password = "";
-            if (GuestAccessInfoModel.timePeriod == null)
-                GuestAccessInfoModel.timePeriod = "Always";
             this.Frame.Navigate(typeof(GuestAccessPage));
         }
     }

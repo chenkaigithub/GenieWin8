@@ -58,6 +58,9 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetTrafficMeterEnabled();
@@ -84,6 +87,9 @@ namespace GenieWin8
             TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
             var groups = TrafficMeterSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = groups;
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -103,6 +109,9 @@ namespace GenieWin8
 
         private async void OnWindowSizeChanged(Object sender, SizeChangedEventArgs e)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             string[] WeekUpload = TrafficMeterInfoModel.WeekUpload.Split('/');
             string[] WeekDownload = TrafficMeterInfoModel.WeekDownload.Split('/');
             string[] MonthUpload = TrafficMeterInfoModel.MonthUpload.Split('/');
@@ -521,10 +530,16 @@ namespace GenieWin8
             AverageCanvas.Children.Add(AvgrectLastMonthUpload);
             AverageCanvas.Children.Add(LastMonthDownloadAvg);
             AverageCanvas.Children.Add(LastMonthUploadAvg);
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         private async void checkTrafficMeter_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             string trafficMeterEnable;
@@ -542,8 +557,11 @@ namespace GenieWin8
                 dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
                 TrafficMeterList.Visibility = Visibility.Collapsed;
                 TotalCanvas.Visibility = Visibility.Collapsed;
-                AverageCanvas.Visibility = Visibility.Collapsed;
+                AverageCanvas.Visibility = Visibility.Collapsed;               
             }
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         static double Max(double[] arry)
@@ -559,16 +577,8 @@ namespace GenieWin8
             return max;
         }
 
-        private async void Refresh_Click(Object sender, RoutedEventArgs e)
+        private void Refresh_Click(Object sender, RoutedEventArgs e)
         {
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetTrafficMeterOptions();
-            TrafficMeterInfoModel.MonthlyLimit = dicResponse["NewMonthlyLimit"];
-            TrafficMeterInfoModel.RestartHour = dicResponse["RestartHour"];
-            TrafficMeterInfoModel.RestartMinute = dicResponse["RestartMinute"];
-            TrafficMeterInfoModel.RestartDay = dicResponse["RestartDay"];
-            TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
             this.Frame.Navigate(typeof(TrafficMeterPage));
         }
     }

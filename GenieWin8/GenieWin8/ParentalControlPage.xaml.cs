@@ -17,6 +17,8 @@ using GenieWin8.DataModel;
 using Windows.UI.Popups;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Windows.Storage;
+using System.Threading.Tasks;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -70,8 +72,8 @@ namespace GenieWin8
         /// </param>
         /// <param name="pageState">此页在以前会话期间保留的状态
         /// 字典。首次访问页面时为 null。</param>
-        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
-        {           
+        protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        {
             var FilterLevelGroup = FilterLevelSource.GetGroup((String)navigationParameter);
             this.DefaultViewModel["Group"] = FilterLevelGroup;
             if (ParentalControlInfo.Username != null)
@@ -81,6 +83,28 @@ namespace GenieWin8
             else
             {
                 OpenDNSUserName.Text = "";
+            }
+
+            ParentalControlInfo.BypassChildrenDeviceId = await ReadBypassChildrenDeviceIdFromFile();                      //读取本地保存的DeviceId，如果不为空则获得当前登录的Bypass账户
+            if (ParentalControlInfo.BypassChildrenDeviceId != null && ParentalControlInfo.BypassChildrenDeviceId != "")
+            {
+                ParentalControlInfo.IsBypassUserLoggedIn = true;
+                GenieWebApi webApi = new GenieWebApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await webApi.GetUserForChildDeviceId(ParentalControlInfo.BypassChildrenDeviceId);
+                if (dicResponse["status"] == "success")
+                {
+                    ParentalControlInfo.BypassUsername = dicResponse["bypass_user"];
+                } 
+                else
+                {
+                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                    await messageDialog.ShowAsync();
+                }
+            }
+            else
+            {
+                ParentalControlInfo.IsBypassUserLoggedIn = false;
             }
 
             if (ParentalControlInfo.BypassUsername != null)
@@ -109,6 +133,7 @@ namespace GenieWin8
             if (!FilterLevelPopup.IsOpen)
 	        {
 		        FilterLevelPopup.IsOpen = true;
+                InProgress.IsActive = false;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        FilterLvPreviousButton.Visibility = Visibility.Visible;
 		        FilterLvNextButton.Visibility = Visibility.Visible;
@@ -117,34 +142,72 @@ namespace GenieWin8
 
         private async void ChangeSetting_ItemClick(Object sender, ItemClickEventArgs e)
         {
-            var uri = new Uri("http://netgear.opendns.com/account.php?device_id=" + ParentalControlInfo.DeviceId);
-	        await Windows.System.Launcher.LaunchUriAsync(uri);
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            GenieWebApi webApi = new GenieWebApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await webApi.AccountRelay(ParentalControlInfo.token);
+            if (dicResponse["status"] == "success")
+            {
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                string relay_token = dicResponse["relay_token"];
+                var uri = new Uri("http://netgear.opendns.com/account.php?device_id=" + ParentalControlInfo.DeviceId + "&api_key=3D8C85A77ADA886B967984DF1F8B3711" + "&relay_token=" + relay_token);
+                await Windows.System.Launcher.LaunchUriAsync(uri);
+            }
+            else
+            {
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                await messageDialog.ShowAsync();
+            }
         }
 
         private async void Bypass_ItemClick(Object sender, ItemClickEventArgs e)
         {
-            ParentalControlInfo.BypassAccounts = "";
-            GenieWebApi webApi = new GenieWebApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await webApi.GetUsersForDeviceId(ParentalControlInfo.DeviceId);
-            if (dicResponse["status"] == "success")
+            if (ParentalControlInfo.IsBypassUserLoggedIn == false)                        //未登录Bypass账户
             {
-                var jarry = JArray.Parse(dicResponse["bypassUsers"]);
-                if (jarry != null)
+                InProgress.IsActive = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                ParentalControlInfo.BypassAccounts = "";
+                GenieWebApi webApi = new GenieWebApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await webApi.GetUsersForDeviceId(ParentalControlInfo.DeviceId);
+                if (dicResponse["status"] == "success")
                 {
-                    for (int i = 0; i < jarry.Count; i++)
+                    var jarry = JArray.Parse(dicResponse["bypassUsers"]);
+                    if (jarry != null)
                     {
-                        string user = jarry[i].ToString();
-                        ParentalControlInfo.BypassAccounts = ParentalControlInfo.BypassAccounts + user + ";";
+                        for (int i = 0; i < jarry.Count; i++)
+                        {
+                            string user = jarry[i].ToString();
+                            ParentalControlInfo.BypassAccounts = ParentalControlInfo.BypassAccounts + user + ";";
+                        }
                     }
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    this.Frame.Navigate(typeof(BypassAccountPage));
                 }
-                this.Frame.Navigate(typeof(BypassAccountPage));
-            }
-            else
-            {
-                var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                await messageDialog.ShowAsync();
+                else
+                {
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                    await messageDialog.ShowAsync();
+                } 
             } 
+            else                                                                        //已登录Bypass账户
+            {
+                this.Frame.Navigate(typeof(BypassAccountLogoutPage));
+            }
+                      
         }
 
         //没有OpenDNS账号
@@ -154,6 +217,7 @@ namespace GenieWin8
 	        {
 		        EnquirePopup.IsOpen = false;
 		        RegisterPopup.IsOpen = true;
+                InProgress.IsActive = false;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        NoButton.Visibility = Visibility.Collapsed;
 		        YesButton.Visibility = Visibility.Collapsed;
@@ -169,6 +233,7 @@ namespace GenieWin8
 	        {
 		        EnquirePopup.IsOpen = false;
 		        LoginPopup.IsOpen = true;
+                InProgress.IsActive = false;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        NoButton.Visibility = Visibility.Collapsed;
 		        YesButton.Visibility = Visibility.Collapsed;
@@ -184,6 +249,7 @@ namespace GenieWin8
 	        {
 		        EnquirePopup.IsOpen = true;
 		        RegisterPopup.IsOpen = false;
+                InProgress.IsActive = false;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        NoButton.Visibility = Visibility.Visible;
 		        YesButton.Visibility = Visibility.Visible;
@@ -203,11 +269,13 @@ namespace GenieWin8
             } 
             else
             {
+                InProgress.IsActive = true;
                 GenieWebApi webApi = new GenieWebApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await webApi.CreateAccount(ParentalControlInfo.Username, ParentalControlInfo.Password, ParentalControlInfo.Email);
                 if (dicResponse["status"] != "success")
                 {
+                    InProgress.IsActive = false;
                     var messageDialog = new MessageDialog(dicResponse["error_message"]);
                     await messageDialog.ShowAsync();
                 } 
@@ -217,6 +285,7 @@ namespace GenieWin8
                     {
                         RegisterPopup.IsOpen = false;
                         LoginPopup.IsOpen = true;
+                        InProgress.IsActive = false;
                         PopupBackground.Visibility = Visibility.Visible;
                         RegisterPreviousButton.Visibility = Visibility.Collapsed;
                         RegisterNextButton.Visibility = Visibility.Collapsed;
@@ -234,6 +303,7 @@ namespace GenieWin8
 	        {
 		        EnquirePopup.IsOpen = true;
 		        LoginPopup.IsOpen = false;
+                InProgress.IsActive = false;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        NoButton.Visibility = Visibility.Visible;
 		        YesButton.Visibility = Visibility.Visible;
@@ -252,6 +322,7 @@ namespace GenieWin8
             }
             else
             {
+                InProgress.IsActive = true;
                 GenieWebApi webApi = new GenieWebApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await webApi.BeginLogin(ParentalControlInfo.Username, ParentalControlInfo.Password);
@@ -259,6 +330,7 @@ namespace GenieWin8
                 {
                     if (dicResponse["status"] != "success")
                     {
+                        InProgress.IsActive = false;
                         var messageDialog = new MessageDialog(dicResponse["error_message"]);
                         await messageDialog.ShowAsync();
                     }
@@ -279,9 +351,10 @@ namespace GenieWin8
                         PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();       //再次初始化 PopupFilterLevel，标识出过滤等级
 
                         if (LoginPopup.IsOpen)
-                        {
+                        {                            
                             LoginPopup.IsOpen = false;
                             FilterLevelPopup.IsOpen = true;
+                            InProgress.IsActive = false;
                             PopupBackground.Visibility = Visibility.Visible;
                             LoginPreviousButton.Visibility = Visibility.Collapsed;
                             LoginNextButton.Visibility = Visibility.Collapsed;
@@ -300,6 +373,7 @@ namespace GenieWin8
 	        {
 		        LoginPopup.IsOpen = true;
 		        FilterLevelPopup.IsOpen = false;
+                InProgress.IsActive = false;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        LoginPreviousButton.Visibility = Visibility.Visible;
 		        LoginNextButton.Visibility = Visibility.Visible;
@@ -311,11 +385,13 @@ namespace GenieWin8
         //设置过滤等级下一步
         private async void FilterLvNextButton_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
             GenieWebApi webApi = new GenieWebApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevel);
             if (dicResponse["status"] != "success")
             {
+                InProgress.IsActive = false;
                 var messageDialog = new MessageDialog(dicResponse["error_message"]);
                 await messageDialog.ShowAsync();
             } 
@@ -325,6 +401,7 @@ namespace GenieWin8
                 {
                     FilterLevelPopup.IsOpen = false;
                     SettingCompletePopup.IsOpen = true;
+                    InProgress.IsActive = false;
                     PopupBackground.Visibility = Visibility.Visible;
                     FilterLvPreviousButton.Visibility = Visibility.Collapsed;
                     FilterLvNextButton.Visibility = Visibility.Collapsed;
@@ -339,6 +416,7 @@ namespace GenieWin8
             if (SettingCompletePopup.IsOpen)
 	        {
 		        SettingCompletePopup.IsOpen = false;
+                InProgress.IsActive = false;
 		        PopupBackground.Visibility = Visibility.Collapsed;
 		        ReturnToStatusButton.Visibility = Visibility.Collapsed;
                 this.Frame.Navigate(typeof(ParentalControlPage));
@@ -347,6 +425,9 @@ namespace GenieWin8
 
         private async void checkParentalControl_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             string parentalControlEnable;
@@ -368,6 +449,9 @@ namespace GenieWin8
                 stpOpenDNSAccount.Visibility = Visibility.Collapsed;
                 BypassAccount.Visibility = Visibility.Collapsed;
             }
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         private async void Refresh_Click(Object sender, RoutedEventArgs e)
@@ -379,6 +463,25 @@ namespace GenieWin8
             dicResponse = await soapApi.GetDNSMasqDeviceID("default");
             ParentalControlInfo.DeviceId = dicResponse["NewDeviceID"];
             this.Frame.Navigate(typeof(ParentalControlPage));
+        }
+
+        public async Task<string> ReadBypassChildrenDeviceIdFromFile()
+        {
+            string fileContent = string.Empty;
+            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            try
+            {
+                StorageFile file = await storageFolder.GetFileAsync("Bypass_childrenDeviceId.txt");
+                if (file != null)
+                {
+                    fileContent = await FileIO.ReadTextAsync(file);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+
+            }
+            return fileContent;
         }
     }
 }

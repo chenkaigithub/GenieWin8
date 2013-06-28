@@ -138,9 +138,9 @@
         <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
         <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
             <ProgressRing x:Name="InProgress"
-                      IsActive="false"
-                      Height="60"
-                      Width="60"/>
+                          IsActive="false"
+                          Height="60" Width="60"
+                          Foreground="White"/>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

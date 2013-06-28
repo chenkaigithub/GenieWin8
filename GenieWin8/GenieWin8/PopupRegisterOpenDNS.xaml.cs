@@ -29,18 +29,32 @@ namespace GenieWin8
 
         private async void CheckAvailable_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
             GenieWebApi webApi = new GenieWebApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await webApi.CheckNameAvailable(username.Text);
             if (dicResponse["status"] != "success")
             {
-                UnavailableName.Text = dicResponse["error_message"];
-                UnavailableName.Visibility = Visibility.Visible;
+                InProgress.IsActive = false;
+                IsAvailableName.Text = dicResponse["error_message"];
                 ParentalControlInfo.IsUsernameAvailable = false;
             }
             else
             {
-                UnavailableName.Visibility = Visibility.Collapsed;
+                string isAvailable = dicResponse["available"];
+                InProgress.IsActive = false;
+                if (isAvailable == "no")
+                {
+                    IsAvailableName.Text = "User Name is unavailable.";
+                }
+                else if (isAvailable == "yes")
+                {
+                    IsAvailableName.Text = "User Name is Available.";
+                }
+                else
+                {
+                    IsAvailableName.Text = dicResponse["available"];
+                }
                 ParentalControlInfo.IsUsernameAvailable = true;
             }
         }
