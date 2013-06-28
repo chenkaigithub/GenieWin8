@@ -28,5 +28,7 @@ namespace GenieWin8.DataModel
 
         public static string BypassAccounts;
         public static string BypassUsername;
+        public static string BypassChildrenDeviceId;
+        public static bool IsBypassUserLoggedIn;
     }
 }

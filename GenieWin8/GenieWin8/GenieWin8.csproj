@@ -107,6 +107,9 @@
     <Compile Include="BypassAccountLoginPage.xaml.cs">
       <DependentUpon>BypassAccountLoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BypassAccountLogoutPage.xaml.cs">
+      <DependentUpon>BypassAccountLogoutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BypassAccountPage.xaml.cs">
       <DependentUpon>BypassAccountPage.xaml</DependentUpon>
     </Compile>
@@ -320,6 +323,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="BypassAccountLoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BypassAccountLogoutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
