@@ -16,9 +16,12 @@
                 <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBox x:Name="username" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" LostFocus="IsBlankUsername"/>
             </Grid>
-            <Button x:Name="checkNameAvailable" x:Uid="CheckAvailability" Click="CheckAvailable_Click"  FontSize="24" Margin="230,5,20,0" HorizontalAlignment="Left" Width="230" IsEnabled="False"/>
+            <StackPanel Orientation="Horizontal"  Margin="0,5,20,0">
+                <Button x:Name="checkNameAvailable" x:Uid="CheckAvailability" Click="CheckAvailable_Click"  FontSize="24" Margin="230,0,20,0" HorizontalAlignment="Left" Width="230" IsEnabled="False"/>
+                <ProgressRing x:Name="InProgress" IsActive="false" Height="30" Width="30" Foreground="White"/>
+            </StackPanel>           
             <Grid Margin="20,0,20,0" Height="20">
-                <TextBlock x:Name="UnavailableName" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red"/>
+                <TextBlock x:Name="IsAvailableName" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red"/>
             </Grid>
             <Grid Margin="20,0,20,0">
                 <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -29,21 +32,21 @@
                 <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" LostFocus="eventConfirmPassword"/>
             </Grid>
             <Grid Margin="20,0,20,0" Height="20">
-                <TextBlock x:Name="differentPassword" Text="Two passwords are different !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red"/>
+                <TextBlock x:Name="differentPassword" Text="Two passwords are different !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
             </Grid>            
             <Grid Margin="20,0,20,0">
                 <TextBlock x:Uid="Email" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" LostFocus="IsEmailValid"/>
             </Grid>
             <Grid Margin="20,0,20,0" Height="20">
-                <TextBlock x:Name="invalidEmail" Text="Email is invalid !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red"/>
+                <TextBlock x:Name="invalidEmail" Text="Email is invalid !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
             </Grid>
             <Grid Margin="20,0,20,0">
                 <TextBlock x:Uid="ConfirmEmail" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" LostFocus="eventConfirmEmail"/>
             </Grid>
             <Grid Margin="20,0,20,0" Height="20">
-                <TextBlock x:Name="differentEmail" Text="Two Emails are different !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red"/>
+                <TextBlock x:Name="differentEmail" Text="Two Emails are different !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
             </Grid>
         </StackPanel>
     </Grid>

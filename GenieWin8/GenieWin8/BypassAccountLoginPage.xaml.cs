@@ -54,6 +54,9 @@ namespace GenieWin8
 
         private async void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             string Username = tbBypassUserName.Text.Trim();
             string Password = tbBypassPassword.Password;
             GenieWebApi webApi = new GenieWebApi();
@@ -62,10 +65,16 @@ namespace GenieWin8
             if (dicResponse["status"] == "success")
             {
                 ParentalControlInfo.BypassUsername = Username;
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
                 this.Frame.Navigate(typeof(ParentalControlPage));
             } 
             else
             {
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
                 var messageDialog = new MessageDialog(dicResponse["error_message"]);
                 await messageDialog.ShowAsync();
             }

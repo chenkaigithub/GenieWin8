@@ -158,9 +158,16 @@
                 </StackPanel>               
             </ListView>
         </StackPanel>
-
+       
         <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
-        <Canvas x:Name="PopupBackground"  Grid.Row="1"  Background="Gray" Visibility="Collapsed"/>
+        <!--<Canvas x:Name="PopupBackground"  Grid.Row="1"  Background="Gray" Visibility="Collapsed"/>-->
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Visibility="Collapsed">
+            <ProgressRing x:Name="InProgress"
+                          IsActive="false"
+                          Height="60" Width="60"
+                          Foreground="White"/>
+        </Grid>
+        
         <!--询问-->
         <Popup x:Name="EnquirePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,150,400,0">
             <local:PopupEnquireOpenDNS/>
