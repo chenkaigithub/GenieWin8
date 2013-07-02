@@ -59,7 +59,9 @@ namespace GenieWin8
             PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            string MacAddress = "";  //获取本机mac地址
+            UtilityTool util = new UtilityTool ();
+            string MacAddress = util.GetLocalMacAddress();  //获取本机mac地址
+            MacAddress = MacAddress.Replace(":","");
             dicResponse = await soapApi.DeleteMACAddress(MacAddress);
             ParentalControlInfo.BypassUsername = "";
             ParentalControlInfo.BypassChildrenDeviceId = "";

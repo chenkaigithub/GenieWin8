@@ -68,6 +68,13 @@ namespace GenieWin8
                 ParentalControlInfo.BypassUsername = Username;
                 ParentalControlInfo.BypassChildrenDeviceId = dicResponse["child_device_id"];
                 WriteChildrenDeviceIdToFile();                  //登录成功后将childrenDeviceId保存到本地，如果未注销则以后登录Genie时，通过读取本地DeviceId获得当前登录的Bypass账户
+                GenieSoapApi soapApi = new GenieSoapApi();
+                dicResponse.Clear();
+                UtilityTool util = new UtilityTool();
+                string macAddress = util.GetLocalMacAddress();
+                macAddress = macAddress.Replace(":", "");///本机mac地址
+                dicResponse = await soapApi.SetDNSMasqDeviceID(macAddress, ParentalControlInfo.BypassChildrenDeviceId);
+               
                 InProgress.IsActive = false;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;

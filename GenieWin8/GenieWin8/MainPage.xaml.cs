@@ -223,6 +223,11 @@ namespace GenieWin8
                         dicResponse = await soapApi.GetCurrentSetting();
                         if (dicResponse["ParentalControlSupported"] == "1")
                         {
+                            ///通过attachDevice获取本机的Mac地址
+                            Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                            responseDic = await soapApi.GetAttachDevice();
+                            NetworkMapDodel.attachDeviceDic = responseDic;
+
                             Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                             dicResponse2 = await soapApi.GetEnableStatus();
                             ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
@@ -249,7 +254,10 @@ namespace GenieWin8
                 if (groupId == "MyMedia")
                 {
                     //UtilityTool util = new UtilityTool();
-                    //util.GetMACAddress();
+                    //GenieSoapApi soapApi = new GenieSoapApi();
+                    //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                    //responseDic = await soapApi.GetAttachDevice();
+                    //NetworkMapDodel.attachDeviceDic = responseDic;
                     //GenieFcml fcml = new GenieFcml();
                     //fcml.Init("siteviewgenietest@gmail.com", "siteview");
                     this.Frame.Navigate(typeof(MyMediaPage));

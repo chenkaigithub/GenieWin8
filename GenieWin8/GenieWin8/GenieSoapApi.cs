@@ -180,9 +180,11 @@ namespace GenieWin8
 
         /// <summary>
         /// *********************SetDNSMasqDeviceID**************
+        /// 将本机mac地址与已登录的bypass账号进行绑定
+        /// 其中：deviceID 为 childDeviceID
         /// </summary>
         /// <param name="macAddress">default</param>
-        /// <param name="deviceID"></param>
+        /// <param name="deviceID">childDeviceID</param>
         /// <returns>0: Success;1: Maxed out (can’t add more);2: Error;401:  Not authenticated;</returns>
         public async Task<Dictionary<string,string>> SetDNSMasqDeviceID(string macAddress,string deviceID)
         {
