@@ -702,4 +702,7 @@
   <data name="windowspc" xml:space="preserve">
     <value>Počítač so systémom Windows</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Čakajte, prosím...</value>
+  </data>
 </root>

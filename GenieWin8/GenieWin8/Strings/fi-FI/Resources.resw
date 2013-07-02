@@ -702,4 +702,7 @@
   <data name="windowspc" xml:space="preserve">
     <value>Windows-tietokone</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Odota...</value>
+  </data>
 </root>

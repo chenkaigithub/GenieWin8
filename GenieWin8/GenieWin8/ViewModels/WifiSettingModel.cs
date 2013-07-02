@@ -171,7 +171,7 @@ namespace GenieWin8.Data
             strTitle = loader.GetString("Channel");
             var group3 = new SettingGroup("Channel",
                 strTitle,
-                WifiInfoModel.channel);
+                WifiInfoModel.changedChannel);
             group3.Items.Add(new SettingItem("Channel-1",
                 "Channel",
                 "Auto",
@@ -226,7 +226,7 @@ namespace GenieWin8.Data
             strTitle = loader.GetString("Security");
             var group4 = new SettingGroup("Security",
                 strTitle,
-                WifiInfoModel.securityType);
+                WifiInfoModel.changedSecurityType);
             var strContent = loader.GetString("Security_None");
             group4.Items.Add(new SettingItem("Security-1",
                 "Security",

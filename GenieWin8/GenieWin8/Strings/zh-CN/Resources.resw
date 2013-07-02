@@ -735,4 +735,7 @@
   <data name="WeekAvg.Text" xml:space="preserve">
     <value>本周</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>请等待一会……</value>
+  </data>
 </root>

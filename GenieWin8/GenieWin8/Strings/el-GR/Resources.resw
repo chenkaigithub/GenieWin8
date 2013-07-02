@@ -702,4 +702,7 @@
   <data name="windowspc" xml:space="preserve">
     <value>Υπολογιστής Windows</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Παρακαλώ περιμένετε...</value>
+  </data>
 </root>

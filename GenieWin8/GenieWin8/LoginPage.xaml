@@ -73,11 +73,15 @@
             </StackPanel>
         </Border>
 
-        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
-            <ProgressRing x:Name="InProgress"
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressRing x:Name="InProgress"
                           IsActive="false"
                           Height="60" Width="60"
                           Foreground="White"/>
+                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24"/>
+                <TextBlock x:Name="waittime" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="24"/>
+            </StackPanel>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

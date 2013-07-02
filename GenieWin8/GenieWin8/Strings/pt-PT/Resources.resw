@@ -702,4 +702,7 @@
   <data name="windowspc" xml:space="preserve">
     <value>Windows PC</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Aguarde...</value>
+  </data>
 </root>

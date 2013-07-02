@@ -46,7 +46,7 @@ namespace GenieWin8
 	        this.DefaultViewModel["itemKey"] = editKey;
             var channelsecurity = SettingSource.GetChannelSecurity((String)navigationParameter);
 	        this.DefaultViewModel["itemChannelSecurity"] = channelsecurity;
-            if (WifiInfoModel.securityType == "None")
+            if (WifiInfoModel.changedSecurityType == "None")
             {
                 gridKey.Visibility = Visibility.Collapsed;
             }
@@ -54,6 +54,16 @@ namespace GenieWin8
             {
                 gridKey.Visibility = Visibility.Visible;
             }
+
+            //判断保存按钮是否可点击
+            if (WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true)
+            {
+                wifiSettingSave.IsEnabled = true;
+            }
+            else
+            {
+                wifiSettingSave.IsEnabled = false;
+            }   
         }
 
         /// <summary>
@@ -64,6 +74,52 @@ namespace GenieWin8
         /// <param name="pageState">要使用可序列化状态填充的空字典。</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        //判断SSID是否更改以及保存按钮是否可点击
+        private void ssid_changed(Object sender, RoutedEventArgs e)
+        {
+            string ssid = SSID.Text.Trim();
+            if (ssid != WifiInfoModel.ssid)
+            {
+                wifiSettingSave.IsEnabled = true;
+                WifiInfoModel.isSSIDChanged = true;                
+            }
+            else
+            {
+                WifiInfoModel.isSSIDChanged = false;
+                if (WifiInfoModel.isPasswordChanged == true || WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true)
+                {
+                    wifiSettingSave.IsEnabled = true;
+                } 
+                else
+                {
+                    wifiSettingSave.IsEnabled = false;
+                }               
+            }
+        }
+
+        //判断密码是否更改以及保存按钮是否可点击
+        private void pwd_changed(Object sender, RoutedEventArgs e)
+        {
+            string password = pwd.Text.Trim();
+            if (password != WifiInfoModel.password)
+            {
+                wifiSettingSave.IsEnabled = true;
+                WifiInfoModel.isPasswordChanged = true;
+            }
+            else
+            {
+                WifiInfoModel.isPasswordChanged = false;
+                if (WifiInfoModel.isSSIDChanged == true || WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true)
+                {
+                    wifiSettingSave.IsEnabled = true;
+                }
+                else
+                {
+                    wifiSettingSave.IsEnabled = false;
+                }
+            }
         }
 
         private void ChannelSecurity_ItemClick(Object sender, ItemClickEventArgs e)
@@ -86,9 +142,15 @@ namespace GenieWin8
             dicResponse = await soapApi.GetInfo("WLANConfiguration");
             WifiInfoModel.ssid = dicResponse["NewSSID"];
             WifiInfoModel.channel = dicResponse["NewChannel"];
+            WifiInfoModel.changedChannel = dicResponse["NewChannel"];
             WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+            WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
             dicResponse = await soapApi.GetWPASecurityKeys();
             WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+            WifiInfoModel.isSSIDChanged = false;
+            WifiInfoModel.isPasswordChanged = false;
+            WifiInfoModel.isChannelChanged = false;
+            WifiInfoModel.isSecurityTypeChanged = false;
             this.Frame.Navigate(typeof(WifiSettingPage));
         }
 
@@ -102,11 +164,13 @@ namespace GenieWin8
             {
                 if (WifiInfoModel.securityType.CompareTo("None") == 0)
                 {
-                    await soapApi.SetWLANNoSecurity(ssid, WifiInfoModel.region, WifiInfoModel.channel, WifiInfoModel.wirelessMode);
+                    await soapApi.SetWLANNoSecurity(ssid, WifiInfoModel.region, WifiInfoModel.changedChannel, WifiInfoModel.wirelessMode);
+                    WifiInfoModel.channel = WifiInfoModel.changedChannel;
                 }
                 else
                 {
-                    await soapApi.SetWLANWEPByPassphrase(ssid, WifiInfoModel.region, WifiInfoModel.channel, WifiInfoModel.wirelessMode, WifiInfoModel.securityType, password);
+                    await soapApi.SetWLANWEPByPassphrase(ssid, WifiInfoModel.region, WifiInfoModel.changedChannel, WifiInfoModel.wirelessMode, WifiInfoModel.changedSecurityType, password);
+                    WifiInfoModel.securityType = WifiInfoModel.changedSecurityType;
                 }
             }
         }

@@ -88,8 +88,10 @@ namespace GenieWin8
                     WifiInfoModel.ssid = dicResponse["NewSSID"];
                     WifiInfoModel.region = dicResponse["NewRegion"];
                     WifiInfoModel.channel = dicResponse["NewChannel"];
+                    WifiInfoModel.changedChannel = dicResponse["NewChannel"];
                     WifiInfoModel.wirelessMode = dicResponse["NewWirelessMode"];
                     WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                    WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
                     dicResponse = await soapApi.GetWPASecurityKeys();
                     WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
                     InProgress.IsActive = false;
@@ -214,6 +216,9 @@ namespace GenieWin8
                     bool isConnectToInternet = util.IsConnectedToInternet();
                     if (!isConnectToInternet)
                     {
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
                         var messageDialog = new MessageDialog("You don't appear to be connected to the Internet.Please connect to the Internet through your NETGEAR router and try again.");
                         await messageDialog.ShowAsync();
                     }
