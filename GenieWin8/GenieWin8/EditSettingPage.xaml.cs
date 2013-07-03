@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
+using Windows.UI.Popups;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -80,7 +81,7 @@ namespace GenieWin8
         private void ssid_changed(Object sender, RoutedEventArgs e)
         {
             string ssid = SSID.Text.Trim();
-            if (ssid != WifiInfoModel.ssid)
+            if (ssid != WifiInfoModel.ssid && ssid != "")
             {
                 wifiSettingSave.IsEnabled = true;
                 WifiInfoModel.isSSIDChanged = true;                
@@ -103,7 +104,7 @@ namespace GenieWin8
         private void pwd_changed(Object sender, RoutedEventArgs e)
         {
             string password = pwd.Text.Trim();
-            if (password != WifiInfoModel.password)
+            if (password != WifiInfoModel.password && password != "")
             {
                 wifiSettingSave.IsEnabled = true;
                 WifiInfoModel.isPasswordChanged = true;
@@ -156,6 +157,33 @@ namespace GenieWin8
 
         private async void WifiSettingSave_Click(object sender, RoutedEventArgs e)
         {
+            // Create the message dialog and set its content
+            var messageDialog = new MessageDialog("Changing settings can disrupt active traffic on the wireless network. Do you want to continue?");
+
+            // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
+            messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
+            messageDialog.Commands.Add(new UICommand("No", null));
+
+            // Set the command that will be invoked by default
+            messageDialog.DefaultCommandIndex = 0;
+
+            // Set the command to be invoked when escape is pressed
+            messageDialog.CancelCommandIndex = 1;
+
+            // Show the message dialog
+            await messageDialog.ShowAsync();
+        }
+
+        #region Commands
+        /// <summary>
+        /// Callback function for the invocation of the dialog commands.
+        /// </summary>
+        /// <param name="command">The command that was invoked.</param>
+        private async void CommandInvokedHandler(IUICommand command)
+        {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
 
             string ssid = SSID.Text.Trim();
@@ -170,9 +198,19 @@ namespace GenieWin8
                 else
                 {
                     await soapApi.SetWLANWEPByPassphrase(ssid, WifiInfoModel.region, WifiInfoModel.changedChannel, WifiInfoModel.wirelessMode, WifiInfoModel.changedSecurityType, password);
+                    WifiInfoModel.channel = WifiInfoModel.changedChannel;
                     WifiInfoModel.securityType = WifiInfoModel.changedSecurityType;
                 }
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                var messageDialog = new MessageDialog("Wireless setting was changed successfully. Please re-join your wireless network by using new wireless setting and login to Genie.");
+                await messageDialog.ShowAsync();
+                MainPageInfo.bLogin = false;
+                //此处导航回到主页还存在问题，待解决。
+                //this.Frame.Navigate(typeof(MainPage));
             }
         }
+        #endregion
     }
 }

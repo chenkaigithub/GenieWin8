@@ -76,13 +76,13 @@
             <Grid DataContext="{Binding Source={StaticResource editNameSource}}"
                   d:DataContext="{Binding Source={StaticResource editNameSource}}" Margin="0,40,0,0">
                 <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
-                <TextBox x:Name="SSID" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40"/>
+                <TextBox x:Name="SSID" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40" TextChanged="ssid_changed"/>
             </Grid>
 
             <Grid x:Name="gridKey" DataContext="{Binding Source={StaticResource editKeySource}}"
                   d:DataContext="{Binding Source={StaticResource editKeySource}}" Margin="0,30,0,0">
                 <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
-                <TextBox x:Name="Password" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40"/>
+                <TextBox x:Name="Password" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40" TextChanged="pwd_changed"/>
             </Grid>
 
             <ListView ItemsSource="{Binding Source={StaticResource editTimesegSecuritySource}}"
@@ -105,6 +105,17 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
+
+        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressRing x:Name="InProgress"
+                          IsActive="false"
+                          Height="60" Width="60"
+                          Foreground="White"/>
+                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24"/>
+            </StackPanel>
+        </Grid>
 
         <VisualStateManager.VisualStateGroups>
 

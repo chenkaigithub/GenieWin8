@@ -41,7 +41,7 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var securityGroup = GuestSettingSource.GetSecurity((String)navigationParameter);
-            string securityType = GuestAccessInfoModel.securityType;
+            string securityType = GuestAccessInfoModel.changedSecurityType;
             this.DefaultViewModel["itemSecurity"] = securityGroup.Items;           
             switch (securityType)
             {
@@ -73,14 +73,29 @@ namespace GenieWin8
             switch (index)
             {
                 case 0:
-                    GuestAccessInfoModel.securityType = "None";
+                    GuestAccessInfoModel.changedSecurityType = "None";
                     break;
                 case 1:
-                    GuestAccessInfoModel.securityType = "WPA2-PSK";
+                    GuestAccessInfoModel.changedSecurityType = "WPA2-PSK";
                     break;
                 case 2:
-                    GuestAccessInfoModel.securityType = "WPA-PSK/WPA2-PSK";
+                    GuestAccessInfoModel.changedSecurityType = "WPA-PSK/WPA2-PSK";
                     break;
+            }
+
+            //判断安全是否更改
+            if (GuestAccessInfoModel.changedSecurityType != GuestAccessInfoModel.securityType)
+            {
+                if (GuestAccessInfoModel.changedSecurityType == "WPA-PSK/WPA2-PSK" && GuestAccessInfoModel.securityType == "Mixed WPA")
+                {
+                    GuestAccessInfoModel.isSecurityTypeChanged = false;
+                }
+                else
+                    GuestAccessInfoModel.isSecurityTypeChanged = true;
+            }
+            else
+            {
+                GuestAccessInfoModel.isSecurityTypeChanged = false;
             }
             this.Frame.Navigate(typeof(GuestSettingPage));
         }

@@ -166,7 +166,7 @@ namespace GenieWin8.Data
             strTitle = loader.GetString("TimeSegment");
             var group3 = new GuestSettingGroup("TimeSegment",
                 strTitle,
-                GuestAccessInfoModel.timePeriod);
+                GuestAccessInfoModel.changedTimePeriod);
             var strContent = loader.GetString("TimeSegment_Always");
             group3.Items.Add(new GuestSettingItem("TimeSegment-1",
                 "TimeSegment",
@@ -202,13 +202,13 @@ namespace GenieWin8.Data
 
             strTitle = loader.GetString("Security");
             string securityType;
-            if (GuestAccessInfoModel.securityType == "Mixed WPA")
+            if (GuestAccessInfoModel.changedSecurityType == "Mixed WPA")
             {
                 securityType = "WPA-PSK/WPA2-PSK";
             } 
             else
             {
-                securityType = GuestAccessInfoModel.securityType;
+                securityType = GuestAccessInfoModel.changedSecurityType;
             }
             var group4 = new GuestSettingGroup("Security",
                 strTitle,

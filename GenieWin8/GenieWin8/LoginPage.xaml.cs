@@ -17,7 +17,6 @@ using GenieWin8.DataModel;
 using Windows.UI.Popups;
 using Windows.Storage;
 using System.Threading.Tasks;
-using System.Threading;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 

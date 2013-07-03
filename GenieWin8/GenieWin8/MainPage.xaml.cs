@@ -93,7 +93,10 @@ namespace GenieWin8
                     WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                     WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
                     dicResponse = await soapApi.GetWPASecurityKeys();
-                    WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+                    }                   
                     InProgress.IsActive = false;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
@@ -119,12 +122,16 @@ namespace GenieWin8
                         dicResponse2 = await soapApi.GetGuestAccessNetworkInfo();
                         GuestAccessInfoModel.ssid = dicResponse2["NewSSID"];
                         GuestAccessInfoModel.securityType = dicResponse2["NewSecurityMode"];
+                        GuestAccessInfoModel.changedSecurityType = dicResponse2["NewSecurityMode"];
                         if (dicResponse2["NewSecurityMode"] != "None")
                             GuestAccessInfoModel.password = dicResponse2["NewKey"];
                         else
                             GuestAccessInfoModel.password = "";
                         if (GuestAccessInfoModel.timePeriod == null)
+                        {
                             GuestAccessInfoModel.timePeriod = "Always";
+                            GuestAccessInfoModel.changedTimePeriod = "Always";
+                        }
                         InProgress.IsActive = false;
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
@@ -176,10 +183,15 @@ namespace GenieWin8
                         Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                         dicResponse2 = await soapApi.GetTrafficMeterOptions();
                         TrafficMeterInfoModel.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                        TrafficMeterInfoModel.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
                         TrafficMeterInfoModel.RestartHour = dicResponse2["RestartHour"];
+                        TrafficMeterInfoModel.changedRestartHour = dicResponse2["RestartHour"];
                         TrafficMeterInfoModel.RestartMinute = dicResponse2["RestartMinute"];
+                        TrafficMeterInfoModel.changedRestartMinute = dicResponse2["RestartMinute"];
                         TrafficMeterInfoModel.RestartDay = dicResponse2["RestartDay"];
+                        TrafficMeterInfoModel.changedRestartDay = dicResponse2["RestartDay"]; 
                         TrafficMeterInfoModel.ControlOption = dicResponse2["NewControlOption"];
+                        TrafficMeterInfoModel.changedControlOption = dicResponse2["NewControlOption"];
                         dicResponse2 = await soapApi.GetTrafficMeterStatistics();
                         TrafficMeterInfoModel.TodayUpload = dicResponse2["NewTodayUpload"];
                         TrafficMeterInfoModel.TodayDownload = dicResponse2["NewTodayDownload"];

@@ -65,14 +65,14 @@ namespace GenieWin8
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetTrafficMeterEnabled();
             TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
-            if (GuestAccessInfoModel.isGuestAccessEnabled == "0")
+            if (TrafficMeterInfoModel.isTrafficMeterEnabled == "0")
             {
                 checkTrafficMeter.IsChecked = false;
                 TrafficMeterList.Visibility = Visibility.Collapsed;
                 TotalCanvas.Visibility = Visibility.Collapsed;
                 AverageCanvas.Visibility = Visibility.Collapsed;
             }
-            else if (GuestAccessInfoModel.isGuestAccessEnabled == "1")
+            else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "1")
             {
                 checkTrafficMeter.IsChecked = true;
                 TrafficMeterList.Visibility = Visibility.Visible;
@@ -81,10 +81,15 @@ namespace GenieWin8
             }
             dicResponse = await soapApi.GetTrafficMeterOptions();
             TrafficMeterInfoModel.MonthlyLimit = dicResponse["NewMonthlyLimit"];
+            TrafficMeterInfoModel.changedMonthlyLimit = dicResponse["NewMonthlyLimit"];
             TrafficMeterInfoModel.RestartHour = dicResponse["RestartHour"];
+            TrafficMeterInfoModel.changedRestartHour = dicResponse["RestartHour"];
             TrafficMeterInfoModel.RestartMinute = dicResponse["RestartMinute"];
+            TrafficMeterInfoModel.changedRestartMinute = dicResponse["RestartMinute"];
             TrafficMeterInfoModel.RestartDay = dicResponse["RestartDay"];
+            TrafficMeterInfoModel.changedRestartDay = dicResponse["RestartDay"];
             TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
+            TrafficMeterInfoModel.changedControlOption = dicResponse["NewControlOption"];
             var groups = TrafficMeterSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = groups;
             InProgress.IsActive = false;
@@ -537,6 +542,77 @@ namespace GenieWin8
 
         private async void checkTrafficMeter_Click(Object sender, RoutedEventArgs e)
         {
+            //InProgress.IsActive = true;
+            //PopupBackgroundTop.Visibility = Visibility.Visible;
+            //PopupBackground.Visibility = Visibility.Visible;
+            //GenieSoapApi soapApi = new GenieSoapApi();
+            //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            //string trafficMeterEnable;
+            //if (checkTrafficMeter.IsChecked == true)
+            //{
+            //    trafficMeterEnable = "1";                
+            //    dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
+            //    TrafficMeterList.Visibility = Visibility.Visible;
+            //    TotalCanvas.Visibility = Visibility.Visible;
+            //    AverageCanvas.Visibility = Visibility.Visible;
+            //}
+            //else if (checkTrafficMeter.IsChecked == false)
+            //{
+            //    trafficMeterEnable = "0";
+            //    dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
+            //    TrafficMeterList.Visibility = Visibility.Collapsed;
+            //    TotalCanvas.Visibility = Visibility.Collapsed;
+            //    AverageCanvas.Visibility = Visibility.Collapsed;               
+            //}
+            //InProgress.IsActive = false;
+            //PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            //PopupBackground.Visibility = Visibility.Collapsed;
+
+            if (checkTrafficMeter.IsChecked == true)
+            {
+                // Create the message dialog and set its content
+                var messageDialog = new MessageDialog("Enable Traffic Meter. Do you want to continue?");
+
+                // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
+                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
+                messageDialog.Commands.Add(new UICommand("No", null));
+
+                // Set the command that will be invoked by default
+                messageDialog.DefaultCommandIndex = 0;
+
+                // Set the command to be invoked when escape is pressed
+                messageDialog.CancelCommandIndex = 1;
+
+                // Show the message dialog
+                await messageDialog.ShowAsync();
+            }
+            else if (checkTrafficMeter.IsChecked == false)
+            {
+                // Create the message dialog and set its content
+                var messageDialog = new MessageDialog("Disable Traffic Meter. Do you want to continue?");
+
+                // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
+                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
+                messageDialog.Commands.Add(new UICommand("No", null));
+
+                // Set the command that will be invoked by default
+                messageDialog.DefaultCommandIndex = 0;
+
+                // Set the command to be invoked when escape is pressed
+                messageDialog.CancelCommandIndex = 1;
+
+                // Show the message dialog
+                await messageDialog.ShowAsync();
+            }
+        }
+
+        #region Commands
+        /// <summary>
+        /// Callback function for the invocation of the dialog commands.
+        /// </summary>
+        /// <param name="command">The command that was invoked.</param>
+        private async void CommandInvokedHandler(IUICommand command)
+        {
             InProgress.IsActive = true;
             PopupBackgroundTop.Visibility = Visibility.Visible;
             PopupBackground.Visibility = Visibility.Visible;
@@ -563,6 +639,7 @@ namespace GenieWin8
             PopupBackgroundTop.Visibility = Visibility.Collapsed;
             PopupBackground.Visibility = Visibility.Collapsed;
         }
+        #endregion
 
         static double Max(double[] arry)
         {
