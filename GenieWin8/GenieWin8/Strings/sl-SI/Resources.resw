@@ -705,4 +705,28 @@
   <data name="wait.Text" xml:space="preserve">
     <value>Počakajte...</value>
   </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Prijava ni uspela. Znova vnesite pravilno skrbniško geslo za usmerjevalnik NETGEAR.</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Prijava ni uspela! Preverite, ali je računalnik povezan z usmerjevalnikom NETGEAR.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Spreminjanje nastavitev lahko onemogoči aktivni promet v brezžičnem omrežju. Ali želite nadaljevati?</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Internet ni na voljo. Najprej z usmerjevalnikom vzpostavite internetno povezavo.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Usmerjevalnik ne podpira te funkcije.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Onemogoči merilnik prometa. Ali želite nadaljevati?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Omogoči merilnik prometa. Ali želite nadaljevati?</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Brezžična nastavitev je uspešno spremenjena. Z novo brezžično nastavitvijo se ponovno pridružite v brezžično omrežje in se prijavite v program genie.</value>
+  </data>
 </root>

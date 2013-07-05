@@ -705,4 +705,28 @@
   <data name="wait.Text" xml:space="preserve">
     <value>Vent litt...</value>
   </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Pålogging mislyktes. Angi riktig adminpassord for NETGEAR-ruteren.</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Pålogging mislyktes. Kontroller at datamaskinen er koblet til NETGEAR-ruteren.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Hvis du endrer innstillingene, kan dette forstyrre aktiv trafikk på det trådløse nettverket. Vil du fortsette?</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Internett er ikke tilgjengelig. Koble ruteren til Internett først.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Ruteren støtter ikke denne funksjonen.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Deaktiver trafikkmåler. Vil du fortsette?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Aktiver trafikkmåler. Vil du fortsette?</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Trådløsinnstillingen ble endret. Koble til det trådløse nettverket på nytt ved hjelp av nye trådløsinnstillinger, og logg på genie.</value>
+  </data>
 </root>

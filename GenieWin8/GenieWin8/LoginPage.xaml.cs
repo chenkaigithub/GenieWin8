@@ -79,7 +79,7 @@ namespace GenieWin8
             {
                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                 dicResponse2 = await soapApi.Authenticate(Username, Password);
-                if (int.Parse(dicResponse2["ResponseCode"]) == 0)
+                if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
                 {
                     MainPageInfo.bLogin = true;
                     if (checkRememberPassword.IsChecked == true)
@@ -95,11 +95,13 @@ namespace GenieWin8
                     WritePasswordToFile();
                     this.Frame.GoBack();
                 }
-                else if (int.Parse(dicResponse2["ResponseCode"]) == 401)
+                else if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 401)
                 {
                     InProgress.IsActive = false;
                     PopupBackground.Visibility = Visibility.Collapsed;
-                    var messageDialog = new MessageDialog("Login failed. Please re-enter the correct admin password for your NETGEAR router.");
+                    var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                    var strtext = loader.GetString("bad_password");
+                    var messageDialog = new MessageDialog(strtext);
                     await messageDialog.ShowAsync();
                 }
             }
@@ -107,7 +109,9 @@ namespace GenieWin8
             {
                 InProgress.IsActive = false;
                 PopupBackground.Visibility = Visibility.Collapsed;
-                var messageDialog = new MessageDialog("Login failed! Please check to see if this computer is connected to the NETGEAR router.");
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var strtext = loader.GetString("login_alertinfo");
+                var messageDialog = new MessageDialog(strtext);
                 await messageDialog.ShowAsync();
             }
         }

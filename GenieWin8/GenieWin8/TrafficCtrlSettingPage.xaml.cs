@@ -82,10 +82,11 @@ namespace GenieWin8
         //判断每月限制是否更改以及保存按钮是否可点击
         private void monthlyLimit_changed(Object sender, RoutedEventArgs e)
         {
-            string monthlylimit = monthlyLimit.Text.Trim();
-            string restarthour = restartHour.Text.Trim();
-            string restartminute = restartMinute.Text.Trim();
-            if (monthlylimit != "" && restarthour != "" && restartminute != "" && int.Parse(monthlylimit) != int.Parse(TrafficMeterInfoModel.MonthlyLimit))
+            TrafficMeterInfoModel.changedMonthlyLimit = monthlyLimit.Text.Trim();
+            TrafficMeterInfoModel.changedRestartHour = restartHour.Text.Trim();
+            TrafficMeterInfoModel.changedRestartMinute = restartMinute.Text.Trim();
+            if (TrafficMeterInfoModel.changedMonthlyLimit != "" && TrafficMeterInfoModel.changedRestartHour != "" && TrafficMeterInfoModel.changedRestartMinute != ""
+                && int.Parse(TrafficMeterInfoModel.changedMonthlyLimit) != int.Parse(TrafficMeterInfoModel.MonthlyLimit))
             {
                 TrafficMeterSettingSave.IsEnabled = true;
                 TrafficMeterInfoModel.isMonthlyLimitChanged = true;
@@ -93,14 +94,15 @@ namespace GenieWin8
             else
             {
                 TrafficMeterInfoModel.isMonthlyLimitChanged = false;
-                if (monthlylimit == "")
+                if (TrafficMeterInfoModel.changedMonthlyLimit == "")
                 {
                     TrafficMeterSettingSave.IsEnabled = false;
                 }
                 else
                 {
-                    if (restarthour != "" && restartminute != "" && (TrafficMeterInfoModel.isRestartDayChanged == true || TrafficMeterInfoModel.isRestartHourChanged == true || TrafficMeterInfoModel.isRestartMinuteChanged == true
-                    || TrafficMeterInfoModel.isControlOptionChanged == true))
+                    if (TrafficMeterInfoModel.changedRestartHour != "" && TrafficMeterInfoModel.changedRestartMinute != ""
+                        && (TrafficMeterInfoModel.isRestartDayChanged == true || TrafficMeterInfoModel.isRestartHourChanged == true
+                        || TrafficMeterInfoModel.isRestartMinuteChanged == true || TrafficMeterInfoModel.isControlOptionChanged == true))
                     {
                         TrafficMeterSettingSave.IsEnabled = true;
                     }
@@ -115,10 +117,11 @@ namespace GenieWin8
         //判断重启时间-小时是否更改以及保存按钮是否可点击
         private void restartHour_changed(Object sender, RoutedEventArgs e)
         {
-            string monthlylimit = monthlyLimit.Text.Trim();
-            string restarthour = restartHour.Text.Trim();
-            string restartminute = restartMinute.Text.Trim();
-            if (monthlylimit != "" && restarthour != "" && restartminute != "" && int.Parse(restarthour) != int.Parse(TrafficMeterInfoModel.RestartHour))
+            TrafficMeterInfoModel.changedMonthlyLimit = monthlyLimit.Text.Trim();
+            TrafficMeterInfoModel.changedRestartHour = restartHour.Text.Trim();
+            TrafficMeterInfoModel.changedRestartMinute = restartMinute.Text.Trim();
+            if (TrafficMeterInfoModel.changedMonthlyLimit != "" && TrafficMeterInfoModel.changedRestartHour != "" && TrafficMeterInfoModel.changedRestartMinute != ""
+                && int.Parse(TrafficMeterInfoModel.changedRestartHour) != int.Parse(TrafficMeterInfoModel.RestartHour))
             {
                 TrafficMeterSettingSave.IsEnabled = true;
                 TrafficMeterInfoModel.isRestartHourChanged = true;
@@ -126,14 +129,15 @@ namespace GenieWin8
             else
             {
                 TrafficMeterInfoModel.isRestartHourChanged = false;
-                if (restarthour == "")
+                if (TrafficMeterInfoModel.changedRestartHour == "")
                 {
                     TrafficMeterSettingSave.IsEnabled = false;
                 } 
                 else
                 {
-                    if (monthlylimit != "" && restartminute != "" && (TrafficMeterInfoModel.isRestartDayChanged == true || TrafficMeterInfoModel.isMonthlyLimitChanged == true || TrafficMeterInfoModel.isRestartMinuteChanged == true
-                    || TrafficMeterInfoModel.isControlOptionChanged == true))
+                    if (TrafficMeterInfoModel.changedMonthlyLimit != "" && TrafficMeterInfoModel.changedRestartMinute != ""
+                        && (TrafficMeterInfoModel.isRestartDayChanged == true || TrafficMeterInfoModel.isMonthlyLimitChanged == true
+                        || TrafficMeterInfoModel.isRestartMinuteChanged == true || TrafficMeterInfoModel.isControlOptionChanged == true))
                     {
                         TrafficMeterSettingSave.IsEnabled = true;
                     }
@@ -148,10 +152,11 @@ namespace GenieWin8
         //判断重启时间-分钟是否更改以及保存按钮是否可点击
         private void restartMinute_changed(Object sender, RoutedEventArgs e)
         {
-            string monthlylimit = monthlyLimit.Text.Trim();
-            string restarthour = restartHour.Text.Trim();
-            string restartminute = restartMinute.Text.Trim();
-            if (monthlylimit != "" && restarthour != "" && restartminute != "" && int.Parse(restartminute) != int.Parse(TrafficMeterInfoModel.RestartMinute))
+            TrafficMeterInfoModel.changedMonthlyLimit = monthlyLimit.Text.Trim();
+            TrafficMeterInfoModel.changedRestartHour = restartHour.Text.Trim();
+            TrafficMeterInfoModel.changedRestartMinute = restartMinute.Text.Trim();
+            if (TrafficMeterInfoModel.changedMonthlyLimit != "" && TrafficMeterInfoModel.changedRestartHour != "" && TrafficMeterInfoModel.changedRestartMinute != ""
+                && int.Parse(TrafficMeterInfoModel.changedRestartMinute) != int.Parse(TrafficMeterInfoModel.RestartMinute))
             {
                 TrafficMeterSettingSave.IsEnabled = true;
                 TrafficMeterInfoModel.isRestartMinuteChanged = true;
@@ -159,14 +164,15 @@ namespace GenieWin8
             else
             {
                 TrafficMeterInfoModel.isRestartMinuteChanged = false;
-                if (restartminute == "")
+                if (TrafficMeterInfoModel.changedRestartMinute == "")
                 {
                     TrafficMeterSettingSave.IsEnabled = false;
                 }
                 else
                 {
-                    if (restarthour != "" && monthlylimit != "" && (TrafficMeterInfoModel.isRestartDayChanged == true || TrafficMeterInfoModel.isMonthlyLimitChanged == true || TrafficMeterInfoModel.isRestartHourChanged == true
-                    || TrafficMeterInfoModel.isControlOptionChanged == true))
+                    if (TrafficMeterInfoModel.changedRestartHour != "" && TrafficMeterInfoModel.changedMonthlyLimit != ""
+                        && (TrafficMeterInfoModel.isRestartDayChanged == true || TrafficMeterInfoModel.isMonthlyLimitChanged == true
+                        || TrafficMeterInfoModel.isRestartHourChanged == true || TrafficMeterInfoModel.isControlOptionChanged == true))
                     {
                         TrafficMeterSettingSave.IsEnabled = true;
                     }
@@ -194,21 +200,13 @@ namespace GenieWin8
             this.Frame.Navigate(typeof(TrafficLimitationPage));
         }
 
-        private async void GoBack_Click(Object sender, RoutedEventArgs e)
+        private void GoBack_Click(Object sender, RoutedEventArgs e)
         {
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetTrafficMeterOptions();
-            TrafficMeterInfoModel.MonthlyLimit = dicResponse["NewMonthlyLimit"];
-            TrafficMeterInfoModel.changedMonthlyLimit = dicResponse["NewMonthlyLimit"];
-            TrafficMeterInfoModel.RestartHour = dicResponse["RestartHour"];
-            TrafficMeterInfoModel.changedRestartHour = dicResponse["RestartHour"];
-            TrafficMeterInfoModel.RestartMinute = dicResponse["RestartMinute"];
-            TrafficMeterInfoModel.changedRestartMinute = dicResponse["RestartMinute"];
-            TrafficMeterInfoModel.RestartDay = dicResponse["RestartDay"];
-            TrafficMeterInfoModel.changedRestartDay = dicResponse["RestartDay"];
-            TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
-            TrafficMeterInfoModel.changedControlOption = dicResponse["NewControlOption"];
+            TrafficMeterInfoModel.isControlOptionChanged = false;
+            TrafficMeterInfoModel.isMonthlyLimitChanged = false;
+            TrafficMeterInfoModel.isRestartDayChanged = false;
+            TrafficMeterInfoModel.isRestartHourChanged = false;
+            TrafficMeterInfoModel.isRestartMinuteChanged = false;
             this.Frame.Navigate(typeof(TrafficMeterPage));
         }
 
@@ -226,7 +224,25 @@ namespace GenieWin8
                 && RestartHour != "" && RestartHour != null && int.Parse(RestartHour) >= 0 && int.Parse(RestartHour) <= 24
                 && RestartMinute != "" && RestartMinute != null && int.Parse(RestartMinute) >=0 && int.Parse(RestartMinute) <= 60)
             {
+                if (TrafficMeterInfoModel.changedControlOption == "No limit")
+                {
+                    TrafficMeterInfoModel.changedControlOption = "No Limit";
+                }
                 await soapApi.SetTrafficMeterOptions(TrafficMeterInfoModel.changedControlOption, MonthlyLimit, RestartHour, RestartMinute, TrafficMeterInfoModel.changedRestartDay);
+                if (TrafficMeterInfoModel.changedControlOption == "No Limit")
+                {
+                    TrafficMeterInfoModel.ControlOption = "No limit";
+                }
+                TrafficMeterInfoModel.MonthlyLimit = MonthlyLimit;
+                TrafficMeterInfoModel.RestartHour = RestartHour;
+                TrafficMeterInfoModel.RestartMinute = RestartMinute;
+                TrafficMeterInfoModel.RestartDay = TrafficMeterInfoModel.changedRestartDay;
+                TrafficMeterInfoModel.isControlOptionChanged = false;
+                TrafficMeterInfoModel.isMonthlyLimitChanged = false;
+                TrafficMeterInfoModel.isRestartDayChanged = false;
+                TrafficMeterInfoModel.isRestartHourChanged = false;
+                TrafficMeterInfoModel.isRestartMinuteChanged = false;
+                TrafficMeterSettingSave.IsEnabled = false;
                 InProgress.IsActive = false;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;

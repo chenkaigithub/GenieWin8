@@ -141,13 +141,19 @@ namespace GenieWin8
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetInfo("WLANConfiguration");
-            WifiInfoModel.ssid = dicResponse["NewSSID"];
-            WifiInfoModel.channel = dicResponse["NewChannel"];
-            WifiInfoModel.changedChannel = dicResponse["NewChannel"];
-            WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
-            WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+            if (dicResponse.Count > 0)
+            {
+                WifiInfoModel.ssid = dicResponse["NewSSID"];
+                WifiInfoModel.channel = dicResponse["NewChannel"];
+                WifiInfoModel.changedChannel = dicResponse["NewChannel"];
+                WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+            }            
             dicResponse = await soapApi.GetWPASecurityKeys();
-            WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+            if (dicResponse.Count > 0)
+            {
+                WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+            }            
             WifiInfoModel.isSSIDChanged = false;
             WifiInfoModel.isPasswordChanged = false;
             WifiInfoModel.isChannelChanged = false;
@@ -155,10 +161,13 @@ namespace GenieWin8
             this.Frame.Navigate(typeof(WifiSettingPage));
         }
 
+        DispatcherTimer timer = new DispatcherTimer();      //计时器
         private async void WifiSettingSave_Click(object sender, RoutedEventArgs e)
         {
             // Create the message dialog and set its content
-            var messageDialog = new MessageDialog("Changing settings can disrupt active traffic on the wireless network. Do you want to continue?");
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var strtext = loader.GetString("wirelsssetting");
+            var messageDialog = new MessageDialog(strtext);
 
             // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
             messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
@@ -192,25 +201,54 @@ namespace GenieWin8
             {
                 if (WifiInfoModel.securityType.CompareTo("None") == 0)
                 {
+                    timer.Interval = TimeSpan.FromSeconds(1);
+                    timer.Tick += new System.EventHandler<object>(timer_Tick);
+                    timer.Start();
                     await soapApi.SetWLANNoSecurity(ssid, WifiInfoModel.region, WifiInfoModel.changedChannel, WifiInfoModel.wirelessMode);
                     WifiInfoModel.channel = WifiInfoModel.changedChannel;
+                    WifiInfoModel.isSSIDChanged = false;
+                    WifiInfoModel.isPasswordChanged = false;
+                    WifiInfoModel.isChannelChanged = false;
+                    WifiInfoModel.isSecurityTypeChanged = false;
+                    wifiSettingSave.IsEnabled = false;
                 }
                 else
                 {
+                    timer.Interval = TimeSpan.FromSeconds(1);
+                    timer.Tick += new System.EventHandler<object>(timer_Tick);
+                    timer.Start();
                     await soapApi.SetWLANWEPByPassphrase(ssid, WifiInfoModel.region, WifiInfoModel.changedChannel, WifiInfoModel.wirelessMode, WifiInfoModel.changedSecurityType, password);
                     WifiInfoModel.channel = WifiInfoModel.changedChannel;
                     WifiInfoModel.securityType = WifiInfoModel.changedSecurityType;
+                    WifiInfoModel.isSSIDChanged = false;
+                    WifiInfoModel.isPasswordChanged = false;
+                    WifiInfoModel.isChannelChanged = false;
+                    WifiInfoModel.isSecurityTypeChanged = false;
+                    wifiSettingSave.IsEnabled = false;
                 }
+            }
+        }
+        #endregion
+
+        int count = 90;     //倒计时间
+        async void timer_Tick(object sender, object e)
+        {
+            waittime.Text = count.ToString();
+            count--;
+            if (count < 0)
+            {
+                timer.Stop();
                 InProgress.IsActive = false;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
-                var messageDialog = new MessageDialog("Wireless setting was changed successfully. Please re-join your wireless network by using new wireless setting and login to Genie.");
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var strtext = loader.GetString("wirelesssettinrelogin");
+                var messageDialog = new MessageDialog(strtext);
                 await messageDialog.ShowAsync();
                 MainPageInfo.bLogin = false;
                 //此处导航回到主页还存在问题，待解决。
                 //this.Frame.Navigate(typeof(MainPage));
             }
         }
-        #endregion
     }
 }

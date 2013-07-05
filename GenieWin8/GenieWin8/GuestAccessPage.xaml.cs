@@ -77,12 +77,20 @@ namespace GenieWin8
                 imageQRCode.Visibility = Visibility.Visible;
             }
             dicResponse = await soapApi.GetGuestAccessNetworkInfo();
-            GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
-            GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
-            if (dicResponse["NewSecurityMode"] != "None")
-                GuestAccessInfoModel.password = dicResponse["NewKey"];
-            else
-                GuestAccessInfoModel.password = "";
+            if (dicResponse.Count > 0)
+            {
+                GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
+                GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
+                if (dicResponse["NewSecurityMode"] != "None")
+                    GuestAccessInfoModel.password = dicResponse["NewKey"];
+                else
+                    GuestAccessInfoModel.password = "";
+                if (GuestAccessInfoModel.timePeriod == null)
+                {
+                    GuestAccessInfoModel.timePeriod = "Always";
+                    GuestAccessInfoModel.changedTimePeriod = "Always";
+                }
+            }            
             var GuestSettingGroup = GuestSettingSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = GuestSettingGroup;
             InProgress.IsActive = false;
@@ -108,7 +116,9 @@ namespace GenieWin8
         private async void checkGuestSetting_Click(Object sender, RoutedEventArgs e)
         {
             // Create the message dialog and set its content
-            var messageDialog = new MessageDialog("Changing settings can disrupt active traffic on the wireless network. Do you want to continue?");
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var strtext = loader.GetString("wirelsssetting");
+            var messageDialog = new MessageDialog(strtext);
 
             // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
             messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
@@ -139,13 +149,16 @@ namespace GenieWin8
             {           
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await soapApi.GetGuestAccessNetworkInfo();
-                GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
-                GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
-                GuestAccessInfoModel.changedSecurityType = dicResponse["NewSecurityMode"];
-                if (dicResponse["NewSecurityMode"] != "None")
-                    GuestAccessInfoModel.password = dicResponse["NewKey"];
-                else
-                    GuestAccessInfoModel.password = "";
+                if (dicResponse.Count > 0)
+                {
+                    GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
+                    GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
+                    GuestAccessInfoModel.changedSecurityType = dicResponse["NewSecurityMode"];
+                    if (dicResponse["NewSecurityMode"] != "None")
+                        GuestAccessInfoModel.password = dicResponse["NewKey"];
+                    else
+                        GuestAccessInfoModel.password = "";
+                }               
                 dicResponse = await soapApi.SetGuestAccessEnabled2(GuestAccessInfoModel.ssid, GuestAccessInfoModel.securityType, GuestAccessInfoModel.password);
                 GuestSettingsList.Visibility = Visibility.Visible;
                 textScanQRCode.Visibility = Visibility.Visible;
@@ -162,7 +175,9 @@ namespace GenieWin8
             InProgress.IsActive = false;
             PopupBackgroundTop.Visibility = Visibility.Collapsed;
             PopupBackground.Visibility = Visibility.Collapsed;
-            var messageDialog = new MessageDialog("Wireless setting was changed successfully. Please re-join your wireless network by using new wireless setting and login to Genie.");
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var strtext = loader.GetString("wirelesssettinrelogin");
+            var messageDialog = new MessageDialog(strtext);
             await messageDialog.ShowAsync();
             MainPageInfo.bLogin = false;
             //此处导航回到主页还存在问题，待解决。

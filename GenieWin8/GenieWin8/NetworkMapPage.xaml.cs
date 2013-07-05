@@ -522,10 +522,13 @@ namespace GenieWin8
 
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetInfo("WLANConfiguration");
-            WifiInfoModel.ssid = dicResponse["NewSSID"];
-            WifiInfoModel.channel = dicResponse["NewChannel"];
-            WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
-            WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
+            if (dicResponse.Count > 0)
+            {
+                WifiInfoModel.ssid = dicResponse["NewSSID"];
+                WifiInfoModel.channel = dicResponse["NewChannel"];
+                WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
+            }           
             NetworkMapDodel.fileContent = await ReadDeviceInfoFile();
             InProgress.IsActive = false;
             PopupBackgroundTop.Visibility = Visibility.Collapsed;

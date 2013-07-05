@@ -136,23 +136,8 @@ namespace GenieWin8
             }
         }
 
-        private async void GoBack_Click(Object sender, RoutedEventArgs e)
+        private void GoBack_Click(Object sender, RoutedEventArgs e)
         {
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetGuestAccessNetworkInfo();
-            GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
-            GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
-            GuestAccessInfoModel.changedSecurityType = dicResponse["NewSecurityMode"];
-            if (dicResponse["NewSecurityMode"] != "None")
-                GuestAccessInfoModel.password = dicResponse["NewKey"];
-            else
-                GuestAccessInfoModel.password = "";
-            if (GuestAccessInfoModel.timePeriod == null)
-            {
-                GuestAccessInfoModel.timePeriod = "Always";
-                GuestAccessInfoModel.changedTimePeriod = "Always";
-            }
             GuestAccessInfoModel.isSSIDChanged = false;
             GuestAccessInfoModel.isPasswordChanged = false;
             GuestAccessInfoModel.isTimePeriodChanged = false;
@@ -160,10 +145,13 @@ namespace GenieWin8
             this.Frame.Navigate(typeof(GuestAccessPage));
         }
 
+        DispatcherTimer timer = new DispatcherTimer();      //计时器
         private async void GuestSettingSave_Click(object sender, RoutedEventArgs e)
         {           
             // Create the message dialog and set its content
-            var messageDialog = new MessageDialog("Changing settings can disrupt active traffic on the wireless network. Do you want to continue?");
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var strtext = loader.GetString("wirelsssetting");
+            var messageDialog = new MessageDialog(strtext);
 
             // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
             messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
@@ -200,19 +188,40 @@ namespace GenieWin8
                     GuestAccessInfoModel.password = "";
                     password = "";
                 }
+                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Tick += new System.EventHandler<object>(timer_Tick);
+                timer.Start();
                 await soapApi.SetGuestAccessNetwork(ssid, GuestAccessInfoModel.changedSecurityType, password);
                 GuestAccessInfoModel.timePeriod = GuestAccessInfoModel.changedTimePeriod;
                 GuestAccessInfoModel.securityType = GuestAccessInfoModel.changedSecurityType;
+                GuestAccessInfoModel.isSSIDChanged = false;
+                GuestAccessInfoModel.isPasswordChanged = false;
+                GuestAccessInfoModel.isTimePeriodChanged = false;
+                GuestAccessInfoModel.isSecurityTypeChanged = false;
+                GuestSettingSave.IsEnabled = false;
+            }
+        }
+        #endregion
+
+        int count = 90;     //倒计时间
+        async void timer_Tick(object sender, object e)
+        {
+            waittime.Text = count.ToString();
+            count--;
+            if (count < 0)
+            {
+                timer.Stop();
                 InProgress.IsActive = false;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
-                var messageDialog = new MessageDialog("Wireless setting was changed successfully. Please re-join your wireless network by using new wireless setting and login to Genie.");
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var strtext = loader.GetString("wirelesssettinrelogin");
+                var messageDialog = new MessageDialog(strtext);
                 await messageDialog.ShowAsync();
                 MainPageInfo.bLogin = false;
                 //此处导航回到主页还存在问题，待解决。
                 //this.Frame.Navigate(typeof(MainPage));
             }
         }
-        #endregion
     }
 }

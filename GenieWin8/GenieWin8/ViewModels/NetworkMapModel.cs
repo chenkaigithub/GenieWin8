@@ -14,140 +14,7 @@ using System.Collections.Specialized;
 using GenieWin8.DataModel;
 
 namespace GenieWin8.Data
-{
-    //[Windows.Foundation.Metadata.WebHostHidden]
-    //public abstract class DeviceCommon : GenieWin8.Common.BindableBase
-    //{
-    //    public DeviceCommon(String uniqueId, String deviceName, String deviceType, String IPaddress, String signalStrength, String linkRate, String MACaddress)
-    //    {
-    //        this._uniqueId = uniqueId;
-    //        this._deviceName = deviceName;
-    //        this._deviceType = deviceType;
-    //        this._IPaddress = IPaddress;
-    //        this._signalStrength = signalStrength;
-    //        this._linkRate = linkRate;
-    //        this._MACaddress = MACaddress;
-    //    }
-
-    //    private string _uniqueId = string.Empty;
-    //    public string UniqueId
-    //    {
-    //        get { return this._uniqueId; }
-    //        set { this.SetProperty(ref this._uniqueId, value); }
-    //    }
-
-    //    private string _deviceName = string.Empty;
-    //    public string DeviceName
-    //    {
-    //        get { return this._deviceName; }
-    //        set { this.SetProperty(ref this._deviceName, value); }
-    //    }
-
-    //    private string _deviceType = string.Empty;
-    //    public string DeviceType
-    //    {
-    //        get { return this._deviceType; }
-    //        set { this.SetProperty(ref this._deviceType, value); }
-    //    }
-
-    //    private string _IPaddress = string.Empty;
-    //    public string IPAddress
-    //    {
-    //        get { return this._IPaddress; }
-    //        set { this.SetProperty(ref this._IPaddress, value); }
-    //    }
-
-    //    private string _signalStrength = string.Empty;
-    //    public string SignalStrength
-    //    {
-    //        get { return this._signalStrength; }
-    //        set { this.SetProperty(ref this._signalStrength, value); }
-    //    }
-
-    //    private string _linkRate = string.Empty;
-    //    public string LinkRate
-    //    {
-    //        get { return this._linkRate; }
-    //        set { this.SetProperty(ref this._linkRate, value); }
-    //    }
-
-    //    private string _MACaddress = string.Empty;
-    //    public string MACAddress
-    //    {
-    //        get { return this._MACaddress; }
-    //        set { this.SetProperty(ref this._MACaddress, value); }
-    //    }
-    //}
-
-    //public class DeviceItem : DeviceCommon
-    //{
-    //    public DeviceItem(String uniqueId, String deviceName, String IPaddress, String signalStrength, String linkRate, String MACaddress, DeviceGroup group)
-    //        : base(uniqueId)
-    //    {
-    //        this._deviceName = deviceName;
-    //        this._IPaddress = IPaddress;
-    //        this._signalStrength = signalStrength;
-    //        this._linkRate = linkRate;
-    //        this._MACaddress = MACaddress;
-    //        this._group = group;
-    //    }
-
-    //    private string _deviceName = string.Empty;
-    //    public string DeviceName
-    //    {
-    //        get { return this._deviceName; }
-    //        set { this.SetProperty(ref this._deviceName, value); }
-    //    }
-
-    //    private string _IPaddress = string.Empty;
-    //    public string IPAddress
-    //    {
-    //        get { return this._IPaddress; }
-    //        set { this.SetProperty(ref this._IPaddress, value); }
-    //    }
-
-    //    private string _signalStrength = string.Empty;
-    //    public string SignalStrength
-    //    {
-    //        get { return this._signalStrength; }
-    //        set { this.SetProperty(ref this._signalStrength, value); }
-    //    }
-
-    //    private string _linkRate = string.Empty;
-    //    public string LinkRate
-    //    {
-    //        get { return this._linkRate; }
-    //        set { this.SetProperty(ref this._linkRate, value); }
-    //    }
-
-    //    private string _MACaddress = string.Empty;
-    //    public string MACAddress
-    //    {
-    //        get { return this._MACaddress; }
-    //        set { this.SetProperty(ref this._MACaddress, value); }
-    //    }
-
-    //    private DeviceGroup _group;
-    //    public DeviceGroup Group
-    //    {
-    //        get { return this._group; }
-    //        set { this.SetProperty(ref this._group, value); }
-    //    }
-    //}
-
-    //public class DeviceGroup : DeviceCommon
-    //{
-    //    public DeviceGroup(String uniqueId, String deviceName, String deviceType, String IPaddress, String signalStrength, String linkRate, String MACaddress)
-    //        : base(uniqueId, deviceName, deviceType, IPaddress, signalStrength, linkRate, MACaddress)
-    //    {
-    //    }
-
-    //    //private ObservableCollection<DeviceItem> _items = new ObservableCollection<DeviceItem>();
-    //    //public ObservableCollection<DeviceItem> Items
-    //    //{
-    //    //    get { return this._items; }
-    //    //}
-    //}
+{  
     public class DeviceGroup
     {
         public DeviceGroup(Node node)
@@ -188,23 +55,6 @@ namespace GenieWin8.Data
             return null;
         }
 
-        //public async void ReadDeviceInfoFile()
-        //{
-        //    StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
-        //    try
-        //    {
-        //        StorageFile file = await storageFolder.GetFileAsync("CustomDeviceInfo.txt");
-        //        if (file != null)
-        //        {
-        //            fileContent = await FileIO.ReadTextAsync(file);
-        //        }
-        //    }
-        //    catch (FileNotFoundException)
-        //    {
-
-        //    }
-        //}
-
         public DeviceSource()
         {
             Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
@@ -213,13 +63,6 @@ namespace GenieWin8.Data
             UtilityTool util = new UtilityTool();
             string loacalIp = util.GetLocalHostIp();
 
-            //var routerGroup = new DeviceGroup("Router",
-            //    WifiInfoModel.ssid,
-            //    "",
-            //    NetworkMapDodel.geteway,
-            //    "",
-            //    "",
-            //    WifiInfoModel.macAddr);
             Node NodeRouter = new Node();
             NodeRouter.uniqueId = "Router";
             NodeRouter.deviceName = WifiInfoModel.ssid;
@@ -292,88 +135,7 @@ namespace GenieWin8.Data
                 NodeDevice.connectType = attachDeviceAll[key]["Connect"];
                 var group = new DeviceGroup(NodeDevice);
                 this.DeviceGroups.Add(group);
-                //if (loacalIp == attachDeviceAll[key]["Ip"])
-                //{
-                //    var group = new DeviceGroup("LocalDevice",
-                //     attachDeviceAll[key]["HostName"],
-                //     attachDeviceAll[key]["Connect"],
-                //     attachDeviceAll[key]["Ip"],
-                //     attachDeviceAll[key]["LinkSpeed"],
-                //     attachDeviceAll[key]["Signal"],
-                //     key);
-                //    this.DeviceGroups.Add(group);
-                //}
-                //else
-                //{
-                //    var group = new DeviceGroup("Device" + i.ToString(),
-                //     attachDeviceAll[key]["HostName"],
-                //     attachDeviceAll[key]["Connect"],
-                //     attachDeviceAll[key]["Ip"],
-                //     attachDeviceAll[key]["LinkSpeed"],
-                //     attachDeviceAll[key]["Signal"],
-                //     key);
-                //    this.DeviceGroups.Add(group);
-                //}
-
             }
-
-            //for (int i = 0; i < attachDeviceAll; i++)
-            //{
-            //   for(int j = 0 j < attachDeviceAll.ke; j++)
-
-            //    deviceInfo = attachDeviceAll;
-            //}
-            //var group1 = new DeviceGroup("Router",
-            //    "WNR3500Lv2",
-            //    "",
-            //    "192.168.1.1",
-            //    "",
-            //    "",
-            //    "20:4E:7F:04:31:3C");
-            //this.DeviceGroups.Add(group1);
-
-
-            //group.Items.Add(new DeviceItem("Router",
-            //    "WNR3500Lv2",
-            //    "192.168.1.1",
-            //    "",
-            //    "",
-            //    "20:4E:7F:04:31:3C",
-            //    group));
-            //group.Items.Add(new DeviceItem("LocalDevice",
-            //    "android-25531554966beee3",
-            //    "192.168.1.25",
-            //    "78%",
-            //    "5.5Mbps",
-            //    "D4:20:6D:D6:37:D6",
-            //    group));
-            //this.DeviceGroups.Add(group);
-
-            //var group2 = new DeviceGroup("LocalDevice",
-            //    "android-25531554966beee3",
-            //    "",
-            //    "192.168.1.25",
-            //    "78%",
-            //    "5.5Mbps",
-            //    "D4:20:6D:D6:37:D6");
-            //this.DeviceGroups.Add(group2);
-            //var group3 = new DeviceGroup("Device-1",
-            //    "WN1000RP",
-            //    "Network Device",
-            //    "192.168.1.250",
-            //    "72%",
-            //    "72.2Mbps",
-            //    "00:8E:F2:FE:7B:5A");
-            //this.DeviceGroups.Add(group3);
-            //var group4 = new DeviceGroup("Device-2",
-            //    "WR3700V4",
-            //    "Network Device",
-            //    "192.168.1.100",
-            //    "",
-            //    "",
-            //    "10:0D:7F:51:6F:31");
-            //this.DeviceGroups.Add(group4);
-
         }
     }
 }
