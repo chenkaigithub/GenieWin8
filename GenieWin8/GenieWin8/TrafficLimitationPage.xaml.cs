@@ -73,7 +73,7 @@ namespace GenieWin8
             switch (index)
             {
                 case 0:
-                    TrafficMeterInfoModel.ControlOption = "No Limit";
+                    TrafficMeterInfoModel.ControlOption = "No limit";
                     break;
                 case 1:
                     TrafficMeterInfoModel.ControlOption = "Download only";

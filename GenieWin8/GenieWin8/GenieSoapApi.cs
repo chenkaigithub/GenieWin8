@@ -418,7 +418,7 @@ namespace GenieWin8
         /// **************** SetTrafficMeterOptions api**************
         ///  ResponseCode:0 (no error), 1 (reboot required)
         /// </summary>
-        /// <param name="newControlOption">No Limit|Download only|Both directions</param>
+        /// <param name="newControlOption">No limit|Download only|Both directions</param>
         /// <param name="newMonthlyLimit">Integer, <=1000000 (Mbps)</param>
         /// <param name="restartHour">0~24</param>
         /// <param name="restartMinute">0~60</param>

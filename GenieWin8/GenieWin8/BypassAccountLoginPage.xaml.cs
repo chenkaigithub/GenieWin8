@@ -72,9 +72,9 @@ namespace GenieWin8
                 dicResponse.Clear();
                 UtilityTool util = new UtilityTool();
                 string macAddress = util.GetLocalMacAddress();
-                macAddress = macAddress.Replace(":", "");///本机mac地址
+                macAddress = macAddress.Replace(":", "");       ///本机mac地址
                 dicResponse = await soapApi.SetDNSMasqDeviceID(macAddress, ParentalControlInfo.BypassChildrenDeviceId);
-               
+            
                 InProgress.IsActive = false;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;

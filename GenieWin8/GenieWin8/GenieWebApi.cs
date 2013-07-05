@@ -126,6 +126,12 @@ namespace GenieWin8
             return retParam;
         }
 
+        /// <summary>
+        /// GetLabel
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string,string>> GetLabel(string token, string deviceId)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -156,7 +162,8 @@ namespace GenieWin8
         }
 
         /// <summary>
-        /// 
+        /// deviceKey 是由路由器的ModelName和Mac地址组成
+        /// 其中ModelName，Mac地址是调用SOAPApi的GetInfo获得
         /// </summary>
         /// <param name="token"></param>
         /// <param name="deviceKey">modelName-MacAddress</param>
@@ -189,6 +196,13 @@ namespace GenieWin8
             return retParam;
         }
 
+        /// <summary>
+        /// 将路由器与OpenDNS账号绑定
+        /// deviceKey 是由路由器的ModelName和Mac地址组成
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="deviceKey"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string,string>> CreateDevice(string token,string deviceKey)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -321,7 +335,7 @@ namespace GenieWin8
         }
 
         /// <summary>
-        /// 获取bypass 用户
+        /// 获取bypass 用户列表
         /// </summary>
         /// <param name="parent_deviceId"></param>
         /// <returns></returns>

@@ -258,8 +258,9 @@ namespace GenieWin8
                     //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
                     //responseDic = await soapApi.GetAttachDevice();
                     //NetworkMapDodel.attachDeviceDic = responseDic;
-                    //GenieFcml fcml = new GenieFcml();
-                    //fcml.Init("siteviewgenietest@gmail.com", "siteview");
+                  //  GenieFcml fcml = new GenieFcml();
+                   // await fcml.Init("siteviewgenietest@gmail.com", "siteview");
+                  // await fcml.GetCPList();
                     this.Frame.Navigate(typeof(MyMediaPage));
                 }
                 else if (groupId == "MarketPlace")
