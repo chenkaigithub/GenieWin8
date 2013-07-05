@@ -41,7 +41,7 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var channelGroup = SettingSource.GetChannel((String)(navigationParameter));
-            string channel = WifiInfoModel.channel;
+            string channel = WifiInfoModel.changedChannel;
             this.DefaultViewModel["itemChannel"] = channelGroup.Items;
             if (channel == "Auto")
             {
@@ -70,12 +70,33 @@ namespace GenieWin8
             int index = channelListView.SelectedIndex;
             if (index == 0)
             {
-                WifiInfoModel.channel = "Auto";
+                WifiInfoModel.changedChannel = "Auto";
             }
             else
             {
-                WifiInfoModel.channel = string.Format("{0}", index);
+                WifiInfoModel.changedChannel = string.Format("{0}", index);
             }
+
+            //判断频道是否更改
+            if (WifiInfoModel.changedChannel == "Auto" && WifiInfoModel.channel == "Auto")
+            {
+                WifiInfoModel.isChannelChanged = false;
+            }
+            else if ((WifiInfoModel.changedChannel != "Auto" && WifiInfoModel.channel == "Auto") || (WifiInfoModel.changedChannel == "Auto" && WifiInfoModel.channel != "Auto"))
+            {
+                WifiInfoModel.isChannelChanged = true;
+            }
+            else
+            {
+                if (int.Parse(WifiInfoModel.changedChannel) != int.Parse(WifiInfoModel.channel))
+                {
+                    WifiInfoModel.isChannelChanged = true;
+                }
+                else
+                {
+                    WifiInfoModel.isChannelChanged = false;
+                }
+            }           
             this.Frame.Navigate(typeof(EditSettingPage));
         }
     }

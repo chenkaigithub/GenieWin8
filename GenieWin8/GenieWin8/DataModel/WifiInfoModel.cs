@@ -16,9 +16,13 @@ namespace GenieWin8.DataModel
         public static string macAddr;
         public static string region;
         public static string wirelessMode;
-       
 
-
+        public static string changedChannel;
+        public static string changedSecurityType;
+        public static bool isSSIDChanged;                       //标识SSID是否更改
+        public static bool isPasswordChanged;                   //标识密码是否更改
+        public static bool isChannelChanged;                    //标识频道是否更改
+        public static bool isSecurityTypeChanged;               //标识安全是否更改
 
         private string _ssid;
         private string _password;

@@ -735,4 +735,28 @@
   <data name="WeekAvg.Text" xml:space="preserve">
     <value>本周</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>请等待一会……</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>登录失败。请重新输入NETGEAR路由器的正确管理员密码。</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>更改设置会中断无线网络上的活动流量。要继续吗？</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>路由器不支持该功能。</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>已成功更改无线设置。请使用新的无线设置重新加入无线网络，再登录精灵。</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>因特网不可用。请先将路由器连接到因特网。</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>禁用流量统计。要继续吗？</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>启用流量统计。要继续吗？</value>
+  </data>
 </root>

@@ -702,4 +702,31 @@
   <data name="windowspc" xml:space="preserve">
     <value>Windows PC</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Aguarde...</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Falha ao fazer login. Insira novamente a senha admin correta do seu roteador NETGEAR.</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Falha ao fazer login! Verifique se este computador está conectado ao roteador NETGEAR.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Alterar as configurações pode interromper o tráfego ativo na rede sem fio. Deseja continuar?</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>A Internet não está disponível. Conecte seu roteador à Internet primeiro.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>O roteador não oferece suporte a esta função.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Desabilitar medidor de tráfego. Deseja continuar?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Habilitar medidor de tráfego. Deseja continuar?</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>A configuração sem fio foi alterada com sucesso. Conecte-se novamente à sua rede sem fio usando a nova configuração sem fio e o novo login do genie.</value>
+  </data>
 </root>

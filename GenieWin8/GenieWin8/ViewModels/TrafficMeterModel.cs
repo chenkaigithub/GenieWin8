@@ -177,14 +177,14 @@ namespace GenieWin8.Data
             var strTitle = loader.GetString("LimitPerMonth");
             var group1 = new TrafficMeterGroup("LimitPerMonth",
                     strTitle,
-                    TrafficMeterInfoModel.MonthlyLimit);
+                    TrafficMeterInfoModel.changedMonthlyLimit);
             this.LimitPerMonth.Add(group1);
             this.TrafficMeterGroups.Add(group1);
 
             strTitle = loader.GetString("StartDate");
             var group2 = new TrafficMeterGroup("StartDate",
                 strTitle,
-                TrafficMeterInfoModel.RestartDay);
+                TrafficMeterInfoModel.changedRestartDay);
             group2.Items.Add(new TrafficMeterItem("StartDate-1",
                 "StartDate",
                 "1",
@@ -304,8 +304,8 @@ namespace GenieWin8.Data
             this.StartDate.Add(group2);
             this.TrafficMeterGroups.Add(group2);
 
-            String STARTTIME_HOUR = TrafficMeterInfoModel.RestartHour;
-            String STARTTIME_MINUTE = TrafficMeterInfoModel.RestartMinute;
+            String STARTTIME_HOUR = TrafficMeterInfoModel.changedRestartHour;
+            String STARTTIME_MINUTE = TrafficMeterInfoModel.changedRestartMinute;
             strTitle = loader.GetString("CounterStartTimeHour");
             var hour = new TrafficMeterGroup("StartTimeHour",
                     strTitle,
@@ -324,15 +324,15 @@ namespace GenieWin8.Data
 
             strTitle = loader.GetString("TrafficLimitation");
             string strContent = null;
-            if (TrafficMeterInfoModel.ControlOption == "No limit")
+            if (TrafficMeterInfoModel.changedControlOption == "No limit")
             {
                 strContent = loader.GetString("TrafficLimitation_Unlimited");
             }
-            else if (TrafficMeterInfoModel.ControlOption == "Download only")
+            else if (TrafficMeterInfoModel.changedControlOption == "Download only")
             {
                 strContent = loader.GetString("TrafficLimitation_Download");
             }
-            else if (TrafficMeterInfoModel.ControlOption == "Both directions")
+            else if (TrafficMeterInfoModel.changedControlOption == "Both directions")
             {
                 strContent = loader.GetString("TrafficLimitation_DownloadUpload");
             }

@@ -702,4 +702,31 @@
   <data name="windowspc" xml:space="preserve">
     <value>Windows-tietokone</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Odota...</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Kirjautuminen epäonnistui. Kirjoita NETGEAR-reitittimen oikea järjestelmänvalvojan salasana uudelleen.</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Kirjautuminen epäonnistui. Varmista, että tietokone on liitetty NETGEAR-reitittimeen.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Asetusten muuttaminen voi keskeyttää langattoman verkon aktiivisen liikenteen. Haluatko jatkaa?</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Internet ei ole käytettävissä. Yhdistä ensin reitittimesi Internetiin.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Reititin ei tue tätä toimintoa.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Poista liikennemittari käytöstä. Haluatko jatkaa?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Ota liikennemittari käyttöön. Haluatko jatkaa?</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Langattomat asetukset on muutettu. Liity langattomaan verkkoon uudelleen uusien langattomien asetusten avulla ja kirjaudu genieen.</value>
+  </data>
 </root>

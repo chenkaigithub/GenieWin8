@@ -41,7 +41,7 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var startdateGroup = TrafficMeterSource.GetStartDateItems((String)navigationParameter);
-            string restartDay = TrafficMeterInfoModel.RestartDay;
+            string restartDay = TrafficMeterInfoModel.changedRestartDay;
             this.DefaultViewModel["itemStartDate"] = startdateGroup.Items;
             restartDayListView.SelectedIndex = int.Parse(restartDay) - 1;
         }
@@ -59,7 +59,17 @@ namespace GenieWin8
         private void ChangeRestartDayClick(object sender, SelectionChangedEventArgs e)
         {
             int index = restartDayListView.SelectedIndex;
-            TrafficMeterInfoModel.RestartDay = (index + 1).ToString();
+            TrafficMeterInfoModel.changedRestartDay = (index + 1).ToString();
+
+            //判断重启日期是否更改
+            if (TrafficMeterInfoModel.changedRestartDay != TrafficMeterInfoModel.RestartDay)
+            {
+                TrafficMeterInfoModel.isRestartDayChanged = true;
+            }
+            else
+            {
+                TrafficMeterInfoModel.isRestartDayChanged = false;
+            }
             this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
         }
     }

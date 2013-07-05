@@ -735,4 +735,31 @@
   <data name="WeekAvg.Text" xml:space="preserve">
     <value>This week</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Login failed. Please re-enter the correct admin password for your NETGEAR router.</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Login failed! Please check to see if this computer is connected to the NETGEAR router.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Changing settings can disrupt active traffic on the wireless network. Do you want to continue?</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Internet is not available. Please connect your Router to Internet first.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>The router does not support this function.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Disable Traffic Meter. Do you want to continue?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Enable Traffic Meter. Do you want to continue?</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Wireless setting was changed successfully. Please re-join your wireless network by using new wireless setting and login to Genie.</value>
+  </data>
 </root>

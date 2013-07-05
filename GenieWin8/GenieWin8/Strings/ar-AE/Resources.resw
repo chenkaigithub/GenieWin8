@@ -702,4 +702,31 @@
   <data name="windowspc" xml:space="preserve">
     <value>"كمبيوتر يعمل بنظام Windows</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>يرجى الانتظار...</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>فشل تسجيل الدخول. يرجى إعادة إدخال كلمة مرور المسؤول الصحيحة لموجه NETGEAR</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>فشل تسجيل الدخول! يرجى التحقق لمعرفة ما إذا كان هذا الكمبيوتر متصلاً بموجه NETGEAR.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>يمكن أن يؤدي تغيير الإعدادات إلى تعطيل حركة المرور النشطة على الشبكة اللاسلكية. هل تريد المتابعة؟</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>إنترنت غير متوفر. يرجى توصيل الموجه بإنترنت أولاً.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>لا يدعم الموجه هذه الوظيفة.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>تعطيل مقياس حركة المرور. هل تريد المتابعة؟</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>تمكين مقياس حركة المرور. هل تريد المتابعة؟</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>تم تغيير الإعداد اللاسلكي بنجاح. يرجى الانضمام مجدداً إلى الشبكة اللاسلكية من خلال استخدام إدخال لاسلكي جديد وتسجيل الدخول إلى genie.</value>
+  </data>
 </root>

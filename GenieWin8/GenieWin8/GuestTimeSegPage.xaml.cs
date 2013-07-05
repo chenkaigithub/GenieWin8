@@ -41,7 +41,7 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var TimeSegGroup = GuestSettingSource.GetTimeSegment((String)navigationParameter);
-            string timePeriod = GuestAccessInfoModel.timePeriod;
+            string timePeriod = GuestAccessInfoModel.changedTimePeriod;
             this.DefaultViewModel["itemTimeseg"] = TimeSegGroup.Items;
             switch (timePeriod)
             {
@@ -82,23 +82,33 @@ namespace GenieWin8
             switch (index)
             {
                 case 0:
-                    GuestAccessInfoModel.timePeriod = "Always";
+                    GuestAccessInfoModel.changedTimePeriod = "Always";
                     break;
                 case 1:
-                    GuestAccessInfoModel.timePeriod = "1 hour";
+                    GuestAccessInfoModel.changedTimePeriod = "1 hour";
                     break;
                 case 2:
-                    GuestAccessInfoModel.timePeriod = "5 hours";
+                    GuestAccessInfoModel.changedTimePeriod = "5 hours";
                     break;
                 case 3:
-                    GuestAccessInfoModel.timePeriod = "10 hours";
+                    GuestAccessInfoModel.changedTimePeriod = "10 hours";
                     break;
                 case 4:
-                    GuestAccessInfoModel.timePeriod = "1 day";
+                    GuestAccessInfoModel.changedTimePeriod = "1 day";
                     break;
                 case 5:
-                    GuestAccessInfoModel.timePeriod = "1 week";
+                    GuestAccessInfoModel.changedTimePeriod = "1 week";
                     break;
+            }
+
+            //判断时间段是否更改
+            if (GuestAccessInfoModel.changedTimePeriod != GuestAccessInfoModel.timePeriod)
+            {
+                GuestAccessInfoModel.isTimePeriodChanged = true;
+            }
+            else
+            {
+                GuestAccessInfoModel.isTimePeriodChanged = false;
             }
             this.Frame.Navigate(typeof(GuestSettingPage));
         }

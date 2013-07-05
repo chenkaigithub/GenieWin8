@@ -64,11 +64,19 @@ namespace GenieWin8
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetInfo("WLANConfiguration");
-            WifiInfoModel.ssid = dicResponse["NewSSID"];
-            WifiInfoModel.channel = dicResponse["NewChannel"];
-            WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+            if (dicResponse.Count > 0)
+            {
+                WifiInfoModel.ssid = dicResponse["NewSSID"];
+                WifiInfoModel.channel = dicResponse["NewChannel"];
+                WifiInfoModel.changedChannel = dicResponse["NewChannel"];
+                WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+            }           
             dicResponse = await soapApi.GetWPASecurityKeys();
-            WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+            if (dicResponse.Count > 0)
+            {
+                WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+            }            
             this.Frame.Navigate(typeof(WifiSettingPage));
         }
     }

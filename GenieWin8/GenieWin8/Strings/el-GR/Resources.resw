@@ -702,4 +702,31 @@
   <data name="windowspc" xml:space="preserve">
     <value>Υπολογιστής Windows</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Παρακαλώ περιμένετε...</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Η σύνδεση απέτυχε. Πληκτρολογήστε ξανά τον σωστό κωδικό πρόσβασης διαχείρισης για το δρομολογητή NETGEAR.</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Η σύνδεση απέτυχε! Ελέγξτε εάν ο υπολογιστής είναι συνδεδεμένος στο δρομολογητή της NETGEAR.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Η αλλαγή των ρυθμίσεων μπορεί να διακόψει την ενεργή κυκλοφορία στο ασύρματο δίκτυο. Θέλετε να συνεχίσετε;</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Το Internet δεν είναι διαθέσιμο. Συνδέστε πρώτα το δρομολογητή στο Internet.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Ο δρομολογητής δεν υποστηρίζει αυτήν τη λειτουργία.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Απενεργοποίηση μέτρησης κυκλοφορίας. Θέλετε να συνεχίσετε;</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Ενεργοποίηση μέτρησης κυκλοφορίας. Θέλετε να συνεχίσετε;</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Η ρύθμιση ασύρματου δικτύου άλλαξε με επιτυχία. Προσπελάστε ξανά το ασύρματο δίκτυο χρησιμοποιώντας τις νέες ρυθμίσεις ασύρματου δικτύου και τα στοιχεία σύνδεσης για το genie.</value>
+  </data>
 </root>

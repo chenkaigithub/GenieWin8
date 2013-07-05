@@ -702,4 +702,31 @@
   <data name="windowspc" xml:space="preserve">
     <value>Počítač so systémom Windows</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Čakajte, prosím...</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Prihlásenie zlyhalo. Znovu zadajte správne heslo správcu pre váš smerovač NETGEAR.</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Prihlásenie zlyhalo! Skontrolujte, či je tento počítač pripojený k smerovaču NETGEAR.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Zmena nastavení môže narušiť aktívne prenosy v bezdrôtovej sieti. Chcete pokračovať?</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Sieť internet nie je dostupná. Najprv pripojte smerovač do siete internet.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Smerovač túto funkciu nepodporuje.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Vypnúť aplikáciu na meranie objemu prenášaných dát. Chcete pokračovať?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Povoliť aplikáciu na meranie objemu prenášaných dát. Chcete pokračovať?</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Nastavenie bezdrôtovej komunikácie sa úspešne zmenilo. Pripojte sa k bezdrôtovej sieti pomocou nového nastavenia bezdrôtovej komunikácie a prihláste sa do aplikácie genie.</value>
+  </data>
 </root>

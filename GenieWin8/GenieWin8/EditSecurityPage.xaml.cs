@@ -41,7 +41,7 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var securityGroup = SettingSource.GetSecurity((String)(navigationParameter));
-            string securityType = WifiInfoModel.securityType;
+            string securityType = WifiInfoModel.changedSecurityType;
             this.DefaultViewModel["itemSecurity"] = securityGroup.Items;
             switch (securityType)
             {
@@ -74,14 +74,24 @@ namespace GenieWin8
             switch (index)
             {
                 case 0:
-                    WifiInfoModel.securityType = "None";
+                    WifiInfoModel.changedSecurityType = "None";
                     break;
                 case 1:
-                    WifiInfoModel.securityType = "WPA2-PSK";
+                    WifiInfoModel.changedSecurityType = "WPA2-PSK";
                     break;
                 case 2:
-                    WifiInfoModel.securityType = "WPA-PSK/WPA2-PSK";
+                    WifiInfoModel.changedSecurityType = "WPA-PSK/WPA2-PSK";
                     break;
+            }
+
+            //判断安全是否更改
+            if (WifiInfoModel.changedSecurityType != WifiInfoModel.securityType)
+            {
+                WifiInfoModel.isSecurityTypeChanged = true;
+            }
+            else
+            {
+                WifiInfoModel.isSecurityTypeChanged = false;
             }
             this.Frame.Navigate(typeof(EditSettingPage));
         }

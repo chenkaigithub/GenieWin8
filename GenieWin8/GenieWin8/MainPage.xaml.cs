@@ -85,13 +85,21 @@ namespace GenieWin8
                     PopupBackground.Visibility = Visibility.Visible;
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetInfo("WLANConfiguration");
-                    WifiInfoModel.ssid = dicResponse["NewSSID"];
-                    WifiInfoModel.region = dicResponse["NewRegion"];
-                    WifiInfoModel.channel = dicResponse["NewChannel"];
-                    WifiInfoModel.wirelessMode = dicResponse["NewWirelessMode"];
-                    WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiInfoModel.ssid = dicResponse["NewSSID"];
+                        WifiInfoModel.region = dicResponse["NewRegion"];
+                        WifiInfoModel.channel = dicResponse["NewChannel"];
+                        WifiInfoModel.changedChannel = dicResponse["NewChannel"];
+                        WifiInfoModel.wirelessMode = dicResponse["NewWirelessMode"];
+                        WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                        WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+                    }                   
                     dicResponse = await soapApi.GetWPASecurityKeys();
-                    WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+                    }                   
                     InProgress.IsActive = false;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
@@ -115,14 +123,21 @@ namespace GenieWin8
                     {
                         Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                         dicResponse2 = await soapApi.GetGuestAccessNetworkInfo();
-                        GuestAccessInfoModel.ssid = dicResponse2["NewSSID"];
-                        GuestAccessInfoModel.securityType = dicResponse2["NewSecurityMode"];
-                        if (dicResponse2["NewSecurityMode"] != "None")
-                            GuestAccessInfoModel.password = dicResponse2["NewKey"];
-                        else
-                            GuestAccessInfoModel.password = "";
-                        if (GuestAccessInfoModel.timePeriod == null)
-                            GuestAccessInfoModel.timePeriod = "Always";
+                        if (dicResponse2.Count > 0)
+                        {
+                            GuestAccessInfoModel.ssid = dicResponse2["NewSSID"];
+                            GuestAccessInfoModel.securityType = dicResponse2["NewSecurityMode"];
+                            GuestAccessInfoModel.changedSecurityType = dicResponse2["NewSecurityMode"];
+                            if (dicResponse2["NewSecurityMode"] != "None")
+                                GuestAccessInfoModel.password = dicResponse2["NewKey"];
+                            else
+                                GuestAccessInfoModel.password = "";
+                            if (GuestAccessInfoModel.timePeriod == null)
+                            {
+                                GuestAccessInfoModel.timePeriod = "Always";
+                                GuestAccessInfoModel.changedTimePeriod = "Always";
+                            }
+                        }                        
                         InProgress.IsActive = false;
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
@@ -133,7 +148,9 @@ namespace GenieWin8
                         InProgress.IsActive = false;
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
-                        var messageDialog = new MessageDialog("The router does not support this function.");
+                        var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                        var strtext = loader.GetString("notsupport");
+                        var messageDialog = new MessageDialog(strtext);
                         await messageDialog.ShowAsync();
                     }
                 }
@@ -150,10 +167,13 @@ namespace GenieWin8
 
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetInfo("WLANConfiguration");
-                    WifiInfoModel.ssid = dicResponse["NewSSID"];
-                    WifiInfoModel.channel = dicResponse["NewChannel"];
-                    WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
-                    WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiInfoModel.ssid = dicResponse["NewSSID"];
+                        WifiInfoModel.channel = dicResponse["NewChannel"];
+                        WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                        WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
+                    }                   
                     NetworkMapDodel.fileContent = await ReadDeviceInfoFile();
                     InProgress.IsActive = false;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
@@ -173,22 +193,33 @@ namespace GenieWin8
                     {
                         Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                         dicResponse2 = await soapApi.GetTrafficMeterOptions();
-                        TrafficMeterInfoModel.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
-                        TrafficMeterInfoModel.RestartHour = dicResponse2["RestartHour"];
-                        TrafficMeterInfoModel.RestartMinute = dicResponse2["RestartMinute"];
-                        TrafficMeterInfoModel.RestartDay = dicResponse2["RestartDay"];
-                        TrafficMeterInfoModel.ControlOption = dicResponse2["NewControlOption"];
+                        if (dicResponse2.Count > 0)
+                        {
+                            TrafficMeterInfoModel.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                            TrafficMeterInfoModel.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                            TrafficMeterInfoModel.RestartHour = dicResponse2["RestartHour"];
+                            TrafficMeterInfoModel.changedRestartHour = dicResponse2["RestartHour"];
+                            TrafficMeterInfoModel.RestartMinute = dicResponse2["RestartMinute"];
+                            TrafficMeterInfoModel.changedRestartMinute = dicResponse2["RestartMinute"];
+                            TrafficMeterInfoModel.RestartDay = dicResponse2["RestartDay"];
+                            TrafficMeterInfoModel.changedRestartDay = dicResponse2["RestartDay"];
+                            TrafficMeterInfoModel.ControlOption = dicResponse2["NewControlOption"];
+                            TrafficMeterInfoModel.changedControlOption = dicResponse2["NewControlOption"];
+                        }                        
                         dicResponse2 = await soapApi.GetTrafficMeterStatistics();
-                        TrafficMeterInfoModel.TodayUpload = dicResponse2["NewTodayUpload"];
-                        TrafficMeterInfoModel.TodayDownload = dicResponse2["NewTodayDownload"];
-                        TrafficMeterInfoModel.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
-                        TrafficMeterInfoModel.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
-                        TrafficMeterInfoModel.WeekUpload = dicResponse2["NewWeekUpload"];
-                        TrafficMeterInfoModel.WeekDownload = dicResponse2["NewWeekDownload"];
-                        TrafficMeterInfoModel.MonthUpload = dicResponse2["NewMonthUpload"];
-                        TrafficMeterInfoModel.MonthDownload = dicResponse2["NewMonthDownload"];
-                        TrafficMeterInfoModel.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
-                        TrafficMeterInfoModel.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+                        if (dicResponse2.Count > 0)
+                        {
+                            TrafficMeterInfoModel.TodayUpload = dicResponse2["NewTodayUpload"];
+                            TrafficMeterInfoModel.TodayDownload = dicResponse2["NewTodayDownload"];
+                            TrafficMeterInfoModel.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+                            TrafficMeterInfoModel.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+                            TrafficMeterInfoModel.WeekUpload = dicResponse2["NewWeekUpload"];
+                            TrafficMeterInfoModel.WeekDownload = dicResponse2["NewWeekDownload"];
+                            TrafficMeterInfoModel.MonthUpload = dicResponse2["NewMonthUpload"];
+                            TrafficMeterInfoModel.MonthDownload = dicResponse2["NewMonthDownload"];
+                            TrafficMeterInfoModel.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+                            TrafficMeterInfoModel.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+                        }                        
                         InProgress.IsActive = false;
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
@@ -199,7 +230,9 @@ namespace GenieWin8
                         InProgress.IsActive = false;
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
-                        var messageDialog = new MessageDialog("The router does not support this function.");
+                        var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                        var strtext = loader.GetString("notsupport");
+                        var messageDialog = new MessageDialog(strtext);
                         await messageDialog.ShowAsync();
                     }
                 }
@@ -214,7 +247,12 @@ namespace GenieWin8
                     bool isConnectToInternet = util.IsConnectedToInternet();
                     if (!isConnectToInternet)
                     {
-                        var messageDialog = new MessageDialog("You don't appear to be connected to the Internet.Please connect to the Internet through your NETGEAR router and try again.");
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                        var strtext = loader.GetString("interneterror");
+                        var messageDialog = new MessageDialog(strtext);
                         await messageDialog.ShowAsync();
                     }
                     else
@@ -243,7 +281,9 @@ namespace GenieWin8
                             InProgress.IsActive = false;
                             PopupBackgroundTop.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Collapsed;
-                            var messageDialog = new MessageDialog("The router does not support this function.");
+                            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                            var strtext = loader.GetString("notsupport");
+                            var messageDialog = new MessageDialog(strtext);
                             await messageDialog.ShowAsync();
                         }
                     }

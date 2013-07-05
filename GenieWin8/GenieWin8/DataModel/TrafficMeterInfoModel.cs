@@ -26,5 +26,16 @@ namespace GenieWin8.DataModel
         public static string MonthDownload;
         public static string LastMonthUpload;
         public static string LastMonthDownload;
+
+        public static string changedMonthlyLimit;
+        public static string changedRestartHour;
+        public static string changedRestartMinute;
+        public static string changedRestartDay;
+        public static string changedControlOption;
+        public static bool isMonthlyLimitChanged;                       //标识每月限制是否更改
+        public static bool isRestartDayChanged;                         //标识重启日期是否更改
+        public static bool isRestartHourChanged;                        //标识重启时间-小时是否更改
+        public static bool isRestartMinuteChanged;                      //标识重启时间-分钟是否更改
+        public static bool isControlOptionChanged;                      //标识流量限制是否更改
     }
 }

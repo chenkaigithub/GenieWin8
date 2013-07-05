@@ -702,4 +702,31 @@
   <data name="windowspc" xml:space="preserve">
     <value>PC Windows</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Patientez SVP...</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>La connexion a échoué. Veuillez saisir le mot de passe d\'administrateur correct de votre routeur NETGEAR.</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>La connexion a échoué. Vérifiez si cet ordinateur est connecté au routeur NETGEAR.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Si vous modifiez les paramètres, vous risquez de perturber le trafic actif sur le réseau sans fil. Voulez-vous continuer ?</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Internet est indisponible. Veuillez d\'abord connecter votre routeur à Internet.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Le routeur ne prend pas en charge cette fonction.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Désactiver le compteur de trafic. Voulez-vous continuer ?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Activer le compteur de trafic. Voulez-vous continuer ?</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Paramètre sans fil modifié avec succès. Utilisez le nouveau paramètre sans fil et votre connexion genie pour vous reconnecter à votre réseau sans fil.</value>
+  </data>
 </root>

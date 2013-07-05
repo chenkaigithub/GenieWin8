@@ -702,4 +702,31 @@
   <data name="windowspc" xml:space="preserve">
     <value>ПК с Windows</value>
   </data>
+  <data name="wait.Text" xml:space="preserve">
+    <value>Подождите...</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Не удалось войти в систему. Введите правильный пароль администратора для маршрутизатора NETGEAR.</value>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Ошибка при входе! Проверьте подключение данного компьютера к маршрутизатору NETGEAR.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>При изменении настроек активный трафик в беспроводной сети может быть приостановлен. Продолжить?</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Отсутствует соединение с Интернетом. Сначала подключите маршрутизатор к Интернету.</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Маршрутизатор не поддерживает данную функцию.</value>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Отключить счетчик трафика. Продолжить?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Включить счетчик трафика. Продолжить?</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Параметры беспроводного соединения успешно изменены. Повторно подключитесь к беспроводной сети, используя новые параметры соединения, и войдите в программу genie.</value>
+  </data>
 </root>

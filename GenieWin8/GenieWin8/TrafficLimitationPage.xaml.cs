@@ -41,11 +41,11 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var trafficlimitationGroup = TrafficMeterSource.GetTrafficLimitationItems((String)navigationParameter);
-            string controlOption = TrafficMeterInfoModel.ControlOption;
+            string controlOption = TrafficMeterInfoModel.changedControlOption;
             this.DefaultViewModel["itemTrafficLimitation"] = trafficlimitationGroup.Items;
             switch (controlOption)
             {
-                case "No Limit":
+                case "No limit":
                     controlOptionsListView.SelectedIndex = 0;
                     break;
                 case "Download only":
@@ -73,14 +73,24 @@ namespace GenieWin8
             switch (index)
             {
                 case 0:
-                    TrafficMeterInfoModel.ControlOption = "No limit";
+                    TrafficMeterInfoModel.changedControlOption = "No limit";
                     break;
                 case 1:
-                    TrafficMeterInfoModel.ControlOption = "Download only";
+                    TrafficMeterInfoModel.changedControlOption = "Download only";
                     break;
                 case 2:
-                    TrafficMeterInfoModel.ControlOption = "Both directions";
+                    TrafficMeterInfoModel.changedControlOption = "Both directions";
                     break;
+            }
+
+            //判断流量限制是否更改
+            if (TrafficMeterInfoModel.changedControlOption != TrafficMeterInfoModel.ControlOption)
+            {
+                TrafficMeterInfoModel.isControlOptionChanged = true;
+            }
+            else
+            {
+                TrafficMeterInfoModel.isControlOptionChanged = false;
             }
             this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
         }

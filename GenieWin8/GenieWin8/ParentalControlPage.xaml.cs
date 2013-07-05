@@ -134,6 +134,7 @@ namespace GenieWin8
 	        {
 		        FilterLevelPopup.IsOpen = true;
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        FilterLvPreviousButton.Visibility = Visibility.Visible;
 		        FilterLvNextButton.Visibility = Visibility.Visible;
@@ -143,6 +144,7 @@ namespace GenieWin8
         private async void ChangeSetting_ItemClick(Object sender, ItemClickEventArgs e)
         {
             InProgress.IsActive = true;
+            pleasewait.Visibility = Visibility.Visible;
             PopupBackgroundTop.Visibility = Visibility.Visible;
             PopupBackground.Visibility = Visibility.Visible;
             GenieWebApi webApi = new GenieWebApi();
@@ -151,6 +153,7 @@ namespace GenieWin8
             if (dicResponse["status"] == "success")
             {
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
                 string relay_token = dicResponse["relay_token"];
@@ -160,6 +163,7 @@ namespace GenieWin8
             else
             {
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
                 var messageDialog = new MessageDialog(dicResponse["error_message"]);
@@ -172,6 +176,7 @@ namespace GenieWin8
             if (ParentalControlInfo.IsBypassUserLoggedIn == false)                        //未登录Bypass账户
             {
                 InProgress.IsActive = true;
+                pleasewait.Visibility = Visibility.Visible;
                 PopupBackgroundTop.Visibility = Visibility.Visible;
                 PopupBackground.Visibility = Visibility.Visible;
                 ParentalControlInfo.BypassAccounts = "";
@@ -190,6 +195,7 @@ namespace GenieWin8
                         }
                     }
                     InProgress.IsActive = false;
+                    pleasewait.Visibility = Visibility.Collapsed;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(BypassAccountPage));
@@ -197,6 +203,7 @@ namespace GenieWin8
                 else
                 {
                     InProgress.IsActive = false;
+                    pleasewait.Visibility = Visibility.Collapsed;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     var messageDialog = new MessageDialog(dicResponse["error_message"]);
@@ -218,6 +225,7 @@ namespace GenieWin8
 		        EnquirePopup.IsOpen = false;
 		        RegisterPopup.IsOpen = true;
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        NoButton.Visibility = Visibility.Collapsed;
 		        YesButton.Visibility = Visibility.Collapsed;
@@ -234,6 +242,7 @@ namespace GenieWin8
 		        EnquirePopup.IsOpen = false;
 		        LoginPopup.IsOpen = true;
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        NoButton.Visibility = Visibility.Collapsed;
 		        YesButton.Visibility = Visibility.Collapsed;
@@ -250,6 +259,7 @@ namespace GenieWin8
 		        EnquirePopup.IsOpen = true;
 		        RegisterPopup.IsOpen = false;
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        NoButton.Visibility = Visibility.Visible;
 		        YesButton.Visibility = Visibility.Visible;
@@ -270,12 +280,14 @@ namespace GenieWin8
             else
             {
                 InProgress.IsActive = true;
+                pleasewait.Visibility = Visibility.Visible;
                 GenieWebApi webApi = new GenieWebApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await webApi.CreateAccount(ParentalControlInfo.Username, ParentalControlInfo.Password, ParentalControlInfo.Email);
                 if (dicResponse["status"] != "success")
                 {
                     InProgress.IsActive = false;
+                    pleasewait.Visibility = Visibility.Collapsed;
                     var messageDialog = new MessageDialog(dicResponse["error_message"]);
                     await messageDialog.ShowAsync();
                 } 
@@ -286,6 +298,7 @@ namespace GenieWin8
                         RegisterPopup.IsOpen = false;
                         LoginPopup.IsOpen = true;
                         InProgress.IsActive = false;
+                        pleasewait.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Visible;
                         RegisterPreviousButton.Visibility = Visibility.Collapsed;
                         RegisterNextButton.Visibility = Visibility.Collapsed;
@@ -304,6 +317,7 @@ namespace GenieWin8
 		        EnquirePopup.IsOpen = true;
 		        LoginPopup.IsOpen = false;
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        NoButton.Visibility = Visibility.Visible;
 		        YesButton.Visibility = Visibility.Visible;
@@ -323,6 +337,7 @@ namespace GenieWin8
             else
             {
                 InProgress.IsActive = true;
+                pleasewait.Visibility = Visibility.Visible;
                 GenieWebApi webApi = new GenieWebApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await webApi.BeginLogin(ParentalControlInfo.Username, ParentalControlInfo.Password);
@@ -331,6 +346,7 @@ namespace GenieWin8
                     if (dicResponse["status"] != "success")
                     {
                         InProgress.IsActive = false;
+                        pleasewait.Visibility = Visibility.Collapsed;
                         var messageDialog = new MessageDialog(dicResponse["error_message"]);
                         await messageDialog.ShowAsync();
                     }
@@ -355,6 +371,7 @@ namespace GenieWin8
                             LoginPopup.IsOpen = false;
                             FilterLevelPopup.IsOpen = true;
                             InProgress.IsActive = false;
+                            pleasewait.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Visible;
                             LoginPreviousButton.Visibility = Visibility.Collapsed;
                             LoginNextButton.Visibility = Visibility.Collapsed;
@@ -374,6 +391,7 @@ namespace GenieWin8
 		        LoginPopup.IsOpen = true;
 		        FilterLevelPopup.IsOpen = false;
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
 		        LoginPreviousButton.Visibility = Visibility.Visible;
 		        LoginNextButton.Visibility = Visibility.Visible;
@@ -386,12 +404,14 @@ namespace GenieWin8
         private async void FilterLvNextButton_Click(Object sender, RoutedEventArgs e)
         {
             InProgress.IsActive = true;
+            pleasewait.Visibility = Visibility.Visible;
             GenieWebApi webApi = new GenieWebApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevel);
             if (dicResponse["status"] != "success")
             {
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
                 var messageDialog = new MessageDialog(dicResponse["error_message"]);
                 await messageDialog.ShowAsync();
             } 
@@ -402,6 +422,7 @@ namespace GenieWin8
                     FilterLevelPopup.IsOpen = false;
                     SettingCompletePopup.IsOpen = true;
                     InProgress.IsActive = false;
+                    pleasewait.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Visible;
                     FilterLvPreviousButton.Visibility = Visibility.Collapsed;
                     FilterLvNextButton.Visibility = Visibility.Collapsed;
@@ -417,6 +438,7 @@ namespace GenieWin8
 	        {
 		        SettingCompletePopup.IsOpen = false;
                 InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Collapsed;
 		        ReturnToStatusButton.Visibility = Visibility.Collapsed;
                 this.Frame.Navigate(typeof(ParentalControlPage));
@@ -426,6 +448,7 @@ namespace GenieWin8
         private async void checkParentalControl_Click(Object sender, RoutedEventArgs e)
         {
             InProgress.IsActive = true;
+            pleasewait.Visibility = Visibility.Visible;
             PopupBackgroundTop.Visibility = Visibility.Visible;
             PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
@@ -450,6 +473,7 @@ namespace GenieWin8
                 BypassAccount.Visibility = Visibility.Collapsed;
             }
             InProgress.IsActive = false;
+            pleasewait.Visibility = Visibility.Collapsed;
             PopupBackgroundTop.Visibility = Visibility.Collapsed;
             PopupBackground.Visibility = Visibility.Collapsed;
         }

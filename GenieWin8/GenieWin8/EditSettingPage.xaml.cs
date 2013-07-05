@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
+using Windows.UI.Popups;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -46,7 +47,7 @@ namespace GenieWin8
 	        this.DefaultViewModel["itemKey"] = editKey;
             var channelsecurity = SettingSource.GetChannelSecurity((String)navigationParameter);
 	        this.DefaultViewModel["itemChannelSecurity"] = channelsecurity;
-            if (WifiInfoModel.securityType == "None")
+            if (WifiInfoModel.changedSecurityType == "None")
             {
                 gridKey.Visibility = Visibility.Collapsed;
             }
@@ -54,6 +55,16 @@ namespace GenieWin8
             {
                 gridKey.Visibility = Visibility.Visible;
             }
+
+            //判断保存按钮是否可点击
+            if (WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true)
+            {
+                wifiSettingSave.IsEnabled = true;
+            }
+            else
+            {
+                wifiSettingSave.IsEnabled = false;
+            }   
         }
 
         /// <summary>
@@ -64,6 +75,52 @@ namespace GenieWin8
         /// <param name="pageState">要使用可序列化状态填充的空字典。</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        //判断SSID是否更改以及保存按钮是否可点击
+        private void ssid_changed(Object sender, RoutedEventArgs e)
+        {
+            string ssid = SSID.Text.Trim();
+            if (ssid != WifiInfoModel.ssid && ssid != "")
+            {
+                wifiSettingSave.IsEnabled = true;
+                WifiInfoModel.isSSIDChanged = true;                
+            }
+            else
+            {
+                WifiInfoModel.isSSIDChanged = false;
+                if (WifiInfoModel.isPasswordChanged == true || WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true)
+                {
+                    wifiSettingSave.IsEnabled = true;
+                } 
+                else
+                {
+                    wifiSettingSave.IsEnabled = false;
+                }               
+            }
+        }
+
+        //判断密码是否更改以及保存按钮是否可点击
+        private void pwd_changed(Object sender, RoutedEventArgs e)
+        {
+            string password = pwd.Text.Trim();
+            if (password != WifiInfoModel.password && password != "")
+            {
+                wifiSettingSave.IsEnabled = true;
+                WifiInfoModel.isPasswordChanged = true;
+            }
+            else
+            {
+                WifiInfoModel.isPasswordChanged = false;
+                if (WifiInfoModel.isSSIDChanged == true || WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true)
+                {
+                    wifiSettingSave.IsEnabled = true;
+                }
+                else
+                {
+                    wifiSettingSave.IsEnabled = false;
+                }
+            }
         }
 
         private void ChannelSecurity_ItemClick(Object sender, ItemClickEventArgs e)
@@ -84,16 +141,58 @@ namespace GenieWin8
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetInfo("WLANConfiguration");
-            WifiInfoModel.ssid = dicResponse["NewSSID"];
-            WifiInfoModel.channel = dicResponse["NewChannel"];
-            WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+            if (dicResponse.Count > 0)
+            {
+                WifiInfoModel.ssid = dicResponse["NewSSID"];
+                WifiInfoModel.channel = dicResponse["NewChannel"];
+                WifiInfoModel.changedChannel = dicResponse["NewChannel"];
+                WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+            }            
             dicResponse = await soapApi.GetWPASecurityKeys();
-            WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+            if (dicResponse.Count > 0)
+            {
+                WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+            }            
+            WifiInfoModel.isSSIDChanged = false;
+            WifiInfoModel.isPasswordChanged = false;
+            WifiInfoModel.isChannelChanged = false;
+            WifiInfoModel.isSecurityTypeChanged = false;
             this.Frame.Navigate(typeof(WifiSettingPage));
         }
 
+        DispatcherTimer timer = new DispatcherTimer();      //计时器
         private async void WifiSettingSave_Click(object sender, RoutedEventArgs e)
         {
+            // Create the message dialog and set its content
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var strtext = loader.GetString("wirelsssetting");
+            var messageDialog = new MessageDialog(strtext);
+
+            // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
+            messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
+            messageDialog.Commands.Add(new UICommand("No", null));
+
+            // Set the command that will be invoked by default
+            messageDialog.DefaultCommandIndex = 0;
+
+            // Set the command to be invoked when escape is pressed
+            messageDialog.CancelCommandIndex = 1;
+
+            // Show the message dialog
+            await messageDialog.ShowAsync();
+        }
+
+        #region Commands
+        /// <summary>
+        /// Callback function for the invocation of the dialog commands.
+        /// </summary>
+        /// <param name="command">The command that was invoked.</param>
+        private async void CommandInvokedHandler(IUICommand command)
+        {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
 
             string ssid = SSID.Text.Trim();
@@ -102,12 +201,53 @@ namespace GenieWin8
             {
                 if (WifiInfoModel.securityType.CompareTo("None") == 0)
                 {
-                    await soapApi.SetWLANNoSecurity(ssid, WifiInfoModel.region, WifiInfoModel.channel, WifiInfoModel.wirelessMode);
+                    timer.Interval = TimeSpan.FromSeconds(1);
+                    timer.Tick += new System.EventHandler<object>(timer_Tick);
+                    timer.Start();
+                    await soapApi.SetWLANNoSecurity(ssid, WifiInfoModel.region, WifiInfoModel.changedChannel, WifiInfoModel.wirelessMode);
+                    WifiInfoModel.channel = WifiInfoModel.changedChannel;
+                    WifiInfoModel.isSSIDChanged = false;
+                    WifiInfoModel.isPasswordChanged = false;
+                    WifiInfoModel.isChannelChanged = false;
+                    WifiInfoModel.isSecurityTypeChanged = false;
+                    wifiSettingSave.IsEnabled = false;
                 }
                 else
                 {
-                    await soapApi.SetWLANWEPByPassphrase(ssid, WifiInfoModel.region, WifiInfoModel.channel, WifiInfoModel.wirelessMode, WifiInfoModel.securityType, password);
+                    timer.Interval = TimeSpan.FromSeconds(1);
+                    timer.Tick += new System.EventHandler<object>(timer_Tick);
+                    timer.Start();
+                    await soapApi.SetWLANWEPByPassphrase(ssid, WifiInfoModel.region, WifiInfoModel.changedChannel, WifiInfoModel.wirelessMode, WifiInfoModel.changedSecurityType, password);
+                    WifiInfoModel.channel = WifiInfoModel.changedChannel;
+                    WifiInfoModel.securityType = WifiInfoModel.changedSecurityType;
+                    WifiInfoModel.isSSIDChanged = false;
+                    WifiInfoModel.isPasswordChanged = false;
+                    WifiInfoModel.isChannelChanged = false;
+                    WifiInfoModel.isSecurityTypeChanged = false;
+                    wifiSettingSave.IsEnabled = false;
                 }
+            }
+        }
+        #endregion
+
+        int count = 90;     //倒计时间
+        async void timer_Tick(object sender, object e)
+        {
+            waittime.Text = count.ToString();
+            count--;
+            if (count < 0)
+            {
+                timer.Stop();
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var strtext = loader.GetString("wirelesssettinrelogin");
+                var messageDialog = new MessageDialog(strtext);
+                await messageDialog.ShowAsync();
+                MainPageInfo.bLogin = false;
+                //此处导航回到主页还存在问题，待解决。
+                //this.Frame.Navigate(typeof(MainPage));
             }
         }
     }
