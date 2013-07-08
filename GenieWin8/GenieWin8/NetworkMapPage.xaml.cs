@@ -112,6 +112,16 @@ namespace GenieWin8
                         line.X2 = width / 2 + x; line.Y2 = height / 2 - y;
                         line.Stroke = new SolidColorBrush(Colors.SeaGreen);
                         line.StrokeThickness = 2;
+                        if (j == 0)
+                        {
+                            //判断路由器是否已连接因特网
+                            UtilityTool util = new UtilityTool();
+                            bool isConnectToInternet = util.IsConnectedToInternet();
+                            if (!isConnectToInternet)
+                            {
+                                line.Stroke = new SolidColorBrush(Colors.Red);
+                            }
+                        }
                         Image imgSignal = new Image();
                         if (j > 0 && Group.ElementAt(7 * i + j).NODE.connectType == "wireless")
                         {
@@ -324,6 +334,16 @@ namespace GenieWin8
                             line.X2 = width / 2 + x; line.Y2 = height / 2 - y;
                             line.Stroke = new SolidColorBrush(Colors.SeaGreen);
                             line.StrokeThickness = 2;
+                            if (j == 0)
+                            {
+                                //判断路由器是否已连接因特网
+                                UtilityTool util = new UtilityTool();
+                                bool isConnectToInternet = util.IsConnectedToInternet();
+                                if (!isConnectToInternet)
+                                {
+                                    line.Stroke = new SolidColorBrush(Colors.Red);
+                                }
+                            }
                             Image imgSignal = new Image();
                             if (j > 0 && Group.ElementAt(7 * i + j).NODE.connectType == "wireless")
                             {
