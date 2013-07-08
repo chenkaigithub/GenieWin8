@@ -100,6 +100,7 @@ namespace GenieWin8
             request.Content = soapContent;
             request.Headers.ConnectionClose = true;
             request.Headers.ExpectContinue = false;
+            request.Headers.Add("Cookie", cookie);
            // byte[] resultbt;
            // string resultstr;
             try
@@ -154,9 +155,9 @@ namespace GenieWin8
             return "";
         }
 
-        public async Task<string> postFcml(string resourceAddress,string body)
+        public async Task<string> SendFcml(HttpMethod method,string resourceAddress,string body)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, resourceAddress);
+            HttpRequestMessage request = new HttpRequestMessage(method, resourceAddress);
             StringContent soapContent = new StringContent(body, Encoding.UTF8, "application/x-www-form-urlencoded");
             request.Content = soapContent;
             request.Headers.ConnectionClose = true;
@@ -208,6 +209,7 @@ namespace GenieWin8
             request.Content = soapContent;
             request.Headers.ConnectionClose = true;
             request.Headers.ExpectContinue = false;
+            request.Headers.Add("Cookie",cookie);
             byte[] resultbt;
             string resultstr;
             try
@@ -219,8 +221,15 @@ namespace GenieWin8
                 if (statusCode == HttpStatusCode.OK)
                 {
                     retOK = true;
-                   // string fcmlBody = "";
-                    //postFcml();
+                    resourceAddress = string.Format("https://genie.netgear.com:443/fcp/receive?n={0}", name);
+                    HttpRequestMessage requestRec = new HttpRequestMessage(HttpMethod.Get, resourceAddress);
+                    requestRec.Headers.ConnectionClose = true;
+                    requestRec.Headers.ExpectContinue = false;
+                    requestRec.Headers.Add("Cookie",cookie);
+                    HttpResponseMessage responseRec = await httpClient.SendAsync(requestRec);
+                    resultbt = await responseRec.Content.ReadAsByteArrayAsync();
+                    resultstr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
+                   
                 }
                 else
                 {
@@ -246,31 +255,52 @@ namespace GenieWin8
             
         }
 
-        public async Task<string> GetCPList()
+        /// <summary>
+        /// <fcml from="router@portal" to="ui126903@portal"  _tracer="1" >
+        ///       <portal.router.cp82194.is_all modelId="controlpointmodel6" model="WNR3500Lv2" local_ip="192.168.9.135" owner="true" active="false" friendly_name="My WNR3500Lv2" type="domain" serial="2P21227Y00005" ip="220.168.30.10"/>
+		///		   <portal.router.cp82195.is_all modelId="controlpointmodel6" model="WNR3500Lv2" local_ip="192.168.9.163" owner="true" active="false" friendly_name="My WNR3500Lv2" type="domain" serial="2P21177F0008A" ip="220.168.30.10"/>
+        ///	</fcml>
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Dictionary<string, string>>> GetCPList()
         {
+            List<Dictionary<string, string>> cpList = new List<Dictionary<string, string>>();//存储远程端的每一个路由器信息
             string result = await FcmlRequest("router@portal", "<get/>");
             if (result != "" && result != null)
-            { 
+            {
                 XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.LoadXml(result);
-                    IXmlNode node = xmlDoc.FirstChild;
-                    if (node != null)
+                xmlDoc.LoadXml(result);
+                IXmlNode root = xmlDoc.FirstChild;
+                if (root != null)
+                {
+                    if (0 == root.NodeName.CompareTo("fcml"))
                     {
-                        if (0 == node.NodeName.CompareTo("init"))
+                        if (root.HasChildNodes())
                         {
-                            foreach (XmlAttribute att in node.Attributes)
+                            foreach (IXmlNode node in root.ChildNodes)
                             {
-                                if (att.NodeName == "name")
-                                {
-                                    name = att.NodeValue.ToString();
-                                }
+                                Dictionary<string, string> rowDic = new Dictionary<string, string>();
+                                string cpName = CpName(node.NodeName);
+                                rowDic.Add("cp_identifier", cpName);
+                                rowDic.Add("model", node.Attributes[1].NodeValue.ToString());
+                                rowDic.Add("active", node.Attributes[4].NodeValue.ToString());
+                                rowDic.Add("friendly_name", node.Attributes[5].NodeValue.ToString());
+                                rowDic.Add("serial", node.Attributes[7].NodeValue.ToString());
+
+                                cpList.Add(rowDic);
                             }
                         }
                     }
+                }
             }
-            return "";
+            return cpList;
         }
 
+        /// <summary>
+        /// 根据/fcp/authenticate请求中解析出Cookie
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
         private string GetCookie(string head)
         {
             string[] sList = Regex.Split(head, "\r\n|\n");
@@ -285,6 +315,23 @@ namespace GenieWin8
             }
             
             return "";
+        }
+
+        /// <summary>
+        /// 获取cp标识
+        /// </summary>
+        /// <param name="tagName">portal.router.cp82194.is_all</param>
+        /// <returns>cp82194</returns>
+        private string CpName(string tagName)
+        {
+            string retName = "";
+            Regex reg = new Regex("portal\\.router\\.(.*)\\.is_all");
+            Match match = reg.Match(tagName);
+            if (match.Success)
+            {
+                retName = match.Groups[1].ToString();
+            }
+            return retName;
         }
     }
 }
