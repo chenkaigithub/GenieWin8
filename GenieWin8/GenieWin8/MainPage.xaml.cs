@@ -160,10 +160,10 @@ namespace GenieWin8
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     UtilityTool util = new UtilityTool();
-                    NetworkMapDodel.geteway = await util.GetGateway();
+                    NetworkMapModel.geteway = await util.GetGateway();
                     Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
                     responseDic = await soapApi.GetAttachDevice();
-                    NetworkMapDodel.attachDeviceDic = responseDic;
+                    NetworkMapModel.attachDeviceDic = responseDic;
 
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetInfo("WLANConfiguration");
@@ -174,7 +174,7 @@ namespace GenieWin8
                         WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                         WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
                     }                   
-                    NetworkMapDodel.fileContent = await ReadDeviceInfoFile();
+                    NetworkMapModel.fileContent = await ReadDeviceInfoFile();
                     InProgress.IsActive = false;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
@@ -264,13 +264,13 @@ namespace GenieWin8
                             ///通过attachDevice获取本机的Mac地址
                             Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
                             responseDic = await soapApi.GetAttachDevice();
-                            NetworkMapDodel.attachDeviceDic = responseDic;
+                            NetworkMapModel.attachDeviceDic = responseDic;
 
                             Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                             dicResponse2 = await soapApi.GetEnableStatus();
                             ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
-                            dicResponse2 = await soapApi.GetDNSMasqDeviceID("default");
-                            ParentalControlInfo.DeviceId = dicResponse2["NewDeviceID"];
+                            //dicResponse2 = await soapApi.GetDNSMasqDeviceID("default");
+                            //ParentalControlInfo.DeviceId = dicResponse2["NewDeviceID"];
                             InProgress.IsActive = false;
                             PopupBackgroundTop.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Collapsed;
@@ -297,7 +297,7 @@ namespace GenieWin8
                     //GenieSoapApi soapApi = new GenieSoapApi();
                     //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
                     //responseDic = await soapApi.GetAttachDevice();
-                    //NetworkMapDodel.attachDeviceDic = responseDic;
+                    //NetworkMapModel.attachDeviceDic = responseDic;
                   //  GenieFcml fcml = new GenieFcml();
                    // await fcml.Init("siteviewgenietest@gmail.com", "siteview");
                   // await fcml.GetCPList();

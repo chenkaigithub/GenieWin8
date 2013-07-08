@@ -515,10 +515,10 @@ namespace GenieWin8
             PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             UtilityTool util = new UtilityTool();
-            NetworkMapDodel.geteway = await util.GetGateway();
+            NetworkMapModel.geteway = await util.GetGateway();
             Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
             responseDic = await soapApi.GetAttachDevice();
-            NetworkMapDodel.attachDeviceDic = responseDic;
+            NetworkMapModel.attachDeviceDic = responseDic;
 
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetInfo("WLANConfiguration");
@@ -529,7 +529,7 @@ namespace GenieWin8
                 WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                 WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
             }           
-            NetworkMapDodel.fileContent = await ReadDeviceInfoFile();
+            NetworkMapModel.fileContent = await ReadDeviceInfoFile();
             InProgress.IsActive = false;
             PopupBackgroundTop.Visibility = Visibility.Collapsed;
             PopupBackground.Visibility = Visibility.Collapsed;

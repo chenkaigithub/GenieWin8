@@ -9,7 +9,9 @@ namespace GenieWin8.DataModel
     class MainPageInfo
     {
         public static bool bLogin = false;
+        public static string username;
         public static string password;
+        public static string rememberpassword;          //记住密码被勾选时，标识保存在本机的密码。
         public static string model;
     }
 }

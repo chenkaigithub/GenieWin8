@@ -14,11 +14,11 @@
             <TextBlock x:Uid="EnterUsername_Password" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
             <Grid Margin="20,15,20,0">
                 <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBox x:Name="username" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" LostFocus="IsBlankUsername"/>
+                <TextBox x:Name="username" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" TextChanged="IsBlankUsername"/>
             </Grid>
             <Grid Margin="20,15,20,0">
                 <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <PasswordBox x:Name="password" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" LostFocus="IsBlankPassword"/>
+                <PasswordBox x:Name="password" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" PasswordChanged="IsBlankPassword"/>
             </Grid>
         </StackPanel>
     </Grid>

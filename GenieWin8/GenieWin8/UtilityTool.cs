@@ -332,7 +332,7 @@ namespace GenieWin8
         /// <returns></returns>
         public string GetLocalMacAddress()
         {
-            Dictionary<string, Dictionary<string, string>> attachDevice = NetworkMapDodel.attachDeviceDic;
+            Dictionary<string, Dictionary<string, string>> attachDevice = NetworkMapModel.attachDeviceDic;
             var iplist = GetCurrentIpAddresses();
             if (iplist.Count() > 0)
             {

@@ -59,14 +59,14 @@ namespace GenieWin8.Data
         {
             Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
             Dictionary<string, string> deviceInfo = new Dictionary<string, string>();
-            attachDeviceAll = NetworkMapDodel.attachDeviceDic;
+            attachDeviceAll = NetworkMapModel.attachDeviceDic;
             UtilityTool util = new UtilityTool();
             string loacalIp = util.GetLocalHostIp();
 
             Node NodeRouter = new Node();
             NodeRouter.uniqueId = "Router";
             NodeRouter.deviceName = WifiInfoModel.ssid;
-            NodeRouter.IPaddress = NetworkMapDodel.geteway;
+            NodeRouter.IPaddress = NetworkMapModel.geteway;
             NodeRouter.MACaddress = WifiInfoModel.macAddr;
             var routerGroup = new DeviceGroup(NodeRouter);
             this.DeviceGroups.Add(routerGroup);
@@ -87,9 +87,9 @@ namespace GenieWin8.Data
                 }
 
                 bool bFound = false;
-                if (NetworkMapDodel.fileContent != "")
+                if (NetworkMapModel.fileContent != "")
                 {
-                    string[] AllDeviceInfo = NetworkMapDodel.fileContent.Split(';');
+                    string[] AllDeviceInfo = NetworkMapModel.fileContent.Split(';');
                     for (int i = 0; i < AllDeviceInfo.Length; i++)
                     {
                         if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)

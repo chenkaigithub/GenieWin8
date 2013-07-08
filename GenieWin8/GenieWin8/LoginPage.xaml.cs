@@ -43,8 +43,8 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {       
-            MainPageInfo.password = await ReadPasswordFromFile();
-            if (MainPageInfo.password == "")
+            MainPageInfo.rememberpassword = await ReadPasswordFromFile();
+            if (MainPageInfo.rememberpassword == "")
             {
                 checkRememberPassword.IsChecked = false;
             } 
@@ -52,7 +52,7 @@ namespace GenieWin8
             {
                 checkRememberPassword.IsChecked = true;
             }
-            tbPassword.Password = MainPageInfo.password;
+            tbPassword.Password = MainPageInfo.rememberpassword;
         }
 
         /// <summary>
@@ -82,13 +82,15 @@ namespace GenieWin8
                 if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
                 {
                     MainPageInfo.bLogin = true;
+                    MainPageInfo.username = Username;
+                    MainPageInfo.password = Password;
                     if (checkRememberPassword.IsChecked == true)
                     {
-                        MainPageInfo.password = Password;
+                        MainPageInfo.rememberpassword = Password;
                     }
                     else
                     {
-                        MainPageInfo.password = "";                       
+                        MainPageInfo.rememberpassword = "";                       
                     }
                     InProgress.IsActive = false;
                     PopupBackground.Visibility = Visibility.Collapsed;
@@ -124,7 +126,7 @@ namespace GenieWin8
             {
                 if (file != null)
                 {
-                    await FileIO.WriteTextAsync(file, MainPageInfo.password);
+                    await FileIO.WriteTextAsync(file, MainPageInfo.rememberpassword);
                 }
             }
             catch (FileNotFoundException)

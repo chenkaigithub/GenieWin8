@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GenieWin8.DataModel
 {
-    class NetworkMapDodel
+    class NetworkMapModel
     {
         public static Dictionary<string, Dictionary<string, string>> attachDeviceDic = new Dictionary<string, Dictionary<string, string>>();
         public static string geteway;
