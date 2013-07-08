@@ -1283,9 +1283,9 @@ namespace GenieWin8
             string allDeviceInfo = string.Empty;
             string customDeviceInfo = string.Empty;
             bool bFound = false;
-            if (NetworkMapDodel.fileContent != "")
+            if (NetworkMapModel.fileContent != "")
             {
-                string[] AllDeviceInfo = NetworkMapDodel.fileContent.Split(';');
+                string[] AllDeviceInfo = NetworkMapModel.fileContent.Split(';');
                 for (int i = 0; i < AllDeviceInfo.Length; i++)
                 {
                     if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
@@ -1305,11 +1305,11 @@ namespace GenieWin8
                 {
                     allDeviceInfo += MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";
                 }
-                NetworkMapDodel.fileContent = allDeviceInfo;
+                NetworkMapModel.fileContent = allDeviceInfo;
             }
             else
             {
-                NetworkMapDodel.fileContent = MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";              
+                NetworkMapModel.fileContent = MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";              
             }
             WriteDeviceInfoFile();
 
@@ -1330,7 +1330,7 @@ namespace GenieWin8
             {                 
                 if (file != null)
                 {
-                    await FileIO.WriteTextAsync(file, NetworkMapDodel.fileContent);
+                    await FileIO.WriteTextAsync(file, NetworkMapModel.fileContent);
                 }
             }
             catch (FileNotFoundException)

@@ -338,6 +338,7 @@ namespace GenieWin8
             {
                 InProgress.IsActive = true;
                 pleasewait.Visibility = Visibility.Visible;
+                //登录OpenDNS账号
                 GenieWebApi webApi = new GenieWebApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await webApi.BeginLogin(ParentalControlInfo.Username, ParentalControlInfo.Password);
@@ -354,29 +355,94 @@ namespace GenieWin8
                     {
                         ParentalControlInfo.IsOpenDNSLoggedIn = true;
                         ParentalControlInfo.token = dicResponse["token"];
+                        //认证路由器
+                        GenieSoapApi soapApi = new GenieSoapApi();
                         Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                        dicResponse2 = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
-                        if (dicResponse2["status"] != "success")
+                        dicResponse2 = await soapApi.Authenticate(MainPageInfo.username, MainPageInfo.password);
+                        if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
                         {
-                            ParentalControlInfo.filterLevel = "";
-                        }
-                        else
-                        {
-                            ParentalControlInfo.filterLevel = dicResponse2["bundle"];
-                        }
-                        PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();       //再次初始化 PopupFilterLevel，标识出过滤等级
+                            Dictionary<string, string> dicResponse3 = new Dictionary<string, string>();
+                            dicResponse3 = await soapApi.GetDNSMasqDeviceID("default");
+                            if (dicResponse3.Count > 0 && int.Parse(dicResponse3["ResponseCode"]) == 0)
+                            {
+                                bool bBindSuccessed = false;
+                                ParentalControlInfo.DeviceId = dicResponse3["NewDeviceID"];
+                                if (ParentalControlInfo.DeviceId == "")                                   //deviceID == empty
+                                {                                   
+                                    bBindSuccessed = await BindingAccount();
+                                }
+                                else                                                                      //deviceID != empty
+                                {
+                                    Dictionary<string, string> dicResponse4 = new Dictionary<string, string>();
+                                    dicResponse4 = await webApi.GetLabel(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
+                                    if (dicResponse4.Count > 0 && dicResponse4["status"] == "success")
+                                    {
+                                        bBindSuccessed = await BindingAccount();
+                                    }
+                                    else if (dicResponse4.Count > 0 && dicResponse4["status"] != "success")
+                                    {
+                                        if (dicResponse4["error"] == "4003")
+                                        {
+                                            ParentalControlInfo.DeviceId = "";
+                                            bBindSuccessed = await BindingAccount();
+                                        }
+                                        else if (dicResponse4["error"] == "4001")
+                                        {
+                                            InProgress.IsActive = false;
+                                            pleasewait.Visibility = Visibility.Collapsed;
+                                            var messageDialog = new MessageDialog(dicResponse4["error_message"]);
+                                            await messageDialog.ShowAsync();
+                                            bBindSuccessed = false;
+                                        }
+                                        else
+                                        {
+                                            bBindSuccessed = await BindingAccount();
+                                        }
+                                    }
+                                }
 
-                        if (LoginPopup.IsOpen)
-                        {                            
-                            LoginPopup.IsOpen = false;
-                            FilterLevelPopup.IsOpen = true;
+                                if (bBindSuccessed)                                                     //绑定账号成功后获取过滤等级，跳到过滤等级设置界面
+                                {
+                                    Dictionary<string, string> dicResponse5 = new Dictionary<string, string>();
+                                    dicResponse5 = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
+                                    if (dicResponse5["status"] != "success")
+                                    {
+                                        ParentalControlInfo.filterLevel = "";
+                                    }
+                                    else
+                                    {
+                                        ParentalControlInfo.filterLevel = dicResponse5["bundle"];
+                                    }
+                                    PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();       //再次初始化 PopupFilterLevel，标识出过滤等级
+
+                                    if (LoginPopup.IsOpen)
+                                    {
+                                        LoginPopup.IsOpen = false;
+                                        FilterLevelPopup.IsOpen = true;
+                                        InProgress.IsActive = false;
+                                        pleasewait.Visibility = Visibility.Collapsed;
+                                        PopupBackground.Visibility = Visibility.Visible;
+                                        LoginPreviousButton.Visibility = Visibility.Collapsed;
+                                        LoginNextButton.Visibility = Visibility.Collapsed;
+                                        FilterLvPreviousButton.Visibility = Visibility.Visible;
+                                        FilterLvNextButton.Visibility = Visibility.Visible;
+                                    }
+                                }                               
+                            }
+                            else if (dicResponse3.Count > 0 && int.Parse(dicResponse3["ResponseCode"]) == 401)
+                            {
+                                InProgress.IsActive = false;
+                                pleasewait.Visibility = Visibility.Collapsed;
+                                var messageDialog = new MessageDialog("Not authenticated");
+                                await messageDialog.ShowAsync();
+                            }                            
+                        }
+                        else if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 401)
+                        {
                             InProgress.IsActive = false;
                             pleasewait.Visibility = Visibility.Collapsed;
-                            PopupBackground.Visibility = Visibility.Visible;
-                            LoginPreviousButton.Visibility = Visibility.Collapsed;
-                            LoginNextButton.Visibility = Visibility.Collapsed;
-                            FilterLvPreviousButton.Visibility = Visibility.Visible;
-                            FilterLvNextButton.Visibility = Visibility.Visible;
+                            var messageDialog = new MessageDialog("Invalid username and/or password");
+                            await messageDialog.ShowAsync();
                         }
                     }
                 }
@@ -484,8 +550,8 @@ namespace GenieWin8
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetEnableStatus();
             ParentalControlInfo.isParentalControlEnabled = dicResponse["ParentalControl"];
-            dicResponse = await soapApi.GetDNSMasqDeviceID("default");
-            ParentalControlInfo.DeviceId = dicResponse["NewDeviceID"];
+            //dicResponse = await soapApi.GetDNSMasqDeviceID("default");
+            //ParentalControlInfo.DeviceId = dicResponse["NewDeviceID"];
             this.Frame.Navigate(typeof(ParentalControlPage));
         }
 
@@ -507,5 +573,52 @@ namespace GenieWin8
             }
             return fileContent;
         }
+
+        //绑定账号
+        private async Task<bool> BindingAccount()                                //GetDevice -> CreateDevice -> SetDNSMasqDeviceID 流程
+        {
+            bool bSuccessed = false;
+            GenieSoapApi soapApi = new GenieSoapApi();
+            GenieWebApi webApi = new GenieWebApi();
+            string macAddr = "";
+            string modelName = "";
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            if (dicResponse.Count > 0)
+            {
+                macAddr = dicResponse["NewWLANMACAddress"];                      //获取MAC地址
+            }
+            dicResponse = await soapApi.GetInfo("DeviceInfo");
+            if (dicResponse.Count > 0)
+            {
+                modelName = dicResponse["ModelName"];                            //获取modelname
+            }
+            string deviceKey = modelName + "-" + macAddr;
+            dicResponse = await webApi.GetDevice(ParentalControlInfo.token, deviceKey);
+            if (dicResponse.Count > 0 && dicResponse["status"] == "success")
+            {
+                await soapApi.SetDNSMasqDeviceID("default", ParentalControlInfo.DeviceId);
+                bSuccessed = true;
+            }
+            else if (dicResponse.Count > 0 && dicResponse["status"] != "success")
+            {
+                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                dicResponse2 = await webApi.CreateDevice(ParentalControlInfo.token, deviceKey);
+                if (dicResponse2.Count > 0 && dicResponse2["status"] == "success")
+                {
+                    await soapApi.SetDNSMasqDeviceID("default", ParentalControlInfo.DeviceId);
+                    bSuccessed = true;
+                }
+                else if (dicResponse2.Count > 0 && dicResponse2["status"] != "success")
+                {
+                    InProgress.IsActive = false;
+                    pleasewait.Visibility = Visibility.Collapsed;
+                    var messageDialog = new MessageDialog(dicResponse2["error_message"]);
+                    await messageDialog.ShowAsync();
+                    bSuccessed = false;
+                }                
+            }
+            return bSuccessed;
+        }       
     }
 }
