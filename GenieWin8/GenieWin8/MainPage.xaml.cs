@@ -297,13 +297,10 @@ namespace GenieWin8
                     //GenieSoapApi soapApi = new GenieSoapApi();
                     //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
                     //responseDic = await soapApi.GetAttachDevice();
-<<<<<<< HEAD
-                    //NetworkMapDodel.attachDeviceDic = responseDic;
-                   // GenieFcml fcml = new GenieFcml();
-=======
+
                     //NetworkMapModel.attachDeviceDic = responseDic;
                   //  GenieFcml fcml = new GenieFcml();
->>>>>>> 29c25ced15d9b68abea3a546a582e1fcf72e37ba
+
                    // await fcml.Init("siteviewgenietest@gmail.com", "siteview");
                    //await fcml.GetCPList();
                     this.Frame.Navigate(typeof(MyMediaPage));
