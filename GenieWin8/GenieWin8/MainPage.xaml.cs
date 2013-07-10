@@ -297,10 +297,12 @@ namespace GenieWin8
                     //GenieSoapApi soapApi = new GenieSoapApi();
                     //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
                     //responseDic = await soapApi.GetAttachDevice();
+
                     //NetworkMapModel.attachDeviceDic = responseDic;
                   //  GenieFcml fcml = new GenieFcml();
+
                    // await fcml.Init("siteviewgenietest@gmail.com", "siteview");
-                  // await fcml.GetCPList();
+                   //await fcml.GetCPList();
                     this.Frame.Navigate(typeof(MyMediaPage));
                 }
                 else if (groupId == "MarketPlace")
