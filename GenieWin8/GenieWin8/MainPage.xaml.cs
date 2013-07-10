@@ -17,8 +17,16 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+
+using ThoughtWorks.QRCode.Codec;
+using ThoughtWorks.QRCode.Codec.Data;
+using ThoughtWorks.QRCode.Codec.Util;
+using Windows.UI.Xaml.Media.Imaging;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Graphics.Imaging;
 
 // “项目页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234233 上提供
 
@@ -76,7 +84,8 @@ namespace GenieWin8
             var groupId = ((DataGroup)e.ClickedItem).UniqueId;
             if (MainPageInfo.bLogin)	//已登陆
             {
-                GenieSoapApi soapApi = new GenieSoapApi();                
+                GenieSoapApi soapApi = new GenieSoapApi();
+                //无线设置
                 if (groupId == "WiFiSetting")
                 {
                     //WifiInfoModel wifiInfo = new WifiInfoModel ();
@@ -105,6 +114,7 @@ namespace GenieWin8
                     PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(WifiSettingPage));
                 }
+                //访客访问
                 else if (groupId == "GuestAccess")
                 {
                     //await soapApi.GetGuestAccessEnabled();
@@ -154,6 +164,7 @@ namespace GenieWin8
                         await messageDialog.ShowAsync();
                     }
                 }
+                //网络映射
                 else if (groupId == "NetworkMap")
                 {
                     InProgress.IsActive = true;
@@ -180,6 +191,7 @@ namespace GenieWin8
                     PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(NetworkMapPage));
                 }
+                //流量控制
                 else if (groupId == "TrafficMeter")
                 {
                     //this.Frame.Navigate(typeof(TrafficMeterPage));
@@ -236,6 +248,7 @@ namespace GenieWin8
                         await messageDialog.ShowAsync();
                     }
                 }
+                //家长控制
                 else if (groupId == "ParentalControl")
                 {
                     InProgress.IsActive = true;
@@ -291,20 +304,70 @@ namespace GenieWin8
             }
             else	//未登录，跳到登陆页面
             {
+                //我的媒体
                 if (groupId == "MyMedia")
                 {
                     //UtilityTool util = new UtilityTool();
                     //GenieSoapApi soapApi = new GenieSoapApi();
                     //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
                     //responseDic = await soapApi.GetAttachDevice();
-
                     //NetworkMapModel.attachDeviceDic = responseDic;
-                  //  GenieFcml fcml = new GenieFcml();
-
-                   // await fcml.Init("siteviewgenietest@gmail.com", "siteview");
-                   //await fcml.GetCPList();
+                    //  GenieFcml fcml = new GenieFcml();
+                    // await fcml.Init("siteviewgenietest@gmail.com", "siteview");
+                    // await fcml.GetCPList();
                     this.Frame.Navigate(typeof(MyMediaPage));
                 }
+                //QRCode
+                else if (groupId == "QRCode")
+                {
+                    //编码代码（暂时注释）
+                    //ThoughtWorks.QRCode.Codec.QRCodeEncoder _qrCodeEncoder = new ThoughtWorks.QRCode.Codec.QRCodeEncoder();
+                    //_qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+                    //_qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.Q;
+                    //_qrCodeEncoder.QRCodeVersion = 0;
+                    //_qrCodeEncoder.QRCodeScale = 7;
+                    //string text = "Test text for QRcode";
+                    //QRCodeBitmapImage image = _qrCodeEncoder.Encode(text, System.Text.Encoding.UTF8);
+                    //WriteableBitmap wb = new WriteableBitmap(image.Width, image.Height);
+                    //ThoughtWorks.QRCode.Utilities.WriteableBitmapFromArray(wb, image.ImageByteArray);
+                    //StorageFile file = await Windows.Storage.KnownFolders.PicturesLibrary.CreateFileAsync("Genie_QRCode.png", CreationCollisionOption.ReplaceExisting);
+                    //IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.ReadWrite);
+                    //BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, fileStream);
+                    //Stream pixelStream = wb.PixelBuffer.AsStream();
+                    //byte[] pixels = new byte[pixelStream.Length];
+                    //pixelStream.Read(pixels, 0, pixels.Length);
+                    ////pixel format should convert to rgba8 
+                    //for (int i = 0; i < pixels.Length; i += 4)
+                    //{
+                    //    byte temp = pixels[i];
+                    //    pixels[i] = pixels[i + 2];
+                    //    pixels[i + 2] = temp;
+                    //}
+
+                    //encoder.SetPixelData(
+                    //  BitmapPixelFormat.Rgba8,
+                    //  BitmapAlphaMode.Straight,
+                    //  (uint)wb.PixelWidth,
+                    //  (uint)wb.PixelHeight,
+                    //  96, // Horizontal DPI 
+                    //  96, // Vertical DPI 
+                    //  pixels
+                    //  );
+                    //await encoder.FlushAsync();
+
+                    //解码代码（暂时注释）
+                    //StorageFile file = await Windows.Storage.KnownFolders.PicturesLibrary.GetFileAsync("Genie_QRCode.png");
+                    //IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
+                    //BitmapDecoder decoder = await BitmapDecoder.CreateAsync(BitmapDecoder.PngDecoderId, stream);
+                    //int width = (int)decoder.PixelWidth;
+                    //int height = (int)decoder.PixelHeight;
+                    //WriteableBitmap wb = new WriteableBitmap(width, height);
+                    //wb.SetSource(stream);
+                    //QRCodeDecoder qrCodeDecoder = new QRCodeDecoder();
+                    //QRCodeBitmapImage _image = new QRCodeBitmapImage(wb.PixelBuffer.ToArray(), wb.PixelWidth, wb.PixelHeight);
+                    //string decodeString = qrCodeDecoder.decode(_image, System.Text.Encoding.UTF8);            //decodeString为解码得到的字符串
+                }
+                //MarketPlace
                 else if (groupId == "MarketPlace")
                 {
                     var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
@@ -397,6 +460,39 @@ namespace GenieWin8
             }
             return fileContent;
         }
+
+        private IBuffer RandomAccessStreamToBuffer(IRandomAccessStream randomstream)
+        {
+            Stream stream = WindowsRuntimeStreamExtensions.AsStreamForRead(randomstream.GetInputStreamAt(0));
+            MemoryStream memoryStream = new MemoryStream();
+            if (stream != null)
+            {
+                byte[] bytes = ConvertStreamTobyte(stream);
+                if (bytes != null)
+                {
+                    var binaryWriter = new BinaryWriter(memoryStream);
+                    binaryWriter.Write(bytes);
+                }
+            }
+            IBuffer buffer = WindowsRuntimeBufferExtensions.GetWindowsRuntimeBuffer(memoryStream, 0, (int)memoryStream.Length);
+            return buffer;
+        }
+
+
+        public static byte[] ConvertStreamTobyte(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        } 
 
     }
 }

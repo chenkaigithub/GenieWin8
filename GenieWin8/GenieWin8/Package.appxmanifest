@@ -31,6 +31,7 @@
     </Application>
   </Applications>
   <Capabilities>
+    <Capability Name="picturesLibrary" />
     <Capability Name="documentsLibrary" />
     <Capability Name="enterpriseAuthentication" />
     <Capability Name="internetClientServer" />

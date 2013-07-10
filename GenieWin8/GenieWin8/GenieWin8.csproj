@@ -457,6 +457,12 @@
       <HintPath>lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QRCode\QRCode.csproj">
+      <Project>{81f333d9-aa85-4bb8-888b-fa9c25ff770a}</Project>
+      <Name>QRCode</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
