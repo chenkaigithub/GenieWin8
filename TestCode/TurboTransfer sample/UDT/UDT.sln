@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UDT", "UDT\UDT.vcxproj", "{4BE1A3AB-2240-4A6C-9519-0A163DEF55F3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UDTTest", "UDTTest\UDTTest.vcxproj", "{2BA4902C-E672-4806-8979-703619C8DF96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BE1A3AB-2240-4A6C-9519-0A163DEF55F3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4BE1A3AB-2240-4A6C-9519-0A163DEF55F3}.Debug|Win32.Build.0 = Debug|Win32
+		{4BE1A3AB-2240-4A6C-9519-0A163DEF55F3}.Release|Win32.ActiveCfg = Release|Win32
+		{4BE1A3AB-2240-4A6C-9519-0A163DEF55F3}.Release|Win32.Build.0 = Release|Win32
+		{2BA4902C-E672-4806-8979-703619C8DF96}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2BA4902C-E672-4806-8979-703619C8DF96}.Debug|Win32.Build.0 = Debug|Win32
+		{2BA4902C-E672-4806-8979-703619C8DF96}.Release|Win32.ActiveCfg = Release|Win32
+		{2BA4902C-E672-4806-8979-703619C8DF96}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
