@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4C66E2B-97CC-4954-9C06-C54E8F000C96}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SV.UPnPLite</RootNamespace>
+    <AssemblyName>SV.UPnPLite</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Build\Bin\Desktop\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Build\Bin\Desktop\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\DictinonaryExtensions.cs" />
+    <Compile Include="Extensions\LoggerExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtenstions.cs" />
+    <Compile Include="Extensions\ObservableCollectionExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\XDocumentExtensions.cs" />
+    <Compile Include="Extensions\XElementExtensions.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\ILogManager.cs" />
+    <Compile Include="OnDemandObservable.cs" />
+    <Compile Include="Protocols\DLNA\Extensions\IntExtensions.cs" />
+    <Compile Include="Protocols\DLNA\IMediaRenderersDiscovery.cs" />
+    <Compile Include="Protocols\DLNA\IMediaServersDiscovery.cs" />
+    <Compile Include="Protocols\DLNA\MediaRenderer.cs" />
+    <Compile Include="Protocols\DLNA\MediaRendererError.cs" />
+    <Compile Include="Protocols\DLNA\MediaRendererException.cs" />
+    <Compile Include="Protocols\DLNA\MediaRenderersDiscovery.cs" />
+    <Compile Include="Protocols\DLNA\MediaRendererState.cs" />
+    <Compile Include="Protocols\DLNA\MediaServer.cs" />
+    <Compile Include="Protocols\DLNA\MediaServerError.cs" />
+    <Compile Include="Protocols\DLNA\MediaServerException.cs" />
+    <Compile Include="Protocols\DLNA\MediaServersDiscovery.cs" />
+    <Compile Include="Protocols\DLNA\Services\AvTransport\AvTransportService.cs" />
+    <Compile Include="Protocols\DLNA\Services\AvTransport\IAvTransportService.cs" />
+    <Compile Include="Protocols\DLNA\Services\AvTransport\MediaInfo.cs" />
+    <Compile Include="Protocols\DLNA\Services\AvTransport\PositionInfo.cs" />
+    <Compile Include="Protocols\DLNA\Services\AvTransport\TransportInfo.cs" />
+    <Compile Include="Protocols\DLNA\Services\AvTransport\TransportState.cs" />
+    <Compile Include="Protocols\DLNA\Services\AvTransport\TransportStatus.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\AudioItem.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\BrowseFlag.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\BrowseResult.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\ContentDirectoryService.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\Extensions\StringExtensions.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\IContentDirectoryService.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\ImageItem.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\MediaContainer.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\MediaItem.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\MediaObject.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\MediaResource.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\MusicTrack.cs" />
+    <Compile Include="Protocols\DLNA\Services\ContentDirectory\VideoItem.cs" />
+    <Compile Include="Protocols\DLNA\Services\ParsingHelper.cs" />
+    <Compile Include="Protocols\SSDP\SSDPServer.cs" />
+    <Compile Include="Protocols\UPnP\CommonUPnPDevicesDiscovery.cs" />
+    <Compile Include="Protocols\UPnP\DeviceIcon.cs" />
+    <Compile Include="Protocols\UPnP\DeviceActivity.cs" />
+    <Compile Include="Protocols\UPnP\DeviceActivityEventArgs.cs" />
+    <Compile Include="Protocols\UPnP\UPnPDeviceException.cs" />
+    <Compile Include="Protocols\UPnP\UPnPDevicesDiscovery.cs" />
+    <Compile Include="Protocols\UPnP\CommonUPnPDevice.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocols\SSDP\ISSDPServer.cs" />
+    <Compile Include="Protocols\SSDP\Messages\NotifyMessage.cs" />
+    <Compile Include="Protocols\SSDP\Messages\NotifyMessageType.cs" />
+    <Compile Include="Protocols\SSDP\Messages\SearchResponseMessage.cs" />
+    <Compile Include="Protocols\SSDP\Messages\SSDPMessage.cs" />
+    <Compile Include="Protocols\UPnP\UPnPService.cs" />
+    <Compile Include="Protocols\UPnP\UPnPDevice.cs" />
+    <Compile Include="Protocols\UPnP\UPnPServiceException.cs" />
+    <Compile Include="Protocols\UPnP\UPnPVersion.cs" />
+    <Compile Include="Size.cs" />
+    <Compile Include="XNameComparer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Reactive.Core, Version=2.0.20823.0, Culture=neutral, PublicKeyToken=f300afd708cefcd3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.0.20823.0, Culture=neutral, PublicKeyToken=f300afd708cefcd3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.0.20823.0, Culture=neutral, PublicKeyToken=f300afd708cefcd3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
+    <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

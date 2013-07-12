@@ -1,0 +1,14 @@
+﻿<Page
+    x:Class="MyMedia.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyMedia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Button Content="Search UPnP devices" HorizontalAlignment="Left" Margin="548,213,0,0" VerticalAlignment="Top" Height="68" Width="232" Click="Button_Click_1"/>
+
+    </Grid>
+</Page>
