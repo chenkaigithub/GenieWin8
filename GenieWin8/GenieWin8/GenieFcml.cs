@@ -14,7 +14,7 @@ namespace GenieWin8
     {
         HttpClient httpClient;
         bool retOK;
-        string name;
+        string name;///存储init fcml中的name属性值
         string cookie; 
         public GenieFcml()
         {
@@ -197,6 +197,12 @@ namespace GenieWin8
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="to">router@portal</param>
+        /// <param name="requestText"><get/></param>
+        /// <returns></returns>
         public async Task<string> FcmlRequest(string to, string requestText)
         {
             string resourceAddress = string.Format("https://genie.netgear.com:443/fcp/send?n={0}", name);

@@ -167,7 +167,7 @@ namespace GenieWin8
         ////------------------------------------------ ParentalControl Soap api-----------------------------------------------------------
         /// <summary>
         /// ****************** GetDNSMasqDeviceID ******************
-        /// 获得<NewDeviceID>0000111111111111</NewDeviceID> 
+        /// 获得<NewDeviceID>0000EE04911BF768</NewDeviceID> 
         /// </summary>
         /// <returns></returns>
         public async Task<Dictionary<string, string>> GetDNSMasqDeviceID(string newMACAddress = "default")
