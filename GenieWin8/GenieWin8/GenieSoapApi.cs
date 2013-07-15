@@ -743,8 +743,11 @@ namespace GenieWin8
                     string[] split_r_n = resultStr.Split(new []{"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
                     foreach(string item in split_r_n)
                     {
-                        string[] splitValue = item.Split(new []{"="}, StringSplitOptions.RemoveEmptyEntries);
-                        resultDic.Add(splitValue[0],splitValue[1]);
+                        string[] splitValue = item.Split('=');
+                        if (splitValue[0] != null && splitValue[0] != "")
+                        {
+                            resultDic.Add(splitValue[0], splitValue[1]);
+                        }
                     }
                 }
                 if (resultDic.Count > 0)
