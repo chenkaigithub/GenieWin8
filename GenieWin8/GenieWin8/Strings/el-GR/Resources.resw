@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>Η ρύθμιση ασύρματου δικτύου άλλαξε με επιτυχία. Προσπελάστε ξανά το ασύρματο δίκτυο χρησιμοποιώντας τις νέες ρυθμίσεις ασύρματου δικτύου και τα στοιχεία σύνδεσης για το genie.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>Κωδικός QR</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

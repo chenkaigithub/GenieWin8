@@ -759,4 +759,8 @@
   <data name="traffic_enable" xml:space="preserve">
     <value>启用流量统计。要继续吗？</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>QR码</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

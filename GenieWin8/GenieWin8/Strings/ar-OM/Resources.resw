@@ -729,4 +729,8 @@
   <data name="traffic_enable" xml:space="preserve">
     <value>تمكين مقياس حركة المرور. هل تريد المتابعة؟</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>رمز QR</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

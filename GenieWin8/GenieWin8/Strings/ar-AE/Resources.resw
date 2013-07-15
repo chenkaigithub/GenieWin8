@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>تم تغيير الإعداد اللاسلكي بنجاح. يرجى الانضمام مجدداً إلى الشبكة اللاسلكية من خلال استخدام إدخال لاسلكي جديد وتسجيل الدخول إلى genie.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>رمز QR</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

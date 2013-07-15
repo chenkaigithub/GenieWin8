@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>Trådløsinnstillingen ble endret. Koble til det trådløse nettverket på nytt ved hjelp av nye trådløsinnstillinger, og logg på genie.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>QR-kode</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

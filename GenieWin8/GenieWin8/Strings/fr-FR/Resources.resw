@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>Paramètre sans fil modifié avec succès. Utilisez le nouveau paramètre sans fil et votre connexion genie pour vous reconnecter à votre réseau sans fil.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>Code QR</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

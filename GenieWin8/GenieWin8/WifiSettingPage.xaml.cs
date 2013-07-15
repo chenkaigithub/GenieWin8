@@ -19,6 +19,8 @@ using ThoughtWorks.QRCode.Codec;
 using ThoughtWorks.QRCode.Codec.Data;
 using ThoughtWorks.QRCode.Codec.Util;
 using Windows.UI.Xaml.Media.Imaging;
+//using Windows.Storage;
+//using Windows.Storage.Streams;
 //using System.Runtime.InteropServices.WindowsRuntime;
 //using Windows.Graphics.Imaging;
 
@@ -50,42 +52,17 @@ namespace GenieWin8
             var SettingGroup = SettingSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = SettingGroup;
 
-            //生成二维码(未完成，暂时注释)
-            //ThoughtWorks.QRCode.Codec.QRCodeEncoder _qrCodeEncoder = new ThoughtWorks.QRCode.Codec.QRCodeEncoder();
-            //_qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-            //_qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.Q;
-            //_qrCodeEncoder.QRCodeVersion = 0;
-            //_qrCodeEncoder.QRCodeScale = 7;
-            //string text = "Test text for QRcode";
-            //QRCodeBitmapImage image = _qrCodeEncoder.Encode(text, System.Text.Encoding.UTF8);
-            //WriteableBitmap wb = new WriteableBitmap(image.Width, image.Height);
-            //ThoughtWorks.QRCode.Utilities.WriteableBitmapFromArray(wb, image.ImageByteArray);
-            //imageQRCode.Source = wb;
-
-            //StorageFile file = await Windows.Storage.KnownFolders.PicturesLibrary.CreateFileAsync("Genie_QRCode.png", CreationCollisionOption.ReplaceExisting);
-            //IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.ReadWrite);
-            //BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, fileStream);
-            //Stream pixelStream = wb.PixelBuffer.AsStream();
-            //byte[] pixels = new byte[pixelStream.Length];
-            //pixelStream.Read(pixels, 0, pixels.Length);
-            ////pixel format should convert to rgba8 
-            //for (int i = 0; i < pixels.Length; i += 4)
-            //{
-            //    byte temp = pixels[i];
-            //    pixels[i] = pixels[i + 2];
-            //    pixels[i + 2] = temp;
-            //}
-
-            //encoder.SetPixelData(
-            //  BitmapPixelFormat.Rgba8,
-            //  BitmapAlphaMode.Straight,
-            //  (uint)wb.PixelWidth,
-            //  (uint)wb.PixelHeight,
-            //  96, // Horizontal DPI 
-            //  96, // Vertical DPI 
-            //  pixels
-            //  );
-            //await encoder.FlushAsync();
+            //生成二维码
+            ThoughtWorks.QRCode.Codec.QRCodeEncoder _qrCodeEncoder = new ThoughtWorks.QRCode.Codec.QRCodeEncoder();
+            _qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+            _qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.Q;
+            _qrCodeEncoder.QRCodeVersion = 0;
+            _qrCodeEncoder.QRCodeScale = 7;
+            string codeString = "WIRELESS:" + WifiInfoModel.ssid + ";PASSWORD:" + WifiInfoModel.password;
+            QRCodeBitmapImage image = _qrCodeEncoder.Encode(codeString, System.Text.Encoding.UTF8);
+            WriteableBitmap wb = new WriteableBitmap(image.Width, image.Height);
+            ThoughtWorks.QRCode.Utilities.WriteableBitmapFromArray(wb, image.ImageByteArray);
+            imageQRCode.Source = wb;
         }
 
         /// <summary>

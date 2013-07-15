@@ -762,4 +762,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>Wireless setting was changed successfully. Please re-join your wireless network by using new wireless setting and login to Genie.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>QR Code</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

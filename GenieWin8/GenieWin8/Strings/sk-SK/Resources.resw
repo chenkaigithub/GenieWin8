@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>Nastavenie bezdrôtovej komunikácie sa úspešne zmenilo. Pripojte sa k bezdrôtovej sieti pomocou nového nastavenia bezdrôtovej komunikácie a prihláste sa do aplikácie genie.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>Kód QR</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

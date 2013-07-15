@@ -113,6 +113,7 @@
     <Compile Include="BypassAccountPage.xaml.cs">
       <DependentUpon>BypassAccountPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CamWorker.cs" />
     <Compile Include="DataModel\GuestAccessInfoModel.cs" />
     <Compile Include="DataModel\MainPageInfo.cs" />
     <Compile Include="DataModel\NetworkMapModel.cs" />
@@ -198,6 +199,9 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="QRCodePage.xaml.cs">
+      <DependentUpon>QRCodePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UtilityTool.cs" />
     <Compile Include="StartDatePage.xaml.cs">
       <DependentUpon>StartDatePage.xaml</DependentUpon>
@@ -428,6 +432,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PopupSettingComplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QRCodePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

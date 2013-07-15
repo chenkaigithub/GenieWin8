@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>Langattomat asetukset on muutettu. Liity langattomaan verkkoon uudelleen uusien langattomien asetusten avulla ja kirjaudu genieen.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>QR-koodi</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

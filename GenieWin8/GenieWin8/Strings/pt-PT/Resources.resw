@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>A configuração sem fio foi alterada com sucesso. Conecte-se novamente à sua rede sem fio usando a nova configuração sem fio e o novo login do genie.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>QR Code</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

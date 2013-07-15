@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>Brezžična nastavitev je uspešno spremenjena. Z novo brezžično nastavitvijo se ponovno pridružite v brezžično omrežje in se prijavite v program genie.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>Koda QR</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

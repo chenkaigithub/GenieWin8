@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>L\'impostazione wireless è stata modificata. Riconnettere la rete wireless utilizzando la nuova impostazione wireless, quindi accedere a genie.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>Codice QR</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

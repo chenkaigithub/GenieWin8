@@ -729,4 +729,8 @@
   <data name="wirelesssettinrelogin" xml:space="preserve">
     <value>Параметры беспроводного соединения успешно изменены. Повторно подключитесь к беспроводной сети, используя новые параметры соединения, и войдите в программу genie.</value>
   </data>
+  <data name="QRCodePageTitle.Text" xml:space="preserve">
+    <value>QR-код</value>
+    <comment>QRCodePage Title</comment>
+  </data>
 </root>

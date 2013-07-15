@@ -42,7 +42,7 @@ namespace GenieWin8
         {
             this.InitializeComponent();
         }
-
+       
         /// <summary>
         /// 使用在导航过程中传递的内容填充页。在从以前的会话
         /// 重新创建页时，也会提供任何已保存状态。
@@ -320,41 +320,7 @@ namespace GenieWin8
                 //QRCode
                 else if (groupId == "QRCode")
                 {
-                    //编码代码（暂时注释）
-                    //ThoughtWorks.QRCode.Codec.QRCodeEncoder _qrCodeEncoder = new ThoughtWorks.QRCode.Codec.QRCodeEncoder();
-                    //_qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-                    //_qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.Q;
-                    //_qrCodeEncoder.QRCodeVersion = 0;
-                    //_qrCodeEncoder.QRCodeScale = 7;
-                    //string text = "Test text for QRcode";
-                    //QRCodeBitmapImage image = _qrCodeEncoder.Encode(text, System.Text.Encoding.UTF8);
-                    //WriteableBitmap wb = new WriteableBitmap(image.Width, image.Height);
-                    //ThoughtWorks.QRCode.Utilities.WriteableBitmapFromArray(wb, image.ImageByteArray);
-                    //StorageFile file = await Windows.Storage.KnownFolders.PicturesLibrary.CreateFileAsync("Genie_QRCode.png", CreationCollisionOption.ReplaceExisting);
-                    //IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.ReadWrite);
-                    //BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, fileStream);
-                    //Stream pixelStream = wb.PixelBuffer.AsStream();
-                    //byte[] pixels = new byte[pixelStream.Length];
-                    //pixelStream.Read(pixels, 0, pixels.Length);
-                    ////pixel format should convert to rgba8 
-                    //for (int i = 0; i < pixels.Length; i += 4)
-                    //{
-                    //    byte temp = pixels[i];
-                    //    pixels[i] = pixels[i + 2];
-                    //    pixels[i + 2] = temp;
-                    //}
-
-                    //encoder.SetPixelData(
-                    //  BitmapPixelFormat.Rgba8,
-                    //  BitmapAlphaMode.Straight,
-                    //  (uint)wb.PixelWidth,
-                    //  (uint)wb.PixelHeight,
-                    //  96, // Horizontal DPI 
-                    //  96, // Vertical DPI 
-                    //  pixels
-                    //  );
-                    //await encoder.FlushAsync();
-
+                    this.Frame.Navigate(typeof(QRCodePage));                    
                     //解码代码（暂时注释）
                     //StorageFile file = await Windows.Storage.KnownFolders.PicturesLibrary.GetFileAsync("Genie_QRCode.png");
                     //IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
