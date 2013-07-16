@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Reactive.Linq;
 using SV.UPnPLite.Protocols.UPnP;
+using Windows.Storage.Pickers;
+using Windows.Storage;
+using System.Text;
 
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
@@ -89,6 +92,69 @@ namespace MyMedia
             //{
             //    Console.WriteLine("Renderer gone: {0}", e.Device.FriendlyName);
             //});
+        }
+
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.ViewMode = PickerViewMode.List;
+            openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            openPicker.FileTypeFilter.Add("*");
+            IReadOnlyList<StorageFile> files = await openPicker.PickMultipleFilesAsync();
+
+            string[] fileNames = new string[files.Count];
+            if (files.Count > 0)
+            {
+                int i = 0;
+               // fileNames = new string [files.Count];
+                //StringBuilder output = new StringBuilder("Picked files:\n");
+                // Application now has read/write access to the picked file(s)
+                foreach (StorageFile file in files)
+                {
+                  //  output.Append(file.Path + "\n");
+                    fileNames[i] = file.Path;
+                    i++;
+                }
+              //  OutputTextBlock.Text = output.ToString();
+            }
+            else
+            {
+            //    OutputTextBlock.Text = "Operation cancelled.";
+            }
+
+            PFOnAccept Fun1 = new PFOnAccept(RefComm.OnAccept);
+            PFOnTransfer Fun2 = new PFOnTransfer(RefComm.OnTransfer);
+            PFOnFineshed Fun3 = new PFOnFineshed(RefComm.OnFinished);
+            PFOnRecvMsg Fun4 = new PFOnRecvMsg(RefComm.OnRecvMsg);
+            // 初始化，注册回调函数，帮助DLL保存对象指针ptr
+            IntPtr ptr = RefComm.Init(Fun1, Fun2, Fun3, Fun4);
+            // 监听端口：7777
+            RefComm.ListenSendFile(ptr, 7777);
+
+            //string ip = "172.16.0.34";
+            string ip = "172.16.0.15";
+            string host = "WIN8";
+            string type = "GENIEMAP";
+            string text = "ttttt";
+            // 发送文本消息
+            RefComm.SendText(ptr, 7777, ip, host, type, text);
+
+            // 发送文件
+            //string[] FileName = new string[3];
+            //fileNames[0] = "D:\\Genie\\Genie.apk";
+            //fileNames[1] = "D:\\Genie\\NetAssist.exe";
+            //fileNames[2] = "D:\\Genie\\libjingle.zip";
+            RefComm.SendFiles(ptr, 7777, ip, host, type, fileNames, 3);
+
+            // 发送目录
+           // string folder = "D:\\Genie";
+            //RefComm.SendFolder(ptr, 7777, ip, host, type, folder);
+
+            // 
+            while (true)
+            {
+              //  Console.WriteLine("wait");
+            }
         }
     }
 }

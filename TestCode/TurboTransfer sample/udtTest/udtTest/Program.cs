@@ -61,8 +61,8 @@ namespace udtTest
 
             RefComm.ListenSendFile(ptr, 7777);
 
-            //StringBuilder ip = new StringBuilder("172.16.0.24");
-            StringBuilder ip = new StringBuilder("192.168.1.2");
+            StringBuilder ip = new StringBuilder("172.16.0.47");
+           // StringBuilder ip = new StringBuilder("192.168.0.34");
             StringBuilder host = new StringBuilder("WIN8");
             StringBuilder text = new StringBuilder("message");
             StringBuilder type = new StringBuilder("GENIEMAP");
