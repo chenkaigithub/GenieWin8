@@ -22,6 +22,14 @@
     </Application>
   </Applications>
   <Capabilities>
+    <Capability Name="privateNetworkClientServer" />
+    <Capability Name="sharedUserCertificates" />
+    <Capability Name="videosLibrary" />
+    <Capability Name="internetClientServer" />
+    <Capability Name="removableStorage" />
+    <Capability Name="enterpriseAuthentication" />
     <Capability Name="internetClient" />
+    <DeviceCapability Name="location" />
+    <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>

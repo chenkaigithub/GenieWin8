@@ -10,6 +10,7 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Button Content="Search UPnP devices" HorizontalAlignment="Left" Margin="548,213,0,0" VerticalAlignment="Top" Height="68" Width="232" Click="Button_Click_1"/>
         <Button Content="Send File" HorizontalAlignment="Left" Margin="281,213,0,0" VerticalAlignment="Top" Click="Button_Click_2" Height="48" Width="176"/>
+        <Button Content="Send Folder" HorizontalAlignment="Left" Margin="281,302,0,0" VerticalAlignment="Top" Height="39" Width="165" RenderTransformOrigin="0.473,0.564" Click="Button_Click_3"/>
 
     </Grid>
 </Page>

@@ -17,6 +17,7 @@ using SV.UPnPLite.Protocols.UPnP;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 using System.Text;
+using Windows.Storage.AccessCache;
 
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
@@ -154,6 +155,26 @@ namespace MyMedia
             while (true)
             {
               //  Console.WriteLine("wait");
+            }
+        }
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            FolderPicker folderPicker = new FolderPicker();
+            folderPicker.SuggestedStartLocation = PickerLocationId.Desktop;
+            //folderPicker.FileTypeFilter.Add(".docx");
+            //folderPicker.FileTypeFilter.Add(".xlsx");
+            folderPicker.FileTypeFilter.Add("*");
+            StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+            if (folder != null)
+            {
+                // Application now has read/write access to all contents in the picked folder (including other sub-folder contents)
+                StorageApplicationPermissions.FutureAccessList.AddOrReplace("PickedFolderToken", folder);
+               // OutputTextBlock.Text = "Picked folder: " + folder.Name;
+            }
+            else
+            {
+               // OutputTextBlock.Text = "Operation cancelled.";
             }
         }
     }
