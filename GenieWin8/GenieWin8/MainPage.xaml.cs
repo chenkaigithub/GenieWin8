@@ -344,8 +344,15 @@ namespace GenieWin8
             }         
         }
 
-        private void SearchButton_Click(Object sender, RoutedEventArgs e)
+        private async void SearchButton_Click(Object sender, RoutedEventArgs e)
         {
+            string text = SearchText.Text.Trim();
+            if (text != "")
+            {
+                var uri = new Uri((String)("http://support.netgear.com/search/" + text));
+                await Windows.System.Launcher.LaunchUriAsync(uri);
+            }
+            
         }
         private void LoginButton_Click(Object sender, RoutedEventArgs e)
         {

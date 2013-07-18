@@ -192,7 +192,7 @@
     <Page.TopAppBar>
         <AppBar Padding="10,0,10,0">
             <Grid>
-                <TextBox VerticalAlignment="Center" Margin="10,0,100,0" FontSize="18"/>
+                <TextBox x:Name="SearchText" VerticalAlignment="Center" Margin="10,0,100,0" FontSize="18"/>
                 <Button Click="SearchButton_Click" Style="{StaticResource SearchAppBarButtonStyle}" HorizontalAlignment="Right"/>
             </Grid>
         </AppBar>
