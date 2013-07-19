@@ -371,6 +371,7 @@ namespace GenieWin8
                 AboutPopup.IsOpen = true;
                 PopupBackgroundTop.Visibility = Visibility.Visible;
                 PopupBackground.Visibility = Visibility.Visible;
+                pleasewait.Visibility = Visibility.Collapsed;
                 CloseAboutButton.Visibility = Visibility.Visible;
                 LicenseButton.Visibility = Visibility.Visible;
             }
@@ -387,6 +388,7 @@ namespace GenieWin8
                 AboutPopup.IsOpen = false;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
+                pleasewait.Visibility = Visibility.Visible;
                 CloseAboutButton.Visibility = Visibility.Collapsed;
                 LicenseButton.Visibility = Visibility.Collapsed;
             }
@@ -399,6 +401,7 @@ namespace GenieWin8
                 AboutPopup.IsOpen = false;
                 PopupBackgroundTop.Visibility = Visibility.Visible;
                 PopupBackground.Visibility = Visibility.Visible;
+                pleasewait.Visibility = Visibility.Collapsed;
                 CloseLicenseButton.Visibility = Visibility.Visible;
                 CloseAboutButton.Visibility = Visibility.Collapsed;
                 LicenseButton.Visibility = Visibility.Collapsed;
@@ -411,6 +414,7 @@ namespace GenieWin8
                 LicensePopup.IsOpen = false;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
+                pleasewait.Visibility = Visibility.Visible;
                 CloseLicenseButton.Visibility = Visibility.Collapsed;
             }
         }

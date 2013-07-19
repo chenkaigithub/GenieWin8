@@ -1,0 +1,756 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SampleProperty" xml:space="preserve">
+    <value>示例运行时属性值</value>
+  </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="AllowPlayInNetworkText" xml:space="preserve">
+    <value>Разрешить воспроизведение в сети</value>
+  </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>Устройство с ОС Android</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>Телефон с ОС Android</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>Планшет с ОС Android</value>
+  </data>
+  <data name="AppBarButtonText" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="AppBarMenuItemText" xml:space="preserve">
+    <value>菜单项</value>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>我的应用程序</value>
+  </data>
+  <data name="AverageText" xml:space="preserve">
+    <value>Среднее</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Не удалось войти в систему. Введите правильный пароль администратора для маршрутизатора NETGEAR.</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>Плеер Blu-ray</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>Мост</value>
+  </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="btnBack" xml:space="preserve">
+    <value>возвращаться</value>
+  </data>
+  <data name="btnFileUpload" xml:space="preserve">
+    <value>Загрузить файл Спецстраницы</value>
+  </data>
+  <data name="btnModify" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="btnWhat" xml:space="preserve">
+    <value>Что это?</value>
+  </data>
+  <data name="BypassText" xml:space="preserve">
+    <value>Bypass</value>
+    <comment>Bypass</comment>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>Кабельная STB</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>Камера</value>
+  </data>
+  <data name="CancelButtonContent" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>Cancel Button Content</comment>
+  </data>
+  <data name="ChangeCustomizingSettingText" xml:space="preserve">
+    <value>Изменение пользовательских настроек</value>
+    <comment>Change Customizing Settings</comment>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Канал</value>
+    <comment>Channel</comment>
+  </data>
+  <data name="ChannelPageTitleText" xml:space="preserve">
+    <value>Канал</value>
+    <comment>EditChannelPage Title</comment>
+  </data>
+  <data name="CheckAvailabilityContent" xml:space="preserve">
+    <value>Проверить доступность</value>
+  </data>
+  <data name="CheckGuestAccessText" xml:space="preserve">
+    <value>Гостевой доступ</value>
+    <comment>Guest Access CheckBox Content</comment>
+  </data>
+  <data name="CheckParentalControlText" xml:space="preserve">
+    <value>Родительск. контроль</value>
+    <comment>Parental Control CheckBox Content</comment>
+  </data>
+  <data name="CheckTrafficMeterText" xml:space="preserve">
+    <value>Счетчик трафика</value>
+  </data>
+  <data name="CloseAboutButtonContent" xml:space="preserve">
+    <value>Закрыть</value>
+    <comment>CloseAbout Button Content</comment>
+  </data>
+  <data name="CloseLicenseButtonContent" xml:space="preserve">
+    <value>Закрыть</value>
+    <comment>CloseLicense Button Content</comment>
+  </data>
+  <data name="CompleteIllustrationText" xml:space="preserve">
+    <value>Настройка NETGEAR Live Parental Controls с использованием сервиса OpenDNS успешно завершена. При следующем запуске утилиты управления отобразится экран состояния, на котором можно выполнить следующие действия:</value>
+  </data>
+  <data name="ConfirmEmailText" xml:space="preserve">
+    <value>Подтвердите адрес эл. Почты</value>
+  </data>
+  <data name="ConfirmPasswordText" xml:space="preserve">
+    <value>Подтвердите пароль</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Авторские права (c) NETGEAR Inc., 2013</value>
+  </data>
+  <data name="CounterStartTime" xml:space="preserve">
+    <value>Время запуска счетчика</value>
+    <comment>Counter Start Time</comment>
+  </data>
+  <data name="CounterStartTimeHour" xml:space="preserve">
+    <value>Время запуска счетчика трафика-Часов</value>
+    <comment>Counter Start Time Hour</comment>
+  </data>
+  <data name="CounterStartTimeMin" xml:space="preserve">
+    <value>Время запуска счетчика трафика-Минут</value>
+    <comment>Counter Start Time Minute</comment>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="EmailText" xml:space="preserve">
+    <value>Адрес эл. Почты</value>
+  </data>
+  <data name="EnquireOpenDNSText" xml:space="preserve">
+    <value>Для установки родительского контроля Live Parental Controls необходимо иметь учетную запись OpenDNS. Учетная запись уже создана?</value>
+  </data>
+  <data name="EnterRegInformationText" xml:space="preserve">
+    <value>Введите свою информацию ниже.</value>
+  </data>
+  <data name="EnterUsername_PasswordText" xml:space="preserve">
+    <value>Ниже введите свое имя пользователя и пароль.</value>
+  </data>
+  <data name="FilterLevel" xml:space="preserve">
+    <value>Уровень фильтрации</value>
+    <comment>Filtering level</comment>
+  </data>
+  <data name="FiltingIllustrationText" xml:space="preserve">
+    <value>Все компьютеры, подключенные к вашему маршрутизатору, буду защищены от контента, который вы выберите ниже. Можно выполнить настройку Live Parental Controls позже на нашем веб-сайте.</value>
+  </data>
+  <data name="FirmwareVersionText" xml:space="preserve">
+    <value>Версия микропрограммного обеспечения：</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>Игровая приставка</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>Маршрутизатор</value>
+  </data>
+  <data name="GuestAccess" xml:space="preserve">
+    <value>Гостевой доступ</value>
+    <comment>Guest Access</comment>
+  </data>
+  <data name="GuestAccessPageTitleText" xml:space="preserve">
+    <value>Гостевой доступ</value>
+    <comment>GuestAccessPage Title</comment>
+  </data>
+  <data name="GuestSecurityPageTitleText" xml:space="preserve">
+    <value>Безопасность</value>
+    <comment>GuestSecurityPage Title</comment>
+  </data>
+  <data name="GuestSettingPageTitleText" xml:space="preserve">
+    <value>Параметры гостевого доступа</value>
+    <comment>GuestSettingPage Title</comment>
+  </data>
+  <data name="GuestTimeSegPageTitleText" xml:space="preserve">
+    <value>Период времени</value>
+    <comment>GuestTimeSegPage Title</comment>
+  </data>
+  <data name="GuestWiFiName" xml:space="preserve">
+    <value>Имя/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="Illustration1Text" xml:space="preserve">
+    <value>*  проверить, включена ли утилита Live Parental Controls</value>
+  </data>
+  <data name="Illustration2Text" xml:space="preserve">
+    <value>*  отключить или включить Live Parental Controls</value>
+  </data>
+  <data name="Illustration3Text" xml:space="preserve">
+    <value>*  изменить основные настройки</value>
+  </data>
+  <data name="Illustration4Text" xml:space="preserve">
+    <value>*  изменить такие пользовательские настройки, как Live Parental Controls для определенных пользователей и времени суток</value>
+  </data>
+  <data name="Illustration_HighText" xml:space="preserve">
+    <value>Защита от посещения всех веб-сайтов, предназначенных для взрослых, веб-сайтов, занимающихся противозаконной деятельностью, веб-сайтов социальных сетей, веб-сайтов, предназначенных для обмена видеоматериалами, от фишинг-атак и от посещения веб-сайтов, напрасно отнимающих время.</value>
+  </data>
+  <data name="Illustration_LowText" xml:space="preserve">
+    <value>Защита от посещения веб-сайтов с порнографическим содержимым и от фишинг-атак.</value>
+  </data>
+  <data name="Illustration_MediumText" xml:space="preserve">
+    <value>Защита от посещения всех веб-сайтов, предназначенных для взрослых, веб-сайтов, занимающихся противозаконной деятельностью, и от фишинг-атак.</value>
+  </data>
+  <data name="Illustration_MinimumText" xml:space="preserve">
+    <value>Защита только от фишинг-атак.</value>
+  </data>
+  <data name="Illustration_NoneText" xml:space="preserve">
+    <value>Блокировка не включена.</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Отсутствует соединение с Интернетом. Сначала подключите маршрутизатор к Интернету.</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="Key_Password" xml:space="preserve">
+    <value>Ключ/пароль</value>
+    <comment>Key/Password</comment>
+  </data>
+  <data name="LicenseButtonContent" xml:space="preserve">
+    <value>Лицензия</value>
+    <comment>License Button Content</comment>
+  </data>
+  <data name="LicenseText" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="LimitPerMonth" xml:space="preserve">
+    <value>Ограничение объема трафика в месяц (МБ)</value>
+    <comment>Monthly Limit</comment>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>Linux PC</value>
+  </data>
+  <data name="LoginButtonContent" xml:space="preserve">
+    <value>Вход в систему</value>
+    <comment>Login Button Content</comment>
+  </data>
+  <data name="LoginPageTitleText" xml:space="preserve">
+    <value>Вход в систему</value>
+    <comment>LoginPage Title</comment>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Ошибка при входе! Проверьте подключение данного компьютера к маршрутизатору NETGEAR.</value>
+  </data>
+  <data name="LogoutButtonContent" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="MarketPlace" xml:space="preserve">
+    <value>MarketPlace</value>
+    <comment>MarketPlace</comment>
+  </data>
+  <data name="MbytesText" xml:space="preserve">
+    <value>МБайт</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>Мультимедийное устройство</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>Смартфон</value>
+  </data>
+  <data name="MyMedia" xml:space="preserve">
+    <value>Мои мультимедиа</value>
+    <comment>My Media</comment>
+  </data>
+  <data name="MyMediaOption" xml:space="preserve">
+    <value>Параметры</value>
+    <comment>Options</comment>
+  </data>
+  <data name="MyMediaOptionPageTitleText" xml:space="preserve">
+    <value>Параметры</value>
+    <comment>MyMediaOptionPage Title</comment>
+  </data>
+  <data name="MyMediaPageTitleText" xml:space="preserve">
+    <value>Мои мультимедиа</value>
+    <comment>MyMediaPage Title</comment>
+  </data>
+  <data name="MyMediaPlayer" xml:space="preserve">
+    <value>Проигрыватель</value>
+    <comment>Player</comment>
+  </data>
+  <data name="MyMediaPlayerPageTitleText" xml:space="preserve">
+    <value>Проигрыватель</value>
+    <comment>MyMediaPlayerPage Title</comment>
+  </data>
+  <data name="MyMediaPlaying" xml:space="preserve">
+    <value>Воспроизведение</value>
+    <comment>Playing</comment>
+  </data>
+  <data name="MyMediaSource" xml:space="preserve">
+    <value>Источник</value>
+    <comment>Source</comment>
+  </data>
+  <data name="MyMediaSourcePageTitleText" xml:space="preserve">
+    <value>Источник</value>
+    <comment>MyMediaSourcePage Title</comment>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>Устройство хранения</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>Сетевое устройство</value>
+  </data>
+  <data name="NetworkMap" xml:space="preserve">
+    <value>Карта сети</value>
+    <comment>Network Map</comment>
+  </data>
+  <data name="NetworkMapPageTitleText" xml:space="preserve">
+    <value>Карта сети</value>
+    <comment>NetworkMapPage Title</comment>
+  </data>
+  <data name="NextButtonContent" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="NoButtonContent" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="NoteContentText" xml:space="preserve">
+    <value>Перезапустить мультимедийную службу при изменении параметров беспроводной сети.</value>
+  </data>
+  <data name="NoteText" xml:space="preserve">
+    <value>Примечание:</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Маршрутизатор не поддерживает данную функцию.</value>
+  </data>
+  <data name="OpenDNSUserText" xml:space="preserve">
+    <value>Учетная запись OpenDNS</value>
+    <comment>OpenDNS User</comment>
+  </data>
+  <data name="ParentalControl" xml:space="preserve">
+    <value>Родительск. контроль</value>
+    <comment>Parental Control</comment>
+  </data>
+  <data name="ParentalControlPageTitleText" xml:space="preserve">
+    <value>Родительск. контроль</value>
+    <comment>ParentalControlPage Title</comment>
+  </data>
+  <data name="PasswordText" xml:space="preserve">
+    <value>Пароль</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PasswordTipsText" xml:space="preserve">
+    <value>(в качестве пароля по умолчанию используется слово \"password\")</value>
+  </data>
+  <data name="PreviousButtonContent" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>Принтер</value>
+  </data>
+  <data name="PrivacyPolicyContent" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
+  <data name="QRCode" xml:space="preserve">
+    <value>QR-код</value>
+    <comment>QR Code</comment>
+  </data>
+  <data name="QRCodePageTitleText" xml:space="preserve">
+    <value>QR-код</value>
+    <comment>QRCodePage Title</comment>
+  </data>
+  <data name="radioButton_HighContent" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="radioButton_LowContent" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="radioButton_MediumContent" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="radioButton_MinimumContent" xml:space="preserve">
+    <value>Минимальный</value>
+  </data>
+  <data name="radioButton_NoneContent" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="RefreshButtonContent" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="RefreshSourceFolderText" xml:space="preserve">
+    <value>Обновить папку-источник</value>
+  </data>
+  <data name="RememberPasswordCheckBoxContent" xml:space="preserve">
+    <value>Запомнить пароль</value>
+    <comment>Remember password CheckBox Content</comment>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>Повторитель</value>
+  </data>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>ru-RU</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="RestartMediaServiceText" xml:space="preserve">
+    <value>Перезапустить мультимедийную службу</value>
+  </data>
+  <data name="ReturnButtonContent" xml:space="preserve">
+    <value>Перейти на экран состояния</value>
+  </data>
+  <data name="RightsReservedText" xml:space="preserve">
+    <value>Все права защищены.</value>
+  </data>
+  <data name="RouterModelText" xml:space="preserve">
+    <value>Модель маршрутизатора：</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>Спутниковая STB</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>Сканер</value>
+  </data>
+  <data name="ScanQrCodeTipsText" xml:space="preserve">
+    <value>Scan QRCode to connect</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Безопасность</value>
+    <comment>Security</comment>
+  </data>
+  <data name="SecurityPageTitleText" xml:space="preserve">
+    <value>Безопасность</value>
+    <comment>EditSecurityPage Title</comment>
+  </data>
+  <data name="Security_None" xml:space="preserve">
+    <value>None</value>
+    <comment>None</comment>
+  </data>
+  <data name="Security_WPA2PSK_AES" xml:space="preserve">
+    <value>WPA2-PSK[AES]</value>
+    <comment>WPA2-PSK[AES]</comment>
+  </data>
+  <data name="Security_WPAPSK_WPA2PSK" xml:space="preserve">
+    <value>WPA-PSK+WPA2-PSK</value>
+    <comment>WPA-PSK+WPA2-PSK</comment>
+  </data>
+  <data name="SettingCompleteText" xml:space="preserve">
+    <value>Настройка завершена!</value>
+  </data>
+  <data name="SettingPageTitleText" xml:space="preserve">
+    <value>Редактировать параметры</value>
+    <comment>EditSettingPage Title</comment>
+  </data>
+  <data name="SettingPasswordTipsText" xml:space="preserve">
+    <value>8–63 символа или 64 шестнадцатеричных значений</value>
+  </data>
+  <data name="ShareFilesInNetworkText" xml:space="preserve">
+    <value>Открыть доступ к файлам по сети</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Дата запуска счетчика</value>
+    <comment>Counter Start Day</comment>
+  </data>
+  <data name="StartDatePageTitleText" xml:space="preserve">
+    <value>День</value>
+    <comment>StartDatePage Title</comment>
+  </data>
+  <data name="StartTimeHourText" xml:space="preserve">
+    <value>Часов</value>
+  </data>
+  <data name="StartTimeMinuteText" xml:space="preserve">
+    <value>Минут</value>
+  </data>
+  <data name="StartTimeText" xml:space="preserve">
+    <value>Время запуска счетчика</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>Другая STB</value>
+  </data>
+  <data name="SupportText" xml:space="preserve">
+    <value>С использованием сервиса SiteView</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>Коммутатор</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>Планшет</value>
+  </data>
+  <data name="Terms_ConditionsText" xml:space="preserve">
+    <value>Условия</value>
+  </data>
+  <data name="TimeSegment" xml:space="preserve">
+    <value>Период времени</value>
+    <comment>Time Period</comment>
+  </data>
+  <data name="TimeSegment_10hours" xml:space="preserve">
+    <value>10 час</value>
+    <comment>10 hours</comment>
+  </data>
+  <data name="TimeSegment_1day" xml:space="preserve">
+    <value>1 день</value>
+    <comment>1 day</comment>
+  </data>
+  <data name="TimeSegment_1hour" xml:space="preserve">
+    <value>1 час</value>
+    <comment>1 hour</comment>
+  </data>
+  <data name="TimeSegment_1week" xml:space="preserve">
+    <value>1 неделя</value>
+    <comment>1 week</comment>
+  </data>
+  <data name="TimeSegment_5hours" xml:space="preserve">
+    <value>5 час</value>
+    <comment>5 hours</comment>
+  </data>
+  <data name="TimeSegment_Always" xml:space="preserve">
+    <value>всегда</value>
+    <comment>Always</comment>
+  </data>
+  <data name="TotalText" xml:space="preserve">
+    <value>Всего</value>
+  </data>
+  <data name="TrafficCtrlSettingPageTitleText" xml:space="preserve">
+    <value>Счетчик трафика</value>
+    <comment>TrafficCtrlSettingPage Title</comment>
+  </data>
+  <data name="TrafficLimitation" xml:space="preserve">
+    <value>Ограничение объема трафика</value>
+    <comment>Traffic Volume Limit</comment>
+  </data>
+  <data name="TrafficLimitationPageTitleText" xml:space="preserve">
+    <value>Ограничение объема трафика</value>
+    <comment>TrafficLimitationPage Title</comment>
+  </data>
+  <data name="TrafficLimitation_Download" xml:space="preserve">
+    <value>скачать только</value>
+    <comment>Download Only</comment>
+  </data>
+  <data name="TrafficLimitation_DownloadUpload" xml:space="preserve">
+    <value>Отправка и загрузка</value>
+    <comment>Download &amp; Upload</comment>
+  </data>
+  <data name="TrafficLimitation_Unlimited" xml:space="preserve">
+    <value>Отсутствует</value>
+    <comment>Unlimited</comment>
+  </data>
+  <data name="TrafficMeter" xml:space="preserve">
+    <value>Счетчик трафика</value>
+    <comment>Traffic Meter</comment>
+  </data>
+  <data name="TrafficMeterPageTitleText" xml:space="preserve">
+    <value>Счетчик трафика</value>
+    <comment>TrafficMeterPage Title</comment>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Отключить счетчик трафика. Продолжить?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Включить счетчик трафика. Продолжить?</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>Телевизор</value>
+  </data>
+  <data name="txtDeviceName" xml:space="preserve">
+    <value>Собственное имя</value>
+  </data>
+  <data name="txtIPAddress" xml:space="preserve">
+    <value>IP-адрес</value>
+  </data>
+  <data name="txtLinkRate" xml:space="preserve">
+    <value>Скорость связи</value>
+  </data>
+  <data name="txtMACAddress" xml:space="preserve">
+    <value>MAC-адрес</value>
+  </data>
+  <data name="txtRoutename" xml:space="preserve">
+    <value>Модель маршрутизатора</value>
+  </data>
+  <data name="txtSignalStrength" xml:space="preserve">
+    <value>Уровень сигнала</value>
+  </data>
+  <data name="txtType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>ПК с UNIX</value>
+  </data>
+  <data name="UserNameText" xml:space="preserve">
+    <value>Имя пользователя</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Версия：</value>
+  </data>
+  <data name="waitText" xml:space="preserve">
+    <value>Подождите...</value>
+  </data>
+  <data name="WiFiName" xml:space="preserve">
+    <value>Имя/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="WiFiSetting" xml:space="preserve">
+    <value>Настройки Wi-Fi</value>
+    <comment>Wireless Settings</comment>
+  </data>
+  <data name="WifiSettingsPageTitleText" xml:space="preserve">
+    <value>Настройки</value>
+    <comment>WifiSettingsPage Title</comment>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>ПК с Windows</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Параметры беспроводного соединения успешно изменены. Повторно подключитесь к беспроводной сети, используя новые параметры соединения, и войдите в программу genie.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>При изменении настроек активный трафик в беспроводной сети может быть приостановлен. Продолжить?</value>
+  </data>
+  <data name="within_distributionText" xml:space="preserve">
+    <value>В рамках распространения NETGEAR genie.</value>
+  </data>
+  <data name="YesButtonContent" xml:space="preserve">
+    <value>Да</value>
+  </data>
+</root>

@@ -40,7 +40,6 @@ namespace GenieWin8
         }
         DispatcherTimer timer = new DispatcherTimer();
         private int _failedCount = 0;
-        private int _doCount = 0;
 
         /// <summary>
         /// 使用在导航过程中传递的内容填充页。在从以前的会话
@@ -66,6 +65,7 @@ namespace GenieWin8
         {
         }
 
+        //扫描二维码
         async void ScanQRCode()
         {
             try
@@ -88,7 +88,6 @@ namespace GenieWin8
 
         async void timer_Tick(object sender, object e)
         {
-            _doCount++;
             try
             {
                 Windows.Storage.StorageFile m_photoStorageFile = await Windows.Storage.KnownFolders.PicturesLibrary.CreateFileAsync("qrcode.jpg", CreationCollisionOption.ReplaceExisting);
@@ -104,7 +103,13 @@ namespace GenieWin8
                 QRCodeDecoder qrCodeDecoder = new QRCodeDecoder();
                 QRCodeBitmapImage _image = new QRCodeBitmapImage(wb.PixelBuffer.ToArray(), wb.PixelWidth, wb.PixelHeight);
                 string decodeString = qrCodeDecoder.decode(_image, System.Text.Encoding.UTF8);            //decodeString为解码得到的字符串
+                string[] decode = decodeString.Split(';');
+                string[] ssidString = decode[0].Split(':');
+                string[] passwordString = decode[1].Split(':');
+                string ssid = ssidString[1];
+                string password = passwordString[1];
                 timer.Stop();
+                return;
                 //var photoStream = await m_photoStorageFile.OpenAsync(Windows.Storage.FileAccessMode.Read);
                 //var bmpimg = new BitmapImage();
 

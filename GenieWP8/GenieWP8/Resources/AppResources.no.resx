@@ -1,0 +1,756 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SampleProperty" xml:space="preserve">
+    <value>示例运行时属性值</value>
+  </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>Om</value>
+  </data>
+  <data name="AllowPlayInNetworkText" xml:space="preserve">
+    <value>Tillat avspilling på nettverk</value>
+  </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>Android-enhet</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>Android-telefon</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>Android-nettbrett</value>
+  </data>
+  <data name="AppBarButtonText" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="AppBarMenuItemText" xml:space="preserve">
+    <value>菜单项</value>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>我的应用程序</value>
+  </data>
+  <data name="AverageText" xml:space="preserve">
+    <value>Gjennomsnittlig</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Pålogging mislyktes. Angi riktig adminpassord for NETGEAR-ruteren.</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>Blu-ray-spiller</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>Bro</value>
+  </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>Bruk</value>
+  </data>
+  <data name="btnBack" xml:space="preserve">
+    <value>tilbake</value>
+  </data>
+  <data name="btnFileUpload" xml:space="preserve">
+    <value>Last opp fil</value>
+  </data>
+  <data name="btnModify" xml:space="preserve">
+    <value>Endre</value>
+  </data>
+  <data name="btnWhat" xml:space="preserve">
+    <value>Hva er det?</value>
+  </data>
+  <data name="BypassText" xml:space="preserve">
+    <value>Bypass</value>
+    <comment>Bypass</comment>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>Kabel-STB</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="CancelButtonContent" xml:space="preserve">
+    <value>Avbryt</value>
+    <comment>Cancel Button Content</comment>
+  </data>
+  <data name="ChangeCustomizingSettingText" xml:space="preserve">
+    <value>Endre tilpassede innstillinger</value>
+    <comment>Change Customizing Settings</comment>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Kanal</value>
+    <comment>Channel</comment>
+  </data>
+  <data name="ChannelPageTitleText" xml:space="preserve">
+    <value>Kanal</value>
+    <comment>EditChannelPage Title</comment>
+  </data>
+  <data name="CheckAvailabilityContent" xml:space="preserve">
+    <value>Kontroller tilgjengelighet</value>
+  </data>
+  <data name="CheckGuestAccessText" xml:space="preserve">
+    <value>Gjestetilgang</value>
+    <comment>Guest Access CheckBox Content</comment>
+  </data>
+  <data name="CheckParentalControlText" xml:space="preserve">
+    <value>Parental Controls</value>
+    <comment>Parental Control CheckBox Content</comment>
+  </data>
+  <data name="CheckTrafficMeterText" xml:space="preserve">
+    <value>Trafikkmåler</value>
+  </data>
+  <data name="CloseAboutButtonContent" xml:space="preserve">
+    <value>Lukk</value>
+    <comment>CloseAbout Button Content</comment>
+  </data>
+  <data name="CloseLicenseButtonContent" xml:space="preserve">
+    <value>Lukk</value>
+    <comment>CloseLicense Button Content</comment>
+  </data>
+  <data name="CompleteIllustrationText" xml:space="preserve">
+    <value>Du har konfigurert NETGEAR Live Parental Controls med OpenDNS. Neste gang du kjører behandlingsverktøyet, kommer du til statusskjermbildet der du kan gjøre følgende:</value>
+  </data>
+  <data name="ConfirmEmailText" xml:space="preserve">
+    <value>Bekreft e-post</value>
+  </data>
+  <data name="ConfirmPasswordText" xml:space="preserve">
+    <value>Bekreft passord</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Copyright (c) 2013, NETGEAR Inc.</value>
+  </data>
+  <data name="CounterStartTime" xml:space="preserve">
+    <value>Starttidspunkt for teller</value>
+    <comment>Counter Start Time</comment>
+  </data>
+  <data name="CounterStartTimeHour" xml:space="preserve">
+    <value>Starttid for trafikkmåler-Time</value>
+    <comment>Counter Start Time Hour</comment>
+  </data>
+  <data name="CounterStartTimeMin" xml:space="preserve">
+    <value>Starttid for trafikkmåler-Minutt</value>
+    <comment>Counter Start Time Minute</comment>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="EmailText" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="EnquireOpenDNSText" xml:space="preserve">
+    <value>Hvis du vil angi Live Parental Controls, trenger du en OpenDNS-konto. Har du allerede en konto?</value>
+  </data>
+  <data name="EnterRegInformationText" xml:space="preserve">
+    <value>Angi informasjonen din nedenfor.</value>
+  </data>
+  <data name="EnterUsername_PasswordText" xml:space="preserve">
+    <value>Angi brukernavnet og passordet nedenfor.</value>
+  </data>
+  <data name="FilterLevel" xml:space="preserve">
+    <value>Filtreringsnivå</value>
+    <comment>Filtering level</comment>
+  </data>
+  <data name="FiltingIllustrationText" xml:space="preserve">
+    <value>Alle datamaskiner som er koblet til ruteren, vil være beskyttet mot innholdet du velger nedenfor. Du kan tilpasse Live Parental Controls senere på vårt webområde.</value>
+  </data>
+  <data name="FirmwareVersionText" xml:space="preserve">
+    <value>Fastvareversjon：</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>Spillkonsoll</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>Ruter</value>
+  </data>
+  <data name="GuestAccess" xml:space="preserve">
+    <value>Gjestetilgang</value>
+    <comment>Guest Access</comment>
+  </data>
+  <data name="GuestAccessPageTitleText" xml:space="preserve">
+    <value>Gjestetilgang</value>
+    <comment>GuestAccessPage Title</comment>
+  </data>
+  <data name="GuestSecurityPageTitleText" xml:space="preserve">
+    <value>Sikkerhet</value>
+    <comment>GuestSecurityPage Title</comment>
+  </data>
+  <data name="GuestSettingPageTitleText" xml:space="preserve">
+    <value>Gjesteinnstillinger</value>
+    <comment>GuestSettingPage Title</comment>
+  </data>
+  <data name="GuestTimeSegPageTitleText" xml:space="preserve">
+    <value>Tidsperiode</value>
+    <comment>GuestTimeSegPage Title</comment>
+  </data>
+  <data name="GuestWiFiName" xml:space="preserve">
+    <value>Navn/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="Illustration1Text" xml:space="preserve">
+    <value>*  kontrollere om Live Parental Controls er aktivert</value>
+  </data>
+  <data name="Illustration2Text" xml:space="preserve">
+    <value>*  deaktivere eller aktivere Live Parental Controls</value>
+  </data>
+  <data name="Illustration3Text" xml:space="preserve">
+    <value>*  endre grunnleggende innstillinger</value>
+  </data>
+  <data name="Illustration4Text" xml:space="preserve">
+    <value>*  endre tilpassede innstillinger, for eksempel en Live Parental Controls som er brukerspesifikk og basert på bestemte tidspunkter</value>
+  </data>
+  <data name="Illustration_HighText" xml:space="preserve">
+    <value>Beskytter mot alle områder med innhold for voksne, ulovlig aktivitet, områder for sosiale nettverk, videodelingsområder, svindelforsøk (phishing) og generelle områder som er bortkastet tid.</value>
+  </data>
+  <data name="Illustration_LowText" xml:space="preserve">
+    <value>Beskytter mot pornografi og svindelforsøk (phishing).</value>
+  </data>
+  <data name="Illustration_MediumText" xml:space="preserve">
+    <value>Beskytter mot alle områder med innhold for voksne, ulovlig aktivitet og svindelforsøk (phishing).</value>
+  </data>
+  <data name="Illustration_Minimum.Text" xml:space="preserve">
+    <value>Beskytter bare mot svindelforsøk (phishing).</value>
+  </data>
+  <data name="Illustration_NoneText" xml:space="preserve">
+    <value>Ingenting er blokkert.</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Internett er ikke tilgjengelig. Koble ruteren til Internett først.</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="Key_Password" xml:space="preserve">
+    <value>Nøkkel/passord</value>
+    <comment>Key/Password</comment>
+  </data>
+  <data name="LicenseButtonContent" xml:space="preserve">
+    <value>Lisens</value>
+    <comment>License Button Content</comment>
+  </data>
+  <data name="LicenseText" xml:space="preserve">
+    <value>Lisens</value>
+  </data>
+  <data name="LimitPerMonth" xml:space="preserve">
+    <value>Månedlig grense (MB)</value>
+    <comment>Monthly Limit</comment>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>Linux-PC</value>
+  </data>
+  <data name="LoginButtonContent" xml:space="preserve">
+    <value>Logg på</value>
+    <comment>Login Button Content</comment>
+  </data>
+  <data name="LoginPageTitleText" xml:space="preserve">
+    <value>Logg på</value>
+    <comment>LoginPage Title</comment>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Pålogging mislyktes. Kontroller at datamaskinen er koblet til NETGEAR-ruteren.</value>
+  </data>
+  <data name="LogoutButtonContent" xml:space="preserve">
+    <value>Logg av</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="MarketPlace" xml:space="preserve">
+    <value>MarketPlace</value>
+    <comment>MarketPlace</comment>
+  </data>
+  <data name="MbytesText" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>Medieenhet</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>Smarttelefon</value>
+  </data>
+  <data name="MyMedia" xml:space="preserve">
+    <value>Mine medier</value>
+    <comment>My Media</comment>
+  </data>
+  <data name="MyMediaOption" xml:space="preserve">
+    <value>Alternativer</value>
+    <comment>Options</comment>
+  </data>
+  <data name="MyMediaOptionPageTitleText" xml:space="preserve">
+    <value>Alternativer</value>
+    <comment>MyMediaOptionPage Title</comment>
+  </data>
+  <data name="MyMediaPageTitleText" xml:space="preserve">
+    <value>Mine medier</value>
+    <comment>MyMediaPage Title</comment>
+  </data>
+  <data name="MyMediaPlayer" xml:space="preserve">
+    <value>Spiller</value>
+    <comment>Player</comment>
+  </data>
+  <data name="MyMediaPlayerPageTitleText" xml:space="preserve">
+    <value>Spiller</value>
+    <comment>MyMediaPlayerPage Title</comment>
+  </data>
+  <data name="MyMediaPlaying" xml:space="preserve">
+    <value>Spiller av</value>
+    <comment>Playing</comment>
+  </data>
+  <data name="MyMediaSource" xml:space="preserve">
+    <value>Kilde</value>
+    <comment>Source</comment>
+  </data>
+  <data name="MyMediaSourcePageTitleText" xml:space="preserve">
+    <value>Kilde</value>
+    <comment>MyMediaSourcePage Title</comment>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>Lagring</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>Nettverksenhet</value>
+  </data>
+  <data name="NetworkMap" xml:space="preserve">
+    <value>Nettverkskart</value>
+    <comment>Network Map</comment>
+  </data>
+  <data name="NetworkMapPageTitleText" xml:space="preserve">
+    <value>Nettverkskart</value>
+    <comment>NetworkMapPage Title</comment>
+  </data>
+  <data name="NextButtonContent" xml:space="preserve">
+    <value>Neste</value>
+  </data>
+  <data name="NoButtonContent" xml:space="preserve">
+    <value>Nei</value>
+  </data>
+  <data name="NoteContentText" xml:space="preserve">
+    <value>Start medietjenesten på nytt når den innstillingen for det trådløse nettverket blir endret.</value>
+  </data>
+  <data name="NoteText" xml:space="preserve">
+    <value>Merk:</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Ruteren støtter ikke denne funksjonen.</value>
+  </data>
+  <data name="OpenDNSUserText" xml:space="preserve">
+    <value>OpenDNS-konto</value>
+    <comment>OpenDNS User</comment>
+  </data>
+  <data name="ParentalControl" xml:space="preserve">
+    <value>Parental Controls</value>
+    <comment>Parental Control</comment>
+  </data>
+  <data name="ParentalControlPageTitleText" xml:space="preserve">
+    <value>Parental Controls</value>
+    <comment>ParentalControlPage Title</comment>
+  </data>
+  <data name="PasswordText" xml:space="preserve">
+    <value>Passord</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PasswordTipsText" xml:space="preserve">
+    <value>(standard er \"password\")</value>
+  </data>
+  <data name="PreviousButtonContent" xml:space="preserve">
+    <value>Forrige</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>Skriver</value>
+  </data>
+  <data name="PrivacyPolicyContent" xml:space="preserve">
+    <value>Personvern</value>
+  </data>
+  <data name="QRCode" xml:space="preserve">
+    <value>QR-kode</value>
+    <comment>QR Code</comment>
+  </data>
+  <data name="QRCodePageTitleText" xml:space="preserve">
+    <value>QR-kode</value>
+    <comment>QRCodePage Title</comment>
+  </data>
+  <data name="radioButton_HighContent" xml:space="preserve">
+    <value>Høy</value>
+  </data>
+  <data name="radioButton_LowContent" xml:space="preserve">
+    <value>Lav</value>
+  </data>
+  <data name="radioButton_MediumContent" xml:space="preserve">
+    <value>Moderat</value>
+  </data>
+  <data name="radioButton_MinimumContent" xml:space="preserve">
+    <value>Minimal</value>
+  </data>
+  <data name="radioButton_NoneContent" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="RefreshButtonContent" xml:space="preserve">
+    <value>Oppdater</value>
+  </data>
+  <data name="RefreshSourceFolderText" xml:space="preserve">
+    <value>Oppdater kildemappe</value>
+  </data>
+  <data name="RememberPasswordCheckBoxContent" xml:space="preserve">
+    <value>Husk passord</value>
+    <comment>Remember password CheckBox Content</comment>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>Gjentaker</value>
+  </data>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>no</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="RestartMediaServiceText" xml:space="preserve">
+    <value>Start medietjeneste på nytt</value>
+  </data>
+  <data name="ReturnButtonContent" xml:space="preserve">
+    <value>Før meg til statusskjermbildet</value>
+  </data>
+  <data name="RightsReservedText" xml:space="preserve">
+    <value>Med enerett.</value>
+  </data>
+  <data name="RouterModelText" xml:space="preserve">
+    <value>Rutermodell：</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>Satellitt-STB</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>Skanner</value>
+  </data>
+  <data name="ScanQrCodeTipsText" xml:space="preserve">
+    <value>Scan QRCode to connect</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Sikkerhet</value>
+    <comment>Security</comment>
+  </data>
+  <data name="SecurityPageTitleText" xml:space="preserve">
+    <value>Sikkerhet</value>
+    <comment>EditSecurityPage Title</comment>
+  </data>
+  <data name="Security_None" xml:space="preserve">
+    <value>None</value>
+    <comment>None</comment>
+  </data>
+  <data name="Security_WPA2PSK_AES" xml:space="preserve">
+    <value>WPA2-PSK[AES]</value>
+    <comment>WPA2-PSK[AES]</comment>
+  </data>
+  <data name="Security_WPAPSK_WPA2PSK" xml:space="preserve">
+    <value>WPA-PSK+WPA2-PSK</value>
+    <comment>WPA-PSK+WPA2-PSK</comment>
+  </data>
+  <data name="SettingCompleteText" xml:space="preserve">
+    <value>Konfigurasjonen er fullført.</value>
+  </data>
+  <data name="SettingPageTitleText" xml:space="preserve">
+    <value>Redigere innstillinger</value>
+    <comment>EditSettingPage Title</comment>
+  </data>
+  <data name="SettingPasswordTipsText" xml:space="preserve">
+    <value>8–63 tegn eller 64 heksadesimalverdier</value>
+  </data>
+  <data name="ShareFilesInNetworkText" xml:space="preserve">
+    <value>Del filer på nettverk</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Startdag for teller</value>
+    <comment>Counter Start Day</comment>
+  </data>
+  <data name="StartDatePageTitleText" xml:space="preserve">
+    <value>Dag</value>
+    <comment>StartDatePage Title</comment>
+  </data>
+  <data name="StartTimeHourText" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="StartTimeMinuteText" xml:space="preserve">
+    <value>Minutt</value>
+  </data>
+  <data name="StartTimeText" xml:space="preserve">
+    <value>Starttidspunkt for teller</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>Andre STB</value>
+  </data>
+  <data name="SupportText" xml:space="preserve">
+    <value>Drevet av SiteView</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>Bryter</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>Nettbrett</value>
+  </data>
+  <data name="Terms_ConditionsText" xml:space="preserve">
+    <value>Vilkår og betingelser</value>
+  </data>
+  <data name="TimeSegment" xml:space="preserve">
+    <value>Tidsperiode</value>
+    <comment>Time Period</comment>
+  </data>
+  <data name="TimeSegment_10hours" xml:space="preserve">
+    <value>10 time</value>
+    <comment>10 hours</comment>
+  </data>
+  <data name="TimeSegment_1day" xml:space="preserve">
+    <value>1 dag</value>
+    <comment>1 day</comment>
+  </data>
+  <data name="TimeSegment_1hour" xml:space="preserve">
+    <value>1 time</value>
+    <comment>1 hour</comment>
+  </data>
+  <data name="TimeSegment_1week" xml:space="preserve">
+    <value>1 uke</value>
+    <comment>1 week</comment>
+  </data>
+  <data name="TimeSegment_5hours" xml:space="preserve">
+    <value>5 time</value>
+    <comment>5 hours</comment>
+  </data>
+  <data name="TimeSegment_Always" xml:space="preserve">
+    <value>alltid</value>
+    <comment>Always</comment>
+  </data>
+  <data name="TotalText" xml:space="preserve">
+    <value>Totalt</value>
+  </data>
+  <data name="TrafficCtrlSettingPageTitleText" xml:space="preserve">
+    <value>Trafikkmåler</value>
+    <comment>TrafficCtrlSettingPage Title</comment>
+  </data>
+  <data name="TrafficLimitation" xml:space="preserve">
+    <value>Trafikkvolumgrense</value>
+    <comment>Traffic Volume Limit</comment>
+  </data>
+  <data name="TrafficLimitationPageTitleText" xml:space="preserve">
+    <value>Trafikkvolumgrense</value>
+    <comment>TrafficLimitationPage Title</comment>
+  </data>
+  <data name="TrafficLimitation_Download" xml:space="preserve">
+    <value>Last ned bare</value>
+    <comment>Download Only</comment>
+  </data>
+  <data name="TrafficLimitation_DownloadUpload" xml:space="preserve">
+    <value>Opplasting og nedlasting</value>
+    <comment>Download &amp; Upload</comment>
+  </data>
+  <data name="TrafficLimitation_Unlimited" xml:space="preserve">
+    <value>Ingen</value>
+    <comment>Unlimited</comment>
+  </data>
+  <data name="TrafficMeter" xml:space="preserve">
+    <value>Trafikkmåler</value>
+    <comment>Traffic Meter</comment>
+  </data>
+  <data name="TrafficMeterPageTitleText" xml:space="preserve">
+    <value>Trafikkmåler</value>
+    <comment>TrafficMeterPage Title</comment>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Deaktiver trafikkmåler. Vil du fortsette?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Aktiver trafikkmåler. Vil du fortsette?</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>TV</value>
+  </data>
+  <data name="txtDeviceName" xml:space="preserve">
+    <value>Kundenavn</value>
+  </data>
+  <data name="txtIPAddress" xml:space="preserve">
+    <value>IP-adresse</value>
+  </data>
+  <data name="txtLinkRate" xml:space="preserve">
+    <value>Tilkoblingshastighet</value>
+  </data>
+  <data name="txtMACAddress" xml:space="preserve">
+    <value>MAC-adresse</value>
+  </data>
+  <data name="txtRoutename" xml:space="preserve">
+    <value>Rutermodell</value>
+  </data>
+  <data name="txtSignalStrength" xml:space="preserve">
+    <value>Signalstyrke</value>
+  </data>
+  <data name="txtType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>UNIX-PC</value>
+  </data>
+  <data name="UserNameText" xml:space="preserve">
+    <value>Brukernavn</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Versjon：</value>
+  </data>
+  <data name="waitText" xml:space="preserve">
+    <value>Vent litt...</value>
+  </data>
+  <data name="WiFiName" xml:space="preserve">
+    <value>Navn/SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="WiFiSetting" xml:space="preserve">
+    <value>Trådløsinnstillinger</value>
+    <comment>Wireless Settings</comment>
+  </data>
+  <data name="WifiSettingsPageTitleText" xml:space="preserve">
+    <value>Innstillinger</value>
+    <comment>WifiSettingsPage Title</comment>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>Windows-PC</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Trådløsinnstillingen ble endret. Koble til det trådløse nettverket på nytt ved hjelp av nye trådløsinnstillinger, og logg på genie.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Hvis du endrer innstillingene, kan dette forstyrre aktiv trafikk på det trådløse nettverket. Vil du fortsette?</value>
+  </data>
+  <data name="within_distributionText" xml:space="preserve">
+    <value>Innen distribusjonen av NETGEAR genie.</value>
+  </data>
+  <data name="YesButtonContent" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+</root>

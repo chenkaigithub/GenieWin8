@@ -1,0 +1,756 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SampleProperty" xml:space="preserve">
+    <value>示例运行时属性值</value>
+  </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>O aplikácii</value>
+  </data>
+  <data name="AllowPlayInNetworkText" xml:space="preserve">
+    <value>Povoliť prehrávanie v sieti</value>
+  </data>
+  <data name="androiddevice" xml:space="preserve">
+    <value>Zariadenie so systémom Android</value>
+  </data>
+  <data name="androidphone" xml:space="preserve">
+    <value>Telefón so systémom Android</value>
+  </data>
+  <data name="androidtablet" xml:space="preserve">
+    <value>Počítač typu Tablet so systémom Android</value>
+  </data>
+  <data name="AppBarButtonText" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="AppBarMenuItemText" xml:space="preserve">
+    <value>菜单项</value>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>我的应用程序</value>
+  </data>
+  <data name="AverageText" xml:space="preserve">
+    <value>Priemer</value>
+  </data>
+  <data name="bad_password" xml:space="preserve">
+    <value>Prihlásenie zlyhalo. Znovu zadajte správne heslo správcu pre váš smerovač NETGEAR.</value>
+  </data>
+  <data name="blurayplayer" xml:space="preserve">
+    <value>Prehrávač formátu Blu-ray</value>
+  </data>
+  <data name="bridge" xml:space="preserve">
+    <value>Premostenie</value>
+  </data>
+  <data name="btnApply" xml:space="preserve">
+    <value>Použiť</value>
+  </data>
+  <data name="btnBack" xml:space="preserve">
+    <value>vrátiť sa</value>
+  </data>
+  <data name="btnFileUpload" xml:space="preserve">
+    <value>Nahrať súbor</value>
+  </data>
+  <data name="btnModify" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="btnWhat" xml:space="preserve">
+    <value>Čo je to?</value>
+  </data>
+  <data name="BypassText" xml:space="preserve">
+    <value>Bypass</value>
+    <comment>Bypass</comment>
+  </data>
+  <data name="cablestb" xml:space="preserve">
+    <value>Káblové STB</value>
+  </data>
+  <data name="cameradev" xml:space="preserve">
+    <value>Fotoaparát</value>
+  </data>
+  <data name="CancelButtonContent" xml:space="preserve">
+    <value>Zrušiť</value>
+    <comment>Cancel Button Content</comment>
+  </data>
+  <data name="ChangeCustomizingSettingText" xml:space="preserve">
+    <value>Zmeniť vlastné nastavenia</value>
+    <comment>Change Customizing Settings</comment>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>Kanál</value>
+    <comment>Channel</comment>
+  </data>
+  <data name="ChannelPageTitleText" xml:space="preserve">
+    <value>Kanál</value>
+    <comment>EditChannelPage Title</comment>
+  </data>
+  <data name="CheckAvailabilityContent" xml:space="preserve">
+    <value>Skontrolovať dostupnosť</value>
+  </data>
+  <data name="CheckGuestAccessText" xml:space="preserve">
+    <value>Hosťovský prístup</value>
+    <comment>Guest Access CheckBox Content</comment>
+  </data>
+  <data name="CheckParentalControlText" xml:space="preserve">
+    <value>Rodičovská kontrola</value>
+    <comment>Parental Control CheckBox Content</comment>
+  </data>
+  <data name="CheckTrafficMeterText" xml:space="preserve">
+    <value>Merač prenosov</value>
+  </data>
+  <data name="CloseAboutButtonContent" xml:space="preserve">
+    <value>Zavrieť</value>
+    <comment>CloseAbout Button Content</comment>
+  </data>
+  <data name="CloseLicenseButtonContent" xml:space="preserve">
+    <value>Zavrieť</value>
+    <comment>CloseLicense Button Content</comment>
+  </data>
+  <data name="CompleteIllustrationText" xml:space="preserve">
+    <value>Úspešne ste nastavili funkciu rodičovskej kontroly Live od spoločnosti NETGEAR podporovanú službou OpenDNS. Pri ďalšom spustení pomocného programu na správu sa presuniete na obrazovku stavu, kde môžete:</value>
+  </data>
+  <data name="ConfirmEmailText" xml:space="preserve">
+    <value>Potvrďte e-mail</value>
+  </data>
+  <data name="ConfirmPasswordText" xml:space="preserve">
+    <value>Potvrďte heslo</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>Autorské práva (c) 2013, NETGEAR Inc.</value>
+  </data>
+  <data name="CounterStartTime" xml:space="preserve">
+    <value>Čas začiatku počítadla</value>
+    <comment>Counter Start Time</comment>
+  </data>
+  <data name="CounterStartTimeHour" xml:space="preserve">
+    <value>Čas spustenia merača prenosov-Hodina</value>
+    <comment>Counter Start Time Hour</comment>
+  </data>
+  <data name="CounterStartTimeMin" xml:space="preserve">
+    <value>Čas spustenia merača prenosov-Minúta</value>
+    <comment>Counter Start Time Minute</comment>
+  </data>
+  <data name="dvr" xml:space="preserve">
+    <value>DVR</value>
+  </data>
+  <data name="Email.Text" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnquireOpenDNSText" xml:space="preserve">
+    <value>Ak chcete nastaviť rodičovskú kontrolu v službe Live, je potrebné, aby ste disponovali kontom v službe OpenDNS. Máte už konto vytvorené?</value>
+  </data>
+  <data name="EnterRegInformationText" xml:space="preserve">
+    <value>Nižšie zadajte vaše informácie.</value>
+  </data>
+  <data name="EnterUsername_PasswordText" xml:space="preserve">
+    <value>Nižšie zadajte vaše meno používateľa a heslo.</value>
+  </data>
+  <data name="FilterLevel" xml:space="preserve">
+    <value>Úroveň filtrovania</value>
+    <comment>Filtering level</comment>
+  </data>
+  <data name="FiltingIllustrationText" xml:space="preserve">
+    <value>Všetky počítače pripojené k vášmu smerovaču budú chránené pred nižšie zvoleným obsahom. Neskôr si na našej webovej stránke môžete nastavenia funkcie Live Parental Controls prispôsobiť.</value>
+  </data>
+  <data name="FirmwareVersionText" xml:space="preserve">
+    <value>Verzia firmvéru：</value>
+  </data>
+  <data name="gamedev" xml:space="preserve">
+    <value>Herná konzola</value>
+  </data>
+  <data name="gatewaydev" xml:space="preserve">
+    <value>Smerovač</value>
+  </data>
+  <data name="GuestAccess" xml:space="preserve">
+    <value>Hosťovský prístup</value>
+    <comment>Guest Access</comment>
+  </data>
+  <data name="GuestAccessPageTitleText" xml:space="preserve">
+    <value>Hosťovský prístup</value>
+    <comment>GuestAccessPage Title</comment>
+  </data>
+  <data name="GuestSecurityPageTitleText" xml:space="preserve">
+    <value>Zabezpečenie</value>
+    <comment>GuestSecurityPage Title</comment>
+  </data>
+  <data name="GuestSettingPageTitleText" xml:space="preserve">
+    <value>Nastavenia hosťa</value>
+    <comment>GuestSettingPage Title</comment>
+  </data>
+  <data name="GuestTimeSegPageTitleText" xml:space="preserve">
+    <value>Časové obdobie</value>
+    <comment>GuestTimeSegPage Title</comment>
+  </data>
+  <data name="GuestWiFiName" xml:space="preserve">
+    <value>Meno/identifikátor SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="Illustration1Text" xml:space="preserve">
+    <value>*  skontrolovať, či je zapnutá funkcia Live Parental Controls</value>
+  </data>
+  <data name="Illustration2Text" xml:space="preserve">
+    <value>*  vypnúť alebo zapnúť funkciu Live Parental Controls</value>
+  </data>
+  <data name="Illustration3Text" xml:space="preserve">
+    <value>*  upraviť základné nastavenia</value>
+  </data>
+  <data name="Illustration4Text" xml:space="preserve">
+    <value>*  zmeniť vlastné nastavenia, ako napr. funkciu Live Parental Controls založenú na používateľovi a čase v priebehu dňa</value>
+  </data>
+  <data name="Illustration_HighText" xml:space="preserve">
+    <value>Chráni pred všetkými stránkami pre dospelých, stránkami s nelegálnymi aktivitami, stránkami sociálnych sietí, stránkami zdieľajúcimi videá, útokmi na citlivé informácie a všeobecnými stránkami na zabíjanie času.</value>
+  </data>
+  <data name="Illustration_LowText" xml:space="preserve">
+    <value>Chráni pred pornografiou a útokmi na citlivé informácie.</value>
+  </data>
+  <data name="Illustration_MediumText" xml:space="preserve">
+    <value>Chráni pred všetkými stránkami pre dospelých, stránkami s nelegálnymi aktivitami a útokmi na citlivé informácie.</value>
+  </data>
+  <data name="Illustration_MinimumText" xml:space="preserve">
+    <value>Chráni iba pred útokmi na citlivé informácie.</value>
+  </data>
+  <data name="Illustration_NoneText" xml:space="preserve">
+    <value>Nič nie je blokované.</value>
+  </data>
+  <data name="imacdev" xml:space="preserve">
+    <value>iMac</value>
+  </data>
+  <data name="interneterror" xml:space="preserve">
+    <value>Sieť internet nie je dostupná. Najprv pripojte smerovač do siete internet.</value>
+  </data>
+  <data name="ipad" xml:space="preserve">
+    <value>iPad</value>
+  </data>
+  <data name="iphone" xml:space="preserve">
+    <value>iPhone</value>
+  </data>
+  <data name="ipodtouch" xml:space="preserve">
+    <value>iPod Touch</value>
+  </data>
+  <data name="Key_Password" xml:space="preserve">
+    <value>Kľúč/Heslo</value>
+    <comment>Key/Password</comment>
+  </data>
+  <data name="License.Text" xml:space="preserve">
+    <value>Licencia</value>
+  </data>
+  <data name="LicenseButtonContent" xml:space="preserve">
+    <value>Licencia</value>
+    <comment>License Button Content</comment>
+  </data>
+  <data name="LimitPerMonth" xml:space="preserve">
+    <value>Mesačný limit (MB)</value>
+    <comment>Monthly Limit</comment>
+  </data>
+  <data name="linuxpc" xml:space="preserve">
+    <value>Počítač Linux</value>
+  </data>
+  <data name="LoginButtonContent" xml:space="preserve">
+    <value>Prihlásenie</value>
+    <comment>Login Button Content</comment>
+  </data>
+  <data name="LoginPageTitleText" xml:space="preserve">
+    <value>Prihlásenie</value>
+    <comment>LoginPage Title</comment>
+  </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>Prihlásenie zlyhalo! Skontrolujte, či je tento počítač pripojený k smerovaču NETGEAR.</value>
+  </data>
+  <data name="LogoutButtonContent" xml:space="preserve">
+    <value>Odhlásenie</value>
+  </data>
+  <data name="macbookdev" xml:space="preserve">
+    <value>MacBook</value>
+  </data>
+  <data name="macminidev" xml:space="preserve">
+    <value>Mac Mini</value>
+  </data>
+  <data name="macprodev" xml:space="preserve">
+    <value>Mac Pro</value>
+  </data>
+  <data name="MarketPlace" xml:space="preserve">
+    <value>MarketPlace</value>
+    <comment>MarketPlace</comment>
+  </data>
+  <data name="MbytesText" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="mediadev" xml:space="preserve">
+    <value>Mediálne zariadenie</value>
+  </data>
+  <data name="mobiledev" xml:space="preserve">
+    <value>Telefón SmartPhone</value>
+  </data>
+  <data name="MyMedia" xml:space="preserve">
+    <value>Moje médiá</value>
+    <comment>My Media</comment>
+  </data>
+  <data name="MyMediaOption" xml:space="preserve">
+    <value>Možnosti</value>
+    <comment>Options</comment>
+  </data>
+  <data name="MyMediaOptionPageTitleText" xml:space="preserve">
+    <value>Možnosti</value>
+    <comment>MyMediaOptionPage Title</comment>
+  </data>
+  <data name="MyMediaPageTitleText" xml:space="preserve">
+    <value>Moje médiá</value>
+    <comment>MyMediaPage Title</comment>
+  </data>
+  <data name="MyMediaPlayer" xml:space="preserve">
+    <value>Prehrávač</value>
+    <comment>Player</comment>
+  </data>
+  <data name="MyMediaPlayerPageTitleText" xml:space="preserve">
+    <value>Prehrávač</value>
+    <comment>MyMediaPlayerPage Title</comment>
+  </data>
+  <data name="MyMediaPlaying" xml:space="preserve">
+    <value>Prehráva sa</value>
+    <comment>Playing</comment>
+  </data>
+  <data name="MyMediaSource" xml:space="preserve">
+    <value>Zdroj</value>
+    <comment>Source</comment>
+  </data>
+  <data name="MyMediaSourcePageTitleText" xml:space="preserve">
+    <value>Zdroj</value>
+    <comment>MyMediaSourcePage Title</comment>
+  </data>
+  <data name="netstoragedev" xml:space="preserve">
+    <value>Úložné zariadenie</value>
+  </data>
+  <data name="networkdev" xml:space="preserve">
+    <value>Sieťové zariadenie</value>
+  </data>
+  <data name="NetworkMap" xml:space="preserve">
+    <value>Mapa siete</value>
+    <comment>Network Map</comment>
+  </data>
+  <data name="NetworkMapPageTitleText" xml:space="preserve">
+    <value>Mapa siete</value>
+    <comment>NetworkMapPage Title</comment>
+  </data>
+  <data name="NextButtonContent" xml:space="preserve">
+    <value>Ďalej</value>
+  </data>
+  <data name="NoButtonContent" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="NoteContentText" xml:space="preserve">
+    <value>Keď sa zmení nastavenie bezdrôtovej siete, reštartujte službu médií.</value>
+  </data>
+  <data name="NoteText" xml:space="preserve">
+    <value>Poznámka:</value>
+  </data>
+  <data name="notsupport" xml:space="preserve">
+    <value>Smerovač túto funkciu nepodporuje.</value>
+  </data>
+  <data name="OpenDNSUserText" xml:space="preserve">
+    <value>Konto služby OpenDNS</value>
+    <comment>OpenDNS User</comment>
+  </data>
+  <data name="ParentalControl" xml:space="preserve">
+    <value>Rodičovská kontrola</value>
+    <comment>Parental Control</comment>
+  </data>
+  <data name="ParentalControlPageTitleText" xml:space="preserve">
+    <value>Rodičovská kontrola</value>
+    <comment>ParentalControlPage Title</comment>
+  </data>
+  <data name="PasswordText" xml:space="preserve">
+    <value>Heslo</value>
+    <comment>Password</comment>
+  </data>
+  <data name="PasswordTipsText" xml:space="preserve">
+    <value>(predvolené je \"password\")</value>
+  </data>
+  <data name="PreviousButtonContent" xml:space="preserve">
+    <value>Predchádz.</value>
+  </data>
+  <data name="printerdev" xml:space="preserve">
+    <value>Tlačiareň</value>
+  </data>
+  <data name="PrivacyPolicyContent" xml:space="preserve">
+    <value>Zásady ochrany osobných údajov</value>
+  </data>
+  <data name="QRCode" xml:space="preserve">
+    <value>Kód QR</value>
+    <comment>QR Code</comment>
+  </data>
+  <data name="QRCodePageTitleText" xml:space="preserve">
+    <value>Kód QR</value>
+    <comment>QRCodePage Title</comment>
+  </data>
+  <data name="radioButton_HighContent" xml:space="preserve">
+    <value>Vysoká</value>
+  </data>
+  <data name="radioButton_LowContent" xml:space="preserve">
+    <value>Nízka</value>
+  </data>
+  <data name="radioButton_MediumContent" xml:space="preserve">
+    <value>Stredná</value>
+  </data>
+  <data name="radioButton_MinimumContent" xml:space="preserve">
+    <value>Minimálna</value>
+  </data>
+  <data name="radioButton_NoneContent" xml:space="preserve">
+    <value>Žiadne</value>
+  </data>
+  <data name="RefreshButtonContent" xml:space="preserve">
+    <value>Obnoviť</value>
+  </data>
+  <data name="RefreshSourceFolderText" xml:space="preserve">
+    <value>Obnoviť zdrojový priečinok</value>
+  </data>
+  <data name="RememberPasswordCheckBoxContent" xml:space="preserve">
+    <value>Zapamätať si heslo</value>
+    <comment>Remember password CheckBox Content</comment>
+  </data>
+  <data name="repeater" xml:space="preserve">
+    <value>Retranslátor</value>
+  </data>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>sk-SK</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="RestartMediaServiceText" xml:space="preserve">
+    <value>Reštartovať službu médií</value>
+  </data>
+  <data name="ReturnButtonContent" xml:space="preserve">
+    <value>Prejsť na stavovú obrazovku</value>
+  </data>
+  <data name="RightsReservedText" xml:space="preserve">
+    <value>Všetky práva vyhradené.</value>
+  </data>
+  <data name="RouterModelText" xml:space="preserve">
+    <value>Model smerovača：</value>
+  </data>
+  <data name="satellitestb" xml:space="preserve">
+    <value>Satelitné STB</value>
+  </data>
+  <data name="scannerdev" xml:space="preserve">
+    <value>Skener</value>
+  </data>
+  <data name="ScanQrCodeTipsText" xml:space="preserve">
+    <value>Scan QRCode to connect</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Zabezpečenie</value>
+    <comment>Security</comment>
+  </data>
+  <data name="SecurityPageTitleText" xml:space="preserve">
+    <value>Zabezpečenie</value>
+    <comment>EditSecurityPage Title</comment>
+  </data>
+  <data name="Security_None" xml:space="preserve">
+    <value>None</value>
+    <comment>None</comment>
+  </data>
+  <data name="Security_WPA2PSK_AES" xml:space="preserve">
+    <value>WPA2-PSK[AES]</value>
+    <comment>WPA2-PSK[AES]</comment>
+  </data>
+  <data name="Security_WPAPSK_WPA2PSK" xml:space="preserve">
+    <value>WPA-PSK+WPA2-PSK</value>
+    <comment>WPA-PSK+WPA2-PSK</comment>
+  </data>
+  <data name="SettingCompleteText" xml:space="preserve">
+    <value>Nastavenie je dokončené!</value>
+  </data>
+  <data name="SettingPageTitleText" xml:space="preserve">
+    <value>Upraviť nastavenia</value>
+    <comment>EditSettingPage Title</comment>
+  </data>
+  <data name="SettingPasswordTipsText" xml:space="preserve">
+    <value>8 – 63 znakov alebo 64 šestnástkových hodnôt</value>
+  </data>
+  <data name="ShareFilesInNetworkText" xml:space="preserve">
+    <value>Zdieľať súbory v sieti</value>
+  </data>
+  <data name="slingbox" xml:space="preserve">
+    <value>SlingBox</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Deň začiatku počítadla</value>
+    <comment>Counter Start Day</comment>
+  </data>
+  <data name="StartDatePageTitleText" xml:space="preserve">
+    <value>Deň</value>
+    <comment>StartDatePage Title</comment>
+  </data>
+  <data name="StartTimeHourText" xml:space="preserve">
+    <value>Hodina</value>
+  </data>
+  <data name="StartTimeMinuteText" xml:space="preserve">
+    <value>Minúta</value>
+  </data>
+  <data name="StartTimeText" xml:space="preserve">
+    <value>Čas začiatku počítadla</value>
+  </data>
+  <data name="stb" xml:space="preserve">
+    <value>Iné STB</value>
+  </data>
+  <data name="SupportText" xml:space="preserve">
+    <value>Prevádzkované na báze technológie SiteView</value>
+  </data>
+  <data name="switchdev" xml:space="preserve">
+    <value>Prepínač</value>
+  </data>
+  <data name="tablepc" xml:space="preserve">
+    <value>Počítač typu Tablet</value>
+  </data>
+  <data name="Terms_ConditionsText" xml:space="preserve">
+    <value>Podmienky a požiadavky</value>
+  </data>
+  <data name="TimeSegment" xml:space="preserve">
+    <value>Časové obdobie</value>
+    <comment>Time Period</comment>
+  </data>
+  <data name="TimeSegment_10hours" xml:space="preserve">
+    <value>10 hodina</value>
+    <comment>10 hours</comment>
+  </data>
+  <data name="TimeSegment_1day" xml:space="preserve">
+    <value>1 deň</value>
+    <comment>1 day</comment>
+  </data>
+  <data name="TimeSegment_1hour" xml:space="preserve">
+    <value>1 hodina</value>
+    <comment>1 hour</comment>
+  </data>
+  <data name="TimeSegment_1week" xml:space="preserve">
+    <value>1 týždeň</value>
+    <comment>1 week</comment>
+  </data>
+  <data name="TimeSegment_5hours" xml:space="preserve">
+    <value>5 hodina</value>
+    <comment>5 hours</comment>
+  </data>
+  <data name="TimeSegment_Always" xml:space="preserve">
+    <value>vždy</value>
+    <comment>Always</comment>
+  </data>
+  <data name="TotalText" xml:space="preserve">
+    <value>Spolu</value>
+  </data>
+  <data name="TrafficCtrlSettingPageTitleText" xml:space="preserve">
+    <value>Merač prenosov</value>
+    <comment>TrafficCtrlSettingPage Title</comment>
+  </data>
+  <data name="TrafficLimitation" xml:space="preserve">
+    <value>Limit objemu prenosov</value>
+    <comment>Traffic Volume Limit</comment>
+  </data>
+  <data name="TrafficLimitationPageTitleText" xml:space="preserve">
+    <value>Limit objemu prenosov</value>
+    <comment>TrafficLimitationPage Title</comment>
+  </data>
+  <data name="TrafficLimitation_Download" xml:space="preserve">
+    <value>iba stiahnuť</value>
+    <comment>Download Only</comment>
+  </data>
+  <data name="TrafficLimitation_DownloadUpload" xml:space="preserve">
+    <value>Nahrávanie a sťahovanie</value>
+    <comment>Download &amp; Upload</comment>
+  </data>
+  <data name="TrafficLimitation_Unlimited" xml:space="preserve">
+    <value>Žiadne</value>
+    <comment>Unlimited</comment>
+  </data>
+  <data name="TrafficMeter" xml:space="preserve">
+    <value>Merač prenosov</value>
+    <comment>Traffic Meter</comment>
+  </data>
+  <data name="TrafficMeterPageTitleText" xml:space="preserve">
+    <value>Merač prenosov</value>
+    <comment>TrafficMeterPage Title</comment>
+  </data>
+  <data name="traffic_disable" xml:space="preserve">
+    <value>Vypnúť aplikáciu na meranie objemu prenášaných dát. Chcete pokračovať?</value>
+  </data>
+  <data name="traffic_enable" xml:space="preserve">
+    <value>Povoliť aplikáciu na meranie objemu prenášaných dát. Chcete pokračovať?</value>
+  </data>
+  <data name="tv" xml:space="preserve">
+    <value>TV</value>
+  </data>
+  <data name="txtDeviceName" xml:space="preserve">
+    <value>Vlastný názov</value>
+  </data>
+  <data name="txtIPAddress" xml:space="preserve">
+    <value>Adresa IP</value>
+  </data>
+  <data name="txtLinkRate" xml:space="preserve">
+    <value>Rýchlosť spojenia</value>
+  </data>
+  <data name="txtMACAddress" xml:space="preserve">
+    <value>Adresa MAC</value>
+  </data>
+  <data name="txtRoutename" xml:space="preserve">
+    <value>Model smerovača</value>
+  </data>
+  <data name="txtSignalStrength" xml:space="preserve">
+    <value>Intenzita signálu</value>
+  </data>
+  <data name="txtType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="unixpc" xml:space="preserve">
+    <value>Počítač UNIX</value>
+  </data>
+  <data name="UserNameText" xml:space="preserve">
+    <value>Meno používateľa</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Verzia：</value>
+  </data>
+  <data name="waitText" xml:space="preserve">
+    <value>Čakajte, prosím...</value>
+  </data>
+  <data name="WiFiName" xml:space="preserve">
+    <value>Meno/identifikátor SSID</value>
+    <comment>Name/SSID</comment>
+  </data>
+  <data name="WiFiSetting" xml:space="preserve">
+    <value>Nastav. bezdrôt. pripojenia</value>
+    <comment>Wireless Settings</comment>
+  </data>
+  <data name="WifiSettingsPageTitleText" xml:space="preserve">
+    <value>Nastavenia</value>
+    <comment>WifiSettingsPage Title</comment>
+  </data>
+  <data name="windowspc" xml:space="preserve">
+    <value>Počítač so systémom Windows</value>
+  </data>
+  <data name="wirelesssettinrelogin" xml:space="preserve">
+    <value>Nastavenie bezdrôtovej komunikácie sa úspešne zmenilo. Pripojte sa k bezdrôtovej sieti pomocou nového nastavenia bezdrôtovej komunikácie a prihláste sa do aplikácie genie.</value>
+  </data>
+  <data name="wirelsssetting" xml:space="preserve">
+    <value>Zmena nastavení môže narušiť aktívne prenosy v bezdrôtovej sieti. Chcete pokračovať?</value>
+  </data>
+  <data name="within_distributionText" xml:space="preserve">
+    <value>V rámci distribúcie aplikácie NETGEAR genie.</value>
+  </data>
+  <data name="YesButton.Content" xml:space="preserve">
+    <value>Áno</value>
+  </data>
+</root>
