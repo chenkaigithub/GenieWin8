@@ -753,4 +753,7 @@
   <data name="YesButtonContent" xml:space="preserve">
     <value>Kyllä</value>
   </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Haku</value>
+  </data>
 </root>

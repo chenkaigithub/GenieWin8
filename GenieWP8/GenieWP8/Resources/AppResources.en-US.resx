@@ -786,4 +786,7 @@
   <data name="YesterdayTotalText" xml:space="preserve">
     <value>Yesterday</value>
   </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

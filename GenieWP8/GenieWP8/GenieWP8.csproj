@@ -108,6 +108,10 @@
     <Compile Include="SoapUtility\GenieSoapApi.cs" />
     <Compile Include="SoapUtility\UtilityTool.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\WifiSettingModel.cs" />
+    <Compile Include="WifiSettingPage.xaml.cs">
+      <DependentUpon>WifiSettingPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -119,6 +123,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WifiSettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,6 +142,7 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\back.png" />
     <Content Include="Assets\MainPage\appstore.png" />
     <Content Include="Assets\MainPage\guestaccess.png" />
     <Content Include="Assets\MainPage\map.png" />
@@ -144,6 +153,8 @@
     <Content Include="Assets\MainPage\wireless.png" />
     <Content Include="Assets\NETGEAR_Genie_Logo_white_green.png" />
     <Content Include="Assets\questionmark.png" />
+    <Content Include="Assets\refresh.png" />
+    <Content Include="Assets\search.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -220,7 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>E:\Users\yk_ka_000\Downloads\Json50r6\Bin\Portable\Newtonsoft.Json.dll</HintPath>
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <HintPath>lib\System.Net.Http.dll</HintPath>

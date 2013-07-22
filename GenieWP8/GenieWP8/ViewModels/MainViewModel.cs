@@ -5,11 +5,11 @@ using GenieWP8.Resources;
 
 namespace GenieWP8.ViewModels
 {
-    public class ItemViewModel : INotifyPropertyChanged
+    public class MainItemViewModel : INotifyPropertyChanged
     {
         private string _id;
         /// <summary>
-        /// 示例 ViewModel 属性; 此属性用于标识对象。
+        /// ViewModel 属性; 此属性用于标识对象。
         /// </summary>
         /// <returns></returns>
         public string ID
@@ -30,7 +30,7 @@ namespace GenieWP8.ViewModels
 
         private string _title;
         /// <summary>
-        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
+        /// ViewModel 属性；此属性在视图中用于使用绑定显示选项名称。
         /// </summary>
         /// <returns></returns>
         public string Title
@@ -51,7 +51,7 @@ namespace GenieWP8.ViewModels
 
         private string _imagePath;
         /// <summary>
-        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
+        /// ViewModel 属性；此属性在视图中用于使用绑定显示选项标识图。
         /// </summary>
         /// <returns></returns>
         public string ImagePath
@@ -85,13 +85,13 @@ namespace GenieWP8.ViewModels
     {
         public MainViewModel()
         {
-            this.Items = new ObservableCollection<ItemViewModel>();
+            this.Items = new ObservableCollection<MainItemViewModel>();
         }
 
         /// <summary>
-        /// ItemViewModel 对象的集合。
+        /// MainItemViewModel 对象的集合。
         /// </summary>
-        public ObservableCollection<ItemViewModel> Items { get; private set; }
+        public ObservableCollection<MainItemViewModel> Items { get; private set; }
 
         public bool IsDataLoaded
         {
@@ -100,19 +100,18 @@ namespace GenieWP8.ViewModels
         }
 
         /// <summary>
-        /// 创建一些 ItemViewModel 对象并将其添加到 Items 集合中。
+        /// 创建一些 MainItemViewModel 对象并将其添加到 Items 集合中。
         /// </summary>
         public void LoadData()
-        {
-            // 示例数据；替换为实际数据
-            this.Items.Add(new ItemViewModel() { ID = "WiFiSetting", Title = AppResources.WiFiSetting, ImagePath = "Assets/MainPage/wireless.png" });
-            this.Items.Add(new ItemViewModel() { ID = "GuestAccess", Title = AppResources.GuestAccess, ImagePath = "Assets/MainPage/guestaccess.png" });
-            this.Items.Add(new ItemViewModel() { ID = "NetworkMap", Title = AppResources.NetworkMap, ImagePath = "Assets/MainPage/map.png" });
-            this.Items.Add(new ItemViewModel() { ID = "ParentalControl", Title = AppResources.ParentalControl, ImagePath = "Assets/MainPage/parentalcontrols.png" });
-            this.Items.Add(new ItemViewModel() { ID = "TrafficMeter", Title = AppResources.TrafficMeter, ImagePath = "Assets/MainPage/traffic.png" });
-            this.Items.Add(new ItemViewModel() { ID = "MyMedia", Title = AppResources.MyMedia, ImagePath = "Assets/MainPage/mymedia.png" });
-            this.Items.Add(new ItemViewModel() { ID = "QRCode", Title = AppResources.QRCode, ImagePath = "Assets/MainPage/qrcode.png" });
-            this.Items.Add(new ItemViewModel() { ID = "MarketPlace", Title = AppResources.MarketPlace, ImagePath = "Assets/MainPage/appstore.png" });
+        {            
+            this.Items.Add(new MainItemViewModel() { ID = "WiFiSetting", Title = AppResources.WiFiSetting, ImagePath = "Assets/MainPage/wireless.png" });
+            this.Items.Add(new MainItemViewModel() { ID = "GuestAccess", Title = AppResources.GuestAccess, ImagePath = "Assets/MainPage/guestaccess.png" });
+            this.Items.Add(new MainItemViewModel() { ID = "NetworkMap", Title = AppResources.NetworkMap, ImagePath = "Assets/MainPage/map.png" });
+            this.Items.Add(new MainItemViewModel() { ID = "ParentalControl", Title = AppResources.ParentalControl, ImagePath = "Assets/MainPage/parentalcontrols.png" });
+            this.Items.Add(new MainItemViewModel() { ID = "TrafficMeter", Title = AppResources.TrafficMeter, ImagePath = "Assets/MainPage/traffic.png" });
+            this.Items.Add(new MainItemViewModel() { ID = "MyMedia", Title = AppResources.MyMedia, ImagePath = "Assets/MainPage/mymedia.png" });
+            this.Items.Add(new MainItemViewModel() { ID = "QRCode", Title = AppResources.QRCode, ImagePath = "Assets/MainPage/qrcode.png" });
+            this.Items.Add(new MainItemViewModel() { ID = "MarketPlace", Title = AppResources.MarketPlace, ImagePath = "Assets/MainPage/appstore.png" });
 
             this.IsDataLoaded = true;
         }

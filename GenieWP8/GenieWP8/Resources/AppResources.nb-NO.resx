@@ -753,4 +753,7 @@
   <data name="YesButtonContent" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Søk</value>
+  </data>
 </root>

@@ -783,4 +783,7 @@
   <data name="YesterdayTotalText" xml:space="preserve">
     <value>昨天</value>
   </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>搜索</value>
+  </data>
 </root>
