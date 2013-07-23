@@ -753,4 +753,7 @@
   <data name="YesButton.Content" xml:space="preserve">
     <value>Áno</value>
   </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Vyhľadať</value>
+  </data>
 </root>

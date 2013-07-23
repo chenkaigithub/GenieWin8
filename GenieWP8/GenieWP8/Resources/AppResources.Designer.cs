@@ -1285,6 +1285,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 搜索 的本地化字符串。
+        /// </summary>
+        public static string SearchText {
+            get {
+                return ResourceManager.GetString("SearchText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 安全 的本地化字符串。
         /// </summary>
         public static string Security {

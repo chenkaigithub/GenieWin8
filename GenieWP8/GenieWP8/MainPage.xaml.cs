@@ -19,10 +19,10 @@ namespace GenieWP8
         {
             InitializeComponent();
 
-            // 将 LongListSelector 控件的数据上下文设置为示例数据
+            // 将 LongListSelector 控件的数据上下文设置为绑定数据
             DataContext = App.ViewModel;
 
-            // 用于本地化 ApplicationBar 的示例代码
+            // 用于本地化 ApplicationBar 的代码
             BuildLocalizedApplicationBar();
         }
 
@@ -32,6 +32,15 @@ namespace GenieWP8
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
+            }
+            //清空BackStack,使得到MainPage能正确退出程序
+            int count = NavigationService.BackStack.Count();
+            if (count > 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
             }
         }
 
@@ -43,13 +52,13 @@ namespace GenieWP8
                 return;
 
             // 导航到新页面
-            //NavigationService.Navigate(new Uri("/DetailsPage.xaml?selectedItem=" + (MainLongListSelector.SelectedItem as ItemViewModel).ID, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
 
             // 将所选项重置为 null (没有选定内容)
             MainLongListSelector.SelectedItem = null;
         }
 
-        //用于生成本地化 ApplicationBar 的示例代码
+        //用于生成本地化 ApplicationBar 的代码
         private void BuildLocalizedApplicationBar()
         {
             // 将页面的 ApplicationBar 设置为 ApplicationBar 的新实例。
@@ -57,14 +66,34 @@ namespace GenieWP8
             ApplicationBar.Mode = ApplicationBarMode.Minimized;
 
             // 创建新按钮并将文本值设置为 AppResources 中的本地化字符串。
-            ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("Assets/questionmark.png", UriKind.Relative));
-            appBarButton.Text = AppResources.AboutText;
-            ApplicationBar.Buttons.Add(appBarButton);
+            //搜索按钮
+            ApplicationBarIconButton appBarButton_search = new ApplicationBarIconButton(new Uri("Assets/search.png", UriKind.Relative));
+            appBarButton_search.Text = AppResources.SearchText;
+            ApplicationBar.Buttons.Add(appBarButton_search);      
+     
+            //关于按钮
+            ApplicationBarIconButton appBarButton_about = new ApplicationBarIconButton(new Uri("Assets/questionmark.png", UriKind.Relative));
+            appBarButton_about.Text = AppResources.AboutText;
+            ApplicationBar.Buttons.Add(appBarButton_about);          
 
             // 使用 AppResources 中的本地化字符串创建新菜单项。
             ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.LoginButtonContent);
             ApplicationBar.MenuItems.Add(appBarMenuItem);
             double width = System.Windows.Application.Current.Host.Content.ActualWidth;
+        }
+
+        private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        {
+            // Switch the placement of the buttons based on an orientation change.
+            if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+            {
+                ContentPanel.Margin = new Thickness(12, 0, 12, 0);
+            }
+            // If not in portrait, move buttonList content to visible row and column.
+            else
+            {
+                ContentPanel.Margin = new Thickness(42, 0, 12, 0);
+            }
         }
     }
 }

@@ -11,6 +11,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
+    OrientationChanged="PhoneApplicationPage_OrientationChanged"
     shell:SystemTray.IsVisible="True">
     <!--d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"-->
 
@@ -63,7 +64,7 @@
         </StackPanel>
 
         <!--ContentPanel 包含 LongListSelector 和 LongListSelector ItemTemplate。在此处放置其他内容-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="40,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:LongListSelector 
                 x:Name="MainLongListSelector"
                 Margin="0,0,0,0"
