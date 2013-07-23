@@ -14,6 +14,7 @@ namespace GenieWin8
 {
     class GenieSoapApi
     {
+        HttpClientHandler handler;
         HttpClient httpClient;
         UtilityTool util;
         bool retOK;///发送soap是否返回200 OK
@@ -27,7 +28,8 @@ namespace GenieWin8
         public static _InnerFlags flag = _InnerFlags.NONE;
         public GenieSoapApi()
         {
-            httpClient = new HttpClient();
+            handler = new HttpClientHandler();
+            httpClient = new HttpClient(handler);
             util = new UtilityTool();
             retOK = false;
 
@@ -543,7 +545,7 @@ namespace GenieWin8
                 }
             
 
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, resourceAddress);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri(resourceAddress));
                 StringContent soapContent = new StringContent(soapBody, Encoding.UTF8, "text/xml");
                 request.Content = soapContent;
                 request.Content.Headers.Add("SOAPAction", soapAction);
@@ -557,6 +559,10 @@ namespace GenieWin8
                 string resultstr;
                 try
                 {
+                    if(handler.SupportsTransferEncodingChunked())
+                    {
+                        request.Headers.TransferEncodingChunked = true;
+                    }
                     HttpResponseMessage response = await httpClient.SendAsync(request);
                     resultbt = await response.Content.ReadAsByteArrayAsync();
                     resultstr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);

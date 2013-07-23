@@ -14,12 +14,19 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Windows.Storage.Streams;
 using System.Diagnostics;
+using System.Xml.Linq;
 //using GenieWin8.DataModel;
 
 namespace GenieWin8
 {
+    /// <summary>
+    /// 一些处理实用的公共方法的类
+    /// </summary>
     class UtilityTool
     {
+        /// <summary>
+        /// responseDic保存解析xml所得到的结果
+        /// </summary>
         Dictionary<string, string> responseDic;
         private string dicKey;
         public UtilityTool()
@@ -44,79 +51,60 @@ namespace GenieWin8
             {
                 return responseDic;
             }
-            //XmlDocument xmlDoc = new XmlDocument();
-            //xmlDoc.LoadXml(xml);
-            //XmlNodeList xnl = xmlDoc.DocumentElement.ChildNodes;
-            //string root = xmlDoc.FirstChild.NextSibling.NodeName;
-            //foreach (IXmlNode xn in xnl)
-            //{
-            //    IXmlNode child = xn.FirstChild;
-            //    if (child != null)
-            //    {
-            //        NodeOperate(child, root);
-            //    }
-            //}
+
+            XDocument xdoc = XDocument.Parse(xml);
+            XNode root = xdoc.Root.FirstNode;
+            var nodeList = xdoc.Root.Nodes();
+            if (nodeList.Count() > 0)
+            {
+                foreach (XNode node in nodeList)
+                {
+                    XElement e = (XElement)node;
+                    string nodeName, nodeValue;
+
+                    if (e.HasElements)
+                    {
+                        NodeOperate(e.FirstNode);
+                    }
+                    else
+                    {
+                        nodeName = e.Name.LocalName;
+                        nodeValue = e.Value;
+                        responseDic.Add(nodeName, nodeValue);
+                        NodeOperate(e.NextNode);
+                    }
+                }
+            }
+
             return responseDic;
 
         }
-/*
-        private void NodeOperate(IXmlNode xn, string root)
+
+        /// <summary>
+        /// 递归遍历xml节点
+        /// </summary>
+        /// <param name="root"></param>
+        private void NodeOperate(XNode root)
         {
-
-            if (xn.HasChildNodes())
+            XElement e = (XElement)root;
+            if (e != null)
             {
-                dicKey = xn.NodeName;
-                System.Diagnostics.Debug.WriteLine(xn.NodeName + "\n");
-                //System.Diagnostics.Debug.WriteLine("\n");
-                IXmlNode childNode = xn.FirstChild;
-
-                NodeOperate(childNode, root);
-
-            }
-            else
-            {
-
-                //System.Diagnostics.Debug.WriteLine(xn.NodeName + "\n");
-                System.Diagnostics.Debug.WriteLine(xn.InnerText);
-                //System.Diagnostics.Debug.WriteLine("\n");
-                string dicValue = xn.InnerText.Trim();
-                if (dicValue != "")
+                string nodeName, nodeValue;
+                if (e.HasElements)
                 {
-                    responseDic.Add(dicKey, dicValue);
-                }
-                if (xn.NextSibling != null)
-                {
-
-                    NodeOperate(xn.NextSibling, root);
+                    NodeOperate(e.FirstNode);
                 }
                 else
                 {
-                    int flag = 0;
-                    while (xn.NextSibling == null)
-                    {
-                        if (xn.NodeName == root)
-                        {
-                            flag = 1;
-                            break;
-                        }
-                        else
-                        {
-                            xn = xn.ParentNode;
-                        }
-
-                    }
-                    if (flag == 0)
-                    {
-                        NodeOperate(xn.NextSibling, root);
-                    }
-                    else if (flag == 1)
-                    {
-                        // System.Diagnostics.Debug.WriteLine("End");
-                    }
+                    nodeName = e.Name.LocalName;
+                    nodeValue = e.Value;
+                    responseDic.Add(nodeName, nodeValue);
+                    NodeOperate(e.NextNode);
                 }
             }
+
         }
-*/
+
         //public static IPAddress Find()
         //{
         //    List<string> ipAddresses = new List<string>();
