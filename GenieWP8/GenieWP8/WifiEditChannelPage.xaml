@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="GenieWP8.WifiSettingPage"
+    x:Class="GenieWP8.WifiEditChannelPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -38,35 +38,30 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="{Binding Path=LocalizedResources.WifiSettingsPageTitleText, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.ChannelPageTitleText, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
-        <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <phone:LongListSelector 
-                x:Name="WifiSettingLongListSelector"
-                ItemsSource="{Binding SettingGroups}"
-                SelectionChanged="WifiSettingLongListSelector_SelectionChanged">
-                    <phone:LongListSelector.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF004F74" Offset="1"/>
-                            <GradientStop Color="#FF50C6FD"/>
-                        </LinearGradientBrush>
-                    </phone:LongListSelector.Background>
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,10">
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
-                <TextBlock Text="{Binding Path=LocalizedResources.ScanQrCodeTipsText, Source={StaticResource LocalizedStrings}}" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,0"/>
-                <Image x:Name="imageQRCode" Source="Assets/ApplicationIcon.png" Width="200" Height="200" Margin="0,10,0,0" HorizontalAlignment="Center"/>
-            </StackPanel>
-        </ScrollViewer>       
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,10" VerticalAlignment="Top">
+            <ListBox 
+                x:Name="channelSettingListBox"
+                ItemsSource="{Binding EditChannelSecurity[0].Items}"
+                SelectionChanged="channelSetting_SelectionChanged">
+                <ListBox.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF004F74" Offset="1"/>
+                        <GradientStop Color="#FF50C6FD"/>
+                    </LinearGradientBrush>
+                </ListBox.Background>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="10,0,0,10">
+                            <TextBlock Text="{Binding Content}" FontSize="24"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 
 </phone:PhoneApplicationPage>

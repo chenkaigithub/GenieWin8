@@ -146,11 +146,11 @@ namespace GenieWP8.ViewModels
         //    return null;
         //}
 
-        //public bool IsDataLoaded
-        //{
-        //    get;
-        //    private set;
-        //}
+        public bool IsDataLoaded
+        {
+            get;
+            private set;
+        }
 
         public void LoadData()
         {
@@ -189,7 +189,7 @@ namespace GenieWP8.ViewModels
             group6.Items.Add(new SettingItem() { ID = "Security_WPA2-PSK[AES]", Title = "Security", Content = "WPA2-PSK[AES]", Group = group6 });
             group6.Items.Add(new SettingItem() { ID = "Security_WPA-PSK+WPA2-PSK", Title = "Security", Content = "WPA-PSK+WPA2-PSK", Group = group6 });
             this.EditChannelSecurity.Add(group6);
-            //this.IsDataLoaded = true;
+            this.IsDataLoaded = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

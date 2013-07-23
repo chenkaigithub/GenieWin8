@@ -33,6 +33,15 @@ namespace GenieWP8
             {
                 App.ViewModel.LoadData();
             }
+            //清空BackStack,使得到MainPage能正确退出程序
+            int count = NavigationService.BackStack.Count();
+            if (count > 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+            }
         }
 
         // 处理在 LongListSelector 中更改的选定内容

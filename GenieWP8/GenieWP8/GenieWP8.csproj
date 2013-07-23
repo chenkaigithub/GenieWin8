@@ -109,6 +109,15 @@
     <Compile Include="SoapUtility\UtilityTool.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\WifiSettingModel.cs" />
+    <Compile Include="WifiEditChannelPage.xaml.cs">
+      <DependentUpon>WifiEditChannelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WifiEditSecurityPage.xaml.cs">
+      <DependentUpon>WifiEditSecurityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WifiEditSettingPage.xaml.cs">
+      <DependentUpon>WifiEditSettingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WifiSettingPage.xaml.cs">
       <DependentUpon>WifiSettingPage.xaml</DependentUpon>
     </Compile>
@@ -123,6 +132,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WifiEditChannelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WifiEditSecurityPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WifiEditSettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,6 +175,7 @@
     <Content Include="Assets\NETGEAR_Genie_Logo_white_green.png" />
     <Content Include="Assets\questionmark.png" />
     <Content Include="Assets\refresh.png" />
+    <Content Include="Assets\save.png" />
     <Content Include="Assets\search.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

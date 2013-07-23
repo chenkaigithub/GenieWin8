@@ -31,11 +31,11 @@ namespace GenieWP8
         // 为 WifiSettingModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //if (!App.ViewModel.IsDataLoaded)
-            //{
-            //    App.ViewModel.LoadData();
-            //}
-            settingModel.LoadData();
+            if (!settingModel.IsDataLoaded)
+            {
+                settingModel.LoadData();
+            }
+            //settingModel.LoadData();
         }
 
         // 处理在 LongListSelector 中更改的选定内容
@@ -47,6 +47,7 @@ namespace GenieWP8
 
             // 导航到新页面
             //NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
 
             // 将所选项重置为 null (没有选定内容)
             WifiSettingLongListSelector.SelectedItem = null;
@@ -64,27 +65,45 @@ namespace GenieWP8
             ApplicationBarIconButton appBarButton_back = new ApplicationBarIconButton(new Uri("Assets/back.png", UriKind.Relative));
             appBarButton_back.Text = AppResources.btnBack;
             ApplicationBar.Buttons.Add(appBarButton_back);
+            appBarButton_back.Click += new EventHandler(appBarButton_back_Click);
 
             //刷新按钮
             ApplicationBarIconButton appBarButton_refresh = new ApplicationBarIconButton(new Uri("Assets/refresh.png", UriKind.Relative));
             appBarButton_refresh.Text = AppResources.RefreshButtonContent;
             ApplicationBar.Buttons.Add(appBarButton_refresh);
+            appBarButton_refresh.Click+=new EventHandler(appBarButton_refresh_Click);
         }
 
-        private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        private void appBarButton_back_Click(object sender, EventArgs e)
         {
-            // Switch the placement of the buttons based on an orientation change.
-            if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
-            {
-                TitlePanel.Margin = new Thickness(12, 17, 0, 28);
-                ContentPanel.Margin = new Thickness(12, 0, 12, 0);
-            }
-            // If not in portrait, move buttonList content to visible row and column.
-            else
-            {
-                TitlePanel.Margin = new Thickness(42, 17, 0, 28);
-                ContentPanel.Margin = new Thickness(42, 0, 12, 0);
-            }
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+        }
+
+        //重写手机“返回”按钮事件
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+        }
+
+        private void appBarButton_refresh_Click(object sender, EventArgs e)
+        {
+            //GenieSoapApi soapApi = new GenieSoapApi();
+            //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            //dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            //if (dicResponse.Count > 0)
+            //{
+            //    WifiInfoModel.ssid = dicResponse["NewSSID"];
+            //    WifiInfoModel.channel = dicResponse["NewChannel"];
+            //    WifiInfoModel.changedChannel = dicResponse["NewChannel"];
+            //    WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+            //    WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+            //}
+            //dicResponse = await soapApi.GetWPASecurityKeys();
+            //if (dicResponse.Count > 0)
+            //{
+            //    WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+            //}
+            //this.Frame.Navigate(typeof(WifiSettingPage));
         }
     }
 }
