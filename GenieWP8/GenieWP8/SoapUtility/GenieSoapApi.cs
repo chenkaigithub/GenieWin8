@@ -52,6 +52,7 @@ namespace GenieWin8
 
         /// <summary>
         /// *********************GetAttachDevice*************
+        /// 返回结果以ip作为Dictionary的key
         /// </summary>
         /// <returns></returns>
         public async Task<Dictionary<string,Dictionary<string,string>>> GetAttachDevice()
@@ -64,7 +65,7 @@ namespace GenieWin8
             {
                retParam = util.SubString(retParam, "<NewAttachDevice>", "</NewAttachDevice>");
                string[] tempArray = retParam.Split('@');
-               string macAdr = ""; 
+               string ip = ""; 
                for (int i = 1; i < tempArray.Length; i++)
                {
                    if(tempArray[i] != "" && tempArray[i] != null)
@@ -73,11 +74,9 @@ namespace GenieWin8
                        string[] itemArray = tempArray[i].Split(';');
                        if (itemArray.Length >= 4)
                        {
-                           dicRow.Add("Ip", itemArray[1]);
+                           ip = itemArray[1];
                            dicRow.Add("HostName", itemArray[2]);
-                           macAdr = itemArray[3];
-
-
+                           dicRow.Add("MacAddress", itemArray[3]);
                        }
                        if (itemArray.Length >= 5)
                        {
@@ -88,10 +87,10 @@ namespace GenieWin8
                            dicRow.Add("LinkSpeed", itemArray[5]);
                            dicRow.Add("Signal", itemArray[6]);
                        }
-                       if (macAdr != "")
+                       if (ip != "")
                        {
-                           System.Diagnostics.Debug.WriteLine(macAdr);
-                           dicAttachDevice.Add(macAdr, dicRow);
+                           System.Diagnostics.Debug.WriteLine(ip);
+                           dicAttachDevice.Add(ip, dicRow);
                        }
                    }
                }
