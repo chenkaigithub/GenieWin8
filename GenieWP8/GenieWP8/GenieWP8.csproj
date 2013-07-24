@@ -96,6 +96,9 @@
     <Compile Include="DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
     <Page Include="DetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
@@ -172,6 +179,9 @@
     <Content Include="Assets\MainPage\qrcode.png" />
     <Content Include="Assets\MainPage\traffic.png" />
     <Content Include="Assets\MainPage\wireless.png" />
+    <Content Include="Assets\NETGEAR_Genie_ico_150.png" />
+    <Content Include="Assets\NETGEAR_Genie_ico_30.png" />
+    <Content Include="Assets\NETGEAR_Genie_ico_50.png" />
     <Content Include="Assets\NETGEAR_Genie_Logo_white_green.png" />
     <Content Include="Assets\questionmark.png" />
     <Content Include="Assets\refresh.png" />
@@ -254,6 +264,7 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
