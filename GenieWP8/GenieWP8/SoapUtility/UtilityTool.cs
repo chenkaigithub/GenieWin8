@@ -15,6 +15,7 @@ using Newtonsoft.Json.Linq;
 using Windows.Storage.Streams;
 using System.Diagnostics;
 using System.Xml.Linq;
+using System.Windows;
 //using GenieWin8.DataModel;
 
 namespace GenieWin8
@@ -270,50 +271,6 @@ namespace GenieWin8
             return jo;
         }
        
-        public string GetMACAddress()
-        {
-            //string deviceSerial = string.Empty;
-            //// http://msdn.microsoft.com/en-us/library/windows/apps/jj553431
-            //Windows.System.Profile.HardwareToken hardwareToken = Windows.System.Profile.HardwareIdentification.GetPackageSpecificToken(null);
-            //using (DataReader dataReader = DataReader.FromBuffer(hardwareToken.Id))
-            //{
-            //    int offset = 0;
-            //    while (offset < hardwareToken.Id.Length)
-            //    {
-            //        byte[] hardwareEntry = new byte[4];
-            //        dataReader.ReadBytes(hardwareEntry);
-
-            //        // CPU ID of the processor || Size of the memory || Serial number of the disk device || BIOS
-            //        if ((hardwareEntry[0] == 1 || hardwareEntry[0] == 2 || hardwareEntry[0] == 3 || hardwareEntry[0] == 9) && hardwareEntry[1] == 0)
-            //        {
-            //            if (!string.IsNullOrEmpty(deviceSerial))
-            //            {
-            //                deviceSerial += "|";
-            //            }
-            //            deviceSerial += string.Format("{0}.{1}", hardwareEntry[2], hardwareEntry[3]);
-            //        }
-            //        offset += 4;
-            //    }
-            //}
-            //Debug.WriteLine("deviceSerial=" + deviceSerial);
-            
-            var names = NetworkInformation.GetHostNames();
-            string mac="";
-            int foundIdx;
-            for (int i = 0; i < names.Count; i++)
-            {
-                foundIdx = names[i].DisplayName.IndexOf(".local");
-                if (foundIdx > 0)
-                {
-                     mac = names[i].DisplayName.Substring(0, foundIdx);
-                }
-            }
-            if (mac != null)
-            {
-            }
-
-            return "";
-        }
 
         /// <summary>
         /// 获取本机的Mac地址
@@ -339,6 +296,23 @@ namespace GenieWin8
             //        }
             //    }
             //}
+
+            /*
+            byte[] myDeviceID = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
+            string maAddress = BitConverter.ToString(myDeviceID);
+            string idAsString = Convert.ToBase64String(myDeviceID);
+            string Manufacturer = (string)Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceManufacturer");
+            string DeviceName = (string)Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceName");
+           // MessageBox.Show("myDeviceID:" + idAsString + "\nManufacturer:" + Manufacturer + "\nDeviceName:" + DeviceName);
+
+            Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceList InterfacesList = new Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceList();
+            foreach (Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceInfo specificInterface in InterfacesList)
+            {
+                if (specificInterface.InterfaceType == Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceType.Wireless80211)
+                {
+                    Console.WriteLine("This interface is a Wifi Interface :");
+                }
+            }*/
             return string.Empty;
         }
 
@@ -348,24 +322,20 @@ namespace GenieWin8
         /// <returns></returns>
         public IEnumerable<string> GetCurrentIpAddresses()
         {
-            var profiles = NetworkInformation.GetConnectionProfiles().ToList();
-
-            // the Internet connection profile doesn't seem to be in the above list
-           // profiles.Add(NetworkInformation.GetInternetConnectionProfile());
-
-            IEnumerable<HostName> hostnames =
-                NetworkInformation.GetHostNames().Where(h =>
-                    h.IPInformation != null &&
-                    h.IPInformation.NetworkAdapter != null).ToList();
-
-            var tempList = (from h in hostnames
-                    from p in profiles
-                    where h.IPInformation.NetworkAdapter.NetworkAdapterId ==
-                          p.NetworkAdapter.NetworkAdapterId
-                    select string.Format("{0}", h.CanonicalName)).ToList();
-             var set = new HashSet<string>(tempList);
-             return set;
-            //select string.Format("{0}, {1}", p.ProfileName, h.CanonicalName)).ToList();
+            var ipList = new HashSet<string>();
+            var hostnames = NetworkInformation.GetHostNames();
+            foreach (var hn in hostnames)
+            {
+                if (hn.IPInformation != null)
+                {
+                    string ipAddress = hn.DisplayName;
+                    if (ipAddress != "" && ipAddress != null)
+                    {
+                        ipList.Add(ipAddress);
+                    }
+                }
+            }
+             return ipList;
         }
 
     }
