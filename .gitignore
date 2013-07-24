@@ -23,9 +23,11 @@
 [Dd]ebug*/
 [Rr]elease/
 AppPackages/
+_UpgradeReport_Files/
 
 [Tt]est[Rr]esult
 [Bb]uild[Ll]og.*
+UpgradeLog.*
 
 *_i.c
 *_p.c

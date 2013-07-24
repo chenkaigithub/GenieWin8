@@ -74,12 +74,14 @@ namespace GenieWP8
             //关于按钮
             ApplicationBarIconButton appBarButton_about = new ApplicationBarIconButton(new Uri("Assets/questionmark.png", UriKind.Relative));
             appBarButton_about.Text = AppResources.AboutText;
-            ApplicationBar.Buttons.Add(appBarButton_about);          
+            ApplicationBar.Buttons.Add(appBarButton_about);
+            appBarButton_about.Click += new EventHandler(appBarButton_about_Click);
 
             // 使用 AppResources 中的本地化字符串创建新菜单项。
-            ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.LoginButtonContent);
-            ApplicationBar.MenuItems.Add(appBarMenuItem);
+            ApplicationBarMenuItem appBarMenuItem_Login = new ApplicationBarMenuItem(AppResources.LoginButtonContent);
+            ApplicationBar.MenuItems.Add(appBarMenuItem_Login);
             double width = System.Windows.Application.Current.Host.Content.ActualWidth;
+            appBarMenuItem_Login.Click += new EventHandler(appBarMenuItem_Login_Click);
         }
 
         private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
@@ -88,12 +90,74 @@ namespace GenieWP8
             if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
                 ContentPanel.Margin = new Thickness(12, 0, 12, 0);
+                LicenseScrollViewer.Height = 450;
             }
             // If not in portrait, move buttonList content to visible row and column.
             else
             {
                 ContentPanel.Margin = new Thickness(42, 0, 12, 0);
+                LicenseScrollViewer.Height = 250;
             }
+        }
+
+        private void appBarButton_about_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void appBarMenuItem_Login_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+        }
+
+        //隐私权政策链接响应事件
+        private async void Policy_Click(Object sender, RoutedEventArgs e)
+        {
+            var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
+            await Windows.System.Launcher.LaunchUriAsync(uri);
+        }
+
+        //关闭“关于”事件
+        private void CloseAboutButton_Click(Object sender, RoutedEventArgs e)
+        {
+            //if (AboutPopup.IsOpen)
+            //{
+            //    AboutPopup.IsOpen = false;
+            //    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            //    PopupBackground.Visibility = Visibility.Collapsed;
+            //    pleasewait.Visibility = Visibility.Visible;
+            //    CloseAboutButton.Visibility = Visibility.Collapsed;
+            //    LicenseButton.Visibility = Visibility.Collapsed;
+            //}
+        }
+
+        //点击“许可”响应事件
+        private void LicenseButton_Click(Object sender, RoutedEventArgs e)
+        {
+            //if (!LicensePopup.IsOpen)
+            //{
+            //    LicensePopup.IsOpen = true;
+            //    AboutPopup.IsOpen = false;
+            //    PopupBackgroundTop.Visibility = Visibility.Visible;
+            //    PopupBackground.Visibility = Visibility.Visible;
+            //    pleasewait.Visibility = Visibility.Collapsed;
+            //    CloseLicenseButton.Visibility = Visibility.Visible;
+            //    CloseAboutButton.Visibility = Visibility.Collapsed;
+            //    LicenseButton.Visibility = Visibility.Collapsed;
+            //}
+        }
+
+        //关闭“许可”事件
+        private void CloseLicenseButton_Click(Object sender, RoutedEventArgs e)
+        {
+            //if (LicensePopup.IsOpen)
+            //{
+            //    LicensePopup.IsOpen = false;
+            //    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            //    PopupBackground.Visibility = Visibility.Collapsed;
+            //    pleasewait.Visibility = Visibility.Visible;
+            //    CloseLicenseButton.Visibility = Visibility.Collapsed;
+            //}
         }
     }
 }
