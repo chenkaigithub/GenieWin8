@@ -354,7 +354,7 @@ namespace GenieWin8
 
         /// <summary>
         /// 获取当前路由器的流量控制功能状态
-        /// NewTrafficMeterEnable：1（enabled），0（disabled），2（Traffic Meter service is not supported）
+        /// NewTrafficMeterEnable：1（已启用），0（已禁用），2（Traffic Meter service is not supported）
         /// </summary>
         /// <returns></returns>
         public async Task<Dictionary<string, string>> GetTrafficMeterEnabled()
