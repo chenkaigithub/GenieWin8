@@ -14,30 +14,30 @@ using GenieWP8.DataInfo;
 
 namespace GenieWP8
 {
-    public partial class WifiEditSecurityPage : PhoneApplicationPage
+    public partial class GuestSecurityPage : PhoneApplicationPage
     {
-        private static WifiSettingModel settingModel = null;
-        public WifiEditSecurityPage()
+        private static GuestAccessModel settingModel = null;
+        public GuestSecurityPage()
         {
             InitializeComponent();
 
             // 绑定数据
             if (settingModel == null)
-                settingModel = new WifiSettingModel();
+                settingModel = new GuestAccessModel();
             DataContext = settingModel;
 
             // 用于本地化 ApplicationBar 的代码
             BuildLocalizedApplicationBar();
         }
 
-        // 为 WifiSettingModel 项加载数据
+        // 为 GuestAccessModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            settingModel.SettingGroups.Clear();
-            settingModel.EditChannelSecurity.Clear();
+            settingModel.GuestSettingGroups.Clear();
+            settingModel.EditTimesegSecurity.Clear();
             settingModel.LoadData();
 
-            string securityType = WifiSettingInfo.changedSecurityType;
+            string securityType = GuestAccessInfo.changedSecurityType;
             switch (securityType)
             {
                 case "None":
@@ -47,6 +47,9 @@ namespace GenieWP8
                     securitySettingListBox.SelectedIndex = 1;
                     break;
                 case "WPA-PSK/WPA2-PSK":
+                    securitySettingListBox.SelectedIndex = 2;
+                    break;
+                case "Mixed WPA":
                     securitySettingListBox.SelectedIndex = 2;
                     break;
             }
@@ -78,29 +81,34 @@ namespace GenieWP8
             switch (index)
             {
                 case 0:
-                    WifiSettingInfo.changedSecurityType = "None";
+                    GuestAccessInfo.changedSecurityType = "None";
                     break;
                 case 1:
-                    WifiSettingInfo.changedSecurityType = "WPA2-PSK";
+                    GuestAccessInfo.changedSecurityType = "WPA2-PSK";
                     break;
                 case 2:
-                    WifiSettingInfo.changedSecurityType = "WPA-PSK/WPA2-PSK";
+                    GuestAccessInfo.changedSecurityType = "WPA-PSK/WPA2-PSK";
                     break;
             }
 
             //判断安全是否更改
-            if (WifiSettingInfo.changedSecurityType != WifiSettingInfo.securityType)
+            if (GuestAccessInfo.changedSecurityType != GuestAccessInfo.securityType)
             {
-                WifiSettingInfo.isSecurityTypeChanged = true;
+                if (GuestAccessInfo.changedSecurityType == "WPA-PSK/WPA2-PSK" && GuestAccessInfo.securityType == "Mixed WPA")
+                {
+                    GuestAccessInfo.isSecurityTypeChanged = false;
+                }
+                else
+                    GuestAccessInfo.isSecurityTypeChanged = true;
             }
             else
             {
-                WifiSettingInfo.isSecurityTypeChanged = false;
+                GuestAccessInfo.isSecurityTypeChanged = false;
             }
 
             if (lastIndex != -1 && index != lastIndex)
-            {                
-                NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+            {
+                NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
             }
             lastIndex = index;
         }
@@ -108,13 +116,13 @@ namespace GenieWP8
         //返回按钮响应事件
         private void appBarButton_back_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
         }
 
         //重写手机“返回”按钮事件
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
         }
     }
 }

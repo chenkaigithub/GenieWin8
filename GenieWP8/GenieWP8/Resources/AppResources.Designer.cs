@@ -754,6 +754,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 登录失败！请检查本计算机是否已连接到 NETGEAR 路由器。 的本地化字符串。
+        /// </summary>
+        public static string login_alertinfo {
+            get {
+                return ResourceManager.GetString("login_alertinfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 登录 的本地化字符串。
         /// </summary>
         public static string LoginButtonContent {

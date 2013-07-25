@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+
 using GenieWP8.Resources;
+using GenieWP8.DataInfo;
 
 namespace GenieWP8.ViewModels
 {
@@ -117,40 +119,22 @@ namespace GenieWP8.ViewModels
     {
         public WifiSettingModel()
         {
-            //this.Items = new ObservableCollection<SettingItem>();
             this.SettingGroups = new ObservableCollection<SettingGroup>();
-            this.EditName = new ObservableCollection<SettingGroup>();
-            this.EditKey = new ObservableCollection<SettingGroup>();
+            this.EditName = new SettingGroup();
+            this.EditKey = new SettingGroup();
             this.EditChannelSecurity = new ObservableCollection<SettingGroup>();
         }
 
-        //private ObservableCollection<SettingGroup> _settingGroups = new ObservableCollection<SettingGroup>();
         public ObservableCollection<SettingGroup> SettingGroups { get; private set; }
-        public ObservableCollection<SettingGroup> EditName { get; private set; }
-        public ObservableCollection<SettingGroup> EditKey { get; private set; }
+        public SettingGroup EditName { get; private set; }
+        public SettingGroup EditKey { get; private set; }
         public ObservableCollection<SettingGroup> EditChannelSecurity { get; private set; }
 
-        //public static SettingGroup GetChannel(string uniqueId)
+        //public bool IsDataLoaded
         //{
-        //    // 对于小型数据集可接受简单线性搜索
-        //    var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals(uniqueId));
-        //    if (matches.Count() == 1) return matches.First();
-        //    return null;
+        //    get;
+        //    private set;
         //}
-
-        //public static SettingGroup GetSecurity(string uniqueId)
-        //{
-        //    // 对于小型数据集可接受简单线性搜索
-        //    var matches = _settingSource.EditChannelSecurity.Where((group) => group.UniqueId.Equals(uniqueId));
-        //    if (matches.Count() == 1) return matches.First();
-        //    return null;
-        //}
-
-        public bool IsDataLoaded
-        {
-            get;
-            private set;
-        }
 
         public void LoadData()
         {
@@ -160,15 +144,15 @@ namespace GenieWP8.ViewModels
             var group2 = new SettingGroup() { ID = "LinkRate", Title = AppResources.txtLinkRate, Content = "20Mbps" };
             this.SettingGroups.Add(group2);
 
-            var group3 = new SettingGroup() { ID = "WiFiName", Title = AppResources.WiFiName, Content = "4500-2G" };
-            this.EditName.Add(group3);
+            var group3 = new SettingGroup() { ID = "WiFiName", Title = AppResources.WiFiName, Content = WifiSettingInfo.ssid };
+            EditName = group3;
             this.SettingGroups.Add(group3);
 
-            var group4 = new SettingGroup() { ID = "Password", Title = AppResources.Key_Password, Content = "siteview" };
-            this.EditKey.Add(group4);
+            var group4 = new SettingGroup() { ID = "Password", Title = AppResources.Key_Password, Content = WifiSettingInfo.password };
+            EditKey = group4;
             this.SettingGroups.Add(group4);
 
-            var group5 = new SettingGroup() { ID = "Channel", Title = AppResources.Channel, Content = "Auto" };
+            var group5 = new SettingGroup() { ID = "Channel", Title = AppResources.Channel, Content = WifiSettingInfo.changedChannel };
             group5.Items.Add(new SettingItem() { ID = "Channel-1", Title = "Channel", Content = "Auto", Group = group5 });
             group5.Items.Add(new SettingItem() { ID = "Channel-2", Title = "Channel", Content = "1", Group = group5 });
             group5.Items.Add(new SettingItem() { ID = "Channel-3", Title = "Channel", Content = "2", Group = group5 });
@@ -184,12 +168,25 @@ namespace GenieWP8.ViewModels
             this.EditChannelSecurity.Add(group5);
             this.SettingGroups.Add(group5);
 
-            var group6 = new SettingGroup() { ID = "Security", Title = AppResources.Security, Content = "None" };
-            group6.Items.Add(new SettingItem() { ID = "Security_None", Title = "Security", Content = "None", Group = group6 });
-            group6.Items.Add(new SettingItem() { ID = "Security_WPA2-PSK[AES]", Title = "Security", Content = "WPA2-PSK[AES]", Group = group6 });
-            group6.Items.Add(new SettingItem() { ID = "Security_WPA-PSK+WPA2-PSK", Title = "Security", Content = "WPA-PSK+WPA2-PSK", Group = group6 });
+            string securityType = string.Empty;
+            if (WifiSettingInfo.changedSecurityType == "None")
+            {
+                securityType = "None";
+            }
+            else if (WifiSettingInfo.changedSecurityType == "WPA2-PSK")
+            {
+                securityType = "WPA2-PSK[AES]";
+            }
+            else if (WifiSettingInfo.changedSecurityType == "WPA-PSK/WPA2-PSK")
+            {
+                securityType = "WPA-PSK+WPA2-PSK";
+            }
+            var group6 = new SettingGroup() { ID = "Security", Title = AppResources.Security, Content = securityType };
+            group6.Items.Add(new SettingItem() { ID = "Security_None", Title = "Security", Content = AppResources.Security_None, Group = group6 });
+            group6.Items.Add(new SettingItem() { ID = "Security_WPA2-PSK[AES]", Title = "Security", Content = AppResources.Security_WPA2PSK_AES, Group = group6 });
+            group6.Items.Add(new SettingItem() { ID = "Security_WPA-PSK+WPA2-PSK", Title = "Security", Content = AppResources.Security_WPAPSK_WPA2PSK, Group = group6 });
             this.EditChannelSecurity.Add(group6);
-            this.IsDataLoaded = true;
+            //this.IsDataLoaded = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

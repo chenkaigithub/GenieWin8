@@ -7,8 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
+using GenieWP8.DataInfo;
 
 namespace GenieWP8
 {
@@ -42,20 +44,23 @@ namespace GenieWP8
                     NavigationService.RemoveBackEntry();
                 }
             }
-        }
 
-        // 处理在 LongListSelector 中更改的选定内容
-        private void MainLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (MainLongListSelector.SelectedItem == null)
-                return;
-
-            // 导航到新页面
-            NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
-
-            // 将所选项重置为 null (没有选定内容)
-            MainLongListSelector.SelectedItem = null;
+            // 更新菜单项。
+            ApplicationBar.MenuItems.Clear();
+            if (MainPageInfo.bLogin)
+            {
+                ApplicationBarMenuItem appBarMenuItem_Logout = new ApplicationBarMenuItem(AppResources.LogoutButtonContent);
+                ApplicationBar.MenuItems.Add(appBarMenuItem_Logout);
+                double width = System.Windows.Application.Current.Host.Content.ActualWidth;
+                appBarMenuItem_Logout.Click += new EventHandler(appBarMenuItem_Logout_Click);
+            }
+            else
+            {
+                ApplicationBarMenuItem appBarMenuItem_Login = new ApplicationBarMenuItem(AppResources.LoginButtonContent);
+                ApplicationBar.MenuItems.Add(appBarMenuItem_Login);
+                double width = System.Windows.Application.Current.Host.Content.ActualWidth;
+                appBarMenuItem_Login.Click += new EventHandler(appBarMenuItem_Login_Click);
+            }
         }
 
         //用于生成本地化 ApplicationBar 的代码
@@ -100,9 +105,149 @@ namespace GenieWP8
             }
         }
 
+        // 处理在 LongListSelector 中更改的选定内容
+        private async void MainLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // 如果所选项为空(没有选定内容)，则不执行任何操作
+            if (MainLongListSelector.SelectedItem == null)
+                return;
+
+            // 导航到新页面
+            var groupId = ((MainItemViewModel)MainLongListSelector.SelectedItem).ID;
+            if (MainPageInfo.bLogin)	//已登陆
+            {
+                GenieSoapApi soapApi = new GenieSoapApi();
+                //无线设置
+                if (groupId == "WiFiSetting")
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                        WifiSettingInfo.region = dicResponse["NewRegion"];
+                        WifiSettingInfo.channel = dicResponse["NewChannel"];
+                        WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
+                        WifiSettingInfo.wirelessMode = dicResponse["NewWirelessMode"];
+                        WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                        WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+                    }
+                    dicResponse = await soapApi.GetWPASecurityKeys();
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
+                    }
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
+                }
+                //访客访问
+                else if (groupId == "GuestAccess")
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetGuestAccessEnabled();
+                    GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
+                    if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
+                    {
+                        Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                        dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                        if (dicResponse1.Count > 0)
+                        {
+                            GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+                            GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
+                            GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
+                            if (dicResponse1["NewSecurityMode"] != "None")
+                                GuestAccessInfo.password = dicResponse1["NewKey"];
+                            else
+                                GuestAccessInfo.password = "";
+                            if (GuestAccessInfo.timePeriod == null)
+                            {
+                                GuestAccessInfo.timePeriod = "Always";
+                                GuestAccessInfo.changedTimePeriod = "Always";
+                            }
+                        }
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        NavigationService.Navigate(new Uri("/GuestAccessPage.xaml", UriKind.Relative));
+                    }
+                    else if (dicResponse["NewGuestAccessEnabled"] == "2")
+                    {
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(AppResources.notsupport);
+                    }
+                }
+            }
+            else
+            {
+                //我的媒体
+                if (groupId == "MyMedia")
+                {
+                    
+                }
+                //QRCode
+                else if (groupId == "QRCode")
+                {
+                    //this.Frame.Navigate(typeof(QRCodePage));
+                    //解码代码（暂时注释）
+                    //StorageFile file = await Windows.Storage.KnownFolders.PicturesLibrary.GetFileAsync("Genie_QRCode.png");
+                    //IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
+                    //BitmapDecoder decoder = await BitmapDecoder.CreateAsync(BitmapDecoder.PngDecoderId, stream);
+                    //int width = (int)decoder.PixelWidth;
+                    //int height = (int)decoder.PixelHeight;
+                    //WriteableBitmap wb = new WriteableBitmap(width, height);
+                    //wb.SetSource(stream);
+                    //QRCodeDecoder qrCodeDecoder = new QRCodeDecoder();
+                    //QRCodeBitmapImage _image = new QRCodeBitmapImage(wb.PixelBuffer.ToArray(), wb.PixelWidth, wb.PixelHeight);
+                    //string decodeString = qrCodeDecoder.decode(_image, System.Text.Encoding.UTF8);            //decodeString为解码得到的字符串
+                }
+                //MarketPlace
+                else if (groupId == "MarketPlace")
+                {
+                    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+                    await Windows.System.Launcher.LaunchUriAsync(uri);
+                }
+                else
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+            }
+
+            // 将所选项重置为 null (没有选定内容)
+            MainLongListSelector.SelectedItem = null;
+        }
+
         private void appBarButton_about_Click(object sender, EventArgs e)
         {
+            if (!AboutPopup.IsOpen)
+            {
+                AboutPopup.IsOpen = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Collapsed;
+                pleasewait.Visibility = Visibility.Collapsed;
+            }
+            if (LicensePopup.IsOpen)
+            {
+                LicensePopup.IsOpen = false;
+            }
             
+        }
+
+        private void appBarMenuItem_Logout_Click(object sender, EventArgs e)
+        {
+            MainPageInfo.bLogin = false;
+            ApplicationBar.MenuItems.Clear();
+            ApplicationBarMenuItem appBarMenuItem_Login = new ApplicationBarMenuItem(AppResources.LoginButtonContent);
+            ApplicationBar.MenuItems.Add(appBarMenuItem_Login);
+            double width = System.Windows.Application.Current.Host.Content.ActualWidth;
+            appBarMenuItem_Login.Click += new EventHandler(appBarMenuItem_Login_Click);
         }
 
         private void appBarMenuItem_Login_Click(object sender, EventArgs e)
@@ -120,44 +265,37 @@ namespace GenieWP8
         //关闭“关于”事件
         private void CloseAboutButton_Click(Object sender, RoutedEventArgs e)
         {
-            //if (AboutPopup.IsOpen)
-            //{
-            //    AboutPopup.IsOpen = false;
-            //    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            //    PopupBackground.Visibility = Visibility.Collapsed;
-            //    pleasewait.Visibility = Visibility.Visible;
-            //    CloseAboutButton.Visibility = Visibility.Collapsed;
-            //    LicenseButton.Visibility = Visibility.Collapsed;
-            //}
+            if (AboutPopup.IsOpen)
+            {
+                AboutPopup.IsOpen = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+            }
         }
 
         //点击“许可”响应事件
         private void LicenseButton_Click(Object sender, RoutedEventArgs e)
         {
-            //if (!LicensePopup.IsOpen)
-            //{
-            //    LicensePopup.IsOpen = true;
-            //    AboutPopup.IsOpen = false;
-            //    PopupBackgroundTop.Visibility = Visibility.Visible;
-            //    PopupBackground.Visibility = Visibility.Visible;
-            //    pleasewait.Visibility = Visibility.Collapsed;
-            //    CloseLicenseButton.Visibility = Visibility.Visible;
-            //    CloseAboutButton.Visibility = Visibility.Collapsed;
-            //    LicenseButton.Visibility = Visibility.Collapsed;
-            //}
+            if (!LicensePopup.IsOpen)
+            {
+                LicensePopup.IsOpen = true;
+                AboutPopup.IsOpen = false;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Collapsed;
+                pleasewait.Visibility = Visibility.Collapsed;
+            }
         }
 
         //关闭“许可”事件
         private void CloseLicenseButton_Click(Object sender, RoutedEventArgs e)
         {
-            //if (LicensePopup.IsOpen)
-            //{
-            //    LicensePopup.IsOpen = false;
-            //    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            //    PopupBackground.Visibility = Visibility.Collapsed;
-            //    pleasewait.Visibility = Visibility.Visible;
-            //    CloseLicenseButton.Visibility = Visibility.Collapsed;
-            //}
+            if (LicensePopup.IsOpen)
+            {
+                LicensePopup.IsOpen = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

@@ -30,15 +30,11 @@
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <StackPanel Grid.Row="0" Margin="12,17,0,28">
+                <StackPanel Margin="12,17,0,28">
                     <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}"/>
                     <TextBlock Text="{Binding Path=LocalizedResources.LoginPageTitleText, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
                 </StackPanel>
@@ -70,6 +66,16 @@
         <!--<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 
         </Grid>-->
+
+        <Grid x:Name="PopupBackground" Background="Gray"  Opacity="0.9" Visibility="Collapsed">
+            <StackPanel VerticalAlignment="Center">
+                <ProgressBar x:Name="InProgress"
+                             IsIndeterminate="True"
+                             Height="15"
+                             Foreground="White"/>
+                <TextBlock x:Name="pleasewait" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 
 </phone:PhoneApplicationPage>

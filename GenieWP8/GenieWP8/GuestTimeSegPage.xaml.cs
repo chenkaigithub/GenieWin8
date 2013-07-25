@@ -14,40 +14,49 @@ using GenieWP8.DataInfo;
 
 namespace GenieWP8
 {
-    public partial class WifiEditSecurityPage : PhoneApplicationPage
+    public partial class GuestTimeSegPage : PhoneApplicationPage
     {
-        private static WifiSettingModel settingModel = null;
-        public WifiEditSecurityPage()
+        private static GuestAccessModel settingModel = null;
+        public GuestTimeSegPage()
         {
             InitializeComponent();
 
             // 绑定数据
             if (settingModel == null)
-                settingModel = new WifiSettingModel();
+                settingModel = new GuestAccessModel();
             DataContext = settingModel;
 
             // 用于本地化 ApplicationBar 的代码
             BuildLocalizedApplicationBar();
         }
 
-        // 为 WifiSettingModel 项加载数据
+        // 为 GuestAccessModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            settingModel.SettingGroups.Clear();
-            settingModel.EditChannelSecurity.Clear();
+            settingModel.GuestSettingGroups.Clear();
+            settingModel.EditTimesegSecurity.Clear();
             settingModel.LoadData();
 
-            string securityType = WifiSettingInfo.changedSecurityType;
-            switch (securityType)
+            string timePeriod = GuestAccessInfo.changedTimePeriod;
+            switch (timePeriod)
             {
-                case "None":
-                    securitySettingListBox.SelectedIndex = 0;
+                case "Always":
+                    timePeriodSettingListBox.SelectedIndex = 0;
                     break;
-                case "WPA2-PSK":
-                    securitySettingListBox.SelectedIndex = 1;
+                case "1 hour":
+                    timePeriodSettingListBox.SelectedIndex = 1;
                     break;
-                case "WPA-PSK/WPA2-PSK":
-                    securitySettingListBox.SelectedIndex = 2;
+                case "5 hours":
+                    timePeriodSettingListBox.SelectedIndex = 2;
+                    break;
+                case "10 hours":
+                    timePeriodSettingListBox.SelectedIndex = 3;
+                    break;
+                case "1 day":
+                    timePeriodSettingListBox.SelectedIndex = 4;
+                    break;
+                case "1 week":
+                    timePeriodSettingListBox.SelectedIndex = 5;
                     break;
             }
         }
@@ -69,38 +78,47 @@ namespace GenieWP8
 
         //处理在 ListBox 中更改的选定内容
         int lastIndex = -1;         //记录上次的选择项
-        private void securitySetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void timePeriodSetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = securitySettingListBox.SelectedIndex;
+            int index = timePeriodSettingListBox.SelectedIndex;
             if (index == -1)
                 return;
 
             switch (index)
             {
                 case 0:
-                    WifiSettingInfo.changedSecurityType = "None";
+                    GuestAccessInfo.changedTimePeriod = "Always";
                     break;
                 case 1:
-                    WifiSettingInfo.changedSecurityType = "WPA2-PSK";
+                    GuestAccessInfo.changedTimePeriod = "1 hour";
                     break;
                 case 2:
-                    WifiSettingInfo.changedSecurityType = "WPA-PSK/WPA2-PSK";
+                    GuestAccessInfo.changedTimePeriod = "5 hours";
+                    break;
+                case 3:
+                    GuestAccessInfo.changedTimePeriod = "10 hours";
+                    break;
+                case 4:
+                    GuestAccessInfo.changedTimePeriod = "1 day";
+                    break;
+                case 5:
+                    GuestAccessInfo.changedTimePeriod = "1 week";
                     break;
             }
 
-            //判断安全是否更改
-            if (WifiSettingInfo.changedSecurityType != WifiSettingInfo.securityType)
+            //判断时间段是否更改
+            if (GuestAccessInfo.changedTimePeriod != GuestAccessInfo.timePeriod)
             {
-                WifiSettingInfo.isSecurityTypeChanged = true;
+                GuestAccessInfo.isTimePeriodChanged = true;
             }
             else
             {
-                WifiSettingInfo.isSecurityTypeChanged = false;
+                GuestAccessInfo.isTimePeriodChanged = false;
             }
 
             if (lastIndex != -1 && index != lastIndex)
-            {                
-                NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+            {
+                NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
             }
             lastIndex = index;
         }
@@ -108,13 +126,13 @@ namespace GenieWP8
         //返回按钮响应事件
         private void appBarButton_back_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
         }
 
         //重写手机“返回”按钮事件
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 //using Windows.Data.Xml.Dom;
 
 
-namespace GenieWin8
+namespace GenieWP8
 {
     class GenieSoapApi
     {
