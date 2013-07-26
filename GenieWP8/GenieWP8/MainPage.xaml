@@ -140,10 +140,10 @@
                     </StackPanel>
                 </ScrollViewer>
                 <Grid>
-                    <Button x:Name="CloseAboutButton" Content="{Binding Path=LocalizedResources.CloseAboutButtonContent, Source={StaticResource LocalizedStrings}}" Click="CloseAboutButton_Click"
-                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
-                    <Button x:Name="LicenseButton" Content="{Binding Path=LocalizedResources.LicenseButtonContent, Source={StaticResource LocalizedStrings}}" Click="LicenseButton_Click"
-                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                    <Button x:Name="CloseAboutButton" Content="{Binding Path=LocalizedResources.CloseAboutButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="CloseAboutButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                    <Button x:Name="LicenseButton" Content="{Binding Path=LocalizedResources.LicenseButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="LicenseButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
                 </Grid>
             </StackPanel>                                   
         </Popup>

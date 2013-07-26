@@ -7,8 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
+using GenieWP8.DataInfo;
 
 namespace GenieWP8
 {
@@ -30,12 +32,14 @@ namespace GenieWP8
 
         // 为 WifiSettingModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (!settingModel.IsDataLoaded)
-            {
-                settingModel.LoadData();
-            }
-            //settingModel.LoadData();
+        {          
+            //if (!settingModel.IsDataLoaded)
+            //{
+            //    settingModel.LoadData();
+            //}
+            settingModel.SettingGroups.Clear();
+            settingModel.EditChannelSecurity.Clear();
+            settingModel.LoadData();
         }
 
         // 处理在 LongListSelector 中更改的选定内容
@@ -46,8 +50,11 @@ namespace GenieWP8
                 return;
 
             // 导航到新页面
-            //NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
-            NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+            var groupId = ((SettingGroup)WifiSettingLongListSelector.SelectedItem).ID;
+            if (groupId != "SignalStrength" && groupId != "LinkRate")
+            {
+                NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+            }            
 
             // 将所选项重置为 null (没有选定内容)
             WifiSettingLongListSelector.SelectedItem = null;
@@ -74,6 +81,7 @@ namespace GenieWP8
             appBarButton_refresh.Click+=new EventHandler(appBarButton_refresh_Click);
         }
 
+        //返回按钮响应事件
         private void appBarButton_back_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
@@ -85,25 +93,43 @@ namespace GenieWP8
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
-        private void appBarButton_refresh_Click(object sender, EventArgs e)
+        //刷新按钮响应事件
+        private async void appBarButton_refresh_Click(object sender, EventArgs e)
         {
-            //GenieSoapApi soapApi = new GenieSoapApi();
-            //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            //dicResponse = await soapApi.GetInfo("WLANConfiguration");
-            //if (dicResponse.Count > 0)
-            //{
-            //    WifiInfoModel.ssid = dicResponse["NewSSID"];
-            //    WifiInfoModel.channel = dicResponse["NewChannel"];
-            //    WifiInfoModel.changedChannel = dicResponse["NewChannel"];
-            //    WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
-            //    WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
-            //}
-            //dicResponse = await soapApi.GetWPASecurityKeys();
-            //if (dicResponse.Count > 0)
-            //{
-            //    WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
-            //}
-            //this.Frame.Navigate(typeof(WifiSettingPage));
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            if (dicResponse.Count > 0)
+            {
+                WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                WifiSettingInfo.channel = dicResponse["NewChannel"];
+                WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
+                WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+                Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                dicResponse1 = await soapApi.GetWPASecurityKeys();
+                if (dicResponse1.Count > 0)
+                {
+                    WifiSettingInfo.password = dicResponse1["NewWPAPassphrase"];
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    OnNavigatedTo(null);
+                }
+                else
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    MessageBox.Show("GetWPASecurityKeys failed!");
+                }
+            }
+            else
+            {
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                MessageBox.Show("Get WLANConfiguration failed!");
+            }           
         }
     }
 }

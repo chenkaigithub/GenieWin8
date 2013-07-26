@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace GenieWin8
+namespace GenieWP8
 {
     class GenieWebApi
     {

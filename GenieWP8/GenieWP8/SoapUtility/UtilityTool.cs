@@ -18,7 +18,7 @@ using System.Xml.Linq;
 using System.Windows;
 //using GenieWin8.DataModel;
 
-namespace GenieWin8
+namespace GenieWP8
 {
     /// <summary>
     /// 一些处理实用的公共方法的类

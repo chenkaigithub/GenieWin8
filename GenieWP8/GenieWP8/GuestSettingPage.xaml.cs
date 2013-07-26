@@ -15,34 +15,33 @@ using System.Windows.Threading;
 
 namespace GenieWP8
 {
-    public partial class WifiEditSettingPage : PhoneApplicationPage
+    public partial class GuestSettingPage : PhoneApplicationPage
     {
-        private static WifiSettingModel settingModel = null;       
-        public WifiEditSettingPage()
+        private static GuestAccessModel settingModel = null; 
+        public GuestSettingPage()
         {
             InitializeComponent();
 
             // 绑定数据
             if (settingModel == null)
-                settingModel = new WifiSettingModel();
+                settingModel = new GuestAccessModel();
             DataContext = settingModel;
 
             // 用于本地化 ApplicationBar 的代码
             BuildLocalizedApplicationBar();
-
         }
 
-        // 为 WifiSettingModel 项加载数据
+        // 为 GuestAccessModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //if (!settingModel.IsDataLoaded)
             //{
             //    settingModel.LoadData();
             //}
-            settingModel.SettingGroups.Clear();
-            settingModel.EditChannelSecurity.Clear();
+            settingModel.GuestSettingGroups.Clear();
+            settingModel.EditTimesegSecurity.Clear();
             settingModel.LoadData();
-            if (WifiSettingInfo.changedSecurityType == "None")
+            if (GuestAccessInfo.changedSecurityType == "None")
             {
                 passwordPanel.Visibility = Visibility.Collapsed;
             }
@@ -52,9 +51,9 @@ namespace GenieWP8
             }
 
             //判断保存按钮是否可点击
-            if (WifiSettingInfo.isChannelChanged == true || WifiSettingInfo.isSecurityTypeChanged == true)
+            if (GuestAccessInfo.isTimePeriodChanged == true || GuestAccessInfo.isSecurityTypeChanged == true)
             {
-                if (WifiSettingInfo.securityType == "None")
+                if (GuestAccessInfo.securityType == "None")
                 {
                     pwd.Text = "siteview";
                 }
@@ -63,22 +62,22 @@ namespace GenieWP8
             else
             {
                 appBarButton_save.IsEnabled = false;
-            }  
+            }
         }
 
         //判断SSID是否更改以及保存按钮是否可点击
         private void ssid_changed(Object sender, RoutedEventArgs e)
         {
             string ssid = SSID.Text.Trim();
-            if (ssid != WifiSettingInfo.ssid && ssid != "")
+            if (ssid != GuestAccessInfo.ssid && ssid != "")
             {
                 appBarButton_save.IsEnabled = true;
-                WifiSettingInfo.isSSIDChanged = true;
+                GuestAccessInfo.isSSIDChanged = true;
             }
             else
             {
-                WifiSettingInfo.isSSIDChanged = false;
-                if (WifiSettingInfo.isPasswordChanged == true || WifiSettingInfo.isChannelChanged == true || WifiSettingInfo.isSecurityTypeChanged == true)
+                GuestAccessInfo.isSSIDChanged = false;
+                if (GuestAccessInfo.isPasswordChanged == true || GuestAccessInfo.isTimePeriodChanged == true || GuestAccessInfo.isSecurityTypeChanged == true)
                 {
                     appBarButton_save.IsEnabled = true;
                 }
@@ -93,15 +92,15 @@ namespace GenieWP8
         private void pwd_changed(Object sender, RoutedEventArgs e)
         {
             string password = pwd.Text.Trim();
-            if (password != WifiSettingInfo.password && password != "")
+            if (password != GuestAccessInfo.password && password != "")
             {
                 appBarButton_save.IsEnabled = true;
-                WifiSettingInfo.isPasswordChanged = true;
+                GuestAccessInfo.isPasswordChanged = true;
             }
             else
             {
-                WifiSettingInfo.isPasswordChanged = false;
-                if (WifiSettingInfo.isSSIDChanged == true || WifiSettingInfo.isChannelChanged == true || WifiSettingInfo.isSecurityTypeChanged == true)
+                GuestAccessInfo.isPasswordChanged = false;
+                if (GuestAccessInfo.isSSIDChanged == true || GuestAccessInfo.isTimePeriodChanged == true || GuestAccessInfo.isSecurityTypeChanged == true)
                 {
                     appBarButton_save.IsEnabled = true;
                 }
@@ -112,26 +111,26 @@ namespace GenieWP8
             }
         }
 
-         //处理在 LongListSelector 中更改的选定内容
-        private void channel_securitySetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //处理在 LongListSelector 中更改的选定内容
+        private void timeperiod_securitySetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (channel_securitySettingLongListSelector.SelectedItem == null)
+            if (timeperiod_securitySettingLongListSelector.SelectedItem == null)
                 return;
 
             // 导航到新页面
-            var groupId = ((SettingGroup)channel_securitySettingLongListSelector.SelectedItem).ID;
-            if (groupId == "Channel")
+            var groupId = ((GuestSettingGroup)timeperiod_securitySettingLongListSelector.SelectedItem).ID;
+            if (groupId == "TimeSegment")
             {
-                NavigationService.Navigate(new Uri("/WifiEditChannelPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/GuestTimeSegPage.xaml", UriKind.Relative));
             }
             else if (groupId == "Security")
             {
-                NavigationService.Navigate(new Uri("/WifiEditSecurityPage.xaml", UriKind.Relative));
-            }           
+                NavigationService.Navigate(new Uri("/GuestSecurityPage.xaml", UriKind.Relative));
+            }
 
             // 将所选项重置为 null (没有选定内容)
-            channel_securitySettingLongListSelector.SelectedItem = null;
+            timeperiod_securitySettingLongListSelector.SelectedItem = null;
         }
 
         //用于生成本地化 ApplicationBar 的代码
@@ -166,27 +165,46 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetInfo("WLANConfiguration");
-            if (dicResponse.Count > 0)
+            dicResponse = await soapApi.GetGuestAccessEnabled();
+            GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
+            if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
             {
-                WifiSettingInfo.ssid = dicResponse["NewSSID"];
-                WifiSettingInfo.channel = dicResponse["NewChannel"];
-                WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
-                WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
-                WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+                Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                if (dicResponse1.Count > 0)
+                {
+                    GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+                    GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
+                    GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
+                    if (dicResponse1["NewSecurityMode"] != "None")
+                        GuestAccessInfo.password = dicResponse1["NewKey"];
+                    else
+                        GuestAccessInfo.password = "";
+                    if (GuestAccessInfo.timePeriod == null)
+                    {
+                        GuestAccessInfo.timePeriod = "Always";
+                        GuestAccessInfo.changedTimePeriod = "Always";
+                    }
+                }
+                GuestAccessInfo.isSSIDChanged = false;
+                GuestAccessInfo.isPasswordChanged = false;
+                GuestAccessInfo.isTimePeriodChanged = false;
+                GuestAccessInfo.isSecurityTypeChanged = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                NavigationService.Navigate(new Uri("/GuestAccessPage.xaml", UriKind.Relative));
             }
-            dicResponse = await soapApi.GetWPASecurityKeys();
-            if (dicResponse.Count > 0)
+            else if (dicResponse["NewGuestAccessEnabled"] == "2")
             {
-                WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
+                GuestAccessInfo.isSSIDChanged = false;
+                GuestAccessInfo.isPasswordChanged = false;
+                GuestAccessInfo.isTimePeriodChanged = false;
+                GuestAccessInfo.isSecurityTypeChanged = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                MessageBox.Show(AppResources.notsupport);
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
-            WifiSettingInfo.isSSIDChanged = false;
-            WifiSettingInfo.isPasswordChanged = false;
-            WifiSettingInfo.isChannelChanged = false;
-            WifiSettingInfo.isSecurityTypeChanged = false;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
-            NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
         }
 
         //重写手机“返回”按钮事件
@@ -198,27 +216,46 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetInfo("WLANConfiguration");
-            if (dicResponse.Count > 0)
+            dicResponse = await soapApi.GetGuestAccessEnabled();
+            GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
+            if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
             {
-                WifiSettingInfo.ssid = dicResponse["NewSSID"];
-                WifiSettingInfo.channel = dicResponse["NewChannel"];
-                WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
-                WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
-                WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+                Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                if (dicResponse1.Count > 0)
+                {
+                    GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+                    GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
+                    GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
+                    if (dicResponse1["NewSecurityMode"] != "None")
+                        GuestAccessInfo.password = dicResponse1["NewKey"];
+                    else
+                        GuestAccessInfo.password = "";
+                    if (GuestAccessInfo.timePeriod == null)
+                    {
+                        GuestAccessInfo.timePeriod = "Always";
+                        GuestAccessInfo.changedTimePeriod = "Always";
+                    }
+                }
+                GuestAccessInfo.isSSIDChanged = false;
+                GuestAccessInfo.isPasswordChanged = false;
+                GuestAccessInfo.isTimePeriodChanged = false;
+                GuestAccessInfo.isSecurityTypeChanged = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                NavigationService.Navigate(new Uri("/GuestAccessPage.xaml", UriKind.Relative));
             }
-            dicResponse = await soapApi.GetWPASecurityKeys();
-            if (dicResponse.Count > 0)
+            else if (dicResponse["NewGuestAccessEnabled"] == "2")
             {
-                WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
+                GuestAccessInfo.isSSIDChanged = false;
+                GuestAccessInfo.isPasswordChanged = false;
+                GuestAccessInfo.isTimePeriodChanged = false;
+                GuestAccessInfo.isSecurityTypeChanged = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                MessageBox.Show(AppResources.notsupport);
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
-            WifiSettingInfo.isSSIDChanged = false;
-            WifiSettingInfo.isPasswordChanged = false;
-            WifiSettingInfo.isChannelChanged = false;
-            WifiSettingInfo.isSecurityTypeChanged = false;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
-            NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
         }
 
         //按下屏幕键盘回车键后关闭屏幕键盘
@@ -234,7 +271,7 @@ namespace GenieWP8
             }
         }
 
-        
+
         //保存按钮响应事件
         private void appBarButton_save_Click(object sender, EventArgs e)
         {
@@ -262,42 +299,31 @@ namespace GenieWP8
             string password = pwd.Text.Trim();
             if (ssid != "" && ssid != null)
             {
-                if (WifiSettingInfo.securityType.CompareTo("None") == 0)
+                if (GuestAccessInfo.changedSecurityType.CompareTo("None") == 0)
                 {
-                    timer.Interval = TimeSpan.FromSeconds(1);
-                    timer.Tick += timer_Tick;
-                    timer.Start();
-                    await soapApi.SetWLANNoSecurity(ssid, WifiSettingInfo.region, WifiSettingInfo.changedChannel, WifiSettingInfo.wirelessMode);
-                    WifiSettingInfo.channel = WifiSettingInfo.changedChannel;
-                    WifiSettingInfo.isSSIDChanged = false;
-                    WifiSettingInfo.isPasswordChanged = false;
-                    WifiSettingInfo.isChannelChanged = false;
-                    WifiSettingInfo.isSecurityTypeChanged = false;
-                    appBarButton_save.IsEnabled = false;
+                    GuestAccessInfo.password = "";
+                    password = "";
                 }
-                else
-                {
-                    timer.Interval = TimeSpan.FromSeconds(1);
-                    timer.Tick += timer_Tick;
-                    timer.Start();
-                    await soapApi.SetWLANWEPByPassphrase(ssid, WifiSettingInfo.region, WifiSettingInfo.changedChannel, WifiSettingInfo.wirelessMode, WifiSettingInfo.changedSecurityType, password);
-                    WifiSettingInfo.channel = WifiSettingInfo.changedChannel;
-                    WifiSettingInfo.securityType = WifiSettingInfo.changedSecurityType;
-                    WifiSettingInfo.isSSIDChanged = false;
-                    WifiSettingInfo.isPasswordChanged = false;
-                    WifiSettingInfo.isChannelChanged = false;
-                    WifiSettingInfo.isSecurityTypeChanged = false;
-                    appBarButton_save.IsEnabled = false;
-                }
+                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Tick += timer_Tick;
+                timer.Start();
+                await soapApi.SetGuestAccessNetwork(ssid, GuestAccessInfo.changedSecurityType, password);
+                GuestAccessInfo.timePeriod = GuestAccessInfo.changedTimePeriod;
+                GuestAccessInfo.securityType = GuestAccessInfo.changedSecurityType;
+                GuestAccessInfo.isSSIDChanged = false;
+                GuestAccessInfo.isPasswordChanged = false;
+                GuestAccessInfo.isTimePeriodChanged = false;
+                GuestAccessInfo.isSecurityTypeChanged = false;
+                appBarButton_save.IsEnabled = false;
             }
         }
 
         //“否”按钮响应事件
         private void NoButton_Click(Object sender, RoutedEventArgs e)
         {
-            PopupEnquire.IsOpen = false;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
+            //PopupEnquire.IsOpen = false;
+            //PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            //PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         int count = 90;     //倒计时间

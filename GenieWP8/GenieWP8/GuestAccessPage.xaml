@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="GenieWP8.WifiEditSettingPage"
+    x:Class="GenieWP8.GuestAccessPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -38,27 +38,32 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="{Binding Path=LocalizedResources.SettingPageTitleText, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.GuestAccessPageTitleText, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
         <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <StackPanel Margin="0,0,0,10" DataContext="{Binding EditName}">
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBox x:Name="SSID" Text="{Binding Content}" FontSize="20" TextChanged="ssid_changed"/>
-                </StackPanel>
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF004F74" Offset="1"/>
+                            <GradientStop Color="#FF50C6FD"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TextBlock Text="{Binding Path=LocalizedResources.CheckGuestAccessText, Source={StaticResource LocalizedStrings}}"
+                               Style="{StaticResource PhoneTextExtraLargeStyle}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <CheckBox x:Name="checkGuestSetting" HorizontalAlignment="Right" FontSize="24" IsChecked="True" Click="checkGuestSetting_Click"/>
+                </Grid>
                 
-                <StackPanel x:Name="passwordPanel" Margin="0,0,0,10" DataContext="{Binding EditKey}">
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                    <TextBox x:Name="pwd" Text="{Binding Content}" FontSize="20" TextChanged="pwd_changed"/>
-                </StackPanel>
-                
-                <phone:LongListSelector
-                    x:Name="channel_securitySettingLongListSelector"
-                    ItemsSource="{Binding EditChannelSecurity}"
-                    Margin="0,20,0,0"
-                    SelectionChanged="channel_securitySetting_SelectionChanged">
+                <phone:LongListSelector 
+                    x:Name="GuestSettingsLongListSelector"
+                    ItemsSource="{Binding GuestSettingGroups}"
+                    Margin="0,40,0,0"
+                    SelectionChanged="GuestSettingsLongListSelector_SelectionChanged">
                     <phone:LongListSelector.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF004F74" Offset="1"/>
@@ -67,14 +72,16 @@
                     </phone:LongListSelector.Background>
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel  Margin="10,0,0,5">
-                                <TextBlock Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding Content}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            <StackPanel Margin="0,0,0,10">
+                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>
-            </StackPanel>            
+                <TextBlock x:Name="textScanQRCode" Text="{Binding Path=LocalizedResources.ScanQrCodeTipsText, Source={StaticResource LocalizedStrings}}" FontSize="24" HorizontalAlignment="Center" Margin="0,40,0,0"/>
+                <Image x:Name="imageQRCode" Source="Assets/ApplicationIcon.png" Width="200" Height="200" Margin="0,20,0,0" HorizontalAlignment="Center"/>
+            </StackPanel>
         </ScrollViewer>
 
         <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
@@ -84,11 +91,7 @@
                              IsIndeterminate="True"
                              Height="15"
                              Foreground="White"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock x:Name="pleasewait" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}" 
-                               VerticalAlignment="Center" FontSize="20"/>
-                    <TextBlock x:Name="waittime" VerticalAlignment="Center" FontSize="20"/>
-                </StackPanel>               
+                <TextBlock x:Name="pleasewait" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
             </StackPanel>
         </Grid>
 
@@ -105,4 +108,5 @@
             </StackPanel>
         </Popup>
     </Grid>
+
 </phone:PhoneApplicationPage>
