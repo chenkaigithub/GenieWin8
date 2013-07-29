@@ -166,6 +166,73 @@ namespace GenieWP8
             return util.TraverseXML(result);
         }
 
+        //***************************** Wifi setting 5G api********************************
+
+        /// <summary>
+        /// 判断路由器是否支持5G
+        /// 返回结果：New5GSupported：0(不支持5G),1(支持5G)
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> Is5GSupported()
+        {
+            string result = await postSoap("WLANConfiguration", "Is5GSupported", new Dictionary<string, string>());
+            return util.TraverseXML(result);
+        }
+
+        /// <summary>
+        /// 获取5G信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> Get5GInfo()
+        {
+            string result = await postSoap("WLANConfiguration", "Get5GInfo", new Dictionary<string, string>());
+            return util.TraverseXML(result);
+        }
+
+        /// <summary>
+        /// 获取5G的安全密码
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> Get5GWPASecurityKeys()
+        {
+            string result = await postSoap("WLANConfiguration", "Get5GWPASecurityKeys",new Dictionary<string,string> ());
+            return util.TraverseXML(result);
+        }
+
+        public async Task<Dictionary<string, string>> Set5GWLANNoSecurity(string ssid, string region, string channel, string wirelessMode)
+        {
+            Dictionary<string,string> param = new Dictionary<string,string> ();
+            param.Add("NewSSID", ssid);
+            param.Add("NewRegion", region);
+            param.Add("NewChannel", channel);
+            param.Add("NewWirelessMode", wirelessMode);
+            string result = await postSoap("WLANConfiguration", "Set5GWLANNoSecurity", param);
+            return util.TraverseXML(result);
+        }
+
+        /// <summary>
+        /// 5G wifi 设置
+        /// 安全类型为"WPA-PSK/WPA2-PSK"或者"WPA2-PSK"时调用
+        /// </summary>
+        /// <param name="ssid"></param>
+        /// <param name="region"></param>
+        /// <param name="channel">Auto, 36, 40, 44, 48, 149, 153, 157, 161</param>
+        /// <param name="wirelessMode"></param>
+        /// <param name="encryptionModes"></param>
+        /// <param name="wpaPassphrase"></param>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> Set5GWLANWPAPSKByPassphrase(string ssid, string region, string channel, string wirelessMode, string encryptionModes, string wpaPassphrase)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewSSID", ssid);
+            param.Add("NewRegion", region);
+            param.Add("NewChannel", channel);
+            param.Add("NewWirelessMode", wirelessMode);
+            param.Add("NewWPAEncryptionModes", encryptionModes);
+            param.Add("NewWPAPassphrase", wpaPassphrase);
+            string result = await postSoap("WLANConfiguration", "Set5GWLANWPAPSKByPassphrase", param);
+            return util.TraverseXML(result);
+        }
         ////------------------------------------------ ParentalControl Soap api-----------------------------------------------------------
         /// <summary>
         /// ****************** GetDNSMasqDeviceID ******************
@@ -333,6 +400,59 @@ namespace GenieWP8
             return util.TraverseXML(result);
         }
 
+        //************************************ 5G Guest Access api *****************************************
+
+        /// <summary>
+        /// If 5GHz Guest Access is enabled, then return NewGuestAccessEnabled as 1, if not, return 0. If Guest Access is not supported (no multi-SSID support), then return 2.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> Get5GGuestAccessEnabled()
+        {
+            string result = await postSoap("WLANConfiguration", "Get5GGuestAccessEnabled", new Dictionary<string, string>());
+            return util.TraverseXML(result);
+        }
+
+        public async Task<Dictionary<string, string>> Get5GGuestAccessNetworkInfo()
+        {
+            string result = await postSoap("WLANConfiguration", "Get5GGuestAccessNetworkInfo",new Dictionary<string,string> ());
+            return util.TraverseXML(result);
+        }
+
+        public async Task<Dictionary<string, string>> Set5GGuestAccessEnabled(string newGuestAccessEnabled)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewGuestAccessEnabled", newGuestAccessEnabled);
+            string result = await postSoap("WLANConfiguration", "Set5GGuestAccessEnabled",param);
+            return util.TraverseXML(result);
+        }
+
+        public async Task<Dictionary<string, string>> Set5GGuestAccessEnabled2(string newSSID,string newSecurityMode,string newKey)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewSSID", newSSID);
+            param.Add("NewSecurityMode", newSecurityMode);
+            param.Add("NewKey1", newKey);
+            param.Add("NewKey2", "");
+            param.Add("NewKey3", "");
+            param.Add("NewKey4", "");
+            param.Add("NewGuestAccessEnabled", "1");
+            string result = await postSoap("WLANConfiguration", "Set5GGuestAccessEnabled2", param);
+            return util.TraverseXML(result);
+        }
+
+        public async Task<Dictionary<string, string>> Set5GGuestAccessNetwork(string newSSID, string newSecurityMode, string newKey)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewSSID", newSSID);
+            param.Add("NewSecurityMode", newSecurityMode);
+            param.Add("NewKey1", newKey);
+            param.Add("NewKey2", "");
+            param.Add("NewKey3", "");
+            param.Add("NewKey4", "");
+            string result = await postSoap("WLANConfiguration", "Set5GGuestAccessEnabled2", param);
+            return util.TraverseXML(result);
+        }
+
         ////------------------------------ TrafficMeter Control soap api ----------------------------------
         /// <summary>
         /// *****************EnableTrafficMeter api*******************
@@ -354,7 +474,7 @@ namespace GenieWP8
 
         /// <summary>
         /// 获取当前路由器的流量控制功能状态
-        /// NewTrafficMeterEnable：1（已启用），0（已禁用），2（Traffic Meter service is not supported）
+        /// NewTrafficMeterEnable：1（enabled），0（disabled），2（Traffic Meter service is not supported）
         /// </summary>
         /// <returns></returns>
         public async Task<Dictionary<string, string>> GetTrafficMeterEnabled()
