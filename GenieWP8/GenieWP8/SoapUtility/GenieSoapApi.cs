@@ -199,6 +199,14 @@ namespace GenieWP8
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// -----------安全类型为None时调用--------
+        /// </summary>
+        /// <param name="ssid"></param>
+        /// <param name="region"></param>
+        /// <param name="channel"></param>
+        /// <param name="wirelessMode"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> Set5GWLANNoSecurity(string ssid, string region, string channel, string wirelessMode)
         {
             Dictionary<string,string> param = new Dictionary<string,string> ();
@@ -412,20 +420,37 @@ namespace GenieWP8
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// 获取5G访客网络信息
+        /// </summary>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> Get5GGuestAccessNetworkInfo()
         {
             string result = await postSoap("WLANConfiguration", "Get5GGuestAccessNetworkInfo",new Dictionary<string,string> ());
             return util.TraverseXML(result);
         }
 
-        public async Task<Dictionary<string, string>> Set5GGuestAccessEnabled(string newGuestAccessEnabled)
+        /// <summary>
+        /// 禁用5G访客访问功能
+        /// </summary>
+        /// <param name="newGuestAccessEnabled"></param>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> Set5GGuestAccessEnabled()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            param.Add("NewGuestAccessEnabled", newGuestAccessEnabled);
+            param.Add("NewGuestAccessEnabled", "0");
             string result = await postSoap("WLANConfiguration", "Set5GGuestAccessEnabled",param);
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        /// 条件：5G访客访问网络已被禁用
+        /// 功能：启用5G访客访问并设置访客网络信息
+        /// </summary>
+        /// <param name="newSSID"></param>
+        /// <param name="newSecurityMode"></param>
+        /// <param name="newKey"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> Set5GGuestAccessEnabled2(string newSSID,string newSecurityMode,string newKey)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -440,6 +465,14 @@ namespace GenieWP8
             return util.TraverseXML(result);
         }
 
+        /// <summary>
+        ///  条件：5G访客网络已启用
+        /// 当访客访问没有被禁用时修改访客网络信息
+        /// </summary>
+        /// <param name="newSSID"></param>
+        /// <param name="newSecurityMode"></param>
+        /// <param name="newKey"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string, string>> Set5GGuestAccessNetwork(string newSSID, string newSecurityMode, string newKey)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -555,6 +588,30 @@ namespace GenieWP8
             param.Add("RestartMinute",restartMinute);
             param.Add("RestartDay",restartDay);
             string result = await postSoap("DeviceConfig", "SetTrafficMeterOptions",param);
+            return util.TraverseXML(result);
+        }
+
+        ///********************************** 访问控制 api **********************************
+
+
+        ///返回结果：NewBlockDeviceEnable：1 (enabled)，0 (disabled)
+        /// ResponseCode ：0 (no error)，1 (error)
+        public async Task<Dictionary<string, string>> GetBlockDeviceEnableStatus()
+        {
+            string result = await postSoap("DeviceConfig", "GetBlockDeviceEnableStatus", new Dictionary<string, string>());
+            return util.TraverseXML(result);
+        }
+
+        /// <summary>
+        /// newBlockDeviceEnable:1 (enabled)，0 (disabled)
+        /// </summary>
+        /// <param name="newBlockDeviceEnable">1 || 0</param>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> SetBlockDeviceEnable(string newBlockDeviceEnable)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewBlockDeviceEnable",newBlockDeviceEnable);
+            string result = await postSoap("DeviceConfig", "SetBlockDeviceEnable",param);
             return util.TraverseXML(result);
         }
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using Windows.Data.Xml.Dom;
 using System.Net;
 using System.Net.NetworkInformation;
 using Windows.Networking.Connectivity;
@@ -16,12 +15,15 @@ using Windows.Storage.Streams;
 using System.Diagnostics;
 using System.Xml.Linq;
 using System.Windows;
+using System.Net.Sockets;
+using System.Threading;
+
 //using GenieWin8.DataModel;
 
 namespace GenieWP8
 {
     /// <summary>
-    /// 一些处理实用的公共方法的类
+    /// 处理一些实用的公共方法的类
     /// </summary>
     class UtilityTool
     {
@@ -249,16 +251,67 @@ namespace GenieWP8
         /// <returns></returns>
         public bool IsConnectedToInternet()
         {
-            bool connected = false;
-            ConnectionProfile cp = NetworkInformation.GetInternetConnectionProfile();
-            if (cp != null)
+            string result = Connect("www.netgear.com", 80);
+            if (result == "Success")
             {
-                NetworkConnectivityLevel cl = cp.GetNetworkConnectivityLevel();
-                connected = cl == NetworkConnectivityLevel.InternetAccess;
+                return true;
             }
-            return connected;
+            else
+            {
+                return false;
+            }
         }
- 
+
+        // 同步对象，用来通知一个异步操作已经完成
+        static ManualResetEvent _clientDone = new ManualResetEvent(false);
+        /// <summary>
+        /// 尝试向一个给定的服务器和端口发起一个 Tcp 套接字的链接请求
+        /// </summary>
+        /// <param name="hostName">服务器的 name</param>
+        /// <param name="portNumber">连接的端口</param>
+        /// <returns>返回异步套接字的操作结果</returns>
+        public string Connect(string hostName, int portNumber)
+        {
+            // 在这个类的对象的生命周期中会在每次调用中使用
+            Socket _socket = null;
+
+            // 为每次异步调用声明一个毫秒级的超时时间，如果在这个时间内没有收到回应，那么这个调用就会被终止
+            const int Timeout_Milliseconds = 50000;
+            string result = string.Empty;
+
+            // 将网络终结点表示为主机名或 IP 地址和端口号的字符串表示形式。
+            DnsEndPoint hostEntry = new DnsEndPoint(hostName, portNumber);
+
+            _socket = new Socket(AddressFamily.InterNetwork, //  IP 版本 4 的地址。
+                                          SocketType.Stream,
+                                          ProtocolType.Tcp);
+
+            // 创建一个 SocketAsyncEventArgs 对象，在连接请求中使用
+            SocketAsyncEventArgs socketEventArg = new SocketAsyncEventArgs();
+            socketEventArg.RemoteEndPoint = hostEntry;
+
+            // 把事件委托调用采用内联的方式，以使这个方法包含在内部
+            socketEventArg.Completed += new EventHandler<SocketAsyncEventArgs>(delegate(object s, SocketAsyncEventArgs e)
+            {
+                // 获取连接请求的结果
+                result = e.SocketError.ToString();
+
+                // 通知请求结束，解除对 UI 线程的阻塞
+                _clientDone.Set();
+            });
+
+            // 将事件状态设置为非终止状态，从而导致线程受阻。
+            _clientDone.Reset();
+
+            // 开始一个对远程主机连接的异步请求。
+            _socket.ConnectAsync(socketEventArg);
+
+            // 阻止 UI 线程，最多 TIMEOUT_MILLISECONDS 时间，如果在指定时间没有响应则继续向下执行
+            _clientDone.WaitOne(Timeout_Milliseconds);
+
+            return result;
+        }
+       
 
         /// <summary>
         /// 将json字符串转换成JObject对象
