@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="DataInfo\GuestAccessInfo.cs" />
     <Compile Include="DataInfo\MainPageInfo.cs" />
+    <Compile Include="DataInfo\NetworkMapInfo.cs" />
     <Compile Include="DataInfo\WifiSettingInfo.cs" />
     <Compile Include="GuestAccessPage.xaml.cs">
       <DependentUpon>GuestAccessPage.xaml</DependentUpon>
@@ -114,6 +115,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NetworkMapPage.xaml.cs">
+      <DependentUpon>NetworkMapPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -125,6 +129,7 @@
     <Compile Include="SoapUtility\UtilityTool.cs" />
     <Compile Include="ViewModels\GuestAccessModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\NetworkMapModel.cs" />
     <Compile Include="ViewModels\WifiSettingModel.cs" />
     <Compile Include="WifiEditChannelPage.xaml.cs">
       <DependentUpon>WifiEditChannelPage.xaml</DependentUpon>
@@ -168,6 +173,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="NetworkMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WifiEditChannelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +195,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
@@ -197,6 +207,40 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\back.png" />
+    <Content Include="Assets\devices\androiddevice.png" />
+    <Content Include="Assets\devices\androidphone.png" />
+    <Content Include="Assets\devices\androidtablet.png" />
+    <Content Include="Assets\devices\blurayplayer.png" />
+    <Content Include="Assets\devices\bridge.png" />
+    <Content Include="Assets\devices\cablestb.png" />
+    <Content Include="Assets\devices\cameradev.png" />
+    <Content Include="Assets\devices\dvr.png" />
+    <Content Include="Assets\devices\gamedev.png" />
+    <Content Include="Assets\devices\gatewaydev.png" />
+    <Content Include="Assets\devices\imacdev.png" />
+    <Content Include="Assets\devices\ipad.png" />
+    <Content Include="Assets\devices\iphone.png" />
+    <Content Include="Assets\devices\ipodtouch.png" />
+    <Content Include="Assets\devices\linuxpc.png" />
+    <Content Include="Assets\devices\macbookdev.png" />
+    <Content Include="Assets\devices\macminidev.png" />
+    <Content Include="Assets\devices\macprodev.png" />
+    <Content Include="Assets\devices\mediadev.png" />
+    <Content Include="Assets\devices\mobiledev.png" />
+    <Content Include="Assets\devices\netstoragedev.png" />
+    <Content Include="Assets\devices\networkdev.png" />
+    <Content Include="Assets\devices\printerdev.png" />
+    <Content Include="Assets\devices\repeater.png" />
+    <Content Include="Assets\devices\satellitestb.png" />
+    <Content Include="Assets\devices\scannerdev.png" />
+    <Content Include="Assets\devices\slingbox.png" />
+    <Content Include="Assets\devices\stb.png" />
+    <Content Include="Assets\devices\switchdev.png" />
+    <Content Include="Assets\devices\tablepc.png" />
+    <Content Include="Assets\devices\tv.png" />
+    <Content Include="Assets\devices\unixpc.png" />
+    <Content Include="Assets\devices\windowspc.png" />
+    <Content Include="Assets\internet72.png" />
     <Content Include="Assets\MainPage\appstore.png" />
     <Content Include="Assets\MainPage\guestaccess.png" />
     <Content Include="Assets\MainPage\map.png" />
@@ -213,6 +257,14 @@
     <Content Include="Assets\refresh.png" />
     <Content Include="Assets\save.png" />
     <Content Include="Assets\search.png" />
+    <Content Include="Assets\signal\signal_13.png" />
+    <Content Include="Assets\signal\signal_13s.png" />
+    <Content Include="Assets\signal\signal_23.png" />
+    <Content Include="Assets\signal\signal_23s.png" />
+    <Content Include="Assets\signal\signal_33.png" />
+    <Content Include="Assets\signal\signal_33s.png" />
+    <Content Include="Assets\signal\signal_43.png" />
+    <Content Include="Assets\signal\signal_43s.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -228,6 +280,15 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Logo.png" />
+    <Content Include="NETGEAR_Genie_ico_150.png" />
+    <Content Include="NETGEAR_Genie_ico_30.png" />
+    <Content Include="NETGEAR_Genie_ico_50.png" />
+    <Content Include="README_FIRST.txt" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.ar-AE.resx">
@@ -288,6 +349,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\packages\WPtoolkit.4.2013.06.11\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

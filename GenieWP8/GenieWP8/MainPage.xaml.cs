@@ -11,6 +11,9 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using System.IO;
+using System.IO.IsolatedStorage;
+using System.Threading.Tasks;
 
 namespace GenieWP8
 {
@@ -89,6 +92,7 @@ namespace GenieWP8
             appBarMenuItem_Login.Click += new EventHandler(appBarMenuItem_Login_Click);
         }
 
+        //横竖屏切换响应事件
         private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
             // Switch the placement of the buttons based on an orientation change.
@@ -124,6 +128,21 @@ namespace GenieWP8
                     PopupBackground.Visibility = Visibility.Visible;
                     InProgress.Visibility = Visibility.Visible;
                     pleasewait.Visibility = Visibility.Visible;
+                    
+                    Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                    attachDeviceAll = await soapApi.GetAttachDevice();
+                    UtilityTool util = new UtilityTool();
+                    var ipList = util.GetCurrentIpAddresses();
+                    string loacalIp = ipList.ToList()[1];
+                    foreach (string key in attachDeviceAll.Keys)
+                    {
+                        if (loacalIp == key)
+                        {
+                            WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                            WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        }
+                    }
+
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetInfo("WLANConfiguration");
                     if (dicResponse.Count > 0)
@@ -184,6 +203,35 @@ namespace GenieWP8
                         PopupBackground.Visibility = Visibility.Collapsed;
                         MessageBox.Show(AppResources.notsupport);
                     }
+                }
+                //网络映射
+                else if (groupId == "NetworkMap")
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+                    UtilityTool util = new UtilityTool();
+                    NetworkMapInfo.geteway = await util.GetGateway();
+                    Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                    responseDic = await soapApi.GetAttachDevice();
+                    NetworkMapInfo.attachDeviceDic = responseDic;
+
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                        WifiSettingInfo.channel = dicResponse["NewChannel"];
+                        WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                        WifiSettingInfo.macAddr = dicResponse["NewWLANMACAddress"];
+                    }
+                    NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    //this.Frame.Navigate(typeof(NetworkMapPage));
+                    NetworkMapInfo.bTypeChanged = false;
+                    NavigationService.Navigate(new Uri("/NetworkMapPage.xaml", UriKind.Relative));
                 }
             }
             else
@@ -296,6 +344,30 @@ namespace GenieWP8
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
             }
+        }
+
+        public async Task<string> ReadDeviceInfoFile()
+        {
+            string fileContent = string.Empty;
+            IsolatedStorageFile fileStorage = IsolatedStorageFile.GetUserStoreForApplication();
+            try
+            {
+                if (fileStorage.FileExists("CustomDeviceInfo.txt"))
+                {
+                    using (var file = fileStorage.OpenFile("CustomDeviceInfo.txt", FileMode.Open, FileAccess.Read))
+                    {
+                        using (var reader = new StreamReader(file))
+                        {
+                            fileContent = await reader.ReadToEndAsync();
+                        }
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            return fileContent;
         }
     }
 }

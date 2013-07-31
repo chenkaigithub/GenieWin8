@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -137,11 +139,11 @@ namespace GenieWP8.ViewModels
         //}
 
         public void LoadData()
-        {
-            var group1 = new SettingGroup() { ID = "SignalStrength", Title = AppResources.txtSignalStrength, Content = "80%" };
+        {          
+            var group1 = new SettingGroup() { ID = "SignalStrength", Title = AppResources.txtSignalStrength, Content = WifiSettingInfo.signalStrength };
             this.SettingGroups.Add(group1);
 
-            var group2 = new SettingGroup() { ID = "LinkRate", Title = AppResources.txtLinkRate, Content = "20Mbps" };
+            var group2 = new SettingGroup() { ID = "LinkRate", Title = AppResources.txtLinkRate, Content = WifiSettingInfo.linkRate };
             this.SettingGroups.Add(group2);
 
             var group3 = new SettingGroup() { ID = "WiFiName", Title = AppResources.WiFiName, Content = WifiSettingInfo.ssid };

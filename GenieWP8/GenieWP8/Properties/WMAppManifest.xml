@@ -21,7 +21,7 @@
     <Language code="ar-LB" />
   </Languages>
   <App xmlns="" ProductID="{28461904-1440-4fde-ad7e-5718decf246a}" Title="GenieWP8" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="GenieWP8 author" Description="Sample description" Publisher="GenieWP8" PublisherID="{39444ae0-3ee6-4d0d-8608-8634f71efc9c}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_150.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -35,15 +35,21 @@
     <Tokens>
       <PrimaryToken TokenID="GenieWP8Token" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_150.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>GenieWP8</Title>
-          <BackContent></BackContent>
-          <BackBackgroundImageURI></BackBackgroundImageURI>
-          <BackTitle></BackTitle>
-          <DeviceLockImageURI></DeviceLockImageURI>
-          <HasLarge></HasLarge>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_150.png</BackgroundImageURI>
+          <Title>
+          </Title>
+          <BackContent>
+          </BackContent>
+          <BackBackgroundImageURI>
+          </BackBackgroundImageURI>
+          <BackTitle>
+          </BackTitle>
+          <DeviceLockImageURI>
+          </DeviceLockImageURI>
+          <HasLarge>
+          </HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>

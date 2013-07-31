@@ -99,6 +99,21 @@ namespace GenieWP8
             PopupBackgroundTop.Visibility = Visibility.Visible;
             PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
+
+            Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+            attachDeviceAll = await soapApi.GetAttachDevice();
+            UtilityTool util = new UtilityTool();
+            var ipList = util.GetCurrentIpAddresses();
+            string loacalIp = ipList.ToList()[1];
+            foreach (string key in attachDeviceAll.Keys)
+            {
+                if (loacalIp == key)
+                {
+                    WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                    WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                }
+            }
+
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetInfo("WLANConfiguration");
             if (dicResponse.Count > 0)
