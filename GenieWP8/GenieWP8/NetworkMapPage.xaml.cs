@@ -52,6 +52,9 @@ namespace GenieWP8
             }
             else
             {
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Visible;
+                pleasewait.Visibility = Visibility.Visible;
                 settingModel.DeviceGroups.Clear();
                 settingModel.LoadData();
                 if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
@@ -68,11 +71,15 @@ namespace GenieWP8
                     DeviceInfoScrollViewer.Height = 250;
                 }
                 DrawNetworkMap(width, height);
+                PopupBackground.Visibility = Visibility.Collapsed;
             }         
         }
 
         private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
         {
+            PopupBackground.Visibility = Visibility.Visible;
+            InProgress.Visibility = Visibility.Visible;
+            pleasewait.Visibility = Visibility.Visible;
             if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
                 width = Application.Current.Host.Content.ActualWidth;
@@ -87,9 +94,10 @@ namespace GenieWP8
                 DeviceInfoScrollViewer.Height = 250;
             }
             DrawNetworkMap(width, height);
+            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
-        private void DrawNetworkMap(double width, double Height)
+        private async void DrawNetworkMap(double width, double Height)
         {
             MapPivot.Items.Clear();
             double PI = 3.141592653589793;
@@ -140,16 +148,20 @@ namespace GenieWP8
                         line.X2 = width / 2 + x; line.Y2 = height / 2 - y;
                         line.Stroke = new SolidColorBrush(Colors.Green);
                         line.StrokeThickness = 2;
-                        //if (j == 0)
-                        //{
-                        //    //判断路由器是否已连接因特网
-                        //    UtilityTool util = new UtilityTool();
-                        //    bool isConnectToInternet = util.IsConnectedToInternet();
-                        //    if (!isConnectToInternet)
-                        //    {
-                        //        line.Stroke = new SolidColorBrush(Colors.Red);
-                        //    }
-                        //}
+                        if (j == 0)
+                        {
+                            //判断路由器是否已连接因特网
+                            GenieSoapApi soapApi = new GenieSoapApi();
+                            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                            dicResponse = await soapApi.GetCurrentSetting();
+                            if (dicResponse.Count > 0)
+                            {
+                                if (dicResponse["InternetConnectionStatus"] != "Up")
+                                {
+                                    line.Stroke = new SolidColorBrush(Colors.Red);
+                                }
+                            }
+                        }
                         Image imgSignal = new Image();
                         if (j > 0 && Group.ElementAt(7 * i + j).NODE.connectType == "wireless")
                         {
@@ -175,10 +187,10 @@ namespace GenieWP8
                                 imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
                             }
                             imgSignal.Stretch = Stretch.Fill;
-                            imgSignal.Width = 20; imgSignal.Height = 20;
+                            imgSignal.Width = 30; imgSignal.Height = 30;
                             imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
                             imgSignal.VerticalAlignment = VerticalAlignment.Top;
-                            imgSignal.Margin = new Thickness(width / 2 + x / 2 - 10, height / 2 - y / 2 - 10, 0, 0);
+                            imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);
                         }
                         map.Children.Add(line);
                         map.Children.Add(imgSignal);
@@ -353,16 +365,20 @@ namespace GenieWP8
                             line.X2 = width / 2 + x; line.Y2 = height / 2 - y;
                             line.Stroke = new SolidColorBrush(Colors.Green);
                             line.StrokeThickness = 2;
-                            //if (j == 0)
-                            //{
-                            //    //判断路由器是否已连接因特网
-                            //    UtilityTool util = new UtilityTool();
-                            //    bool isConnectToInternet = util.IsConnectedToInternet();
-                            //    if (!isConnectToInternet)
-                            //    {
-                            //        line.Stroke = new SolidColorBrush(Colors.Red);
-                            //    }
-                            //}
+                            if (j == 0)
+                            {
+                                //判断路由器是否已连接因特网
+                                GenieSoapApi soapApi = new GenieSoapApi();
+                                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                                dicResponse = await soapApi.GetCurrentSetting();
+                                if (dicResponse.Count > 0)
+                                {
+                                    if (dicResponse["InternetConnectionStatus"] != "Up")
+                                    {
+                                        line.Stroke = new SolidColorBrush(Colors.Red);
+                                    }
+                                }
+                            }
                             Image imgSignal = new Image();
                             if (j > 0 && Group.ElementAt(7 * i + j).NODE.connectType == "wireless")
                             {
@@ -388,7 +404,7 @@ namespace GenieWP8
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
                                 }
                                 imgSignal.Stretch = Stretch.Fill;
-                                imgSignal.Width = 20; imgSignal.Height = 20;
+                                imgSignal.Width = 30; imgSignal.Height = 30;
                                 imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
                                 imgSignal.VerticalAlignment = VerticalAlignment.Top;
                                 imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);
