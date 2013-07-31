@@ -1617,6 +1617,18 @@ namespace GenieWP8
             OnNavigatedTo(null);
         }
 
+        private void lpType_SelectionChanged(Object sender, SelectionChangedEventArgs e)
+        {
+            NetworkMapInfo.bTypeChanged = true;
+        }
+
+        //"这是什么"链接响应事件
+        private async void btnWhat_Click(Object sender, RoutedEventArgs e)
+        {
+            var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
+            await Windows.System.Launcher.LaunchUriAsync(uri);
+        }
+
         //按下屏幕键盘回车键后关闭屏幕键盘
         protected override void OnKeyDown(System.Windows.Input.KeyEventArgs e)
         {
@@ -1661,12 +1673,7 @@ namespace GenieWP8
             {
 
             }
-        }
-
-        private void lpType_SelectionChanged(Object sender, SelectionChangedEventArgs e)
-        {
-            NetworkMapInfo.bTypeChanged = true;
-        }
+        }       
 
         public async Task<string> ReadDeviceInfoFile()
         {

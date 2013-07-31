@@ -209,7 +209,7 @@
                             <StackPanel x:Name="StpLinkRate">
                                 <TextBlock x:Name="txtLinkRate"/>
                                 <TextBlock x:Name="LinkRate"/>
-                                <HyperlinkButton x:Name="btnWhat"/>
+                                <HyperlinkButton x:Name="btnWhat" Tag="http://support.netgear.com/app/answers/list/kw/link%20rate" Click="btnWhat_Click"/>
                             </StackPanel>
                             <StackPanel x:Name="StpMACAddress">
                                 <TextBlock x:Name="txtMACAddress"/>
