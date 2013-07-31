@@ -616,6 +616,30 @@ namespace GenieWP8
         }
 
         /// <summary>
+        /// 通过mac地址设置阻止或允许访问Internet
+        /// 返回结果：0 (no error)，1 (error)，2 (invalid MAC address)，3 (invalid AllowOrBlock parameter)
+
+        /// </summary>
+        /// <param name="newMACAddress">(XX:XX:XX:XX:XX:XX format, or XXXXXXXXXXXX format)</param>
+        /// <param name="newAllowOrBlock">"Allow"||"Block"</param>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> SetBlockDeviceByMAC(string newMACAddress, string newAllowOrBlock)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("NewMACAddress", newMACAddress);
+            param.Add("NewAllowOrBlock", newAllowOrBlock);
+
+            string result = await postSoap("DeviceConfig", "SetBlockDeviceByMAC", param);
+            return util.TraverseXML(result);
+        }
+
+        public async Task<Dictionary<string, string>> EnableBlockDeviceForAll()
+        {
+            string result = await postSoap("DeviceConfig", "EnableBlockDeviceForAll", new Dictionary<string, string>());
+            return util.TraverseXML(result);
+        }
+
+        /// <summary>
         /// 第一次调用SOAP api默认为80端口，如果不通，换5000端口
         /// </summary>
         /// <param name="module"></param>

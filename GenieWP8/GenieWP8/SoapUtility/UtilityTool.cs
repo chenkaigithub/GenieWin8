@@ -57,52 +57,64 @@ namespace GenieWP8
 
             XDocument xdoc = XDocument.Parse(xml);
             XNode root = xdoc.Root.FirstNode;
+            string rootStr = ((XElement)root).Name.LocalName;
             var nodeList = xdoc.Root.Nodes();
             if (nodeList.Count() > 0)
             {
                 foreach (XNode node in nodeList)
                 {
-                    XElement e = (XElement)node;
-                    string nodeName, nodeValue;
-
-                    if (e.HasElements)
+                    if (node != null)
                     {
-                        NodeOperate(e.FirstNode);
-                    }
-                    else
-                    {
-                        nodeName = e.Name.LocalName;
-                        nodeValue = e.Value;
-                        responseDic.Add(nodeName, nodeValue);
-                        NodeOperate(e.NextNode);
+                        NodeOperate(node, rootStr);
                     }
                 }
             }
-
             return responseDic;
-
         }
 
         /// <summary>
         /// 递归遍历xml节点
         /// </summary>
-        /// <param name="root"></param>
-        private void NodeOperate(XNode root)
+        /// <param name="node"></param>
+        private void NodeOperate(XNode node,string rootStr)
         {
-            XElement e = (XElement)root;
+            XElement e = (XElement)node;
             if (e != null)
             {
                 string nodeName, nodeValue;
                 if (e.HasElements)
                 {
-                    NodeOperate(e.FirstNode);
+                    NodeOperate(e.FirstNode,rootStr);
                 }
                 else
                 {
                     nodeName = e.Name.LocalName;
                     nodeValue = e.Value;
                     responseDic.Add(nodeName, nodeValue);
-                    NodeOperate(e.NextNode);
+                    if (e.NextNode != null)
+                    {
+                        NodeOperate(e.NextNode,rootStr);
+                    }
+                    else
+                    {
+                        int flag = 0;
+                        while (e.NextNode == null)
+                        {
+                            if (e.Name.LocalName == rootStr)
+                            {
+                                flag = 1;
+                                break;
+                            }
+                            else
+                            {
+                                e = e.Parent;
+                            }
+                        }
+                        if (flag == 0)
+                        {
+                            NodeOperate(e.NextNode,rootStr);
+                        }
+                    }
                 }
             }
 
@@ -226,25 +238,6 @@ namespace GenieWP8
             return ipAddress.ToString();
         }
 
-        //public enum NetworkConnectivityLevel
-        //{
-        // 摘要:
-        //     无连接。
-        // None = 0,
-        //
-        // 摘要:
-        //     仅本地网络访问。
-        //   LocalAccess = 1,
-        //
-        // 摘要:
-        //     受限的 internet 访问。
-        //  ConstrainedInternetAccess = 2,
-        //
-        // 摘要:
-        //     本地和 internet 访问。
-        // InternetAccess = 3,
-        // }
-
         /// <summary>
         /// 判断是否有Internet
         /// </summary>
@@ -276,7 +269,7 @@ namespace GenieWP8
             Socket _socket = null;
 
             // 为每次异步调用声明一个毫秒级的超时时间，如果在这个时间内没有收到回应，那么这个调用就会被终止
-            const int Timeout_Milliseconds = 50000;
+            const int Timeout_Milliseconds = 5000;
             string result = string.Empty;
 
             // 将网络终结点表示为主机名或 IP 地址和端口号的字符串表示形式。
