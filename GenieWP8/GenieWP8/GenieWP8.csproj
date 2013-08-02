@@ -126,6 +126,7 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="SoapUtility\GenieSoapApi.cs" />
+    <Compile Include="SoapUtility\GenieTopoNode.cs" />
     <Compile Include="SoapUtility\GenieWebApi.cs" />
     <Compile Include="SoapUtility\UtilityTool.cs" />
     <Compile Include="StartDatePage.xaml.cs">
