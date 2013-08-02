@@ -233,6 +233,60 @@ namespace GenieWP8
                     NetworkMapInfo.bTypeChanged = false;
                     NavigationService.Navigate(new Uri("/NetworkMapPage.xaml", UriKind.Relative));
                 }
+                //流量控制
+                else if (groupId == "TrafficMeter")
+                {
+                    //this.Frame.Navigate(typeof(TrafficMeterPage));
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetTrafficMeterEnabled();
+                    TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+                    if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
+                    {
+                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                        dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                        if (dicResponse2.Count > 0)
+                        {
+                            TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                            TrafficMeterInfo.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                            TrafficMeterInfo.RestartHour = dicResponse2["RestartHour"];
+                            TrafficMeterInfo.changedRestartHour = dicResponse2["RestartHour"];
+                            TrafficMeterInfo.RestartMinute = dicResponse2["RestartMinute"];
+                            TrafficMeterInfo.changedRestartMinute = dicResponse2["RestartMinute"];
+                            TrafficMeterInfo.RestartDay = dicResponse2["RestartDay"];
+                            TrafficMeterInfo.changedRestartDay = dicResponse2["RestartDay"];
+                            TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
+                            TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
+                        }
+                        dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                        if (dicResponse2.Count > 0)
+                        {
+                            TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
+                            TrafficMeterInfo.TodayDownload = dicResponse2["NewTodayDownload"];
+                            TrafficMeterInfo.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+                            TrafficMeterInfo.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+                            TrafficMeterInfo.WeekUpload = dicResponse2["NewWeekUpload"];
+                            TrafficMeterInfo.WeekDownload = dicResponse2["NewWeekDownload"];
+                            TrafficMeterInfo.MonthUpload = dicResponse2["NewMonthUpload"];
+                            TrafficMeterInfo.MonthDownload = dicResponse2["NewMonthDownload"];
+                            TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+                            TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+                        }
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
+                        //this.Frame.Navigate(typeof(TrafficMeterPage));
+                    }
+                    else if (dicResponse["NewTrafficMeterEnable"] == "2")
+                    {
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(AppResources.notsupport);
+                    }
+                }
             }
             else
             {

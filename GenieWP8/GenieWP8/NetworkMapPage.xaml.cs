@@ -22,9 +22,7 @@ namespace GenieWP8
 {
     public partial class NetworkMapPage : PhoneApplicationPage
     {
-        private static NetworkMapModel settingModel = null;
-        double width;
-        double height;
+        private static NetworkMapModel settingModel = null;       
 
         public NetworkMapPage()
         {
@@ -57,6 +55,8 @@ namespace GenieWP8
                 pleasewait.Visibility = Visibility.Visible;
                 settingModel.DeviceGroups.Clear();
                 settingModel.LoadData();
+                double width;
+                double height;
                 if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
                 {
                     width = Application.Current.Host.Content.ActualWidth;
@@ -80,6 +80,8 @@ namespace GenieWP8
             PopupBackground.Visibility = Visibility.Visible;
             InProgress.Visibility = Visibility.Visible;
             pleasewait.Visibility = Visibility.Visible;
+            double width;
+            double height;
             if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
                 width = Application.Current.Host.Content.ActualWidth;
@@ -97,7 +99,7 @@ namespace GenieWP8
             PopupBackground.Visibility = Visibility.Collapsed;
         }
 
-        private async void DrawNetworkMap(double width, double Height)
+        private async void DrawNetworkMap(double width, double height)
         {
             MapPivot.Items.Clear();
             double PI = 3.141592653589793;

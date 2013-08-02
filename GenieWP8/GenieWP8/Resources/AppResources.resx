@@ -607,7 +607,7 @@
     <value>SlingBox</value>
   </data>
   <data name="StartDate" xml:space="preserve">
-    <value>计数器启动日期</value>
+    <value>日期</value>
     <comment>Counter Start Day</comment>
   </data>
   <data name="StartDatePageTitleText" xml:space="preserve">
@@ -621,7 +621,7 @@
     <value>分</value>
   </data>
   <data name="StartTimeText" xml:space="preserve">
-    <value>计数器启动时间</value>
+    <value>时间</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>其他 STB</value>
@@ -672,7 +672,7 @@
   <data name="TotalText" xml:space="preserve">
     <value>总计</value>
   </data>
-  <data name="TrafficCtrlSettingPageTitleText" xml:space="preserve">
+  <data name="TrafficMeterSettingPageTitleText" xml:space="preserve">
     <value>流量控制</value>
     <comment>TrafficCtrlSettingPage Title</comment>
   </data>
@@ -788,5 +788,11 @@
   </data>
   <data name="login_alertinfo" xml:space="preserve">
     <value>登录失败！请检查本计算机是否已连接到 NETGEAR 路由器。</value>
+  </data>
+  <data name="DownloadText" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="UploadText" xml:space="preserve">
+    <value>上传</value>
   </data>
 </root>

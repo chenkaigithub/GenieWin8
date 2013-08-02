@@ -589,7 +589,7 @@
     <value>SlingBox</value>
   </data>
   <data name="StartDate" xml:space="preserve">
-    <value>Giorno di inizio del contatore</value>
+    <value>Giorno</value>
     <comment>Counter Start Day</comment>
   </data>
   <data name="StartDatePageTitleText" xml:space="preserve">
@@ -603,7 +603,7 @@
     <value>Minuti</value>
   </data>
   <data name="StartTimeText" xml:space="preserve">
-    <value>Ora di inizio del contatore</value>
+    <value>Ora</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>Altro STB</value>
@@ -651,7 +651,7 @@
   <data name="TotalText" xml:space="preserve">
     <value>Totale</value>
   </data>
-  <data name="TrafficCtrlSettingPageTitleText" xml:space="preserve">
+  <data name="TrafficMeterSettingPageTitleText" xml:space="preserve">
     <value>Indicatore di traffico</value>
     <comment>TrafficCtrlSettingPage Title</comment>
   </data>
@@ -755,5 +755,11 @@
   </data>
   <data name="SearchText" xml:space="preserve">
     <value>Cerca</value>
+  </data>
+  <data name="DownloadText" xml:space="preserve">
+    <value>Scarica</value>
+  </data>
+  <data name="UploadText" xml:space="preserve">
+    <value>Carica</value>
   </data>
 </root>

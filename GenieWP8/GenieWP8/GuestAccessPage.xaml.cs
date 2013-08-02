@@ -114,6 +114,7 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Collapsed;
         }
 
+        //“是”按钮响应事件
         private async void YesButton_Click(Object sender, RoutedEventArgs e)
         {
             PopupEnquire.IsOpen = false;
@@ -172,6 +173,7 @@ namespace GenieWP8
             PopupBackground.Visibility = Visibility.Collapsed;
         }
 
+        //刷新按钮响应事件
         private async void appBarButton_refresh_Click(object sender, EventArgs e)
         {
             PopupBackgroundTop.Visibility = Visibility.Visible;

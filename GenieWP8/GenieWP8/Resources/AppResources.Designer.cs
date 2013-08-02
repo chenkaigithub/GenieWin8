@@ -403,6 +403,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 下载 的本地化字符串。
+        /// </summary>
+        public static string DownloadText {
+            get {
+                return ResourceManager.GetString("DownloadText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 DVR 的本地化字符串。
         /// </summary>
         public static string dvr {
@@ -1393,7 +1402,7 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
-        ///   查找类似 计数器启动日期 的本地化字符串。
+        ///   查找类似 日期 的本地化字符串。
         /// </summary>
         public static string StartDate {
             get {
@@ -1429,7 +1438,7 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
-        ///   查找类似 计数器启动时间 的本地化字符串。
+        ///   查找类似 时间 的本地化字符串。
         /// </summary>
         public static string StartTimeText {
             get {
@@ -1582,15 +1591,6 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
-        ///   查找类似 流量控制 的本地化字符串。
-        /// </summary>
-        public static string TrafficCtrlSettingPageTitleText {
-            get {
-                return ResourceManager.GetString("TrafficCtrlSettingPageTitleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 流量限制 的本地化字符串。
         /// </summary>
         public static string TrafficLimitation {
@@ -1650,6 +1650,15 @@ namespace GenieWP8.Resources {
         public static string TrafficMeterPageTitleText {
             get {
                 return ResourceManager.GetString("TrafficMeterPageTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 流量控制 的本地化字符串。
+        /// </summary>
+        public static string TrafficMeterSettingPageTitleText {
+            get {
+                return ResourceManager.GetString("TrafficMeterSettingPageTitleText", resourceCulture);
             }
         }
         
@@ -1731,6 +1740,15 @@ namespace GenieWP8.Resources {
         public static string unixpc {
             get {
                 return ResourceManager.GetString("unixpc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上传 的本地化字符串。
+        /// </summary>
+        public static string UploadText {
+            get {
+                return ResourceManager.GetString("UploadText", resourceCulture);
             }
         }
         

@@ -95,6 +95,7 @@
     <Compile Include="DataInfo\GuestAccessInfo.cs" />
     <Compile Include="DataInfo\MainPageInfo.cs" />
     <Compile Include="DataInfo\NetworkMapInfo.cs" />
+    <Compile Include="DataInfo\TrafficMeterInfo.cs" />
     <Compile Include="DataInfo\WifiSettingInfo.cs" />
     <Compile Include="GuestAccessPage.xaml.cs">
       <DependentUpon>GuestAccessPage.xaml</DependentUpon>
@@ -127,9 +128,22 @@
     <Compile Include="SoapUtility\GenieSoapApi.cs" />
     <Compile Include="SoapUtility\GenieWebApi.cs" />
     <Compile Include="SoapUtility\UtilityTool.cs" />
+    <Compile Include="StartDatePage.xaml.cs">
+      <DependentUpon>StartDatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrafficLimitationPage.xaml.cs">
+      <DependentUpon>TrafficLimitationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrafficMeterPage.xaml.cs">
+      <DependentUpon>TrafficMeterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrafficMeterSettingPage.xaml.cs">
+      <DependentUpon>TrafficMeterSettingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\GuestAccessModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NetworkMapModel.cs" />
+    <Compile Include="ViewModels\TrafficMeterModel.cs" />
     <Compile Include="ViewModels\WifiSettingModel.cs" />
     <Compile Include="WifiEditChannelPage.xaml.cs">
       <DependentUpon>WifiEditChannelPage.xaml</DependentUpon>
@@ -177,6 +191,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="StartDatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrafficLimitationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrafficMeterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrafficMeterSettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WifiEditChannelPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,6 +225,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GenieWP8_2013_08_02_13_53_51.sap" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
