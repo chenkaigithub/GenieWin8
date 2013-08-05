@@ -1,0 +1,299 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="GenieWP8.ParentalControlPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    OrientationChanged="PhoneApplicationPage_OrientationChanged"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <LinearGradientBrush.RelativeTransform>
+                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
+                </LinearGradientBrush.RelativeTransform>
+                <GradientStop Color="#FFFFE7B4" Offset="1"/>
+                <GradientStop Color="#FF058D7A"/>
+                <GradientStop Color="#FFFF645C" Offset="0.75"/>
+                <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
+                <GradientStop Color="#FFC59FB2" Offset="0.3"/>
+                <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
+                <GradientStop Color="#FFFF495A" Offset="0.6"/>
+                <GradientStop Color="#FFFFC547" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.ParentalControlPageTitleText, Source={StaticResource LocalizedStrings}}"
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+        <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF004F74" Offset="1"/>
+                            <GradientStop Color="#FF50C6FD"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TextBlock Text="{Binding Path=LocalizedResources.CheckParentalControlText, Source={StaticResource LocalizedStrings}}"
+                               Style="{StaticResource PhoneTextExtraLargeStyle}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <CheckBox x:Name="checkPatentalControl" HorizontalAlignment="Right" FontSize="24" IsChecked="True" Click="checkParentalControl_Click"/>
+                </Grid>
+
+                <phone:LongListSelector
+                    x:Name="FilterLevelLongListSelector"
+                    ItemsSource="{Binding FilterLevelGroups}"
+                    Margin="0,20,0,0"
+                    SelectionChanged="FilterLevelLongListSelector_SelectionChanged">
+                    <phone:LongListSelector.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF004F74" Offset="1"/>
+                            <GradientStop Color="#FF50C6FD"/>
+                        </LinearGradientBrush>
+                    </phone:LongListSelector.Background>
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+
+                <Grid x:Name="ChangeCustomSettings"
+                      Margin="0,20,0,0"
+                      MouseLeftButtonUp="ChangeSetting_Click">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF004F74" Offset="1"/>
+                            <GradientStop Color="#FF50C6FD"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TextBlock Text="{Binding Path=LocalizedResources.ChangeCustomizingSettingText, Source={StaticResource LocalizedStrings}}"
+                               Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                </Grid>
+
+                <StackPanel x:Name="stpOpenDNSAccount" Margin="0,20,0,0">
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF004F74" Offset="1"/>
+                            <GradientStop Color="#FF50C6FD"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                    <TextBlock Text="{Binding Path=LocalizedResources.OpenDNSUserText, Source={StaticResource LocalizedStrings}}"
+                               Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <TextBlock x:Name="OpenDNSUserName" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                </StackPanel>
+
+                <Grid x:Name="BypassAccount"
+                      Margin="0,20,0,0"
+                      MouseLeftButtonUp="Bypass_Click">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <LinearGradientBrush.RelativeTransform>
+                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
+                            </LinearGradientBrush.RelativeTransform>
+                            <GradientStop Color="#FF004F74" Offset="1"/>
+                            <GradientStop Color="#FF50C6FD"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Path=LocalizedResources.BypassText, Source={StaticResource LocalizedStrings}}"
+                                   Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                        <TextBlock x:Name="bypassaccount" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
+            <StackPanel VerticalAlignment="Center">
+                <ProgressBar x:Name="InProgress"
+                             IsIndeterminate="True"
+                             Height="15"
+                             Foreground="White"/>
+                <TextBlock x:Name="pleasewait" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+            </StackPanel>
+        </Grid>
+
+        <Popup x:Name="EnquirePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
+            <StackPanel Width="400">
+                <TextBlock Text="{Binding Path=LocalizedResources.EnquireOpenDNSText, Source={StaticResource LocalizedStrings}}"
+                           FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                <Grid>
+                    <Button x:Name="YesButton" Content="{Binding Path=LocalizedResources.YesButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="YesButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                    <Button x:Name="NoButton" Content="{Binding Path=LocalizedResources.NoButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="NoButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                </Grid>
+            </StackPanel>
+        </Popup>
+
+        <Popup x:Name="RegisterPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
+            <ScrollViewer x:Name="RegisterScrollViewer" Width="400" Height="500" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="{Binding Path=LocalizedResources.EnterRegInformationText, Source={StaticResource LocalizedStrings}}"
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0" FontFamily="Global User Interface" FontSize="22"/>
+                    <Grid>                     
+                        <TextBlock Text="{Binding Path=LocalizedResources.UserNameText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBox x:Name="RegUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsBlankRegUsername"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="checkNameAvailable" Content="{Binding Path=LocalizedResources.CheckAvailabilityContent, Source={StaticResource LocalizedStrings}}"
+                                Click="CheckAvailable_Click"  FontSize="20" Width="150" Margin="150,0,0,0"  IsEnabled="False"/>
+                        <ProgressBar x:Name="chenckAvailableInProgress" Height="20" Width="100"  HorizontalAlignment="Right" Visibility="Collapsed"/>
+                    </StackPanel>
+                    <TextBlock x:Name="IsAvailableName" Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                    <Grid>
+                        <TextBlock Text="{Binding Path=LocalizedResources.PasswordText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <PasswordBox x:Name="RegPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="IsBlankRegPassword"/>
+                    </Grid>
+                    <Grid>
+                        <TextBlock Text="{Binding Path=LocalizedResources.ConfirmPasswordText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="eventConfirmPassword"/>
+                    </Grid>
+                    <TextBlock x:Name="differentPassword" Text="Two passwords are different !"
+                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                    <Grid>
+                        <TextBlock Text="{Binding Path=LocalizedResources.EmailText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsEmailValid"/>
+                    </Grid>
+                    <TextBlock x:Name="invalidEmail" Text="Email is invalid !"
+                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                    <Grid>
+                        <TextBlock Text="{Binding Path=LocalizedResources.ConfirmEmailText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="eventConfirmEmail"/>
+                    </Grid>
+                    <TextBlock x:Name="differentEmail" Text="Two Emails are different !"
+                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                    <Grid>
+                        <Button x:Name="RegisterPreviousButton" Content="{Binding Path=LocalizedResources.PreviousButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="RegisterPreviousButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                        <Button x:Name="RegisterNextButton" Content="{Binding Path=LocalizedResources.NextButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="RegisterNextButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>           
+        </Popup>
+
+        <Popup x:Name="LoginPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
+            <StackPanel Width="400">
+                <TextBlock Text="{Binding Path=LocalizedResources.EnterUsername_PasswordText, Source={StaticResource LocalizedStrings}}"
+                           HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0" FontFamily="Global User Interface" FontSize="22"/>
+                <Grid>
+                    <TextBlock Text="{Binding Path=LocalizedResources.UserNameText, Source={StaticResource LocalizedStrings}}"
+                               FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="LoginUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsBlankLoginUsername"/>
+                </Grid>
+                <Grid>
+                    <TextBlock Text="{Binding Path=LocalizedResources.PasswordText, Source={StaticResource LocalizedStrings}}"
+                               FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <PasswordBox x:Name="LoginPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="IsBlankLoginPassword"/>
+                </Grid>
+                <Grid>
+                    <Button x:Name="LoginPreviousButton" Content="{Binding Path=LocalizedResources.PreviousButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="LoginPreviousButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                    <Button x:Name="LoginNextButton" Content="{Binding Path=LocalizedResources.NextButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="LoginNextButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                </Grid>
+            </StackPanel>
+        </Popup>
+
+        <Popup x:Name="FilterLevelPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
+            <ScrollViewer x:Name="FilterLevelScrollViewer" Margin="10" Width="400" Height="500" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="{Binding Path=LocalizedResources.FiltingIllustrationText, Source={StaticResource LocalizedStrings}}"
+                               FontSize="22" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_None" Content="{Binding Path=LocalizedResources.radioButton_NoneContent, Source={StaticResource LocalizedStrings}}"
+                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_NoneText, Source={StaticResource LocalizedStrings}}"
+                               FontSize="20" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_Minimum" Content="{Binding Path=LocalizedResources.radioButton_MinimumContent, Source={StaticResource LocalizedStrings}}"
+                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_MinimumText, Source={StaticResource LocalizedStrings}}"
+                               FontSize="20" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_Low"  Content="{Binding Path=LocalizedResources.radioButton_LowContent, Source={StaticResource LocalizedStrings}}"
+                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_LowText, Source={StaticResource LocalizedStrings}}"
+                               FontSize="20" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_Medium"  Content="{Binding Path=LocalizedResources.radioButton_MediumContent, Source={StaticResource LocalizedStrings}}"
+                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_MediumText, Source={StaticResource LocalizedStrings}}"
+                               FontSize="20" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_High"  Content="{Binding Path=LocalizedResources.radioButton_HighContent, Source={StaticResource LocalizedStrings}}"
+                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_HighText, Source={StaticResource LocalizedStrings}}"
+                               FontSize="20" TextWrapping="Wrap"/>
+                    <Grid>
+                        <Button x:Name="FilterLvPreviousButton" Content="{Binding Path=LocalizedResources.PreviousButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="FilterLvPreviousButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                        <Button x:Name="FilterLvNextButton" Content="{Binding Path=LocalizedResources.NextButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="FilterLvNextButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </Popup>
+
+        <Popup x:Name="SettingCompletePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
+            <ScrollViewer x:Name="SettingCompleteScrollViewer" Width="400" Height="500" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,10,0,0">
+                        <TextBlock Text="{Binding Path=LocalizedResources.SettingCompleteText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding Path=LocalizedResources.CompleteIllustrationText, Source={StaticResource LocalizedStrings}}"
+                               FontSize="24" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration1Text, Source={StaticResource LocalizedStrings}}"
+                               FontSize="24" Margin="0,20,0,0" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration2Text, Source={StaticResource LocalizedStrings}}"
+                               FontSize="24" Margin="0,20,0,0" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration3Text, Source={StaticResource LocalizedStrings}}"
+                               FontSize="24" Margin="0,20,0,0" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration4Text, Source={StaticResource LocalizedStrings}}"
+                               FontSize="24" Margin="0,20,0,0" TextWrapping="Wrap"/>
+                    <Button x:Name="ReturnToStatusButton" Content="{Binding Path=LocalizedResources.ReturnButtonContent, Source={StaticResource LocalizedStrings}}"
+                            Click="ReturnToStatusButton_Click" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Popup>
+    </Grid>
+
+</phone:PhoneApplicationPage>

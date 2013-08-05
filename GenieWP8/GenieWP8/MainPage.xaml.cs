@@ -77,7 +77,8 @@ namespace GenieWP8
             //搜索按钮
             ApplicationBarIconButton appBarButton_search = new ApplicationBarIconButton(new Uri("Assets/search.png", UriKind.Relative));
             appBarButton_search.Text = AppResources.SearchText;
-            ApplicationBar.Buttons.Add(appBarButton_search);      
+            ApplicationBar.Buttons.Add(appBarButton_search);
+            appBarButton_search.Click += new EventHandler(appBarButton_search_Click);
      
             //关于按钮
             ApplicationBarIconButton appBarButton_about = new ApplicationBarIconButton(new Uri("Assets/questionmark.png", UriKind.Relative));
@@ -278,7 +279,6 @@ namespace GenieWP8
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
-                        //this.Frame.Navigate(typeof(TrafficMeterPage));
                     }
                     else if (dicResponse["NewTrafficMeterEnable"] == "2")
                     {
@@ -287,6 +287,49 @@ namespace GenieWP8
                         MessageBox.Show(AppResources.notsupport);
                     }
                 }
+                //家长控制
+                else if (groupId == "ParentalControl")
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+
+                    //这里需要判断是否已连接因特网
+                    UtilityTool util = new UtilityTool();
+                    bool isConnectToInternet = util.IsConnectedToInternet();
+                    if (!isConnectToInternet)
+                    {
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(AppResources.interneterror);
+                    }
+                    else
+                    {
+                        Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                        dicResponse = await soapApi.GetCurrentSetting();
+                        if (dicResponse["ParentalControlSupported"] == "1")
+                        {
+                            ///通过attachDevice获取本机的Mac地址
+                            Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                            responseDic = await soapApi.GetAttachDevice();
+                            NetworkMapInfo.attachDeviceDic = responseDic;
+
+                            Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                            dicResponse2 = await soapApi.GetEnableStatus();
+                            ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                            PopupBackground.Visibility = Visibility.Collapsed;
+                            NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
+                        }
+                        else
+                        {
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                            PopupBackground.Visibility = Visibility.Collapsed;
+                            MessageBox.Show(AppResources.notsupport);
+                        }
+                    }
+                } 
             }
             else
             {
@@ -325,12 +368,47 @@ namespace GenieWP8
             MainLongListSelector.SelectedItem = null;
         }
 
+        private void appBarButton_search_Click(object sender, EventArgs e)
+        {
+            if (PopupBackgroundTop.Visibility == Visibility.Collapsed)
+            {
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                tbSearch.Visibility = Visibility.Visible;
+                btnSearch.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                if (PopupBackground.Visibility == Visibility.Collapsed)
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    tbSearch.Visibility = Visibility.Collapsed;
+                    btnSearch.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    if (AboutPopup.IsOpen)
+                    {
+                        AboutPopup.IsOpen = false;
+                    }
+                    else if (LicensePopup.IsOpen)
+                    {
+                        LicensePopup.IsOpen = false;
+                    }
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    tbSearch.Visibility = Visibility.Visible;
+                    btnSearch.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
         private void appBarButton_about_Click(object sender, EventArgs e)
         {
             if (!AboutPopup.IsOpen)
             {
                 AboutPopup.IsOpen = true;
                 PopupBackgroundTop.Visibility = Visibility.Visible;
+                tbSearch.Visibility = Visibility.Collapsed;
+                btnSearch.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
@@ -355,6 +433,17 @@ namespace GenieWP8
         private void appBarMenuItem_Login_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+        }
+
+        //搜索按钮响应事件
+        private async void SearchButton_Click(Object sender, RoutedEventArgs e)
+        {
+            string text = tbSearch.Text.Trim();
+            if (text != "")
+            {
+                var uri = new Uri((String)("http://support.netgear.com/search/" + text));
+                await Windows.System.Launcher.LaunchUriAsync(uri);
+            }
         }
 
         //隐私权政策链接响应事件
@@ -383,6 +472,8 @@ namespace GenieWP8
                 LicensePopup.IsOpen = true;
                 AboutPopup.IsOpen = false;
                 PopupBackgroundTop.Visibility = Visibility.Visible;
+                tbSearch.Visibility = Visibility.Collapsed;
+                btnSearch.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
