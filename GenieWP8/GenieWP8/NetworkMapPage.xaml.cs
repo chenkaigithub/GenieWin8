@@ -22,11 +22,14 @@ namespace GenieWP8
 {
     public partial class NetworkMapPage : PhoneApplicationPage
     {
-        private static NetworkMapModel settingModel = null;       
-
+        private static NetworkMapModel settingModel = null;
+        private string routerImage ;
         public NetworkMapPage()
         {
             InitializeComponent();
+            ImageNameGenerator imagePath = new ImageNameGenerator(MainPageInfo.model);
+            ///获取路由器图标路径
+            routerImage = imagePath.getImagePath(); 
 
             // 将 LongListSelector 控件的数据上下文设置为绑定数据
             if (settingModel == null)
@@ -100,7 +103,7 @@ namespace GenieWP8
         }
 
         private async void DrawNetworkMap(double width, double height)
-        {
+        {         
             MapPivot.Items.Clear();
             double PI = 3.141592653589793;
             //double width = e.NewSize.Width;
@@ -134,7 +137,7 @@ namespace GenieWP8
                     BtnRouter.VerticalAlignment = VerticalAlignment.Center;
 
                     Image imgRouter = new Image();
-                    imgRouter.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                    imgRouter.Source = new BitmapImage(new Uri(routerImage, UriKind.Relative));
                     imgRouter.Stretch = Stretch.UniformToFill;
                     BtnRouter.Content = imgRouter;
                     BtnRouter.Margin = new Thickness(20, 15, 0, 0);
@@ -351,7 +354,7 @@ namespace GenieWP8
                         BtnRouter.HorizontalAlignment = HorizontalAlignment.Center;
                         BtnRouter.VerticalAlignment = VerticalAlignment.Center;
                         Image imgRouter = new Image();
-                        imgRouter.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                        imgRouter.Source = new BitmapImage(new Uri(routerImage, UriKind.Relative));
                         imgRouter.Stretch = Stretch.UniformToFill;
                         BtnRouter.Content = imgRouter;
                         BtnRouter.Margin = new Thickness(20, 15, 0, 0);
@@ -600,7 +603,7 @@ namespace GenieWP8
 
             if (Group.NODE.uniqueId == "Router")
             {
-                TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                TitleImage.Source = new BitmapImage(new Uri(routerImage, UriKind.Relative));
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
 

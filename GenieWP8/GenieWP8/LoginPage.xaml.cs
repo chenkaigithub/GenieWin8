@@ -110,6 +110,7 @@ namespace GenieWP8
             dicResponse = await soapApi.GetCurrentSetting();
             if (dicResponse.Count > 0 && dicResponse["Firmware"] != "" && dicResponse["Model"] != "")
             {
+                MainPageInfo.model = dicResponse["Model"];
                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                 dicResponse2 = await soapApi.Authenticate(Username, Password);
                 if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
