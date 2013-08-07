@@ -110,7 +110,7 @@ namespace GenieWP8
             //double height = e.NewSize.Height - 150;
             double r1 = width / 2 - 50;
             double r2 = height / 2 - 50;
-            //m = （总设备数 - 1（路由器/交换机））/ 6 的商
+            //m = （总设备数 - 1（路由器/交换机））/ 7 的商，即满设备的MAP页数
             //n 为上式得余数，即最后一页除路由器（交换机）和本设备外的设备数
             var Group = settingModel.DeviceGroups;
             var DeviceNumber = Group.Count();

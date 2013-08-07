@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+
+using GenieWP8.Resources;
+using System.IO;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using Microsoft.Devices;
+using ZXing;
+using ZXing.QrCode;
+using ZXing.Common;
+using System.Windows.Threading;
+using System.Windows.Media.Imaging;
+
+namespace GenieWP8
+{
+    public partial class QRCodePage : PhoneApplicationPage
+    {
+        private PhotoCamera _photoCamera;
+        private PhotoCameraLuminanceSource _luminance;
+        private readonly DispatcherTimer _timer;
+        //解码器
+        private Reader _reader = null;
+
+        public QRCodePage()
+        {
+            InitializeComponent();
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromMilliseconds(250);
+            //间隔250ms调用读取函数
+            _timer.Tick += (o, arg) => ScanPreviewBuffer();
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            _reader = new QRCodeReader();
+            _photoCamera = new PhotoCamera();
+            _photoCamera.Initialized += new EventHandler<CameraOperationCompletedEventArgs>(cam_Initialized);
+            _videoBrush.SetSource(_photoCamera);
+            base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            if (_photoCamera != null)
+            {
+                _timer.Stop();
+                _photoCamera.CancelFocus();
+                _photoCamera.Dispose();
+            }
+
+            base.OnNavigatingFrom(e);
+        }
+
+        void cam_Initialized(object sender, CameraOperationCompletedEventArgs e)
+        {
+            int width = Convert.ToInt32(_photoCamera.PreviewResolution.Width);
+            int height = Convert.ToInt32(_photoCamera.PreviewResolution.Height);
+            _luminance = new PhotoCameraLuminanceSource(width, height);
+
+            Dispatcher.BeginInvoke(() =>
+            {
+                _previewTransform.Rotation = _photoCamera.Orientation;
+                _timer.Start();
+            });
+            _photoCamera.FlashMode = FlashMode.Auto;
+            _photoCamera.Focus();
+        }
+
+        private void ScanPreviewBuffer()
+        {
+            try
+            {
+                _photoCamera.GetPreviewBufferY(_luminance.PreviewBufferY);
+                var binarizer = new HybridBinarizer(_luminance);
+                var binBitmap = new BinaryBitmap(binarizer);
+                Result result = _reader.decode(binBitmap);
+                if (result != null)
+                {
+                    //_timer.Stop();
+                    Dispatcher.BeginInvoke(() =>
+                    {
+                        //读取成功，结果存放在content
+                        string content = result.Text;
+                        string[] decode = content.Split(';');
+                        string[] ssidString = decode[0].Split(':');
+                        string[] passwordString = decode[1].Split(':');
+                        string ssid = ssidString[1];
+                        string password = passwordString[1];
+                        if (ssidString[0] == "WIRELESS" && passwordString[0] == "PASSWORD")
+                        {
+                            MessageBox.Show(AppResources.WiFiName + "：" + ssid + "\r\n" + AppResources.PasswordText + "：" + password);      //由于API未开放，不能自动进行无线连接，暂以MessageBox显示之
+                        }                        
+                    });
+                }
+                else
+                {
+                    _photoCamera.Focus();
+                }
+            }
+            catch
+            {
+            }
+        }        
+    }
+}

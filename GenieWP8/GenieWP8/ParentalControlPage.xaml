@@ -175,7 +175,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="checkNameAvailable" Content="{Binding Path=LocalizedResources.CheckAvailabilityContent, Source={StaticResource LocalizedStrings}}"
                                 Click="CheckAvailable_Click"  FontSize="20" Width="150" Margin="150,0,0,0"  IsEnabled="False"/>
-                        <ProgressBar x:Name="chenckAvailableInProgress" Height="20" Width="100"  HorizontalAlignment="Right" Visibility="Collapsed"/>
+                        <ProgressBar x:Name="chenckAvailableInProgress" Height="20" Width="100"  HorizontalAlignment="Right" IsIndeterminate="True" Foreground="White" Visibility="Collapsed"/>
                     </StackPanel>
                     <TextBlock x:Name="IsAvailableName" Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                     <Grid>

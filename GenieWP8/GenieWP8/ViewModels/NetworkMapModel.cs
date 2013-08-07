@@ -78,7 +78,7 @@ namespace GenieWP8.ViewModels
             attachDeviceAll = NetworkMapInfo.attachDeviceDic;
             UtilityTool util = new UtilityTool();
             var ipList = util.GetCurrentIpAddresses();
-            string loacalIp = ipList.ToList()[1];
+            string loacalIp = ipList.ToList()[0];
 
             Node NodeRouter = new Node();
             NodeRouter.uniqueId = "Router";
@@ -148,53 +148,6 @@ namespace GenieWP8.ViewModels
                 var group = new DeviceGroup() { NODE = NodeDevice };
                 this.DeviceGroups.Add(group);
             }
-            //Node node1 = new Node();
-            //node1.deviceName = "1";
-            //node1.deviceType = "networkdev";
-            //node1.connectType = "wireless";
-            //node1.IPaddress = "1.1.1.1";
-            //node1.linkRate = "1";
-            //node1.MACaddress = "1";
-            //node1.signalStrength = "1";
-            //node1.uniqueId = "1";
-            //var group1 = new DeviceGroup() { NODE = node1 };
-            //this.DeviceGroups.Add(group1);
-
-            //Node node2 = new Node();
-            //node2.deviceName = "2";
-            //node2.deviceType = "networkdev";
-            //node2.connectType = "wireless";
-            //node2.IPaddress = "2.2.2.2";
-            //node2.linkRate = "2";
-            //node2.MACaddress = "2";
-            //node2.signalStrength = "2";
-            //node2.uniqueId = "2";
-            //var group2 = new DeviceGroup() { NODE = node2 };
-            //this.DeviceGroups.Add(group2);
-
-            //Node node3 = new Node();
-            //node3.deviceName = "3";
-            //node3.deviceType = "networkdev";
-            //node3.connectType = "wireless";
-            //node3.IPaddress = "3.3.3.3";
-            //node3.linkRate = "3";
-            //node3.MACaddress = "3";
-            //node3.signalStrength = "3";
-            //node3.uniqueId = "3";
-            //var group3 = new DeviceGroup() { NODE = node3 };
-            //this.DeviceGroups.Add(group3);
-
-            //Node node4 = new Node();
-            //node4.deviceName = "4";
-            //node4.deviceType = "networkdev";
-            //node4.connectType = "wireless";
-            //node4.IPaddress = "4.4.4.4";
-            //node4.linkRate = "4";
-            //node4.MACaddress = "4";
-            //node4.signalStrength = "4";
-            //node4.uniqueId = "4";
-            //var group4 = new DeviceGroup() { NODE = node4 };
-            //this.DeviceGroups.Add(group4);
             //this.IsDataLoaded = true;
         }
 

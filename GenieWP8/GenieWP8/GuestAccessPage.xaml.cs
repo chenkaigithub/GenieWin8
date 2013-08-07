@@ -11,6 +11,9 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using ZXing;
+using ZXing.Common;
+using System.Windows.Media.Imaging;
 
 namespace GenieWP8
 {
@@ -55,6 +58,11 @@ namespace GenieWP8
             settingModel.GuestSettingGroups.Clear();
             settingModel.EditTimesegSecurity.Clear();
             settingModel.LoadData();
+
+            //生成二维码
+            string codeString = "WIRELESS:" + GuestAccessInfo.ssid + ";PASSWORD:" + GuestAccessInfo.password;
+            WriteableBitmap wb = CreateBarcode(codeString);
+            imageQRCode.Source = wb;
         }
 
         // 处理在 LongListSelector 中更改的选定内容
@@ -240,5 +248,62 @@ namespace GenieWP8
                 MessageBox.Show("GetGuestAccessEnabled failed!");
             }
         }
+
+        //生成二维码
+        public static WriteableBitmap CreateBarcode(string content)
+        {
+            IBarcodeWriter wt = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new EncodingOptions
+                {
+                    Height = 200,
+                    Width = 200
+                }
+            };
+            var bmp = wt.Write(content);
+            return bmp;
+            //WriteableBitmap wb = null;
+            //QRCodeWriter writer = new QRCodeWriter();
+            //ByteMatrix bitMatrix = null;
+            //if (content.Length > 0)
+            //{
+            //    try
+            //    {
+            //        bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 200, 200);
+            //        wb = ConvertByteMartixToWriteableBitmap(bitMatrix);
+            //    }
+            //    catch (WriterException e)
+            //    {
+            //    }
+            //    catch (IOException e)
+            //    {
+            //    }
+
+            //}
+            //return wb;
+        }
+
+        //public static WriteableBitmap ConvertByteMartixToWriteableBitmap(ByteMatrix bm)
+        //{
+        //    WriteableBitmap wb = new WriteableBitmap(bm.Width, bm.Height);
+        //    for (int x = 0; x <= wb.PixelWidth - 1; x++)
+        //    {
+        //        for (int y = 0; y <= wb.PixelHeight - 1; y++)
+        //        {
+        //            if (bm.Array[y][x] == -1)
+        //            {
+        //                //白色            
+        //                wb.Pixels[wb.PixelWidth * y + x] = BitConverter.ToInt32(BitConverter.GetBytes(0xffffffff), 0);
+        //            }
+        //            else
+        //            {
+        //                //黑色       
+        //                wb.Pixels[wb.PixelWidth * y + x] = BitConverter.ToInt32(BitConverter.GetBytes(0xff000000), 0);
+        //            }
+        //        }
+        //    }
+        //    return wb;
+        //}
     }
 }

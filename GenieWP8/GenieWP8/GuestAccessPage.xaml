@@ -80,7 +80,7 @@
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>
                 <TextBlock x:Name="textScanQRCode" Text="{Binding Path=LocalizedResources.ScanQrCodeTipsText, Source={StaticResource LocalizedStrings}}" FontSize="24" HorizontalAlignment="Center" Margin="0,40,0,0"/>
-                <Image x:Name="imageQRCode" Source="Assets/ApplicationIcon.png" Width="200" Height="200" Margin="0,20,0,0" HorizontalAlignment="Center"/>
+                <Image x:Name="imageQRCode" Width="200" Height="200" Margin="0,20,0,0" HorizontalAlignment="Center"/>
             </StackPanel>
         </ScrollViewer>
 

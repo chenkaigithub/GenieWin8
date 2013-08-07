@@ -134,7 +134,7 @@ namespace GenieWP8
                     attachDeviceAll = await soapApi.GetAttachDevice();
                     UtilityTool util = new UtilityTool();
                     var ipList = util.GetCurrentIpAddresses();
-                    string loacalIp = ipList.ToList()[1];
+                    string loacalIp = ipList.ToList()[0];
                     foreach (string key in attachDeviceAll.Keys)
                     {
                         if (loacalIp == key)
@@ -341,18 +341,7 @@ namespace GenieWP8
                 //QRCode
                 else if (groupId == "QRCode")
                 {
-                    //this.Frame.Navigate(typeof(QRCodePage));
-                    //解码代码（暂时注释）
-                    //StorageFile file = await Windows.Storage.KnownFolders.PicturesLibrary.GetFileAsync("Genie_QRCode.png");
-                    //IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
-                    //BitmapDecoder decoder = await BitmapDecoder.CreateAsync(BitmapDecoder.PngDecoderId, stream);
-                    //int width = (int)decoder.PixelWidth;
-                    //int height = (int)decoder.PixelHeight;
-                    //WriteableBitmap wb = new WriteableBitmap(width, height);
-                    //wb.SetSource(stream);
-                    //QRCodeDecoder qrCodeDecoder = new QRCodeDecoder();
-                    //QRCodeBitmapImage _image = new QRCodeBitmapImage(wb.PixelBuffer.ToArray(), wb.PixelWidth, wb.PixelHeight);
-                    //string decodeString = qrCodeDecoder.decode(_image, System.Text.Encoding.UTF8);            //decodeString为解码得到的字符串
+                    NavigationService.Navigate(new Uri("/QRCodePage.xaml", UriKind.Relative));
                 }
                 //MarketPlace
                 else if (groupId == "MarketPlace")
