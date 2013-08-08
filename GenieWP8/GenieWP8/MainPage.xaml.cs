@@ -119,11 +119,11 @@ namespace GenieWP8
 
             // 导航到新页面
             var groupId = ((MainItemViewModel)MainLongListSelector.SelectedItem).ID;
-            if (MainPageInfo.bLogin)	//已登陆
+            GenieSoapApi soapApi = new GenieSoapApi();
+            //无线设置
+            if (groupId == "WiFiSetting")
             {
-                GenieSoapApi soapApi = new GenieSoapApi();
-                //无线设置
-                if (groupId == "WiFiSetting")
+                if (MainPageInfo.bLogin)	//已登陆
                 {
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
@@ -165,8 +165,15 @@ namespace GenieWP8
                     PopupBackground.Visibility = Visibility.Collapsed;
                     NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
                 }
-                //访客访问
-                else if (groupId == "GuestAccess")
+                else	//未登陆
+                {
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                }
+            }
+            //访客访问
+            else if (groupId == "GuestAccess")
+            {
+                if (MainPageInfo.bLogin)	//已登陆
                 {
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
@@ -205,8 +212,15 @@ namespace GenieWP8
                         MessageBox.Show(AppResources.notsupport);
                     }
                 }
-                //网络映射
-                else if (groupId == "NetworkMap")
+                else	//未登陆
+                {
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                }                
+            }
+            //网络映射
+            else if (groupId == "NetworkMap")
+            {
+                if (MainPageInfo.bLogin)	//已登陆
                 {
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
@@ -234,10 +248,16 @@ namespace GenieWP8
                     NetworkMapInfo.bTypeChanged = false;
                     NavigationService.Navigate(new Uri("/NetworkMapPage.xaml", UriKind.Relative));
                 }
-                //流量控制
-                else if (groupId == "TrafficMeter")
+                else	//未登陆
                 {
-                    //this.Frame.Navigate(typeof(TrafficMeterPage));
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                }                
+            }
+            //流量控制
+            else if (groupId == "TrafficMeter")
+            {
+                if (MainPageInfo.bLogin)	//已登陆
+                {
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     InProgress.Visibility = Visibility.Visible;
@@ -287,8 +307,15 @@ namespace GenieWP8
                         MessageBox.Show(AppResources.notsupport);
                     }
                 }
-                //家长控制
-                else if (groupId == "ParentalControl")
+                else	//未登陆
+                {
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                }             
+            }
+            //家长控制
+            else if (groupId == "ParentalControl")
+            {
+                if (MainPageInfo.bLogin)	//已登陆
                 {
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
@@ -329,28 +356,27 @@ namespace GenieWP8
                             MessageBox.Show(AppResources.notsupport);
                         }
                     }
-                } 
-            }
-            else
-            {
-                //我的媒体
-                if (groupId == "MyMedia")
-                {
-                    
                 }
-                //QRCode
-                else if (groupId == "QRCode")
+                else	//未登陆
                 {
-                    NavigationService.Navigate(new Uri("/QRCodePage.xaml", UriKind.Relative));
-                }
-                //MarketPlace
-                else if (groupId == "MarketPlace")
-                {
-                    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
-                    await Windows.System.Launcher.LaunchUriAsync(uri);
-                }
-                else
                     NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                }                
+            } 
+            //我的媒体
+            else if (groupId == "MyMedia")
+            {
+                    
+            }
+            //QRCode
+            else if (groupId == "QRCode")
+            {
+                NavigationService.Navigate(new Uri("/QRCodePage.xaml", UriKind.Relative));
+            }
+            //MarketPlace
+            else if (groupId == "MarketPlace")
+            {
+                var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+                await Windows.System.Launcher.LaunchUriAsync(uri);
             }
 
             // 将所选项重置为 null (没有选定内容)

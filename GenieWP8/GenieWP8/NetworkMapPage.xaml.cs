@@ -24,6 +24,7 @@ namespace GenieWP8
     {
         private static NetworkMapModel settingModel = null;
         private string routerImage ;
+        private bool IsRouterInfoOpened = false;
         public NetworkMapPage()
         {
             InitializeComponent();
@@ -64,7 +65,14 @@ namespace GenieWP8
                 {
                     width = Application.Current.Host.Content.ActualWidth;
                     height = Application.Current.Host.Content.ActualHeight - 250;
-                    DeviceInfoScrollViewer.Height = 400;
+                    if (IsRouterInfoOpened)
+                    {
+                        DeviceInfoScrollViewer.Height = 300;
+                    } 
+                    else
+                    {
+                        DeviceInfoScrollViewer.Height = 400;
+                    }                    
                 }
                 // If not in portrait, move buttonList content to visible row and column.
                 else
@@ -89,7 +97,14 @@ namespace GenieWP8
             {
                 width = Application.Current.Host.Content.ActualWidth;
                 height = Application.Current.Host.Content.ActualHeight - 250;
-                DeviceInfoScrollViewer.Height = 400;
+                if (IsRouterInfoOpened)
+                {
+                    DeviceInfoScrollViewer.Height = 300;
+                }
+                else
+                {
+                    DeviceInfoScrollViewer.Height = 400;
+                } 
             }
             // If not in portrait, move buttonList content to visible row and column.
             else
@@ -556,6 +571,17 @@ namespace GenieWP8
 
         private void RouterButton_Click(Object sender, RoutedEventArgs e)
         {
+            IsRouterInfoOpened = true;
+            if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+            {
+                DeviceInfoScrollViewer.Height = 300;
+            }
+            // If not in portrait, move buttonList content to visible row and column.
+            else
+            {
+                DeviceInfoScrollViewer.Height = 250;
+            }
+
             PopupBackground.Visibility = Visibility.Visible;
             InProgress.Visibility = Visibility.Collapsed;
             pleasewait.Visibility = Visibility.Collapsed;
@@ -634,6 +660,17 @@ namespace GenieWP8
        
         private void DeviceButton_Click(Object sender, RoutedEventArgs e)
         {
+            IsRouterInfoOpened = false;
+            if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+            {
+                DeviceInfoScrollViewer.Height = 400;
+            }
+            // If not in portrait, move buttonList content to visible row and column.
+            else
+            {
+                DeviceInfoScrollViewer.Height = 250;
+            }
+
             PopupBackground.Visibility = Visibility.Visible;
             InProgress.Visibility = Visibility.Collapsed;
             pleasewait.Visibility = Visibility.Collapsed;
@@ -1005,17 +1042,17 @@ namespace GenieWP8
             btnBack.FontSize = 25;
             btnBack.Width = 200;
             btnBack.HorizontalAlignment = HorizontalAlignment.Center;
-            btnBack.Click += new RoutedEventHandler(BackButton_Click);
+            //btnBack.Click += new RoutedEventHandler(BackButton_Click);
             btnModify.Content = AppResources.btnModify;
             btnModify.FontSize = 25;
             btnModify.Width = 200;
             btnModify.HorizontalAlignment = HorizontalAlignment.Center;
-            btnModify.Click += new RoutedEventHandler(ModifyButton_Click);
+            //btnModify.Click += new RoutedEventHandler(ModifyButton_Click);
             btnApply.Content = AppResources.btnApply;
             btnApply.FontSize = 25;
             btnApply.Width = 200;
             btnApply.HorizontalAlignment = HorizontalAlignment.Center;
-            btnApply.Click += new RoutedEventHandler(ApplyButton_Click);
+            //btnApply.Click += new RoutedEventHandler(ApplyButton_Click);
             btnFileUpload.Content = AppResources.btnFileUpload;
             btnFileUpload.FontSize = 25;
             btnFileUpload.Width = 200;

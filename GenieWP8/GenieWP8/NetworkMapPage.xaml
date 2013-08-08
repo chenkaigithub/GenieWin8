@@ -216,10 +216,10 @@
                                 <TextBlock x:Name="MACAddress"/>
                             </StackPanel>
                             <Grid x:Name="GridButton">
-                                <Button x:Name="btnBack" Style="{StaticResource ButtonStyle1}"/>
-                                <Button x:Name="btnModify" Style="{StaticResource ButtonStyle1}"/>
+                                <Button x:Name="btnBack" Style="{StaticResource ButtonStyle1}" Click="BackButton_Click"/>
+                                <Button x:Name="btnModify" Style="{StaticResource ButtonStyle1}" Click="ModifyButton_Click"/>
                                 <Button x:Name="btnFileUpload" Style="{StaticResource ButtonStyle1}"/>
-                                <Button x:Name="btnApply" Style="{StaticResource ButtonStyle1}"/>
+                                <Button x:Name="btnApply" Style="{StaticResource ButtonStyle1}" Click="ApplyButton_Click"/>
                             </Grid>
                         </StackPanel>                       
                     </ScrollViewer>
