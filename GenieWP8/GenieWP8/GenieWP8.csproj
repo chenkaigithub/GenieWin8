@@ -309,6 +309,7 @@
     <Content Include="Assets\devices\tv.png" />
     <Content Include="Assets\devices\unixpc.png" />
     <Content Include="Assets\devices\windowspc.png" />
+    <Content Include="Assets\devices\windowsphone.png" />
     <Content Include="Assets\internet72.png" />
     <Content Include="Assets\MainPage\appstore.png" />
     <Content Include="Assets\MainPage\guestaccess.png" />
@@ -320,6 +321,7 @@
     <Content Include="Assets\MainPage\wireless.png" />
     <Content Include="Assets\NETGEAR_Genie_ico_150.png" />
     <Content Include="Assets\NETGEAR_Genie_ico_30.png" />
+    <Content Include="Assets\NETGEAR_Genie_ico_300.png" />
     <Content Include="Assets\NETGEAR_Genie_ico_50.png" />
     <Content Include="Assets\NETGEAR_Genie_Logo_white_green.png" />
     <Content Include="Assets\questionmark.png" />
@@ -410,9 +412,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Logo.png" />
-    <Content Include="NETGEAR_Genie_ico_150.png" />
-    <Content Include="NETGEAR_Genie_ico_30.png" />
-    <Content Include="NETGEAR_Genie_ico_50.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
@@ -464,8 +463,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>AppResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.ru-RU.resx">
       <SubType>Designer</SubType>

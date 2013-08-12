@@ -92,14 +92,17 @@ namespace GenieWP8
                         //读取成功，结果存放在content
                         string content = result.Text;
                         string[] decode = content.Split(';');
-                        string[] ssidString = decode[0].Split(':');
-                        string[] passwordString = decode[1].Split(':');
-                        string ssid = ssidString[1];
-                        string password = passwordString[1];
-                        if (ssidString[0] == "WIRELESS" && passwordString[0] == "PASSWORD")
+                        if (decode.Length >= 2)
                         {
-                            MessageBox.Show(AppResources.WiFiName + "：" + ssid + "\r\n" + AppResources.PasswordText + "：" + password);      //由于API未开放，不能自动进行无线连接，暂以MessageBox显示之
-                        }                        
+                            string[] ssidString = decode[0].Split(':');
+                            string[] passwordString = decode[1].Split(':');                                                       
+                            if (ssidString.Length >= 2 && ssidString[0] == "WIRELESS" && passwordString.Length >= 2 && passwordString[0] == "PASSWORD")
+                            {
+                                string ssid = ssidString[1];
+                                string password = passwordString[1];
+                                MessageBox.Show(AppResources.WiFiName + "：" + ssid + "\r\n" + AppResources.PasswordText + "：" + password);      //由于API未开放，不能自动进行无线连接，暂以MessageBox显示之
+                            }
+                        }                                                
                     });
                 }
                 else

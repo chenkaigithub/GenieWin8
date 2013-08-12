@@ -762,4 +762,7 @@
   <data name="UploadText" xml:space="preserve">
     <value>Last opp</value>
   </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Windows-telefon</value>
+  </data>
 </root>

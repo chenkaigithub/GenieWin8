@@ -795,4 +795,7 @@
   <data name="UploadText" xml:space="preserve">
     <value>上传</value>
   </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Windows Phone</value>
+  </data>
 </root>

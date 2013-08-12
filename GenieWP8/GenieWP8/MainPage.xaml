@@ -184,15 +184,15 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Path=LocalizedResources.RouterModelText, Source={StaticResource LocalizedStrings}}" FontSize="24" Margin="10,10,0,0" HorizontalAlignment="Left"/>
-                            <TextBlock Text="N/A" FontSize="24" Margin="0,10,0,0" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="tbRouterModel" FontSize="24" Margin="0,10,0,0" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Path=LocalizedResources.FirmwareVersionText, Source={StaticResource LocalizedStrings}}" FontSize="24" Margin="10,0,0,0" HorizontalAlignment="Left"/>
-                            <TextBlock Text="N/A" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="tbFirmwareVersion" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Path=LocalizedResources.VersionText, Source={StaticResource LocalizedStrings}}" FontSize="20" Margin="10,20,0,0" HorizontalAlignment="Left"/>
-                            <TextBlock Text="2.0.46" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left"/>
+                            <TextBlock Text="1.0.0.0" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <TextBlock Text="{Binding Path=LocalizedResources.CopyrightText, Source={StaticResource LocalizedStrings}}" FontSize="20" Margin="10,0,0,0"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.RightsReservedText, Source={StaticResource LocalizedStrings}}" FontSize="20" Margin="10,0,0,0"/>

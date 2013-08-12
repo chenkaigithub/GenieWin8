@@ -762,4 +762,7 @@
   <data name="UploadText" xml:space="preserve">
     <value>تحميل</value>
   </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>هاتف Windows</value>
+  </data>
 </root>

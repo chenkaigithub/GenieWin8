@@ -416,10 +416,38 @@ namespace GenieWP8
             }
         }
 
-        private void appBarButton_about_Click(object sender, EventArgs e)
+        private async void appBarButton_about_Click(object sender, EventArgs e)
         {
             if (!AboutPopup.IsOpen)
             {
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await soapApi.GetCurrentSetting();
+                if (dicResponse.Count > 0)
+                {
+                    if (dicResponse["Firmware"] != "")
+                    {
+                        tbRouterModel.Text = dicResponse["Firmware"];
+                    }
+                    else
+                    {
+                        tbRouterModel.Text = "N/A";
+                    }
+
+                    if (dicResponse["Model"] != "")
+                    {
+                        tbFirmwareVersion.Text = dicResponse["Model"];
+                    }
+                    else
+                    {
+                        tbFirmwareVersion.Text = "N/A";
+                    }
+                }
+                else
+                {
+                    tbRouterModel.Text = "N/A";
+                    tbFirmwareVersion.Text = "N/A";
+                }
                 AboutPopup.IsOpen = true;
                 PopupBackgroundTop.Visibility = Visibility.Visible;
                 tbSearch.Visibility = Visibility.Collapsed;

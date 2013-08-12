@@ -1834,6 +1834,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Windows Phone 的本地化字符串。
+        /// </summary>
+        public static string windowsphone {
+            get {
+                return ResourceManager.GetString("windowsphone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已成功更改无线设置。请使用新的无线设置重新加入无线网络，再登录精灵。 的本地化字符串。
         /// </summary>
         public static string wirelesssettinrelogin {

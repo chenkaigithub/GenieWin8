@@ -20,8 +20,8 @@
     <Language code="ar-OM" />
     <Language code="ar-LB" />
   </Languages>
-  <App xmlns="" ProductID="{28461904-1440-4fde-ad7e-5718decf246a}" Title="GenieWP8" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="GenieWP8 author" Description="Sample description" Publisher="GenieWP8" PublisherID="{39444ae0-3ee6-4d0d-8608-8634f71efc9c}">
-    <IconPath IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_150.png</IconPath>
+  <App xmlns="" ProductID="{28461904-1440-4fde-ad7e-5718decf246a}" Title="NETGEAR Genie for WP8" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="siteview" Description="NETGEAR Genie for WP8" Publisher="siteview" PublisherID="{39444ae0-3ee6-4d0d-8608-8634f71efc9c}">
+    <IconPath IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_300.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -36,9 +36,9 @@
     <Tokens>
       <PrimaryToken TokenID="GenieWP8Token" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_150.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_300.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_150.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_300.png</BackgroundImageURI>
           <Title>
           </Title>
           <BackContent>
@@ -55,9 +55,9 @@
       </PrimaryToken>
     </Tokens>
     <ScreenResolutions>
-      <ScreenResolution Name="ID_RESOLUTION_WVGA" />
-      <ScreenResolution Name="ID_RESOLUTION_WXGA" />
       <ScreenResolution Name="ID_RESOLUTION_HD720P" />
+      <ScreenResolution Name="ID_RESOLUTION_WXGA" />
+      <ScreenResolution Name="ID_RESOLUTION_WVGA" />
     </ScreenResolutions>
     <Requirements>
       <Requirement Name="ID_REQ_REARCAMERA" />

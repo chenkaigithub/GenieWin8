@@ -326,6 +326,9 @@ namespace GenieWP8
                                 case "dvr":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
                                     break;
+                                case "windowsphone":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
+                                    break;
                             }
                             imgDevice.Stretch = Stretch.UniformToFill;
                             TextBlock DeviceNameText = new TextBlock();
@@ -542,6 +545,9 @@ namespace GenieWP8
                                         break;
                                     case "dvr":
                                         imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                                        break;
+                                    case "windowsphone":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
                                         break;
                                 }
                                 imgDevice.Stretch = Stretch.UniformToFill;
@@ -825,6 +831,9 @@ namespace GenieWP8
                     case "dvr":
                         Type.Text = AppResources.dvr;
                         break;
+                    case "windowsphone":
+                        Type.Text = AppResources.windowsphone;
+                        break;
                 }
                 Type.FontSize = 26;
                 Type.HorizontalAlignment = HorizontalAlignment.Center;
@@ -864,6 +873,7 @@ namespace GenieWP8
                 source.Add(new Devicetype() { type = AppResources.androidphone, deviceIcon = "Assets/devices/androidphone.png" });
                 source.Add(new Devicetype() { type = AppResources.androidtablet, deviceIcon = "Assets/devices/androidtablet.png" });
                 source.Add(new Devicetype() { type = AppResources.dvr, deviceIcon = "Assets/devices/dvr.png" });
+                source.Add(new Devicetype() { type = AppResources.windowsphone, deviceIcon = "Assets/devices/windowsphone.png" });
                 lpType.ItemsSource = source;
 
                 switch (Group.NODE.deviceType)
@@ -975,6 +985,9 @@ namespace GenieWP8
                         break;
                     case "dvr":
                         lpType.SelectedIndex = 32;
+                        break;
+                    case "windowsphone":
+                        lpType.SelectedIndex = 33;
                         break;
                 }
                 lpType.HorizontalContentAlignment = HorizontalAlignment.Center;
@@ -1171,6 +1184,9 @@ namespace GenieWP8
                     case "dvr":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
                         break;
+                    case "windowsphone":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
+                        break;
                 }
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
@@ -1307,6 +1323,9 @@ namespace GenieWP8
                         break;
                     case "dvr":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                        break;
+                    case "windowsphone":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
                         break;
                 }
                 StpTitle.Children.Add(TitleImage);
@@ -1551,6 +1570,11 @@ namespace GenieWP8
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
                     customDeviceType = "dvr";
                     Type.Text = AppResources.dvr;
+                    break;
+                case 33:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
+                    customDeviceType = "windowsphone";
+                    Type.Text = AppResources.windowsphone;
                     break;
             }
 
