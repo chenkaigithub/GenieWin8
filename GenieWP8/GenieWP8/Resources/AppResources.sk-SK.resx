@@ -765,4 +765,28 @@
   <data name="windowsphone" xml:space="preserve">
     <value>Telefón so systémom Windows</value>
   </data>
+  <data name="LastMonthAvgText" xml:space="preserve">
+    <value>Minulý mesiac</value>
+  </data>
+  <data name="LastMonthTotalText" xml:space="preserve">
+    <value>Minulý mesiac</value>
+  </data>
+  <data name="MonthAvgText" xml:space="preserve">
+    <value>Tento mesiac</value>
+  </data>
+  <data name="MonthTotalText" xml:space="preserve">
+    <value>Tento mesiac</value>
+  </data>
+  <data name="TodayTotalText" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="WeekAvgText" xml:space="preserve">
+    <value>Tento týždeň</value>
+  </data>
+  <data name="WeekTotalText" xml:space="preserve">
+    <value>Tento týždeň</value>
+  </data>
+  <data name="YesterdayTotalText" xml:space="preserve">
+    <value>Včera</value>
+  </data>
 </root>

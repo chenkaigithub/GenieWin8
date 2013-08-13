@@ -699,7 +699,7 @@
     <value>Endereço IP</value>
   </data>
   <data name="txtLinkRate" xml:space="preserve">
-    <value>Intensidade do sinal</value>
+    <value>Taxa de link</value>
   </data>
   <data name="txtMACAddress" xml:space="preserve">
     <value>Endereço MAC</value>
@@ -764,5 +764,29 @@
   </data>
   <data name="windowsphone" xml:space="preserve">
     <value>Telefone Windows</value>
+  </data>
+  <data name="LastMonthAvgText" xml:space="preserve">
+    <value>Último mês</value>
+  </data>
+  <data name="LastMonthTotalText" xml:space="preserve">
+    <value>Último mês</value>
+  </data>
+  <data name="MonthAvgText" xml:space="preserve">
+    <value>Este mês</value>
+  </data>
+  <data name="MonthTotalText" xml:space="preserve">
+    <value>Este mês</value>
+  </data>
+  <data name="TodayTotalText" xml:space="preserve">
+    <value>Hoje</value>
+  </data>
+  <data name="WeekAvgText" xml:space="preserve">
+    <value>Esta semana</value>
+  </data>
+  <data name="WeekTotalText" xml:space="preserve">
+    <value>Esta semana</value>
+  </data>
+  <data name="YesterdayTotalText" xml:space="preserve">
+    <value>Ontem</value>
   </data>
 </root>

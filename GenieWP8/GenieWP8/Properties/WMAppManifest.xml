@@ -19,6 +19,7 @@
     <Language code="ar-AE" />
     <Language code="ar-OM" />
     <Language code="ar-LB" />
+    <Language code="ar" />
   </Languages>
   <App xmlns="" ProductID="{28461904-1440-4fde-ad7e-5718decf246a}" Title="NETGEAR Genie for WP8" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="siteview" Description="NETGEAR Genie for WP8" Publisher="siteview" PublisherID="{39444ae0-3ee6-4d0d-8608-8634f71efc9c}">
     <IconPath IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_300.png</IconPath>

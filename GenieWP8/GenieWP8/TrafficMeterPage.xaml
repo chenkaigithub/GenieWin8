@@ -39,7 +39,8 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,12,0,10">
             <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="{Binding Path=LocalizedResources.TrafficMeterPageTitleText, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="65"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.TrafficMeterPageTitleText, Source={StaticResource LocalizedStrings}}"
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap"/>
         </StackPanel>
         
         <!--ContentPanel - 在此处放置其他内容-->
@@ -56,7 +57,7 @@
                         </LinearGradientBrush>
                     </Grid.Background>
                     <TextBlock Text="{Binding Path=LocalizedResources.CheckTrafficMeterText, Source={StaticResource LocalizedStrings}}"
-                               Style="{StaticResource PhoneTextExtraLargeStyle}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                               Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="35" VerticalAlignment="Center" Margin="10,0,60,0" TextWrapping="Wrap"/>
                     <CheckBox x:Name="checkTrafficMeter" HorizontalAlignment="Right" FontSize="24" IsChecked="True" Click="checkTrafficMeter_Click"/>
                 </Grid>
 

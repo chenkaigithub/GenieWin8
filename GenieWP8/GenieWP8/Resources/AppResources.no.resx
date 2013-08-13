@@ -765,4 +765,28 @@
   <data name="windowsphone" xml:space="preserve">
     <value>Windows-telefon</value>
   </data>
+  <data name="LastMonthAvgText" xml:space="preserve">
+    <value>Siste måned</value>
+  </data>
+  <data name="LastMonthTotalText" xml:space="preserve">
+    <value>Siste måned</value>
+  </data>
+  <data name="MonthAvgText" xml:space="preserve">
+    <value>Denne måneden</value>
+  </data>
+  <data name="MonthTotalText" xml:space="preserve">
+    <value>Denne måneden</value>
+  </data>
+  <data name="TodayTotalText" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="WeekAvgText" xml:space="preserve">
+    <value>Denne uken</value>
+  </data>
+  <data name="WeekTotalText" xml:space="preserve">
+    <value>Denne uken</value>
+  </data>
+  <data name="YesterdayTotalText" xml:space="preserve">
+    <value>I går</value>
+  </data>
 </root>

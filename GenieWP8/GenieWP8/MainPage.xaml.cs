@@ -322,40 +322,41 @@ namespace GenieWP8
                     InProgress.Visibility = Visibility.Visible;
                     pleasewait.Visibility = Visibility.Visible;
 
-                    //这里需要判断是否已连接因特网
-                    UtilityTool util = new UtilityTool();
-                    bool isConnectToInternet = util.IsConnectedToInternet();
-                    if (!isConnectToInternet)
+                    //判断路由器是否已连接因特网                    
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetCurrentSetting();
+                    if (dicResponse.Count > 0)
                     {
-                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Collapsed;
-                        MessageBox.Show(AppResources.interneterror);
-                    }
-                    else
-                    {
-                        Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                        dicResponse = await soapApi.GetCurrentSetting();
-                        if (dicResponse["ParentalControlSupported"] == "1")
+                        if (dicResponse["InternetConnectionStatus"] != "Up")
                         {
-                            ///通过attachDevice获取本机的Mac地址
-                            Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                            responseDic = await soapApi.GetAttachDevice();
-                            NetworkMapInfo.attachDeviceDic = responseDic;
-
-                            Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                            dicResponse2 = await soapApi.GetEnableStatus();
-                            ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
                             PopupBackgroundTop.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Collapsed;
-                            NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
+                            MessageBox.Show(AppResources.interneterror);
                         }
                         else
                         {
-                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                            PopupBackground.Visibility = Visibility.Collapsed;
-                            MessageBox.Show(AppResources.notsupport);
+                            if (dicResponse["ParentalControlSupported"] == "1")
+                            {
+                                ///通过attachDevice获取本机的Mac地址
+                                Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                                responseDic = await soapApi.GetAttachDevice();
+                                NetworkMapInfo.attachDeviceDic = responseDic;
+
+                                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                                dicResponse2 = await soapApi.GetEnableStatus();
+                                ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
+                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                                PopupBackground.Visibility = Visibility.Collapsed;
+                                NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
+                            }
+                            else
+                            {
+                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                                PopupBackground.Visibility = Visibility.Collapsed;
+                                MessageBox.Show(AppResources.notsupport);
+                            }
                         }
-                    }
+                    }                  
                 }
                 else	//未登陆
                 {

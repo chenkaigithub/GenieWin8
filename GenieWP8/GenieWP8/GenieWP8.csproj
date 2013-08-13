@@ -15,7 +15,7 @@
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>ru-RU%3bel-GR%3bit-IT%3bno%3bnb-NO%3bsk-SK%3bsl-SI%3bfr-FR%3bfi-FI%3ben-US%3bpt-PT%3bar-YE%3bar-IQ%3bar-DZ%3bar-AE%3bar-OM%3bar-LB</SupportedCultures>
+    <SupportedCultures>ru-RU%3bel-GR%3bit-IT%3bno%3bnb-NO%3bsk-SK%3bsl-SI%3bfr-FR%3bfi-FI%3ben-US%3bpt-PT%3bar-YE%3bar-IQ%3bar-DZ%3bar-AE%3bar-OM%3bar-LB%3bar</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>GenieWP8_$(Configuration)_$(Platform).xap</XapFilename>
@@ -437,6 +437,7 @@
     <EmbeddedResource Include="Resources\AppResources.ar-YE.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AppResources.ar.resx" />
     <EmbeddedResource Include="Resources\AppResources.el-GR.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -463,8 +464,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-      <LastGenOutput>AppResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.ru-RU.resx">
       <SubType>Designer</SubType>

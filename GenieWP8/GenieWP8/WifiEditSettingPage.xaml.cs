@@ -21,6 +21,15 @@ namespace GenieWP8
         public WifiEditSettingPage()
         {
             InitializeComponent();
+            if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualWidth - 20;
+            }
+            // If not in portrait, move buttonList content to visible row and column.
+            else
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
+            }
 
             // 绑定数据
             if (settingModel == null)
@@ -64,6 +73,19 @@ namespace GenieWP8
             {
                 appBarButton_save.IsEnabled = false;
             }  
+        }
+
+        private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
+        {
+            if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualWidth - 20;
+            }
+            // If not in portrait, move buttonList content to visible row and column.
+            else
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
+            }
         }
 
         //判断SSID是否更改以及保存按钮是否可点击

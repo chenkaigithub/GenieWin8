@@ -56,16 +56,18 @@ namespace GenieWP8
             settingModel.TrafficMeterGroups.Clear();
             settingModel.StartDate.Clear();
             settingModel.TrafficLimitation.Clear();
-            settingModel.LoadData();
+            settingModel.LoadData();            
             double width;
             if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
                 width = Application.Current.Host.Content.ActualWidth;
+                PageTitle.Width = Application.Current.Host.Content.ActualWidth - 20;
             }
             // If not in portrait, move buttonList content to visible row and column.
             else
             {
                 width = Application.Current.Host.Content.ActualHeight - 150;
+                PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
             }
             DrawTrafficMeterTable(width);
             PopupBackground.Visibility = Visibility.Collapsed;
@@ -80,11 +82,13 @@ namespace GenieWP8
             if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
                 width = Application.Current.Host.Content.ActualWidth;
+                PageTitle.Width = Application.Current.Host.Content.ActualWidth - 20;
             }
             // If not in portrait, move buttonList content to visible row and column.
             else
             {
                 width = Application.Current.Host.Content.ActualHeight - 150;
+                PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
             }
             DrawTrafficMeterTable(width);
             PopupBackground.Visibility = Visibility.Collapsed;

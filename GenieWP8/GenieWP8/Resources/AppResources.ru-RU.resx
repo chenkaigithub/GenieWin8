@@ -765,4 +765,28 @@
   <data name="windowsphone" xml:space="preserve">
     <value>Телефон с ОС Windows</value>
   </data>
+  <data name="LastMonthAvgText" xml:space="preserve">
+    <value>За прошедший месяц</value>
+  </data>
+  <data name="LastMonthTotalText" xml:space="preserve">
+    <value>За прошедший месяц</value>
+  </data>
+  <data name="MonthAvgText" xml:space="preserve">
+    <value>За текущий месяц</value>
+  </data>
+  <data name="MonthTotalText" xml:space="preserve">
+    <value>За текущий месяц</value>
+  </data>
+  <data name="TodayTotalText" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="WeekAvgText" xml:space="preserve">
+    <value>За неделю</value>
+  </data>
+  <data name="WeekTotalText" xml:space="preserve">
+    <value>За неделю</value>
+  </data>
+  <data name="YesterdayTotalText" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
 </root>

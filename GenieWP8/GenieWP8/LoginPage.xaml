@@ -10,6 +10,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    OrientationChanged="PhoneApplicationPage_OrientationChanged"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
 
@@ -36,7 +37,8 @@
             <StackPanel>
                 <StackPanel Margin="12,17,0,28">
                     <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}"/>
-                    <TextBlock Text="{Binding Path=LocalizedResources.LoginPageTitleText, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+                    <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.LoginPageTitleText, Source={StaticResource LocalizedStrings}}"
+                               Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap"/>
                 </StackPanel>
 
                 <!--ContentPanel - 在此处放置其他内容-->
@@ -53,8 +55,8 @@
                         <TextBox x:Name="tbUserName" Text="admin" VerticalAlignment="Center" IsEnabled="False"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.PasswordText, Source={StaticResource LocalizedStrings}}" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                         <PasswordBox x:Name="tbPassword" VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding Path=LocalizedResources.PasswordTipsText, Source={StaticResource LocalizedStrings}}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <CheckBox x:Name="checkRememberPassword" Content="{Binding Path=LocalizedResources.RememberPasswordCheckBoxContent, Source={StaticResource LocalizedStrings}}" FontSize="24" HorizontalAlignment="Left" Margin="10,0,0,0" IsChecked="True"/>
+                        <TextBlock Text="{Binding Path=LocalizedResources.PasswordTipsText, Source={StaticResource LocalizedStrings}}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        <CheckBox x:Name="checkRememberPassword" Content="{Binding Path=LocalizedResources.RememberPasswordCheckBoxContent, Source={StaticResource LocalizedStrings}}" FontSize="20" HorizontalAlignment="Left" Margin="10,0,0,0" IsChecked="True"/>
                         <Grid>
                             <Button Content="{Binding Path=LocalizedResources.CancelButtonContent, Source={StaticResource LocalizedStrings}}" Click="CancelButton_Click" FontSize="24" FontWeight="Bold" Width="200" HorizontalAlignment="Center" Margin="0,0,220,20"/>
                             <Button Content="{Binding Path=LocalizedResources.LoginButtonContent, Source={StaticResource LocalizedStrings}}"  Click="LoginButton_Click" FontSize="24" FontWeight="Bold" Width="200" HorizontalAlignment="Center" Margin="220,0,0,20"/>

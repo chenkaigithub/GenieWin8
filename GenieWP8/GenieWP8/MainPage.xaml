@@ -135,7 +135,7 @@
                                     <Image Source="{Binding ImagePath}" Stretch="UniformToFill"/>
                                 </Border>
                             </Grid>
-                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="35" VerticalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </phone:LongListSelector.ItemTemplate>

@@ -23,6 +23,15 @@ namespace GenieWP8
         public GuestAccessPage()
         {
             InitializeComponent();
+            if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualWidth - 20;
+            }
+            // If not in portrait, move buttonList content to visible row and column.
+            else
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
+            }
 
             // 将 LongListSelector 控件的数据上下文设置为绑定数据
             if (settingModel == null)
@@ -63,6 +72,19 @@ namespace GenieWP8
             string codeString = "WIRELESS:" + GuestAccessInfo.ssid + ";PASSWORD:" + GuestAccessInfo.password;
             WriteableBitmap wb = CreateBarcode(codeString);
             imageQRCode.Source = wb;
+        }
+
+        private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
+        {
+            if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualWidth - 20;
+            }
+            // If not in portrait, move buttonList content to visible row and column.
+            else
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
+            }
         }
 
         // 处理在 LongListSelector 中更改的选定内容

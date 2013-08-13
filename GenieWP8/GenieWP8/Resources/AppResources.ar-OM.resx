@@ -765,4 +765,28 @@
   <data name="windowsphone" xml:space="preserve">
     <value>هاتف Windows</value>
   </data>
+  <data name="LastMonthAvgText" xml:space="preserve">
+    <value>الشهر الماضي</value>
+  </data>
+  <data name="LastMonthTotalText" xml:space="preserve">
+    <value>الشهر الماضي</value>
+  </data>
+  <data name="MonthAvgText" xml:space="preserve">
+    <value>الشهر الحالي</value>
+  </data>
+  <data name="MonthTotalText" xml:space="preserve">
+    <value>الشهر الحالي</value>
+  </data>
+  <data name="TodayTotalText" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="WeekAvgText" xml:space="preserve">
+    <value>الأسبوع الحالي</value>
+  </data>
+  <data name="WeekTotalText" xml:space="preserve">
+    <value>الأسبوع الحالي</value>
+  </data>
+  <data name="YesterdayTotalText" xml:space="preserve">
+    <value>الأمس</value>
+  </data>
 </root>

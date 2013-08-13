@@ -26,6 +26,15 @@ namespace GenieWP8
         public ParentalControlPage()
         {
             InitializeComponent();
+            if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualWidth - 20;
+            }
+            // If not in portrait, move buttonList content to visible row and column.
+            else
+            {
+                PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
+            }
 
             // 将 LongListSelector 控件的数据上下文设置为绑定数据
             if (settingModel == null)
@@ -315,12 +324,14 @@ namespace GenieWP8
         {
             if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
+                PageTitle.Width = Application.Current.Host.Content.ActualWidth - 20;
                 RegisterScrollViewer.Height = 500;
                 FilterLevelScrollViewer.Height = 500;
                 SettingCompleteScrollViewer.Height = 500;
             }
             else
             {
+                PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
                 RegisterScrollViewer.Height = 250;
                 FilterLevelScrollViewer.Height = 250;
                 SettingCompleteScrollViewer.Height = 250;

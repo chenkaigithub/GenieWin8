@@ -39,8 +39,8 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="{Binding Path=LocalizedResources.ParentalControlPageTitleText, Source={StaticResource LocalizedStrings}}"
-                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.ParentalControlPageTitleText, Source={StaticResource LocalizedStrings}}"
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
@@ -169,7 +169,7 @@
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0" FontFamily="Global User Interface" FontSize="22"/>
                     <Grid>                     
                         <TextBlock Text="{Binding Path=LocalizedResources.UserNameText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
                         <TextBox x:Name="RegUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsBlankRegUsername"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal">
@@ -177,29 +177,29 @@
                                 Click="CheckAvailable_Click"  FontSize="20" Width="150" Margin="150,0,0,0"  IsEnabled="False"/>
                         <ProgressBar x:Name="chenckAvailableInProgress" Height="20" Width="100"  HorizontalAlignment="Right" IsIndeterminate="True" Foreground="White" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBlock x:Name="IsAvailableName" Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                    <TextBlock x:Name="IsAvailableName" Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" TextWrapping="Wrap" Foreground="Red" Visibility="Collapsed"/>
                     <Grid>
                         <TextBlock Text="{Binding Path=LocalizedResources.PasswordText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
                         <PasswordBox x:Name="RegPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="IsBlankRegPassword"/>
                     </Grid>
                     <Grid>
                         <TextBlock Text="{Binding Path=LocalizedResources.ConfirmPasswordText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
                         <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="eventConfirmPassword"/>
                     </Grid>
                     <TextBlock x:Name="differentPassword" Text="Two passwords are different !"
                                    Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                     <Grid>
                         <TextBlock Text="{Binding Path=LocalizedResources.EmailText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
                         <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsEmailValid"/>
                     </Grid>
                     <TextBlock x:Name="invalidEmail" Text="Email is invalid !"
                                    Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                     <Grid>
                         <TextBlock Text="{Binding Path=LocalizedResources.ConfirmEmailText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
                         <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="eventConfirmEmail"/>
                     </Grid>
                     <TextBlock x:Name="differentEmail" Text="Two Emails are different !"
@@ -220,12 +220,12 @@
                            HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0" FontFamily="Global User Interface" FontSize="22"/>
                 <Grid>
                     <TextBlock Text="{Binding Path=LocalizedResources.UserNameText, Source={StaticResource LocalizedStrings}}"
-                               FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                               FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
                     <TextBox x:Name="LoginUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsBlankLoginUsername"/>
                 </Grid>
                 <Grid>
                     <TextBlock Text="{Binding Path=LocalizedResources.PasswordText, Source={StaticResource LocalizedStrings}}"
-                               FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                               FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
                     <PasswordBox x:Name="LoginPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="IsBlankLoginPassword"/>
                 </Grid>
                 <Grid>
