@@ -15,14 +15,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
 
-using ThoughtWorks.QRCode.Codec;
-using ThoughtWorks.QRCode.Codec.Data;
-using ThoughtWorks.QRCode.Codec.Util;
 using Windows.UI.Xaml.Media.Imaging;
-//using Windows.Storage;
-//using Windows.Storage.Streams;
-//using System.Runtime.InteropServices.WindowsRuntime;
-//using Windows.Graphics.Imaging;
+using ZXing;
+using ZXing.Common;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -53,15 +48,8 @@ namespace GenieWin8
             this.DefaultViewModel["Groups"] = SettingGroup;
 
             //生成二维码
-            ThoughtWorks.QRCode.Codec.QRCodeEncoder _qrCodeEncoder = new ThoughtWorks.QRCode.Codec.QRCodeEncoder();
-            _qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-            _qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.Q;
-            _qrCodeEncoder.QRCodeVersion = 0;
-            _qrCodeEncoder.QRCodeScale = 7;
             string codeString = "WIRELESS:" + WifiInfoModel.ssid + ";PASSWORD:" + WifiInfoModel.password;
-            QRCodeBitmapImage image = _qrCodeEncoder.Encode(codeString, System.Text.Encoding.UTF8);
-            WriteableBitmap wb = new WriteableBitmap(image.Width, image.Height);
-            ThoughtWorks.QRCode.Utilities.WriteableBitmapFromArray(wb, image.ImageByteArray);
+            WriteableBitmap wb = CreateBarcode(codeString);
             imageQRCode.Source = wb;
         }
 
@@ -99,6 +87,22 @@ namespace GenieWin8
                 WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
             }            
             this.Frame.Navigate(typeof(WifiSettingPage));
+        }
+
+        //创建二维码函数
+        public static WriteableBitmap CreateBarcode(string content)
+        {
+            IBarcodeWriter wt = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new EncodingOptions
+                {
+                    Height = 200,
+                    Width = 200
+                }
+            };
+            var bmp = wt.Write(content);
+            return bmp;
         }
     }
 }

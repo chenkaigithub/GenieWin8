@@ -233,6 +233,7 @@
     <None Include="Assets\Thumbs.db" />
     <None Include="Common\ReadMe.txt" />
     <None Include="GenieWin8_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <PRIResource Include="Strings\sl-SI\Resources.resw" />
     <PRIResource Include="Strings\sk-SK\Resources.resw" />
     <PRIResource Include="Strings\ru-RU\Resources.resw" />
@@ -464,12 +465,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\QRCode\QRCode.csproj">
-      <Project>{81f333d9-aa85-4bb8-888b-fa9c25ff770a}</Project>
-      <Name>QRCode</Name>
-    </ProjectReference>
+    <Reference Include="ZXing">
+      <HintPath>..\packages\ZXing.Net.0.11.0.1\lib\netcore45\ZXing.winmd</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

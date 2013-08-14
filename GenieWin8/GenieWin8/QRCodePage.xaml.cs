@@ -16,12 +16,10 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Media.MediaProperties;
 using Windows.Media.Capture;
-using ThoughtWorks.QRCode.Codec;
-using ThoughtWorks.QRCode.Codec.Data;
-using ThoughtWorks.QRCode.Codec.Util;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Graphics.Imaging;
+using ZXing;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -65,6 +63,16 @@ namespace GenieWin8
         {
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            if (mediaCaptureMgr != null)
+            {
+                timer.Stop();
+            }
+
+            base.OnNavigatingFrom(e);
+        }
+
         //扫描二维码
         async void ScanQRCode()
         {
@@ -76,7 +84,7 @@ namespace GenieWin8
                 captureElement.Source = mediaCaptureMgr;
                 await mediaCaptureMgr.StartPreviewAsync();
 
-                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Interval = TimeSpan.FromMilliseconds(250);
                 timer.Tick += new System.EventHandler<object>(timer_Tick);
                 timer.Start();
             }
@@ -93,28 +101,38 @@ namespace GenieWin8
                 Windows.Storage.StorageFile m_photoStorageFile = await Windows.Storage.KnownFolders.PicturesLibrary.CreateFileAsync("qrcode.jpg", CreationCollisionOption.ReplaceExisting);
                 ImageEncodingProperties imageProperties = ImageEncodingProperties.CreateJpeg();
                 await mediaCaptureMgr.CapturePhotoToStorageFileAsync(imageProperties, m_photoStorageFile);
+                //var m_photoStorageFile = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync(@"Assets\1.jpg");
 
                 IRandomAccessStream stream = await m_photoStorageFile.OpenAsync(FileAccessMode.Read);
-                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(BitmapDecoder.PngDecoderId, stream);
-                int width = (int)decoder.PixelWidth;
-                int height = (int)decoder.PixelHeight;
-                WriteableBitmap wb = new WriteableBitmap(width, height);
-                wb.SetSource(stream);
-                QRCodeDecoder qrCodeDecoder = new QRCodeDecoder();
-                QRCodeBitmapImage _image = new QRCodeBitmapImage(wb.PixelBuffer.ToArray(), wb.PixelWidth, wb.PixelHeight);
-                string decodeString = qrCodeDecoder.decode(_image, System.Text.Encoding.UTF8);            //decodeString为解码得到的字符串
-                string[] decode = decodeString.Split(';');
-                string[] ssidString = decode[0].Split(':');
-                string[] passwordString = decode[1].Split(':');
-                string ssid = ssidString[1];
-                string password = passwordString[1];
-                timer.Stop();
-                return;
-                //var photoStream = await m_photoStorageFile.OpenAsync(Windows.Storage.FileAccessMode.Read);
-                //var bmpimg = new BitmapImage();
+                // initialize with 1,1 to get the current size of the image
+                var writeableBmp = new WriteableBitmap(1, 1);
+                writeableBmp.SetSource(stream);
+                // and create it again because otherwise the WB isn't fully initialized and decoding
+                // results in a IndexOutOfRange
+                writeableBmp = new WriteableBitmap(writeableBmp.PixelWidth, writeableBmp.PixelHeight);
+                stream.Seek(0);
+                writeableBmp.SetSource(stream);
 
-                //bmpimg.SetSource(photoStream);
-                //imageElement1.Source = bmpimg;
+                var result = ScanBitmap(writeableBmp);
+                if (result != null)
+                {
+                    string decodeString = result.Text;
+                    string[] decode = decodeString.Split(';');
+                    if (decode.Length >= 2)
+                    {
+                        string[] ssidString = decode[0].Split(':');
+                        string[] passwordString = decode[1].Split(':');
+                        if (ssidString.Length >= 2 && ssidString[0] == "WIRELESS" && passwordString.Length >= 2 && passwordString[0] == "PASSWORD")
+                        {
+                            string ssid = ssidString[1];
+                            string password = passwordString[1];
+                            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                            var strWiFiName = loader.GetString("WiFiName");
+                            var strPassword = loader.GetString("Key/Password");
+                            this.NotifyUser(strWiFiName + "：" + ssid + "\r\n" + strPassword + "：" + password);      //由于API未开放，不能自动进行无线连接，暂以文本显示之
+                        }
+                    } 
+                }
             }
             catch (Exception exception)
             {
@@ -145,6 +163,17 @@ namespace GenieWin8
             {
                 StatusBlock.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             }
+        }
+
+        private Result ScanBitmap(WriteableBitmap writeableBmp)
+        {
+            var barcodeReader = new BarcodeReader
+            {
+                TryHarder = true,
+                AutoRotate = true
+            };
+            var result = barcodeReader.Decode(writeableBmp);
+            return result;
         }
     }
 }

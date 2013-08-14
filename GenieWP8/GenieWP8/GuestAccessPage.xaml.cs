@@ -285,47 +285,6 @@ namespace GenieWP8
             };
             var bmp = wt.Write(content);
             return bmp;
-            //WriteableBitmap wb = null;
-            //QRCodeWriter writer = new QRCodeWriter();
-            //ByteMatrix bitMatrix = null;
-            //if (content.Length > 0)
-            //{
-            //    try
-            //    {
-            //        bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 200, 200);
-            //        wb = ConvertByteMartixToWriteableBitmap(bitMatrix);
-            //    }
-            //    catch (WriterException e)
-            //    {
-            //    }
-            //    catch (IOException e)
-            //    {
-            //    }
-
-            //}
-            //return wb;
         }
-
-        //public static WriteableBitmap ConvertByteMartixToWriteableBitmap(ByteMatrix bm)
-        //{
-        //    WriteableBitmap wb = new WriteableBitmap(bm.Width, bm.Height);
-        //    for (int x = 0; x <= wb.PixelWidth - 1; x++)
-        //    {
-        //        for (int y = 0; y <= wb.PixelHeight - 1; y++)
-        //        {
-        //            if (bm.Array[y][x] == -1)
-        //            {
-        //                //白色            
-        //                wb.Pixels[wb.PixelWidth * y + x] = BitConverter.ToInt32(BitConverter.GetBytes(0xffffffff), 0);
-        //            }
-        //            else
-        //            {
-        //                //黑色       
-        //                wb.Pixels[wb.PixelWidth * y + x] = BitConverter.ToInt32(BitConverter.GetBytes(0xff000000), 0);
-        //            }
-        //        }
-        //    }
-        //    return wb;
-        //}
     }
 }

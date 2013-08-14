@@ -21,9 +21,6 @@ using Windows.Storage.Streams;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-using ThoughtWorks.QRCode.Codec;
-using ThoughtWorks.QRCode.Codec.Data;
-using ThoughtWorks.QRCode.Codec.Util;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Graphics.Imaging;
@@ -82,13 +79,14 @@ namespace GenieWin8
             //var groupId = ((SampleDataGroup)e.ClickedItem).UniqueId;
             //this.Frame.Navigate(typeof(SplitPage), groupId);
             var groupId = ((DataGroup)e.ClickedItem).UniqueId;
-            if (MainPageInfo.bLogin)	//已登陆
+            //if (MainPageInfo.bLogin)	//已登陆
+            //{
+            GenieSoapApi soapApi = new GenieSoapApi();
+            //无线设置
+            if (groupId == "WiFiSetting")
             {
-                GenieSoapApi soapApi = new GenieSoapApi();
-                //无线设置
-                if (groupId == "WiFiSetting")
+                if (MainPageInfo.bLogin)	//已登陆
                 {
-                    //WifiInfoModel wifiInfo = new WifiInfoModel ();
                     InProgress.IsActive = true;
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
@@ -103,26 +101,27 @@ namespace GenieWin8
                         WifiInfoModel.wirelessMode = dicResponse["NewWirelessMode"];
                         WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                         WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
-                    }                   
+                    }
                     dicResponse = await soapApi.GetWPASecurityKeys();
                     if (dicResponse.Count > 0)
                     {
                         WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
-                    }                   
+                    }
                     InProgress.IsActive = false;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(WifiSettingPage));
                 }
-                //访客访问
-                else if (groupId == "GuestAccess")
+                else	//未登陆
                 {
-                    //await soapApi.GetGuestAccessEnabled();
-                    //await soapApi.GetGuestAccessNetworkInfo();
-                    //await soapApi.SetGuestAccessEnabled();
-                    //await soapApi.SetGuestAccessEnabled2("NETGEAR-Guest", "WPA2-PSK", "stieview");
-                    //await soapApi.SetGuestAccessNetwork("NETGEAR-Guest", "None", "");
-                    //await soapApi.GetCurrentSetting();
+                    this.Frame.Navigate(typeof(LoginPage));
+                }                
+            }
+            //访客访问
+            else if (groupId == "GuestAccess")
+            {
+                if (MainPageInfo.bLogin)	//已登陆
+                {
                     InProgress.IsActive = true;
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
@@ -164,8 +163,15 @@ namespace GenieWin8
                         await messageDialog.ShowAsync();
                     }
                 }
-                //网络映射
-                else if (groupId == "NetworkMap")
+                else	//未登陆
+                {
+                    this.Frame.Navigate(typeof(LoginPage));
+                }                
+            }
+            //网络映射
+            else if (groupId == "NetworkMap")
+            {
+                if (MainPageInfo.bLogin)	//已登陆
                 {
                     InProgress.IsActive = true;
                     PopupBackgroundTop.Visibility = Visibility.Visible;
@@ -191,10 +197,16 @@ namespace GenieWin8
                     PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(NetworkMapPage));
                 }
-                //流量控制
-                else if (groupId == "TrafficMeter")
+                else	//未登陆
                 {
-                    //this.Frame.Navigate(typeof(TrafficMeterPage));
+                    this.Frame.Navigate(typeof(LoginPage));
+                }                
+            }
+            //流量控制
+            else if (groupId == "TrafficMeter")
+            {
+                if (MainPageInfo.bLogin)	//已登陆
+                {
                     InProgress.IsActive = true;
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
@@ -217,7 +229,7 @@ namespace GenieWin8
                             TrafficMeterInfoModel.changedRestartDay = dicResponse2["RestartDay"];
                             TrafficMeterInfoModel.ControlOption = dicResponse2["NewControlOption"];
                             TrafficMeterInfoModel.changedControlOption = dicResponse2["NewControlOption"];
-                        }                        
+                        }
                         dicResponse2 = await soapApi.GetTrafficMeterStatistics();
                         if (dicResponse2.Count > 0)
                         {
@@ -231,7 +243,7 @@ namespace GenieWin8
                             TrafficMeterInfoModel.MonthDownload = dicResponse2["NewMonthDownload"];
                             TrafficMeterInfoModel.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
                             TrafficMeterInfoModel.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
-                        }                        
+                        }
                         InProgress.IsActive = false;
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
@@ -248,8 +260,15 @@ namespace GenieWin8
                         await messageDialog.ShowAsync();
                     }
                 }
-                //家长控制
-                else if (groupId == "ParentalControl")
+                else	//未登陆
+                {
+                    this.Frame.Navigate(typeof(LoginPage));
+                }               
+            }
+            //家长控制
+            else if (groupId == "ParentalControl")
+            {
+                if (MainPageInfo.bLogin)	//已登陆
                 {
                     InProgress.IsActive = true;
                     PopupBackgroundTop.Visibility = Visibility.Visible;
@@ -282,8 +301,6 @@ namespace GenieWin8
                             Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                             dicResponse2 = await soapApi.GetEnableStatus();
                             ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
-                            //dicResponse2 = await soapApi.GetDNSMasqDeviceID("default");
-                            //ParentalControlInfo.DeviceId = dicResponse2["NewDeviceID"];
                             InProgress.IsActive = false;
                             PopupBackgroundTop.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Collapsed;
@@ -300,47 +317,35 @@ namespace GenieWin8
                             await messageDialog.ShowAsync();
                         }
                     }
-                }               
-            }
-            else	//未登录，跳到登陆页面
-            {
-                //我的媒体
-                if (groupId == "MyMedia")
-                {
-                    //UtilityTool util = new UtilityTool();
-                    //GenieSoapApi soapApi = new GenieSoapApi();
-                    //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                    //responseDic = await soapApi.GetAttachDevice();
-                    //NetworkMapModel.attachDeviceDic = responseDic;
-                    //  GenieFcml fcml = new GenieFcml();
-                    // await fcml.Init("siteviewgenietest@gmail.com", "siteview");
-                    // await fcml.GetCPList();
-                    this.Frame.Navigate(typeof(MyMediaPage));
                 }
-                //QRCode
-                else if (groupId == "QRCode")
+                else	//未登陆
                 {
-                    this.Frame.Navigate(typeof(QRCodePage));                    
-                    //解码代码（暂时注释）
-                    //StorageFile file = await Windows.Storage.KnownFolders.PicturesLibrary.GetFileAsync("Genie_QRCode.png");
-                    //IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
-                    //BitmapDecoder decoder = await BitmapDecoder.CreateAsync(BitmapDecoder.PngDecoderId, stream);
-                    //int width = (int)decoder.PixelWidth;
-                    //int height = (int)decoder.PixelHeight;
-                    //WriteableBitmap wb = new WriteableBitmap(width, height);
-                    //wb.SetSource(stream);
-                    //QRCodeDecoder qrCodeDecoder = new QRCodeDecoder();
-                    //QRCodeBitmapImage _image = new QRCodeBitmapImage(wb.PixelBuffer.ToArray(), wb.PixelWidth, wb.PixelHeight);
-                    //string decodeString = qrCodeDecoder.decode(_image, System.Text.Encoding.UTF8);            //decodeString为解码得到的字符串
-                }
-                //MarketPlace
-                else if (groupId == "MarketPlace")
-                {
-                    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
-                    await Windows.System.Launcher.LaunchUriAsync(uri);
-                }
-                else
                     this.Frame.Navigate(typeof(LoginPage));
+                }
+            }
+            //我的媒体
+            else if (groupId == "MyMedia")
+            {
+                //UtilityTool util = new UtilityTool();
+                //GenieSoapApi soapApi = new GenieSoapApi();
+                //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                //responseDic = await soapApi.GetAttachDevice();
+                //NetworkMapModel.attachDeviceDic = responseDic;
+                //  GenieFcml fcml = new GenieFcml();
+                // await fcml.Init("siteviewgenietest@gmail.com", "siteview");
+                // await fcml.GetCPList();
+                this.Frame.Navigate(typeof(MyMediaPage));
+            }
+            //QRCode
+            else if (groupId == "QRCode")
+            {
+                this.Frame.Navigate(typeof(QRCodePage));
+            }
+            //MarketPlace
+            else if (groupId == "MarketPlace")
+            {
+                var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+                await Windows.System.Launcher.LaunchUriAsync(uri);
             }         
         }
 
