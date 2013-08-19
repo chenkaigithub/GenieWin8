@@ -126,6 +126,18 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyMediaOptionPage.xaml.cs">
+      <DependentUpon>MyMediaOptionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaPlayerPage.xaml.cs">
+      <DependentUpon>MyMediaPlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaPlayingPage.xaml.cs">
+      <DependentUpon>MyMediaPlayingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaSourcePage.xaml.cs">
+      <DependentUpon>MyMediaSourcePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NetworkMapPage.xaml.cs">
       <DependentUpon>NetworkMapPage.xaml</DependentUpon>
     </Compile>
@@ -215,6 +227,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyMediaOptionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyMediaPlayerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyMediaPlayingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyMediaSourcePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

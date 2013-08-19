@@ -798,4 +798,8 @@
   <data name="windowsphone" xml:space="preserve">
     <value>Windows Phone</value>
   </data>
+  <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
+    <value>Playing</value>
+    <comment>MyMediaPlayingPage Title</comment>
+  </data>
 </root>

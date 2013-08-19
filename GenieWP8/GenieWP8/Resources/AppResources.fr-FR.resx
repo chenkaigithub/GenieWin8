@@ -789,4 +789,8 @@
   <data name="YesterdayTotalText" xml:space="preserve">
     <value>Hier</value>
   </data>
+  <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
+    <value>Lecture</value>
+    <comment>MyMediaPlayingPage Title</comment>
+  </data>
 </root>

@@ -943,6 +943,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 正在播放 的本地化字符串。
+        /// </summary>
+        public static string MyMediaPlayingPageTitleText {
+            get {
+                return ResourceManager.GetString("MyMediaPlayingPageTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 来源 的本地化字符串。
         /// </summary>
         public static string MyMediaSource {
