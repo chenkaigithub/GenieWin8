@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleDLNA", "SimpleDLNA\SimpleDLNA.csproj", "{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "util", "util\util.csproj", "{90C21BDF-8E52-42D5-B67F-006266819ADD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Debug|ARM.ActiveCfg = Debug|ARM
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Debug|ARM.Build.0 = Debug|ARM
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Debug|ARM.Deploy.0 = Debug|ARM
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Debug|x86.ActiveCfg = Debug|x86
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Debug|x86.Build.0 = Debug|x86
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Debug|x86.Deploy.0 = Debug|x86
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Release|ARM.ActiveCfg = Release|ARM
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Release|ARM.Build.0 = Release|ARM
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Release|ARM.Deploy.0 = Release|ARM
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Release|x86.ActiveCfg = Release|x86
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Release|x86.Build.0 = Release|x86
+		{D0ABB420-B4FE-41E5-966E-D5D74C2D8949}.Release|x86.Deploy.0 = Release|x86
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Debug|ARM.ActiveCfg = Debug|ARM
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Debug|ARM.Build.0 = Debug|ARM
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Debug|x86.ActiveCfg = Debug|x86
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Debug|x86.Build.0 = Debug|x86
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Release|ARM.ActiveCfg = Release|ARM
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Release|ARM.Build.0 = Release|ARM
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Release|x86.ActiveCfg = Release|x86
+		{90C21BDF-8E52-42D5-B67F-006266819ADD}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
