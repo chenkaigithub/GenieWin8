@@ -161,11 +161,11 @@ namespace GenieWin8.Data
                     "Assets/MainPage/qrcode.png");
             this.AllGroups.Add(group7);
 
-            strTitle = loader.GetString("MarketPlace");
-            var group8 = new DataGroup("MarketPlace",
-                    strTitle,
-                    "Assets/MainPage/appstore.png");
-            this.AllGroups.Add(group8);
+            //strTitle = loader.GetString("MarketPlace");
+            //var group8 = new DataGroup("MarketPlace",
+            //        strTitle,
+            //        "Assets/MainPage/appstore.png");
+            //this.AllGroups.Add(group8);
         }
     }
 }

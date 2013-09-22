@@ -74,7 +74,7 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            var FilterLevelGroup = FilterLevelSource.GetGroup((String)navigationParameter);
+            var FilterLevelGroup = FilterLevelSource.GetFilterLevelGroup((String)navigationParameter);
             this.DefaultViewModel["Group"] = FilterLevelGroup;
             if (ParentalControlInfo.Username != null)
             {

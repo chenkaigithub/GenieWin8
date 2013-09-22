@@ -342,11 +342,11 @@ namespace GenieWin8
                 this.Frame.Navigate(typeof(QRCodePage));
             }
             //MarketPlace
-            else if (groupId == "MarketPlace")
-            {
-                var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
-                await Windows.System.Launcher.LaunchUriAsync(uri);
-            }         
+            //else if (groupId == "MarketPlace")
+            //{
+            //    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+            //    await Windows.System.Launcher.LaunchUriAsync(uri);
+            //}         
         }
 
         private async void SearchButton_Click(Object sender, RoutedEventArgs e)

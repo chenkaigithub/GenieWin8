@@ -9,12 +9,14 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
 using GenieWP8.Resources;
+using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
 
 namespace GenieWP8
 {
     public partial class BypassAccountPage : PhoneApplicationPage
     {
+        private static ParentalControlModel settingModel = null;
         public BypassAccountPage()
         {
             InitializeComponent();
@@ -28,23 +30,31 @@ namespace GenieWP8
                 PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
             }
 
+            // 将 ListBox 控件的数据上下文设置为绑定数据
+            if (settingModel == null)
+                settingModel = new ParentalControlModel();
+            DataContext = settingModel;
+
             // 用于本地化 ApplicationBar 的代码
             BuildLocalizedApplicationBar();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (ParentalControlInfo.BypassAccounts != null)
-            {
-                string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
-                for (int i = 0; i < bypassAccount.Length; i++)
-                {
-                    if (bypassAccount[i] != null && bypassAccount[i] != "")
-                    {
-                        bypassAccountListBox.Items.Add(bypassAccount[i]);
-                    }
-                }
-            }
+            settingModel.BypassAccountGroups.Clear();
+            settingModel.LoadData();
+            //bypassAccountListBox.Items.Clear();
+            //if (ParentalControlInfo.BypassAccounts != null)
+            //{
+            //    string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
+            //    for (int i = 0; i < bypassAccount.Length; i++)
+            //    {
+            //        if (bypassAccount[i] != null && bypassAccount[i] != "")
+            //        {
+            //            bypassAccountListBox.Items.Add(bypassAccount[i]);
+            //        }
+            //    }
+            //}
         }
 
         private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
@@ -63,10 +73,15 @@ namespace GenieWP8
         // 处理在 ListBox 中更改的选定内容
         private void BypassAccountItemClick(object sender, SelectionChangedEventArgs e)
         {
+            if (bypassAccountListBox.SelectedIndex == -1)
+            {
+                return;
+            }
             int index = bypassAccountListBox.SelectedIndex;
             string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
             ParentalControlInfo.BypassUsername = bypassAccount[index];
             NavigationService.Navigate(new Uri("/BypassAccountLoginPage.xaml", UriKind.Relative));
+            bypassAccountListBox.SelectedIndex = -1;            
         }
 
         //用于生成本地化 ApplicationBar 的代码

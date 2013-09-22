@@ -58,6 +58,29 @@ namespace GenieWin8.Data
         }
     }
 
+    public class BypassAccountGroup : GenieWin8.Common.BindableBase
+    {
+        public BypassAccountGroup(String uniqueId, String account)
+        {
+            this._uniqueId = uniqueId;
+            this._account = account;
+        }
+
+        private string _uniqueId = string.Empty;
+        public string UniqueId
+        {
+            get { return this._uniqueId; }
+            set { this.SetProperty(ref this._uniqueId, value); }
+        }
+
+        private string _account = string.Empty;
+        public string Account
+        {
+            get { return this._account; }
+            set { this.SetProperty(ref this._account, value); }
+        }
+    }
+
     public sealed class FilterLevelSource
     {
         private static FilterLevelSource _filterLevelSource = new FilterLevelSource();
@@ -77,15 +100,52 @@ namespace GenieWin8.Data
                 this._filterLevelGroups.Add(group);
                 return this._filterLevelGroups;
             }
-        }
+        }       
 
-        public static IEnumerable<FilterLevelGroup> GetGroup(string uniqueId)
+        public static IEnumerable<FilterLevelGroup> GetFilterLevelGroup(string uniqueId)
         {
             return _filterLevelSource.FilterLevelGroups;
         }
 
         public FilterLevelSource()
         {          
+        }
+    }
+
+    public sealed class BypassAccountSource
+    {
+        private static BypassAccountSource _bypassAccountSource = new BypassAccountSource();
+
+        private ObservableCollection<BypassAccountGroup> _bypassAccountGroups = new ObservableCollection<BypassAccountGroup>();
+        public ObservableCollection<BypassAccountGroup> BypassAccountGroups
+        {
+            get
+            {
+                this._bypassAccountGroups.Clear();
+                if (ParentalControlInfo.BypassAccounts != null)
+                {
+                    string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
+                    for (int i = 0; i < bypassAccount.Length; i++)
+                    {
+                        if (bypassAccount[i] != null && bypassAccount[i] != "")
+                        {
+                            //bypassAccountListBox.Items.Add(bypassAccount[i]);
+                            var group = new BypassAccountGroup((i + 1).ToString(), bypassAccount[i]);
+                            this._bypassAccountGroups.Add(group);
+                        }
+                    }
+                }
+                return this._bypassAccountGroups;
+            }
+        }
+
+        public static IEnumerable<BypassAccountGroup> GetBypassAccountGroup()
+        {
+            return _bypassAccountSource.BypassAccountGroups;
+        }
+
+        public BypassAccountSource()
+        {
         }
     }
 }

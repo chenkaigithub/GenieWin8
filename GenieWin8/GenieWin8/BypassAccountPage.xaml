@@ -12,7 +12,10 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-
+        <CollectionViewSource
+            x:Name="bypassAccountSource"
+            Source="{Binding Group}"
+            d:Source="{Binding BypassAccountGroups, Source={d:DesignInstance Type=data:BypassAccountSource, IsDesignTimeCreatable=True}}"/>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">Bypass Account</x:String>
     </Page.Resources>
@@ -54,6 +57,7 @@
         </Grid>
 
         <ListBox x:Name="bypassAccountListBox" 
+                 ItemsSource="{Binding Source={StaticResource bypassAccountSource}}"
                  Grid.Row="1" Margin="60,30,60,20" 
                  HorizontalAlignment="Center" VerticalAlignment="Top" 
                  SelectionChanged="BypassAccountItemClick" Foreground="White">
@@ -63,6 +67,11 @@
                     <GradientStop Color="#FF50C6FD"/>
                 </LinearGradientBrush>
             </ListBox.Background>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Account}" FontSize="22" Margin="10,0,0,0"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
         <VisualStateManager.VisualStateGroups>

@@ -17,6 +17,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace GenieWP8
 {
@@ -705,6 +706,7 @@ namespace GenieWP8
             {
                 chenckAvailableInProgress.Visibility = Visibility.Collapsed;
                 IsAvailableName.Text = dicResponse["error_message"];
+                IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
                 ParentalControlInfo.IsUsernameAvailable = false;
             }
             else
@@ -714,10 +716,12 @@ namespace GenieWP8
                 if (isAvailable == "no")
                 {
                     IsAvailableName.Text = "User Name is unavailable.";
+                    IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
                 }
                 else if (isAvailable == "yes")
                 {
                     IsAvailableName.Text = "User Name is Available.";
+                    IsAvailableName.Foreground = new SolidColorBrush(Colors.Green);
                 }
                 else
                 {
@@ -753,20 +757,37 @@ namespace GenieWP8
                 ParentalControlInfo.Password = RegPassword.Password;
                 ParentalControlInfo.IsEmptyPassword = false;
             }
+            eventConfirmPassword(null, null);
         }
 
         private void eventConfirmPassword(Object sender, RoutedEventArgs e)
         {
-            if (RegPassword.Password != confirmPassword.Password)
+            if (ParentalControlInfo.IsEmptyPassword)
             {
-                differentPassword.Visibility = Visibility.Visible;
-                ParentalControlInfo.IsDifferentPassword = true;
-            }
+                if (confirmPassword.Password != "")
+                {
+                    differentPassword.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentPassword = true;
+                } 
+                else
+                {
+                    differentPassword.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentPassword = false;
+                }
+            } 
             else
             {
-                differentPassword.Visibility = Visibility.Collapsed;
-                ParentalControlInfo.IsDifferentPassword = false;
-            }
+                if (RegPassword.Password != confirmPassword.Password)
+                {
+                    differentPassword.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentPassword = true;
+                }
+                else
+                {
+                    differentPassword.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentPassword = false;
+                }
+            }            
         }
 
         private void IsEmailValid(Object sender, RoutedEventArgs e)
@@ -789,22 +810,38 @@ namespace GenieWP8
                     invalidEmail.Visibility = Visibility.Visible;
                     ParentalControlInfo.IsEmptyEmail = true;
                 }
-
             }
+            eventConfirmEmail(null, null);
         }
 
         private void eventConfirmEmail(Object sender, RoutedEventArgs e)
         {
-            if (email.Text != congfirmEmail.Text)
+            if (ParentalControlInfo.IsEmptyEmail)
             {
-                differentEmail.Visibility = Visibility.Visible;
-                ParentalControlInfo.IsDifferentEmail = true;
-            }
+                if (congfirmEmail.Text != "")
+                {
+                    differentEmail.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentEmail = true;
+                } 
+                else
+                {
+                    differentEmail.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentEmail = false;
+                }
+            } 
             else
             {
-                differentEmail.Visibility = Visibility.Collapsed;
-                ParentalControlInfo.IsDifferentEmail = false;
-            }
+                if (email.Text != congfirmEmail.Text)
+                {
+                    differentEmail.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentEmail = true;
+                }
+                else
+                {
+                    differentEmail.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentEmail = false;
+                }
+            }            
         }
 
         /// <summary>

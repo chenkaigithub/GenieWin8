@@ -374,11 +374,11 @@ namespace GenieWP8
                 NavigationService.Navigate(new Uri("/QRCodePage.xaml", UriKind.Relative));
             }
             //MarketPlace
-            else if (groupId == "MarketPlace")
-            {
-                var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
-                await Windows.System.Launcher.LaunchUriAsync(uri);
-            }
+            //else if (groupId == "MarketPlace")
+            //{
+            //    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+            //    await Windows.System.Launcher.LaunchUriAsync(uri);
+            //}
 
             // 将所选项重置为 null (没有选定内容)
             MainLongListSelector.SelectedItem = null;

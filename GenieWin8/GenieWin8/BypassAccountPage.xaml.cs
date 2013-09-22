@@ -40,17 +40,19 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            if (ParentalControlInfo.BypassAccounts != null)
-            {
-                string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
-                for (int i = 0; i < bypassAccount.Length; i++)
-                {
-                    if (bypassAccount[i] != null && bypassAccount[i] != "")
-                    {
-                        bypassAccountListBox.Items.Add(bypassAccount[i]);
-                    }
-                }
-            }  
+            var BypassAccountGroup = BypassAccountSource.GetBypassAccountGroup();
+            this.DefaultViewModel["Group"] = BypassAccountGroup;
+            //if (ParentalControlInfo.BypassAccounts != null)
+            //{
+            //    string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
+            //    for (int i = 0; i < bypassAccount.Length; i++)
+            //    {
+            //        if (bypassAccount[i] != null && bypassAccount[i] != "")
+            //        {
+            //            bypassAccountListBox.Items.Add(bypassAccount[i]);
+            //        }
+            //    }
+            //}  
         }
 
         /// <summary>
@@ -65,10 +67,15 @@ namespace GenieWin8
 
         private void BypassAccountItemClick(Object sender, RoutedEventArgs e)
         {
+            if (bypassAccountListBox.SelectedIndex == -1)
+            {
+                return;
+            }
             int index = bypassAccountListBox.SelectedIndex;
             string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
             ParentalControlInfo.BypassUsername = bypassAccount[index];
             this.Frame.Navigate(typeof(BypassAccountLoginPage));
+            bypassAccountListBox.SelectedIndex = -1;
         }
     }
 }

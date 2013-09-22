@@ -85,6 +85,41 @@ namespace GenieWP8.ViewModels
         }
     }
 
+    public class BypassAccountGroup
+    {
+        private string _id;
+        public string ID
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (value != _id)
+                {
+                    _id = value;
+                }
+            }
+        }
+
+        private string _account;
+        public string Account
+        {
+            get
+            {
+                return _account;
+            }
+            set
+            {
+                if (value != _account)
+                {
+                    _account = value;
+                }
+            }
+        }
+    }
+
     public class FilterLevelGroup : FilterLevelCommon
     {
     }
@@ -94,9 +129,11 @@ namespace GenieWP8.ViewModels
         public ParentalControlModel()
         {
             this.FilterLevelGroups = new ObservableCollection<FilterLevelGroup>();
+            this.BypassAccountGroups = new ObservableCollection<BypassAccountGroup>();
         }
 
         public ObservableCollection<FilterLevelGroup> FilterLevelGroups { get; private set; }
+        public ObservableCollection<BypassAccountGroup> BypassAccountGroups { get; private set; }
 
         //public bool IsDataLoaded
         //{
@@ -109,6 +146,30 @@ namespace GenieWP8.ViewModels
             var group1 = new FilterLevelGroup() { ID = "FilterLevel", Title = AppResources.FilterLevel, Content = ParentalControlInfo.filterLevel };
             this.FilterLevelGroups.Add(group1);
 
+            //if (ParentalControlInfo.BypassAccounts != null)
+            //{
+            //    string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
+            //    for (int i = 0; i < bypassAccount.Length; i++)
+            //    {
+            //        if (bypassAccount[i] != null && bypassAccount[i] != "")
+            //        {
+            //            bypassAccountListBox.Items.Add(bypassAccount[i]);
+            //        }
+            //    }
+            //}
+            if (ParentalControlInfo.BypassAccounts != null)
+            {
+                string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
+                for (int i = 0; i < bypassAccount.Length; i++)
+                {
+                    if (bypassAccount[i] != null && bypassAccount[i] != "")
+                    {
+                        //bypassAccountListBox.Items.Add(bypassAccount[i]);
+                        var group = new BypassAccountGroup() { ID = (i + 1).ToString(), Account = bypassAccount[i] };
+                        this.BypassAccountGroups.Add(group);
+                    }
+                }
+            }
             //this.IsDataLoaded = true;
         }
 
