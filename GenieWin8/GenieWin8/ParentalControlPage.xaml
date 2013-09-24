@@ -61,7 +61,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoHome" IsEnabled="{Binding Frame.CanGoHome, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" x:Uid="ParentalControlPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
-            <Button Click="Refresh_Click" Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Button x:Name="refreshButton" Click="Refresh_Click" Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
         <StackPanel Grid.Row="1"
@@ -173,46 +173,147 @@
         
         <!--询问-->
         <Popup x:Name="EnquirePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,150,400,0">
-            <local:PopupEnquireOpenDNS/>
-        </Popup>
-        <Button x:Name="NoButton" x:Uid="NoButton"  Click="NoButton_Click"
-                Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,240,200,0" Visibility="Collapsed"/>
-        <Button x:Name="YesButton" x:Uid="YesButton" Click="YesButton_Click"
-                Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,240,0,0" Visibility="Collapsed"/>
+            <!--<local:PopupEnquireOpenDNS/>-->
+            <StackPanel Width="400">
+                <TextBlock x:Uid="EnquireOpenDNS" FontSize="30" Margin="10,10,0,0" TextWrapping="Wrap"/>
+                <Grid>
+                    <Button x:Name="NoButton" x:Uid="NoButton"  Click="NoButton_Click"
+                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                    <Button x:Name="YesButton" x:Uid="YesButton" Click="YesButton_Click"
+                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                </Grid>
+            </StackPanel>
+        </Popup>       
 
         <!--创建OpenDNS账户-->
         <Popup x:Name="RegisterPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
-            <local:PopupRegisterOpenDNS/>
+            <!--<local:PopupRegisterOpenDNS/>-->
+            <StackPanel Width="600">
+                <TextBlock x:Uid="EnterRegInformation" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
+                <Grid Margin="20,15,20,0">
+                    <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="RegUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="IsBlankRegUsername"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal"  Margin="0,5,20,0">
+                    <Button x:Name="checkNameAvailable" x:Uid="CheckAvailability" Click="CheckAvailable_Click"  FontSize="24" Margin="230,0,20,0" HorizontalAlignment="Left" Width="230" IsEnabled="False"/>
+                    <ProgressRing x:Name="InProgress1" IsActive="false" Height="30" Width="30" Foreground="White"/>
+                </StackPanel>
+                <Grid Margin="20,0,20,0" Height="20">
+                    <TextBlock x:Name="IsAvailableName" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red"/>
+                </Grid>
+                <Grid Margin="20,0,20,0">
+                    <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <PasswordBox x:Name="RegPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" PasswordChanged="IsBlankRegPassword"/>
+                </Grid>
+                <Grid Margin="20,15,20,0">
+                    <TextBlock x:Uid="ConfirmPassword" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" PasswordChanged="eventConfirmPassword"/>
+                </Grid>
+                <Grid Margin="20,0,20,0" Height="20">
+                    <TextBlock x:Name="differentPassword" Text="Two passwords are different !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                </Grid>
+                <Grid Margin="20,0,20,0">
+                    <TextBlock x:Uid="Email" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="IsEmailValid"/>
+                </Grid>
+                <Grid Margin="20,0,20,0" Height="20">
+                    <TextBlock x:Name="invalidEmail" Text="Email is invalid !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                </Grid>
+                <Grid Margin="20,0,20,0">
+                    <TextBlock x:Uid="ConfirmEmail" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="eventConfirmEmail"/>
+                </Grid>
+                <Grid Margin="20,0,20,0" Height="20">
+                    <TextBlock x:Name="differentEmail" Text="Two Emails are different !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                </Grid>
+                <Grid>
+                    <Button x:Name="RegisterPreviousButton" x:Uid="PreviousButton" Click="RegisterPreviousButton_Click"
+                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,300,0"/>
+                    <Button x:Name="RegisterNextButton" x:Uid="NextButton" Click="RegisterNextButton_Click"
+                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="300,10,0,0"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <ProgressRing x:Name="InProgress2" IsActive="false" Height="50" Width="50" Foreground="White"/>
+                    <TextBlock x:Uid="wait" x:Name="pleasewait2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed"/>
+                </StackPanel>               
+            </StackPanel>
         </Popup>
-        <Button x:Name="RegisterPreviousButton" x:Uid="PreviousButton" Click="RegisterPreviousButton_Click"
-                Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,380,230,0" Visibility="Collapsed"/>
-        <Button x:Name="RegisterNextButton" x:Uid="NextButton" Click="RegisterNextButton_Click"
-                Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="230,380,0,0" Visibility="Collapsed"/>
+        
 
         <!--登陆OpenDNS账户-->
-        <Popup x:Name="LoginPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,100,600,0">
-            <local:PopupLoginOpenDNS/>
+        <Popup x:Name="LoginPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,50,600,0">
+            <!--<local:PopupLoginOpenDNS/>-->
+            <StackPanel Width="600">
+                <TextBlock x:Uid="EnterUsername_Password" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
+                <Grid Margin="20,15,20,0">
+                    <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox x:Name="LoginUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" TextChanged="IsBlankLoginUsername"/>
+                </Grid>
+                <Grid Margin="20,15,20,0">
+                    <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <PasswordBox x:Name="LoginPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" PasswordChanged="IsBlankLoginPassword"/>
+                </Grid>
+                <Grid>
+                    <Button x:Name="LoginPreviousButton" x:Uid="PreviousButton" Click="LoginPreviousButton_Click"
+                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,300,0"/>
+                    <Button x:Name="LoginNextButton" x:Uid="NextButton" Click="LoginNextButton_Click"
+                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="300,20,0,0"/>
+                </Grid>
+            </StackPanel>
         </Popup>
-        <Button x:Name="LoginPreviousButton" x:Uid="PreviousButton" Click="LoginPreviousButton_Click"
-                Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,280,230,0" Visibility="Collapsed"/>
-        <Button x:Name="LoginNextButton" x:Uid="NextButton" Click="LoginNextButton_Click"
-                Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="230,280,0,0" Visibility="Collapsed"/>
+        
 
         <!--过滤级别-->
         <Popup x:Name="FilterLevelPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
-            <local:PopupFilterLevel/>
+            <!--<local:PopupFilterLevel/>-->
+            <ScrollViewer Margin="10" Width="600" Height="500" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock x:Uid="FiltingIllustration" FontSize="22" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_None" x:Uid="radioButton_None" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <TextBlock x:Uid="Illustration_None" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_Minimum" x:Uid="radioButton_Minimum" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <TextBlock x:Uid="Illustration_Minimum" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_Low"  x:Uid="radioButton_Low" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <TextBlock x:Uid="Illustration_Low" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_Medium"  x:Uid="radioButton_Medium" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <TextBlock x:Uid="Illustration_Medium" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_High"  x:Uid="radioButton_High" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <TextBlock x:Uid="Illustration_High" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <Grid>
+                        <Button x:Name="FilterLvPreviousButton" x:Uid="PreviousButton" Click="FilterLvPreviousButton_Click"
+                                Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,300,0"/>
+                        <Button x:Name="FilterLvNextButton" x:Uid="NextButton" Click="FilterLvNextButton_Click"
+                                Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="300,20,0,0"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <ProgressRing x:Name="InProgress3" IsActive="false" Height="50" Width="50" Foreground="White"/>
+                        <TextBlock x:Uid="wait" x:Name="pleasewait3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Popup>
-        <Button x:Name="FilterLvPreviousButton" x:Uid="PreviousButton" Click="FilterLvPreviousButton_Click"
-                Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,520,230,0" Visibility="Collapsed"/>
-        <Button x:Name="FilterLvNextButton" x:Uid="NextButton" Click="FilterLvNextButton_Click"
-                Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="230,520,0,0" Visibility="Collapsed"/>
 
         <!--设置完成-->
-        <Popup x:Name="SettingCompletePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
-            <local:PopupSettingComplete/>
+        <Popup x:Name="SettingCompletePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
+            <!--<local:PopupSettingComplete/>-->
+            <StackPanel Width="600" Height="500">
+                <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10,10,0,0">
+                            <TextBlock x:Uid="SettingComplete" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <TextBlock x:Uid="CompleteIllustration" FontSize="24" Margin="10,10,0,0" TextWrapping="Wrap"/>
+                        <TextBlock x:Uid="Illustration-1" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
+                        <TextBlock x:Uid="Illustration-2" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
+                        <TextBlock x:Uid="Illustration-3" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
+                        <TextBlock x:Uid="Illustration-4" FontSize="24" Margin="10,20,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </ScrollViewer>
+                <Button x:Name="ReturnToStatusButton" x:Uid="ReturnButton" Click="ReturnToStatusButton_Click"
+                        Grid.Row="1" FontSize="22" Width="300" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
+            </StackPanel>
         </Popup>
-        <Button x:Name="ReturnToStatusButton" x:Uid="ReturnButton" Click="ReturnToStatusButton_Click"
-                Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,400,0,0" Visibility="Collapsed"/>
+        
 
         <VisualStateManager.VisualStateGroups>
 

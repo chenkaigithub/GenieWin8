@@ -96,7 +96,7 @@ namespace GenieWin8.Data
                 var strTitle = loader.GetString("FilterLevel");
                 var group = new FilterLevelGroup("FilterLevel",
                         strTitle,
-                        PopupFilterLevel.filterLevel);
+                        ParentalControlInfo.filterLevel);
                 this._filterLevelGroups.Add(group);
                 return this._filterLevelGroups;
             }

@@ -163,55 +163,66 @@
         </Popup>
 
         <Popup x:Name="RegisterPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
-            <ScrollViewer x:Name="RegisterScrollViewer" Width="400" Height="500" VerticalScrollBarVisibility="Auto">
-                <StackPanel>
-                    <TextBlock Text="{Binding Path=LocalizedResources.EnterRegInformationText, Source={StaticResource LocalizedStrings}}"
-                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0" FontFamily="Global User Interface" FontSize="22"/>
-                    <Grid>                     
-                        <TextBlock Text="{Binding Path=LocalizedResources.UserNameText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
-                        <TextBox x:Name="RegUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsBlankRegUsername"/>
-                    </Grid>
-                    <StackPanel Orientation="Horizontal">
-                        <Button x:Name="checkNameAvailable" Content="{Binding Path=LocalizedResources.CheckAvailabilityContent, Source={StaticResource LocalizedStrings}}"
-                                Click="CheckAvailable_Click"  FontSize="20" Width="150" Margin="150,0,0,0"  IsEnabled="False"/>
-                        <ProgressBar x:Name="chenckAvailableInProgress" Height="20" Width="100"  HorizontalAlignment="Right" IsIndeterminate="True" Foreground="White" Visibility="Collapsed"/>
+            <StackPanel>
+                <ScrollViewer x:Name="RegisterScrollViewer" Width="400" Height="450" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=LocalizedResources.EnterRegInformationText, Source={StaticResource LocalizedStrings}}"
+                                   HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0" FontFamily="Global User Interface" FontSize="22"/>
+                        <Grid>
+                            <TextBlock Text="{Binding Path=LocalizedResources.UserNameText, Source={StaticResource LocalizedStrings}}"
+                                       FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
+                            <TextBox x:Name="RegUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsBlankRegUsername"/>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="checkNameAvailable" Content="{Binding Path=LocalizedResources.CheckAvailabilityContent, Source={StaticResource LocalizedStrings}}"
+                                    Click="CheckAvailable_Click"  FontSize="20" Width="150" Margin="150,0,0,0"  IsEnabled="False"/>
+                            <ProgressBar x:Name="chenckAvailableInProgress" Height="20" Width="100"  HorizontalAlignment="Right" IsIndeterminate="True" Foreground="White" Visibility="Collapsed"/>
+                        </StackPanel>
+                        <TextBlock x:Name="IsAvailableName" Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" TextWrapping="Wrap" Foreground="Red" Visibility="Collapsed"/>
+                        <Grid>
+                            <TextBlock Text="{Binding Path=LocalizedResources.PasswordText, Source={StaticResource LocalizedStrings}}"
+                                       FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
+                            <PasswordBox x:Name="RegPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="IsBlankRegPassword"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock Text="{Binding Path=LocalizedResources.ConfirmPasswordText, Source={StaticResource LocalizedStrings}}"
+                                       FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
+                            <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="eventConfirmPassword"/>
+                        </Grid>
+                        <TextBlock x:Name="differentPassword" Text="Two passwords are different !"
+                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                        <Grid>
+                            <TextBlock Text="{Binding Path=LocalizedResources.EmailText, Source={StaticResource LocalizedStrings}}"
+                                       FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
+                            <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsEmailValid"/>
+                        </Grid>
+                        <TextBlock x:Name="invalidEmail" Text="Email is invalid !"
+                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                        <Grid>
+                            <TextBlock Text="{Binding Path=LocalizedResources.ConfirmEmailText, Source={StaticResource LocalizedStrings}}"
+                                       FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
+                            <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="eventConfirmEmail"/>
+                        </Grid>
+                        <TextBlock x:Name="differentEmail" Text="Two Emails are different !"
+                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
+                        <Grid>
+                            <Button x:Name="RegisterPreviousButton" Content="{Binding Path=LocalizedResources.PreviousButtonContent, Source={StaticResource LocalizedStrings}}"
+                                    Click="RegisterPreviousButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                            <Button x:Name="RegisterNextButton" Content="{Binding Path=LocalizedResources.NextButtonContent, Source={StaticResource LocalizedStrings}}"
+                                    Click="RegisterNextButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                        </Grid>
                     </StackPanel>
-                    <TextBlock x:Name="IsAvailableName" Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" TextWrapping="Wrap" Foreground="Red" Visibility="Collapsed"/>
-                    <Grid>
-                        <TextBlock Text="{Binding Path=LocalizedResources.PasswordText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
-                        <PasswordBox x:Name="RegPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="IsBlankRegPassword"/>
-                    </Grid>
-                    <Grid>
-                        <TextBlock Text="{Binding Path=LocalizedResources.ConfirmPasswordText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
-                        <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" PasswordChanged="eventConfirmPassword"/>
-                    </Grid>
-                    <TextBlock x:Name="differentPassword" Text="Two passwords are different !"
-                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
-                    <Grid>
-                        <TextBlock Text="{Binding Path=LocalizedResources.EmailText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
-                        <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsEmailValid"/>
-                    </Grid>
-                    <TextBlock x:Name="invalidEmail" Text="Email is invalid !"
-                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
-                    <Grid>
-                        <TextBlock Text="{Binding Path=LocalizedResources.ConfirmEmailText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
-                        <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="eventConfirmEmail"/>
-                    </Grid>
-                    <TextBlock x:Name="differentEmail" Text="Two Emails are different !"
-                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
-                    <Grid>
-                        <Button x:Name="RegisterPreviousButton" Content="{Binding Path=LocalizedResources.PreviousButtonContent, Source={StaticResource LocalizedStrings}}"
-                            Click="RegisterPreviousButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
-                        <Button x:Name="RegisterNextButton" Content="{Binding Path=LocalizedResources.NextButtonContent, Source={StaticResource LocalizedStrings}}"
-                            Click="RegisterNextButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
-                    </Grid>
+                </ScrollViewer>
+                <StackPanel VerticalAlignment="Center">
+                    <ProgressBar x:Name="InProgress1"
+                                 IsIndeterminate="True"
+                                 Height="15"
+                                 Foreground="White"
+                                 Visibility="Collapsed"/>
+                    <TextBlock x:Name="pleasewait1" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Visibility="Collapsed"/>
                 </StackPanel>
-            </ScrollViewer>           
+            </StackPanel>           
         </Popup>
 
         <Popup x:Name="LoginPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
@@ -238,38 +249,49 @@
         </Popup>
 
         <Popup x:Name="FilterLevelPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
-            <ScrollViewer x:Name="FilterLevelScrollViewer" Margin="10" Width="400" Height="500" VerticalScrollBarVisibility="Auto">
-                <StackPanel>
-                    <TextBlock Text="{Binding Path=LocalizedResources.FiltingIllustrationText, Source={StaticResource LocalizedStrings}}"
-                               FontSize="22" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_None" Content="{Binding Path=LocalizedResources.radioButton_NoneContent, Source={StaticResource LocalizedStrings}}"
-                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_NoneText, Source={StaticResource LocalizedStrings}}"
-                               FontSize="20" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_Minimum" Content="{Binding Path=LocalizedResources.radioButton_MinimumContent, Source={StaticResource LocalizedStrings}}"
-                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_MinimumText, Source={StaticResource LocalizedStrings}}"
-                               FontSize="20" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_Low"  Content="{Binding Path=LocalizedResources.radioButton_LowContent, Source={StaticResource LocalizedStrings}}"
-                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_LowText, Source={StaticResource LocalizedStrings}}"
-                               FontSize="20" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_Medium"  Content="{Binding Path=LocalizedResources.radioButton_MediumContent, Source={StaticResource LocalizedStrings}}"
-                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_MediumText, Source={StaticResource LocalizedStrings}}"
-                               FontSize="20" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_High"  Content="{Binding Path=LocalizedResources.radioButton_HighContent, Source={StaticResource LocalizedStrings}}"
-                                 GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding Path=LocalizedResources.Illustration_HighText, Source={StaticResource LocalizedStrings}}"
-                               FontSize="20" TextWrapping="Wrap"/>
-                    <Grid>
-                        <Button x:Name="FilterLvPreviousButton" Content="{Binding Path=LocalizedResources.PreviousButtonContent, Source={StaticResource LocalizedStrings}}"
-                            Click="FilterLvPreviousButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
-                        <Button x:Name="FilterLvNextButton" Content="{Binding Path=LocalizedResources.NextButtonContent, Source={StaticResource LocalizedStrings}}"
-                            Click="FilterLvNextButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
-                    </Grid>
+            <StackPanel>
+                <ScrollViewer x:Name="FilterLevelScrollViewer" Margin="10" Width="400" Height="450" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=LocalizedResources.FiltingIllustrationText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="22" TextWrapping="Wrap"/>
+                        <RadioButton x:Name="radioButton_None" Content="{Binding Path=LocalizedResources.radioButton_NoneContent, Source={StaticResource LocalizedStrings}}"
+                                     GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding Path=LocalizedResources.Illustration_NoneText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="20" TextWrapping="Wrap"/>
+                        <RadioButton x:Name="radioButton_Minimum" Content="{Binding Path=LocalizedResources.radioButton_MinimumContent, Source={StaticResource LocalizedStrings}}"
+                                     GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding Path=LocalizedResources.Illustration_MinimumText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="20" TextWrapping="Wrap"/>
+                        <RadioButton x:Name="radioButton_Low"  Content="{Binding Path=LocalizedResources.radioButton_LowContent, Source={StaticResource LocalizedStrings}}"
+                                     GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding Path=LocalizedResources.Illustration_LowText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="20" TextWrapping="Wrap"/>
+                        <RadioButton x:Name="radioButton_Medium"  Content="{Binding Path=LocalizedResources.radioButton_MediumContent, Source={StaticResource LocalizedStrings}}"
+                                     GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding Path=LocalizedResources.Illustration_MediumText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="20" TextWrapping="Wrap"/>
+                        <RadioButton x:Name="radioButton_High"  Content="{Binding Path=LocalizedResources.radioButton_HighContent, Source={StaticResource LocalizedStrings}}"
+                                     GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding Path=LocalizedResources.Illustration_HighText, Source={StaticResource LocalizedStrings}}"
+                                   FontSize="20" TextWrapping="Wrap"/>
+                        <Grid>
+                            <Button x:Name="FilterLvPreviousButton" Content="{Binding Path=LocalizedResources.PreviousButtonContent, Source={StaticResource LocalizedStrings}}"
+                                    Click="FilterLvPreviousButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                            <Button x:Name="FilterLvNextButton" Content="{Binding Path=LocalizedResources.NextButtonContent, Source={StaticResource LocalizedStrings}}"
+                                    Click="FilterLvNextButton_Click" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+                <StackPanel VerticalAlignment="Center">
+                    <ProgressBar x:Name="InProgress2"
+                                 IsIndeterminate="True"
+                                 Height="15"
+                                 Foreground="White"
+                                 Visibility="Collapsed"/>
+                    <TextBlock x:Name="pleasewait2" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Visibility="Collapsed"/>
                 </StackPanel>
-            </ScrollViewer>
+            </StackPanel>            
         </Popup>
 
         <Popup x:Name="SettingCompletePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">

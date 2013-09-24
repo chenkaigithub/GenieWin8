@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Windows.Storage;
 using System.Threading.Tasks;
+using Windows.UI;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -38,8 +39,9 @@ namespace GenieWin8
 		        {
 			        EnquirePopup.IsOpen = true;
 			        PopupBackground.Visibility = Visibility.Visible;
-			        NoButton.Visibility = Visibility.Visible;
-			        YesButton.Visibility = Visibility.Visible;
+			        //NoButton.Visibility = Visibility.Visible;
+			        //YesButton.Visibility = Visibility.Visible;
+                    refreshButton.IsEnabled = false;
 		        }
 	        }
             else
@@ -60,6 +62,7 @@ namespace GenieWin8
                     stpOpenDNSAccount.Visibility = Visibility.Visible;
                     BypassAccount.Visibility = Visibility.Visible;
                 }
+                refreshButton.IsEnabled = true;
             }
         }
 
@@ -107,7 +110,7 @@ namespace GenieWin8
                 ParentalControlInfo.IsBypassUserLoggedIn = false;
             }
 
-            if (ParentalControlInfo.BypassUsername != null)
+            if (ParentalControlInfo.IsBypassUserLoggedIn && ParentalControlInfo.BypassUsername != null)
             {
                 bypassaccount.Text = ParentalControlInfo.BypassUsername;
             }
@@ -129,15 +132,36 @@ namespace GenieWin8
 
         private void FilterLevel_ItemClick(Object sender, ItemClickEventArgs e)
         {
-            PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();
+            //PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();
             if (!FilterLevelPopup.IsOpen)
 	        {
+                switch (ParentalControlInfo.filterLevel)
+                {
+                    case "None":
+                        radioButton_None.IsChecked = true;
+                        break;
+                    case "Minimal":
+                        radioButton_Minimum.IsChecked = true;
+                        break;
+                    case "Low":
+                        radioButton_Low.IsChecked = true;
+                        break;
+                    case "Moderate":
+                        radioButton_Medium.IsChecked = true;
+                        break;
+                    case "High":
+                        radioButton_High.IsChecked = true;
+                        break;
+                    default:
+                        break;
+                }
 		        FilterLevelPopup.IsOpen = true;
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
-		        FilterLvPreviousButton.Visibility = Visibility.Visible;
-		        FilterLvNextButton.Visibility = Visibility.Visible;
+		        //FilterLvPreviousButton.Visibility = Visibility.Visible;
+		        //FilterLvNextButton.Visibility = Visibility.Visible;
+                refreshButton.IsEnabled = false;
 	        }
         }
 
@@ -227,10 +251,11 @@ namespace GenieWin8
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
-		        NoButton.Visibility = Visibility.Collapsed;
-		        YesButton.Visibility = Visibility.Collapsed;
-		        RegisterPreviousButton.Visibility = Visibility.Visible;
-		        RegisterNextButton.Visibility = Visibility.Visible;
+		        //NoButton.Visibility = Visibility.Collapsed;
+		        //YesButton.Visibility = Visibility.Collapsed;
+		        //RegisterPreviousButton.Visibility = Visibility.Visible;
+		        //RegisterNextButton.Visibility = Visibility.Visible;
+                refreshButton.IsEnabled = false;
 	        }
         }
 
@@ -244,11 +269,190 @@ namespace GenieWin8
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
-		        NoButton.Visibility = Visibility.Collapsed;
-		        YesButton.Visibility = Visibility.Collapsed;
-		        LoginPreviousButton.Visibility = Visibility.Visible;
-		        LoginNextButton.Visibility = Visibility.Visible;
+		        //NoButton.Visibility = Visibility.Collapsed;
+		        //YesButton.Visibility = Visibility.Collapsed;
+		        //LoginPreviousButton.Visibility = Visibility.Visible;
+		        //LoginNextButton.Visibility = Visibility.Visible;
+                refreshButton.IsEnabled = false;
 	        }
+        }
+
+        //检查可用性
+        private async void CheckAvailable_Click(Object sender, RoutedEventArgs e)
+        {
+            InProgress1.IsActive = true;
+            GenieWebApi webApi = new GenieWebApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await webApi.CheckNameAvailable(RegUsername.Text);
+            if (dicResponse["status"] != "success")
+            {
+                InProgress1.IsActive = false;
+                IsAvailableName.Text = dicResponse["error_message"];
+                IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
+                ParentalControlInfo.IsUsernameAvailable = false;
+            }
+            else
+            {
+                string isAvailable = dicResponse["available"];
+                InProgress1.IsActive = false;
+                if (isAvailable == "no")
+                {
+                    IsAvailableName.Text = "User Name is unavailable.";
+                    IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
+                }
+                else if (isAvailable == "yes")
+                {
+                    IsAvailableName.Text = "User Name is Available.";
+                    IsAvailableName.Foreground = new SolidColorBrush(Colors.Green);
+                }
+                else
+                {
+                    IsAvailableName.Text = dicResponse["available"];
+                }
+                ParentalControlInfo.IsUsernameAvailable = true;
+            }
+        }
+
+        //注册用户名是否为空
+        private void IsBlankRegUsername(Object sender, RoutedEventArgs e)
+        {
+            if (RegUsername.Text == "")
+            {
+                checkNameAvailable.IsEnabled = false;
+                ParentalControlInfo.IsEmptyUsername = true;
+            }
+            else
+            {
+                ParentalControlInfo.Username = RegUsername.Text;
+                checkNameAvailable.IsEnabled = true;
+                ParentalControlInfo.IsEmptyUsername = false;
+            }
+        }
+
+        //注册密码是否为空
+        private void IsBlankRegPassword(Object sender, RoutedEventArgs e)
+        {
+            if (RegPassword.Password == "")
+            {
+                ParentalControlInfo.IsEmptyPassword = true;
+            }
+            else
+            {
+                ParentalControlInfo.Password = RegPassword.Password;
+                ParentalControlInfo.IsEmptyPassword = false;
+            }
+            eventConfirmPassword(null, null);
+        }
+
+        //确认密码
+        private void eventConfirmPassword(Object sender, RoutedEventArgs e)
+        {
+            if (ParentalControlInfo.IsEmptyPassword)
+            {
+                if (confirmPassword.Password != "")
+                {
+                    differentPassword.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentPassword = true;
+                }
+                else
+                {
+                    differentPassword.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentPassword = false;
+                }
+            }
+            else
+            {
+                if (RegPassword.Password != confirmPassword.Password)
+                {
+                    differentPassword.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentPassword = true;
+                }
+                else
+                {
+                    differentPassword.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentPassword = false;
+                }
+            }
+        }
+
+        //邮箱是否有效
+        private void IsEmailValid(Object sender, RoutedEventArgs e)
+        {
+            if (email.Text == "")
+            {
+                invalidEmail.Visibility = Visibility.Collapsed;
+                ParentalControlInfo.IsEmptyEmail = true;
+            }
+            else
+            {
+                bool bValidEmail = ValidateEmail(email.Text);
+                if (bValidEmail == true)
+                {
+                    invalidEmail.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.Email = email.Text;
+                    ParentalControlInfo.IsEmptyEmail = false;
+                }
+                else
+                {
+                    invalidEmail.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsEmptyEmail = true;
+                }
+            }
+            eventConfirmEmail(null, null);
+        }
+
+        //确认邮箱
+        private void eventConfirmEmail(Object sender, RoutedEventArgs e)
+        {
+            if (ParentalControlInfo.IsEmptyEmail)
+            {
+                if (congfirmEmail.Text != "")
+                {
+                    differentEmail.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentEmail = true;
+                }
+                else
+                {
+                    differentEmail.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentEmail = false;
+                }
+            }
+            else
+            {
+                if (email.Text != congfirmEmail.Text)
+                {
+                    differentEmail.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentEmail = true;
+                }
+                else
+                {
+                    differentEmail.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentEmail = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 验证邮箱是否合法
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private bool ValidateEmail(string email)
+        {
+            string regexEmail = @"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+            System.Text.RegularExpressions.RegexOptions options = ((System.Text.RegularExpressions.RegexOptions.IgnorePatternWhitespace
+
+                | System.Text.RegularExpressions.RegexOptions.Multiline)
+                        | System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            System.Text.RegularExpressions.Regex regEmail = new System.Text.RegularExpressions.Regex(regexEmail, options);
+            if (regEmail.IsMatch(email))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //注册上一步
@@ -261,10 +465,11 @@ namespace GenieWin8
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
-		        NoButton.Visibility = Visibility.Visible;
-		        YesButton.Visibility = Visibility.Visible;
-		        RegisterPreviousButton.Visibility = Visibility.Collapsed;
-		        RegisterNextButton.Visibility = Visibility.Collapsed;
+		        //NoButton.Visibility = Visibility.Visible;
+		        //YesButton.Visibility = Visibility.Visible;
+		        //RegisterPreviousButton.Visibility = Visibility.Collapsed;
+		        //RegisterNextButton.Visibility = Visibility.Collapsed;
+                refreshButton.IsEnabled = false;
 	        }
         }
 
@@ -279,15 +484,15 @@ namespace GenieWin8
             } 
             else
             {
-                InProgress.IsActive = true;
-                pleasewait.Visibility = Visibility.Visible;
+                InProgress2.IsActive = true;
+                pleasewait2.Visibility = Visibility.Visible;
                 GenieWebApi webApi = new GenieWebApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await webApi.CreateAccount(ParentalControlInfo.Username, ParentalControlInfo.Password, ParentalControlInfo.Email);
                 if (dicResponse["status"] != "success")
                 {
-                    InProgress.IsActive = false;
-                    pleasewait.Visibility = Visibility.Collapsed;
+                    InProgress2.IsActive = false;
+                    pleasewait2.Visibility = Visibility.Collapsed;
                     var messageDialog = new MessageDialog(dicResponse["error_message"]);
                     await messageDialog.ShowAsync();
                 } 
@@ -297,16 +502,45 @@ namespace GenieWin8
                     {
                         RegisterPopup.IsOpen = false;
                         LoginPopup.IsOpen = true;
-                        InProgress.IsActive = false;
-                        pleasewait.Visibility = Visibility.Collapsed;
+                        InProgress2.IsActive = false;
+                        pleasewait2.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Visible;
-                        RegisterPreviousButton.Visibility = Visibility.Collapsed;
-                        RegisterNextButton.Visibility = Visibility.Collapsed;
-                        LoginPreviousButton.Visibility = Visibility.Visible;
-                        LoginNextButton.Visibility = Visibility.Visible;
+                        //RegisterPreviousButton.Visibility = Visibility.Collapsed;
+                        //RegisterNextButton.Visibility = Visibility.Collapsed;
+                        //LoginPreviousButton.Visibility = Visibility.Visible;
+                        //LoginNextButton.Visibility = Visibility.Visible;
+                        refreshButton.IsEnabled = false;
                     }
                 }              
             }          
+        }
+
+        //登陆用户名是否为空
+        private void IsBlankLoginUsername(Object sender, RoutedEventArgs e)
+        {
+            if (LoginUsername.Text == "")
+            {
+                ParentalControlInfo.IsEmptyUsername = true;
+            }
+            else
+            {
+                ParentalControlInfo.Username = LoginUsername.Text;
+                ParentalControlInfo.IsEmptyUsername = false;
+            }
+        }
+
+        //登陆密码是否为空
+        private void IsBlankLoginPassword(Object sender, RoutedEventArgs e)
+        {
+            if (LoginPassword.Password == "")
+            {
+                ParentalControlInfo.IsEmptyPassword = true;
+            }
+            else
+            {
+                ParentalControlInfo.Password = LoginPassword.Password;
+                ParentalControlInfo.IsEmptyPassword = false;
+            }
         }
 
         //登陆上一步
@@ -319,10 +553,11 @@ namespace GenieWin8
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
-		        NoButton.Visibility = Visibility.Visible;
-		        YesButton.Visibility = Visibility.Visible;
-		        LoginPreviousButton.Visibility = Visibility.Collapsed;
-		        LoginNextButton.Visibility = Visibility.Collapsed;
+		        //NoButton.Visibility = Visibility.Visible;
+		        //YesButton.Visibility = Visibility.Visible;
+		        //LoginPreviousButton.Visibility = Visibility.Collapsed;
+		        //LoginNextButton.Visibility = Visibility.Collapsed;
+                refreshButton.IsEnabled = false;
 	        }
         }
 
@@ -413,19 +648,40 @@ namespace GenieWin8
                                     {
                                         ParentalControlInfo.filterLevel = dicResponse5["bundle"];
                                     }
-                                    PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();       //再次初始化 PopupFilterLevel，标识出过滤等级
+                                    //PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();       //再次初始化 PopupFilterLevel，标识出过滤等级
 
                                     if (LoginPopup.IsOpen)
                                     {
                                         LoginPopup.IsOpen = false;
+                                        switch (ParentalControlInfo.filterLevel)
+                                        {
+                                            case "None":
+                                                radioButton_None.IsChecked = true;
+                                                break;
+                                            case "Minimal":
+                                                radioButton_Minimum.IsChecked = true;
+                                                break;
+                                            case "Low":
+                                                radioButton_Low.IsChecked = true;
+                                                break;
+                                            case "Moderate":
+                                                radioButton_Medium.IsChecked = true;
+                                                break;
+                                            case "High":
+                                                radioButton_High.IsChecked = true;
+                                                break;
+                                            default:
+                                                break;
+                                        }
                                         FilterLevelPopup.IsOpen = true;
                                         InProgress.IsActive = false;
                                         pleasewait.Visibility = Visibility.Collapsed;
                                         PopupBackground.Visibility = Visibility.Visible;
-                                        LoginPreviousButton.Visibility = Visibility.Collapsed;
-                                        LoginNextButton.Visibility = Visibility.Collapsed;
-                                        FilterLvPreviousButton.Visibility = Visibility.Visible;
-                                        FilterLvNextButton.Visibility = Visibility.Visible;
+                                        //LoginPreviousButton.Visibility = Visibility.Collapsed;
+                                        //LoginNextButton.Visibility = Visibility.Collapsed;
+                                        //FilterLvPreviousButton.Visibility = Visibility.Visible;
+                                        //FilterLvNextButton.Visibility = Visibility.Visible;
+                                        refreshButton.IsEnabled = false;
                                     }
                                 }                               
                             }
@@ -459,25 +715,26 @@ namespace GenieWin8
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
-		        LoginPreviousButton.Visibility = Visibility.Visible;
-		        LoginNextButton.Visibility = Visibility.Visible;
-		        FilterLvPreviousButton.Visibility = Visibility.Collapsed;
-		        FilterLvNextButton.Visibility = Visibility.Collapsed;
+		        //LoginPreviousButton.Visibility = Visibility.Visible;
+		        //LoginNextButton.Visibility = Visibility.Visible;
+		        //FilterLvPreviousButton.Visibility = Visibility.Collapsed;
+		        //FilterLvNextButton.Visibility = Visibility.Collapsed;
+                refreshButton.IsEnabled = false;
 	        }
         }
 
         //设置过滤等级下一步
         private async void FilterLvNextButton_Click(Object sender, RoutedEventArgs e)
         {
-            InProgress.IsActive = true;
-            pleasewait.Visibility = Visibility.Visible;
+            InProgress3.IsActive = true;
+            pleasewait3.Visibility = Visibility.Visible;
             GenieWebApi webApi = new GenieWebApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevel);
             if (dicResponse["status"] != "success")
             {
-                InProgress.IsActive = false;
-                pleasewait.Visibility = Visibility.Collapsed;
+                InProgress3.IsActive = false;
+                pleasewait3.Visibility = Visibility.Collapsed;
                 var messageDialog = new MessageDialog(dicResponse["error_message"]);
                 await messageDialog.ShowAsync();
             } 
@@ -487,12 +744,13 @@ namespace GenieWin8
                 {
                     FilterLevelPopup.IsOpen = false;
                     SettingCompletePopup.IsOpen = true;
-                    InProgress.IsActive = false;
-                    pleasewait.Visibility = Visibility.Collapsed;
+                    InProgress3.IsActive = false;
+                    pleasewait3.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Visible;
-                    FilterLvPreviousButton.Visibility = Visibility.Collapsed;
-                    FilterLvNextButton.Visibility = Visibility.Collapsed;
-                    ReturnToStatusButton.Visibility = Visibility.Visible;
+                    //FilterLvPreviousButton.Visibility = Visibility.Collapsed;
+                    //FilterLvNextButton.Visibility = Visibility.Collapsed;
+                    //ReturnToStatusButton.Visibility = Visibility.Visible;
+                    refreshButton.IsEnabled = false;
                 }
             }           
         }
@@ -506,7 +764,7 @@ namespace GenieWin8
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Collapsed;
-		        ReturnToStatusButton.Visibility = Visibility.Collapsed;
+		        //ReturnToStatusButton.Visibility = Visibility.Collapsed;
                 this.Frame.Navigate(typeof(ParentalControlPage));
 	        }
         }
@@ -619,6 +877,29 @@ namespace GenieWin8
                 }                
             }
             return bSuccessed;
-        }       
+        }
+
+        private void RadioButton_Checked(Object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            switch (rb.Name)
+            {
+                case "radioButton_None":
+                    ParentalControlInfo.filterLevel = "None";
+                    break;
+                case "radioButton_Minimum":
+                    ParentalControlInfo.filterLevel = "Minimal";
+                    break;
+                case "radioButton_Low":
+                    ParentalControlInfo.filterLevel = "Low";
+                    break;
+                case "radioButton_Medium":
+                    ParentalControlInfo.filterLevel = "Moderate";
+                    break;
+                case "radioButton_High":
+                    ParentalControlInfo.filterLevel = "High";
+                    break;
+            }
+        } 
     }
 }

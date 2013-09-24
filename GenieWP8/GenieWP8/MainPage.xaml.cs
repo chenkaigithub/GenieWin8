@@ -366,7 +366,7 @@ namespace GenieWP8
             //我的媒体
             else if (groupId == "MyMedia")
             {
-                NavigationService.Navigate(new Uri("/MyMediaSourcePage.xaml", UriKind.Relative));    
+                //NavigationService.Navigate(new Uri("/MyMediaSourcePage.xaml", UriKind.Relative));    
             }
             //QRCode
             else if (groupId == "QRCode")

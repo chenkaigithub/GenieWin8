@@ -47,14 +47,14 @@ namespace GenieWP8
 
             if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
-                RegisterScrollViewer.Height = 500;
-                FilterLevelScrollViewer.Height = 500;
+                RegisterScrollViewer.Height = 450;
+                FilterLevelScrollViewer.Height = 450;
                 SettingCompleteScrollViewer.Height = 500;
             }
             else
             {
-                RegisterScrollViewer.Height = 250;
-                FilterLevelScrollViewer.Height = 250;
+                RegisterScrollViewer.Height = 200;
+                FilterLevelScrollViewer.Height = 200;
                 SettingCompleteScrollViewer.Height = 250;
             }
         }
@@ -126,7 +126,7 @@ namespace GenieWP8
                 ParentalControlInfo.IsBypassUserLoggedIn = false;
             }
 
-            if (ParentalControlInfo.BypassUsername != null)
+            if (ParentalControlInfo.IsBypassUserLoggedIn && ParentalControlInfo.BypassUsername != null)
             {
                 bypassaccount.Text = ParentalControlInfo.BypassUsername;
             }
@@ -326,15 +326,15 @@ namespace GenieWP8
             if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
                 PageTitle.Width = Application.Current.Host.Content.ActualWidth - 20;
-                RegisterScrollViewer.Height = 500;
-                FilterLevelScrollViewer.Height = 500;
+                RegisterScrollViewer.Height = 450;
+                FilterLevelScrollViewer.Height = 450;
                 SettingCompleteScrollViewer.Height = 500;
             }
             else
             {
                 PageTitle.Width = Application.Current.Host.Content.ActualHeight - 150;
-                RegisterScrollViewer.Height = 250;
-                FilterLevelScrollViewer.Height = 250;
+                RegisterScrollViewer.Height = 200;
+                FilterLevelScrollViewer.Height = 200;
                 SettingCompleteScrollViewer.Height = 250;
             }
         }
@@ -391,15 +391,15 @@ namespace GenieWP8
             }
             else
             {
-                InProgress.Visibility = Visibility.Visible;
-                pleasewait.Visibility = Visibility.Visible;
+                InProgress1.Visibility = Visibility.Visible;
+                pleasewait1.Visibility = Visibility.Visible;
                 GenieWebApi webApi = new GenieWebApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await webApi.CreateAccount(ParentalControlInfo.Username, ParentalControlInfo.Password, ParentalControlInfo.Email);
                 if (dicResponse["status"] != "success")
                 {
-                    InProgress.Visibility = Visibility.Collapsed;
-                    pleasewait.Visibility = Visibility.Collapsed;
+                    InProgress1.Visibility = Visibility.Collapsed;
+                    pleasewait1.Visibility = Visibility.Collapsed;
                     MessageBox.Show(dicResponse["error_message"]);
                 }
                 else
@@ -410,8 +410,8 @@ namespace GenieWP8
                         LoginPopup.IsOpen = true;
                         PopupBackgroundTop.Visibility = Visibility.Visible;
                         PopupBackground.Visibility = Visibility.Visible;
-                        InProgress.Visibility = Visibility.Collapsed;
-                        pleasewait.Visibility = Visibility.Collapsed;
+                        InProgress1.Visibility = Visibility.Collapsed;
+                        pleasewait1.Visibility = Visibility.Collapsed;
                     }
                 }
             }
@@ -589,15 +589,15 @@ namespace GenieWP8
         //设置过滤等级下一步
         private async void FilterLvNextButton_Click(Object sender, RoutedEventArgs e)
         {
-            InProgress.Visibility = Visibility.Visible;
-            pleasewait.Visibility = Visibility.Visible;
+            InProgress2.Visibility = Visibility.Visible;
+            pleasewait2.Visibility = Visibility.Visible;
             GenieWebApi webApi = new GenieWebApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevel);
             if (dicResponse["status"] != "success")
             {
-                InProgress.Visibility = Visibility.Collapsed;
-                pleasewait.Visibility = Visibility.Collapsed;
+                InProgress2.Visibility = Visibility.Collapsed;
+                pleasewait2.Visibility = Visibility.Collapsed;
                 MessageBox.Show(dicResponse["error_message"]);
             }
             else
@@ -608,8 +608,8 @@ namespace GenieWP8
                     SettingCompletePopup.IsOpen = true;
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
-                    InProgress.Visibility = Visibility.Collapsed;
-                    pleasewait.Visibility = Visibility.Collapsed;
+                    InProgress2.Visibility = Visibility.Collapsed;
+                    pleasewait2.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -794,6 +794,7 @@ namespace GenieWP8
         {
             if (email.Text == "")
             {
+                invalidEmail.Visibility = Visibility.Collapsed;
                 ParentalControlInfo.IsEmptyEmail = true;
             }
             else
