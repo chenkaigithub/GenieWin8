@@ -763,4 +763,7 @@
     <value>QR码</value>
     <comment>QRCodePage Title</comment>
   </data>
+  <data name="login_alertinfo" xml:space="preserve">
+    <value>登录失败！请检查本计算机是否已连接到 NETGEAR 路由器。</value>
+  </data>
 </root>

@@ -92,7 +92,7 @@ namespace GenieWin8
 
         public async void WriteChildrenDeviceIdToFile()
         {
-            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
             StorageFile file = await storageFolder.CreateFileAsync("Bypass_childrenDeviceId.txt", CreationCollisionOption.ReplaceExisting);
             try
             {

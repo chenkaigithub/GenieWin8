@@ -95,7 +95,7 @@ namespace GenieWP8.ViewModels
                 num++;
                 Node NodeDevice = new Node();
 
-                if (loacalIp == key)
+                if (loacalIp == attachDeviceAll[key]["Ip"])
                 {
                     NodeDevice.uniqueId = "LocalDevice";
                 }
@@ -113,7 +113,7 @@ namespace GenieWP8.ViewModels
                         if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
                         {
                             string[] DeviceInfo = AllDeviceInfo[i].Split(',');
-                            if (DeviceInfo[0] == attachDeviceAll[key]["MacAddress"])
+                            if (DeviceInfo[0] == key)
                             {
                                 bFound = true;
                                 if (DeviceInfo[1] != "")
@@ -139,10 +139,10 @@ namespace GenieWP8.ViewModels
                     NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
                     NodeDevice.deviceType = "networkdev";
                 }
-                NodeDevice.IPaddress = key;
+                NodeDevice.IPaddress = attachDeviceAll[key]["Ip"];
                 NodeDevice.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
                 NodeDevice.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                NodeDevice.MACaddress = attachDeviceAll[key]["MacAddress"];
+                NodeDevice.MACaddress = key;
                 NodeDevice.connectType = attachDeviceAll[key]["Connect"];
                 //var group = new DeviceGroup(NodeDevice);
                 var group = new DeviceGroup() { NODE = NodeDevice };

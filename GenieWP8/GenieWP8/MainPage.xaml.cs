@@ -137,7 +137,7 @@ namespace GenieWP8
                     string loacalIp = ipList.ToList()[0];
                     foreach (string key in attachDeviceAll.Keys)
                     {
-                        if (loacalIp == key)
+                        if (loacalIp == attachDeviceAll[key]["Ip"])
                         {
                             WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
                             WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";

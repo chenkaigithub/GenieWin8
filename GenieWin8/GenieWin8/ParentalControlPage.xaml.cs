@@ -816,7 +816,7 @@ namespace GenieWin8
         public async Task<string> ReadBypassChildrenDeviceIdFromFile()
         {
             string fileContent = string.Empty;
-            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
             try
             {
                 StorageFile file = await storageFolder.GetFileAsync("Bypass_childrenDeviceId.txt");

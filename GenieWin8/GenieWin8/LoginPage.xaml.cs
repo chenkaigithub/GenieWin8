@@ -120,7 +120,7 @@ namespace GenieWin8
 
         public async void WritePasswordToFile()
         {
-            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
             StorageFile file = await storageFolder.CreateFileAsync("Password.txt", CreationCollisionOption.ReplaceExisting);
             try
             {
@@ -138,7 +138,7 @@ namespace GenieWin8
         public async Task<string> ReadPasswordFromFile()
         {
             string fileContent = string.Empty;
-            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
             try
             {
                 StorageFile file = await storageFolder.GetFileAsync("Password.txt");

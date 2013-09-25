@@ -559,7 +559,7 @@ namespace GenieWin8
         public async Task<string> ReadDeviceInfoFile()
         {
             string fileContent = string.Empty;
-            StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
             try
             {
                 StorageFile file = await storageFolder.GetFileAsync("CustomDeviceInfo.txt");    //CustomDeviceInfo.txt中保存本地修改的设备信息，包括设备MAC地址、设备名和设备类型，格式为"MACAddress,DeviceName,DeviceType;"

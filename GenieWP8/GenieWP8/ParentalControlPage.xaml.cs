@@ -74,6 +74,7 @@ namespace GenieWP8
                     PopupBackground.Visibility = Visibility.Visible;
                     InProgress.Visibility = Visibility.Collapsed;
                     pleasewait.Visibility = Visibility.Collapsed;
+                    appBarButton_refresh.IsEnabled = false;
                 }
             }
             else
@@ -94,6 +95,7 @@ namespace GenieWP8
                     stpOpenDNSAccount.Visibility = Visibility.Visible;
                     BypassAccount.Visibility = Visibility.Visible;
                 }
+                appBarButton_refresh.IsEnabled = true;
             }
 
             if (ParentalControlInfo.Username != null)
@@ -204,6 +206,7 @@ namespace GenieWP8
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
+                appBarButton_refresh.IsEnabled = false;
             }
 
             // 将所选项重置为 null (没有选定内容)
@@ -278,6 +281,7 @@ namespace GenieWP8
         }
 
         //用于生成本地化 ApplicationBar 的代码
+        ApplicationBarIconButton appBarButton_refresh = new ApplicationBarIconButton(new Uri("Assets/refresh.png", UriKind.Relative));
         private void BuildLocalizedApplicationBar()
         {
             // 将页面的 ApplicationBar 设置为 ApplicationBar 的新实例。
@@ -292,7 +296,7 @@ namespace GenieWP8
             appBarButton_back.Click += new EventHandler(appBarButton_back_Click);
 
             //刷新按钮
-            ApplicationBarIconButton appBarButton_refresh = new ApplicationBarIconButton(new Uri("Assets/refresh.png", UriKind.Relative));
+            //ApplicationBarIconButton appBarButton_refresh = new ApplicationBarIconButton(new Uri("Assets/refresh.png", UriKind.Relative));
             appBarButton_refresh.Text = AppResources.RefreshButtonContent;
             ApplicationBar.Buttons.Add(appBarButton_refresh);
             appBarButton_refresh.Click += new EventHandler(appBarButton_refresh_Click);
@@ -350,6 +354,7 @@ namespace GenieWP8
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
+                appBarButton_refresh.IsEnabled = false;
             }
         }
 
@@ -364,6 +369,7 @@ namespace GenieWP8
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
+                appBarButton_refresh.IsEnabled = false;
             }
         }
 
@@ -378,6 +384,7 @@ namespace GenieWP8
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
+                appBarButton_refresh.IsEnabled = false;
             }
         }
 
@@ -412,6 +419,7 @@ namespace GenieWP8
                         PopupBackground.Visibility = Visibility.Visible;
                         InProgress1.Visibility = Visibility.Collapsed;
                         pleasewait1.Visibility = Visibility.Collapsed;
+                        appBarButton_refresh.IsEnabled = false;
                     }
                 }
             }
@@ -428,6 +436,7 @@ namespace GenieWP8
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
+                appBarButton_refresh.IsEnabled = false;
             }
         }
 
@@ -545,6 +554,7 @@ namespace GenieWP8
                                         PopupBackground.Visibility = Visibility.Visible;
                                         InProgress.Visibility = Visibility.Collapsed;
                                         pleasewait.Visibility = Visibility.Collapsed;
+                                        appBarButton_refresh.IsEnabled = false;
                                     }
                                 }
                             }
@@ -583,6 +593,7 @@ namespace GenieWP8
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
+                appBarButton_refresh.IsEnabled = false;
             }
         }
 
@@ -610,6 +621,7 @@ namespace GenieWP8
                     PopupBackground.Visibility = Visibility.Visible;
                     InProgress2.Visibility = Visibility.Collapsed;
                     pleasewait2.Visibility = Visibility.Collapsed;
+                    appBarButton_refresh.IsEnabled = false;
                 }
             }
         }

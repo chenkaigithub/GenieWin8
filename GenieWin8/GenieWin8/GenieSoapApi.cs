@@ -49,6 +49,7 @@ namespace GenieWin8
 
         /// <summary>
         /// *********************GetAttachDevice*************
+        /// 返回结果以MacAddress作为Dictionary的key
         /// </summary>
         /// <returns></returns>
         public async Task<Dictionary<string,Dictionary<string,string>>> GetAttachDevice()
