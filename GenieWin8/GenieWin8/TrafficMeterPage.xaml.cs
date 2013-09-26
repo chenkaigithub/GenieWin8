@@ -553,8 +553,8 @@ namespace GenieWin8
                 var messageDialog = new MessageDialog(strtext);
 
                 // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
-                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
-                messageDialog.Commands.Add(new UICommand("No", null));
+                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandlerYes)));
+                messageDialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(this.CommandInvokedHandlerNo)));
 
                 // Set the command that will be invoked by default
                 messageDialog.DefaultCommandIndex = 0;
@@ -573,8 +573,8 @@ namespace GenieWin8
                 var messageDialog = new MessageDialog(strtext);
 
                 // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
-                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
-                messageDialog.Commands.Add(new UICommand("No", null));
+                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandlerYes)));
+                messageDialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(this.CommandInvokedHandlerNo)));
 
                 // Set the command that will be invoked by default
                 messageDialog.DefaultCommandIndex = 0;
@@ -592,7 +592,7 @@ namespace GenieWin8
         /// Callback function for the invocation of the dialog commands.
         /// </summary>
         /// <param name="command">The command that was invoked.</param>
-        private async void CommandInvokedHandler(IUICommand command)
+        private async void CommandInvokedHandlerYes(IUICommand command)
         {
             InProgress.IsActive = true;
             PopupBackgroundTop.Visibility = Visibility.Visible;
@@ -619,6 +619,18 @@ namespace GenieWin8
             InProgress.IsActive = false;
             PopupBackgroundTop.Visibility = Visibility.Collapsed;
             PopupBackground.Visibility = Visibility.Collapsed;
+        }
+
+        private void CommandInvokedHandlerNo(IUICommand command)
+        {
+            if (checkTrafficMeter.IsChecked == true)
+            {
+                checkTrafficMeter.IsChecked = false;
+            }
+            else if (checkTrafficMeter.IsChecked == false)
+            {
+                checkTrafficMeter.IsChecked = true;
+            }
         }
         #endregion
 

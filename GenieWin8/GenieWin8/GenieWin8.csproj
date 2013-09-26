@@ -113,7 +113,6 @@
     <Compile Include="BypassAccountPage.xaml.cs">
       <DependentUpon>BypassAccountPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CamWorker.cs" />
     <Compile Include="DataModel\GuestAccessInfoModel.cs" />
     <Compile Include="DataModel\MainPageInfo.cs" />
     <Compile Include="DataModel\NetworkMapModel.cs" />
@@ -255,7 +254,6 @@
     <Content Include="Assets\devices\iphone.png" />
     <Content Include="Assets\devices\ipodtouch.png" />
     <Content Include="Assets\devices\linuxpc.png" />
-    <Content Include="Assets\Logo.png" />
     <Content Include="Assets\devices\macbookdev.png" />
     <Content Include="Assets\devices\macminidev.png" />
     <Content Include="Assets\devices\macprodev.png" />
@@ -286,13 +284,7 @@
     <Content Include="Assets\signal\signal_33s.png" />
     <Content Include="Assets\signal\signal_43.png" />
     <Content Include="Assets\signal\signal_43s.png" />
-    <Content Include="Assets\SmallLogo.png" />
-    <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\devices\stb.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\LightGray.png" />
-    <Content Include="Assets\MediumGray.png" />
-    <Content Include="Assets\DarkGray.png" />
     <Content Include="Assets\devices\switchdev.png" />
     <Content Include="Assets\devices\tablepc.png" />
     <Content Include="Assets\MainPage\traffic.png" />

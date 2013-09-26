@@ -131,8 +131,8 @@ namespace GenieWin8
             var messageDialog = new MessageDialog(strtext);
 
             // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
-            messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
-            messageDialog.Commands.Add(new UICommand("No", null));
+            messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandlerYes)));
+            messageDialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(this.CommandInvokedHandlerNo)));
 
             // Set the command that will be invoked by default
             messageDialog.DefaultCommandIndex = 0;
@@ -149,14 +149,14 @@ namespace GenieWin8
         /// Callback function for the invocation of the dialog commands.
         /// </summary>
         /// <param name="command">The command that was invoked.</param>
-        private async void CommandInvokedHandler(IUICommand command)
+        private async void CommandInvokedHandlerYes(IUICommand command)
         {
             InProgress.IsActive = true;
             PopupBackgroundTop.Visibility = Visibility.Visible;
             PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             if (checkGuestSetting.IsChecked == true)
-            {           
+            {
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await soapApi.GetGuestAccessNetworkInfo();
                 if (dicResponse.Count > 0)
@@ -168,7 +168,7 @@ namespace GenieWin8
                         GuestAccessInfoModel.password = dicResponse["NewKey"];
                     else
                         GuestAccessInfoModel.password = "";
-                }               
+                }
                 dicResponse = await soapApi.SetGuestAccessEnabled2(GuestAccessInfoModel.ssid, GuestAccessInfoModel.securityType, GuestAccessInfoModel.password);
                 GuestSettingsList.Visibility = Visibility.Visible;
                 textScanQRCode.Visibility = Visibility.Visible;
@@ -190,8 +190,19 @@ namespace GenieWin8
             var messageDialog = new MessageDialog(strtext);
             await messageDialog.ShowAsync();
             MainPageInfo.bLogin = false;
-            //此处导航回到主页还存在问题，待解决。
-            //this.Frame.Navigate(typeof(MainPage));
+            this.GoHome(null, null);
+        }
+
+        private void CommandInvokedHandlerNo(IUICommand command)
+        {
+            if (checkGuestSetting.IsChecked == true)
+            {
+                checkGuestSetting.IsChecked = false;
+            }
+            else if (checkGuestSetting.IsChecked == false)
+            {
+                checkGuestSetting.IsChecked = true;
+            }           
         }
         #endregion
 

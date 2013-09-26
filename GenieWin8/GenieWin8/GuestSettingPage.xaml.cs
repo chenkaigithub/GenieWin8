@@ -219,8 +219,7 @@ namespace GenieWin8
                 var messageDialog = new MessageDialog(strtext);
                 await messageDialog.ShowAsync();
                 MainPageInfo.bLogin = false;
-                //此处导航回到主页还存在问题，待解决。
-                //this.Frame.Navigate(typeof(MainPage));
+                this.GoHome(null, null);
             }
         }
     }
