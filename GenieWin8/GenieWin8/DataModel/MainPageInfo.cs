@@ -13,5 +13,7 @@ namespace GenieWin8.DataModel
         public static string password;
         public static string rememberpassword;          //记住密码被勾选时，标识保存在本机的密码。
         public static string model;
+
+        public static string navigatedPage;             //表示从登录页面登录后要跳转到的页面
     }
 }

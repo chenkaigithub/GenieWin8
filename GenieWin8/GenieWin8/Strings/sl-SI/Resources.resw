@@ -709,7 +709,7 @@
     <value>Prijava ni uspela. Znova vnesite pravilno skrbniško geslo za usmerjevalnik NETGEAR.</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Prijava ni uspela! Preverite, ali je računalnik povezan z usmerjevalnikom NETGEAR.</value>
+    <value>Usmerjevalnika NETGEAR ni bilo mogoče najti ali pa ni podprt. Zagotovite tudi, da naprava ni povezana z omrežjem za goste usmerjevalnika in da IPv6 ni omogočen.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>Spreminjanje nastavitev lahko onemogoči aktivni promet v brezžičnem omrežju. Ali želite nadaljevati?</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>Koda QR</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Napravo brezžično povežite z usmerjevalnikom NETGEAR in poskusite znova.</value>
   </data>
 </root>

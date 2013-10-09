@@ -51,6 +51,8 @@ namespace GenieWP8
             settingModel.SettingGroups.Clear();
             settingModel.EditChannelSecurity.Clear();
             settingModel.LoadData();
+            SSID.Text = WifiSettingInfo.changedSsid;
+            pwd.Text = WifiSettingInfo.changedPassword;
             if (WifiSettingInfo.changedSecurityType == "None")
             {
                 passwordPanel.Visibility = Visibility.Collapsed;
@@ -61,7 +63,8 @@ namespace GenieWP8
             }
 
             //判断保存按钮是否可点击
-            if (WifiSettingInfo.isChannelChanged == true || WifiSettingInfo.isSecurityTypeChanged == true)
+            if (SSID.Text != "" && pwd.Text != "" &&
+                (WifiSettingInfo.isSSIDChanged == true || WifiSettingInfo.isPasswordChanged == true || WifiSettingInfo.isChannelChanged == true || WifiSettingInfo.isSecurityTypeChanged == true))
             {
                 if (WifiSettingInfo.securityType == "None")
                 {
@@ -92,10 +95,17 @@ namespace GenieWP8
         private void ssid_changed(Object sender, RoutedEventArgs e)
         {
             string ssid = SSID.Text.Trim();
-            if (ssid != WifiSettingInfo.ssid && ssid != "")
+            string password = pwd.Text.Trim();
+            WifiSettingInfo.changedSsid = ssid;
+            if (ssid != WifiSettingInfo.ssid && ssid != "" && password != "")
             {
                 appBarButton_save.IsEnabled = true;
                 WifiSettingInfo.isSSIDChanged = true;
+            }
+            else if (ssid == "" || password == "")
+            {
+                appBarButton_save.IsEnabled = false;
+                WifiSettingInfo.isSSIDChanged = true;                
             }
             else
             {
@@ -114,10 +124,17 @@ namespace GenieWP8
         //判断密码是否更改以及保存按钮是否可点击
         private void pwd_changed(Object sender, RoutedEventArgs e)
         {
+            string ssid = SSID.Text.Trim();
             string password = pwd.Text.Trim();
-            if (password != WifiSettingInfo.password && password != "")
+            WifiSettingInfo.changedPassword = password;
+            if (password != WifiSettingInfo.password && password != "" && ssid != "")
             {
                 appBarButton_save.IsEnabled = true;
+                WifiSettingInfo.isPasswordChanged = true;
+            }
+            else if (password == "" || ssid == "")
+            {
+                appBarButton_save.IsEnabled = false;
                 WifiSettingInfo.isPasswordChanged = true;
             }
             else
@@ -192,6 +209,7 @@ namespace GenieWP8
             if (dicResponse.Count > 0)
             {
                 WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
                 WifiSettingInfo.channel = dicResponse["NewChannel"];
                 WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
                 WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
@@ -201,6 +219,7 @@ namespace GenieWP8
             if (dicResponse.Count > 0)
             {
                 WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
+                WifiSettingInfo.changedPassword = dicResponse["NewWPAPassphrase"];
             }
             WifiSettingInfo.isSSIDChanged = false;
             WifiSettingInfo.isPasswordChanged = false;
@@ -224,6 +243,7 @@ namespace GenieWP8
             if (dicResponse.Count > 0)
             {
                 WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
                 WifiSettingInfo.channel = dicResponse["NewChannel"];
                 WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
                 WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
@@ -233,6 +253,7 @@ namespace GenieWP8
             if (dicResponse.Count > 0)
             {
                 WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
+                WifiSettingInfo.changedPassword = dicResponse["NewWPAPassphrase"];
             }
             WifiSettingInfo.isSSIDChanged = false;
             WifiSettingInfo.isPasswordChanged = false;
@@ -290,6 +311,8 @@ namespace GenieWP8
                     timer.Tick += timer_Tick;
                     timer.Start();
                     await soapApi.SetWLANNoSecurity(ssid, WifiSettingInfo.region, WifiSettingInfo.changedChannel, WifiSettingInfo.wirelessMode);
+                    WifiSettingInfo.ssid = WifiSettingInfo.changedSsid;
+                    WifiSettingInfo.password = WifiSettingInfo.changedPassword;
                     WifiSettingInfo.channel = WifiSettingInfo.changedChannel;
                     WifiSettingInfo.isSSIDChanged = false;
                     WifiSettingInfo.isPasswordChanged = false;
@@ -303,6 +326,8 @@ namespace GenieWP8
                     timer.Tick += timer_Tick;
                     timer.Start();
                     await soapApi.SetWLANWEPByPassphrase(ssid, WifiSettingInfo.region, WifiSettingInfo.changedChannel, WifiSettingInfo.wirelessMode, WifiSettingInfo.changedSecurityType, password);
+                    WifiSettingInfo.ssid = WifiSettingInfo.changedSsid;
+                    WifiSettingInfo.password = WifiSettingInfo.changedPassword;
                     WifiSettingInfo.channel = WifiSettingInfo.changedChannel;
                     WifiSettingInfo.securityType = WifiSettingInfo.changedSecurityType;
                     WifiSettingInfo.isSSIDChanged = false;
@@ -322,7 +347,7 @@ namespace GenieWP8
             PopupBackground.Visibility = Visibility.Collapsed;
         }
 
-        int count = 90;     //倒计时间
+        int count = 60;     //倒计时间
         void timer_Tick(object sender, object e)
         {
             waittime.Text = count.ToString();

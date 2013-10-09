@@ -43,8 +43,10 @@ namespace GenieWin8
         {
             var editName = GuestSettingSource.GetEditName((String)navigationParameter);
             this.DefaultViewModel["itemName"] = editName;
+            SSID.Text = GuestAccessInfoModel.changedSsid;
             var editKey = GuestSettingSource.GetEditKey((String)navigationParameter);
             this.DefaultViewModel["itemKey"] = editKey;
+            Password.Text = GuestAccessInfoModel.changedPassword;
             var timesegSecurity = GuestSettingSource.GetTimesegSecurity((String)navigationParameter);
             this.DefaultViewModel["itemTimesegSecurity"] = timesegSecurity;
             if (GuestAccessInfoModel.changedSecurityType == "None")
@@ -57,8 +59,14 @@ namespace GenieWin8
             }
 
             //判断保存按钮是否可点击
-            if (GuestAccessInfoModel.isTimePeriodChanged == true || GuestAccessInfoModel.isSecurityTypeChanged == true)
+            if (SSID.Text != "" && Password.Text != "" && 
+                (GuestAccessInfoModel.isSSIDChanged == true || GuestAccessInfoModel.isPasswordChanged == true ||
+                GuestAccessInfoModel.isTimePeriodChanged == true || GuestAccessInfoModel.isSecurityTypeChanged == true))
             {
+                if (GuestAccessInfoModel.securityType == "None")
+                {
+                    Password.Text = "siteview";
+                }
                 GuestSettingSave.IsEnabled = true;
             }
             else
@@ -81,9 +89,16 @@ namespace GenieWin8
         private void ssid_changed(Object sender, RoutedEventArgs e)
         {
             string ssid = SSID.Text.Trim();
-            if (ssid != GuestAccessInfoModel.ssid && ssid != "")
+            string password = Password.Text.Trim();
+            GuestAccessInfoModel.changedSsid = ssid;
+            if (ssid != GuestAccessInfoModel.ssid && ssid != "" && password != "")
             {
                 GuestSettingSave.IsEnabled = true;
+                GuestAccessInfoModel.isSSIDChanged = true;
+            }
+            else if (ssid == "" || password == "")
+            {
+                GuestSettingSave.IsEnabled = false;
                 GuestAccessInfoModel.isSSIDChanged = true;
             }
             else
@@ -103,10 +118,17 @@ namespace GenieWin8
         //判断密码是否更改以及保存按钮是否可点击
         private void pwd_changed(Object sender, RoutedEventArgs e)
         {
+            string ssid = SSID.Text.Trim();
             string password = Password.Text.Trim();
-            if (password != GuestAccessInfoModel.password && password != "")
+            GuestAccessInfoModel.changedPassword = password;
+            if (password != GuestAccessInfoModel.password && password != "" && ssid != "")
             {
                 GuestSettingSave.IsEnabled = true;
+                GuestAccessInfoModel.isPasswordChanged = true;
+            }
+            else if (password == "" || ssid == "")
+            {
+                GuestSettingSave.IsEnabled = false;
                 GuestAccessInfoModel.isPasswordChanged = true;
             }
             else
@@ -192,6 +214,8 @@ namespace GenieWin8
                 timer.Tick += new System.EventHandler<object>(timer_Tick);
                 timer.Start();
                 await soapApi.SetGuestAccessNetwork(ssid, GuestAccessInfoModel.changedSecurityType, password);
+                GuestAccessInfoModel.ssid = GuestAccessInfoModel.changedSsid;
+                GuestAccessInfoModel.password = GuestAccessInfoModel.changedPassword;
                 GuestAccessInfoModel.timePeriod = GuestAccessInfoModel.changedTimePeriod;
                 GuestAccessInfoModel.securityType = GuestAccessInfoModel.changedSecurityType;
                 GuestAccessInfoModel.isSSIDChanged = false;
@@ -203,7 +227,7 @@ namespace GenieWin8
         }
         #endregion
 
-        int count = 90;     //倒计时间
+        int count = 60;     //倒计时间
         async void timer_Tick(object sender, object e)
         {
             waittime.Text = count.ToString();

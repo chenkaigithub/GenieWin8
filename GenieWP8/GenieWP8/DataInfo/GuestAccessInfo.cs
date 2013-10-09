@@ -14,6 +14,8 @@ namespace GenieWP8.DataInfo
         public static string timePeriod;
         public static string securityType;
 
+        public static string changedSsid;
+        public static string changedPassword;
         public static string changedTimePeriod;
         public static string changedSecurityType;
         public static bool isSSIDChanged;                       //标识SSID是否更改

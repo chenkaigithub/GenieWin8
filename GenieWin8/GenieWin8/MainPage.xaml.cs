@@ -24,6 +24,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Graphics.Imaging;
+using System.Text.RegularExpressions;
 
 // “项目页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234233 上提供
 
@@ -90,11 +91,26 @@ namespace GenieWin8
                     InProgress.IsActive = true;
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
+
+                    Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                    attachDeviceAll = await soapApi.GetAttachDevice();
+                    UtilityTool util = new UtilityTool();
+                    string loacalIp = util.GetLocalHostIp();
+                    foreach (string key in attachDeviceAll.Keys)
+                    {
+                        if (loacalIp == attachDeviceAll[key]["Ip"])
+                        {
+                            WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                            WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        }
+                    }
+
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetInfo("WLANConfiguration");
                     if (dicResponse.Count > 0)
                     {
                         WifiInfoModel.ssid = dicResponse["NewSSID"];
+                        WifiInfoModel.changedSsid = dicResponse["NewSSID"];
                         WifiInfoModel.region = dicResponse["NewRegion"];
                         WifiInfoModel.channel = dicResponse["NewChannel"];
                         WifiInfoModel.changedChannel = dicResponse["NewChannel"];
@@ -106,6 +122,7 @@ namespace GenieWin8
                     if (dicResponse.Count > 0)
                     {
                         WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+                        WifiInfoModel.changedPassword = dicResponse["NewWPAPassphrase"];
                     }
                     InProgress.IsActive = false;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
@@ -115,6 +132,7 @@ namespace GenieWin8
                 else	//未登陆
                 {
                     this.Frame.Navigate(typeof(LoginPage));
+                    MainPageInfo.navigatedPage = "WifiSettingPage";
                 }                
             }
             //访客访问
@@ -135,12 +153,19 @@ namespace GenieWin8
                         if (dicResponse2.Count > 0)
                         {
                             GuestAccessInfoModel.ssid = dicResponse2["NewSSID"];
+                            GuestAccessInfoModel.changedSsid = dicResponse2["NewSSID"];
                             GuestAccessInfoModel.securityType = dicResponse2["NewSecurityMode"];
                             GuestAccessInfoModel.changedSecurityType = dicResponse2["NewSecurityMode"];
                             if (dicResponse2["NewSecurityMode"] != "None")
+                            {
                                 GuestAccessInfoModel.password = dicResponse2["NewKey"];
+                                GuestAccessInfoModel.changedPassword = dicResponse2["NewKey"];
+                            }
                             else
+                            {
                                 GuestAccessInfoModel.password = "";
+                                GuestAccessInfoModel.changedPassword = "";
+                            }
                             if (GuestAccessInfoModel.timePeriod == null)
                             {
                                 GuestAccessInfoModel.timePeriod = "Always";
@@ -166,6 +191,7 @@ namespace GenieWin8
                 else	//未登陆
                 {
                     this.Frame.Navigate(typeof(LoginPage));
+                    MainPageInfo.navigatedPage = "GuestAccessPage";
                 }                
             }
             //网络映射
@@ -200,6 +226,7 @@ namespace GenieWin8
                 else	//未登陆
                 {
                     this.Frame.Navigate(typeof(LoginPage));
+                    MainPageInfo.navigatedPage = "NetworkMapPage";
                 }                
             }
             //流量控制
@@ -263,6 +290,7 @@ namespace GenieWin8
                 else	//未登陆
                 {
                     this.Frame.Navigate(typeof(LoginPage));
+                    MainPageInfo.navigatedPage = "TrafficMeterPage";
                 }               
             }
             //家长控制
@@ -321,6 +349,7 @@ namespace GenieWin8
                 else	//未登陆
                 {
                     this.Frame.Navigate(typeof(LoginPage));
+                    MainPageInfo.navigatedPage = "ParentalControlPage";
                 }
             }
             //我的媒体
@@ -364,6 +393,7 @@ namespace GenieWin8
         private void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(LoginPage));
+            MainPageInfo.navigatedPage = "MainPage";
         }
 
         private void LogoutButton_Click(Object sender, RoutedEventArgs e)
@@ -373,14 +403,48 @@ namespace GenieWin8
             btnLogout.Visibility = Visibility.Collapsed;
         }
 
-        private void AboutButton_Click(Object sender, RoutedEventArgs e)
+        private async void AboutButton_Click(Object sender, RoutedEventArgs e)
         {
             if (!AboutPopup.IsOpen)
             {
-                AboutPopup.IsOpen = true;
                 PopupBackgroundTop.Visibility = Visibility.Visible;
                 PopupBackground.Visibility = Visibility.Visible;
+                InProgress.IsActive = true;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await soapApi.GetCurrentSetting();
+                if (dicResponse.Count > 0)
+                {
+                    if (dicResponse["Model"] != "")
+                    {
+                        tbRouterModel.Text = dicResponse["Model"];
+                    }
+                    else
+                    {
+                        tbRouterModel.Text = "N/A";
+                    }
+
+                    if (dicResponse["Firmware"] != "")
+                    {
+                        string regexFirmware = @"(\D+\d+).(\d+).(\d+).(\d+)";
+                        Match FirmwareVersion = Regex.Match(dicResponse["Firmware"], regexFirmware);
+                        tbFirmwareVersion.Text = FirmwareVersion.ToString();
+                    }
+                    else
+                    {
+                        tbFirmwareVersion.Text = "N/A";
+                    }
+                }
+                else
+                {
+                    tbRouterModel.Text = "N/A";
+                    tbFirmwareVersion.Text = "N/A";
+                }
+                AboutPopup.IsOpen = true;
+                //PopupBackgroundTop.Visibility = Visibility.Visible;
+                //PopupBackground.Visibility = Visibility.Visible;
                 pleasewait.Visibility = Visibility.Collapsed;
+                InProgress.IsActive = false;
                 //CloseAboutButton.Visibility = Visibility.Visible;
                 //LicenseButton.Visibility = Visibility.Visible;
             }

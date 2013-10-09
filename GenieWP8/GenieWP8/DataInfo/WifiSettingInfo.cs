@@ -19,6 +19,8 @@ namespace GenieWP8.DataInfo
         public static string region;
         public static string wirelessMode;
 
+        public static string changedSsid;
+        public static string changedPassword;
         public static string changedChannel;
         public static string changedSecurityType;
         public static bool isSSIDChanged;                       //标识SSID是否更改

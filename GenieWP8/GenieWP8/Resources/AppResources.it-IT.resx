@@ -367,7 +367,7 @@
     <comment>LoginPage Title</comment>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Accesso non riuscito. Verificare che il computer sia connesso al router NETGEAR.</value>
+    <value>Router NETGEAR non trovato o non supportato. Inoltre, verificare che il dispositivo non sia collegato alla rete guest del router e che nessun IPv6 sia abilitato.</value>
   </data>
   <data name="LogoutButtonContent" xml:space="preserve">
     <value>Esci</value>
@@ -792,5 +792,8 @@
   <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
     <value>Riproduzione</value>
     <comment>MyMediaPlayingPage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Connettere questo dispositivo in modalità wireless al router NETGEAR, quindi riprovare.</value>
   </data>
 </root>

@@ -709,7 +709,7 @@
     <value>Falha ao fazer login. Insira novamente a senha admin correta do seu roteador NETGEAR.</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Falha ao fazer login! Verifique se este computador está conectado ao roteador NETGEAR.</value>
+    <value>Roteador NETGEAR não encontrado ou não compatível. Verifique também se o dispositivo não está conectado à rede do convidado do roteador e se o IPv6 não está habilitado.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>Alterar as configurações pode interromper o tráfego ativo na rede sem fio. Deseja continuar?</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>QR Code</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Conecte este dispositivo sem fio ao seu roteador NETGEAR e tente novamente.</value>
   </data>
 </root>

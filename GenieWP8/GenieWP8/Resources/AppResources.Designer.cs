@@ -763,11 +763,20 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
-        ///   查找类似 登录失败！请检查本计算机是否已连接到 NETGEAR 路由器。 的本地化字符串。
+        ///   查找类似 NETGEAR 路由器未找到或不受支持。同时确保该设备未连接至路由器的访客网络，并且未启用 IPv6。 的本地化字符串。
         /// </summary>
         public static string login_alertinfo {
             get {
                 return ResourceManager.GetString("login_alertinfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请将此设备通过无线方式连接到NETGEAR路由器，然后重试。 的本地化字符串。
+        /// </summary>
+        public static string login_alertinfo_disableWireless {
+            get {
+                return ResourceManager.GetString("login_alertinfo_disableWireless", resourceCulture);
             }
         }
         

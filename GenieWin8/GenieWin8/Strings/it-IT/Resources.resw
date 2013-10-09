@@ -709,7 +709,7 @@
     <value>Accesso non riuscito. Immettere nuovamente la password admin corretta per il router NETGEAR in uso.</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Accesso non riuscito. Verificare che il computer sia connesso al router NETGEAR.</value>
+    <value>Router NETGEAR non trovato o non supportato. Inoltre, verificare che il dispositivo non sia collegato alla rete guest del router e che nessun IPv6 sia abilitato.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>La modifica delle impostazioni, potrebbe causare l\'interruzione del traffico attivo sulla rete wireless. Continuare?</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>Codice QR</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Connettere questo dispositivo in modalità wireless al router NETGEAR, quindi riprovare.</value>
   </data>
 </root>

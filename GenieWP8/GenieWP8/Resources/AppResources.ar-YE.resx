@@ -367,7 +367,7 @@
     <comment>LoginPage Title</comment>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>فشل تسجيل الدخول! يرجى التحقق لمعرفة ما إذا كان هذا الكمبيوتر متصلاً بموجه NETGEAR.</value>
+    <value>فشل تسجيل الدخول! يرجى التحقق لمعرفة ما إذا كان هذا الكمبيوتر متصلاً بموجه NETGEAR. تأكد أيضاً من عدم اتصال الجهاز بشبكة الضيف الخاصة بالموجه، ومن عدم تمكين أي IPv6.</value>
   </data>
   <data name="LogoutButtonContent" xml:space="preserve">
     <value>تسجل الخروج</value>
@@ -792,5 +792,8 @@
   <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
     <value>قيد التشغيل</value>
     <comment>MyMediaPlayingPage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>يرجى توصيل هذا الجهاز لاسلكياً إلى موجه NETGEAR لديك، ثم المحاولة من جديد.</value>
   </data>
 </root>

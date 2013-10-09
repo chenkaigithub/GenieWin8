@@ -382,7 +382,7 @@
     <comment>LoginPage Title</comment>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Login failed! Please check to see if this computer is connected to the NETGEAR router.</value>
+    <value>NETGEAR router is not found or is not supported. Also make sure the device is not connected to the guest network of the router, and no IPv6 is enabled.</value>
   </data>
   <data name="LogoutButtonContent" xml:space="preserve">
     <value>Logout</value>
@@ -801,5 +801,8 @@
   <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
     <value>Playing</value>
     <comment>MyMediaPlayingPage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Please connect this device wirelessly to your NETGEAR router, then try again.</value>
   </data>
 </root>

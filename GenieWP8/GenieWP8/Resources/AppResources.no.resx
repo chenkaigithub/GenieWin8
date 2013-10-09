@@ -367,7 +367,7 @@
     <comment>LoginPage Title</comment>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Pålogging mislyktes. Kontroller at datamaskinen er koblet til NETGEAR-ruteren.</value>
+    <value>Finner ikke NETGEAR-ruteren, eller den er ikke støttet. Kontroller også at enheten ikke er tilkoblet ruterens gjestenettverk, og at ingen IPv6 er aktivert.</value>
   </data>
   <data name="LogoutButtonContent" xml:space="preserve">
     <value>Logg av</value>
@@ -792,5 +792,8 @@
   <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
     <value>Spiller av</value>
     <comment>MyMediaPlayingPage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Koble enheten trådløst til NETGEAR-ruteren og prøv igjen.</value>
   </data>
 </root>

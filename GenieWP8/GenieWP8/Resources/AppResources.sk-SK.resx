@@ -367,7 +367,7 @@
     <comment>LoginPage Title</comment>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Prihlásenie zlyhalo! Skontrolujte, či je tento počítač pripojený k smerovaču NETGEAR.</value>
+    <value>Smerovač NETGEAR sa nenašiel alebo nie je podporovaný. Overte, či zariadenie nie je pripojené k hostiteľskej sieti smerovača a či nie je povolený žiadny protokol IPv6.</value>
   </data>
   <data name="LogoutButtonContent" xml:space="preserve">
     <value>Odhlásenie</value>
@@ -792,5 +792,8 @@
   <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
     <value>Prehráva sa</value>
     <comment>MyMediaPlayingPage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Toto zariadenie bezdrôtovo pripojte k vášmu smerovaču NETGEAR a pokus potom zopakujte.</value>
   </data>
 </root>

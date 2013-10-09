@@ -709,7 +709,7 @@
     <value>Kirjautuminen epäonnistui. Kirjoita NETGEAR-reitittimen oikea järjestelmänvalvojan salasana uudelleen.</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Kirjautuminen epäonnistui. Varmista, että tietokone on liitetty NETGEAR-reitittimeen.</value>
+    <value>NETGEAR-reititintä ei löydy tai sitä ei tueta. Varmista myös, että laitetta ei ole liitetty reitittimen vierasverkkoon eikä IPv6 ole käytössä.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>Asetusten muuttaminen voi keskeyttää langattoman verkon aktiivisen liikenteen. Haluatko jatkaa?</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>QR-koodi</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Liitä tämä laite langattomasti NETGEAR-reitittimeen ja yritä uudelleen.</value>
   </data>
 </root>

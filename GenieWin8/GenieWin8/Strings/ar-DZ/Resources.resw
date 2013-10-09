@@ -709,7 +709,7 @@
     <value>فشل تسجيل الدخول. يرجى إعادة إدخال كلمة مرور المسؤول الصحيحة لموجه NETGEAR</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>فشل تسجيل الدخول! يرجى التحقق لمعرفة ما إذا كان هذا الكمبيوتر متصلاً بموجه NETGEAR.</value>
+    <value>فشل تسجيل الدخول! يرجى التحقق لمعرفة ما إذا كان هذا الكمبيوتر متصلاً بموجه NETGEAR. تأكد أيضاً من عدم اتصال الجهاز بشبكة الضيف الخاصة بالموجه، ومن عدم تمكين أي IPv6.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>يمكن أن يؤدي تغيير الإعدادات إلى تعطيل حركة المرور النشطة على الشبكة اللاسلكية. هل تريد المتابعة؟</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>رمز QR</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>يرجى توصيل هذا الجهاز لاسلكياً إلى موجه NETGEAR لديك، ثم المحاولة من جديد.</value>
   </data>
 </root>

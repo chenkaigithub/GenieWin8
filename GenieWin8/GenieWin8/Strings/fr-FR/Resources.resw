@@ -709,7 +709,7 @@
     <value>La connexion a échoué. Veuillez saisir le mot de passe d\'administrateur correct de votre routeur NETGEAR.</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>La connexion a échoué. Vérifiez si cet ordinateur est connecté au routeur NETGEAR.</value>
+    <value>Routeur NETGEAR introuvable ou non pris en charge. Assurez-vous également que le périphérique n'est pas connecté au réseau invité du routeur et qu'aucun protocole IPv6 n'est activé.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>Si vous modifiez les paramètres, vous risquez de perturber le trafic actif sur le réseau sans fil. Voulez-vous continuer ?</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>Code QR</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Veuillez connecter ce périphérique à votre routeur NETGEAR via une connexion sans fil, puis réessayer.</value>
   </data>
 </root>

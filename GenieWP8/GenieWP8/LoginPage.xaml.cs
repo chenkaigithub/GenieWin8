@@ -13,6 +13,7 @@ using GenieWP8.DataInfo;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
@@ -127,35 +128,55 @@ namespace GenieWP8
             }
             WritePasswordToFile();
 
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetCurrentSetting();
-            if (dicResponse.Count > 0 && dicResponse["Firmware"] != "" && dicResponse["Model"] != "")
+            if (DeviceNetworkInformation.IsWiFiEnabled)
             {
-                MainPageInfo.model = dicResponse["Model"];
-                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                dicResponse2 = await soapApi.Authenticate(Username, Password);
-                if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await soapApi.GetCurrentSetting();
+
+                bool IsModelKeyExists = false;
+                foreach (string key in dicResponse.Keys)
                 {
-                    MainPageInfo.bLogin = true;
-                    MainPageInfo.username = Username;
-                    MainPageInfo.password = Password;                                       
-                    PopupBackground.Visibility = Visibility.Collapsed;                  
-                    NavigationService.GoBack();
+                    if (key == "Model")
+                    {
+                        IsModelKeyExists = true;
+                    }
                 }
-                else if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 401)
+                if (dicResponse.Count > 0 && dicResponse["Firmware"] != "" && IsModelKeyExists && dicResponse["Model"] != "")
+                {
+                    MainPageInfo.model = dicResponse["Model"];
+                    Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                    dicResponse2 = await soapApi.Authenticate(Username, Password);
+                    if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
+                    {
+                        MainPageInfo.bLogin = true;
+                        MainPageInfo.username = Username;
+                        MainPageInfo.password = Password;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        //NavigationService.GoBack();
+                        NavigatedToPage();
+                    }
+                    else if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 401)
+                    {
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        var strtext = AppResources.bad_password;
+                        MessageBox.Show(strtext);
+                    }
+                }
+                else
                 {
                     PopupBackground.Visibility = Visibility.Collapsed;
-                    var strtext = AppResources.bad_password;
+                    var strtext = AppResources.login_alertinfo;
                     MessageBox.Show(strtext);
                 }
-            }
+            } 
             else
             {
                 PopupBackground.Visibility = Visibility.Collapsed;
-                var strtext = AppResources.login_alertinfo;
+                var strtext = AppResources.login_alertinfo_disableWireless;
                 MessageBox.Show(strtext);
-            }
+            }           
+            
         }
 
         public async void WritePasswordToFile()
@@ -200,6 +221,228 @@ namespace GenieWP8
                 if (fileStorage.FileExists("Password.txt"))
                 {
                     using (var file = fileStorage.OpenFile("Password.txt",FileMode.Open,FileAccess.Read))
+                    {
+                        using (var reader = new StreamReader(file))
+                        {
+                            fileContent = await reader.ReadToEndAsync();
+                        }
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            return fileContent;
+        }
+
+        private async void NavigatedToPage()
+        {
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            UtilityTool util = new UtilityTool();
+            Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+            switch (MainPageInfo.navigatedPage)
+            {
+                case "MainPage":
+                    NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                    break;
+
+                case "WifiSettingPage":
+                    PopupBackground.Visibility = Visibility.Visible;                    
+                    Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                    attachDeviceAll = await soapApi.GetAttachDevice();
+                    //UtilityTool util = new UtilityTool();
+                    var ipList = util.GetCurrentIpAddresses();
+                    string loacalIp = ipList.ToList()[0];
+                    foreach (string key in attachDeviceAll.Keys)
+                    {
+                        if (loacalIp == attachDeviceAll[key]["Ip"])
+                        {
+                            WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                            WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        }
+                    }                    
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                        WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
+                        WifiSettingInfo.region = dicResponse["NewRegion"];
+                        WifiSettingInfo.channel = dicResponse["NewChannel"];
+                        WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
+                        WifiSettingInfo.wirelessMode = dicResponse["NewWirelessMode"];
+                        WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                        WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+                    }
+                    dicResponse = await soapApi.GetWPASecurityKeys();
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
+                        WifiSettingInfo.changedPassword = dicResponse["NewWPAPassphrase"];
+                    }
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
+                    break;
+
+                case "GuestAccessPage":
+                    PopupBackground.Visibility = Visibility.Visible;
+                    //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetGuestAccessEnabled();
+                    GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
+                    if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
+                    {
+                        Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                        dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                        if (dicResponse1.Count > 0)
+                        {
+                            GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+                            GuestAccessInfo.changedSsid = dicResponse1["NewSSID"];
+                            GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
+                            GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
+                            if (dicResponse1["NewSecurityMode"] != "None")
+                            {
+                                GuestAccessInfo.password = dicResponse1["NewKey"];
+                                GuestAccessInfo.changedPassword = dicResponse1["NewKey"];
+                            }
+                            else
+                            {
+                                GuestAccessInfo.password = "";
+                                GuestAccessInfo.changedPassword = "";
+                            }
+                            if (GuestAccessInfo.timePeriod == null)
+                            {
+                                GuestAccessInfo.timePeriod = "Always";
+                                GuestAccessInfo.changedTimePeriod = "Always";
+                            }
+                        }
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        NavigationService.Navigate(new Uri("/GuestAccessPage.xaml", UriKind.Relative));
+                    }
+                    else if (dicResponse["NewGuestAccessEnabled"] == "2")
+                    {
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(AppResources.notsupport);
+                    }
+                    break;
+
+                case "NetworkMapPage":
+                    PopupBackground.Visibility = Visibility.Visible;
+                    //UtilityTool util = new UtilityTool();
+                    NetworkMapInfo.geteway = await util.GetGateway();
+                    //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                    responseDic = await soapApi.GetAttachDevice();
+                    NetworkMapInfo.attachDeviceDic = responseDic;
+
+                    //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                        WifiSettingInfo.channel = dicResponse["NewChannel"];
+                        WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                        WifiSettingInfo.macAddr = dicResponse["NewWLANMACAddress"];
+                    }
+                    NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    //this.Frame.Navigate(typeof(NetworkMapPage));
+                    NetworkMapInfo.bTypeChanged = false;
+                    NavigationService.Navigate(new Uri("/NetworkMapPage.xaml", UriKind.Relative));
+                    break;
+
+                case "TrafficMeterPage":
+                    PopupBackground.Visibility = Visibility.Visible;
+                    //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetTrafficMeterEnabled();
+                    TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+                    if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
+                    {
+                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                        dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                        if (dicResponse2.Count > 0)
+                        {
+                            TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                            TrafficMeterInfo.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                            TrafficMeterInfo.RestartHour = dicResponse2["RestartHour"];
+                            TrafficMeterInfo.changedRestartHour = dicResponse2["RestartHour"];
+                            TrafficMeterInfo.RestartMinute = dicResponse2["RestartMinute"];
+                            TrafficMeterInfo.changedRestartMinute = dicResponse2["RestartMinute"];
+                            TrafficMeterInfo.RestartDay = dicResponse2["RestartDay"];
+                            TrafficMeterInfo.changedRestartDay = dicResponse2["RestartDay"];
+                            TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
+                            TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
+                        }
+                        dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                        if (dicResponse2.Count > 0)
+                        {
+                            TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
+                            TrafficMeterInfo.TodayDownload = dicResponse2["NewTodayDownload"];
+                            TrafficMeterInfo.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+                            TrafficMeterInfo.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+                            TrafficMeterInfo.WeekUpload = dicResponse2["NewWeekUpload"];
+                            TrafficMeterInfo.WeekDownload = dicResponse2["NewWeekDownload"];
+                            TrafficMeterInfo.MonthUpload = dicResponse2["NewMonthUpload"];
+                            TrafficMeterInfo.MonthDownload = dicResponse2["NewMonthDownload"];
+                            TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+                            TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+                        }
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
+                    }
+                    else if (dicResponse["NewTrafficMeterEnable"] == "2")
+                    {
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(AppResources.notsupport);
+                    }
+                    break;
+
+                case "ParentalControlPage":
+                    PopupBackground.Visibility = Visibility.Visible;                                        
+                    //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetCurrentSetting();
+                    if (dicResponse.Count > 0)
+                    {
+                        //判断路由器是否已连接因特网
+                        if (dicResponse["InternetConnectionStatus"] != "Up")
+                        {
+                            PopupBackground.Visibility = Visibility.Collapsed;
+                            MessageBox.Show(AppResources.interneterror);
+                        }
+                        else
+                        {
+                            if (dicResponse["ParentalControlSupported"] == "1")
+                            {
+                                ///通过attachDevice获取本机的Mac地址
+                                //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                                responseDic = await soapApi.GetAttachDevice();
+                                NetworkMapInfo.attachDeviceDic = responseDic;
+
+                                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                                dicResponse2 = await soapApi.GetEnableStatus();
+                                ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
+                                PopupBackground.Visibility = Visibility.Collapsed;
+                                NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
+                            }
+                            else
+                            {
+                                PopupBackground.Visibility = Visibility.Collapsed;
+                                MessageBox.Show(AppResources.notsupport);
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
+        public async Task<string> ReadDeviceInfoFile()
+        {
+            string fileContent = string.Empty;
+            IsolatedStorageFile fileStorage = IsolatedStorageFile.GetUserStoreForApplication();
+            try
+            {
+                if (fileStorage.FileExists("CustomDeviceInfo.txt"))
+                {
+                    using (var file = fileStorage.OpenFile("CustomDeviceInfo.txt", FileMode.Open, FileAccess.Read))
                     {
                         using (var reader = new StreamReader(file))
                         {

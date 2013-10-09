@@ -50,6 +50,8 @@ namespace GenieWP8
             settingModel.GuestSettingGroups.Clear();
             settingModel.EditTimesegSecurity.Clear();
             settingModel.LoadData();
+            SSID.Text = GuestAccessInfo.changedSsid;
+            pwd.Text = GuestAccessInfo.changedPassword;
             if (GuestAccessInfo.changedSecurityType == "None")
             {
                 passwordPanel.Visibility = Visibility.Collapsed;
@@ -60,7 +62,8 @@ namespace GenieWP8
             }
 
             //判断保存按钮是否可点击
-            if (GuestAccessInfo.isTimePeriodChanged == true || GuestAccessInfo.isSecurityTypeChanged == true)
+            if (SSID.Text != "" && pwd.Text != "" &&
+                (GuestAccessInfo.isSSIDChanged == true || GuestAccessInfo.isPasswordChanged == true ||GuestAccessInfo.isTimePeriodChanged == true || GuestAccessInfo.isSecurityTypeChanged == true))
             {
                 if (GuestAccessInfo.securityType == "None")
                 {
@@ -91,9 +94,16 @@ namespace GenieWP8
         private void ssid_changed(Object sender, RoutedEventArgs e)
         {
             string ssid = SSID.Text.Trim();
-            if (ssid != GuestAccessInfo.ssid && ssid != "")
+            string password = pwd.Text.Trim();
+            GuestAccessInfo.changedSsid = ssid;
+            if (ssid != GuestAccessInfo.ssid && ssid != "" && password != "")
             {
                 appBarButton_save.IsEnabled = true;
+                GuestAccessInfo.isSSIDChanged = true;
+            }
+            else if (ssid == "" || password == "")
+            {
+                appBarButton_save.IsEnabled = false;
                 GuestAccessInfo.isSSIDChanged = true;
             }
             else
@@ -113,10 +123,17 @@ namespace GenieWP8
         //判断密码是否更改以及保存按钮是否可点击
         private void pwd_changed(Object sender, RoutedEventArgs e)
         {
+            string ssid = SSID.Text.Trim();
             string password = pwd.Text.Trim();
-            if (password != GuestAccessInfo.password && password != "")
+            GuestAccessInfo.changedPassword = password;
+            if (password != GuestAccessInfo.password && password != "" && ssid != "")
             {
                 appBarButton_save.IsEnabled = true;
+                GuestAccessInfo.isPasswordChanged = true;
+            }
+            else if (password == "" || ssid == "")
+            {
+                appBarButton_save.IsEnabled = false;
                 GuestAccessInfo.isPasswordChanged = true;
             }
             else
@@ -196,12 +213,19 @@ namespace GenieWP8
                 if (dicResponse1.Count > 0)
                 {
                     GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+                    GuestAccessInfo.changedSsid = dicResponse1["NewSSID"];
                     GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
                     GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
                     if (dicResponse1["NewSecurityMode"] != "None")
+                    {
                         GuestAccessInfo.password = dicResponse1["NewKey"];
+                        GuestAccessInfo.changedPassword = dicResponse1["NewKey"];
+                    }
                     else
+                    {
                         GuestAccessInfo.password = "";
+                        GuestAccessInfo.changedPassword = "";
+                    }
                     if (GuestAccessInfo.timePeriod == null)
                     {
                         GuestAccessInfo.timePeriod = "Always";
@@ -247,12 +271,19 @@ namespace GenieWP8
                 if (dicResponse1.Count > 0)
                 {
                     GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+                    GuestAccessInfo.changedSsid = dicResponse1["NewSSID"];
                     GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
                     GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
                     if (dicResponse1["NewSecurityMode"] != "None")
+                    {
                         GuestAccessInfo.password = dicResponse1["NewKey"];
+                        GuestAccessInfo.changedPassword = dicResponse1["NewKey"];
+                    }
                     else
+                    {
                         GuestAccessInfo.password = "";
+                        GuestAccessInfo.changedPassword = "";
+                    }
                     if (GuestAccessInfo.timePeriod == null)
                     {
                         GuestAccessInfo.timePeriod = "Always";
@@ -323,13 +354,15 @@ namespace GenieWP8
             {
                 if (GuestAccessInfo.changedSecurityType.CompareTo("None") == 0)
                 {
-                    GuestAccessInfo.password = "";
+                    GuestAccessInfo.changedPassword = "";
                     password = "";
                 }
                 timer.Interval = TimeSpan.FromSeconds(1);
                 timer.Tick += timer_Tick;
                 timer.Start();
                 await soapApi.SetGuestAccessNetwork(ssid, GuestAccessInfo.changedSecurityType, password);
+                GuestAccessInfo.ssid = GuestAccessInfo.changedSsid;
+                GuestAccessInfo.password = GuestAccessInfo.changedPassword;
                 GuestAccessInfo.timePeriod = GuestAccessInfo.changedTimePeriod;
                 GuestAccessInfo.securityType = GuestAccessInfo.changedSecurityType;
                 GuestAccessInfo.isSSIDChanged = false;
@@ -348,7 +381,7 @@ namespace GenieWP8
             //PopupBackground.Visibility = Visibility.Collapsed;
         }
 
-        int count = 90;     //倒计时间
+        int count = 60;     //倒计时间
         void timer_Tick(object sender, object e)
         {
             waittime.Text = count.ToString();

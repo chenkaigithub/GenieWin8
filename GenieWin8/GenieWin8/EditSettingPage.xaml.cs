@@ -43,8 +43,10 @@ namespace GenieWin8
         {
             var editName = SettingSource.GetEditName((String)navigationParameter);
 	        this.DefaultViewModel["itemName"] = editName;
+            SSID.Text = WifiInfoModel.changedSsid;
 	        var editKey = SettingSource.GetEditKey((String)navigationParameter);
 	        this.DefaultViewModel["itemKey"] = editKey;
+            pwd.Text = WifiInfoModel.changedPassword;
             var channelsecurity = SettingSource.GetChannelSecurity((String)navigationParameter);
 	        this.DefaultViewModel["itemChannelSecurity"] = channelsecurity;
             if (WifiInfoModel.changedSecurityType == "None")
@@ -57,7 +59,8 @@ namespace GenieWin8
             }
 
             //判断保存按钮是否可点击
-            if (WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true)
+            if (SSID.Text != "" && pwd.Text != "" && 
+                (WifiInfoModel.isSSIDChanged == true || WifiInfoModel.isPasswordChanged == true || WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true))
             {
                 wifiSettingSave.IsEnabled = true;
             }
@@ -81,10 +84,17 @@ namespace GenieWin8
         private void ssid_changed(Object sender, RoutedEventArgs e)
         {
             string ssid = SSID.Text.Trim();
-            if (ssid != WifiInfoModel.ssid && ssid != "")
+            string password = pwd.Text.Trim();
+            WifiInfoModel.changedSsid = ssid;
+            if (ssid != WifiInfoModel.ssid && ssid != "" && password != "")
             {
                 wifiSettingSave.IsEnabled = true;
                 WifiInfoModel.isSSIDChanged = true;                
+            }
+            else if (ssid == "" || password == "")
+            {
+                wifiSettingSave.IsEnabled = false;
+                WifiInfoModel.isSSIDChanged = true; 
             }
             else
             {
@@ -103,11 +113,18 @@ namespace GenieWin8
         //判断密码是否更改以及保存按钮是否可点击
         private void pwd_changed(Object sender, RoutedEventArgs e)
         {
+            string ssid = SSID.Text.Trim();
             string password = pwd.Text.Trim();
-            if (password != WifiInfoModel.password && password != "")
+            WifiInfoModel.changedPassword = password;
+            if (password != WifiInfoModel.password && password != "" && ssid != "")
             {
                 wifiSettingSave.IsEnabled = true;
                 WifiInfoModel.isPasswordChanged = true;
+            }
+            else if (password == "" || ssid == "")
+            {
+                wifiSettingSave.IsEnabled = false;
+                WifiInfoModel.isSSIDChanged = true;
             }
             else
             {
@@ -144,6 +161,7 @@ namespace GenieWin8
             if (dicResponse.Count > 0)
             {
                 WifiInfoModel.ssid = dicResponse["NewSSID"];
+                WifiInfoModel.changedSsid = dicResponse["NewSSID"];
                 WifiInfoModel.channel = dicResponse["NewChannel"];
                 WifiInfoModel.changedChannel = dicResponse["NewChannel"];
                 WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
@@ -153,6 +171,7 @@ namespace GenieWin8
             if (dicResponse.Count > 0)
             {
                 WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
+                WifiInfoModel.changedPassword = dicResponse["NewWPAPassphrase"];
             }            
             WifiInfoModel.isSSIDChanged = false;
             WifiInfoModel.isPasswordChanged = false;
@@ -205,6 +224,8 @@ namespace GenieWin8
                     timer.Tick += new System.EventHandler<object>(timer_Tick);
                     timer.Start();
                     await soapApi.SetWLANNoSecurity(ssid, WifiInfoModel.region, WifiInfoModel.changedChannel, WifiInfoModel.wirelessMode);
+                    WifiInfoModel.ssid = WifiInfoModel.changedSsid;
+                    WifiInfoModel.password = WifiInfoModel.changedPassword;
                     WifiInfoModel.channel = WifiInfoModel.changedChannel;
                     WifiInfoModel.isSSIDChanged = false;
                     WifiInfoModel.isPasswordChanged = false;
@@ -218,6 +239,8 @@ namespace GenieWin8
                     timer.Tick += new System.EventHandler<object>(timer_Tick);
                     timer.Start();
                     await soapApi.SetWLANWEPByPassphrase(ssid, WifiInfoModel.region, WifiInfoModel.changedChannel, WifiInfoModel.wirelessMode, WifiInfoModel.changedSecurityType, password);
+                    WifiInfoModel.ssid = WifiInfoModel.changedSsid;
+                    WifiInfoModel.password = WifiInfoModel.changedPassword;
                     WifiInfoModel.channel = WifiInfoModel.changedChannel;
                     WifiInfoModel.securityType = WifiInfoModel.changedSecurityType;
                     WifiInfoModel.isSSIDChanged = false;
@@ -230,7 +253,7 @@ namespace GenieWin8
         }
         #endregion
 
-        int count = 90;     //倒计时间
+        int count = 60;     //倒计时间
         async void timer_Tick(object sender, object e)
         {
             waittime.Text = count.ToString();

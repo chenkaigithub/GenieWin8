@@ -709,7 +709,7 @@
     <value>Не удалось войти в систему. Введите правильный пароль администратора для маршрутизатора NETGEAR.</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Ошибка при входе! Проверьте подключение данного компьютера к маршрутизатору NETGEAR.</value>
+    <value>Роутер NETGEAR не найден или не поддерживается. Также убедитесь в том, что устройство подключено не к гостевой сети роутера, и что не активирован протокол IPv6.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>При изменении настроек активный трафик в беспроводной сети может быть приостановлен. Продолжить?</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>QR-код</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Подключите устройство по беспроводному соединению к роутеру NETGEAR и повторите попытку.</value>
   </data>
 </root>

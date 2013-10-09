@@ -367,7 +367,7 @@
     <comment>LoginPage Title</comment>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Ошибка при входе! Проверьте подключение данного компьютера к маршрутизатору NETGEAR.</value>
+    <value>Роутер NETGEAR не найден или не поддерживается. Также убедитесь в том, что устройство подключено не к гостевой сети роутера, и что не активирован протокол IPv6.</value>
   </data>
   <data name="LogoutButtonContent" xml:space="preserve">
     <value>Выход</value>
@@ -792,5 +792,8 @@
   <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
     <value>Воспроизведение</value>
     <comment>MyMediaPlayingPage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Подключите устройство по беспроводному соединению к роутеру NETGEAR и повторите попытку.</value>
   </data>
 </root>

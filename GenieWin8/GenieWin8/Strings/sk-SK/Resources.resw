@@ -709,7 +709,7 @@
     <value>Prihlásenie zlyhalo. Znovu zadajte správne heslo správcu pre váš smerovač NETGEAR.</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Prihlásenie zlyhalo! Skontrolujte, či je tento počítač pripojený k smerovaču NETGEAR.</value>
+    <value>Smerovač NETGEAR sa nenašiel alebo nie je podporovaný. Overte, či zariadenie nie je pripojené k hostiteľskej sieti smerovača a či nie je povolený žiadny protokol IPv6.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>Zmena nastavení môže narušiť aktívne prenosy v bezdrôtovej sieti. Chcete pokračovať?</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>Kód QR</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Toto zariadenie bezdrôtovo pripojte k vášmu smerovaču NETGEAR a pokus potom zopakujte.</value>
   </data>
 </root>

@@ -14,6 +14,7 @@ using GenieWP8.DataInfo;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace GenieWP8
 {
@@ -149,6 +150,7 @@ namespace GenieWP8
                     if (dicResponse.Count > 0)
                     {
                         WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                        WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
                         WifiSettingInfo.region = dicResponse["NewRegion"];
                         WifiSettingInfo.channel = dicResponse["NewChannel"];
                         WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
@@ -160,6 +162,7 @@ namespace GenieWP8
                     if (dicResponse.Count > 0)
                     {
                         WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
+                        WifiSettingInfo.changedPassword = dicResponse["NewWPAPassphrase"];
                     }
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
@@ -168,6 +171,7 @@ namespace GenieWP8
                 else	//未登陆
                 {
                     NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "WifiSettingPage";
                 }
             }
             //访客访问
@@ -189,12 +193,19 @@ namespace GenieWP8
                         if (dicResponse1.Count > 0)
                         {
                             GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+                            GuestAccessInfo.changedSsid = dicResponse1["NewSSID"];
                             GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
                             GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
                             if (dicResponse1["NewSecurityMode"] != "None")
+                            {
                                 GuestAccessInfo.password = dicResponse1["NewKey"];
+                                GuestAccessInfo.changedPassword = dicResponse1["NewKey"];
+                            }
                             else
+                            {
                                 GuestAccessInfo.password = "";
+                                GuestAccessInfo.changedPassword = "";
+                            }
                             if (GuestAccessInfo.timePeriod == null)
                             {
                                 GuestAccessInfo.timePeriod = "Always";
@@ -215,6 +226,7 @@ namespace GenieWP8
                 else	//未登陆
                 {
                     NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "GuestAccessPage";
                 }                
             }
             //网络映射
@@ -251,6 +263,7 @@ namespace GenieWP8
                 else	//未登陆
                 {
                     NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "NetworkMapPage";
                 }                
             }
             //流量控制
@@ -310,6 +323,7 @@ namespace GenieWP8
                 else	//未登陆
                 {
                     NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "TrafficMeterPage";
                 }             
             }
             //家长控制
@@ -321,12 +335,12 @@ namespace GenieWP8
                     PopupBackground.Visibility = Visibility.Visible;
                     InProgress.Visibility = Visibility.Visible;
                     pleasewait.Visibility = Visibility.Visible;
-
-                    //判断路由器是否已连接因特网                    
+                                       
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetCurrentSetting();
                     if (dicResponse.Count > 0)
                     {
+                        //判断路由器是否已连接因特网 
                         if (dicResponse["InternetConnectionStatus"] != "Up")
                         {
                             PopupBackgroundTop.Visibility = Visibility.Collapsed;
@@ -361,6 +375,7 @@ namespace GenieWP8
                 else	//未登陆
                 {
                     NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "ParentalControlPage";
                 }                
             } 
             //我的媒体
@@ -421,23 +436,29 @@ namespace GenieWP8
         {
             if (!AboutPopup.IsOpen)
             {
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Visible;
+                pleasewait.Visibility = Visibility.Visible;
                 GenieSoapApi soapApi = new GenieSoapApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await soapApi.GetCurrentSetting();
                 if (dicResponse.Count > 0)
                 {
-                    if (dicResponse["Firmware"] != "")
+                    if (dicResponse["Model"] != "")
                     {
-                        tbRouterModel.Text = dicResponse["Firmware"];
+                        tbRouterModel.Text = dicResponse["Model"];
                     }
                     else
                     {
                         tbRouterModel.Text = "N/A";
                     }
 
-                    if (dicResponse["Model"] != "")
+                    if (dicResponse["Firmware"] != "")
                     {
-                        tbFirmwareVersion.Text = dicResponse["Model"];
+                        string regexFirmware = @"(\D+\d+).(\d+).(\d+).(\d+)";
+                        Match FirmwareVersion = Regex.Match(dicResponse["Firmware"], regexFirmware);
+                        tbFirmwareVersion.Text = FirmwareVersion.ToString();
                     }
                     else
                     {
@@ -450,10 +471,10 @@ namespace GenieWP8
                     tbFirmwareVersion.Text = "N/A";
                 }
                 AboutPopup.IsOpen = true;
-                PopupBackgroundTop.Visibility = Visibility.Visible;
+                //PopupBackgroundTop.Visibility = Visibility.Visible;
                 tbSearch.Visibility = Visibility.Collapsed;
                 btnSearch.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Visible;
+                //PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
             }
@@ -475,8 +496,9 @@ namespace GenieWP8
         }
 
         private void appBarMenuItem_Login_Click(object sender, EventArgs e)
-        {
+        {            
             NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+            MainPageInfo.navigatedPage = "MainPage";
         }
 
         //搜索按钮响应事件

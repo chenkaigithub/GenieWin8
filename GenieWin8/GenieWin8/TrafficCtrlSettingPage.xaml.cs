@@ -222,7 +222,7 @@ namespace GenieWin8
             string RestartMinute = restartMinute.Text.Trim();
             if (MonthlyLimit != "" && MonthlyLimit != null && int.Parse(MonthlyLimit) <= 1000000
                 && RestartHour != "" && RestartHour != null && int.Parse(RestartHour) >= 0 && int.Parse(RestartHour) <= 24
-                && RestartMinute != "" && RestartMinute != null && int.Parse(RestartMinute) >=0 && int.Parse(RestartMinute) <= 60)
+                && RestartMinute != "" && RestartMinute != null && int.Parse(RestartMinute) >=0 && int.Parse(RestartMinute) <= 59)
             {
                 if (TrafficMeterInfoModel.changedControlOption == "No limit")
                 {
@@ -257,9 +257,9 @@ namespace GenieWin8
                     var messageDialog = new MessageDialog("RestartHour must be between 0 and 24.");
                     await messageDialog.ShowAsync();
                 }
-                if (int.Parse(RestartMinute) < 0 || int.Parse(RestartMinute) > 60)
+                if (int.Parse(RestartMinute) < 0 || int.Parse(RestartMinute) > 59)
                 {
-                    var messageDialog = new MessageDialog("RestartMinute must be between 0 and 60.");
+                    var messageDialog = new MessageDialog("RestartMinute must be between 0 and 59.");
                     await messageDialog.ShowAsync();
                 }
                 if (int.Parse(MonthlyLimit) < 0 || int.Parse(MonthlyLimit) > 1000000)

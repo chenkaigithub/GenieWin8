@@ -709,7 +709,7 @@
     <value>Η σύνδεση απέτυχε. Πληκτρολογήστε ξανά τον σωστό κωδικό πρόσβασης διαχείρισης για το δρομολογητή NETGEAR.</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Η σύνδεση απέτυχε! Ελέγξτε εάν ο υπολογιστής είναι συνδεδεμένος στο δρομολογητή της NETGEAR.</value>
+    <value>Ο δρομολογητής NETGEAR δεν βρέθηκε ή δεν υποστηρίζεται. Επίσης, βεβαιωθείτε ότι η συσκευή δεν είναι συνδεδεμένη στο δίκτυο επισκεπτών του δρομολογητή και ότι το πρωτόκολλο IPv6 δεν είναι ενεργοποιημένο.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>Η αλλαγή των ρυθμίσεων μπορεί να διακόψει την ενεργή κυκλοφορία στο ασύρματο δίκτυο. Θέλετε να συνεχίσετε;</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>Κωδικός QR</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Συνδέστε ασύρματα αυτή τη συσκευή στο δρομολογητή NETGEAR και δοκιμάστε ξανά.</value>
   </data>
 </root>

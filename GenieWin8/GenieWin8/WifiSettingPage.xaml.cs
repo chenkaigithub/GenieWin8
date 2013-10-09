@@ -70,12 +70,30 @@ namespace GenieWin8
 
         private async void Refresh_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
+
+            Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+            attachDeviceAll = await soapApi.GetAttachDevice();
+            UtilityTool util = new UtilityTool();
+            string loacalIp = util.GetLocalHostIp();
+            foreach (string key in attachDeviceAll.Keys)
+            {
+                if (loacalIp == attachDeviceAll[key]["Ip"])
+                {
+                    WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                    WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                }
+            }
+
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetInfo("WLANConfiguration");
             if (dicResponse.Count > 0)
             {
                 WifiInfoModel.ssid = dicResponse["NewSSID"];
+                WifiInfoModel.changedSsid = dicResponse["NewSSID"];
                 WifiInfoModel.channel = dicResponse["NewChannel"];
                 WifiInfoModel.changedChannel = dicResponse["NewChannel"];
                 WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
@@ -85,7 +103,11 @@ namespace GenieWin8
             if (dicResponse.Count > 0)
             {
                 WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
-            }            
+                WifiInfoModel.changedPassword = dicResponse["NewWPAPassphrase"];
+            }
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
             this.Frame.Navigate(typeof(WifiSettingPage));
         }
 

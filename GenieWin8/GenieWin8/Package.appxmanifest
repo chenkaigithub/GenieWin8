@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="9f470e6b-95f7-484b-9b15-1a191dd0a6bf" Publisher="CN=xie" Version="1.0.0.3" />
+  <Identity Name="9f470e6b-95f7-484b-9b15-1a191dd0a6bf" Publisher="CN=xie" Version="1.0.0.4" />
   <Properties>
     <DisplayName>GenieWin8</DisplayName>
     <PublisherDisplayName>xie</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\NETGEAR_Genie_ico_50.png</Logo>
   </Properties>
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>

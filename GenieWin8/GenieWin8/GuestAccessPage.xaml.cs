@@ -84,11 +84,19 @@ namespace GenieWin8
             if (dicResponse.Count > 0)
             {
                 GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
+                GuestAccessInfoModel.changedSsid = dicResponse["NewSSID"];
                 GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
+                GuestAccessInfoModel.changedSecurityType = dicResponse["NewSecurityMode"];
                 if (dicResponse["NewSecurityMode"] != "None")
+                {
                     GuestAccessInfoModel.password = dicResponse["NewKey"];
+                    GuestAccessInfoModel.changedPassword = dicResponse["NewKey"];
+                }
                 else
+                {
                     GuestAccessInfoModel.password = "";
+                    GuestAccessInfoModel.changedPassword = "";
+                }
                 if (GuestAccessInfoModel.timePeriod == null)
                 {
                     GuestAccessInfoModel.timePeriod = "Always";
@@ -162,12 +170,19 @@ namespace GenieWin8
                 if (dicResponse.Count > 0)
                 {
                     GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
+                    GuestAccessInfoModel.changedSsid = dicResponse["NewSSID"];
                     GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
                     GuestAccessInfoModel.changedSecurityType = dicResponse["NewSecurityMode"];
                     if (dicResponse["NewSecurityMode"] != "None")
+                    {
                         GuestAccessInfoModel.password = dicResponse["NewKey"];
+                        GuestAccessInfoModel.changedPassword = dicResponse["NewKey"];
+                    }
                     else
+                    {
                         GuestAccessInfoModel.password = "";
+                        GuestAccessInfoModel.changedPassword = "";
+                    }
                 }
                 dicResponse = await soapApi.SetGuestAccessEnabled2(GuestAccessInfoModel.ssid, GuestAccessInfoModel.securityType, GuestAccessInfoModel.password);
                 GuestSettingsList.Visibility = Visibility.Visible;

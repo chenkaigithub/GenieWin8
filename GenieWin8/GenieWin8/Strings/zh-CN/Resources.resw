@@ -764,6 +764,9 @@
     <comment>QRCodePage Title</comment>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>登录失败！请检查本计算机是否已连接到 NETGEAR 路由器。</value>
+    <value>NETGEAR 路由器未找到或不受支持。同时确保该设备未连接至路由器的访客网络，并且未启用 IPv6。</value>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>请将此设备通过无线方式连接到NETGEAR路由器，然后重试。</value>
   </data>
 </root>

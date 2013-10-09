@@ -367,7 +367,7 @@
     <comment>LoginPage Title</comment>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Falha ao fazer login! Verifique se este computador está conectado ao roteador NETGEAR.</value>
+    <value>Roteador NETGEAR não encontrado ou não compatível. Verifique também se o dispositivo não está conectado à rede do convidado do roteador e se o IPv6 não está habilitado.</value>
   </data>
   <data name="LogoutButtonContent" xml:space="preserve">
     <value>Logoff</value>
@@ -792,5 +792,8 @@
   <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
     <value>Reproduzindo</value>
     <comment>MyMediaPlayingPage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Conecte este dispositivo sem fio ao seu roteador NETGEAR e tente novamente.</value>
   </data>
 </root>

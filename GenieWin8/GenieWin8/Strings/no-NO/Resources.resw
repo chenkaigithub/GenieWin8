@@ -709,7 +709,7 @@
     <value>Pålogging mislyktes. Angi riktig adminpassord for NETGEAR-ruteren.</value>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Pålogging mislyktes. Kontroller at datamaskinen er koblet til NETGEAR-ruteren.</value>
+    <value>Finner ikke NETGEAR-ruteren, eller den er ikke støttet. Kontroller også at enheten ikke er tilkoblet ruterens gjestenettverk, og at ingen IPv6 er aktivert.</value>
   </data>
   <data name="wirelsssetting" xml:space="preserve">
     <value>Hvis du endrer innstillingene, kan dette forstyrre aktiv trafikk på det trådløse nettverket. Vil du fortsette?</value>
@@ -732,5 +732,8 @@
   <data name="QRCodePageTitle.Text" xml:space="preserve">
     <value>QR-kode</value>
     <comment>QRCodePage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Koble enheten trådløst til NETGEAR-ruteren og prøv igjen.</value>
   </data>
 </root>

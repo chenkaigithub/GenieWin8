@@ -150,6 +150,7 @@ namespace GenieWP8
             if (dicResponse.Count > 0)
             {
                 WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
                 WifiSettingInfo.channel = dicResponse["NewChannel"];
                 WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
                 WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
@@ -159,6 +160,7 @@ namespace GenieWP8
                 if (dicResponse1.Count > 0)
                 {
                     WifiSettingInfo.password = dicResponse1["NewWPAPassphrase"];
+                    WifiSettingInfo.changedPassword = dicResponse1["NewWPAPassphrase"];
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     OnNavigatedTo(null);

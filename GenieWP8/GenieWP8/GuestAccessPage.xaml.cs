@@ -160,12 +160,19 @@ namespace GenieWP8
                 if (dicResponse.Count > 0)
                 {
                     GuestAccessInfo.ssid = dicResponse["NewSSID"];
+                    GuestAccessInfo.changedSsid = dicResponse["NewSSID"];
                     GuestAccessInfo.securityType = dicResponse["NewSecurityMode"];
                     GuestAccessInfo.changedSecurityType = dicResponse["NewSecurityMode"];
                     if (dicResponse["NewSecurityMode"] != "None")
+                    {
                         GuestAccessInfo.password = dicResponse["NewKey"];
+                        GuestAccessInfo.changedPassword = dicResponse["NewKey"];
+                    }
                     else
+                    {
                         GuestAccessInfo.password = "";
+                        GuestAccessInfo.changedPassword = "";
+                    }
                 }
                 dicResponse = await soapApi.SetGuestAccessEnabled2(GuestAccessInfo.ssid, GuestAccessInfo.securityType, GuestAccessInfo.password);
                 GuestSettingsLongListSelector.Visibility = Visibility.Visible;
@@ -234,11 +241,19 @@ namespace GenieWP8
                     if (dicResponse1.Count > 0)
                     {
                         GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+                        GuestAccessInfo.changedSsid = dicResponse1["NewSSID"];
                         GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
+                        GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
                         if (dicResponse1["NewSecurityMode"] != "None")
+                        {
                             GuestAccessInfo.password = dicResponse1["NewKey"];
+                            GuestAccessInfo.changedPassword = dicResponse1["NewKey"];
+                        }
                         else
+                        {
                             GuestAccessInfo.password = "";
+                            GuestAccessInfo.changedPassword = "";
+                        }
                         if (GuestAccessInfo.timePeriod == null)
                         {
                             GuestAccessInfo.timePeriod = "Always";

@@ -367,7 +367,7 @@
     <comment>LoginPage Title</comment>
   </data>
   <data name="login_alertinfo" xml:space="preserve">
-    <value>Kirjautuminen epäonnistui. Varmista, että tietokone on liitetty NETGEAR-reitittimeen.</value>
+    <value>NETGEAR-reititintä ei löydy tai sitä ei tueta. Varmista myös, että laitetta ei ole liitetty reitittimen vierasverkkoon eikä IPv6 ole käytössä.</value>
   </data>
   <data name="LogoutButtonContent" xml:space="preserve">
     <value>Uloskirjaus</value>
@@ -792,5 +792,8 @@
   <data name="MyMediaPlayingPageTitleText" xml:space="preserve">
     <value>Toistetaan</value>
     <comment>MyMediaPlayingPage Title</comment>
+  </data>
+  <data name="login_alertinfo_disableWireless" xml:space="preserve">
+    <value>Liitä tämä laite langattomasti NETGEAR-reitittimeen ja yritä uudelleen.</value>
   </data>
 </root>
