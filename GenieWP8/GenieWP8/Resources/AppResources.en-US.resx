@@ -805,4 +805,13 @@
   <data name="login_alertinfo_disableWireless" xml:space="preserve">
     <value>Please connect this device wirelessly to your NETGEAR router, then try again.</value>
   </data>
+  <data name="LastDay" xml:space="preserve">
+    <value>Last</value>
+  </data>
+  <data name="TrafficMeterStartTime" xml:space="preserve">
+    <value>Traffic Meter Start Time</value>
+  </data>
+  <data name="SaveButtonContent" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>

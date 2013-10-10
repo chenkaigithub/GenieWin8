@@ -177,6 +177,7 @@ namespace GenieWP8.ViewModels
             group2.Items.Add(new TrafficMeterItem() { ID = "StartDate-26", Title = "StartDate", Content = "26", Group = group2 });
             group2.Items.Add(new TrafficMeterItem() { ID = "StartDate-27", Title = "StartDate", Content = "27", Group = group2 });
             group2.Items.Add(new TrafficMeterItem() { ID = "StartDate-28", Title = "StartDate", Content = "28", Group = group2 });
+            group2.Items.Add(new TrafficMeterItem() { ID = "StartDate-Last", Title = "StartDate", Content = AppResources.LastDay, Group = group2 });
             this.StartDate.Add(group2);
             this.TrafficMeterGroups.Add(group2);
 

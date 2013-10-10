@@ -297,10 +297,10 @@ namespace GenieWin8.Data
                 "StartDate",
                 "28",
                 group2));
-            //group2.Items.Add(new TrafficMeterItem("StartDate-29",
-            //    "StartDate",
-            //    "29",
-            //    group2));
+            group2.Items.Add(new TrafficMeterItem("StartDate-Last",
+                "StartDate",
+                loader.GetString("LastDay"),
+                group2));
             this.StartDate.Add(group2);
             this.TrafficMeterGroups.Add(group2);
 

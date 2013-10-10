@@ -194,14 +194,14 @@
                         <Grid>
                             <TextBlock Text="{Binding Path=LocalizedResources.EmailText, Source={StaticResource LocalizedStrings}}"
                                        FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
-                            <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsEmailValid"/>
+                            <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="IsEmailValid" InputScope="EmailUserName"/>
                         </Grid>
                         <TextBlock x:Name="invalidEmail" Text="Email is invalid !"
                                    Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                         <Grid>
                             <TextBlock Text="{Binding Path=LocalizedResources.ConfirmEmailText, Source={StaticResource LocalizedStrings}}"
                                        FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,240,0" TextWrapping="Wrap"/>
-                            <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="eventConfirmEmail"/>
+                            <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" TextChanged="eventConfirmEmail" InputScope="EmailUserName"/>
                         </Grid>
                         <TextBlock x:Name="differentEmail" Text="Two Emails are different !"
                                    Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>

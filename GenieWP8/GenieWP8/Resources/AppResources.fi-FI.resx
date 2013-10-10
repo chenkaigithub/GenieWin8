@@ -796,4 +796,13 @@
   <data name="login_alertinfo_disableWireless" xml:space="preserve">
     <value>Liitä tämä laite langattomasti NETGEAR-reitittimeen ja yritä uudelleen.</value>
   </data>
+  <data name="LastDay" xml:space="preserve">
+    <value>Viimeisin</value>
+  </data>
+  <data name="TrafficMeterStartTime" xml:space="preserve">
+    <value>Liikennemittarin käynnistysaika</value>
+  </data>
+  <data name="SaveButtonContent" xml:space="preserve">
+    <value>Varmuuskopioi</value>
+  </data>
 </root>

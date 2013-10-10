@@ -796,4 +796,13 @@
   <data name="login_alertinfo_disableWireless" xml:space="preserve">
     <value>Подключите устройство по беспроводному соединению к роутеру NETGEAR и повторите попытку.</value>
   </data>
+  <data name="LastDay" xml:space="preserve">
+    <value>Прошедший</value>
+  </data>
+  <data name="TrafficMeterStartTime" xml:space="preserve">
+    <value>Время запуска счетчика трафика</value>
+  </data>
+  <data name="SaveButtonContent" xml:space="preserve">
+    <value>Резервное копирование</value>
+  </data>
 </root>

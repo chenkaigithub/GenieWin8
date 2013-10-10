@@ -52,6 +52,14 @@ namespace GenieWin8
             var TrafficLimitation = TrafficMeterSource.GetTrafficLimitation((String)navigationParameter);
             this.DefaultViewModel["itemTrafficLimitation"] = TrafficLimitation;
 
+            if (TrafficMeterInfoModel.changedControlOption == "No limit")
+            {
+                monthlyLimit.IsEnabled = false;
+            } 
+            else
+            {
+                monthlyLimit.IsEnabled = true;
+            }
             //判断保存按钮是否可点击
             string monthlylimit = monthlyLimit.Text.Trim();
             string restarthour = restartHour.Text.Trim();
@@ -82,6 +90,20 @@ namespace GenieWin8
         //判断每月限制是否更改以及保存按钮是否可点击
         private void monthlyLimit_changed(Object sender, RoutedEventArgs e)
         {
+            string MonthlyLimit = monthlyLimit.Text;
+            if (MonthlyLimit.Contains("."))
+            {
+                int index = MonthlyLimit.IndexOf(".");
+                MonthlyLimit = MonthlyLimit.Remove(index, 1);
+            }
+            if (MonthlyLimit.Length > 1)
+            {
+                while (MonthlyLimit.IndexOf("0") == 0)
+                {
+                    MonthlyLimit = MonthlyLimit.Remove(0, 1);
+                }
+            }
+            monthlyLimit.Text = MonthlyLimit;
             TrafficMeterInfoModel.changedMonthlyLimit = monthlyLimit.Text.Trim();
             TrafficMeterInfoModel.changedRestartHour = restartHour.Text.Trim();
             TrafficMeterInfoModel.changedRestartMinute = restartMinute.Text.Trim();
@@ -117,6 +139,20 @@ namespace GenieWin8
         //判断重启时间-小时是否更改以及保存按钮是否可点击
         private void restartHour_changed(Object sender, RoutedEventArgs e)
         {
+            string RestartHour = restartHour.Text;
+            if (RestartHour.Contains("."))
+            {
+                int index = RestartHour.IndexOf(".");
+                RestartHour = RestartHour.Remove(index, 1);
+            }
+            if (RestartHour.Length > 1)
+            {
+                while (RestartHour.IndexOf("0") == 0)
+                {
+                    RestartHour = RestartHour.Remove(0, 1);
+                }
+            }
+            restartHour.Text = RestartHour;
             TrafficMeterInfoModel.changedMonthlyLimit = monthlyLimit.Text.Trim();
             TrafficMeterInfoModel.changedRestartHour = restartHour.Text.Trim();
             TrafficMeterInfoModel.changedRestartMinute = restartMinute.Text.Trim();
@@ -152,6 +188,20 @@ namespace GenieWin8
         //判断重启时间-分钟是否更改以及保存按钮是否可点击
         private void restartMinute_changed(Object sender, RoutedEventArgs e)
         {
+            string RestartMin = restartMinute.Text;
+            if (RestartMin.Contains("."))
+            {
+                int index = RestartMin.IndexOf(".");
+                RestartMin = RestartMin.Remove(index, 1);
+            }
+            if (RestartMin.Length > 1)
+            {
+                while (RestartMin.IndexOf("0") == 0)
+                {
+                    RestartMin = RestartMin.Remove(0, 1);
+                }
+            }
+            restartMinute.Text = RestartMin;
             TrafficMeterInfoModel.changedMonthlyLimit = monthlyLimit.Text.Trim();
             TrafficMeterInfoModel.changedRestartHour = restartHour.Text.Trim();
             TrafficMeterInfoModel.changedRestartMinute = restartMinute.Text.Trim();
@@ -220,7 +270,7 @@ namespace GenieWin8
             string MonthlyLimit = monthlyLimit.Text.Trim();
             string RestartHour = restartHour.Text.Trim();
             string RestartMinute = restartMinute.Text.Trim();
-            if (MonthlyLimit != "" && MonthlyLimit != null && int.Parse(MonthlyLimit) <= 1000000
+            if (MonthlyLimit != "" && MonthlyLimit != null && int.Parse(MonthlyLimit) <= 999999
                 && RestartHour != "" && RestartHour != null && int.Parse(RestartHour) >= 0 && int.Parse(RestartHour) <= 24
                 && RestartMinute != "" && RestartMinute != null && int.Parse(RestartMinute) >=0 && int.Parse(RestartMinute) <= 59)
             {
@@ -262,9 +312,9 @@ namespace GenieWin8
                     var messageDialog = new MessageDialog("RestartMinute must be between 0 and 59.");
                     await messageDialog.ShowAsync();
                 }
-                if (int.Parse(MonthlyLimit) < 0 || int.Parse(MonthlyLimit) > 1000000)
+                if (int.Parse(MonthlyLimit) < 0 || int.Parse(MonthlyLimit) > 999999)
                 {
-                    var messageDialog = new MessageDialog("MonthlyLimit must be between 0 and 1000000.");
+                    var messageDialog = new MessageDialog("MonthlyLimit must be between 0 and 999999.");
                     await messageDialog.ShowAsync();
                 }
             }

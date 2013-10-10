@@ -93,12 +93,15 @@
                     </LinearGradientBrush>
                 </Grid.Background>
                 <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                <TextBox x:Name="monthlyLimit" Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250" Margin="0,5,5,5" TextChanged="monthlyLimit_changed"/>
+                <TextBox x:Name="monthlyLimit" Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250"
+                         Margin="0,5,5,5" TextChanged="monthlyLimit_changed" InputScope="Number" MaxLength="6"/>
             </Grid>
+
+            <TextBlock x:Uid="TrafficMeterStartTime" Margin="0,25,0,0" FontSize="22" TextWrapping="Wrap"/>               
 
             <ListView ItemsSource="{Binding Source={StaticResource startdateSource}}"
                       SelectionMode="None"
-                      IsItemClickEnabled="True" Margin="0,30,0,0"
+                      IsItemClickEnabled="True" Margin="0,5,0,0"
                       ItemClick="StartDate_ItemClick">
                 <ListView.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -133,12 +136,14 @@
                 <Grid DataContext="{Binding Source={StaticResource starttimehourSource}}"
                       d:DataContext="{Binding Source={StaticResource starttimehourSource}}">
                     <TextBlock x:Uid="StartTimeHour" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,430,0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="restartHour" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,260,5" TextChanged="restartHour_changed"/>
+                    <TextBox x:Name="restartHour" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"
+                             Margin="0,5,260,5" TextChanged="restartHour_changed" InputScope="Number" MaxLength="2"/>
                 </Grid>
                 <Grid DataContext="{Binding Source={StaticResource starttimeminSource}}"
                   d:DataContext="{Binding Source={StaticResource starttimeminSource}}">
                     <TextBlock x:Uid="StartTimeMinute" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="restartMinute" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Margin="0,5,5,5" TextChanged="restartMinute_changed"/>
+                    <TextBox x:Name="restartMinute" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"
+                             Margin="0,5,5,5" TextChanged="restartMinute_changed" InputScope="Number" MaxLength="2"/>
                 </Grid>
             </Grid>
 

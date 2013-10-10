@@ -709,6 +709,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 最后 的本地化字符串。
+        /// </summary>
+        public static string LastDay {
+            get {
+                return ResourceManager.GetString("LastDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 上个月 的本地化字符串。
         /// </summary>
         public static string LastMonthAvgText {
@@ -1303,6 +1312,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 保存 的本地化字符串。
+        /// </summary>
+        public static string SaveButtonContent {
+            get {
+                return ResourceManager.GetString("SaveButtonContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 扫描仪 的本地化字符串。
         /// </summary>
         public static string scannerdev {
@@ -1677,6 +1695,15 @@ namespace GenieWP8.Resources {
         public static string TrafficMeterSettingPageTitleText {
             get {
                 return ResourceManager.GetString("TrafficMeterSettingPageTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 流量计启动时间 的本地化字符串。
+        /// </summary>
+        public static string TrafficMeterStartTime {
+            get {
+                return ResourceManager.GetString("TrafficMeterStartTime", resourceCulture);
             }
         }
         

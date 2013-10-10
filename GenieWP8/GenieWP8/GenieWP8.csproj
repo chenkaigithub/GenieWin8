@@ -465,7 +465,9 @@
     <EmbeddedResource Include="Resources\AppResources.ar-YE.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\AppResources.ar.resx" />
+    <EmbeddedResource Include="Resources\AppResources.ar.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.el-GR.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -199,7 +199,7 @@
                     <ProgressRing x:Name="InProgress1" IsActive="false" Height="30" Width="30" Foreground="White"/>
                 </StackPanel>
                 <Grid Margin="20,0,20,0" Height="20">
-                    <TextBlock x:Name="IsAvailableName" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red"/>
+                    <TextBlock x:Name="IsAvailableName" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                 </Grid>
                 <Grid Margin="20,0,20,0">
                     <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>

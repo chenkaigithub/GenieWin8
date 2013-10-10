@@ -350,6 +350,7 @@ namespace GenieWP8
             {
                 EnquirePopup.IsOpen = false;
                 RegisterPopup.IsOpen = true;
+                IsAvailableName.Visibility = Visibility.Collapsed;
                 PopupBackgroundTop.Visibility = Visibility.Visible;
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
@@ -717,6 +718,7 @@ namespace GenieWP8
             if (dicResponse["status"] != "success")
             {
                 chenckAvailableInProgress.Visibility = Visibility.Collapsed;
+                IsAvailableName.Visibility = Visibility.Visible;
                 IsAvailableName.Text = dicResponse["error_message"];
                 IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
                 ParentalControlInfo.IsUsernameAvailable = false;
@@ -727,16 +729,19 @@ namespace GenieWP8
                 chenckAvailableInProgress.Visibility = Visibility.Collapsed;
                 if (isAvailable == "no")
                 {
+                    IsAvailableName.Visibility = Visibility.Visible;
                     IsAvailableName.Text = "User Name is unavailable.";
                     IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
                 }
                 else if (isAvailable == "yes")
                 {
+                    IsAvailableName.Visibility = Visibility.Visible;
                     IsAvailableName.Text = "User Name is Available.";
                     IsAvailableName.Foreground = new SolidColorBrush(Colors.Green);
                 }
                 else
                 {
+                    IsAvailableName.Visibility = Visibility.Visible;
                     IsAvailableName.Text = dicResponse["available"];
                 }
                 ParentalControlInfo.IsUsernameAvailable = true;

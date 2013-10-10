@@ -769,4 +769,10 @@
   <data name="login_alertinfo_disableWireless" xml:space="preserve">
     <value>请将此设备通过无线方式连接到NETGEAR路由器，然后重试。</value>
   </data>
+  <data name="LastDay" xml:space="preserve">
+    <value>最后</value>
+  </data>
+  <data name="TrafficMeterStartTime.Text" xml:space="preserve">
+    <value>流量计启动时间</value>
+  </data>
 </root>

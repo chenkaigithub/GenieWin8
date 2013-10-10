@@ -58,13 +58,15 @@
                     </Grid.Background>
                     <TextBlock Text="{Binding Title}" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     <TextBox x:Name="monthlyLimit" Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"
-                             Width="200" TextAlignment="Right" TextChanged="monthlyLimit_changed"/>
+                             Width="200" TextAlignment="Right" TextChanged="monthlyLimit_changed" InputScope="TimeHour" MaxLength="6"/>
                 </Grid>
 
+                <TextBlock Text="{Binding Path=LocalizedResources.TrafficMeterStartTime, Source={StaticResource LocalizedStrings}}"
+                       Margin="0,25,0,0" FontSize="20" TextWrapping="Wrap"/>               
                 <phone:LongListSelector
                     x:Name="StartDateLongListSelector"
                     ItemsSource="{Binding StartDate}"
-                    Margin="0,30,0,0"
+                    Margin="0,5,0,0"
                     SelectionChanged="StartDate_SelectionChanged">
                     <phone:LongListSelector.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -105,7 +107,7 @@
                         <TextBlock Text="{Binding Path=LocalizedResources.StartTimeHourText, Source={StaticResource LocalizedStrings}}"
                                    Grid.Column="0" FontSize="22" VerticalAlignment="Center"/>
                         <TextBox x:Name="restartHour" Text="{Binding Content}" Grid.Column="1" FontSize="20" VerticalAlignment="Center"
-                                 TextAlignment="Center" TextChanged="restartHour_changed"/>
+                                 TextAlignment="Center" TextChanged="restartHour_changed" InputScope="Number" MaxLength="2"/>
                     </Grid>
                     <Grid Width="140" HorizontalAlignment="Right" DataContext="{Binding StartTimeMin}">
                         <Grid.ColumnDefinitions>
@@ -115,7 +117,7 @@
                         <TextBlock Text="{Binding Path=LocalizedResources.StartTimeMinuteText, Source={StaticResource LocalizedStrings}}"
                                    Grid.Column="0" FontSize="22" VerticalAlignment="Center"/>
                         <TextBox x:Name="restartMinute" Text="{Binding Content}" Grid.Column="1" FontSize="20" VerticalAlignment="Center"
-                                 TextAlignment="Center" TextChanged="restartMinute_changed"/>
+                                 TextAlignment="Center" TextChanged="restartMinute_changed" InputScope="Number" MaxLength="2"/>
                     </Grid>
                 </Grid>
 

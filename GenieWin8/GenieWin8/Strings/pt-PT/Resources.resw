@@ -736,4 +736,10 @@
   <data name="login_alertinfo_disableWireless" xml:space="preserve">
     <value>Conecte este dispositivo sem fio ao seu roteador NETGEAR e tente novamente.</value>
   </data>
+  <data name="LastDay" xml:space="preserve">
+    <value>Último</value>
+  </data>
+  <data name="TrafficMeterStartTime.Text" xml:space="preserve">
+    <value>Hora inicial do medidor de tráfego</value>
+  </data>
 </root>

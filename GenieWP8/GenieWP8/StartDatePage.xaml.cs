@@ -48,7 +48,14 @@ namespace GenieWP8
             settingModel.LoadData();
 
             string restartDay = TrafficMeterInfo.changedRestartDay;
-            StartDateListBox.SelectedIndex = int.Parse(restartDay) - 1;
+            if (int.Parse(restartDay) <= 28)
+            {
+                StartDateListBox.SelectedIndex = int.Parse(restartDay) - 1;
+            } 
+            else
+            {
+                StartDateListBox.SelectedIndex = 28;
+            }            
             //StartDateListBox.SelectedIndex = 0;
         }
 
@@ -88,7 +95,15 @@ namespace GenieWP8
             if (index == -1)
                 return;
 
-            TrafficMeterInfo.changedRestartDay = (index + 1).ToString();
+            if (index < 28)
+            {
+                TrafficMeterInfo.changedRestartDay = (index + 1).ToString();
+            } 
+            else
+            {
+                int RestartDay = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                TrafficMeterInfo.changedRestartDay = RestartDay.ToString();
+            }           
 
             //判断重启日期是否更改
             if (TrafficMeterInfo.changedRestartDay != TrafficMeterInfo.RestartDay)

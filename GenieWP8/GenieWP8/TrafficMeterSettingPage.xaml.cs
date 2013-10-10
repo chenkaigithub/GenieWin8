@@ -47,6 +47,15 @@ namespace GenieWP8
             settingModel.TrafficLimitation.Clear();
             settingModel.LoadData();
 
+            if (TrafficMeterInfo.changedControlOption == "No limit")
+            {
+                monthlyLimit.IsEnabled = false;
+            }
+            else
+            {
+                monthlyLimit.IsEnabled = true;
+            }
+
             //判断保存按钮是否可点击
             string monthlylimit = TrafficMeterInfo.changedMonthlyLimit;
             string restarthour = TrafficMeterInfo.changedRestartHour;
@@ -129,7 +138,7 @@ namespace GenieWP8
 
             //保存按钮
             //ApplicationBarIconButton appBarButton_save = new ApplicationBarIconButton(new Uri("Assets/save.png", UriKind.Relative));
-            appBarButton_save.Text = AppResources.RefreshButtonContent;
+            appBarButton_save.Text = AppResources.SaveButtonContent;
             ApplicationBar.Buttons.Add(appBarButton_save);
             appBarButton_save.Click += new EventHandler(appBarButton_save_Click);
         }
@@ -137,6 +146,20 @@ namespace GenieWP8
         //判断每月限制是否更改以及保存按钮是否可点击
         private void monthlyLimit_changed(Object sender, RoutedEventArgs e)
         {
+            string MonthlyLimit = monthlyLimit.Text;
+            if (MonthlyLimit.Contains("."))
+            {
+                int index = MonthlyLimit.IndexOf(".");
+                MonthlyLimit = MonthlyLimit.Remove(index, 1);
+            }
+            if (MonthlyLimit.Length > 1)
+            {
+                while (MonthlyLimit.ElementAt(0).CompareTo('0') == 0)
+                {
+                    MonthlyLimit = MonthlyLimit.Remove(0, 1);
+                }
+            }
+            monthlyLimit.Text = MonthlyLimit;
             TrafficMeterInfo.changedMonthlyLimit = monthlyLimit.Text.Trim();
             TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
             TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
@@ -172,6 +195,20 @@ namespace GenieWP8
         //判断重启时间-小时是否更改以及保存按钮是否可点击
         private void restartHour_changed(Object sender, RoutedEventArgs e)
         {
+            string RestartHour = restartHour.Text;
+            if (RestartHour.Contains("."))
+            {
+                int index = RestartHour.IndexOf(".");
+                RestartHour = RestartHour.Remove(index, 1);
+            }
+            if (RestartHour.Length > 1)
+            {
+                while (RestartHour.ElementAt(0).CompareTo('0') == 0)
+                {
+                    RestartHour = RestartHour.Remove(0, 1);
+                }
+            }
+            restartHour.Text = RestartHour;
             TrafficMeterInfo.changedMonthlyLimit = monthlyLimit.Text.Trim();
             TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
             TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
@@ -207,6 +244,20 @@ namespace GenieWP8
         //判断重启时间-分钟是否更改以及保存按钮是否可点击
         private void restartMinute_changed(Object sender, RoutedEventArgs e)
         {
+            string RestartMin = restartMinute.Text;
+            if (RestartMin.Contains("."))
+            {
+                int index = RestartMin.IndexOf(".");
+                RestartMin = RestartMin.Remove(index, 1);
+            }
+            if (RestartMin.Length > 1)
+            {
+                while (RestartMin.ElementAt(0).CompareTo('0') == 0)
+                {
+                    RestartMin = RestartMin.Remove(0, 1);
+                }
+            }
+            restartMinute.Text = RestartMin;
             TrafficMeterInfo.changedMonthlyLimit = monthlyLimit.Text.Trim();
             TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
             TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
@@ -370,6 +421,7 @@ namespace GenieWP8
         //保存按钮响应事件
         private async void appBarButton_save_Click(object sender, EventArgs e)
         {
+            this.Focus();
             PopupBackgroundTop.Visibility = Visibility.Visible;
             PopupBackground.Visibility = Visibility.Visible;
             InProgress.Visibility = Visibility.Visible;
@@ -379,7 +431,7 @@ namespace GenieWP8
             string MonthlyLimit = monthlyLimit.Text.Trim();
             string RestartHour = restartHour.Text.Trim();
             string RestartMinute = restartMinute.Text.Trim();
-            if (MonthlyLimit != "" && MonthlyLimit != null && int.Parse(MonthlyLimit) <= 1000000
+            if (MonthlyLimit != "" && MonthlyLimit != null && int.Parse(MonthlyLimit) <= 999999
                 && RestartHour != "" && RestartHour != null && int.Parse(RestartHour) >= 0 && int.Parse(RestartHour) <= 23
                 && RestartMinute != "" && RestartMinute != null && int.Parse(RestartMinute) >= 0 && int.Parse(RestartMinute) <= 59)
             {
@@ -417,9 +469,9 @@ namespace GenieWP8
                 {
                     MessageBox.Show("RestartMinute must be between 0 and 59.");
                 }
-                if (int.Parse(MonthlyLimit) < 0 || int.Parse(MonthlyLimit) > 1000000)
+                if (int.Parse(MonthlyLimit) < 0 || int.Parse(MonthlyLimit) > 999999)
                 {
-                    MessageBox.Show("MonthlyLimit must be between 0 and 1000000.");
+                    MessageBox.Show("MonthlyLimit must be between 0 and 999999.");
                 }
             }
         }

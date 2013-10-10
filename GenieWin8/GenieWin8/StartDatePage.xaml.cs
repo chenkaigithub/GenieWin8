@@ -43,7 +43,14 @@ namespace GenieWin8
             var startdateGroup = TrafficMeterSource.GetStartDateItems((String)navigationParameter);
             string restartDay = TrafficMeterInfoModel.changedRestartDay;
             this.DefaultViewModel["itemStartDate"] = startdateGroup.Items;
-            restartDayListView.SelectedIndex = int.Parse(restartDay) - 1;
+            if (int.Parse(restartDay) <= 28)
+            {
+                restartDayListView.SelectedIndex = int.Parse(restartDay) - 1;
+            } 
+            else
+            {
+                restartDayListView.SelectedIndex = 28;
+            }            
         }
 
         /// <summary>
@@ -59,7 +66,15 @@ namespace GenieWin8
         private void ChangeRestartDayClick(object sender, SelectionChangedEventArgs e)
         {
             int index = restartDayListView.SelectedIndex;
-            TrafficMeterInfoModel.changedRestartDay = (index + 1).ToString();
+            if (index < 28)
+            {
+                TrafficMeterInfoModel.changedRestartDay = (index + 1).ToString();
+            } 
+            else
+            {
+                int RestartDay = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                TrafficMeterInfoModel.changedRestartDay = RestartDay.ToString();
+            }            
 
             //判断重启日期是否更改
             if (TrafficMeterInfoModel.changedRestartDay != TrafficMeterInfoModel.RestartDay)

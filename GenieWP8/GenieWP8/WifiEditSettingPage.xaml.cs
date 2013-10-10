@@ -191,7 +191,7 @@ namespace GenieWP8
 
             //保存按钮
             //ApplicationBarIconButton appBarButton_save = new ApplicationBarIconButton(new Uri("Assets/save.png", UriKind.Relative));
-            appBarButton_save.Text = AppResources.RefreshButtonContent;
+            appBarButton_save.Text = AppResources.SaveButtonContent;
             ApplicationBar.Buttons.Add(appBarButton_save);
             appBarButton_save.Click += new EventHandler(appBarButton_save_Click);
         }
