@@ -742,4 +742,13 @@
   <data name="TrafficMeterStartTime.Text" xml:space="preserve">
     <value>Heure de début du compteur de trafic</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>Ce caractère n'est pas autorisé dans la phrase d'authentification.</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>Ce caractère n'est pas autorisé dans le SSID.</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>Une phrase d'authentification comprend entre 8 et 63 caractères ASCII ou exactement 64 caractères hexadécimaux. Les caractères hexadécimaux sont les suivants : 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
+  </data>
 </root>

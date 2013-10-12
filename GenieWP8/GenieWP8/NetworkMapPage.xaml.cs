@@ -1380,6 +1380,7 @@ namespace GenieWP8
             lpType.Visibility = Visibility.Visible;
             btnModify.Visibility = Visibility.Collapsed;
             btnApply.Visibility = Visibility.Visible;
+            DeviceInfoScrollViewer.ScrollToVerticalOffset(0);
         }
 
         private void ApplyButton_Click(Object sender, RoutedEventArgs e)

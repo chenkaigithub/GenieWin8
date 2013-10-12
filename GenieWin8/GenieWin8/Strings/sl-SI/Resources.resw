@@ -742,4 +742,13 @@
   <data name="TrafficMeterStartTime.Text" xml:space="preserve">
     <value>Začetni čas merilnika prometa</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>Geslo ne sme vsebovati znaka</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>SSID ne sme vsebovati znaka</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>Geslo vsebuje 8~63 znakov ASCII ali natanko 64 šestnajstiških številk. Šestnajstiška številka je ena od teh znakov: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
+  </data>
 </root>

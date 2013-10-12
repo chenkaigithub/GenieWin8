@@ -805,4 +805,13 @@
   <data name="SaveButtonContent" xml:space="preserve">
     <value>حفظ</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>غير مسموح بالحرف في عبارة المرور.</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>غير مسموح بالحرف في SSID.</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>تتألف عبارة المرور من 8 إلى 63 حرف ASCII أو بالتحديد 64 رقماً سداسياً عشرياً. الرقم السداسي العشري هو أحد هذه الأحرف: 0، 1، 2، ...، 8، 9، A، B، C، D، E، F.</value>
+  </data>
 </root>

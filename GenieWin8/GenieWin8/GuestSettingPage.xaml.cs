@@ -169,24 +169,62 @@ namespace GenieWin8
 
         DispatcherTimer timer = new DispatcherTimer();      //计时器
         private async void GuestSettingSave_Click(object sender, RoutedEventArgs e)
-        {           
-            // Create the message dialog and set its content
+        {
+            string ssid = SSID.Text;
+            string password = Password.Text;
+            bool IsSsidSBC = IsAllowChar(ssid);
+            bool IsPasswordSBC = IsAllowChar(password);
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-            var strtext = loader.GetString("wirelsssetting");
-            var messageDialog = new MessageDialog(strtext);
+            if (IsSsidSBC)
+            {
+                var messageDialog = new MessageDialog(loader.GetString("DisallowedSSIDChar"));
+                await messageDialog.ShowAsync();
+            }
+            else if (password.Length < 8 || password.Length > 64)
+            {
+                var messageDialog = new MessageDialog(loader.GetString("MsgPasswordFormat"));
+                await messageDialog.ShowAsync();
+            }
+            else if (password.Length == 64)
+            {
+                bool ret = false;           //ret为true，表示密码符合64位十六进制数字，反之则为false
+                char[] ch = password.ToCharArray();
+                for (int i = 0; i < ch.Length; i++)
+                {
+                    if ((ch[i] > 47 && ch[i] < 58) || (ch[i] > 64 && ch[i] < 71))
+                        ret = true;
+                }
+                if (!ret)
+                {
+                    var messageDialog = new MessageDialog(loader.GetString("DisallowedPasswordChar"));
+                    await messageDialog.ShowAsync();
+                }
+            }
+            else if (IsPasswordSBC)
+            {
+                var messageDialog = new MessageDialog(loader.GetString("DisallowedPasswordChar"));
+                await messageDialog.ShowAsync();
+            }
+            else
+            {
+                // Create the message dialog and set its content
+                //var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var strtext = loader.GetString("wirelsssetting");
+                var messageDialog = new MessageDialog(strtext);
 
-            // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
-            messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
-            messageDialog.Commands.Add(new UICommand("No", null));
+                // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
+                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandler)));
+                messageDialog.Commands.Add(new UICommand("No", null));
 
-            // Set the command that will be invoked by default
-            messageDialog.DefaultCommandIndex = 0;
+                // Set the command that will be invoked by default
+                messageDialog.DefaultCommandIndex = 0;
 
-            // Set the command to be invoked when escape is pressed
-            messageDialog.CancelCommandIndex = 1;
+                // Set the command to be invoked when escape is pressed
+                messageDialog.CancelCommandIndex = 1;
 
-            // Show the message dialog
-            await messageDialog.ShowAsync();
+                // Show the message dialog
+                await messageDialog.ShowAsync();
+            }           
         }
 
         #region Commands
@@ -245,6 +283,21 @@ namespace GenieWin8
                 MainPageInfo.bLogin = false;
                 this.GoHome(null, null);
             }
+        }
+        
+        //通过ASCII码值判断输入字符串是否有不允许字符
+        private static bool IsAllowChar(string input)
+        {
+            if (input == "" || input == null)
+                return false;
+            bool ret = false;
+            char[] ch = input.ToCharArray();
+            for (int i = 0; i < ch.Length; i++)
+            {
+                if (ch[i] < 33 || ch[i] > 126)
+                    ret = true;
+            }
+            return ret;
         }
     }
 }

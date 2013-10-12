@@ -17,7 +17,7 @@
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="GenieWin8.App">
       <VisualElements DisplayName="GenieWin8" Logo="Assets\NETGEAR_Genie_ico_150.png" SmallLogo="Assets\NETGEAR_Genie_ico_30.png" Description="GenieWin8" ForegroundText="light" BackgroundColor="#3030FF">
         <DefaultTile ShowName="noLogos" />
-        <SplashScreen Image="Assets\开机画面620x300.png" BackgroundColor="#E4E8ED" />
+        <SplashScreen Image="Assets\开机画面620x300.png" BackgroundColor="#E6E6FB" />
       </VisualElements>
       <Extensions>
         <Extension Category="windows.fileTypeAssociation">

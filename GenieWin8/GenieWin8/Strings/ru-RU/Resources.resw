@@ -742,4 +742,13 @@
   <data name="TrafficMeterStartTime.Text" xml:space="preserve">
     <value>Время запуска счетчика трафика</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>Недопустимый символ для фразы-пароля</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>Недопустимый для SSID символ</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>Фраза-пароль состоит из 8-63 ASCII символов, либо ровно из 64 шестнадцатеричных цифр. К шестнадцатеричным относятся следующие символы: 0, 1, 2, ..., 8, 9, A, B, C, D, E, и F.</value>
+  </data>
 </root>

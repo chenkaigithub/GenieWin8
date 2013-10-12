@@ -403,6 +403,24 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 密码中使用了不允许的字符 的本地化字符串。
+        /// </summary>
+        public static string DisallowedPasswordChar {
+            get {
+                return ResourceManager.GetString("DisallowedPasswordChar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 使用了不允许用于无线网络标识(SSID)的字符。 的本地化字符串。
+        /// </summary>
+        public static string DisallowedSSIDChar {
+            get {
+                return ResourceManager.GetString("DisallowedSSIDChar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 下载 的本地化字符串。
         /// </summary>
         public static string DownloadText {
@@ -894,6 +912,15 @@ namespace GenieWP8.Resources {
         public static string MonthTotalText {
             get {
                 return ResourceManager.GetString("MonthTotalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 密码由8~63个ASCII字符或64个十六进制数字组成。十六进制数字为以下所示字符之一：0, 1, 2, ..., 8, 9, A, B, C, D, E, F。 的本地化字符串。
+        /// </summary>
+        public static string MsgPasswordFormat {
+            get {
+                return ResourceManager.GetString("MsgPasswordFormat", resourceCulture);
             }
         }
         

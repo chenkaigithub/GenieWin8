@@ -47,9 +47,24 @@
         <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <phone:LongListSelector 
-                x:Name="WifiSettingLongListSelector"
-                ItemsSource="{Binding SettingGroups}"
-                SelectionChanged="WifiSettingLongListSelector_SelectionChanged">
+                    x:Name="StrengthRateLongListSelector"
+                    ItemsSource="{Binding StrengthRateGroups}"
+                    SelectionChanged="StrengthRateLongListSelector_SelectionChanged"
+                    Background="#FF50C6FD">
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,10" Grid.Column="0">
+                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+                
+                <phone:LongListSelector 
+                    x:Name="WifiSettingLongListSelector"
+                    ItemsSource="{Binding SettingGroups}"
+                    SelectionChanged="WifiSettingLongListSelector_SelectionChanged">
                     <phone:LongListSelector.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF004F74" Offset="1"/>
@@ -58,10 +73,17 @@
                     </phone:LongListSelector.Background>
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,10">
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="0,0,0,10" Grid.Column="0">
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                    <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                                <Image Source="Assets/gofoward.png" Grid.Column="1" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            </Grid>                           
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>

@@ -805,4 +805,13 @@
   <data name="SaveButtonContent" xml:space="preserve">
     <value>Varmuuskopioi</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>Merkkiä ei saa käyttää salasanassa</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>Merkkiä ei saa käyttää SSID-tunnuksessa</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>Salasana koostuu joko 8~63 ASCII-merkistä tai täsmälleen 64 heksadesimaaliluvusta. Heksadesimaaliluku on jokin näistä merkeistä: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
+  </data>
 </root>

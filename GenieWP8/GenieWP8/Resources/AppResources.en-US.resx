@@ -814,4 +814,13 @@
   <data name="SaveButtonContent" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>Character is not allowed in passphrase.</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>Character is not allowed in SSID.</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>A passphrase consists of either 8~63 ASCII characters or exactly 64 hex-digits. A hex digit is one of these characters: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
+  </data>
 </root>

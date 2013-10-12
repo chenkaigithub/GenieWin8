@@ -50,6 +50,7 @@ namespace GenieWP8
             //{
             //    settingModel.LoadData();
             //}
+            settingModel.StrengthRateGroups.Clear();
             settingModel.SettingGroups.Clear();
             settingModel.EditChannelSecurity.Clear();
             settingModel.LoadData();
@@ -74,6 +75,16 @@ namespace GenieWP8
         }
 
         // 处理在 LongListSelector 中更改的选定内容
+        private void StrengthRateLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // 如果所选项为空(没有选定内容)，则不执行任何操作
+            if (StrengthRateLongListSelector.SelectedItem == null)
+                return;
+
+            // 将所选项重置为 null (没有选定内容)
+            StrengthRateLongListSelector.SelectedItem = null;
+        }
+
         private void WifiSettingLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 如果所选项为空(没有选定内容)，则不执行任何操作

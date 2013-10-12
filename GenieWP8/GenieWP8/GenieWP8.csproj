@@ -161,6 +161,9 @@
     <Compile Include="StartDatePage.xaml.cs">
       <DependentUpon>StartDatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TrafficLimitationPage.xaml.cs">
       <DependentUpon>TrafficLimitationPage.xaml</DependentUpon>
     </Compile>
@@ -262,6 +265,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="StartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TrafficLimitationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -338,6 +345,7 @@
     <Content Include="Assets\devices\unixpc.png" />
     <Content Include="Assets\devices\windowspc.png" />
     <Content Include="Assets\devices\windowsphone.png" />
+    <Content Include="Assets\gofoward.png" />
     <Content Include="Assets\internet72.png" />
     <Content Include="Assets\MainPage\appstore.png" />
     <Content Include="Assets\MainPage\guestaccess.png" />
@@ -439,6 +447,7 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\开机画面620x300.png" />
     <Content Include="Logo.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
@@ -512,9 +521,6 @@
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\WPtoolkit.4.2013.06.11\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -527,8 +533,9 @@
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>lib\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="zxing.wp8.0">
-      <HintPath>..\packages\ZXing.Net.0.11.0.1\lib\wp8\zxing.wp8.0.dll</HintPath>
+    <Reference Include="zxing.wp8.0, Version=0.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ZXing.Net.0.12.0.0\lib\wp8\zxing.wp8.0.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

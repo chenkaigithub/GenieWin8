@@ -805,4 +805,13 @@
   <data name="SaveButtonContent" xml:space="preserve">
     <value>Uložiť</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>Znak nie je povolený v prístupovej fráze</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>Znak nie je povolený v SSID</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>Prístupová fráza obsahuje 8 až 63 znakov ASCII alebo presne 64 hexadecimálnych číslic. Hexadecimálna číslica je niektorý z nasledujúcich znakov: 0, 1, 2, ..., 8, 9, A, B, C, D, E a F.</value>
+  </data>
 </root>

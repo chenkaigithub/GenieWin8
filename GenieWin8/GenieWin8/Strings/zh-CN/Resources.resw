@@ -775,4 +775,13 @@
   <data name="TrafficMeterStartTime.Text" xml:space="preserve">
     <value>流量计启动时间</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>密码中使用了不允许的字符</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>使用了不允许用于无线网络标识(SSID)的字符。</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>密码由8~63个ASCII字符或64个十六进制数字组成。十六进制数字为以下所示字符之一：0, 1, 2, ..., 8, 9, A, B, C, D, E, F。</value>
+  </data>
 </root>

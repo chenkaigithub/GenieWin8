@@ -121,12 +121,14 @@ namespace GenieWP8.ViewModels
     {
         public WifiSettingModel()
         {
+            this.StrengthRateGroups = new ObservableCollection<SettingGroup>();
             this.SettingGroups = new ObservableCollection<SettingGroup>();
             this.EditName = new SettingGroup();
             this.EditKey = new SettingGroup();
             this.EditChannelSecurity = new ObservableCollection<SettingGroup>();
         }
 
+        public ObservableCollection<SettingGroup> StrengthRateGroups { get; private set; }
         public ObservableCollection<SettingGroup> SettingGroups { get; private set; }
         public SettingGroup EditName { get; private set; }
         public SettingGroup EditKey { get; private set; }
@@ -141,10 +143,10 @@ namespace GenieWP8.ViewModels
         public void LoadData()
         {          
             var group1 = new SettingGroup() { ID = "SignalStrength", Title = AppResources.txtSignalStrength, Content = WifiSettingInfo.signalStrength };
-            this.SettingGroups.Add(group1);
+            this.StrengthRateGroups.Add(group1);
 
             var group2 = new SettingGroup() { ID = "LinkRate", Title = AppResources.txtLinkRate, Content = WifiSettingInfo.linkRate };
-            this.SettingGroups.Add(group2);
+            this.StrengthRateGroups.Add(group2);
 
             var group3 = new SettingGroup() { ID = "WiFiName", Title = AppResources.WiFiName, Content = WifiSettingInfo.ssid };
             EditName = group3;

@@ -742,4 +742,13 @@
   <data name="TrafficMeterStartTime.Text" xml:space="preserve">
     <value>Hora inicial do medidor de tráfego</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>Caractere não permitido na senha</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>Caractere não permitido no SSID</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>Uma senha consiste em 8 a 63 caracteres ASCII ou exatamente 64 dígitos hexagonais. Um dígito hexagonal é um desses caracteres: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
+  </data>
 </root>

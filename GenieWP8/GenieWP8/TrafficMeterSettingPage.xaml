@@ -79,10 +79,17 @@
                     </phone:LongListSelector.Background>
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="10,0,0,0">
-                                <TextBlock Text="{Binding Title}" FontSize="22"/>
-                                <TextBlock Text="{Binding Content}" FontSize="20"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="10,0,0,0">
+                                    <TextBlock Text="{Binding Title}" FontSize="22"/>
+                                    <TextBlock Text="{Binding Content}" FontSize="20"/>
+                                </StackPanel>
+                                <Image Source="Assets/gofoward.png" Grid.Column="1" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            </Grid>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>
@@ -137,10 +144,17 @@
                     </phone:LongListSelector.Background>
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="10,0,0,0">
-                                <TextBlock Text="{Binding Title}" FontSize="22"/>
-                                <TextBlock Text="{Binding Content}" FontSize="22"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="10,0,0,0">
+                                    <TextBlock Text="{Binding Title}" FontSize="22"/>
+                                    <TextBlock Text="{Binding Content}" FontSize="22"/>
+                                </StackPanel>
+                                <Image Source="Assets/gofoward.png" Grid.Column="1" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            </Grid>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>

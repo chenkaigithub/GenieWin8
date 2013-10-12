@@ -328,12 +328,45 @@ namespace GenieWP8
         //保存按钮响应事件
         private void appBarButton_save_Click(object sender, EventArgs e)
         {
-            PopupEnquire.IsOpen = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            InProgress.Visibility = Visibility.Collapsed;
-            pleasewait.Visibility = Visibility.Collapsed;
-            waittime.Visibility = Visibility.Collapsed;
+            string ssid = SSID.Text;
+            string password = pwd.Text;
+            bool IsSsidSBC = IsAllowChar(ssid);
+            bool IsPasswordSBC = IsAllowChar(password);
+            if (IsSsidSBC)
+            {
+                MessageBox.Show(AppResources.DisallowedSSIDChar);
+            }
+            else if (password.Length < 8 || password.Length > 64)
+            {
+                MessageBox.Show(AppResources.MsgPasswordFormat);
+            }
+            else if (password.Length == 64)
+            {
+                bool ret = false;           //ret为true，表示密码符合64位十六进制数字，反之则为false
+                char[] ch = password.ToCharArray();
+                for (int i = 0; i < ch.Length; i++)
+                {
+                    if ((ch[i] > 47 && ch[i] < 58) || (ch[i] > 64 && ch[i] < 71))
+                        ret = true;
+                }
+                if (!ret)
+                {
+                    MessageBox.Show(AppResources.DisallowedPasswordChar);
+                }
+            }
+            else if (IsPasswordSBC)
+            {
+                MessageBox.Show(AppResources.DisallowedPasswordChar);
+            }
+            else
+            {
+                PopupEnquire.IsOpen = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Collapsed;
+                pleasewait.Visibility = Visibility.Collapsed;
+                waittime.Visibility = Visibility.Collapsed;
+            }            
         }
 
         DispatcherTimer timer = new DispatcherTimer();      //计时器
@@ -395,6 +428,21 @@ namespace GenieWP8
                 MainPageInfo.bLogin = false;
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
+        }
+
+        //通过ASCII码值判断输入字符串是否有不允许字符
+        private static bool IsAllowChar(string input)
+        {
+            if (input == "" || input == null)
+                return false;
+            bool ret = false;
+            char[] ch = input.ToCharArray();
+            for (int i = 0; i < ch.Length; i++)
+            {
+                if (ch[i] < 33 || ch[i] > 126)
+                    ret = true;
+            }
+            return ret;
         }
     }
 }

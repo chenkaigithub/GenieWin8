@@ -401,34 +401,15 @@ namespace GenieWP8
 
         private void appBarButton_search_Click(object sender, EventArgs e)
         {
-            if (PopupBackgroundTop.Visibility == Visibility.Collapsed)
+            if (gridSearch.Visibility == Visibility.Collapsed)
             {
-                PopupBackgroundTop.Visibility = Visibility.Visible;
-                tbSearch.Visibility = Visibility.Visible;
-                btnSearch.Visibility = Visibility.Visible;
+                gridSearch.Visibility = Visibility.Visible;
+                //tbSearch.Visibility = Visibility.Visible;
+                //btnSearch.Visibility = Visibility.Visible;
             }
             else
             {
-                if (PopupBackground.Visibility == Visibility.Collapsed)
-                {
-                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                    tbSearch.Visibility = Visibility.Collapsed;
-                    btnSearch.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    if (AboutPopup.IsOpen)
-                    {
-                        AboutPopup.IsOpen = false;
-                    }
-                    else if (LicensePopup.IsOpen)
-                    {
-                        LicensePopup.IsOpen = false;
-                    }
-                    PopupBackground.Visibility = Visibility.Collapsed;
-                    tbSearch.Visibility = Visibility.Visible;
-                    btnSearch.Visibility = Visibility.Visible;
-                }
+                gridSearch.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -472,8 +453,8 @@ namespace GenieWP8
                 }
                 AboutPopup.IsOpen = true;
                 //PopupBackgroundTop.Visibility = Visibility.Visible;
-                tbSearch.Visibility = Visibility.Collapsed;
-                btnSearch.Visibility = Visibility.Collapsed;
+                //tbSearch.Visibility = Visibility.Collapsed;
+                //btnSearch.Visibility = Visibility.Collapsed;
                 //PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
@@ -538,8 +519,8 @@ namespace GenieWP8
                 LicensePopup.IsOpen = true;
                 AboutPopup.IsOpen = false;
                 PopupBackgroundTop.Visibility = Visibility.Visible;
-                tbSearch.Visibility = Visibility.Collapsed;
-                btnSearch.Visibility = Visibility.Collapsed;
+                //tbSearch.Visibility = Visibility.Collapsed;
+                //btnSearch.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;

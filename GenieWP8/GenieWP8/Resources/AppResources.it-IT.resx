@@ -805,4 +805,13 @@
   <data name="SaveButtonContent" xml:space="preserve">
     <value>Backup</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>Carattere non consentito nella password</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>Carattere non consentito in SSID</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>La lunghezza della passphrase deve essere compresa tra 8 e 63 caratteri ASCII o deve contenere esattamente 64 cifre esadecimali. Per cifra esadecimale si intende uno dei seguenti caratteri: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
+  </data>
 </root>

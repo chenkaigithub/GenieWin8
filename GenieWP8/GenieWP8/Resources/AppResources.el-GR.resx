@@ -805,4 +805,13 @@
   <data name="SaveButtonContent" xml:space="preserve">
     <value>Δημιουργήστε αντ ασφαλείας</value>
   </data>
+  <data name="DisallowedPasswordChar" xml:space="preserve">
+    <value>Ο χαρακτήρας δεν επιτρέπεται σε φράση πρόσβασης</value>
+  </data>
+  <data name="DisallowedSSIDChar" xml:space="preserve">
+    <value>Ο χαρακτήρας δεν επιτρέπεται σε SSID</value>
+  </data>
+  <data name="MsgPasswordFormat" xml:space="preserve">
+    <value>Μια κωδική φράση αποτελείται είτε από 8~63 χαρακτήρες ASCII ή από ακριβώς 64 δεκαεξαδικά ψηφία. Ένα δεκαεξαδικό ψηφίο είναι ένα από τους εξής χαρακτήρες: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
+  </data>
 </root>
