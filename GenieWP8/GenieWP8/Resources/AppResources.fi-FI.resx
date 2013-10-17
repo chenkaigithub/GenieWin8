@@ -814,4 +814,202 @@
   <data name="MsgPasswordFormat" xml:space="preserve">
     <value>Salasana koostuu joko 8~63 ASCII-merkistä tai täsmälleen 64 heksadesimaaliluvusta. Heksadesimaaliluku on jokin näistä merkeistä: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
   </data>
+  <data name="AnotherUserRegisters" xml:space="preserve">
+    <value>Laite on rekisteröity toiselle OpenDNS-käyttäjälle.</value>
+  </data>
+  <data name="OkButtonContent" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="AcademicFraud" xml:space="preserve">
+    <value>Akateemiset huijaukset</value>
+  </data>
+  <data name="AdultThemes" xml:space="preserve">
+    <value>Aikuisaiheet</value>
+  </data>
+  <data name="Adware" xml:space="preserve">
+    <value>Mainosohjelma</value>
+  </data>
+  <data name="Alcohol" xml:space="preserve">
+    <value>Alkoholi</value>
+  </data>
+  <data name="AnimeMangaWebcomic" xml:space="preserve">
+    <value>Anime/manga/verkkosarjakuva</value>
+  </data>
+  <data name="Auctions" xml:space="preserve">
+    <value>Huutokaupat</value>
+  </data>
+  <data name="Automotive" xml:space="preserve">
+    <value>Autot</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogit</value>
+  </data>
+  <data name="BusinessServices" xml:space="preserve">
+    <value>Yrityspalvelut</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Keskustelu</value>
+  </data>
+  <data name="Classifieds" xml:space="preserve">
+    <value>Ilmoitukset</value>
+  </data>
+  <data name="Dating" xml:space="preserve">
+    <value>Treffit</value>
+  </data>
+  <data name="Drugs" xml:space="preserve">
+    <value>Huumeet</value>
+  </data>
+  <data name="EcommerceShopping" xml:space="preserve">
+    <value>Sähköinen kaupankäynti / ostokset</value>
+  </data>
+  <data name="EducationalInstitutions" xml:space="preserve">
+    <value>Oppilaitokset</value>
+  </data>
+  <data name="FileStorage" xml:space="preserve">
+    <value>Tiedostojen tallennus</value>
+  </data>
+  <data name="FinancialInstitutions" xml:space="preserve">
+    <value>Rahoituslaitokset</value>
+  </data>
+  <data name="ForumsMessageboards" xml:space="preserve">
+    <value>Foorumit/keskustelupalstat</value>
+  </data>
+  <data name="Gambling" xml:space="preserve">
+    <value>Uhkapelit</value>
+  </data>
+  <data name="Games" xml:space="preserve">
+    <value>Pelit</value>
+  </data>
+  <data name="GermanYouthProtection" xml:space="preserve">
+    <value>Saksalaisnuorten suojelu</value>
+  </data>
+  <data name="Government" xml:space="preserve">
+    <value>Hallinto</value>
+  </data>
+  <data name="HateDiscrimination" xml:space="preserve">
+    <value>Viha/syrjintä</value>
+  </data>
+  <data name="HealthandFitness" xml:space="preserve">
+    <value>Terveys ja kuntoilu</value>
+  </data>
+  <data name="Humor" xml:space="preserve">
+    <value>Huumori</value>
+  </data>
+  <data name="Illustration_CustomText" xml:space="preserve">
+    <value>Vain valitsemasi luokat estetään.</value>
+  </data>
+  <data name="InstantMessaging" xml:space="preserve">
+    <value>Pikaviestintä</value>
+  </data>
+  <data name="JobsEmployment" xml:space="preserve">
+    <value>Työpaikat/työ</value>
+  </data>
+  <data name="LingerieBikini" xml:space="preserve">
+    <value>Alusvaatteet/bikinit</value>
+  </data>
+  <data name="Movies" xml:space="preserve">
+    <value>Elokuvat</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Musiikki</value>
+  </data>
+  <data name="NewsMedia" xml:space="preserve">
+    <value>Uutiset/media</value>
+  </data>
+  <data name="Non_Profits" xml:space="preserve">
+    <value>Voittoa tavoittelemattomat</value>
+  </data>
+  <data name="Nudity" xml:space="preserve">
+    <value>Alastomuus</value>
+  </data>
+  <data name="P2PFilesharing" xml:space="preserve">
+    <value>P2P/tiedostojen jakaminen</value>
+  </data>
+  <data name="ParkedDomains" xml:space="preserve">
+    <value>Säilytykseen siirretyt toimialueet</value>
+  </data>
+  <data name="PhishingProtection" xml:space="preserve">
+    <value>Tietokalastelulta suojaus</value>
+  </data>
+  <data name="PhotoSharing" xml:space="preserve">
+    <value>Valokuvien jakaminen</value>
+  </data>
+  <data name="Podcasts" xml:space="preserve">
+    <value>Podcastit</value>
+  </data>
+  <data name="Politics" xml:space="preserve">
+    <value>Politiikka</value>
+  </data>
+  <data name="Pornography" xml:space="preserve">
+    <value>Pornografia</value>
+  </data>
+  <data name="Portals" xml:space="preserve">
+    <value>Portaalit</value>
+  </data>
+  <data name="ProxyAnonymizer" xml:space="preserve">
+    <value>Välityspalvelin / anonyymi käyttö</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>Radio</value>
+  </data>
+  <data name="radioButton_CustomContent" xml:space="preserve">
+    <value>Mukautettu</value>
+  </data>
+  <data name="Religious" xml:space="preserve">
+    <value>Uskonnollinen</value>
+  </data>
+  <data name="ResearchReference" xml:space="preserve">
+    <value>Tutkimus/viite</value>
+  </data>
+  <data name="SearchEngines" xml:space="preserve">
+    <value>Hakukoneet</value>
+  </data>
+  <data name="Sexuality" xml:space="preserve">
+    <value>Seksuaalisuus</value>
+  </data>
+  <data name="SocialNetworking" xml:space="preserve">
+    <value>Yhteisöpalvelut</value>
+  </data>
+  <data name="SoftwareTechnology" xml:space="preserve">
+    <value>Ohjelmistot/tekniikka</value>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>Urheilu</value>
+  </data>
+  <data name="Tasteless" xml:space="preserve">
+    <value>Mauton</value>
+  </data>
+  <data name="Television" xml:space="preserve">
+    <value>Televisio</value>
+  </data>
+  <data name="Tobacco" xml:space="preserve">
+    <value>Tupakka</value>
+  </data>
+  <data name="Travel" xml:space="preserve">
+    <value>Matkailu</value>
+  </data>
+  <data name="TypoSquatting" xml:space="preserve">
+    <value>Kirjoitusvirhekaappaus</value>
+  </data>
+  <data name="VideoSharing" xml:space="preserve">
+    <value>Videoiden jakaminen</value>
+  </data>
+  <data name="VisualSearchEngines" xml:space="preserve">
+    <value>Visuaaliset hakukoneet</value>
+  </data>
+  <data name="Weapons" xml:space="preserve">
+    <value>Aseet</value>
+  </data>
+  <data name="Webmail" xml:space="preserve">
+    <value>Verkkosähköposti</value>
+  </data>
+  <data name="WebSpam" xml:space="preserve">
+    <value>Verkkoroskaposti</value>
+  </data>
+  <data name="CustomData" xml:space="preserve">
+    <value>Mukautetut tiedot</value>
+  </data>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>Käyttäjätunnus- tai salasanakenttä on tyhjä.</value>
+  </data>
 </root>

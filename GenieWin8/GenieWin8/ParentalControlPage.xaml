@@ -100,8 +100,6 @@
                         <StackPanel Orientation="Vertical" Margin="10,0,0,0">
                             <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Content}" FontSize="22"/>
-                            <!--<TextBlock Text="过滤级别" FontSize="24" FontWeight="Bold"/>
-                    <TextBlock Text="低" FontSize="22"/>-->
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -247,11 +245,11 @@
                 <TextBlock x:Uid="EnterUsername_Password" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
                 <Grid Margin="20,15,20,0">
                     <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox x:Name="LoginUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" TextChanged="IsBlankLoginUsername"/>
+                    <TextBox x:Name="LoginUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
                 </Grid>
                 <Grid Margin="20,15,20,0">
                     <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <PasswordBox x:Name="LoginPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" PasswordChanged="IsBlankLoginPassword"/>
+                    <PasswordBox x:Name="LoginPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
                 </Grid>
                 <Grid>
                     <Button x:Name="LoginPreviousButton" x:Uid="PreviousButton" Click="LoginPreviousButton_Click"
@@ -279,6 +277,8 @@
                     <TextBlock x:Uid="Illustration_Medium" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
                     <RadioButton x:Name="radioButton_High"  x:Uid="radioButton_High" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
                     <TextBlock x:Uid="Illustration_High" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <RadioButton x:Name="radioButton_Custom"  x:Uid="radioButton_Custom" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Click="CustomRBClicked"/>
+                    <TextBlock x:Uid="Illustration_Custom" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
                     <Grid>
                         <Button x:Name="FilterLvPreviousButton" x:Uid="PreviousButton" Click="FilterLvPreviousButton_Click"
                                 Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,300,0"/>
@@ -291,6 +291,262 @@
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
+        </Popup>
+
+        <!--自定义类别选择-->
+        <Popup x:Name="CategoriesPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
+            <StackPanel Width="600">
+                <StackPanel>
+                    <TextBlock x:Uid="CustomData" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <Grid>
+                        <Button Content="Select All" Width="250" Height="50" FontSize="22" Padding="0,0,0,6" HorizontalAlignment="Center" Margin="0,0,300,0"  Click="SelectAllBtn_Click"/>
+                        <Button Content="Deselect All" Width="250" Height="50" FontSize="22" Padding="0,0,0,6" HorizontalAlignment="Center" Margin="300,0,0,0"  Click="DeselectAllBtn_Click"/>
+                    </Grid>
+                </StackPanel>
+                <ListView x:Name="CategoriesList" Height="400"  SelectionChanged="CategoriesList_SelectionChanged">
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_1" x:Uid="AcademicFraud" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_2" x:Uid="AdultThemes" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_3" x:Uid="Adware" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_4" x:Uid="Alcohol" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_5" x:Uid="AnimeMangaWebcomic" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_6" x:Uid="Auctions" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_7" x:Uid="Automotive" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_8" x:Uid="Blogs" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_9" x:Uid="BusinessServices" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_10" x:Uid="Chat" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_11" x:Uid="Classifieds" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_12" x:Uid="Dating" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_13" x:Uid="Drugs" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_14" x:Uid="EcommerceShopping" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_15" x:Uid="EducationalInstitutions" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_16" x:Uid="FileStorage" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_17" x:Uid="FinancialInstitutions" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_18" x:Uid="ForumsMessageboards" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_19" x:Uid="Gambling" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_20" x:Uid="Games" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_21" x:Uid="GermanYouthProtection" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_22" x:Uid="Government" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_23" x:Uid="HateDiscrimination" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_24" x:Uid="HealthandFitness" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_25" x:Uid="Humor" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_26" x:Uid="InstantMessaging" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_27" x:Uid="JobsEmployment" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_28" x:Uid="LingerieBikini" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_29" x:Uid="Movies" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_30" x:Uid="Music" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_31" x:Uid="NewsMedia" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_32" x:Uid="Non_Profits" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_33" x:Uid="Nudity" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_34" x:Uid="P2PFilesharing" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_35" x:Uid="ParkedDomains" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_36" x:Uid="PhotoSharing" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_37" x:Uid="Podcasts" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_38" x:Uid="Politics" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_39" x:Uid="Pornography" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_40" x:Uid="Portals" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_41" x:Uid="ProxyAnonymizer" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_42" x:Uid="Radio" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_43" x:Uid="Religious" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_44" x:Uid="ResearchReference" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_45" x:Uid="SearchEngines" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_46" x:Uid="Sexuality" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_47" x:Uid="SocialNetworking" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_48" x:Uid="SoftwareTechnology" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_49" x:Uid="Sports" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_50" x:Uid="Tasteless" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_51" x:Uid="Television" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_52" x:Uid="Tobacco" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_53" x:Uid="Travel" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_54" x:Uid="TypoSquatting" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_55" x:Uid="VideoSharing" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_56" x:Uid="VisualSearchEngines" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_57" x:Uid="Weapons" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_58" x:Uid="WebSpam" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_59" x:Uid="Webmail" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Top" Width="600">
+                        <CheckBox x:Name="category_60" x:Uid="PhishingProtection" FontSize="25" Padding="10,0,0,0"/>
+                        <Line Width="600" Stroke="White" X2="600"/>
+                    </StackPanel>
+                </ListView>
+                <Button Content="Cancel" Width="300" FontSize="22" HorizontalAlignment="Center" Click="CategoriesCancelBtn_Click"/>
+            </StackPanel>
         </Popup>
 
         <!--设置完成-->
@@ -313,7 +569,18 @@
                         Grid.Row="1" FontSize="22" Width="300" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
             </StackPanel>
         </Popup>
-        
+
+        <!--无Bypass账户，提示添加-->
+        <Popup x:Name="PopupEnquireBypassAccount" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,150,400,0">
+            <StackPanel>
+                <TextBlock Text="Please login your Live Parental Controls account and add a bypass account."
+                           FontSize="30" Width="400" VerticalAlignment="Center" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                <Grid>
+                    <Button x:Name="CancelButton" x:Uid="CancelButton" Click="CancelButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                    <Button x:Name="OkButton" x:Uid="OkButton" Click="OkButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                </Grid>
+            </StackPanel>
+        </Popup>
 
         <VisualStateManager.VisualStateGroups>
 

@@ -109,7 +109,7 @@ namespace GenieWP8.ViewModels
             this.Items.Add(new MainItemViewModel() { ID = "NetworkMap", Title = AppResources.NetworkMap, ImagePath = "Assets/MainPage/map.png" });
             this.Items.Add(new MainItemViewModel() { ID = "ParentalControl", Title = AppResources.ParentalControl, ImagePath = "Assets/MainPage/parentalcontrols.png" });
             this.Items.Add(new MainItemViewModel() { ID = "TrafficMeter", Title = AppResources.TrafficMeter, ImagePath = "Assets/MainPage/traffic.png" });
-            this.Items.Add(new MainItemViewModel() { ID = "MyMedia", Title = AppResources.MyMedia, ImagePath = "Assets/MainPage/mymedia.png" });
+            //this.Items.Add(new MainItemViewModel() { ID = "MyMedia", Title = AppResources.MyMedia, ImagePath = "Assets/MainPage/mymedia.png" });
             this.Items.Add(new MainItemViewModel() { ID = "QRCode", Title = AppResources.QRCode, ImagePath = "Assets/MainPage/qrcode.png" });
             //this.Items.Add(new MainItemViewModel() { ID = "MarketPlace", Title = AppResources.MarketPlace, ImagePath = "Assets/MainPage/appstore.png" });
 

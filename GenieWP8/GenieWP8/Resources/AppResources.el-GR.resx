@@ -814,4 +814,202 @@
   <data name="MsgPasswordFormat" xml:space="preserve">
     <value>Μια κωδική φράση αποτελείται είτε από 8~63 χαρακτήρες ASCII ή από ακριβώς 64 δεκαεξαδικά ψηφία. Ένα δεκαεξαδικό ψηφίο είναι ένα από τους εξής χαρακτήρες: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
   </data>
+  <data name="AnotherUserRegisters" xml:space="preserve">
+    <value>Η συσκευή αυτή φαίνεται να είναι εγγεγραμμένη με άλλον χρήστη OpenDNS.</value>
+  </data>
+  <data name="OkButtonContent" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="AcademicFraud" xml:space="preserve">
+    <value>Ακαδημαϊκή απάτη</value>
+  </data>
+  <data name="AdultThemes" xml:space="preserve">
+    <value>Θέματα ενηλίκων</value>
+  </data>
+  <data name="Adware" xml:space="preserve">
+    <value>Λογισμικό ανεπιθύμητων διαφημίσεων (adware)</value>
+  </data>
+  <data name="Alcohol" xml:space="preserve">
+    <value>Αλκοόλ</value>
+  </data>
+  <data name="AnimeMangaWebcomic" xml:space="preserve">
+    <value>Άνιμε/Μάνγκα/Webcomic</value>
+  </data>
+  <data name="Auctions" xml:space="preserve">
+    <value>Δημοπρασίες</value>
+  </data>
+  <data name="Automotive" xml:space="preserve">
+    <value>Αυτοκίνητα</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Ιστολόγια</value>
+  </data>
+  <data name="BusinessServices" xml:space="preserve">
+    <value>Επαγγελματικές υπηρεσίες</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Συνομιλία</value>
+  </data>
+  <data name="Classifieds" xml:space="preserve">
+    <value>Μικρές αγγελίες</value>
+  </data>
+  <data name="Dating" xml:space="preserve">
+    <value>Γνωριμίες</value>
+  </data>
+  <data name="Drugs" xml:space="preserve">
+    <value>Ναρκωτικά</value>
+  </data>
+  <data name="EcommerceShopping" xml:space="preserve">
+    <value>Ηλεκτρονικό εμπόριο/Αγορές</value>
+  </data>
+  <data name="EducationalInstitutions" xml:space="preserve">
+    <value>Εκπαιδευτικά ιδρύματα</value>
+  </data>
+  <data name="FileStorage" xml:space="preserve">
+    <value>Αποθήκευση αρχείων</value>
+  </data>
+  <data name="FinancialInstitutions" xml:space="preserve">
+    <value>Χρηματοπιστωτικά ιδρύματα</value>
+  </data>
+  <data name="ForumsMessageboards" xml:space="preserve">
+    <value>Φόρουμ/Ομάδες συζήτησης</value>
+  </data>
+  <data name="Gambling" xml:space="preserve">
+    <value>Τυχερά παιχνίδια</value>
+  </data>
+  <data name="Games" xml:space="preserve">
+    <value>Παιχνίδια</value>
+  </data>
+  <data name="GermanYouthProtection" xml:space="preserve">
+    <value>Προστασία νέων στη Γερμανία</value>
+  </data>
+  <data name="Government" xml:space="preserve">
+    <value>Κυβέρνηση</value>
+  </data>
+  <data name="HateDiscrimination" xml:space="preserve">
+    <value>Μίσος/Διακρίσεις</value>
+  </data>
+  <data name="HealthandFitness" xml:space="preserve">
+    <value>Υγεία και ευεξία</value>
+  </data>
+  <data name="Humor" xml:space="preserve">
+    <value>Χιούμορ</value>
+  </data>
+  <data name="Illustration_CustomText" xml:space="preserve">
+    <value>Αποκλείονται μόνο οι κατηγορίες που επιλέγετε.</value>
+  </data>
+  <data name="InstantMessaging" xml:space="preserve">
+    <value>Ανταλλαγή άμεσων μηνυμάτων</value>
+  </data>
+  <data name="JobsEmployment" xml:space="preserve">
+    <value>Εργασία/Απασχόληση</value>
+  </data>
+  <data name="LingerieBikini" xml:space="preserve">
+    <value>Εσώρουχα/Μπικίνι</value>
+  </data>
+  <data name="Movies" xml:space="preserve">
+    <value>Ταινίες</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Μουσική</value>
+  </data>
+  <data name="NewsMedia" xml:space="preserve">
+    <value>Ειδήσεις/Μέσα</value>
+  </data>
+  <data name="Non_Profits" xml:space="preserve">
+    <value>Μη κερδοσκοπικοί οργανισμοί</value>
+  </data>
+  <data name="Nudity" xml:space="preserve">
+    <value>Γυμνό</value>
+  </data>
+  <data name="P2PFilesharing" xml:space="preserve">
+    <value>Κοινή χρήση αρχείων/P2P</value>
+  </data>
+  <data name="ParkedDomains" xml:space="preserve">
+    <value>Δεσμευμένοι τομείς</value>
+  </data>
+  <data name="PhishingProtection" xml:space="preserve">
+    <value>Προστασία από ηλεκτρονικό "ψάρεμα"</value>
+  </data>
+  <data name="PhotoSharing" xml:space="preserve">
+    <value>Κοινή χρήση φωτογραφιών</value>
+  </data>
+  <data name="Podcasts" xml:space="preserve">
+    <value>Podcast</value>
+  </data>
+  <data name="Politics" xml:space="preserve">
+    <value>Πολιτική</value>
+  </data>
+  <data name="Pornography" xml:space="preserve">
+    <value>Πορνογραφία</value>
+  </data>
+  <data name="Portals" xml:space="preserve">
+    <value>Πύλες</value>
+  </data>
+  <data name="ProxyAnonymizer" xml:space="preserve">
+    <value>Διακομιστής μεσολάβησης/Απόκρυψη ταυτότητας</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>Ραδιόφωνο</value>
+  </data>
+  <data name="radioButton_CustomContent" xml:space="preserve">
+    <value>Προσαρμοσμένη</value>
+  </data>
+  <data name="Religious" xml:space="preserve">
+    <value>Θρησκεία</value>
+  </data>
+  <data name="ResearchReference" xml:space="preserve">
+    <value>Έρευνα/Παραπομπές</value>
+  </data>
+  <data name="SearchEngines" xml:space="preserve">
+    <value>Μηχανές αναζήτησης</value>
+  </data>
+  <data name="Sexuality" xml:space="preserve">
+    <value>Σεξουαλικότητα</value>
+  </data>
+  <data name="SocialNetworking" xml:space="preserve">
+    <value>Ιστότοποι κοινωνικής δικτύωσης</value>
+  </data>
+  <data name="SoftwareTechnology" xml:space="preserve">
+    <value>Λογισμικό/Τεχνολογία</value>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>Σπορ</value>
+  </data>
+  <data name="Tasteless" xml:space="preserve">
+    <value>Κακόγουστο</value>
+  </data>
+  <data name="Television" xml:space="preserve">
+    <value>Τηλεόραση</value>
+  </data>
+  <data name="Tobacco" xml:space="preserve">
+    <value>Κάπνισμα</value>
+  </data>
+  <data name="Travel" xml:space="preserve">
+    <value>Ταξίδια</value>
+  </data>
+  <data name="TypoSquatting" xml:space="preserve">
+    <value>Πειρατεία των URLs</value>
+  </data>
+  <data name="VideoSharing" xml:space="preserve">
+    <value>Κοινή χρήση βίντεο</value>
+  </data>
+  <data name="VisualSearchEngines" xml:space="preserve">
+    <value>Μηχανές αναζήτησης με οπτική απεικόνιση</value>
+  </data>
+  <data name="Weapons" xml:space="preserve">
+    <value>Όπλα</value>
+  </data>
+  <data name="Webmail" xml:space="preserve">
+    <value>Webmail</value>
+  </data>
+  <data name="WebSpam" xml:space="preserve">
+    <value>Ενοχλητική αλληλογραφία μέσω Web</value>
+  </data>
+  <data name="CustomData" xml:space="preserve">
+    <value>Προσαρμοσμένα δεδομένα</value>
+  </data>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>Το πεδίο ονόματος χρήστη ή κωδικού πρόσβασης είναι κενό.</value>
+  </data>
 </root>

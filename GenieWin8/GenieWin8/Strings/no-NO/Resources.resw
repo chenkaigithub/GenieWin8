@@ -751,4 +751,202 @@
   <data name="MsgPasswordFormat" xml:space="preserve">
     <value>Et passord må bestå av enten 8 til 63 ASCII-tegn eller nøyaktig 64 heksadesimale sifre. Et heksadesimalt siffer er ett av følgende tegn: 0, 1, 2, ..., 8, 9, A, B, C, D, E og F.</value>
   </data>
+  <data name="AnotherUserRegisters" xml:space="preserve">
+    <value>Denne enheten er kanskje registrert med en annen OpenDNS-bruker.</value>
+  </data>
+  <data name="AcademicFraud.Content" xml:space="preserve">
+    <value>Akademisk svindel</value>
+  </data>
+  <data name="AdultThemes.Content" xml:space="preserve">
+    <value>Voksentemaer</value>
+  </data>
+  <data name="Adware.Content" xml:space="preserve">
+    <value>Annonseprogram</value>
+  </data>
+  <data name="Alcohol.Content" xml:space="preserve">
+    <value>Alkohol</value>
+  </data>
+  <data name="AnimeMangaWebcomic.Content" xml:space="preserve">
+    <value>Anime / manga / nettbasert tegneserie</value>
+  </data>
+  <data name="Auctions.Content" xml:space="preserve">
+    <value>Auksjoner</value>
+  </data>
+  <data name="Automotive.Content" xml:space="preserve">
+    <value>Bil</value>
+  </data>
+  <data name="Blogs.Content" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="BusinessServices.Content" xml:space="preserve">
+    <value>Forretningstjenester</value>
+  </data>
+  <data name="Chat.Content" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="Classifieds.Content" xml:space="preserve">
+    <value>Rubrikkannonser</value>
+  </data>
+  <data name="Dating.Content" xml:space="preserve">
+    <value>Dating</value>
+  </data>
+  <data name="Drugs.Content" xml:space="preserve">
+    <value>Legemidler</value>
+  </data>
+  <data name="EcommerceShopping.Content" xml:space="preserve">
+    <value>E-handel/shopping</value>
+  </data>
+  <data name="EducationalInstitutions.Content" xml:space="preserve">
+    <value>Utdaningsinstitusjoner</value>
+  </data>
+  <data name="FileStorage.Content" xml:space="preserve">
+    <value>Fillagring</value>
+  </data>
+  <data name="FinancialInstitutions.Content" xml:space="preserve">
+    <value>Økonomiinstitusjoner</value>
+  </data>
+  <data name="ForumsMessageboards.Content" xml:space="preserve">
+    <value>Fora/meldingstavler</value>
+  </data>
+  <data name="Gambling.Content" xml:space="preserve">
+    <value>Gambling</value>
+  </data>
+  <data name="Games.Content" xml:space="preserve">
+    <value>Spill</value>
+  </data>
+  <data name="GermanYouthProtection.Content" xml:space="preserve">
+    <value>Tysk barnevern</value>
+  </data>
+  <data name="Government.Content" xml:space="preserve">
+    <value>Regjering</value>
+  </data>
+  <data name="HateDiscrimination.Content" xml:space="preserve">
+    <value>Hat/diskriminering</value>
+  </data>
+  <data name="HealthandFitness.Content" xml:space="preserve">
+    <value>Helse og velvære</value>
+  </data>
+  <data name="Humor.Content" xml:space="preserve">
+    <value>Humor</value>
+  </data>
+  <data name="Illustration_Custom.Text" xml:space="preserve">
+    <value>Bare de valgte kategoriene er blokkert.</value>
+  </data>
+  <data name="InstantMessaging.Content" xml:space="preserve">
+    <value>Hurtigmeldinger</value>
+  </data>
+  <data name="JobsEmployment.Content" xml:space="preserve">
+    <value>Jobber/ansettelse</value>
+  </data>
+  <data name="LingerieBikini.Content" xml:space="preserve">
+    <value>Undertøy/bikini</value>
+  </data>
+  <data name="Movies.Content" xml:space="preserve">
+    <value>Filmer</value>
+  </data>
+  <data name="Music.Content" xml:space="preserve">
+    <value>Musikk</value>
+  </data>
+  <data name="NewsMedia.Content" xml:space="preserve">
+    <value>Nyheter/medier</value>
+  </data>
+  <data name="Non_Profits.Content" xml:space="preserve">
+    <value>Veldedighet</value>
+  </data>
+  <data name="Nudity.Content" xml:space="preserve">
+    <value>Nakenhet</value>
+  </data>
+  <data name="OkButton.Content" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="P2PFilesharing.Content" xml:space="preserve">
+    <value>P2P/fildeling</value>
+  </data>
+  <data name="ParkedDomains.Content" xml:space="preserve">
+    <value>Parkerte domener</value>
+  </data>
+  <data name="PhishingProtection.Content" xml:space="preserve">
+    <value>Phishing-beskyttelse</value>
+  </data>
+  <data name="PhotoSharing.Content" xml:space="preserve">
+    <value>Bildedeling</value>
+  </data>
+  <data name="Podcasts.Content" xml:space="preserve">
+    <value>Podcaster</value>
+  </data>
+  <data name="Politics.Content" xml:space="preserve">
+    <value>Politikk</value>
+  </data>
+  <data name="Pornography.Content" xml:space="preserve">
+    <value>Pornografi</value>
+  </data>
+  <data name="Portals.Content" xml:space="preserve">
+    <value>Portaler</value>
+  </data>
+  <data name="ProxyAnonymizer.Content" xml:space="preserve">
+    <value>Proxy/anonymiser</value>
+  </data>
+  <data name="Radio.Content" xml:space="preserve">
+    <value>Radio</value>
+  </data>
+  <data name="radioButton_Custom.Content" xml:space="preserve">
+    <value>Tilpasset</value>
+  </data>
+  <data name="Religious.Content" xml:space="preserve">
+    <value>Religion</value>
+  </data>
+  <data name="ResearchReference.Content" xml:space="preserve">
+    <value>Forskning/referanse</value>
+  </data>
+  <data name="SearchEngines.Content" xml:space="preserve">
+    <value>Søkemotorer</value>
+  </data>
+  <data name="Sexuality.Content" xml:space="preserve">
+    <value>Seksualitet</value>
+  </data>
+  <data name="SocialNetworking.Content" xml:space="preserve">
+    <value>Sosiale nettverk</value>
+  </data>
+  <data name="SoftwareTechnology.Content" xml:space="preserve">
+    <value>Programvare/teknologi</value>
+  </data>
+  <data name="Sports.Content" xml:space="preserve">
+    <value>Sport</value>
+  </data>
+  <data name="Tasteless.Content" xml:space="preserve">
+    <value>Smakløst</value>
+  </data>
+  <data name="Television.Content" xml:space="preserve">
+    <value>TV</value>
+  </data>
+  <data name="Tobacco.Content" xml:space="preserve">
+    <value>Tobakk</value>
+  </data>
+  <data name="Travel.Content" xml:space="preserve">
+    <value>Reise</value>
+  </data>
+  <data name="TypoSquatting.Content" xml:space="preserve">
+    <value>Typosquatting</value>
+  </data>
+  <data name="VideoSharing.Content" xml:space="preserve">
+    <value>Videodeling</value>
+  </data>
+  <data name="VisualSearchEngines.Content" xml:space="preserve">
+    <value>Visuelle søkemotorer</value>
+  </data>
+  <data name="Weapons.Content" xml:space="preserve">
+    <value>Våpen</value>
+  </data>
+  <data name="Webmail.Content" xml:space="preserve">
+    <value>Webpost</value>
+  </data>
+  <data name="WebSpam.Content" xml:space="preserve">
+    <value>Webspam</value>
+  </data>
+  <data name="CustomData.Text" xml:space="preserve">
+    <value>Tilpass data</value>
+  </data>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>Feltet for brukernavn eller passord er tomt.</value>
+  </data>
 </root>

@@ -784,4 +784,202 @@
   <data name="MsgPasswordFormat" xml:space="preserve">
     <value>密码由8~63个ASCII字符或64个十六进制数字组成。十六进制数字为以下所示字符之一：0, 1, 2, ..., 8, 9, A, B, C, D, E, F。</value>
   </data>
+  <data name="AnotherUserRegisters" xml:space="preserve">
+    <value>此设备看起来是使用其它OpenDNS用户注册的。</value>
+  </data>
+  <data name="AcademicFraud.Content" xml:space="preserve">
+    <value>学术欺诈</value>
+  </data>
+  <data name="AdultThemes.Content" xml:space="preserve">
+    <value>成人主题</value>
+  </data>
+  <data name="Adware.Content" xml:space="preserve">
+    <value>广告软件</value>
+  </data>
+  <data name="Alcohol.Content" xml:space="preserve">
+    <value>酒精</value>
+  </data>
+  <data name="AnimeMangaWebcomic.Content" xml:space="preserve">
+    <value>动画片/漫画/网络漫画</value>
+  </data>
+  <data name="Auctions.Content" xml:space="preserve">
+    <value>拍卖</value>
+  </data>
+  <data name="Automotive.Content" xml:space="preserve">
+    <value>汽车</value>
+  </data>
+  <data name="Blogs.Content" xml:space="preserve">
+    <value>博客</value>
+  </data>
+  <data name="BusinessServices.Content" xml:space="preserve">
+    <value>商业服务</value>
+  </data>
+  <data name="Chat.Content" xml:space="preserve">
+    <value>聊天</value>
+  </data>
+  <data name="Classifieds.Content" xml:space="preserve">
+    <value>分类广告</value>
+  </data>
+  <data name="Dating.Content" xml:space="preserve">
+    <value>约会</value>
+  </data>
+  <data name="Drugs.Content" xml:space="preserve">
+    <value>毒品</value>
+  </data>
+  <data name="EcommerceShopping.Content" xml:space="preserve">
+    <value>电子商务/购物</value>
+  </data>
+  <data name="EducationalInstitutions.Content" xml:space="preserve">
+    <value>教育机构</value>
+  </data>
+  <data name="FileStorage.Content" xml:space="preserve">
+    <value>文件存储</value>
+  </data>
+  <data name="FinancialInstitutions.Content" xml:space="preserve">
+    <value>金融机构</value>
+  </data>
+  <data name="ForumsMessageboards.Content" xml:space="preserve">
+    <value>论坛/留言板</value>
+  </data>
+  <data name="Gambling.Content" xml:space="preserve">
+    <value>赌博</value>
+  </data>
+  <data name="Games.Content" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="GermanYouthProtection.Content" xml:space="preserve">
+    <value>德国青少年保护</value>
+  </data>
+  <data name="Government.Content" xml:space="preserve">
+    <value>政府</value>
+  </data>
+  <data name="HateDiscrimination.Content" xml:space="preserve">
+    <value>仇恨/歧视</value>
+  </data>
+  <data name="HealthandFitness.Content" xml:space="preserve">
+    <value>健康和健身</value>
+  </data>
+  <data name="Humor.Content" xml:space="preserve">
+    <value>幽默</value>
+  </data>
+  <data name="Illustration_Custom.Text" xml:space="preserve">
+    <value>仅有您选择的类别被阻止。</value>
+  </data>
+  <data name="InstantMessaging.Content" xml:space="preserve">
+    <value>即时消息传送</value>
+  </data>
+  <data name="JobsEmployment.Content" xml:space="preserve">
+    <value>工作/就业</value>
+  </data>
+  <data name="LingerieBikini.Content" xml:space="preserve">
+    <value>内衣/比基尼</value>
+  </data>
+  <data name="Movies.Content" xml:space="preserve">
+    <value>电影</value>
+  </data>
+  <data name="Music.Content" xml:space="preserve">
+    <value>音乐</value>
+  </data>
+  <data name="NewsMedia.Content" xml:space="preserve">
+    <value>新闻媒体</value>
+  </data>
+  <data name="Non_Profits.Content" xml:space="preserve">
+    <value>非营利</value>
+  </data>
+  <data name="Nudity.Content" xml:space="preserve">
+    <value>裸体</value>
+  </data>
+  <data name="OkButton.Content" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="P2PFilesharing.Content" xml:space="preserve">
+    <value>对等网络/文件共享</value>
+  </data>
+  <data name="ParkedDomains.Content" xml:space="preserve">
+    <value>停放的域名</value>
+  </data>
+  <data name="PhishingProtection.Content" xml:space="preserve">
+    <value>钓鱼网站防护</value>
+  </data>
+  <data name="PhotoSharing.Content" xml:space="preserve">
+    <value>相片共享</value>
+  </data>
+  <data name="Podcasts.Content" xml:space="preserve">
+    <value>播客</value>
+  </data>
+  <data name="Politics.Content" xml:space="preserve">
+    <value>政治</value>
+  </data>
+  <data name="Pornography.Content" xml:space="preserve">
+    <value>色情</value>
+  </data>
+  <data name="Portals.Content" xml:space="preserve">
+    <value>门户</value>
+  </data>
+  <data name="ProxyAnonymizer.Content" xml:space="preserve">
+    <value>代理/匿名</value>
+  </data>
+  <data name="Radio.Content" xml:space="preserve">
+    <value>无线广播</value>
+  </data>
+  <data name="radioButton_Custom.Content" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="Religious.Content" xml:space="preserve">
+    <value>宗教</value>
+  </data>
+  <data name="ResearchReference.Content" xml:space="preserve">
+    <value>研究/参考</value>
+  </data>
+  <data name="SearchEngines.Content" xml:space="preserve">
+    <value>搜索引擎</value>
+  </data>
+  <data name="Sexuality.Content" xml:space="preserve">
+    <value>性交</value>
+  </data>
+  <data name="SocialNetworking.Content" xml:space="preserve">
+    <value>社交网络</value>
+  </data>
+  <data name="SoftwareTechnology.Content" xml:space="preserve">
+    <value>软件/技术</value>
+  </data>
+  <data name="Sports.Content" xml:space="preserve">
+    <value>运动</value>
+  </data>
+  <data name="Tasteless.Content" xml:space="preserve">
+    <value>厌世</value>
+  </data>
+  <data name="Television.Content" xml:space="preserve">
+    <value>电视</value>
+  </data>
+  <data name="Tobacco.Content" xml:space="preserve">
+    <value>烟草</value>
+  </data>
+  <data name="Travel.Content" xml:space="preserve">
+    <value>旅行</value>
+  </data>
+  <data name="TypoSquatting.Content" xml:space="preserve">
+    <value>域名抢注</value>
+  </data>
+  <data name="VideoSharing.Content" xml:space="preserve">
+    <value>视频共享</value>
+  </data>
+  <data name="VisualSearchEngines.Content" xml:space="preserve">
+    <value>视觉搜索引擎</value>
+  </data>
+  <data name="Weapons.Content" xml:space="preserve">
+    <value>武器</value>
+  </data>
+  <data name="Webmail.Content" xml:space="preserve">
+    <value>网络邮件</value>
+  </data>
+  <data name="WebSpam.Content" xml:space="preserve">
+    <value>垃圾网页</value>
+  </data>
+  <data name="CustomData.Text" xml:space="preserve">
+    <value>自定义数据</value>
+  </data>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>用户名或密码字段为空。</value>
+  </data>
 </root>

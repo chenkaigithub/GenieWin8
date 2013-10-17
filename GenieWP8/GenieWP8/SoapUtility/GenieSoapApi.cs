@@ -947,9 +947,10 @@ namespace GenieWP8
                byte[] resultbt = await response.Content.ReadAsByteArrayAsync();
                 
                 resultStr = Encoding.UTF8.GetString(resultbt, 0, resultbt.Length);
+                resultStr = resultStr.Replace("\n", "");
                 if (resultStr.Length > 0)
                 {
-                    string[] split_r_n = resultStr.Split(new []{"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+                    string[] split_r_n = resultStr.Split(new []{"\r"}, StringSplitOptions.RemoveEmptyEntries);
                     foreach(string item in split_r_n)
                     {
                         string[] splitValue = item.Split('=');

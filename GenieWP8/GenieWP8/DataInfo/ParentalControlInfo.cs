@@ -24,6 +24,9 @@ namespace GenieWP8.DataInfo
 
         public static string token;
         public static string filterLevel;
+        public static string filterLevelSelected;
+        public static string categories;
+        public static string categoriesSelected;
 
         public static string BypassAccounts;
         public static string BypassUsername;

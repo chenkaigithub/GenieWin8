@@ -814,4 +814,202 @@
   <data name="MsgPasswordFormat" xml:space="preserve">
     <value>تتألف عبارة المرور من 8 إلى 63 حرف ASCII أو بالتحديد 64 رقماً سداسياً عشرياً. الرقم السداسي العشري هو أحد هذه الأحرف: 0، 1، 2، ...، 8، 9، A، B، C، D، E، F.</value>
   </data>
+  <data name="AnotherUserRegisters" xml:space="preserve">
+    <value>يبدو أن هذا الجهاز مسجل مع مستخدم OpenDNS يرجى زيارة الموقع .</value>
+  </data>
+  <data name="OkButtonContent" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="AcademicFraud" xml:space="preserve">
+    <value>الاحتيال الأكاديمي</value>
+  </data>
+  <data name="AdultThemes" xml:space="preserve">
+    <value>مواضيع للراشدين</value>
+  </data>
+  <data name="Adware" xml:space="preserve">
+    <value>برامج التجسس</value>
+  </data>
+  <data name="Alcohol" xml:space="preserve">
+    <value>الكحول</value>
+  </data>
+  <data name="AnimeMangaWebcomic" xml:space="preserve">
+    <value>الأنمي /المانجا/رسوم هزلية على الويب</value>
+  </data>
+  <data name="Auctions" xml:space="preserve">
+    <value>المزادات</value>
+  </data>
+  <data name="Automotive" xml:space="preserve">
+    <value>السيارات</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>المدونات</value>
+  </data>
+  <data name="BusinessServices" xml:space="preserve">
+    <value>خدمات الشركات</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>المحادثة</value>
+  </data>
+  <data name="Classifieds" xml:space="preserve">
+    <value>الإعلانات المبوّبة</value>
+  </data>
+  <data name="Dating" xml:space="preserve">
+    <value>المواعدة</value>
+  </data>
+  <data name="Drugs" xml:space="preserve">
+    <value>المخدرات</value>
+  </data>
+  <data name="EcommerceShopping" xml:space="preserve">
+    <value>التجارة الإلكترونية/التسوق</value>
+  </data>
+  <data name="EducationalInstitutions" xml:space="preserve">
+    <value>المؤسسات التعليمية</value>
+  </data>
+  <data name="FileStorage" xml:space="preserve">
+    <value>تخزين الملفات</value>
+  </data>
+  <data name="FinancialInstitutions" xml:space="preserve">
+    <value>المؤسسات المالية</value>
+  </data>
+  <data name="ForumsMessageboards" xml:space="preserve">
+    <value>المنتديات/لوحات تبادل الرسائل</value>
+  </data>
+  <data name="Gambling" xml:space="preserve">
+    <value>لعب القمار</value>
+  </data>
+  <data name="Games" xml:space="preserve">
+    <value>الألعاب</value>
+  </data>
+  <data name="GermanYouthProtection" xml:space="preserve">
+    <value>حماية الشباب الألماني</value>
+  </data>
+  <data name="Government" xml:space="preserve">
+    <value>الحكومة</value>
+  </data>
+  <data name="HateDiscrimination" xml:space="preserve">
+    <value>الكره/التمييز</value>
+  </data>
+  <data name="HealthandFitness" xml:space="preserve">
+    <value>الصحة واللياقة البدنية</value>
+  </data>
+  <data name="Humor" xml:space="preserve">
+    <value>الفكاهة</value>
+  </data>
+  <data name="Illustration_CustomText" xml:space="preserve">
+    <value>تم حظر الفئات التي حددتها فقط.</value>
+  </data>
+  <data name="InstantMessaging" xml:space="preserve">
+    <value>المراسلات الفورية</value>
+  </data>
+  <data name="JobsEmployment" xml:space="preserve">
+    <value>الوظائف/التوظيف</value>
+  </data>
+  <data name="LingerieBikini" xml:space="preserve">
+    <value>ملابس النساء الداخلية/البيكيني</value>
+  </data>
+  <data name="Movies" xml:space="preserve">
+    <value>الأفلام</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>الموسيقى</value>
+  </data>
+  <data name="NewsMedia" xml:space="preserve">
+    <value>الأخبار/الوسائط</value>
+  </data>
+  <data name="Non_Profits" xml:space="preserve">
+    <value>المؤسسات غير الربحية</value>
+  </data>
+  <data name="Nudity" xml:space="preserve">
+    <value>العري</value>
+  </data>
+  <data name="P2PFilesharing" xml:space="preserve">
+    <value>شبكات نظير إلى نظير/مشاركة الملفات</value>
+  </data>
+  <data name="ParkedDomains" xml:space="preserve">
+    <value>المجالات المتوقف مؤقتاً</value>
+  </data>
+  <data name="PhishingProtection" xml:space="preserve">
+    <value>الحماية من الخداع</value>
+  </data>
+  <data name="PhotoSharing" xml:space="preserve">
+    <value>مشاركة الصور</value>
+  </data>
+  <data name="Podcasts" xml:space="preserve">
+    <value>وسائط بودكاست</value>
+  </data>
+  <data name="Politics" xml:space="preserve">
+    <value>السياسة</value>
+  </data>
+  <data name="Pornography" xml:space="preserve">
+    <value>الإباحية</value>
+  </data>
+  <data name="Portals" xml:space="preserve">
+    <value>المعابر</value>
+  </data>
+  <data name="ProxyAnonymizer" xml:space="preserve">
+    <value>الوكالة/برنامج إخفاء هوية المستخدم</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>الراديو</value>
+  </data>
+  <data name="radioButton_CustomContent" xml:space="preserve">
+    <value>مخصص</value>
+  </data>
+  <data name="Religious" xml:space="preserve">
+    <value>التدين</value>
+  </data>
+  <data name="ResearchReference" xml:space="preserve">
+    <value>البحث/المرجع</value>
+  </data>
+  <data name="SearchEngines" xml:space="preserve">
+    <value>محركات البحث</value>
+  </data>
+  <data name="Sexuality" xml:space="preserve">
+    <value>النشاط الجنسي</value>
+  </data>
+  <data name="SocialNetworking" xml:space="preserve">
+    <value>الشبكة الاجتماعية</value>
+  </data>
+  <data name="SoftwareTechnology" xml:space="preserve">
+    <value>البرامج/التكنولوجيا</value>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>الرياضة</value>
+  </data>
+  <data name="Tasteless" xml:space="preserve">
+    <value>التفاهة</value>
+  </data>
+  <data name="Television" xml:space="preserve">
+    <value>التلفزيون</value>
+  </data>
+  <data name="Tobacco" xml:space="preserve">
+    <value>التبغ</value>
+  </data>
+  <data name="Travel" xml:space="preserve">
+    <value>السفر</value>
+  </data>
+  <data name="TypoSquatting" xml:space="preserve">
+    <value>سرقة عنوان URL</value>
+  </data>
+  <data name="VideoSharing" xml:space="preserve">
+    <value>مشاركة الفيديو</value>
+  </data>
+  <data name="VisualSearchEngines" xml:space="preserve">
+    <value>محركات البحث المرئي</value>
+  </data>
+  <data name="Weapons" xml:space="preserve">
+    <value>الأسلحة</value>
+  </data>
+  <data name="Webmail" xml:space="preserve">
+    <value>بريد الويب</value>
+  </data>
+  <data name="WebSpam" xml:space="preserve">
+    <value>بريد ويب العشوائي</value>
+  </data>
+  <data name="CustomData" xml:space="preserve">
+    <value>البيانات المخصصة</value>
+  </data>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>إن حقل اسم المستخدم أو كلمة المرور فارغ.</value>
+  </data>
 </root>

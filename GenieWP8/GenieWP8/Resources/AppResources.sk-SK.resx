@@ -814,4 +814,202 @@
   <data name="MsgPasswordFormat" xml:space="preserve">
     <value>Prístupová fráza obsahuje 8 až 63 znakov ASCII alebo presne 64 hexadecimálnych číslic. Hexadecimálna číslica je niektorý z nasledujúcich znakov: 0, 1, 2, ..., 8, 9, A, B, C, D, E a F.</value>
   </data>
+  <data name="AnotherUserRegisters" xml:space="preserve">
+    <value>Toto zariadenie je pravdepodobne registrované na iného používateľa služby OpenDNS.</value>
+  </data>
+  <data name="OkButtonContent" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="AcademicFraud" xml:space="preserve">
+    <value>Akademický podvod</value>
+  </data>
+  <data name="AdultThemes" xml:space="preserve">
+    <value>Motívy pre dospelých</value>
+  </data>
+  <data name="Adware" xml:space="preserve">
+    <value>Adware</value>
+  </data>
+  <data name="Alcohol" xml:space="preserve">
+    <value>Alkohol</value>
+  </data>
+  <data name="AnimeMangaWebcomic" xml:space="preserve">
+    <value>Animácie/manga/webový komiks</value>
+  </data>
+  <data name="Auctions" xml:space="preserve">
+    <value>Aukcie</value>
+  </data>
+  <data name="Automotive" xml:space="preserve">
+    <value>Automobilizmus</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogy</value>
+  </data>
+  <data name="BusinessServices" xml:space="preserve">
+    <value>Podnikové služby</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Diskusia</value>
+  </data>
+  <data name="Classifieds" xml:space="preserve">
+    <value>Inzeráty</value>
+  </data>
+  <data name="Dating" xml:space="preserve">
+    <value>Schôdzky</value>
+  </data>
+  <data name="Drugs" xml:space="preserve">
+    <value>Lieky</value>
+  </data>
+  <data name="EcommerceShopping" xml:space="preserve">
+    <value>Elektronický obchod/nakupovanie</value>
+  </data>
+  <data name="EducationalInstitutions" xml:space="preserve">
+    <value>Vzdelávacie inštitúcie</value>
+  </data>
+  <data name="FileStorage" xml:space="preserve">
+    <value>Úložisko súborov</value>
+  </data>
+  <data name="FinancialInstitutions" xml:space="preserve">
+    <value>Finančné inštitúcie</value>
+  </data>
+  <data name="ForumsMessageboards" xml:space="preserve">
+    <value>Fóra/informačné tabule</value>
+  </data>
+  <data name="Gambling" xml:space="preserve">
+    <value>Hazard</value>
+  </data>
+  <data name="Games" xml:space="preserve">
+    <value>Hry</value>
+  </data>
+  <data name="GermanYouthProtection" xml:space="preserve">
+    <value>Ochrana mládeže v Nemecku</value>
+  </data>
+  <data name="Government" xml:space="preserve">
+    <value>Vláda</value>
+  </data>
+  <data name="HateDiscrimination" xml:space="preserve">
+    <value>Nenávisť/diskriminácia</value>
+  </data>
+  <data name="HealthandFitness" xml:space="preserve">
+    <value>Zdravie a fyzická zdatnosť</value>
+  </data>
+  <data name="Humor" xml:space="preserve">
+    <value>Humor</value>
+  </data>
+  <data name="Illustration_CustomText" xml:space="preserve">
+    <value>Blokované sú iba vybraté kategórie.</value>
+  </data>
+  <data name="InstantMessaging" xml:space="preserve">
+    <value>Odosielanie okamžitých správ</value>
+  </data>
+  <data name="JobsEmployment" xml:space="preserve">
+    <value>Pracovné miesta/zamestnanosť</value>
+  </data>
+  <data name="LingerieBikini" xml:space="preserve">
+    <value>Spodná bielizeň/bikiny</value>
+  </data>
+  <data name="Movies" xml:space="preserve">
+    <value>Filmy</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Hudba</value>
+  </data>
+  <data name="NewsMedia" xml:space="preserve">
+    <value>Správy/médiá</value>
+  </data>
+  <data name="Non_Profits" xml:space="preserve">
+    <value>Neziskové organizácie</value>
+  </data>
+  <data name="Nudity" xml:space="preserve">
+    <value>Nahota</value>
+  </data>
+  <data name="P2PFilesharing" xml:space="preserve">
+    <value>P2P/zdieľanie súborov</value>
+  </data>
+  <data name="ParkedDomains" xml:space="preserve">
+    <value>Zaparkované domény</value>
+  </data>
+  <data name="PhishingProtection" xml:space="preserve">
+    <value>Ochrana pred neoprávneným získavaním údajov</value>
+  </data>
+  <data name="PhotoSharing" xml:space="preserve">
+    <value>Zdieľanie fotografií</value>
+  </data>
+  <data name="Podcasts" xml:space="preserve">
+    <value>Podcasty</value>
+  </data>
+  <data name="Politics" xml:space="preserve">
+    <value>Politika</value>
+  </data>
+  <data name="Pornography" xml:space="preserve">
+    <value>Pornografia</value>
+  </data>
+  <data name="Portals" xml:space="preserve">
+    <value>Portály</value>
+  </data>
+  <data name="ProxyAnonymizer" xml:space="preserve">
+    <value>Server proxy/anonymizačná lokalita</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>Rozhlas</value>
+  </data>
+  <data name="radioButton_CustomContent" xml:space="preserve">
+    <value>Vlastné</value>
+  </data>
+  <data name="Religious" xml:space="preserve">
+    <value>Náboženstvo</value>
+  </data>
+  <data name="ResearchReference" xml:space="preserve">
+    <value>Výskum/referencie</value>
+  </data>
+  <data name="SearchEngines" xml:space="preserve">
+    <value>Vyhľadávače</value>
+  </data>
+  <data name="Sexuality" xml:space="preserve">
+    <value>Sexualita</value>
+  </data>
+  <data name="SocialNetworking" xml:space="preserve">
+    <value>Sociálne siete</value>
+  </data>
+  <data name="SoftwareTechnology" xml:space="preserve">
+    <value>Softvér/technológia</value>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>Šport</value>
+  </data>
+  <data name="Tasteless" xml:space="preserve">
+    <value>Bez chuti</value>
+  </data>
+  <data name="Television" xml:space="preserve">
+    <value>Televízia</value>
+  </data>
+  <data name="Tobacco" xml:space="preserve">
+    <value>Tabak</value>
+  </data>
+  <data name="Travel" xml:space="preserve">
+    <value>Cestovanie</value>
+  </data>
+  <data name="TypoSquatting" xml:space="preserve">
+    <value>Typosquatting</value>
+  </data>
+  <data name="VideoSharing" xml:space="preserve">
+    <value>Zdieľanie videa</value>
+  </data>
+  <data name="VisualSearchEngines" xml:space="preserve">
+    <value>Vizuálne vyhľadávače</value>
+  </data>
+  <data name="Weapons" xml:space="preserve">
+    <value>Zbrane</value>
+  </data>
+  <data name="Webmail" xml:space="preserve">
+    <value>Webová pošta</value>
+  </data>
+  <data name="WebSpam" xml:space="preserve">
+    <value>Webová nevyžiadaná pošta</value>
+  </data>
+  <data name="CustomData" xml:space="preserve">
+    <value>Vlastné údaje</value>
+  </data>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>Pole používateľského mena alebo hesla je prázdne.</value>
+  </data>
 </root>

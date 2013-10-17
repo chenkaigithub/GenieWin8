@@ -70,6 +70,42 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 学术欺诈 的本地化字符串。
+        /// </summary>
+        public static string AcademicFraud {
+            get {
+                return ResourceManager.GetString("AcademicFraud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 成人主题 的本地化字符串。
+        /// </summary>
+        public static string AdultThemes {
+            get {
+                return ResourceManager.GetString("AdultThemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 广告软件 的本地化字符串。
+        /// </summary>
+        public static string Adware {
+            get {
+                return ResourceManager.GetString("Adware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 酒精 的本地化字符串。
+        /// </summary>
+        public static string Alcohol {
+            get {
+                return ResourceManager.GetString("Alcohol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 允许在网络中播放 的本地化字符串。
         /// </summary>
         public static string AllowPlayInNetworkText {
@@ -115,6 +151,24 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 动画片/漫画/网络漫画 的本地化字符串。
+        /// </summary>
+        public static string AnimeMangaWebcomic {
+            get {
+                return ResourceManager.GetString("AnimeMangaWebcomic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 此设备看起来是使用其它OpenDNS用户注册的。 的本地化字符串。
+        /// </summary>
+        public static string AnotherUserRegisters {
+            get {
+                return ResourceManager.GetString("AnotherUserRegisters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 添加 的本地化字符串。
         /// </summary>
         public static string AppBarButtonText {
@@ -142,6 +196,24 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 拍卖 的本地化字符串。
+        /// </summary>
+        public static string Auctions {
+            get {
+                return ResourceManager.GetString("Auctions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 汽车 的本地化字符串。
+        /// </summary>
+        public static string Automotive {
+            get {
+                return ResourceManager.GetString("Automotive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 平均 的本地化字符串。
         /// </summary>
         public static string AverageText {
@@ -156,6 +228,15 @@ namespace GenieWP8.Resources {
         public static string bad_password {
             get {
                 return ResourceManager.GetString("bad_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 博客 的本地化字符串。
+        /// </summary>
+        public static string Blogs {
+            get {
+                return ResourceManager.GetString("Blogs", resourceCulture);
             }
         }
         
@@ -223,6 +304,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 商业服务 的本地化字符串。
+        /// </summary>
+        public static string BusinessServices {
+            get {
+                return ResourceManager.GetString("BusinessServices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Bypass 的本地化字符串。
         /// </summary>
         public static string BypassText {
@@ -286,6 +376,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 聊天 的本地化字符串。
+        /// </summary>
+        public static string Chat {
+            get {
+                return ResourceManager.GetString("Chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 检查可用性 的本地化字符串。
         /// </summary>
         public static string CheckAvailabilityContent {
@@ -318,6 +417,15 @@ namespace GenieWP8.Resources {
         public static string CheckTrafficMeterText {
             get {
                 return ResourceManager.GetString("CheckTrafficMeterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 分类广告 的本地化字符串。
+        /// </summary>
+        public static string Classifieds {
+            get {
+                return ResourceManager.GetString("Classifieds", resourceCulture);
             }
         }
         
@@ -403,6 +511,24 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 自定义数据 的本地化字符串。
+        /// </summary>
+        public static string CustomData {
+            get {
+                return ResourceManager.GetString("CustomData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 约会 的本地化字符串。
+        /// </summary>
+        public static string Dating {
+            get {
+                return ResourceManager.GetString("Dating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 密码中使用了不允许的字符 的本地化字符串。
         /// </summary>
         public static string DisallowedPasswordChar {
@@ -430,6 +556,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 毒品 的本地化字符串。
+        /// </summary>
+        public static string Drugs {
+            get {
+                return ResourceManager.GetString("Drugs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 DVR 的本地化字符串。
         /// </summary>
         public static string dvr {
@@ -439,11 +574,38 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 电子商务/购物 的本地化字符串。
+        /// </summary>
+        public static string EcommerceShopping {
+            get {
+                return ResourceManager.GetString("EcommerceShopping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 教育机构 的本地化字符串。
+        /// </summary>
+        public static string EducationalInstitutions {
+            get {
+                return ResourceManager.GetString("EducationalInstitutions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 电子邮件 的本地化字符串。
         /// </summary>
         public static string EmailText {
             get {
                 return ResourceManager.GetString("EmailText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 用户名或密码字段为空。 的本地化字符串。
+        /// </summary>
+        public static string EmptyUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("EmptyUsernameOrPassword", resourceCulture);
             }
         }
         
@@ -475,6 +637,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 文件存储 的本地化字符串。
+        /// </summary>
+        public static string FileStorage {
+            get {
+                return ResourceManager.GetString("FileStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 过滤级别 的本地化字符串。
         /// </summary>
         public static string FilterLevel {
@@ -493,11 +664,38 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 金融机构 的本地化字符串。
+        /// </summary>
+        public static string FinancialInstitutions {
+            get {
+                return ResourceManager.GetString("FinancialInstitutions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 固件版本： 的本地化字符串。
         /// </summary>
         public static string FirmwareVersionText {
             get {
                 return ResourceManager.GetString("FirmwareVersionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 论坛/留言板 的本地化字符串。
+        /// </summary>
+        public static string ForumsMessageboards {
+            get {
+                return ResourceManager.GetString("ForumsMessageboards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 赌博 的本地化字符串。
+        /// </summary>
+        public static string Gambling {
+            get {
+                return ResourceManager.GetString("Gambling", resourceCulture);
             }
         }
         
@@ -511,11 +709,38 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 游戏 的本地化字符串。
+        /// </summary>
+        public static string Games {
+            get {
+                return ResourceManager.GetString("Games", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 路由器 的本地化字符串。
         /// </summary>
         public static string gatewaydev {
             get {
                 return ResourceManager.GetString("gatewaydev", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 德国青少年保护 的本地化字符串。
+        /// </summary>
+        public static string GermanYouthProtection {
+            get {
+                return ResourceManager.GetString("GermanYouthProtection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 政府 的本地化字符串。
+        /// </summary>
+        public static string Government {
+            get {
+                return ResourceManager.GetString("Government", resourceCulture);
             }
         }
         
@@ -570,6 +795,42 @@ namespace GenieWP8.Resources {
         public static string GuestWiFiName {
             get {
                 return ResourceManager.GetString("GuestWiFiName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仇恨/歧视 的本地化字符串。
+        /// </summary>
+        public static string HateDiscrimination {
+            get {
+                return ResourceManager.GetString("HateDiscrimination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 健康和健身 的本地化字符串。
+        /// </summary>
+        public static string HealthandFitness {
+            get {
+                return ResourceManager.GetString("HealthandFitness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 幽默 的本地化字符串。
+        /// </summary>
+        public static string Humor {
+            get {
+                return ResourceManager.GetString("Humor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅有您选择的类别被阻止。 的本地化字符串。
+        /// </summary>
+        public static string Illustration_CustomText {
+            get {
+                return ResourceManager.GetString("Illustration_CustomText", resourceCulture);
             }
         }
         
@@ -664,6 +925,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 即时消息传送 的本地化字符串。
+        /// </summary>
+        public static string InstantMessaging {
+            get {
+                return ResourceManager.GetString("InstantMessaging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 因特网不可用。请先将路由器连接到因特网。 的本地化字符串。
         /// </summary>
         public static string interneterror {
@@ -714,6 +984,15 @@ namespace GenieWP8.Resources {
         public static string ipodtouch {
             get {
                 return ResourceManager.GetString("ipodtouch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 工作/就业 的本地化字符串。
+        /// </summary>
+        public static string JobsEmployment {
+            get {
+                return ResourceManager.GetString("JobsEmployment", resourceCulture);
             }
         }
         
@@ -777,6 +1056,15 @@ namespace GenieWP8.Resources {
         public static string LimitPerMonth {
             get {
                 return ResourceManager.GetString("LimitPerMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 内衣/比基尼 的本地化字符串。
+        /// </summary>
+        public static string LingerieBikini {
+            get {
+                return ResourceManager.GetString("LingerieBikini", resourceCulture);
             }
         }
         
@@ -916,11 +1204,29 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 电影 的本地化字符串。
+        /// </summary>
+        public static string Movies {
+            get {
+                return ResourceManager.GetString("Movies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 密码由8~63个ASCII字符或64个十六进制数字组成。十六进制数字为以下所示字符之一：0, 1, 2, ..., 8, 9, A, B, C, D, E, F。 的本地化字符串。
         /// </summary>
         public static string MsgPasswordFormat {
             get {
                 return ResourceManager.GetString("MsgPasswordFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 音乐 的本地化字符串。
+        /// </summary>
+        public static string Music {
+            get {
+                return ResourceManager.GetString("Music", resourceCulture);
             }
         }
         
@@ -1051,6 +1357,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 新闻媒体 的本地化字符串。
+        /// </summary>
+        public static string NewsMedia {
+            get {
+                return ResourceManager.GetString("NewsMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 下一步 的本地化字符串。
         /// </summary>
         public static string NextButtonContent {
@@ -1065,6 +1380,15 @@ namespace GenieWP8.Resources {
         public static string NoButtonContent {
             get {
                 return ResourceManager.GetString("NoButtonContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 非营利 的本地化字符串。
+        /// </summary>
+        public static string Non_Profits {
+            get {
+                return ResourceManager.GetString("Non_Profits", resourceCulture);
             }
         }
         
@@ -1096,11 +1420,38 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 裸体 的本地化字符串。
+        /// </summary>
+        public static string Nudity {
+            get {
+                return ResourceManager.GetString("Nudity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定 的本地化字符串。
+        /// </summary>
+        public static string OkButtonContent {
+            get {
+                return ResourceManager.GetString("OkButtonContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 OpenDNS 账户 的本地化字符串。
         /// </summary>
         public static string OpenDNSUserText {
             get {
                 return ResourceManager.GetString("OpenDNSUserText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 对等网络/文件共享 的本地化字符串。
+        /// </summary>
+        public static string P2PFilesharing {
+            get {
+                return ResourceManager.GetString("P2PFilesharing", resourceCulture);
             }
         }
         
@@ -1123,6 +1474,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 停放的域名 的本地化字符串。
+        /// </summary>
+        public static string ParkedDomains {
+            get {
+                return ResourceManager.GetString("ParkedDomains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 密码 的本地化字符串。
         /// </summary>
         public static string PasswordText {
@@ -1137,6 +1497,60 @@ namespace GenieWP8.Resources {
         public static string PasswordTipsText {
             get {
                 return ResourceManager.GetString("PasswordTipsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 钓鱼网站防护 的本地化字符串。
+        /// </summary>
+        public static string PhishingProtection {
+            get {
+                return ResourceManager.GetString("PhishingProtection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 相片共享 的本地化字符串。
+        /// </summary>
+        public static string PhotoSharing {
+            get {
+                return ResourceManager.GetString("PhotoSharing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 播客 的本地化字符串。
+        /// </summary>
+        public static string Podcasts {
+            get {
+                return ResourceManager.GetString("Podcasts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 政治 的本地化字符串。
+        /// </summary>
+        public static string Politics {
+            get {
+                return ResourceManager.GetString("Politics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 色情 的本地化字符串。
+        /// </summary>
+        public static string Pornography {
+            get {
+                return ResourceManager.GetString("Pornography", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 门户 的本地化字符串。
+        /// </summary>
+        public static string Portals {
+            get {
+                return ResourceManager.GetString("Portals", resourceCulture);
             }
         }
         
@@ -1168,6 +1582,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 代理/匿名 的本地化字符串。
+        /// </summary>
+        public static string ProxyAnonymizer {
+            get {
+                return ResourceManager.GetString("ProxyAnonymizer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 QR码 的本地化字符串。
         /// </summary>
         public static string QRCode {
@@ -1182,6 +1605,24 @@ namespace GenieWP8.Resources {
         public static string QRCodePageTitleText {
             get {
                 return ResourceManager.GetString("QRCodePageTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无线广播 的本地化字符串。
+        /// </summary>
+        public static string Radio {
+            get {
+                return ResourceManager.GetString("Radio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 自定义 的本地化字符串。
+        /// </summary>
+        public static string radioButton_CustomContent {
+            get {
+                return ResourceManager.GetString("radioButton_CustomContent", resourceCulture);
             }
         }
         
@@ -1249,6 +1690,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 宗教 的本地化字符串。
+        /// </summary>
+        public static string Religious {
+            get {
+                return ResourceManager.GetString("Religious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 记住密码 的本地化字符串。
         /// </summary>
         public static string RememberPasswordCheckBoxContent {
@@ -1263,6 +1713,15 @@ namespace GenieWP8.Resources {
         public static string repeater {
             get {
                 return ResourceManager.GetString("repeater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 研究/参考 的本地化字符串。
+        /// </summary>
+        public static string ResearchReference {
+            get {
+                return ResourceManager.GetString("ResearchReference", resourceCulture);
             }
         }
         
@@ -1366,6 +1825,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 搜索引擎 的本地化字符串。
+        /// </summary>
+        public static string SearchEngines {
+            get {
+                return ResourceManager.GetString("SearchEngines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 搜索 的本地化字符串。
         /// </summary>
         public static string SearchText {
@@ -1447,6 +1915,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 性交 的本地化字符串。
+        /// </summary>
+        public static string Sexuality {
+            get {
+                return ResourceManager.GetString("Sexuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 在网络中共享文件 的本地化字符串。
         /// </summary>
         public static string ShareFilesInNetworkText {
@@ -1461,6 +1938,33 @@ namespace GenieWP8.Resources {
         public static string slingbox {
             get {
                 return ResourceManager.GetString("slingbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 社交网络 的本地化字符串。
+        /// </summary>
+        public static string SocialNetworking {
+            get {
+                return ResourceManager.GetString("SocialNetworking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 软件/技术 的本地化字符串。
+        /// </summary>
+        public static string SoftwareTechnology {
+            get {
+                return ResourceManager.GetString("SoftwareTechnology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 运动 的本地化字符串。
+        /// </summary>
+        public static string Sports {
+            get {
+                return ResourceManager.GetString("Sports", resourceCulture);
             }
         }
         
@@ -1546,6 +2050,24 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 厌世 的本地化字符串。
+        /// </summary>
+        public static string Tasteless {
+            get {
+                return ResourceManager.GetString("Tasteless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 电视 的本地化字符串。
+        /// </summary>
+        public static string Television {
+            get {
+                return ResourceManager.GetString("Television", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 条款与条件 的本地化字符串。
         /// </summary>
         public static string Terms_ConditionsText {
@@ -1614,6 +2136,15 @@ namespace GenieWP8.Resources {
         public static string TimeSegment_Always {
             get {
                 return ResourceManager.GetString("TimeSegment_Always", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 烟草 的本地化字符串。
+        /// </summary>
+        public static string Tobacco {
+            get {
+                return ResourceManager.GetString("Tobacco", resourceCulture);
             }
         }
         
@@ -1735,6 +2266,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 旅行 的本地化字符串。
+        /// </summary>
+        public static string Travel {
+            get {
+                return ResourceManager.GetString("Travel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 电视 的本地化字符串。
         /// </summary>
         public static string tv {
@@ -1807,6 +2347,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 域名抢注 的本地化字符串。
+        /// </summary>
+        public static string TypoSquatting {
+            get {
+                return ResourceManager.GetString("TypoSquatting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 UNIX PC 的本地化字符串。
         /// </summary>
         public static string unixpc {
@@ -1843,11 +2392,56 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 视频共享 的本地化字符串。
+        /// </summary>
+        public static string VideoSharing {
+            get {
+                return ResourceManager.GetString("VideoSharing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 视觉搜索引擎 的本地化字符串。
+        /// </summary>
+        public static string VisualSearchEngines {
+            get {
+                return ResourceManager.GetString("VisualSearchEngines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请等待一会…… 的本地化字符串。
         /// </summary>
         public static string waitText {
             get {
                 return ResourceManager.GetString("waitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 武器 的本地化字符串。
+        /// </summary>
+        public static string Weapons {
+            get {
+                return ResourceManager.GetString("Weapons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 网络邮件 的本地化字符串。
+        /// </summary>
+        public static string Webmail {
+            get {
+                return ResourceManager.GetString("Webmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 垃圾网页 的本地化字符串。
+        /// </summary>
+        public static string WebSpam {
+            get {
+                return ResourceManager.GetString("WebSpam", resourceCulture);
             }
         }
         

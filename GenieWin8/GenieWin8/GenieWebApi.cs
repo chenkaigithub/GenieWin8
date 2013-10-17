@@ -251,8 +251,26 @@ namespace GenieWin8
                 retParam.Add("status", status);
                 if (status == "success")
                 {
-                    string bundle = jo["response"]["bundle"].ToString();
+                    string res = jo["response"].ToString();
+                    string bundle;
+                    string categories;
+                    if (res.Contains("categories"))
+                    {
+                        bundle = "Custom";
+                        categories = jo["response"]["categories"].ToString();
+                        categories = categories.Replace("[", "");
+                        categories = categories.Replace("]", "");
+                        categories = categories.Replace("\r\n", "");
+                        categories = categories.Replace("  ", "");
+                        categories = categories.Replace("\"", "");
+                    } 
+                    else
+                    {
+                        bundle = jo["response"]["bundle"].ToString();
+                        categories = "";                       
+                    }
                     retParam.Add("bundle", bundle);
+                    retParam.Add("categories", categories);                    
                 }
                 else
                 {
@@ -270,14 +288,21 @@ namespace GenieWin8
         /// </summary>
         /// <param name="token"></param>
         /// <param name="deviceId"></param>
-        /// <param name="bundle">None||Minimal||Low||Moderate||High</param>
+        /// <param name="bundle">None||Minimal||Low||Moderate||High||Custom</param>
         /// <returns></returns>
-        public async Task<Dictionary<string,string>> SetFilters(string token, string deviceId,string bundle)
+        public async Task<Dictionary<string,string>> SetFilters(string token, string deviceId,string bundle, string categories)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("token", token);
             param.Add("device_id", deviceId);
-            param.Add("bundle", bundle);
+            if (bundle != "Custom")
+            {
+                param.Add("bundle", bundle);
+            }
+            else
+            {
+                param.Add("categories", categories);
+            }
             string retText = await WebApiPost("filters_set", param);
             Dictionary<string, string> retParam = new Dictionary<string, string>();
             if (retText != "")

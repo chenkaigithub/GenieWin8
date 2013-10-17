@@ -823,4 +823,202 @@
   <data name="MsgPasswordFormat" xml:space="preserve">
     <value>A passphrase consists of either 8~63 ASCII characters or exactly 64 hex-digits. A hex digit is one of these characters: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
   </data>
+  <data name="AnotherUserRegisters" xml:space="preserve">
+    <value>This device appears to be registered with another OpenDNS user.</value>
+  </data>
+  <data name="OkButtonContent" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="AcademicFraud" xml:space="preserve">
+    <value>Academic Fraud</value>
+  </data>
+  <data name="AdultThemes" xml:space="preserve">
+    <value>Adult Themes</value>
+  </data>
+  <data name="Adware" xml:space="preserve">
+    <value>Adware</value>
+  </data>
+  <data name="Alcohol" xml:space="preserve">
+    <value>Alcohol</value>
+  </data>
+  <data name="AnimeMangaWebcomic" xml:space="preserve">
+    <value>Anime/Manga/Webcomic</value>
+  </data>
+  <data name="Auctions" xml:space="preserve">
+    <value>Auctions</value>
+  </data>
+  <data name="Automotive" xml:space="preserve">
+    <value>Automotive</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="BusinessServices" xml:space="preserve">
+    <value>Business Services</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="Classifieds" xml:space="preserve">
+    <value>Classifieds</value>
+  </data>
+  <data name="Dating" xml:space="preserve">
+    <value>Dating</value>
+  </data>
+  <data name="Drugs" xml:space="preserve">
+    <value>Drugs</value>
+  </data>
+  <data name="EcommerceShopping" xml:space="preserve">
+    <value>Ecommerce/Shopping</value>
+  </data>
+  <data name="EducationalInstitutions" xml:space="preserve">
+    <value>Educational Institutions</value>
+  </data>
+  <data name="FileStorage" xml:space="preserve">
+    <value>File Storage</value>
+  </data>
+  <data name="FinancialInstitutions" xml:space="preserve">
+    <value>Financial Institutions</value>
+  </data>
+  <data name="ForumsMessageboards" xml:space="preserve">
+    <value>Forums/Message boards</value>
+  </data>
+  <data name="Gambling" xml:space="preserve">
+    <value>Gambling</value>
+  </data>
+  <data name="Games" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="GermanYouthProtection" xml:space="preserve">
+    <value>German Youth Protection</value>
+  </data>
+  <data name="Government" xml:space="preserve">
+    <value>Government</value>
+  </data>
+  <data name="HateDiscrimination" xml:space="preserve">
+    <value>Hate/Discrimination</value>
+  </data>
+  <data name="HealthandFitness" xml:space="preserve">
+    <value>Health and Fitness</value>
+  </data>
+  <data name="Humor" xml:space="preserve">
+    <value>Humor</value>
+  </data>
+  <data name="Illustration_CustomText" xml:space="preserve">
+    <value>Only categories you select are blocked.</value>
+  </data>
+  <data name="InstantMessaging" xml:space="preserve">
+    <value>Instant Messaging</value>
+  </data>
+  <data name="JobsEmployment" xml:space="preserve">
+    <value>Jobs/Employment</value>
+  </data>
+  <data name="LingerieBikini" xml:space="preserve">
+    <value>Lingerie/Bikini</value>
+  </data>
+  <data name="Movies" xml:space="preserve">
+    <value>Movies</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Music</value>
+  </data>
+  <data name="NewsMedia" xml:space="preserve">
+    <value>News/Media</value>
+  </data>
+  <data name="Non_Profits" xml:space="preserve">
+    <value>Non-Profits</value>
+  </data>
+  <data name="Nudity" xml:space="preserve">
+    <value>Nudity</value>
+  </data>
+  <data name="P2PFilesharing" xml:space="preserve">
+    <value>P2P/File sharing</value>
+  </data>
+  <data name="ParkedDomains" xml:space="preserve">
+    <value>Parked Domains</value>
+  </data>
+  <data name="PhishingProtection" xml:space="preserve">
+    <value>Phishing Protection</value>
+  </data>
+  <data name="PhotoSharing" xml:space="preserve">
+    <value>Photo Sharing</value>
+  </data>
+  <data name="Podcasts" xml:space="preserve">
+    <value>Podcasts</value>
+  </data>
+  <data name="Politics" xml:space="preserve">
+    <value>Politics</value>
+  </data>
+  <data name="Pornography" xml:space="preserve">
+    <value>Pornography</value>
+  </data>
+  <data name="Portals" xml:space="preserve">
+    <value>Portals</value>
+  </data>
+  <data name="ProxyAnonymizer" xml:space="preserve">
+    <value>Proxy/Anonymizer</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>Radio</value>
+  </data>
+  <data name="radioButton_CustomContent" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Religious" xml:space="preserve">
+    <value>Religious</value>
+  </data>
+  <data name="ResearchReference" xml:space="preserve">
+    <value>Research/Reference</value>
+  </data>
+  <data name="SearchEngines" xml:space="preserve">
+    <value>Search Engines</value>
+  </data>
+  <data name="Sexuality" xml:space="preserve">
+    <value>Sexuality</value>
+  </data>
+  <data name="SocialNetworking" xml:space="preserve">
+    <value>Social Networking</value>
+  </data>
+  <data name="SoftwareTechnology" xml:space="preserve">
+    <value>Software/Technology</value>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>Sports</value>
+  </data>
+  <data name="Tasteless" xml:space="preserve">
+    <value>Tasteless</value>
+  </data>
+  <data name="Television" xml:space="preserve">
+    <value>Television</value>
+  </data>
+  <data name="Tobacco" xml:space="preserve">
+    <value>Tobacco</value>
+  </data>
+  <data name="Travel" xml:space="preserve">
+    <value>Travel</value>
+  </data>
+  <data name="TypoSquatting" xml:space="preserve">
+    <value>Typo Squatting</value>
+  </data>
+  <data name="VideoSharing" xml:space="preserve">
+    <value>Video Sharing</value>
+  </data>
+  <data name="VisualSearchEngines" xml:space="preserve">
+    <value>Visual Search Engines</value>
+  </data>
+  <data name="Weapons" xml:space="preserve">
+    <value>Weapons</value>
+  </data>
+  <data name="Webmail" xml:space="preserve">
+    <value>Webmail</value>
+  </data>
+  <data name="WebSpam" xml:space="preserve">
+    <value>Web Spam</value>
+  </data>
+  <data name="CustomData" xml:space="preserve">
+    <value>Custom Data</value>
+  </data>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>The user name or password field is empty.</value>
+  </data>
 </root>

@@ -149,11 +149,11 @@ namespace GenieWin8.Data
                     "Assets/MainPage/traffic.png");
             this.AllGroups.Add(group5);
 
-            strTitle = loader.GetString("MyMedia");
-            var group6 = new DataGroup("MyMedia",
-                    strTitle,
-                    "Assets/MainPage/mymedia.png");
-            this.AllGroups.Add(group6);
+            //strTitle = loader.GetString("MyMedia");
+            //var group6 = new DataGroup("MyMedia",
+            //        strTitle,
+            //        "Assets/MainPage/mymedia.png");
+            //this.AllGroups.Add(group6);
 
             strTitle = loader.GetString("QRCode");
             var group7 = new DataGroup("QRCode",

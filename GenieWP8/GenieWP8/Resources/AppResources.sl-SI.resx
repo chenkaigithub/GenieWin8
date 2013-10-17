@@ -814,4 +814,202 @@
   <data name="MsgPasswordFormat" xml:space="preserve">
     <value>Geslo vsebuje 8~63 znakov ASCII ali natanko 64 šestnajstiških številk. Šestnajstiška številka je ena od teh znakov: 0, 1, 2, ..., 8, 9, A, B, C, D, E, F.</value>
   </data>
+  <data name="AnotherUserRegisters" xml:space="preserve">
+    <value>Videti je, da je naprava registrirana za drugega uporabnika računa OpenDNS.</value>
+  </data>
+  <data name="OkButtonContent" xml:space="preserve">
+    <value>V redu</value>
+  </data>
+  <data name="AcademicFraud" xml:space="preserve">
+    <value>Akademska prevara</value>
+  </data>
+  <data name="AdultThemes" xml:space="preserve">
+    <value>Odrasle teme</value>
+  </data>
+  <data name="Adware" xml:space="preserve">
+    <value>Oglaševalni programi</value>
+  </data>
+  <data name="Alcohol" xml:space="preserve">
+    <value>Alkohol</value>
+  </data>
+  <data name="AnimeMangaWebcomic" xml:space="preserve">
+    <value>Anime/manga/spletni stripi</value>
+  </data>
+  <data name="Auctions" xml:space="preserve">
+    <value>Dražbe</value>
+  </data>
+  <data name="Automotive" xml:space="preserve">
+    <value>Vozila</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Spletni dnevniki</value>
+  </data>
+  <data name="BusinessServices" xml:space="preserve">
+    <value>Poslovne storitve</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Klepet</value>
+  </data>
+  <data name="Classifieds" xml:space="preserve">
+    <value>Osebni oglasi</value>
+  </data>
+  <data name="Dating" xml:space="preserve">
+    <value>Zmenki</value>
+  </data>
+  <data name="Drugs" xml:space="preserve">
+    <value>Mamila</value>
+  </data>
+  <data name="EcommerceShopping" xml:space="preserve">
+    <value>E-trgovina/nakupovanje</value>
+  </data>
+  <data name="EducationalInstitutions" xml:space="preserve">
+    <value>Izobraževalne ustanove</value>
+  </data>
+  <data name="FileStorage" xml:space="preserve">
+    <value>Shranjevanje datotek</value>
+  </data>
+  <data name="FinancialInstitutions" xml:space="preserve">
+    <value>Finančne ustanove</value>
+  </data>
+  <data name="ForumsMessageboards" xml:space="preserve">
+    <value>Forumi/sporočila</value>
+  </data>
+  <data name="Gambling" xml:space="preserve">
+    <value>Igre na srečo</value>
+  </data>
+  <data name="Games" xml:space="preserve">
+    <value>Igre</value>
+  </data>
+  <data name="GermanYouthProtection" xml:space="preserve">
+    <value>Zaščita mladih v Nemčiji</value>
+  </data>
+  <data name="Government" xml:space="preserve">
+    <value>Vlada</value>
+  </data>
+  <data name="HateDiscrimination" xml:space="preserve">
+    <value>Sovraštvo/diskriminacija</value>
+  </data>
+  <data name="HealthandFitness" xml:space="preserve">
+    <value>Zdravje in dobro počutje</value>
+  </data>
+  <data name="Humor" xml:space="preserve">
+    <value>Humor</value>
+  </data>
+  <data name="Illustration_CustomText" xml:space="preserve">
+    <value>Blokirane so samo izbrane kategorije.</value>
+  </data>
+  <data name="InstantMessaging" xml:space="preserve">
+    <value>Kratka sporočila</value>
+  </data>
+  <data name="JobsEmployment" xml:space="preserve">
+    <value>Delo/zaposlitev</value>
+  </data>
+  <data name="LingerieBikini" xml:space="preserve">
+    <value>Spodnje perilo/kopalke</value>
+  </data>
+  <data name="Movies" xml:space="preserve">
+    <value>Filmi</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>Glasba</value>
+  </data>
+  <data name="NewsMedia" xml:space="preserve">
+    <value>Novice/mediji</value>
+  </data>
+  <data name="Non_Profits" xml:space="preserve">
+    <value>Neprofitne organizacije</value>
+  </data>
+  <data name="Nudity" xml:space="preserve">
+    <value>Golota</value>
+  </data>
+  <data name="P2PFilesharing" xml:space="preserve">
+    <value>P2P/izmenjava datotek</value>
+  </data>
+  <data name="ParkedDomains" xml:space="preserve">
+    <value>Parkirane domene</value>
+  </data>
+  <data name="PhishingProtection" xml:space="preserve">
+    <value>Zaščita pred lažnim predstavljanjem</value>
+  </data>
+  <data name="PhotoSharing" xml:space="preserve">
+    <value>Izmenjava fotografij</value>
+  </data>
+  <data name="Podcasts" xml:space="preserve">
+    <value>Poddaje</value>
+  </data>
+  <data name="Politics" xml:space="preserve">
+    <value>Politika</value>
+  </data>
+  <data name="Pornography" xml:space="preserve">
+    <value>Pornografija</value>
+  </data>
+  <data name="Portals" xml:space="preserve">
+    <value>Portali</value>
+  </data>
+  <data name="ProxyAnonymizer" xml:space="preserve">
+    <value>Posredniški strežniki/anonimizator</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>Radio</value>
+  </data>
+  <data name="radioButton_CustomContent" xml:space="preserve">
+    <value>Po meri</value>
+  </data>
+  <data name="Religious" xml:space="preserve">
+    <value>Religija</value>
+  </data>
+  <data name="ResearchReference" xml:space="preserve">
+    <value>Raziskave/reference</value>
+  </data>
+  <data name="SearchEngines" xml:space="preserve">
+    <value>Iskalni mehanizmi</value>
+  </data>
+  <data name="Sexuality" xml:space="preserve">
+    <value>Spolnost</value>
+  </data>
+  <data name="SocialNetworking" xml:space="preserve">
+    <value>Družabna omrežja</value>
+  </data>
+  <data name="SoftwareTechnology" xml:space="preserve">
+    <value>Programska oprema/tehnologija</value>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>Šport</value>
+  </data>
+  <data name="Tasteless" xml:space="preserve">
+    <value>Neokusne vsebine</value>
+  </data>
+  <data name="Television" xml:space="preserve">
+    <value>Televizija</value>
+  </data>
+  <data name="Tobacco" xml:space="preserve">
+    <value>Tobak</value>
+  </data>
+  <data name="Travel" xml:space="preserve">
+    <value>Potovanja</value>
+  </data>
+  <data name="TypoSquatting" xml:space="preserve">
+    <value>Kraja spletnih naslovov</value>
+  </data>
+  <data name="VideoSharing" xml:space="preserve">
+    <value>Izmenjava videoposnetkov</value>
+  </data>
+  <data name="VisualSearchEngines" xml:space="preserve">
+    <value>Vizualni iskalni mehanizmi</value>
+  </data>
+  <data name="Weapons" xml:space="preserve">
+    <value>Orožje</value>
+  </data>
+  <data name="Webmail" xml:space="preserve">
+    <value>Spletna pošta</value>
+  </data>
+  <data name="WebSpam" xml:space="preserve">
+    <value>Spletna neželena pošta</value>
+  </data>
+  <data name="CustomData" xml:space="preserve">
+    <value>Podatki po meri</value>
+  </data>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>Polje z uporabniškim imenom ali geslom je prazno.</value>
+  </data>
 </root>

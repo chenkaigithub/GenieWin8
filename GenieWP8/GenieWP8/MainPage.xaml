@@ -81,7 +81,7 @@
                 <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
                 <GradientStop Color="#FFFF495A" Offset="0.6"/>
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
-            </LinearGradientBrush>
+           </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

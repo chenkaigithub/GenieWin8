@@ -751,4 +751,202 @@
   <data name="MsgPasswordFormat" xml:space="preserve">
     <value>Фраза-пароль состоит из 8-63 ASCII символов, либо ровно из 64 шестнадцатеричных цифр. К шестнадцатеричным относятся следующие символы: 0, 1, 2, ..., 8, 9, A, B, C, D, E, и F.</value>
   </data>
+  <data name="AnotherUserRegisters" xml:space="preserve">
+    <value>Это устройство зарегистрировано на другого пользователя OpenDNS.</value>
+  </data>
+  <data name="AcademicFraud.Content" xml:space="preserve">
+    <value>Традиционные формы мошенничества</value>
+  </data>
+  <data name="AdultThemes.Content" xml:space="preserve">
+    <value>Тематика для взрослых</value>
+  </data>
+  <data name="Adware.Content" xml:space="preserve">
+    <value>Реклама</value>
+  </data>
+  <data name="Alcohol.Content" xml:space="preserve">
+    <value>Алкоголь</value>
+  </data>
+  <data name="AnimeMangaWebcomic.Content" xml:space="preserve">
+    <value>Анимэ/манга/веб-комиксы</value>
+  </data>
+  <data name="Auctions.Content" xml:space="preserve">
+    <value>Аукционы</value>
+  </data>
+  <data name="Automotive.Content" xml:space="preserve">
+    <value>Автомобили</value>
+  </data>
+  <data name="Blogs.Content" xml:space="preserve">
+    <value>Блоги</value>
+  </data>
+  <data name="BusinessServices.Content" xml:space="preserve">
+    <value>Бизнес-услуги</value>
+  </data>
+  <data name="Chat.Content" xml:space="preserve">
+    <value>Чат</value>
+  </data>
+  <data name="Classifieds.Content" xml:space="preserve">
+    <value>Тематические объявления</value>
+  </data>
+  <data name="Dating.Content" xml:space="preserve">
+    <value>Знакомства</value>
+  </data>
+  <data name="Drugs.Content" xml:space="preserve">
+    <value>Наркотики</value>
+  </data>
+  <data name="EcommerceShopping.Content" xml:space="preserve">
+    <value>Электронная коммерция и торговля</value>
+  </data>
+  <data name="EducationalInstitutions.Content" xml:space="preserve">
+    <value>Образовательные учреждения</value>
+  </data>
+  <data name="FileStorage.Content" xml:space="preserve">
+    <value>Файловые хранилища</value>
+  </data>
+  <data name="FinancialInstitutions.Content" xml:space="preserve">
+    <value>Финансовые организации</value>
+  </data>
+  <data name="ForumsMessageboards.Content" xml:space="preserve">
+    <value>Форумы/доски объявлений</value>
+  </data>
+  <data name="Gambling.Content" xml:space="preserve">
+    <value>Азартные игры</value>
+  </data>
+  <data name="Games.Content" xml:space="preserve">
+    <value>Игры</value>
+  </data>
+  <data name="GermanYouthProtection.Content" xml:space="preserve">
+    <value>Согласно JMStV (Германия)</value>
+  </data>
+  <data name="Government.Content" xml:space="preserve">
+    <value>Государственные органы</value>
+  </data>
+  <data name="HateDiscrimination.Content" xml:space="preserve">
+    <value>Проявления ненависти и дискриминации</value>
+  </data>
+  <data name="HealthandFitness.Content" xml:space="preserve">
+    <value>Здоровье и фитнес</value>
+  </data>
+  <data name="Humor.Content" xml:space="preserve">
+    <value>Юмор</value>
+  </data>
+  <data name="Illustration_Custom.Text" xml:space="preserve">
+    <value>Заблокированы только выбранные категории.</value>
+  </data>
+  <data name="InstantMessaging.Content" xml:space="preserve">
+    <value>Мгновенный обмен сообщениями</value>
+  </data>
+  <data name="JobsEmployment.Content" xml:space="preserve">
+    <value>Работа и наем</value>
+  </data>
+  <data name="LingerieBikini.Content" xml:space="preserve">
+    <value>Нижнее белье и бикини</value>
+  </data>
+  <data name="Movies.Content" xml:space="preserve">
+    <value>Фильмы</value>
+  </data>
+  <data name="Music.Content" xml:space="preserve">
+    <value>Музыка</value>
+  </data>
+  <data name="NewsMedia.Content" xml:space="preserve">
+    <value>Новости/СМИ</value>
+  </data>
+  <data name="Non_Profits.Content" xml:space="preserve">
+    <value>Некоммерческие организации</value>
+  </data>
+  <data name="Nudity.Content" xml:space="preserve">
+    <value>Обнаженная натура</value>
+  </data>
+  <data name="OkButton.Content" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="P2PFilesharing.Content" xml:space="preserve">
+    <value>P2P/обмен файлами</value>
+  </data>
+  <data name="ParkedDomains.Content" xml:space="preserve">
+    <value>Прикрепленные домены</value>
+  </data>
+  <data name="PhishingProtection.Content" xml:space="preserve">
+    <value>Защита от фишинга</value>
+  </data>
+  <data name="PhotoSharing.Content" xml:space="preserve">
+    <value>Публикация фотографий</value>
+  </data>
+  <data name="Podcasts.Content" xml:space="preserve">
+    <value>Подкасты</value>
+  </data>
+  <data name="Politics.Content" xml:space="preserve">
+    <value>Политика</value>
+  </data>
+  <data name="Pornography.Content" xml:space="preserve">
+    <value>Порнография</value>
+  </data>
+  <data name="Portals.Content" xml:space="preserve">
+    <value>Порталы</value>
+  </data>
+  <data name="ProxyAnonymizer.Content" xml:space="preserve">
+    <value>Прокси и анонимайзеры</value>
+  </data>
+  <data name="Radio.Content" xml:space="preserve">
+    <value>Радио</value>
+  </data>
+  <data name="radioButton_Custom.Content" xml:space="preserve">
+    <value>Пользовательская установка</value>
+  </data>
+  <data name="Religious.Content" xml:space="preserve">
+    <value>Религия</value>
+  </data>
+  <data name="ResearchReference.Content" xml:space="preserve">
+    <value>Исследования/рекомендации</value>
+  </data>
+  <data name="SearchEngines.Content" xml:space="preserve">
+    <value>Поисковые системы</value>
+  </data>
+  <data name="Sexuality.Content" xml:space="preserve">
+    <value>Сексуальность</value>
+  </data>
+  <data name="SocialNetworking.Content" xml:space="preserve">
+    <value>Социальные сети</value>
+  </data>
+  <data name="SoftwareTechnology.Content" xml:space="preserve">
+    <value>ПО/технологии</value>
+  </data>
+  <data name="Sports.Content" xml:space="preserve">
+    <value>Спорт</value>
+  </data>
+  <data name="Tasteless.Content" xml:space="preserve">
+    <value>Шокирующий контент</value>
+  </data>
+  <data name="Television.Content" xml:space="preserve">
+    <value>Телевидение</value>
+  </data>
+  <data name="Tobacco.Content" xml:space="preserve">
+    <value>Табак</value>
+  </data>
+  <data name="Travel.Content" xml:space="preserve">
+    <value>Путешествия</value>
+  </data>
+  <data name="TypoSquatting.Content" xml:space="preserve">
+    <value>Тайпсквоттинг</value>
+  </data>
+  <data name="VideoSharing.Content" xml:space="preserve">
+    <value>Публикация видео</value>
+  </data>
+  <data name="VisualSearchEngines.Content" xml:space="preserve">
+    <value>Визуальные поисковые машины</value>
+  </data>
+  <data name="Weapons.Content" xml:space="preserve">
+    <value>Оружие</value>
+  </data>
+  <data name="Webmail.Content" xml:space="preserve">
+    <value>Веб-почта</value>
+  </data>
+  <data name="WebSpam.Content" xml:space="preserve">
+    <value>Спам</value>
+  </data>
+  <data name="CustomData.Text" xml:space="preserve">
+    <value>Пользовательские данные</value>
+  </data>
+  <data name="EmptyUsernameOrPassword" xml:space="preserve">
+    <value>Необходимо ввести имя пользователя или пароль.</value>
+  </data>
 </root>
