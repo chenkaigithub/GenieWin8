@@ -336,6 +336,7 @@ namespace GenieWP8
                             DeviceNameText.FontSize = 15;
                             DeviceNameText.FontWeight = FontWeights.Normal;
                             DeviceNameText.Margin = new Thickness(0, -10, 0, 0);
+                            DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
                             StackPanel stpDevice = new StackPanel();
                             stpDevice.Children.Add(imgDevice);
                             stpDevice.Children.Add(DeviceNameText);
@@ -556,6 +557,7 @@ namespace GenieWP8
                                 DeviceNameText.FontSize = 15;
                                 DeviceNameText.FontWeight = FontWeights.Normal;
                                 DeviceNameText.Margin = new Thickness(0, -10, 0, 0);
+                                DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
                                 StackPanel stpDevice = new StackPanel();
                                 stpDevice.Children.Add(imgDevice);
                                 stpDevice.Children.Add(DeviceNameText);
@@ -1764,6 +1766,11 @@ namespace GenieWP8
                 MessageBox.Show(ex.ToString());
             }
             return fileContent;
+        }
+
+        private void txtBoxDeviceName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtBoxDeviceName.Background = new SolidColorBrush(Colors.White);
         }
     }
 }

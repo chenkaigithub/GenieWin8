@@ -1362,36 +1362,46 @@ namespace GenieWP8
             GenieWebApi webApi = new GenieWebApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await webApi.CheckNameAvailable(RegUsername.Text);
-            if (dicResponse["status"] != "success")
+            if (dicResponse.Count > 0)
             {
-                chenckAvailableInProgress.Visibility = Visibility.Collapsed;
-                IsAvailableName.Visibility = Visibility.Visible;
-                IsAvailableName.Text = dicResponse["error_message"];
-                IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
-                ParentalControlInfo.IsUsernameAvailable = false;
-            }
-            else
-            {
-                string isAvailable = dicResponse["available"];
-                chenckAvailableInProgress.Visibility = Visibility.Collapsed;
-                if (isAvailable == "no")
+                if (dicResponse["status"] != "success")
                 {
+                    chenckAvailableInProgress.Visibility = Visibility.Collapsed;
                     IsAvailableName.Visibility = Visibility.Visible;
-                    IsAvailableName.Text = "User Name is unavailable.";
+                    IsAvailableName.Text = dicResponse["error_message"];
                     IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
-                }
-                else if (isAvailable == "yes")
-                {
-                    IsAvailableName.Visibility = Visibility.Visible;
-                    IsAvailableName.Text = "User Name is Available.";
-                    IsAvailableName.Foreground = new SolidColorBrush(Colors.Green);
+                    ParentalControlInfo.IsUsernameAvailable = false;
                 }
                 else
                 {
-                    IsAvailableName.Visibility = Visibility.Visible;
-                    IsAvailableName.Text = dicResponse["available"];
+                    string isAvailable = dicResponse["available"];
+                    chenckAvailableInProgress.Visibility = Visibility.Collapsed;
+                    if (isAvailable == "no")
+                    {
+                        IsAvailableName.Visibility = Visibility.Visible;
+                        IsAvailableName.Text = "User Name is unavailable.";
+                        IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
+                    }
+                    else if (isAvailable == "yes")
+                    {
+                        IsAvailableName.Visibility = Visibility.Visible;
+                        IsAvailableName.Text = "User Name is Available.";
+                        IsAvailableName.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+                    else
+                    {
+                        IsAvailableName.Visibility = Visibility.Visible;
+                        IsAvailableName.Text = dicResponse["available"];
+                    }
+                    ParentalControlInfo.IsUsernameAvailable = true;
                 }
-                ParentalControlInfo.IsUsernameAvailable = true;
+            }
+            else
+            {
+                chenckAvailableInProgress.Visibility = Visibility.Collapsed;
+                IsAvailableName.Visibility = Visibility.Visible;
+                IsAvailableName.Text = "Check failed!";
+                IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
             }
         }
 
@@ -2344,6 +2354,41 @@ namespace GenieWP8
 
             // 将所选项重置为 null (没有选定内容)
             CategoriesList.SelectedItem = null;
+        }
+
+        private void RegUsername_GotFocus(object sender, RoutedEventArgs e)
+        {
+            RegUsername.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void RegPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            RegPassword.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void confirmPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            confirmPassword.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void email_GotFocus(object sender, RoutedEventArgs e)
+        {
+            email.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void congfirmEmail_GotFocus(object sender, RoutedEventArgs e)
+        {
+            congfirmEmail.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void LoginUsername_GotFocus(object sender, RoutedEventArgs e)
+        {
+            LoginUsername.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void LoginPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            LoginPassword.Background = new SolidColorBrush(Colors.White);
         }
     }
 }

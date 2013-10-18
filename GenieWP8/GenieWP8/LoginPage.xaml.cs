@@ -14,6 +14,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
 using Microsoft.Phone.Net.NetworkInformation;
+using System.Windows.Media;
 
 namespace GenieWP8
 {
@@ -456,6 +457,11 @@ namespace GenieWP8
                 MessageBox.Show(ex.ToString());
             }
             return fileContent;
+        }
+
+        private void tbPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbPassword.Background = new SolidColorBrush(Colors.White);
         }
     }
 }

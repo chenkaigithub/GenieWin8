@@ -11,6 +11,7 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using System.Windows.Media;
 
 namespace GenieWP8
 {
@@ -474,6 +475,21 @@ namespace GenieWP8
                     MessageBox.Show("MonthlyLimit must be between 0 and 999999.");
                 }
             }
+        }
+
+        private void monthlyLimit_GotFocus(object sender, RoutedEventArgs e)
+        {
+            monthlyLimit.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void restartHour_GotFocus(object sender, RoutedEventArgs e)
+        {
+            restartHour.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void restartMinute_GotFocus(object sender, RoutedEventArgs e)
+        {
+            restartMinute.Background = new SolidColorBrush(Colors.White);
         }
     }
 }

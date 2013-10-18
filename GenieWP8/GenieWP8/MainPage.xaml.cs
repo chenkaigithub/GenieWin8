@@ -15,6 +15,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Windows.Media;
 
 namespace GenieWP8
 {
@@ -560,6 +561,11 @@ namespace GenieWP8
                 MessageBox.Show(ex.ToString());
             }
             return fileContent;
+        }
+
+        private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbSearch.Background =new SolidColorBrush(Colors.White);
         }
     }
 }

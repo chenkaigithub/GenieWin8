@@ -15,8 +15,8 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
-    <Grid x:Name="LayoutRoot">
-        <Grid.Background>
+    <Grid x:Name="LayoutRoot" Background="#FFE6E6E6">
+        <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
                     <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
@@ -30,7 +30,7 @@
                 <GradientStop Color="#FFFF495A" Offset="0.6"/>
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
             </LinearGradientBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -38,9 +38,9 @@
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#FF5A5A5A"/>
             <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.TrafficMeterSettingPageTitleText, Source={StaticResource LocalizedStrings}}"
-                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap"/>
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="#FF5A5A5A"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
@@ -56,13 +56,13 @@
                             <GradientStop Color="#FF50C6FD"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <TextBlock Text="{Binding Title}" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <TextBlock Text="{Binding Title}" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
                     <TextBox x:Name="monthlyLimit" Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"
-                             Width="200" TextAlignment="Right" TextChanged="monthlyLimit_changed" InputScope="TimeHour" MaxLength="6"/>
+                             Width="200" TextAlignment="Right" TextChanged="monthlyLimit_changed" InputScope="TimeHour" MaxLength="6" Background="White" GotFocus="monthlyLimit_GotFocus"/>
                 </Grid>
 
                 <TextBlock Text="{Binding Path=LocalizedResources.TrafficMeterStartTime, Source={StaticResource LocalizedStrings}}"
-                       Margin="0,25,0,0" FontSize="20" TextWrapping="Wrap"/>               
+                       Margin="0,25,0,0" FontSize="20" TextWrapping="Wrap" Foreground="#FF5A5A5A"/>               
                 <phone:LongListSelector
                     x:Name="StartDateLongListSelector"
                     ItemsSource="{Binding StartDate}"
@@ -85,8 +85,8 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="{Binding Title}" FontSize="22"/>
-                                    <TextBlock Text="{Binding Content}" FontSize="20"/>
+                                    <TextBlock Text="{Binding Title}" FontSize="22" Foreground="White"/>
+                                    <TextBlock Text="{Binding Content}" FontSize="20" Foreground="White"/>
                                 </StackPanel>
                                 <Image Source="Assets/gofoward.png" Grid.Column="1" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
                             </Grid>
@@ -105,16 +105,16 @@
                         </LinearGradientBrush>
                     </Grid.Background>
                     <TextBlock Text="{Binding Path=LocalizedResources.StartTimeText, Source={StaticResource LocalizedStrings}}"
-                               FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                               FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
                     <Grid Width="140" HorizontalAlignment="Right" Margin="0,0,140,0" DataContext="{Binding StartTimeHour}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Path=LocalizedResources.StartTimeHourText, Source={StaticResource LocalizedStrings}}"
-                                   Grid.Column="0" FontSize="22" VerticalAlignment="Center"/>
+                                   Grid.Column="0" FontSize="22" VerticalAlignment="Center" Foreground="White"/>
                         <TextBox x:Name="restartHour" Text="{Binding Content}" Grid.Column="1" FontSize="20" VerticalAlignment="Center"
-                                 TextAlignment="Center" TextChanged="restartHour_changed" InputScope="Number" MaxLength="2"/>
+                                 TextAlignment="Center" TextChanged="restartHour_changed" InputScope="Number" MaxLength="2" Background="White" GotFocus="restartHour_GotFocus"/>
                     </Grid>
                     <Grid Width="140" HorizontalAlignment="Right" DataContext="{Binding StartTimeMin}">
                         <Grid.ColumnDefinitions>
@@ -122,9 +122,9 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Path=LocalizedResources.StartTimeMinuteText, Source={StaticResource LocalizedStrings}}"
-                                   Grid.Column="0" FontSize="22" VerticalAlignment="Center"/>
+                                   Grid.Column="0" FontSize="22" VerticalAlignment="Center" Foreground="White"/>
                         <TextBox x:Name="restartMinute" Text="{Binding Content}" Grid.Column="1" FontSize="20" VerticalAlignment="Center"
-                                 TextAlignment="Center" TextChanged="restartMinute_changed" InputScope="Number" MaxLength="2"/>
+                                 TextAlignment="Center" TextChanged="restartMinute_changed" InputScope="Number" MaxLength="2" Background="White" GotFocus="restartMinute_GotFocus"/>
                     </Grid>
                 </Grid>
 
@@ -150,8 +150,8 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Margin="10,0,0,0">
-                                    <TextBlock Text="{Binding Title}" FontSize="22"/>
-                                    <TextBlock Text="{Binding Content}" FontSize="22"/>
+                                    <TextBlock Text="{Binding Title}" FontSize="22" Foreground="White"/>
+                                    <TextBlock Text="{Binding Content}" FontSize="22" Foreground="White"/>
                                 </StackPanel>
                                 <Image Source="Assets/gofoward.png" Grid.Column="1" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
                             </Grid>
@@ -161,15 +161,15 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
-        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
+        <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="#FF5A5A5A"  Opacity="0.9" Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center">
                 <ProgressBar x:Name="InProgress"
                              IsIndeterminate="True"
                              Height="15"
                              Foreground="White"/>
                     <TextBlock x:Name="pleasewait" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                               HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White"/>
             </StackPanel>
         </Grid>
     </Grid>

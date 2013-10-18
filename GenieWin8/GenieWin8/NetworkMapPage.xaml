@@ -101,8 +101,8 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}" SizeChanged="OnWindowSizeChanged">
-        <Grid.Background>
+    <Grid Style="{StaticResource LayoutRootStyle}" SizeChanged="OnWindowSizeChanged" Background="#FFE6E6E6">
+        <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
                     <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
@@ -116,7 +116,7 @@
                 <GradientStop Color="#FFFF495A" Offset="0.6"/>
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
             </LinearGradientBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -129,20 +129,20 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoHome" IsEnabled="{Binding Frame.CanGoHome, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="NetworkMapPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="NetworkMapPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#FF5A5A5A"/>
             <Button Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="RefreshButton_Click"/>
         </Grid>
 
-        <FlipView x:Name="MapFlipView" Grid.Row="1"/>
+        <FlipView x:Name="MapFlipView" Grid.Row="1" Foreground="#FF5A5A5A"/>
 
-        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
-        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
+        <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="#FF5A5A5A"  Opacity="0.9" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing x:Name="InProgress"
                           IsActive="false"
                           Height="60" Width="60"
                           Foreground="White"/>
-                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24"/>
+                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Foreground="White"/>
             </StackPanel>
         </Grid>
 

@@ -32,8 +32,8 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
-        <Grid.Background>
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
+        <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
                     <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
@@ -47,7 +47,7 @@
                 <GradientStop Color="#FFFF495A" Offset="0.6"/>
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
             </LinearGradientBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -60,7 +60,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoHome" IsEnabled="{Binding Frame.CanGoHome, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="ParentalControlPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="ParentalControlPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#FF5A5A5A"/>
             <Button x:Name="refreshButton" Click="Refresh_Click" Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
@@ -76,7 +76,7 @@
                         <GradientStop Color="#FF50C6FD"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                <TextBlock x:Uid="CheckParentalControl" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0"/>
+                <TextBlock x:Uid="CheckParentalControl" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0" Foreground="White"/>
                 <CheckBox x:Name="checkPatentalControl" HorizontalAlignment="Right" FontSize="24" IsChecked="True" Click="checkParentalControl_Click"/>
             </Grid>
 
@@ -85,7 +85,8 @@
                       SelectionMode="None"
                       IsItemClickEnabled="True"
                       Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
-                      ItemClick="FilterLevel_ItemClick">
+                      ItemClick="FilterLevel_ItemClick"
+                      Foreground="White">
                 <ListView.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <LinearGradientBrush.RelativeTransform>
@@ -109,7 +110,8 @@
                       SelectionMode="None"
                       IsItemClickEnabled="True"
                       Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
-                      ItemClick="ChangeSetting_ItemClick">
+                      ItemClick="ChangeSetting_ItemClick"
+                      Foreground="White">
                 <ListView.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <LinearGradientBrush.RelativeTransform>
@@ -132,15 +134,16 @@
                         <GradientStop Color="#FF50C6FD"/>
                     </LinearGradientBrush>
                 </StackPanel.Background>
-                <TextBlock x:Uid="OpenDNSUser"  FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="10,5,0,0"/>
-                <TextBlock x:Name="OpenDNSUserName"  FontSize="22" VerticalAlignment="Center" Margin="10,5,0,0"/>
+                <TextBlock x:Uid="OpenDNSUser"  FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="10,5,0,0" Foreground="White"/>
+                <TextBlock x:Name="OpenDNSUserName"  FontSize="22" VerticalAlignment="Center" Margin="10,5,0,0" Foreground="White"/>
             </StackPanel>
 
             <ListView x:Name="BypassAccount"
                       SelectionMode="None"
                       IsItemClickEnabled="True"
                       Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
-                      ItemClick="Bypass_ItemClick">
+                      ItemClick="Bypass_ItemClick"
+                      Foreground="White">
                 <ListView.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <LinearGradientBrush.RelativeTransform>
@@ -156,16 +159,16 @@
                 </StackPanel>               
             </ListView>
         </StackPanel>
-       
-        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
+
+        <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
         <!--<Canvas x:Name="PopupBackground"  Grid.Row="1"  Background="Gray" Visibility="Collapsed"/>-->
-        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Visibility="Collapsed">
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="#FF5A5A5A"  Visibility="Collapsed">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing x:Name="InProgress"
                           IsActive="false"
                           Height="60" Width="60"
                           Foreground="White"/>
-                <TextBlock x:Uid="wait" x:Name="pleasewait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed"/>
+                <TextBlock x:Uid="wait" x:Name="pleasewait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed" Foreground="White"/>
             </StackPanel>
         </Grid>
         
@@ -173,12 +176,14 @@
         <Popup x:Name="EnquirePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,150,400,0">
             <!--<local:PopupEnquireOpenDNS/>-->
             <StackPanel Width="400">
-                <TextBlock x:Uid="EnquireOpenDNS" FontSize="30" Margin="10,10,0,0" TextWrapping="Wrap"/>
+                <TextBlock x:Uid="EnquireOpenDNS" FontSize="30" Margin="10,10,0,0" TextWrapping="Wrap" Foreground="White"/>
                 <Grid>
                     <Button x:Name="NoButton" x:Uid="NoButton"  Click="NoButton_Click"
-                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"
+                            BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                     <Button x:Name="YesButton" x:Uid="YesButton" Click="YesButton_Click"
-                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"
+                            BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                 </Grid>
             </StackPanel>
         </Popup>       
@@ -187,38 +192,39 @@
         <Popup x:Name="RegisterPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
             <!--<local:PopupRegisterOpenDNS/>-->
             <StackPanel Width="600">
-                <TextBlock x:Uid="EnterRegInformation" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
+                <TextBlock x:Uid="EnterRegInformation" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22" Foreground="White"/>
                 <Grid Margin="20,15,20,0">
-                    <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                     <TextBox x:Name="RegUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="IsBlankRegUsername"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal"  Margin="0,5,20,0">
-                    <Button x:Name="checkNameAvailable" x:Uid="CheckAvailability" Click="CheckAvailable_Click"  FontSize="24" Margin="230,0,20,0" HorizontalAlignment="Left" Width="230" IsEnabled="False"/>
+                    <Button x:Name="checkNameAvailable" x:Uid="CheckAvailability" Click="CheckAvailable_Click"  FontSize="24" Margin="230,0,20,0" HorizontalAlignment="Left" Width="230" IsEnabled="False"
+                             BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                     <ProgressRing x:Name="InProgress1" IsActive="false" Height="30" Width="30" Foreground="White"/>
                 </StackPanel>
                 <Grid Margin="20,0,20,0" Height="20">
                     <TextBlock x:Name="IsAvailableName" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                 </Grid>
                 <Grid Margin="20,0,20,0">
-                    <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                     <PasswordBox x:Name="RegPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" PasswordChanged="IsBlankRegPassword"/>
                 </Grid>
                 <Grid Margin="20,15,20,0">
-                    <TextBlock x:Uid="ConfirmPassword" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="ConfirmPassword" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                     <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" PasswordChanged="eventConfirmPassword"/>
                 </Grid>
                 <Grid Margin="20,0,20,0" Height="20">
                     <TextBlock x:Name="differentPassword" Text="Two passwords are different !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                 </Grid>
                 <Grid Margin="20,0,20,0">
-                    <TextBlock x:Uid="Email" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="Email" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                     <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="IsEmailValid"/>
                 </Grid>
                 <Grid Margin="20,0,20,0" Height="20">
                     <TextBlock x:Name="invalidEmail" Text="Email is invalid !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                 </Grid>
                 <Grid Margin="20,0,20,0">
-                    <TextBlock x:Uid="ConfirmEmail" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="ConfirmEmail" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                     <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="eventConfirmEmail"/>
                 </Grid>
                 <Grid Margin="20,0,20,0" Height="20">
@@ -226,13 +232,15 @@
                 </Grid>
                 <Grid>
                     <Button x:Name="RegisterPreviousButton" x:Uid="PreviousButton" Click="RegisterPreviousButton_Click"
-                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,300,0"/>
+                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,300,0"
+                             BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                     <Button x:Name="RegisterNextButton" x:Uid="NextButton" Click="RegisterNextButton_Click"
-                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="300,10,0,0"/>
+                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="300,10,0,0"
+                             BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                     <ProgressRing x:Name="InProgress2" IsActive="false" Height="50" Width="50" Foreground="White"/>
-                    <TextBlock x:Uid="wait" x:Name="pleasewait2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed"/>
+                    <TextBlock x:Uid="wait" x:Name="pleasewait2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed" Foreground="White"/>
                 </StackPanel>               
             </StackPanel>
         </Popup>
@@ -242,20 +250,22 @@
         <Popup x:Name="LoginPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,50,600,0">
             <!--<local:PopupLoginOpenDNS/>-->
             <StackPanel Width="600">
-                <TextBlock x:Uid="EnterUsername_Password" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22"/>
+                <TextBlock x:Uid="EnterUsername_Password" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22" Foreground="White"/>
                 <Grid Margin="20,15,20,0">
-                    <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                     <TextBox x:Name="LoginUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
                 </Grid>
                 <Grid Margin="20,15,20,0">
-                    <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
                     <PasswordBox x:Name="LoginPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
                 </Grid>
                 <Grid>
                     <Button x:Name="LoginPreviousButton" x:Uid="PreviousButton" Click="LoginPreviousButton_Click"
-                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,300,0"/>
+                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,300,0"
+                            BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                     <Button x:Name="LoginNextButton" x:Uid="NextButton" Click="LoginNextButton_Click"
-                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="300,20,0,0"/>
+                            Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="300,20,0,0"
+                            BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                 </Grid>
             </StackPanel>
         </Popup>
@@ -264,30 +274,32 @@
         <!--过滤级别-->
         <Popup x:Name="FilterLevelPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
             <!--<local:PopupFilterLevel/>-->
-            <ScrollViewer Margin="10" Width="600" Height="500" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Margin="10" Width="600" Height="500" VerticalScrollBarVisibility="Auto" Foreground="Red">
                 <StackPanel>
                     <TextBlock x:Uid="FiltingIllustration" FontSize="22" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_None" x:Uid="radioButton_None" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <RadioButton x:Name="radioButton_None" x:Uid="radioButton_None" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
                     <TextBlock x:Uid="Illustration_None" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_Minimum" x:Uid="radioButton_Minimum" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <RadioButton x:Name="radioButton_Minimum" x:Uid="radioButton_Minimum" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
                     <TextBlock x:Uid="Illustration_Minimum" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_Low"  x:Uid="radioButton_Low" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <RadioButton x:Name="radioButton_Low"  x:Uid="radioButton_Low" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
                     <TextBlock x:Uid="Illustration_Low" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_Medium"  x:Uid="radioButton_Medium" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <RadioButton x:Name="radioButton_Medium"  x:Uid="radioButton_Medium" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
                     <TextBlock x:Uid="Illustration_Medium" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_High"  x:Uid="radioButton_High" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold"/>
+                    <RadioButton x:Name="radioButton_High"  x:Uid="radioButton_High" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
                     <TextBlock x:Uid="Illustration_High" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                    <RadioButton x:Name="radioButton_Custom"  x:Uid="radioButton_Custom" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Click="CustomRBClicked"/>
+                    <RadioButton x:Name="radioButton_Custom"  x:Uid="radioButton_Custom" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Click="CustomRBClicked" Foreground="White"/>
                     <TextBlock x:Uid="Illustration_Custom" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
                     <Grid>
                         <Button x:Name="FilterLvPreviousButton" x:Uid="PreviousButton" Click="FilterLvPreviousButton_Click"
-                                Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,300,0"/>
+                                Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,300,0"
+                                BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                         <Button x:Name="FilterLvNextButton" x:Uid="NextButton" Click="FilterLvNextButton_Click"
-                                Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="300,20,0,0"/>
+                                Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="300,20,0,0"
+                                BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                         <ProgressRing x:Name="InProgress3" IsActive="false" Height="50" Width="50" Foreground="White"/>
-                        <TextBlock x:Uid="wait" x:Name="pleasewait3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed"/>
+                        <TextBlock x:Uid="wait" x:Name="pleasewait3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed" Foreground="White"/>
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
@@ -297,255 +309,257 @@
         <Popup x:Name="CategoriesPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
             <StackPanel Width="600">
                 <StackPanel>
-                    <TextBlock x:Uid="CustomData" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="CustomData" FontSize="30" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
                     <Grid>
-                        <Button Content="Select All" Width="250" Height="50" FontSize="22" Padding="0,0,0,6" HorizontalAlignment="Center" Margin="0,0,300,0"  Click="SelectAllBtn_Click"/>
-                        <Button Content="Deselect All" Width="250" Height="50" FontSize="22" Padding="0,0,0,6" HorizontalAlignment="Center" Margin="300,0,0,0"  Click="DeselectAllBtn_Click"/>
+                        <Button Content="Select All" Width="250" Height="50" FontSize="22" Padding="0,0,0,6" HorizontalAlignment="Center" Margin="0,0,300,0"  Click="SelectAllBtn_Click"
+                                BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
+                        <Button Content="Deselect All" Width="250" Height="50" FontSize="22" Padding="0,0,0,6" HorizontalAlignment="Center" Margin="300,0,0,0"  Click="DeselectAllBtn_Click"
+                                BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                     </Grid>
                 </StackPanel>
                 <ListView x:Name="CategoriesList" Height="400"  SelectionChanged="CategoriesList_SelectionChanged">
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_1" x:Uid="AcademicFraud" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_1" x:Uid="AcademicFraud" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_2" x:Uid="AdultThemes" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_2" x:Uid="AdultThemes" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_3" x:Uid="Adware" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_3" x:Uid="Adware" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_4" x:Uid="Alcohol" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_4" x:Uid="Alcohol" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_5" x:Uid="AnimeMangaWebcomic" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_5" x:Uid="AnimeMangaWebcomic" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_6" x:Uid="Auctions" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_6" x:Uid="Auctions" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_7" x:Uid="Automotive" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_7" x:Uid="Automotive" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_8" x:Uid="Blogs" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_8" x:Uid="Blogs" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_9" x:Uid="BusinessServices" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_9" x:Uid="BusinessServices" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_10" x:Uid="Chat" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_10" x:Uid="Chat" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_11" x:Uid="Classifieds" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_11" x:Uid="Classifieds" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_12" x:Uid="Dating" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_12" x:Uid="Dating" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_13" x:Uid="Drugs" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_13" x:Uid="Drugs" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_14" x:Uid="EcommerceShopping" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_14" x:Uid="EcommerceShopping" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_15" x:Uid="EducationalInstitutions" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_15" x:Uid="EducationalInstitutions" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_16" x:Uid="FileStorage" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_16" x:Uid="FileStorage" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_17" x:Uid="FinancialInstitutions" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_17" x:Uid="FinancialInstitutions" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_18" x:Uid="ForumsMessageboards" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_18" x:Uid="ForumsMessageboards" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_19" x:Uid="Gambling" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_19" x:Uid="Gambling" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_20" x:Uid="Games" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_20" x:Uid="Games" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_21" x:Uid="GermanYouthProtection" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_21" x:Uid="GermanYouthProtection" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_22" x:Uid="Government" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_22" x:Uid="Government" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_23" x:Uid="HateDiscrimination" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_23" x:Uid="HateDiscrimination" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_24" x:Uid="HealthandFitness" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_24" x:Uid="HealthandFitness" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_25" x:Uid="Humor" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_25" x:Uid="Humor" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_26" x:Uid="InstantMessaging" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_26" x:Uid="InstantMessaging" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_27" x:Uid="JobsEmployment" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_27" x:Uid="JobsEmployment" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_28" x:Uid="LingerieBikini" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_28" x:Uid="LingerieBikini" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_29" x:Uid="Movies" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_29" x:Uid="Movies" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_30" x:Uid="Music" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_30" x:Uid="Music" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_31" x:Uid="NewsMedia" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_31" x:Uid="NewsMedia" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_32" x:Uid="Non_Profits" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_32" x:Uid="Non_Profits" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_33" x:Uid="Nudity" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_33" x:Uid="Nudity" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_34" x:Uid="P2PFilesharing" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_34" x:Uid="P2PFilesharing" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_35" x:Uid="ParkedDomains" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_35" x:Uid="ParkedDomains" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_36" x:Uid="PhotoSharing" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_36" x:Uid="PhotoSharing" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_37" x:Uid="Podcasts" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_37" x:Uid="Podcasts" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_38" x:Uid="Politics" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_38" x:Uid="Politics" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_39" x:Uid="Pornography" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_39" x:Uid="Pornography" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_40" x:Uid="Portals" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_40" x:Uid="Portals" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_41" x:Uid="ProxyAnonymizer" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_41" x:Uid="ProxyAnonymizer" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_42" x:Uid="Radio" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_42" x:Uid="Radio" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_43" x:Uid="Religious" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_43" x:Uid="Religious" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_44" x:Uid="ResearchReference" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_44" x:Uid="ResearchReference" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_45" x:Uid="SearchEngines" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_45" x:Uid="SearchEngines" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_46" x:Uid="Sexuality" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_46" x:Uid="Sexuality" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_47" x:Uid="SocialNetworking" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_47" x:Uid="SocialNetworking" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_48" x:Uid="SoftwareTechnology" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_48" x:Uid="SoftwareTechnology" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_49" x:Uid="Sports" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_49" x:Uid="Sports" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_50" x:Uid="Tasteless" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_50" x:Uid="Tasteless" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_51" x:Uid="Television" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_51" x:Uid="Television" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_52" x:Uid="Tobacco" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_52" x:Uid="Tobacco" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_53" x:Uid="Travel" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_53" x:Uid="Travel" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_54" x:Uid="TypoSquatting" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_54" x:Uid="TypoSquatting" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_55" x:Uid="VideoSharing" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_55" x:Uid="VideoSharing" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_56" x:Uid="VisualSearchEngines" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_56" x:Uid="VisualSearchEngines" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_57" x:Uid="Weapons" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_57" x:Uid="Weapons" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_58" x:Uid="WebSpam" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_58" x:Uid="WebSpam" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_59" x:Uid="Webmail" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_59" x:Uid="Webmail" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="600">
-                        <CheckBox x:Name="category_60" x:Uid="PhishingProtection" FontSize="25" Padding="10,0,0,0"/>
+                        <CheckBox x:Name="category_60" x:Uid="PhishingProtection" FontSize="25" Padding="10,0,0,0" Foreground="White"/>
                         <Line Width="600" Stroke="White" X2="600"/>
                     </StackPanel>
                 </ListView>
-                <Button Content="Cancel" Width="300" FontSize="22" HorizontalAlignment="Center" Click="CategoriesCancelBtn_Click"/>
+                <Button Content="Cancel" Width="300" FontSize="22" HorizontalAlignment="Center" Click="CategoriesCancelBtn_Click" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
             </StackPanel>
         </Popup>
 
@@ -553,7 +567,7 @@
         <Popup x:Name="SettingCompletePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
             <!--<local:PopupSettingComplete/>-->
             <StackPanel Width="600" Height="500">
-                <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto" Foreground="White">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10,10,0,0">
                             <TextBlock x:Uid="SettingComplete" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
@@ -566,7 +580,8 @@
                     </StackPanel>
                 </ScrollViewer>
                 <Button x:Name="ReturnToStatusButton" x:Uid="ReturnButton" Click="ReturnToStatusButton_Click"
-                        Grid.Row="1" FontSize="22" Width="300" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                        Grid.Row="1" FontSize="22" Width="300" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"
+                        BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
             </StackPanel>
         </Popup>
 
@@ -574,10 +589,12 @@
         <Popup x:Name="PopupEnquireBypassAccount" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,150,400,0">
             <StackPanel>
                 <TextBlock Text="Please login your Live Parental Controls account and add a bypass account."
-                           FontSize="30" Width="400" VerticalAlignment="Center" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                           FontSize="30" Width="400" VerticalAlignment="Center" Margin="10,0,0,0" TextWrapping="Wrap" Foreground="White"/>
                 <Grid>
-                    <Button x:Name="CancelButton" x:Uid="CancelButton" Click="CancelButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
-                    <Button x:Name="OkButton" x:Uid="OkButton" Click="OkButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                    <Button x:Name="CancelButton" x:Uid="CancelButton" Click="CancelButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"
+                            BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
+                    <Button x:Name="OkButton" x:Uid="OkButton" Click="OkButton_Click" Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"
+                            BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                 </Grid>
             </StackPanel>
         </Popup>

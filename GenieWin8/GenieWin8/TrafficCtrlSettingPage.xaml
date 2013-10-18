@@ -48,8 +48,8 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
-        <Grid.Background>
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
+        <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
                     <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
@@ -63,7 +63,7 @@
                 <GradientStop Color="#FFFF495A" Offset="0.6"/>
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
             </LinearGradientBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -76,7 +76,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack_Click" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="TrafficCtrlSettingPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="TrafficCtrlSettingPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#FF5A5A5A"/>
             <Button x:Name="TrafficMeterSettingSave" Click="TrafficMeterSettingSave_Click" Grid.Column="1" Style="{StaticResource SaveAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
@@ -92,17 +92,18 @@
                         <GradientStop Color="#FF50C6FD"/>
                     </LinearGradientBrush>
                 </Grid.Background>
-                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
                 <TextBox x:Name="monthlyLimit" Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250"
                          Margin="0,5,5,5" TextChanged="monthlyLimit_changed" InputScope="Number" MaxLength="6"/>
             </Grid>
 
-            <TextBlock x:Uid="TrafficMeterStartTime" Margin="0,25,0,0" FontSize="22" TextWrapping="Wrap"/>               
+            <TextBlock x:Uid="TrafficMeterStartTime" Margin="0,25,0,0" FontSize="22" TextWrapping="Wrap" Foreground="White"/>               
 
             <ListView ItemsSource="{Binding Source={StaticResource startdateSource}}"
                       SelectionMode="None"
                       IsItemClickEnabled="True" Margin="0,5,0,0"
-                      ItemClick="StartDate_ItemClick">
+                      ItemClick="StartDate_ItemClick"
+                      Foreground="White">
                 <ListView.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <LinearGradientBrush.RelativeTransform>
@@ -135,13 +136,13 @@
                 <TextBlock x:Uid="StartTime" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                 <Grid DataContext="{Binding Source={StaticResource starttimehourSource}}"
                       d:DataContext="{Binding Source={StaticResource starttimehourSource}}">
-                    <TextBlock x:Uid="StartTimeHour" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,430,0" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="StartTimeHour" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,430,0" VerticalAlignment="Center" Foreground="White"/>
                     <TextBox x:Name="restartHour" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"
                              Margin="0,5,260,5" TextChanged="restartHour_changed" InputScope="Number" MaxLength="2"/>
                 </Grid>
                 <Grid DataContext="{Binding Source={StaticResource starttimeminSource}}"
                   d:DataContext="{Binding Source={StaticResource starttimeminSource}}">
-                    <TextBlock x:Uid="StartTimeMinute" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="StartTimeMinute" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Center" Foreground="White"/>
                     <TextBox x:Name="restartMinute" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"
                              Margin="0,5,5,5" TextChanged="restartMinute_changed" InputScope="Number" MaxLength="2"/>
                 </Grid>
@@ -150,7 +151,8 @@
             <ListView ItemsSource="{Binding Source={StaticResource trafficlimitationSource}}"
                       SelectionMode="None"
                       IsItemClickEnabled="True" Margin="0,30,0,0"
-                      ItemClick="TrafficLimitation_ItemClick">
+                      ItemClick="TrafficLimitation_ItemClick"
+                      Foreground="White">
                 <ListView.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <LinearGradientBrush.RelativeTransform>
@@ -171,14 +173,14 @@
             </ListView>
         </StackPanel>
 
-        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
-        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
+        <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="#FF5A5A5A"  Opacity="0.9" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing x:Name="InProgress"
                           IsActive="false"
                           Height="60" Width="60"
                           Foreground="White"/>
-                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24"/>
+                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Foreground="White"/>
             </StackPanel>
         </Grid>
         

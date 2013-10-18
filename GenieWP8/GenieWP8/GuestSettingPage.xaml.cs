@@ -12,6 +12,7 @@ using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace GenieWP8
 {
@@ -443,6 +444,16 @@ namespace GenieWP8
                     ret = true;
             }
             return ret;
+        }
+
+        private void SSID_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SSID.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void pwd_GotFocus(object sender, RoutedEventArgs e)
+        {
+            pwd.Background = new SolidColorBrush(Colors.White);
         }
     }
 }

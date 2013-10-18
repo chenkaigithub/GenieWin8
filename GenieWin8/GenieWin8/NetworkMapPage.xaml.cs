@@ -100,6 +100,7 @@ namespace GenieWin8
                     imgRouter.Stretch = Stretch.UniformToFill;
                     BtnRouter.Content = imgRouter;
                     BtnRouter.Margin = new Thickness(0, 0, 0, 0);
+                    BtnRouter.Background = new SolidColorBrush();
                     BtnRouter.Click += new RoutedEventHandler(DeviceButton_Click);
 
                     double Angle = 360.0 / 8;
@@ -282,10 +283,12 @@ namespace GenieWin8
                             TextBlock DeviceNameText = new TextBlock();
                             //DeviceNameText.Text = "Device-" + (6*i+j-1).ToString();
                             DeviceNameText.Text = Group.ElementAt(7 * i + j).NODE.deviceName;
+                            DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
                             StackPanel stpDevice = new StackPanel();
                             stpDevice.Children.Add(imgDevice);
                             stpDevice.Children.Add(DeviceNameText);
                             BtnDevice.Content = stpDevice;
+                            BtnDevice.Background = new SolidColorBrush();
                             BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
                             map.Children.Add(BtnDevice);
                         }
@@ -322,6 +325,7 @@ namespace GenieWin8
                         imgRouter.Stretch = Stretch.UniformToFill;
                         BtnRouter.Content = imgRouter;
                         BtnRouter.Margin = new Thickness(0, 0, 0, 0);
+                        BtnRouter.Background = new SolidColorBrush();
                         BtnRouter.Click += new RoutedEventHandler(DeviceButton_Click);
 
                         double Angle = 360.0 / (n + 1);
@@ -504,10 +508,12 @@ namespace GenieWin8
                                 TextBlock DeviceNameText = new TextBlock();
                                 //DeviceNameText.Text = "Device-" + (6*i+j-1).ToString();
                                 DeviceNameText.Text = Group.ElementAt(7 * i + j).NODE.deviceName;
+                                DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
                                 StackPanel stpDevice = new StackPanel();
                                 stpDevice.Children.Add(imgDevice);
                                 stpDevice.Children.Add(DeviceNameText);
                                 BtnDevice.Content = stpDevice;
+                                BtnDevice.Background = new SolidColorBrush();
                                 BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
                                 map.Children.Add(BtnDevice);
                             }

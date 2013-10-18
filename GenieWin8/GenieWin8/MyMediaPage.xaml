@@ -27,8 +27,8 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
-        <Grid.Background>
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
+        <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
                     <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
@@ -42,7 +42,7 @@
                 <GradientStop Color="#FFFF495A" Offset="0.6"/>
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
             </LinearGradientBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -55,7 +55,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="MyMediaPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="MyMediaPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#FF5A5A5A"/>
         </Grid>
 
         <GridView Grid.Row="1"
@@ -72,14 +72,16 @@
                         <Border>
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF4D4A4A" Offset="1"/>
+                                    <GradientStop Color="Gray" Offset="0.4"/>
                                     <GradientStop Color="White"/>
+                                    <GradientStop Color="White" Offset="0.75"/>
+                                    <GradientStop Color="#FFCDCDCD" Offset="1"/>
                                 </LinearGradientBrush>
                             </Border.Background>
                             <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
                         </Border>
                         <StackPanel VerticalAlignment="Bottom">
-                            <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                            <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,0,10" Foreground="#FF5A5A5A"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

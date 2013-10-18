@@ -40,8 +40,8 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
-        <Grid.Background>
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
+        <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
                     <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
@@ -55,7 +55,7 @@
                 <GradientStop Color="#FFFF495A" Offset="0.6"/>
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
             </LinearGradientBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -68,27 +68,28 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack_Click" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="GuestSettingPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" x:Uid="GuestSettingPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#FF5A5A5A"/>
             <Button x:Name="GuestSettingSave" Click="GuestSettingSave_Click" Grid.Column="1" Style="{StaticResource SaveAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
         <StackPanel Grid.Row="1" Margin="60,0">
             <Grid DataContext="{Binding Source={StaticResource editNameSource}}"
                   d:DataContext="{Binding Source={StaticResource editNameSource}}" Margin="0,40,0,0">
-                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" Foreground="#FF5A5A5A"/>
                 <TextBox x:Name="SSID" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40" TextChanged="ssid_changed"/>
             </Grid>
 
             <Grid x:Name="gridKey" DataContext="{Binding Source={StaticResource editKeySource}}"
                   d:DataContext="{Binding Source={StaticResource editKeySource}}" Margin="0,30,0,0">
-                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" Foreground="#FF5A5A5A"/>
                 <TextBox x:Name="Password" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40" TextChanged="pwd_changed"/>
             </Grid>
 
             <ListView ItemsSource="{Binding Source={StaticResource editTimesegSecuritySource}}"
                       SelectionMode="None"
                       IsItemClickEnabled="True" Margin="0,30,0,0"
-                      ItemClick="TimesegSecurity_ItemClick">
+                      ItemClick="TimesegSecurity_ItemClick"
+                      Foreground="White">
                 <ListView.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF004F74" Offset="1"/>
@@ -106,15 +107,15 @@
             </ListView>
         </StackPanel>
 
-        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
-        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
+        <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="#FF5A5A5A"  Opacity="0.9" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing x:Name="InProgress"
                           IsActive="false"
                           Height="60" Width="60"
                           Foreground="White"/>
-                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24"/>
-                <TextBlock x:Name="waittime" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="24"/>
+                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Foreground="White"/>
+                <TextBlock x:Name="waittime" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="24" Foreground="White"/>
             </StackPanel>
         </Grid>
 

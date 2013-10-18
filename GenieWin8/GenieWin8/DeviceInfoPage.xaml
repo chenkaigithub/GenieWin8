@@ -20,8 +20,8 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
-        <Grid.Background>
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
+        <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
                     <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
@@ -35,7 +35,7 @@
                 <GradientStop Color="#FFFF495A" Offset="0.6"/>
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
             </LinearGradientBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -50,12 +50,12 @@
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <StackPanel x:Name="StpTitle" Grid.Column="1" Orientation="Horizontal" Margin="0,10,0,0">
                 <Image x:Name="TitleImage"/>
-                <TextBlock x:Name="Title"/>
+                <TextBlock x:Name="Title" Foreground="#FF5A5A5A"/>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="1" Width="700" VerticalAlignment="Top" Margin="0,20,0,0">
-            <Border BorderBrush="White" BorderThickness="4" CornerRadius="30">
+            <Border BorderBrush="Gray" BorderThickness="4" CornerRadius="30">
                 <Border.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF004F74" Offset="1"/>
@@ -65,42 +65,42 @@
                 <StackPanel x:Name="StpDeviceInfo" Margin="5,10">
                     <Grid>
                         <StackPanel x:Name="StpRouter">
-                            <TextBlock x:Name="txtRoutename"/>
-                            <TextBlock x:Name="RouteName"/>
+                            <TextBlock x:Name="txtRoutename" Foreground="White"/>
+                            <TextBlock x:Name="RouteName" Foreground="White"/>
                         </StackPanel>
                         <StackPanel x:Name="StpDeviceName">
-                            <TextBlock x:Name="txtDeviceName"/>
-                            <TextBlock x:Name="txtBlockDeviceName"/>
+                            <TextBlock x:Name="txtDeviceName" Foreground="White"/>
+                            <TextBlock x:Name="txtBlockDeviceName" Foreground="White"/>
                             <TextBox x:Name="txtBoxDeviceName"/>
                         </StackPanel>
                     </Grid>
                     <StackPanel x:Name="StpType">
-                        <TextBlock x:Name="txtType"/>
-                        <TextBlock x:Name="Type"/>
+                        <TextBlock x:Name="txtType" Foreground="White"/>
+                        <TextBlock x:Name="Type" Foreground="White"/>
                         <ComboBox x:Name="ComboType"/>
                     </StackPanel>
                     <StackPanel x:Name="StpIPAddress">
-                        <TextBlock x:Name="txtIPAddress"/>
-                        <TextBlock x:Name="IPAddress"/>
+                        <TextBlock x:Name="txtIPAddress" Foreground="White"/>
+                        <TextBlock x:Name="IPAddress" Foreground="White"/>
                     </StackPanel>
                     <StackPanel x:Name="StpSignalStrength">
-                        <TextBlock x:Name="txtSignalStrength"/>
-                        <TextBlock x:Name="SignalStrength"/>
+                        <TextBlock x:Name="txtSignalStrength" Foreground="White"/>
+                        <TextBlock x:Name="SignalStrength" Foreground="White"/>
                     </StackPanel>
                     <StackPanel x:Name="StpLinkRate">
-                        <TextBlock x:Name="txtLinkRate"/>
-                        <TextBlock x:Name="LinkRate"/>
-                        <HyperlinkButton x:Name="btnWhat"/>
+                        <TextBlock x:Name="txtLinkRate" Foreground="White"/>
+                        <TextBlock x:Name="LinkRate" Foreground="White"/>
+                        <HyperlinkButton x:Name="btnWhat" Foreground="BlueViolet"/>
                     </StackPanel>
                     <StackPanel x:Name="StpMACAddress">
-                        <TextBlock x:Name="txtMACAddress"/>
-                        <TextBlock x:Name="MACAddress"/>
+                        <TextBlock x:Name="txtMACAddress" Foreground="White"/>
+                        <TextBlock x:Name="MACAddress" Foreground="White"/>
                     </StackPanel>
                     <Grid x:Name="GridButton">
-                        <Button x:Name="btnBack"/>
-                        <Button x:Name="btnModify"/>
-                        <Button x:Name="btnFileUpload"/>
-                        <Button x:Name="btnApply"/>
+                        <Button x:Name="btnBack" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
+                        <Button x:Name="btnModify" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
+                        <Button x:Name="btnFileUpload" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
+                        <Button x:Name="btnApply" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                     </Grid>
                 </StackPanel>
             </Border>

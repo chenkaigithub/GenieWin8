@@ -24,17 +24,19 @@
                 <Border>
                     <Border.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF4D4A4A" Offset="1"/>
+                            <GradientStop Color="Gray" Offset="0.4"/>
                             <GradientStop Color="White"/>
+                            <GradientStop Color="White" Offset="0.75"/>
+                            <GradientStop Color="#FFCDCDCD" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
                     <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
                 </Border>
                 <StackPanel VerticalAlignment="Bottom" Height="50">
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,20,0,0"/>
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,20,0,0" Foreground="#FF5A5A5A"/>
                 </StackPanel>
             </Grid>
-        </DataTemplate>       
+        </DataTemplate>
 
         <Style x:Key="AboutAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
             <Setter Property="AutomationProperties.AutomationId" Value="AboutAppBarButton"/>
@@ -72,8 +74,9 @@
             SelectionMode="None"
             IsSwipeEnabled="false"
             IsItemClickEnabled="True"
-            ItemClick="ItemView_ItemClick" RenderTransformOrigin="0.5,0.5">
-            <GridView.Background>
+            ItemClick="ItemView_ItemClick" RenderTransformOrigin="0.5,0.5"
+            Background="#FFE6E6E6">
+            <!--<GridView.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
                         <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
@@ -87,7 +90,7 @@
                     <GradientStop Color="#FFFF495A" Offset="0.6"/>
                     <GradientStop Color="#FFFFC547" Offset="0.9"/>
                 </LinearGradientBrush>
-            </GridView.Background>
+            </GridView.Background>-->
         </GridView>
 
         <!-- 垂直滚动列表仅在对齐后使用-->
@@ -107,16 +110,16 @@
             IsItemClickEnabled="True"
             ItemClick="ItemView_ItemClick"/>
 
-        
-        <Canvas x:Name="PopupBackgroundTop" Background="Gray" Opacity="0.9" Visibility="Collapsed"/>
-        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="Gray"  Opacity="0.9" Visibility="Collapsed">
+
+        <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="#FF5A5A5A"  Opacity="0.9" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing x:Name="InProgress"
                           IsActive="false"
                           Height="60" Width="60"
                           Foreground="White"/>
-                <TextBlock x:Name="pleasewait" x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24"/>
-            </StackPanel>           
+                <TextBlock x:Name="pleasewait" x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Foreground="White"/>
+            </StackPanel>
         </Grid>
 
         <!--关于-->
@@ -127,41 +130,41 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,10,0,0">
                             <Image Source="Assets/NETGEAR_Genie_ico_50.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                            <TextBlock x:Uid="About" FontSize="30" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <TextBlock x:Uid="About" FontSize="30" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Uid="RouterModel" FontSize="24" Margin="10,10,0,0" HorizontalAlignment="Left"/>
-                            <TextBlock x:Name="tbRouterModel" FontSize="24" Margin="0,10,0,0" HorizontalAlignment="Left"/>
+                            <TextBlock x:Uid="RouterModel" FontSize="24" Margin="10,10,0,0" HorizontalAlignment="Left" Foreground="White"/>
+                            <TextBlock x:Name="tbRouterModel" FontSize="24" Margin="0,10,0,0" HorizontalAlignment="Left" Foreground="White"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Uid="FirmwareVersion" FontSize="24" Margin="10,0,0,0" HorizontalAlignment="Left"/>
-                            <TextBlock x:Name="tbFirmwareVersion" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Left"/>
+                            <TextBlock x:Uid="FirmwareVersion" FontSize="24" Margin="10,0,0,0" HorizontalAlignment="Left" Foreground="White"/>
+                            <TextBlock x:Name="tbFirmwareVersion" FontSize="24" Margin="0,0,0,0" HorizontalAlignment="Left" Foreground="White"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Uid="Version" FontSize="20" Margin="10,20,0,0" HorizontalAlignment="Left"/>
-                            <TextBlock Text="1.0.0.4" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left"/>
+                            <TextBlock x:Uid="Version" FontSize="20" Margin="10,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
+                            <TextBlock Text="1.0.0.5" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
                         </StackPanel>
-                        <TextBlock x:Uid="Copyright" FontSize="20" Margin="10,0,0,0"/>
-                        <TextBlock x:Uid="RightsReserved" FontSize="20" Margin="10,0,0,0"/>
+                        <TextBlock x:Uid="Copyright" FontSize="20" Margin="10,0,0,0" Foreground="White"/>
+                        <TextBlock x:Uid="RightsReserved" FontSize="20" Margin="10,0,0,0" Foreground="White"/>
                         <HyperlinkButton x:Uid="PrivacyPolicy" Tag="http://www.netgear.com/about/privacypolicy/"
-                                         Click="Policy_Click" FontSize="20" Margin="10,0,0,0" HorizontalContentAlignment="Left" Padding="0"/>
-                        <TextBlock x:Uid="Support" FontSize="20" Margin="10,0,0,0"/>
-                    </StackPanel>               
+                                         Click="Policy_Click" FontSize="20" Margin="10,0,0,0" HorizontalContentAlignment="Left" Padding="0" Foreground="BlueViolet"/>
+                        <TextBlock x:Uid="Support" FontSize="20" Margin="10,0,0,0" Foreground="White"/>
+                    </StackPanel>
                 </ScrollViewer>
                 <Grid>
                     <Button x:Name="CloseAboutButton" x:Uid="CloseAboutButton" Click="CloseAboutButton_Click"
-                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0"/>
+                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,200,0" BorderThickness="3"  BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                     <Button x:Name="LicenseButton" x:Uid="LicenseButton" Click="LicenseButton_Click"
-                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"/>
+                            Grid.Row="1" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0" BorderThickness="3"  BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                 </Grid>
             </StackPanel>
-        </Popup>        
+        </Popup>
 
         <!--许可-->
         <Popup x:Name="LicensePopup" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,400,0">
             <!--<local:PopupLicense/>-->
             <StackPanel>
-                <ScrollViewer x:Name="LicenseScrollViewer" Margin="0,10,0,0" Width="400" Height="450" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer x:Name="LicenseScrollViewer" Margin="0,10,0,0" Width="400" Height="450" VerticalScrollBarVisibility="Auto" Foreground="White">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,10,0,0">
                             <Image Source="Assets/NETGEAR_Genie_ico_50.png" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -196,13 +199,13 @@
                                 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
                             </TextBlock>
                         </StackPanel>
-                    </StackPanel>                    
+                    </StackPanel>
                 </ScrollViewer>
                 <Button x:Name="CloseLicenseButton" x:Uid="CloseLicenseButton" Click="CloseLicenseButton_Click"
-                        Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" BorderThickness="3"  BorderBrush="White" Foreground="White" Background="{x:Null}"/>
             </StackPanel>
         </Popup>
-        
+
 
         <!-- 后退按钮和页标题-->
         <Grid>
@@ -212,7 +215,7 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <!--<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>-->
-            <Image Source="Assets/NETGEAR_Genie_Logo_white_green.png" Grid.Column="1" Width="600" Height="80" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0"/>
+            <Image Source="Assets/NETGEAR_Genie_Logo.png" Grid.Column="1" Width="600" Height="80" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0"/>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
@@ -271,8 +274,10 @@
     <Page.BottomAppBar>
         <AppBar Padding="10,0,10,0">
             <Grid>
-                <Button x:Name="btnLogin" x:Uid="LoginButton" Click="LoginButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"/>
-                <Button x:Name="btnLogout" x:Uid="LogoutButton" Click="LogoutButton_Click"  FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"/>
+                <Button x:Name="btnLogin" x:Uid="LoginButton" Click="LoginButton_Click" FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"
+                        BorderThickness="3" BorderBrush="Black" Foreground="Black" Background="{x:Null}"/>
+                <Button x:Name="btnLogout" x:Uid="LogoutButton" Click="LogoutButton_Click" FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"
+                        BorderThickness="3" BorderBrush="Black" Foreground="Black" Background="{x:Null}"/>
                 <Button Click="AboutButton_Click" Style="{StaticResource AboutAppBarButtonStyle}" HorizontalAlignment="Right"/>
             </Grid>
         </AppBar>

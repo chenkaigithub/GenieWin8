@@ -15,8 +15,8 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
-    <Grid x:Name="LayoutRoot">
-        <Grid.Background>
+    <Grid x:Name="LayoutRoot" Background="#FFE6E6E6">
+        <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
                     <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
@@ -30,7 +30,7 @@
                 <GradientStop Color="#FFFF495A" Offset="0.6"/>
                 <GradientStop Color="#FFFFC547" Offset="0.9"/>
             </LinearGradientBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -38,9 +38,9 @@
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#FF5A5A5A"/>
             <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.MyMediaSourcePageTitleText, Source={StaticResource LocalizedStrings}}"
-                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap"/>
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="#FF5A5A5A"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->

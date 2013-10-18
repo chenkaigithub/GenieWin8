@@ -12,6 +12,7 @@ using GenieWP8.Resources;
 using GenieWP8.DataInfo;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Windows.Media;
 
 namespace GenieWP8
 {
@@ -157,6 +158,16 @@ namespace GenieWP8
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void tbBypassPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbBypassPassword.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void tbBypassUserName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            tbBypassUserName.Background = new SolidColorBrush(Colors.White);
         }
     }
 }
