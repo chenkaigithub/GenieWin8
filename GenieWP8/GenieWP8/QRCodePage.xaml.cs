@@ -113,6 +113,18 @@ namespace GenieWP8
             catch
             {
             }
-        }        
+        }
+
+        //重写手机“返回”按钮事件
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (_photoCamera != null)
+            {
+                _timer.Stop();
+                _photoCamera.CancelFocus();
+                _photoCamera.Dispose();
+            }
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+        }
     }
 }

@@ -16,6 +16,8 @@ using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
@@ -77,10 +79,10 @@ namespace GenieWP8
 
             // 创建新按钮并将文本值设置为 AppResources 中的本地化字符串。
             //搜索按钮
-            ApplicationBarIconButton appBarButton_search = new ApplicationBarIconButton(new Uri("Assets/search.png", UriKind.Relative));
-            appBarButton_search.Text = AppResources.SearchText;
-            ApplicationBar.Buttons.Add(appBarButton_search);
-            appBarButton_search.Click += new EventHandler(appBarButton_search_Click);
+            //ApplicationBarIconButton appBarButton_search = new ApplicationBarIconButton(new Uri("Assets/search.png", UriKind.Relative));
+            //appBarButton_search.Text = AppResources.SearchText;
+            //ApplicationBar.Buttons.Add(appBarButton_search);
+            //appBarButton_search.Click += new EventHandler(appBarButton_search_Click);
      
             //关于按钮
             ApplicationBarIconButton appBarButton_about = new ApplicationBarIconButton(new Uri("Assets/questionmark.png", UriKind.Relative));
@@ -96,323 +98,325 @@ namespace GenieWP8
         }
 
         //横竖屏切换响应事件
-        private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
-        {
-            // Switch the placement of the buttons based on an orientation change.
-            if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
-            {
-                ContentPanel.Margin = new Thickness(12, 0, 12, 0);
-                LicenseScrollViewer.Height = 450;
-            }
-            // If not in portrait, move buttonList content to visible row and column.
-            else
-            {
-                ContentPanel.Margin = new Thickness(42, 0, 12, 0);
-                LicenseScrollViewer.Height = 250;
-            }
-        }
+        //private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        //{
+        //    // Switch the placement of the buttons based on an orientation change.
+        //    if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
+        //    {
+        //        //ContentPanel.Margin = new Thickness(12, 0, 12, 0);
+        //        MainItemsPivot.Margin = new Thickness(12, 0, 12, 0);
+        //        LicenseScrollViewer.Height = 450;
+        //    }
+        //    // If not in portrait, move buttonList content to visible row and column.
+        //    else
+        //    {
+        //        //ContentPanel.Margin = new Thickness(42, 0, 12, 0);
+        //        MainItemsPivot.Margin = new Thickness(42, 0, 12, 0);
+        //        LicenseScrollViewer.Height = 250;
+        //    }
+        //}
 
         // 处理在 LongListSelector 中更改的选定内容
-        private async void MainLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (MainLongListSelector.SelectedItem == null)
-                return;
+        //private async void MainLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // 如果所选项为空(没有选定内容)，则不执行任何操作
+        //    if (MainLongListSelector.SelectedItem == null)
+        //        return;
 
-            // 导航到新页面
-            var groupId = ((MainItemViewModel)MainLongListSelector.SelectedItem).ID;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            //无线设置
-            if (groupId == "WiFiSetting")
-            {
-                if (MainPageInfo.bLogin)	//已登陆
-                {
-                    PopupBackgroundTop.Visibility = Visibility.Visible;
-                    PopupBackground.Visibility = Visibility.Visible;
-                    InProgress.Visibility = Visibility.Visible;
-                    pleasewait.Visibility = Visibility.Visible;
+        //    // 导航到新页面
+        //    var groupId = ((MainItemViewModel)MainLongListSelector.SelectedItem).ID;
+        //    GenieSoapApi soapApi = new GenieSoapApi();
+        //    //无线设置
+        //    if (groupId == "WiFiSetting")
+        //    {
+        //        if (MainPageInfo.bLogin)	//已登陆
+        //        {
+        //            PopupBackgroundTop.Visibility = Visibility.Visible;
+        //            PopupBackground.Visibility = Visibility.Visible;
+        //            InProgress.Visibility = Visibility.Visible;
+        //            pleasewait.Visibility = Visibility.Visible;
                     
-                    Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-                    attachDeviceAll = await soapApi.GetAttachDevice();
-                    UtilityTool util = new UtilityTool();
-                    var ipList = util.GetCurrentIpAddresses();
-                    string loacalIp = ipList.ToList()[0];
-                    foreach (string key in attachDeviceAll.Keys)
-                    {
-                        if (loacalIp == attachDeviceAll[key]["Ip"])
-                        {
-                            WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                            WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                        }
-                    }
+        //            Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+        //            attachDeviceAll = await soapApi.GetAttachDevice();
+        //            UtilityTool util = new UtilityTool();
+        //            var ipList = util.GetCurrentIpAddresses();
+        //            string loacalIp = ipList.ToList()[0];
+        //            foreach (string key in attachDeviceAll.Keys)
+        //            {
+        //                if (loacalIp == attachDeviceAll[key]["Ip"])
+        //                {
+        //                    WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+        //                    WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+        //                }
+        //            }
 
-                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
-                    if (dicResponse.Count > 0)
-                    {
-                        WifiSettingInfo.ssid = dicResponse["NewSSID"];
-                        WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
-                        WifiSettingInfo.region = dicResponse["NewRegion"];
-                        WifiSettingInfo.channel = dicResponse["NewChannel"];
-                        WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
-                        WifiSettingInfo.wirelessMode = dicResponse["NewWirelessMode"];
-                        WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
-                        WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
-                    }
-                    dicResponse = await soapApi.GetWPASecurityKeys();
-                    if (dicResponse.Count > 0)
-                    {
-                        WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
-                        WifiSettingInfo.changedPassword = dicResponse["NewWPAPassphrase"];
-                    }
-                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                    PopupBackground.Visibility = Visibility.Collapsed;
-                    NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
-                }
-                else	//未登陆
-                {
-                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
-                    MainPageInfo.navigatedPage = "WifiSettingPage";
-                }
-            }
-            //访客访问
-            else if (groupId == "GuestAccess")
-            {
-                if (MainPageInfo.bLogin)	//已登陆
-                {
-                    PopupBackgroundTop.Visibility = Visibility.Visible;
-                    PopupBackground.Visibility = Visibility.Visible;
-                    InProgress.Visibility = Visibility.Visible;
-                    pleasewait.Visibility = Visibility.Visible;
-                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetGuestAccessEnabled();
-                    GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
-                    if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
-                    {
-                        Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                        dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
-                        if (dicResponse1.Count > 0)
-                        {
-                            GuestAccessInfo.ssid = dicResponse1["NewSSID"];
-                            GuestAccessInfo.changedSsid = dicResponse1["NewSSID"];
-                            GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
-                            GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
-                            if (dicResponse1["NewSecurityMode"] != "None")
-                            {
-                                GuestAccessInfo.password = dicResponse1["NewKey"];
-                                GuestAccessInfo.changedPassword = dicResponse1["NewKey"];
-                            }
-                            else
-                            {
-                                GuestAccessInfo.password = "";
-                                GuestAccessInfo.changedPassword = "";
-                            }
-                            if (GuestAccessInfo.timePeriod == null)
-                            {
-                                GuestAccessInfo.timePeriod = "Always";
-                                GuestAccessInfo.changedTimePeriod = "Always";
-                            }
-                        }
-                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Collapsed;
-                        NavigationService.Navigate(new Uri("/GuestAccessPage.xaml", UriKind.Relative));
-                    }
-                    else if (dicResponse["NewGuestAccessEnabled"] == "2")
-                    {
-                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Collapsed;
-                        MessageBox.Show(AppResources.notsupport);
-                    }
-                }
-                else	//未登陆
-                {
-                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
-                    MainPageInfo.navigatedPage = "GuestAccessPage";
-                }                
-            }
-            //网络映射
-            else if (groupId == "NetworkMap")
-            {
-                if (MainPageInfo.bLogin)	//已登陆
-                {
-                    PopupBackgroundTop.Visibility = Visibility.Visible;
-                    PopupBackground.Visibility = Visibility.Visible;
-                    InProgress.Visibility = Visibility.Visible;
-                    pleasewait.Visibility = Visibility.Visible;
-                    UtilityTool util = new UtilityTool();
-                    NetworkMapInfo.geteway = await util.GetGateway();
-                    Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                    responseDic = await soapApi.GetAttachDevice();
-                    NetworkMapInfo.attachDeviceDic = responseDic;
+        //            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+        //            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+        //            if (dicResponse.Count > 0)
+        //            {
+        //                WifiSettingInfo.ssid = dicResponse["NewSSID"];
+        //                WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
+        //                WifiSettingInfo.region = dicResponse["NewRegion"];
+        //                WifiSettingInfo.channel = dicResponse["NewChannel"];
+        //                WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
+        //                WifiSettingInfo.wirelessMode = dicResponse["NewWirelessMode"];
+        //                WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+        //                WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+        //            }
+        //            dicResponse = await soapApi.GetWPASecurityKeys();
+        //            if (dicResponse.Count > 0)
+        //            {
+        //                WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
+        //                WifiSettingInfo.changedPassword = dicResponse["NewWPAPassphrase"];
+        //            }
+        //            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+        //            PopupBackground.Visibility = Visibility.Collapsed;
+        //            NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
+        //        }
+        //        else	//未登陆
+        //        {
+        //            NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+        //            MainPageInfo.navigatedPage = "WifiSettingPage";
+        //        }
+        //    }
+        //    //访客访问
+        //    else if (groupId == "GuestAccess")
+        //    {
+        //        if (MainPageInfo.bLogin)	//已登陆
+        //        {
+        //            PopupBackgroundTop.Visibility = Visibility.Visible;
+        //            PopupBackground.Visibility = Visibility.Visible;
+        //            InProgress.Visibility = Visibility.Visible;
+        //            pleasewait.Visibility = Visibility.Visible;
+        //            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+        //            dicResponse = await soapApi.GetGuestAccessEnabled();
+        //            GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
+        //            if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
+        //            {
+        //                Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+        //                dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+        //                if (dicResponse1.Count > 0)
+        //                {
+        //                    GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+        //                    GuestAccessInfo.changedSsid = dicResponse1["NewSSID"];
+        //                    GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
+        //                    GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
+        //                    if (dicResponse1["NewSecurityMode"] != "None")
+        //                    {
+        //                        GuestAccessInfo.password = dicResponse1["NewKey"];
+        //                        GuestAccessInfo.changedPassword = dicResponse1["NewKey"];
+        //                    }
+        //                    else
+        //                    {
+        //                        GuestAccessInfo.password = "";
+        //                        GuestAccessInfo.changedPassword = "";
+        //                    }
+        //                    if (GuestAccessInfo.timePeriod == null)
+        //                    {
+        //                        GuestAccessInfo.timePeriod = "Always";
+        //                        GuestAccessInfo.changedTimePeriod = "Always";
+        //                    }
+        //                }
+        //                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+        //                PopupBackground.Visibility = Visibility.Collapsed;
+        //                NavigationService.Navigate(new Uri("/GuestAccessPage.xaml", UriKind.Relative));
+        //            }
+        //            else if (dicResponse["NewGuestAccessEnabled"] == "2")
+        //            {
+        //                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+        //                PopupBackground.Visibility = Visibility.Collapsed;
+        //                MessageBox.Show(AppResources.notsupport);
+        //            }
+        //        }
+        //        else	//未登陆
+        //        {
+        //            NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+        //            MainPageInfo.navigatedPage = "GuestAccessPage";
+        //        }                
+        //    }
+        //    //网络映射
+        //    else if (groupId == "NetworkMap")
+        //    {
+        //        if (MainPageInfo.bLogin)	//已登陆
+        //        {
+        //            PopupBackgroundTop.Visibility = Visibility.Visible;
+        //            PopupBackground.Visibility = Visibility.Visible;
+        //            InProgress.Visibility = Visibility.Visible;
+        //            pleasewait.Visibility = Visibility.Visible;
+        //            UtilityTool util = new UtilityTool();
+        //            NetworkMapInfo.geteway = await util.GetGateway();
+        //            Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+        //            responseDic = await soapApi.GetAttachDevice();
+        //            NetworkMapInfo.attachDeviceDic = responseDic;
 
-                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
-                    if (dicResponse.Count > 0)
-                    {
-                        WifiSettingInfo.ssid = dicResponse["NewSSID"];
-                        WifiSettingInfo.channel = dicResponse["NewChannel"];
-                        WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
-                        WifiSettingInfo.macAddr = dicResponse["NewWLANMACAddress"];
-                    }
-                    NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
-                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                    PopupBackground.Visibility = Visibility.Collapsed;
-                    //this.Frame.Navigate(typeof(NetworkMapPage));
-                    NetworkMapInfo.bTypeChanged = false;
-                    NavigationService.Navigate(new Uri("/NetworkMapPage.xaml", UriKind.Relative));
-                }
-                else	//未登陆
-                {
-                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
-                    MainPageInfo.navigatedPage = "NetworkMapPage";
-                }                
-            }
-            //流量控制
-            else if (groupId == "TrafficMeter")
-            {
-                if (MainPageInfo.bLogin)	//已登陆
-                {
-                    PopupBackgroundTop.Visibility = Visibility.Visible;
-                    PopupBackground.Visibility = Visibility.Visible;
-                    InProgress.Visibility = Visibility.Visible;
-                    pleasewait.Visibility = Visibility.Visible;
-                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetTrafficMeterEnabled();
-                    TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
-                    if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
-                    {
-                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                        dicResponse2 = await soapApi.GetTrafficMeterOptions();
-                        if (dicResponse2.Count > 0)
-                        {
-                            TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
-                            TrafficMeterInfo.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
-                            TrafficMeterInfo.RestartHour = dicResponse2["RestartHour"];
-                            TrafficMeterInfo.changedRestartHour = dicResponse2["RestartHour"];
-                            TrafficMeterInfo.RestartMinute = dicResponse2["RestartMinute"];
-                            TrafficMeterInfo.changedRestartMinute = dicResponse2["RestartMinute"];
-                            TrafficMeterInfo.RestartDay = dicResponse2["RestartDay"];
-                            TrafficMeterInfo.changedRestartDay = dicResponse2["RestartDay"];
-                            TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
-                            TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
-                        }
-                        dicResponse2 = await soapApi.GetTrafficMeterStatistics();
-                        if (dicResponse2.Count > 0)
-                        {
-                            TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
-                            TrafficMeterInfo.TodayDownload = dicResponse2["NewTodayDownload"];
-                            TrafficMeterInfo.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
-                            TrafficMeterInfo.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
-                            TrafficMeterInfo.WeekUpload = dicResponse2["NewWeekUpload"];
-                            TrafficMeterInfo.WeekDownload = dicResponse2["NewWeekDownload"];
-                            TrafficMeterInfo.MonthUpload = dicResponse2["NewMonthUpload"];
-                            TrafficMeterInfo.MonthDownload = dicResponse2["NewMonthDownload"];
-                            TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
-                            TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
-                        }
-                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Collapsed;
-                        NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
-                    }
-                    else if (dicResponse["NewTrafficMeterEnable"] == "2")
-                    {
-                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Collapsed;
-                        MessageBox.Show(AppResources.notsupport);
-                    }
-                }
-                else	//未登陆
-                {
-                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
-                    MainPageInfo.navigatedPage = "TrafficMeterPage";
-                }             
-            }
-            //家长控制
-            else if (groupId == "ParentalControl")
-            {
-                if (MainPageInfo.bLogin)	//已登陆
-                {
-                    PopupBackgroundTop.Visibility = Visibility.Visible;
-                    PopupBackground.Visibility = Visibility.Visible;
-                    InProgress.Visibility = Visibility.Visible;
-                    pleasewait.Visibility = Visibility.Visible;
+        //            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+        //            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+        //            if (dicResponse.Count > 0)
+        //            {
+        //                WifiSettingInfo.ssid = dicResponse["NewSSID"];
+        //                WifiSettingInfo.channel = dicResponse["NewChannel"];
+        //                WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+        //                WifiSettingInfo.macAddr = dicResponse["NewWLANMACAddress"];
+        //            }
+        //            NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
+        //            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+        //            PopupBackground.Visibility = Visibility.Collapsed;
+        //            //this.Frame.Navigate(typeof(NetworkMapPage));
+        //            NetworkMapInfo.bTypeChanged = false;
+        //            NavigationService.Navigate(new Uri("/NetworkMapPage.xaml", UriKind.Relative));
+        //        }
+        //        else	//未登陆
+        //        {
+        //            NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+        //            MainPageInfo.navigatedPage = "NetworkMapPage";
+        //        }                
+        //    }
+        //    //流量控制
+        //    else if (groupId == "TrafficMeter")
+        //    {
+        //        if (MainPageInfo.bLogin)	//已登陆
+        //        {
+        //            PopupBackgroundTop.Visibility = Visibility.Visible;
+        //            PopupBackground.Visibility = Visibility.Visible;
+        //            InProgress.Visibility = Visibility.Visible;
+        //            pleasewait.Visibility = Visibility.Visible;
+        //            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+        //            dicResponse = await soapApi.GetTrafficMeterEnabled();
+        //            TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+        //            if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
+        //            {
+        //                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+        //                dicResponse2 = await soapApi.GetTrafficMeterOptions();
+        //                if (dicResponse2.Count > 0)
+        //                {
+        //                    TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
+        //                    TrafficMeterInfo.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
+        //                    TrafficMeterInfo.RestartHour = dicResponse2["RestartHour"];
+        //                    TrafficMeterInfo.changedRestartHour = dicResponse2["RestartHour"];
+        //                    TrafficMeterInfo.RestartMinute = dicResponse2["RestartMinute"];
+        //                    TrafficMeterInfo.changedRestartMinute = dicResponse2["RestartMinute"];
+        //                    TrafficMeterInfo.RestartDay = dicResponse2["RestartDay"];
+        //                    TrafficMeterInfo.changedRestartDay = dicResponse2["RestartDay"];
+        //                    TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
+        //                    TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
+        //                }
+        //                dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+        //                if (dicResponse2.Count > 0)
+        //                {
+        //                    TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
+        //                    TrafficMeterInfo.TodayDownload = dicResponse2["NewTodayDownload"];
+        //                    TrafficMeterInfo.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+        //                    TrafficMeterInfo.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+        //                    TrafficMeterInfo.WeekUpload = dicResponse2["NewWeekUpload"];
+        //                    TrafficMeterInfo.WeekDownload = dicResponse2["NewWeekDownload"];
+        //                    TrafficMeterInfo.MonthUpload = dicResponse2["NewMonthUpload"];
+        //                    TrafficMeterInfo.MonthDownload = dicResponse2["NewMonthDownload"];
+        //                    TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+        //                    TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+        //                }
+        //                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+        //                PopupBackground.Visibility = Visibility.Collapsed;
+        //                NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
+        //            }
+        //            else if (dicResponse["NewTrafficMeterEnable"] == "2")
+        //            {
+        //                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+        //                PopupBackground.Visibility = Visibility.Collapsed;
+        //                MessageBox.Show(AppResources.notsupport);
+        //            }
+        //        }
+        //        else	//未登陆
+        //        {
+        //            NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+        //            MainPageInfo.navigatedPage = "TrafficMeterPage";
+        //        }             
+        //    }
+        //    //家长控制
+        //    else if (groupId == "ParentalControl")
+        //    {
+        //        if (MainPageInfo.bLogin)	//已登陆
+        //        {
+        //            PopupBackgroundTop.Visibility = Visibility.Visible;
+        //            PopupBackground.Visibility = Visibility.Visible;
+        //            InProgress.Visibility = Visibility.Visible;
+        //            pleasewait.Visibility = Visibility.Visible;
                                        
-                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetCurrentSetting();
-                    if (dicResponse.Count > 0)
-                    {
-                        //判断路由器是否已连接因特网 
-                        if (dicResponse["InternetConnectionStatus"] != "Up")
-                        {
-                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                            PopupBackground.Visibility = Visibility.Collapsed;
-                            MessageBox.Show(AppResources.interneterror);
-                        }
-                        else
-                        {
-                            if (dicResponse["ParentalControlSupported"] == "1")
-                            {
-                                ///通过attachDevice获取本机的Mac地址
-                                Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                                responseDic = await soapApi.GetAttachDevice();
-                                NetworkMapInfo.attachDeviceDic = responseDic;
+        //            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+        //            dicResponse = await soapApi.GetCurrentSetting();
+        //            if (dicResponse.Count > 0)
+        //            {
+        //                //判断路由器是否已连接因特网 
+        //                if (dicResponse["InternetConnectionStatus"] != "Up")
+        //                {
+        //                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+        //                    PopupBackground.Visibility = Visibility.Collapsed;
+        //                    MessageBox.Show(AppResources.interneterror);
+        //                }
+        //                else
+        //                {
+        //                    if (dicResponse["ParentalControlSupported"] == "1")
+        //                    {
+        //                        ///通过attachDevice获取本机的Mac地址
+        //                        Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+        //                        responseDic = await soapApi.GetAttachDevice();
+        //                        NetworkMapInfo.attachDeviceDic = responseDic;
 
-                                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                                dicResponse2 = await soapApi.GetEnableStatus();
-                                ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
-                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                                PopupBackground.Visibility = Visibility.Collapsed;
-                                NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
-                            }
-                            else
-                            {
-                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                                PopupBackground.Visibility = Visibility.Collapsed;
-                                MessageBox.Show(AppResources.notsupport);
-                            }
-                        }
-                    }                  
-                }
-                else	//未登陆
-                {
-                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
-                    MainPageInfo.navigatedPage = "ParentalControlPage";
-                }                
-            } 
-            //我的媒体
-            else if (groupId == "MyMedia")
-            {
-                //NavigationService.Navigate(new Uri("/MyMediaSourcePage.xaml", UriKind.Relative));    
-            }
-            //QRCode
-            else if (groupId == "QRCode")
-            {
-                NavigationService.Navigate(new Uri("/QRCodePage.xaml", UriKind.Relative));
-            }
-            //MarketPlace
-            //else if (groupId == "MarketPlace")
-            //{
-            //    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
-            //    await Windows.System.Launcher.LaunchUriAsync(uri);
-            //}
+        //                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+        //                        dicResponse2 = await soapApi.GetEnableStatus();
+        //                        ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
+        //                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+        //                        PopupBackground.Visibility = Visibility.Collapsed;
+        //                        NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
+        //                    }
+        //                    else
+        //                    {
+        //                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+        //                        PopupBackground.Visibility = Visibility.Collapsed;
+        //                        MessageBox.Show(AppResources.notsupport);
+        //                    }
+        //                }
+        //            }                  
+        //        }
+        //        else	//未登陆
+        //        {
+        //            NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+        //            MainPageInfo.navigatedPage = "ParentalControlPage";
+        //        }                
+        //    } 
+        //    //我的媒体
+        //    else if (groupId == "MyMedia")
+        //    {
+        //        //NavigationService.Navigate(new Uri("/MyMediaSourcePage.xaml", UriKind.Relative));    
+        //    }
+        //    //QRCode
+        //    else if (groupId == "QRCode")
+        //    {
+        //        NavigationService.Navigate(new Uri("/QRCodePage.xaml", UriKind.Relative));
+        //    }
+        //    //MarketPlace
+        //    //else if (groupId == "MarketPlace")
+        //    //{
+        //    //    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+        //    //    await Windows.System.Launcher.LaunchUriAsync(uri);
+        //    //}
 
-            // 将所选项重置为 null (没有选定内容)
-            MainLongListSelector.SelectedItem = null;
-        }
+        //    // 将所选项重置为 null (没有选定内容)
+        //    MainLongListSelector.SelectedItem = null;
+        //}
 
-        private void appBarButton_search_Click(object sender, EventArgs e)
-        {
-            if (gridSearch.Visibility == Visibility.Collapsed)
-            {
-                gridSearch.Visibility = Visibility.Visible;
-                //tbSearch.Visibility = Visibility.Visible;
-                //btnSearch.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                gridSearch.Visibility = Visibility.Collapsed;
-            }
-        }
+        //private void appBarButton_search_Click(object sender, EventArgs e)
+        //{
+        //    if (gridSearch.Visibility == Visibility.Collapsed)
+        //    {
+        //        gridSearch.Visibility = Visibility.Visible;
+        //        //tbSearch.Visibility = Visibility.Visible;
+        //        //btnSearch.Visibility = Visibility.Visible;
+        //    }
+        //    else
+        //    {
+        //        gridSearch.Visibility = Visibility.Collapsed;
+        //    }
+        //}
 
         private async void appBarButton_about_Click(object sender, EventArgs e)
         {
@@ -484,15 +488,15 @@ namespace GenieWP8
         }
 
         //搜索按钮响应事件
-        private async void SearchButton_Click(Object sender, RoutedEventArgs e)
-        {
-            string text = tbSearch.Text.Trim();
-            if (text != "")
-            {
-                var uri = new Uri((String)("http://support.netgear.com/search/" + text));
-                await Windows.System.Launcher.LaunchUriAsync(uri);
-            }
-        }
+        //private async void SearchButton_Click(Object sender, RoutedEventArgs e)
+        //{
+        //    string text = tbSearch.Text.Trim();
+        //    if (text != "")
+        //    {
+        //        var uri = new Uri((String)("http://support.netgear.com/search/" + text));
+        //        await Windows.System.Launcher.LaunchUriAsync(uri);
+        //    }
+        //}
 
         //隐私权政策链接响应事件
         private async void Policy_Click(Object sender, RoutedEventArgs e)
@@ -566,6 +570,413 @@ namespace GenieWP8
         private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
         {
             tbSearch.Background =new SolidColorBrush(Colors.White);
+        }
+
+        private async void Image_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            string text = tbSearch.Text.Trim();
+            if (text != "")
+            {
+                text = Uri.EscapeDataString(text);
+                var uri = new Uri((String)("http://support.netgear.com/search/" + text));
+                await Windows.System.Launcher.LaunchUriAsync(uri);
+            }
+        }
+
+        private async void Grid_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            string gridName = gridItem.Name;
+            GenieSoapApi soapApi = new GenieSoapApi();
+            //无线设置
+            if (gridName == "WirelessSetting")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_normal.png", UriKind.Relative));
+                WirelessSettingBorder.Background = BorderBackground;
+                if (MainPageInfo.bLogin)	//已登陆
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+
+                    Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                    attachDeviceAll = await soapApi.GetAttachDevice();
+                    UtilityTool util = new UtilityTool();
+                    var ipList = util.GetCurrentIpAddresses();
+                    string loacalIp = ipList.ToList()[0];
+                    foreach (string key in attachDeviceAll.Keys)
+                    {
+                        if (loacalIp == attachDeviceAll[key]["Ip"])
+                        {
+                            WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                            WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        }
+                    }
+
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                        WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
+                        WifiSettingInfo.region = dicResponse["NewRegion"];
+                        WifiSettingInfo.channel = dicResponse["NewChannel"];
+                        WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
+                        WifiSettingInfo.wirelessMode = dicResponse["NewWirelessMode"];
+                        WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                        WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+                    }
+                    dicResponse = await soapApi.GetWPASecurityKeys();
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
+                        WifiSettingInfo.changedPassword = dicResponse["NewWPAPassphrase"];
+                    }
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
+                }
+                else	//未登陆
+                {
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "WifiSettingPage";
+                }
+            }
+            //访客访问
+            else if (gridName == "GuestAccess")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                GuestAccessBorder.Background = BorderBackground;
+                if (MainPageInfo.bLogin)	//已登陆
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetGuestAccessEnabled();
+                    GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
+                    if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
+                    {
+                        Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                        dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                        if (dicResponse1.Count > 0)
+                        {
+                            GuestAccessInfo.ssid = dicResponse1["NewSSID"];
+                            GuestAccessInfo.changedSsid = dicResponse1["NewSSID"];
+                            GuestAccessInfo.securityType = dicResponse1["NewSecurityMode"];
+                            GuestAccessInfo.changedSecurityType = dicResponse1["NewSecurityMode"];
+                            if (dicResponse1["NewSecurityMode"] != "None")
+                            {
+                                GuestAccessInfo.password = dicResponse1["NewKey"];
+                                GuestAccessInfo.changedPassword = dicResponse1["NewKey"];
+                            }
+                            else
+                            {
+                                GuestAccessInfo.password = "";
+                                GuestAccessInfo.changedPassword = "";
+                            }
+                            if (GuestAccessInfo.timePeriod == null)
+                            {
+                                GuestAccessInfo.timePeriod = "Always";
+                                GuestAccessInfo.changedTimePeriod = "Always";
+                            }
+                        }
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        NavigationService.Navigate(new Uri("/GuestAccessPage.xaml", UriKind.Relative));
+                    }
+                    else if (dicResponse["NewGuestAccessEnabled"] == "2")
+                    {
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(AppResources.notsupport);
+                    }
+                }
+                else	//未登陆
+                {
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "GuestAccessPage";
+                }
+            }
+            //网络映射
+            else if (gridName == "NetworkMap")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                NetworkMapBorder.Background = BorderBackground;
+                if (MainPageInfo.bLogin)	//已登陆
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+                    UtilityTool util = new UtilityTool();
+                    NetworkMapInfo.geteway = await util.GetGateway();
+                    Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                    responseDic = await soapApi.GetAttachDevice();
+                    NetworkMapInfo.attachDeviceDic = responseDic;
+
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                        WifiSettingInfo.channel = dicResponse["NewChannel"];
+                        WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                        WifiSettingInfo.macAddr = dicResponse["NewWLANMACAddress"];
+                    }
+                    NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    //this.Frame.Navigate(typeof(NetworkMapPage));
+                    NetworkMapInfo.bTypeChanged = false;
+                    NavigationService.Navigate(new Uri("/NetworkMapPage.xaml", UriKind.Relative));
+                }
+                else	//未登陆
+                {
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "NetworkMapPage";
+                }
+            }
+            //流量控制
+            else if (gridName == "TrafficMeter")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                TrafficMeterBorder.Background = BorderBackground;
+                if (MainPageInfo.bLogin)	//已登陆
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetTrafficMeterEnabled();
+                    TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+                    if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
+                    {
+                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                        dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                        if (dicResponse2.Count > 0)
+                        {
+                            TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                            TrafficMeterInfo.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                            TrafficMeterInfo.RestartHour = dicResponse2["RestartHour"];
+                            TrafficMeterInfo.changedRestartHour = dicResponse2["RestartHour"];
+                            TrafficMeterInfo.RestartMinute = dicResponse2["RestartMinute"];
+                            TrafficMeterInfo.changedRestartMinute = dicResponse2["RestartMinute"];
+                            TrafficMeterInfo.RestartDay = dicResponse2["RestartDay"];
+                            TrafficMeterInfo.changedRestartDay = dicResponse2["RestartDay"];
+                            TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
+                            TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
+                        }
+                        dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                        if (dicResponse2.Count > 0)
+                        {
+                            TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
+                            TrafficMeterInfo.TodayDownload = dicResponse2["NewTodayDownload"];
+                            TrafficMeterInfo.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+                            TrafficMeterInfo.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+                            TrafficMeterInfo.WeekUpload = dicResponse2["NewWeekUpload"];
+                            TrafficMeterInfo.WeekDownload = dicResponse2["NewWeekDownload"];
+                            TrafficMeterInfo.MonthUpload = dicResponse2["NewMonthUpload"];
+                            TrafficMeterInfo.MonthDownload = dicResponse2["NewMonthDownload"];
+                            TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+                            TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+                        }
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
+                    }
+                    else if (dicResponse["NewTrafficMeterEnable"] == "2")
+                    {
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(AppResources.notsupport);
+                    }
+                }
+                else	//未登陆
+                {
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "TrafficMeterPage";
+                }
+            }
+            //家长控制
+            else if (gridName == "ParentalControl")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                ParentalControlBorder.Background = BorderBackground;
+                if (MainPageInfo.bLogin)	//已登陆
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    InProgress.Visibility = Visibility.Visible;
+                    pleasewait.Visibility = Visibility.Visible;
+
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetCurrentSetting();
+                    if (dicResponse.Count > 0)
+                    {
+                        //判断路由器是否已连接因特网 
+                        if (dicResponse["InternetConnectionStatus"] != "Up")
+                        {
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                            PopupBackground.Visibility = Visibility.Collapsed;
+                            MessageBox.Show(AppResources.interneterror);
+                        }
+                        else
+                        {
+                            if (dicResponse["ParentalControlSupported"] == "1")
+                            {
+                                ///通过attachDevice获取本机的Mac地址
+                                Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                                responseDic = await soapApi.GetAttachDevice();
+                                NetworkMapInfo.attachDeviceDic = responseDic;
+
+                                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                                dicResponse2 = await soapApi.GetEnableStatus();
+                                ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
+                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                                PopupBackground.Visibility = Visibility.Collapsed;
+                                NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
+                            }
+                            else
+                            {
+                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                                PopupBackground.Visibility = Visibility.Collapsed;
+                                MessageBox.Show(AppResources.notsupport);
+                            }
+                        }
+                    }
+                }
+                else	//未登陆
+                {
+                    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                    MainPageInfo.navigatedPage = "ParentalControlPage";
+                }
+            }
+            //我的媒体
+            //else if (gridName == "MyMedia")
+            //{
+            //    //NavigationService.Navigate(new Uri("/MyMediaSourcePage.xaml", UriKind.Relative));    
+            //}
+            //QRCode
+            else if (gridName == "QRCode")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                QRCodeBorder.Background = BorderBackground;
+                NavigationService.Navigate(new Uri("/QRCodePage.xaml", UriKind.Relative));
+            }
+            //MarketPlace
+            //else if (gridName == "MarketPlace")
+            //{
+            //    var uri = new Uri((String)("https://genie.netgear.com/UserProfile/#AppStorePlace:"));
+            //    await Windows.System.Launcher.LaunchUriAsync(uri);
+            //}
+        }
+
+        private void SearchGrid_GotFocus(object sender, RoutedEventArgs e)
+        {            
+            ImageBrush SearchBackground = new ImageBrush();
+            SearchBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/search_input.png", UriKind.Relative));
+            SearchGrid.Background = SearchBackground;
+        }
+
+        private void SearchGrid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ImageBrush SearchBackground = new ImageBrush();
+            SearchBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/search_normal.png", UriKind.Relative));
+            SearchGrid.Background = SearchBackground;
+        }
+
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            string gridName = gridItem.Name;
+            if (gridName == "WirelessSetting")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                WirelessSettingBorder.Background = BorderBackground;
+            }
+            else if (gridName == "GuestAccess")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                GuestAccessBorder.Background = BorderBackground;
+            }
+            else if (gridName == "NetworkMap")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                NetworkMapBorder.Background = BorderBackground;
+            }
+            else if (gridName == "ParentalControl")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                ParentalControlBorder.Background = BorderBackground;
+            }
+            else if (gridName == "TrafficMeter")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                TrafficMeterBorder.Background = BorderBackground;
+            }
+            else if (gridName == "QRCode")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_click.png", UriKind.Relative));
+                QRCodeBorder.Background = BorderBackground;
+            }
+        }
+
+        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            string gridName = gridItem.Name;
+            if (gridName == "WirelessSetting")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_normal.png", UriKind.Relative));
+                WirelessSettingBorder.Background = BorderBackground;
+            }
+            else if (gridName == "GuestAccess")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_normal.png", UriKind.Relative));
+                GuestAccessBorder.Background = BorderBackground;
+            }
+            else if (gridName == "NetworkMap")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_normal.png", UriKind.Relative));
+                NetworkMapBorder.Background = BorderBackground;
+            }
+            else if (gridName == "ParentalControl")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_normal.png", UriKind.Relative));
+                ParentalControlBorder.Background = BorderBackground;
+            }
+            else if (gridName == "TrafficMeter")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_normal.png", UriKind.Relative));
+                TrafficMeterBorder.Background = BorderBackground;
+            }
+            else if (gridName == "QRCode")
+            {
+                ImageBrush BorderBackground = new ImageBrush();
+                BorderBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/MainItem_normal.png", UriKind.Relative));
+                QRCodeBorder.Background = BorderBackground;
+            }          
         }
     }
 }

@@ -56,6 +56,7 @@ namespace GenieWP8
             pwd.Text = WifiSettingInfo.changedPassword;
             if (WifiSettingInfo.changedSecurityType == "None")
             {
+                pwd.Text = "";
                 passwordPanel.Visibility = Visibility.Collapsed;
             }
             else
@@ -64,13 +65,13 @@ namespace GenieWP8
             }
 
             //判断保存按钮是否可点击
-            if (SSID.Text != "" && pwd.Text != "" &&
+            if (SSID.Text != "" && ((passwordPanel.Visibility == Visibility.Visible && pwd.Text != "") || passwordPanel.Visibility == Visibility.Collapsed) &&
                 (WifiSettingInfo.isSSIDChanged == true || WifiSettingInfo.isPasswordChanged == true || WifiSettingInfo.isChannelChanged == true || WifiSettingInfo.isSecurityTypeChanged == true))
             {
-                if (WifiSettingInfo.securityType == "None")
-                {
-                    pwd.Text = "siteview";
-                }
+                //if (WifiSettingInfo.securityType == "None")
+                //{
+                //    pwd.Text = "siteview";
+                //}
                 appBarButton_save.IsEnabled = true;
             }
             else
@@ -98,12 +99,12 @@ namespace GenieWP8
             string ssid = SSID.Text.Trim();
             string password = pwd.Text.Trim();
             WifiSettingInfo.changedSsid = ssid;
-            if (ssid != WifiSettingInfo.ssid && ssid != "" && password != "")
+            if (ssid != WifiSettingInfo.ssid && ssid != "" && ((passwordPanel.Visibility == Visibility.Visible && password != "") || passwordPanel.Visibility == Visibility.Collapsed))
             {
                 appBarButton_save.IsEnabled = true;
                 WifiSettingInfo.isSSIDChanged = true;
             }
-            else if (ssid == "" || password == "")
+            else if (ssid == "" || (passwordPanel.Visibility == Visibility.Visible && password == ""))
             {
                 appBarButton_save.IsEnabled = false;
                 WifiSettingInfo.isSSIDChanged = true;                
@@ -111,7 +112,7 @@ namespace GenieWP8
             else
             {
                 WifiSettingInfo.isSSIDChanged = false;
-                if (WifiSettingInfo.isPasswordChanged == true || WifiSettingInfo.isChannelChanged == true || WifiSettingInfo.isSecurityTypeChanged == true)
+                if ((passwordPanel.Visibility == Visibility.Visible && WifiSettingInfo.isPasswordChanged == true) || WifiSettingInfo.isChannelChanged == true || WifiSettingInfo.isSecurityTypeChanged == true)
                 {
                     appBarButton_save.IsEnabled = true;
                 }
@@ -290,7 +291,7 @@ namespace GenieWP8
             {
                 MessageBox.Show(AppResources.DisallowedSSIDChar);
             }
-            else if (password.Length < 8 || password.Length > 64)
+            else if (passwordPanel.Visibility == Visibility.Visible && password.Length < 8 || password.Length > 64)
             {
                 MessageBox.Show(AppResources.MsgPasswordFormat);
             }

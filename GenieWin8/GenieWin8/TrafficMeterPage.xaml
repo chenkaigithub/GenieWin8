@@ -60,7 +60,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoHome" IsEnabled="{Binding Frame.CanGoHome, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="TrafficMeterPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#FF5A5A5A"/>
+            <TextBlock x:Name="pageTitle" x:Uid="TrafficMeterPageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="Black"/>
             <Button Click="Refresh_Click" Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 

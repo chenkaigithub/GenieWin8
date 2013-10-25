@@ -109,14 +109,14 @@ namespace GenieWP8
                     GuestAccessInfo.changedSecurityType = "WPA2-PSK";
                     break;
                 case 2:
-                    GuestAccessInfo.changedSecurityType = "WPA-PSK/WPA2-PSK";
+                    GuestAccessInfo.changedSecurityType = "Mixed WPA";
                     break;
             }
 
             //判断安全是否更改
             if (GuestAccessInfo.changedSecurityType != GuestAccessInfo.securityType)
             {
-                if (GuestAccessInfo.changedSecurityType == "WPA-PSK/WPA2-PSK" && GuestAccessInfo.securityType == "Mixed WPA")
+                if (GuestAccessInfo.changedSecurityType == "Mixed WPA" && GuestAccessInfo.securityType == "WPA-PSK/WPA2-PSK")
                 {
                     GuestAccessInfo.isSecurityTypeChanged = false;
                 }

@@ -53,7 +53,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="MyMediaPlayerPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#FF5A5A5A"/>
+            <TextBlock x:Name="pageTitle" x:Uid="MyMediaPlayerPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="Black"/>
         </Grid>
 
         <ListView Grid.Row="1"

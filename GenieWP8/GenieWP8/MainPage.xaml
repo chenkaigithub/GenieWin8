@@ -10,8 +10,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
-    OrientationChanged="PhoneApplicationPage_OrientationChanged"
+    SupportedOrientations="Portrait"  Orientation="Portrait"    
     shell:SystemTray.IsVisible="True">
     <phone:PhoneApplicationPage.Resources>
         <Style x:Key="ButtonStyle1" TargetType="Button">
@@ -85,7 +84,6 @@
         </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -108,28 +106,172 @@
             提取属性的值。
          -->
 
-        <Grid x:Name="gridSearch" Grid.Row="0" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="tbSearch" Height="75" Margin="10,0,0,0" GotFocus="tbSearch_GotFocus" Background="White"/>
-            <Button x:Name="btnSearch" Grid.Column="1" Width="80" Margin="0,0,0,0" Click="SearchButton_Click" Style="{StaticResource ButtonStyle1}">
-                <Button.Background>
-                    <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/search.png"/>
-                </Button.Background>
-            </Button>
-        </Grid>
-        
         <!--TitlePanel 包含应用程序的名称和页标题-->
-        <StackPanel Grid.Row="1" Margin="12,17,0,28">
+        <StackPanel Grid.Row="0">
             <!--<TextBlock Text="我的应用程序" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Text="页面名称" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
-                <Image Source="Assets/NETGEAR_Genie_Logo.png" Width="400"/>           
+            <Grid Margin="0,0,0,20" HorizontalAlignment="Stretch">
+                <Image Source="Assets/MainPage/logo_left.png" Height="60" HorizontalAlignment="Left"/>
+                <Image Source="Assets/MainPage/NETGEAR_Genie_Logo.png" Height="38"  Margin="0,20,0,0" HorizontalAlignment="Center"/>
+            </Grid>
+            <Grid Height="60" HorizontalAlignment="Stretch">
+                <Grid.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/search_background.png"/>
+                </Grid.Background>
+                <!--<TextBlock x:Name="ssid" Text="NETGEAR" FontSize="25" VerticalAlignment="Center" Margin="10,0,10,0" Width="150" HorizontalAlignment="Left" Foreground="White"/>-->
+                <Grid x:Name="SearchGrid" Margin="0,8,0,5" HorizontalAlignment="Stretch" GotFocus="SearchGrid_GotFocus" LostFocus="SearchGrid_LostFocus">
+                    <Grid.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/search_normal.png"/>
+                    </Grid.Background>
+                    <Image Source="Assets/MainPage/search_ico.png" Height="40" Margin="10,0,0,0" HorizontalAlignment="Left" MouseLeftButtonUp="Image_MouseLeftButtonUp"/>
+                    <TextBox x:Name="tbSearch" FontSize="25" Margin="42,-8,5,0" Padding="0" BorderThickness="0" Height="60" Background="White"/>
+                </Grid>
+            </Grid>
         </StackPanel>
 
-        <!--ContentPanel 包含 LongListSelector 和 LongListSelector ItemTemplate。在此处放置其他内容-->
-        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
+        <!--枢轴控件-->
+        <phone:Pivot x:Name="MainItemsPivot" Grid.Row="1" Foreground="#FF5A5A5A">
+            <!--枢轴项一-->
+            <phone:PivotItem>
+                <Grid>
+                    <Grid x:Name="WirelessSetting" Width="150" Height="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-200,0,0,0"
+                          MouseLeftButtonDown="Grid_MouseLeftButtonDown"  MouseLeftButtonUp="Grid_MouseLeftButtonUp" MouseLeave="Grid_MouseLeave">
+                        <Border x:Name="WirelessSettingBorder" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="#FFAAAAAA" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <!--<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Gray" Offset="0.4"/>
+                                    <GradientStop Color="White"/>
+                                    <GradientStop Color="White" Offset="0.75"/>
+                                    <GradientStop Color="#FFA6A6A6" Offset="1"/>
+                                </LinearGradientBrush>-->
+                                <ImageBrush Stretch="Fill" ImageSource="Assets/MainPage/MainItem_normal.png"/>
+                            </Border.Background>
+                            <Image Source="Assets/MainPage/wireless.png" Stretch="Fill" Height="120" Width="120" VerticalAlignment="Top"/>
+                        </Border>
+                        <TextBlock Text="{Binding Path=LocalizedResources.WiFiSetting, Source={StaticResource LocalizedStrings}}"
+                                   Width="150" Margin="0,110,0,0" HorizontalAlignment="Center" Foreground="#FF3C3C3C" TextAlignment="Center"/>
+                    </Grid>
+                    <Grid x:Name="GuestAccess" Width="150" Height="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,0,0,0"
+                          MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeftButtonUp="Grid_MouseLeftButtonUp" MouseLeave="Grid_MouseLeave">
+                        <Border x:Name="GuestAccessBorder" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="#FFAAAAAA" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Gray" Offset="0.4"/>
+                                    <GradientStop Color="White"/>
+                                    <GradientStop Color="White" Offset="0.75"/>
+                                    <GradientStop Color="#FFA6A6A6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="Assets/MainPage/guestaccess.png" Stretch="Fill" Height="120" Width="120" VerticalAlignment="Top"/>
+                        </Border>
+                        <TextBlock Text="{Binding Path=LocalizedResources.GuestAccess, Source={StaticResource LocalizedStrings}}"
+                                   Width="150" Margin="0,110,0,0" HorizontalAlignment="Center" Foreground="#FF3C3C3C" TextAlignment="Center"/>
+                    </Grid>
+                    <Grid x:Name="NetworkMap" Width="150" Height="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-200,180,0,0"
+                          MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeftButtonUp="Grid_MouseLeftButtonUp" MouseLeave="Grid_MouseLeave">
+                        <Border x:Name="NetworkMapBorder" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="#FFAAAAAA" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Gray" Offset="0.4"/>
+                                    <GradientStop Color="White"/>
+                                    <GradientStop Color="White" Offset="0.75"/>
+                                    <GradientStop Color="#FFA6A6A6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="Assets/MainPage/map.png" Stretch="Fill" Height="120" Width="120" VerticalAlignment="Top"/>
+                        </Border>
+                        <TextBlock Text="{Binding Path=LocalizedResources.NetworkMap, Source={StaticResource LocalizedStrings}}"
+                                   Width="150" Margin="0,110,0,0" HorizontalAlignment="Center" Foreground="#FF3C3C3C" TextAlignment="Center"/>
+                    </Grid>
+                    <Grid x:Name="ParentalControl" Width="150" Height="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,180,0,0"
+                          MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeftButtonUp="Grid_MouseLeftButtonUp" MouseLeave="Grid_MouseLeave">
+                        <Border x:Name="ParentalControlBorder" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="#FFAAAAAA" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Gray" Offset="0.4"/>
+                                    <GradientStop Color="White"/>
+                                    <GradientStop Color="White" Offset="0.75"/>
+                                    <GradientStop Color="#FFA6A6A6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="Assets/MainPage/parentalcontrols.png" Stretch="Fill" Height="120" Width="120" VerticalAlignment="Top"/>
+                        </Border>
+                        <TextBlock Text="{Binding Path=LocalizedResources.ParentalControl, Source={StaticResource LocalizedStrings}}"
+                                   Width="150" Margin="0,110,0,0" HorizontalAlignment="Center" Foreground="#FF3C3C3C" TextAlignment="Center"/>
+                    </Grid>
+                    <Grid x:Name="TrafficMeter" Width="150" Height="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-200,360,0,0"
+                          MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeftButtonUp="Grid_MouseLeftButtonUp" MouseLeave="Grid_MouseLeave">
+                        <Border x:Name="TrafficMeterBorder" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="#FFAAAAAA" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Gray" Offset="0.4"/>
+                                    <GradientStop Color="White"/>
+                                    <GradientStop Color="White" Offset="0.75"/>
+                                    <GradientStop Color="#FFA6A6A6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="Assets/MainPage/traffic.png" Stretch="Fill" Height="120" Width="120" VerticalAlignment="Top"/>
+                        </Border>
+                        <TextBlock Text="{Binding Path=LocalizedResources.TrafficMeter, Source={StaticResource LocalizedStrings}}"
+                                   Width="150" Margin="0,110,0,0" HorizontalAlignment="Center" Foreground="#FF3C3C3C" TextAlignment="Center"/>
+                    </Grid>
+                    <Grid x:Name="QRCode" Width="150" Height="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,360,0,0"
+                          MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeftButtonUp="Grid_MouseLeftButtonUp" MouseLeave="Grid_MouseLeave">
+                        <Border x:Name="QRCodeBorder" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="Black"/>
+                                    <GradientStop Color="#FFAAAAAA" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Gray" Offset="0.4"/>
+                                    <GradientStop Color="White"/>
+                                    <GradientStop Color="White" Offset="0.75"/>
+                                    <GradientStop Color="#FFA6A6A6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="Assets/MainPage/qrcode.png" Stretch="Fill" Height="120" Width="120" VerticalAlignment="Top"/>
+                        </Border>
+                        <TextBlock Text="{Binding Path=LocalizedResources.QRCode, Source={StaticResource LocalizedStrings}}"
+                                   Width="150" Margin="0,110,0,0" HorizontalAlignment="Center" Foreground="#FF3C3C3C" TextAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </phone:PivotItem>
+        </phone:Pivot>
+
+        <!--<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:LongListSelector 
                 x:Name="MainLongListSelector"
                 Margin="0,0,0,0"
@@ -157,7 +299,7 @@
                     </DataTemplate>
                 </phone:LongListSelector.ItemTemplate>
             </phone:LongListSelector>
-        </Grid>
+        </Grid>-->
 
         <!--取消注释，以显示对齐网格，从而帮助确保
             控件在公用边界上对齐。图像在系统栏中显示时的
@@ -168,8 +310,8 @@
         <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
 
 
-        <Grid x:Name="PopupBackgroundTop" Grid.Row="1" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
-        <Grid x:Name="PopupBackground"  Grid.Row="2" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed">
+        <Grid x:Name="PopupBackgroundTop" Grid.Row="0" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center">
                 <ProgressBar x:Name="InProgress"
                              IsIndeterminate="True"
@@ -181,7 +323,7 @@
         </Grid>
 
         <!--关于-->
-        <Popup x:Name="AboutPopup" Grid.Row="2"  HorizontalAlignment="Center" Margin="0,20,400,0">
+        <Popup x:Name="AboutPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,20,400,0">
             <StackPanel>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Width="400">
                     <StackPanel>
@@ -203,7 +345,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Path=LocalizedResources.VersionText, Source={StaticResource LocalizedStrings}}"
                                        FontSize="20" Margin="10,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
-                            <TextBlock Text="1.0.0.5" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
+                            <TextBlock Text="1.0.1.0" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
                         </StackPanel>
                         <TextBlock Text="{Binding Path=LocalizedResources.CopyrightText, Source={StaticResource LocalizedStrings}}"
                                    FontSize="20" Margin="10,0,0,0" Foreground="White"/>
@@ -225,7 +367,7 @@
         </Popup>
 
         <!--许可-->
-        <Popup x:Name="LicensePopup" Grid.Row="2"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,400,0">
+        <Popup x:Name="LicensePopup" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,400,0">
             <StackPanel>
                 <ScrollViewer x:Name="LicenseScrollViewer" Margin="0,10,0,0" Width="380" Height="450" VerticalScrollBarVisibility="Auto">
                     <StackPanel>

@@ -51,6 +51,7 @@ namespace GenieWin8
             this.DefaultViewModel["itemTimesegSecurity"] = timesegSecurity;
             if (GuestAccessInfoModel.changedSecurityType == "None")
             {
+                Password.Text = "";
                 gridKey.Visibility = Visibility.Collapsed;
             } 
             else
@@ -59,14 +60,14 @@ namespace GenieWin8
             }
 
             //判断保存按钮是否可点击
-            if (SSID.Text != "" && Password.Text != "" && 
+            if (SSID.Text != "" && ((gridKey.Visibility == Visibility.Visible && Password.Text != "") || gridKey.Visibility == Visibility.Collapsed) && 
                 (GuestAccessInfoModel.isSSIDChanged == true || GuestAccessInfoModel.isPasswordChanged == true ||
                 GuestAccessInfoModel.isTimePeriodChanged == true || GuestAccessInfoModel.isSecurityTypeChanged == true))
             {
-                if (GuestAccessInfoModel.securityType == "None")
-                {
-                    Password.Text = "siteview";
-                }
+                //if (GuestAccessInfoModel.securityType == "None")
+                //{
+                //    Password.Text = "siteview";
+                //}
                 GuestSettingSave.IsEnabled = true;
             }
             else
@@ -91,12 +92,12 @@ namespace GenieWin8
             string ssid = SSID.Text.Trim();
             string password = Password.Text.Trim();
             GuestAccessInfoModel.changedSsid = ssid;
-            if (ssid != GuestAccessInfoModel.ssid && ssid != "" && password != "")
+            if (ssid != GuestAccessInfoModel.ssid && ssid != "" && ((gridKey.Visibility == Visibility.Visible && password != "") || gridKey.Visibility == Visibility.Collapsed))
             {
                 GuestSettingSave.IsEnabled = true;
                 GuestAccessInfoModel.isSSIDChanged = true;
             }
-            else if (ssid == "" || password == "")
+            else if (ssid == "" || (gridKey.Visibility == Visibility.Visible && password == ""))
             {
                 GuestSettingSave.IsEnabled = false;
                 GuestAccessInfoModel.isSSIDChanged = true;
@@ -104,7 +105,7 @@ namespace GenieWin8
             else
             {
                 GuestAccessInfoModel.isSSIDChanged = false;
-                if (GuestAccessInfoModel.isPasswordChanged == true || GuestAccessInfoModel.isTimePeriodChanged == true || GuestAccessInfoModel.isSecurityTypeChanged == true)
+                if ((gridKey.Visibility == Visibility.Visible && GuestAccessInfoModel.isPasswordChanged == true) || GuestAccessInfoModel.isTimePeriodChanged == true || GuestAccessInfoModel.isSecurityTypeChanged == true)
                 {
                     GuestSettingSave.IsEnabled = true;
                 }
@@ -180,7 +181,7 @@ namespace GenieWin8
                 var messageDialog = new MessageDialog(loader.GetString("DisallowedSSIDChar"));
                 await messageDialog.ShowAsync();
             }
-            else if (password.Length < 8 || password.Length > 64)
+            else if (gridKey.Visibility == Visibility.Visible && password.Length < 8 || password.Length > 64)
             {
                 var messageDialog = new MessageDialog(loader.GetString("MsgPasswordFormat"));
                 await messageDialog.ShowAsync();
