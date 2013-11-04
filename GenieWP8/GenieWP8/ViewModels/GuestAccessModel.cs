@@ -85,6 +85,22 @@ namespace GenieWP8.ViewModels
 
     public class GuestSettingItem : GuestSettingCommon
     {
+        private string _imgpath;
+        public string ImgPath
+        {
+            get
+            {
+                return _imgpath;
+            }
+            set
+            {
+                if (value != _imgpath)
+                {
+                    _imgpath = value;
+                }
+            }
+        }
+
         private GuestSettingGroup _group;
         public GuestSettingGroup Group
         {
@@ -119,15 +135,23 @@ namespace GenieWP8.ViewModels
     {
         public GuestAccessModel()
         {
-            this.GuestSettingGroups = new ObservableCollection<GuestSettingGroup>();
-            this.EditName = new GuestSettingGroup();
-            this.EditKey = new GuestSettingGroup();
+            //this.GuestSettingGroups = new ObservableCollection<GuestSettingGroup>();
+            this.ssidGroup = new GuestSettingGroup();
+            this.keyGroup = new GuestSettingGroup();
+            this.timesegGroup = new GuestSettingGroup();
+            this.securityGroup = new GuestSettingGroup();
+            //this.EditName = new GuestSettingGroup();
+            //this.EditKey = new GuestSettingGroup();
             this.EditTimesegSecurity = new ObservableCollection<GuestSettingGroup>();
         }
 
-        public ObservableCollection<GuestSettingGroup> GuestSettingGroups { get; private set; }
-        public GuestSettingGroup EditName { get; private set; }
-        public GuestSettingGroup EditKey { get; private set; }
+        //public ObservableCollection<GuestSettingGroup> GuestSettingGroups { get; private set; }
+        public GuestSettingGroup ssidGroup { get; private set; }
+        public GuestSettingGroup keyGroup { get; private set; }
+        public GuestSettingGroup timesegGroup { get; private set; }
+        public GuestSettingGroup securityGroup { get; private set; }
+        //public GuestSettingGroup EditName { get; private set; }
+        //public GuestSettingGroup EditKey { get; private set; }
         public ObservableCollection<GuestSettingGroup> EditTimesegSecurity { get; private set; }
 
         //public bool IsDataLoaded
@@ -139,22 +163,25 @@ namespace GenieWP8.ViewModels
         public void LoadData()
         {
             var group1 = new GuestSettingGroup() { ID = "GuestWiFiName", Title = AppResources.GuestWiFiName, Content = GuestAccessInfo.ssid };
-            EditName = group1;
-            this.GuestSettingGroups.Add(group1);
+            ssidGroup = group1;
+            //EditName = group1;
+            //this.GuestSettingGroups.Add(group1);
 
             var group2 = new GuestSettingGroup() { ID = "Password", Title = AppResources.Key_Password, Content = GuestAccessInfo.password };
-            EditKey = group2;
-            this.GuestSettingGroups.Add(group2);
+            keyGroup = group2;
+            //EditKey = group2;
+            //this.GuestSettingGroups.Add(group2);
 
             var group3 = new GuestSettingGroup() { ID = "TimeSegment", Title = AppResources.TimeSegment, Content = GuestAccessInfo.changedTimePeriod };
-            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-1", Title = "TimeSegment", Content = AppResources.TimeSegment_Always, Group = group3 });
-            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-2", Title = "TimeSegment", Content = AppResources.TimeSegment_1hour, Group = group3 });
-            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-3", Title = "TimeSegment", Content = AppResources.TimeSegment_5hours, Group = group3 });
-            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-4", Title = "TimeSegment", Content = AppResources.TimeSegment_10hours, Group = group3 });
-            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-5", Title = "TimeSegment", Content = AppResources.TimeSegment_1day, Group = group3 });
-            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-6", Title = "TimeSegment", Content = AppResources.TimeSegment_1week, Group = group3 });
+            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-1", Title = "TimeSegment", Content = AppResources.TimeSegment_Always, ImgPath = "/Assets/WirelessSetting/first.png", Group = group3 });
+            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-2", Title = "TimeSegment", Content = AppResources.TimeSegment_1hour, ImgPath = "/Assets/WirelessSetting/second.png", Group = group3 });
+            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-3", Title = "TimeSegment", Content = AppResources.TimeSegment_5hours, ImgPath = "/Assets/WirelessSetting/third.png", Group = group3 });
+            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-4", Title = "TimeSegment", Content = AppResources.TimeSegment_10hours, ImgPath = "/Assets/WirelessSetting/first.png", Group = group3 });
+            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-5", Title = "TimeSegment", Content = AppResources.TimeSegment_1day, ImgPath = "/Assets/WirelessSetting/second.png", Group = group3 });
+            group3.Items.Add(new GuestSettingItem() { ID = "TimeSegment-6", Title = "TimeSegment", Content = AppResources.TimeSegment_1week, ImgPath = "/Assets/WirelessSetting/third.png", Group = group3 });
             this.EditTimesegSecurity.Add(group3);
-            this.GuestSettingGroups.Add(group3);
+            timesegGroup = group3;
+            //this.GuestSettingGroups.Add(group3);
 
             string securityType = string.Empty;
             if (GuestAccessInfo.changedSecurityType == "None")
@@ -170,10 +197,11 @@ namespace GenieWP8.ViewModels
                 securityType = "WPA-PSK+WPA2-PSK";
             }
             var group4 = new GuestSettingGroup() { ID = "Security", Title = AppResources.Security, Content = securityType };
-            group4.Items.Add(new GuestSettingItem() { ID = "Security_None", Title = "Security", Content = AppResources.Security_None, Group = group4 });
-            group4.Items.Add(new GuestSettingItem() { ID = "Security_WPA2-PSK[AES]", Title = "Security", Content = AppResources.Security_WPA2PSK_AES, Group = group4 });
-            group4.Items.Add(new GuestSettingItem() { ID = "Security_WPA-PSK+WPA2-PSK", Title = "Security", Content = AppResources.Security_WPAPSK_WPA2PSK, Group = group4 });
+            group4.Items.Add(new GuestSettingItem() { ID = "Security_None", Title = "Security", Content = AppResources.Security_None, ImgPath = "/Assets/WirelessSetting/first.png", Group = group4 });
+            group4.Items.Add(new GuestSettingItem() { ID = "Security_WPA2-PSK[AES]", Title = "Security", Content = AppResources.Security_WPA2PSK_AES, ImgPath = "/Assets/WirelessSetting/second.png", Group = group4 });
+            group4.Items.Add(new GuestSettingItem() { ID = "Security_WPA-PSK+WPA2-PSK", Title = "Security", Content = AppResources.Security_WPAPSK_WPA2PSK, ImgPath = "/Assets/WirelessSetting/third.png", Group = group4 });
             this.EditTimesegSecurity.Add(group4);
+            securityGroup = group4;
             //this.IsDataLoaded = true;
         }
 

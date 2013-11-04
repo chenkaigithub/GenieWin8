@@ -20,6 +20,7 @@ namespace GenieWP8.DataInfo
         public String uniqueId;
         public String deviceName;
         public String deviceType;
+        public String RouterFirmware;
         public String IPaddress;
         public String signalStrength;
         public String linkRate;

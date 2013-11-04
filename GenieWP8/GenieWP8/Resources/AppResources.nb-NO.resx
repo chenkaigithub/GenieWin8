@@ -1012,4 +1012,22 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Feltet for brukernavn eller passord er tomt.</value>
   </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Fastvareversjon</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Passordet er kopiert til utklippstavlen. Velg Innstillinger &gt; WLAN for å koble til dette nettverket.</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Du er logget på som</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Logger på …</value>
+  </data>
+  <data name="LoggingOut" xml:space="preserve">
+    <value>Logger av …</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Passordet samsvarer ikke med brukernavnet. Prøv på nytt.</value>
+  </data>
 </root>

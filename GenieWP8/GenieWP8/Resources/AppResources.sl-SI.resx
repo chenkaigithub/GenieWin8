@@ -1012,4 +1012,22 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Polje z uporabniškim imenom ali geslom je prazno.</value>
   </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Različica vdelane programske opreme</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Geslo je bilo kopirano na odložišče. Če želite vzpostaviti povezavo s tem omrežjem, izberite Nastavitve &gt; WLAN.</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Prijavljeni ste kot</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Prijavljanje ...</value>
+  </data>
+  <data name="LoggingOut" xml:space="preserve">
+    <value>Odjavljanje ...</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Geslo se ne ujema z uporabniškim imenom Poskusite znova.</value>
+  </data>
 </root>

@@ -123,7 +123,14 @@ namespace GenieWP8
             else
             {
                 PopupBackground.Visibility = Visibility.Collapsed;
-                MessageBox.Show(dicResponse["error_message"]);
+                if (dicResponse["error"] == "3003")
+                {
+                    MessageBox.Show(AppResources.UnmatchedPassword);
+                }
+                else
+                {
+                    MessageBox.Show(dicResponse["error_message"]);
+                }               
             }
         }
 
@@ -165,9 +172,9 @@ namespace GenieWP8
             tbBypassPassword.Background = new SolidColorBrush(Colors.White);
         }
 
-        private void tbBypassUserName_GotFocus(object sender, RoutedEventArgs e)
-        {
-            tbBypassUserName.Background = new SolidColorBrush(Colors.White);
-        }
+        //private void tbBypassUserName_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    tbBypassUserName.Background = new SolidColorBrush(Colors.White);
+        //}
     }
 }

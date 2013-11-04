@@ -34,14 +34,16 @@ namespace GenieWP8
             if (TrafficMeterInfo.isTrafficMeterEnabled == "0")
             {
                 checkTrafficMeter.IsChecked = false;
-                TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
+                //TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
+                TrafficMeterPanel.Visibility = Visibility.Collapsed;
                 TotalCanvas.Visibility = Visibility.Collapsed;
                 AverageCanvas.Visibility = Visibility.Collapsed;
             }
             else if (TrafficMeterInfo.isTrafficMeterEnabled == "1")
             {
                 checkTrafficMeter.IsChecked = true;
-                TrafficMeterLongListSelector.Visibility = Visibility.Visible;
+                //TrafficMeterLongListSelector.Visibility = Visibility.Visible;
+                TrafficMeterPanel.Visibility = Visibility.Visible;
                 TotalCanvas.Visibility = Visibility.Visible;
                 AverageCanvas.Visibility = Visibility.Visible;
             }
@@ -53,10 +55,32 @@ namespace GenieWP8
             PopupBackground.Visibility = Visibility.Visible;
             InProgress.Visibility = Visibility.Visible;
             pleasewait.Visibility = Visibility.Visible;
-            settingModel.TrafficMeterGroups.Clear();
-            settingModel.StartDate.Clear();
-            settingModel.TrafficLimitation.Clear();
-            settingModel.LoadData();            
+            //settingModel.TrafficMeterGroups.Clear();
+            //settingModel.StartDate.Clear();
+            //settingModel.TrafficLimitation.Clear();
+            settingModel.LoadData();
+            tbLimitPerMonth.Text = TrafficMeterInfo.MonthlyLimit;
+            if (TrafficMeterInfo.changedRestartDay == DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month).ToString())
+            {
+                tbStartDate.Text = AppResources.LastDay;
+            }
+            else
+            {
+                tbStartDate.Text = TrafficMeterInfo.RestartDay;
+            }
+            tbStartTime.Text = TrafficMeterInfo.RestartHour + ":" + TrafficMeterInfo.RestartMinute;
+            if (TrafficMeterInfo.ControlOption == "No limit")
+            {
+                tbTrafficLimitation.Text = AppResources.TrafficLimitation_Unlimited;
+            }
+            else if (TrafficMeterInfo.ControlOption == "Download only")
+            {
+                tbTrafficLimitation.Text = AppResources.TrafficLimitation_Download;
+            }
+            else if (TrafficMeterInfo.ControlOption == "Both directions")
+            {
+                tbTrafficLimitation.Text = AppResources.TrafficLimitation_DownloadUpload;
+            }
             double width;
             if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
@@ -315,7 +339,7 @@ namespace GenieWP8
             //Total Today
             double TodayDownloadHeight = double.Parse(TrafficMeterInfo.TodayDownload) / maxOrdinateTotal * 400;
             Rectangle rectTodayDownload = new Rectangle();
-            rectTodayDownload.Fill = new SolidColorBrush(Colors.Cyan);
+            rectTodayDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectTodayDownload.Height = TodayDownloadHeight;
             rectTodayDownload.Width = intervalTotal;
             rectTodayDownload.Margin = new Thickness(60 + intervalTotal, 470 - TodayDownloadHeight, 0, 0);
@@ -325,7 +349,7 @@ namespace GenieWP8
             TodayDownloadTotal.Margin = new Thickness(60 + intervalTotal, 470 - TodayDownloadHeight / 2 - 20, 0, 0);
             double TodayUploadHeight = double.Parse(TrafficMeterInfo.TodayUpload) / maxOrdinateTotal * 400;
             Rectangle rectTodayUpload = new Rectangle();
-            rectTodayUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectTodayUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectTodayUpload.Height = TodayUploadHeight;
             rectTodayUpload.Width = intervalTotal;
             rectTodayUpload.Margin = new Thickness(60 + intervalTotal, 470 - TodayDownloadHeight - TodayUploadHeight, 0, 0);
@@ -341,7 +365,7 @@ namespace GenieWP8
             //Total Yesterday
             double YesterdayDownloadHeight = double.Parse(TrafficMeterInfo.YesterdayDownload) / maxOrdinateTotal * 400;
             Rectangle rectYesterdayDownload = new Rectangle();
-            rectYesterdayDownload.Fill = new SolidColorBrush(Colors.Cyan);
+            rectYesterdayDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectYesterdayDownload.Height = YesterdayDownloadHeight;
             rectYesterdayDownload.Width = intervalTotal;
             rectYesterdayDownload.Margin = new Thickness(60 + intervalTotal * 3, 470 - YesterdayDownloadHeight, 0, 0);
@@ -351,7 +375,7 @@ namespace GenieWP8
             YesterdayDownloadTotal.Margin = new Thickness(60 + intervalTotal * 3, 470 - YesterdayDownloadHeight / 2 - 20, 0, 0);
             double YesterdayUploadHeight = double.Parse(TrafficMeterInfo.YesterdayUpload) / maxOrdinateTotal * 400;
             Rectangle rectYesterdayUpload = new Rectangle();
-            rectYesterdayUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectYesterdayUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectYesterdayUpload.Height = YesterdayUploadHeight;
             rectYesterdayUpload.Width = intervalTotal;
             rectYesterdayUpload.Margin = new Thickness(60 + intervalTotal * 3, 470 - YesterdayDownloadHeight - YesterdayUploadHeight, 0, 0);
@@ -367,7 +391,7 @@ namespace GenieWP8
             //Total This week
             double WeekDownloadHeight = double.Parse(WeekDownload[0]) / maxOrdinateTotal * 400;
             Rectangle rectWeekDownload = new Rectangle();
-            rectWeekDownload.Fill = new SolidColorBrush(Colors.Cyan);
+            rectWeekDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectWeekDownload.Height = WeekDownloadHeight;
             rectWeekDownload.Width = intervalTotal;
             rectWeekDownload.Margin = new Thickness(60 + intervalTotal * 5, 470 - WeekDownloadHeight, 0, 0);
@@ -377,7 +401,7 @@ namespace GenieWP8
             WeekDownloadTotal.Margin = new Thickness(60 + intervalTotal * 5, 470 - WeekDownloadHeight / 2 - 20, 0, 0);
             double WeekUploadHeight = double.Parse(WeekUpload[0]) / maxOrdinateTotal * 400;
             Rectangle rectWeekUpload = new Rectangle();
-            rectWeekUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectWeekUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectWeekUpload.Height = WeekUploadHeight;
             rectWeekUpload.Width = intervalTotal;
             rectWeekUpload.Margin = new Thickness(60 + intervalTotal * 5, 470 - WeekDownloadHeight - WeekUploadHeight, 0, 0);
@@ -393,7 +417,7 @@ namespace GenieWP8
             //Total This month
             double MonthDownloadHeight = double.Parse(MonthDownload[0]) / maxOrdinateTotal * 400;
             Rectangle rectMonthDownload = new Rectangle();
-            rectMonthDownload.Fill = new SolidColorBrush(Colors.Cyan);
+            rectMonthDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectMonthDownload.Height = MonthDownloadHeight;
             rectMonthDownload.Width = intervalTotal;
             rectMonthDownload.Margin = new Thickness(60 + intervalTotal * 7, 470 - MonthDownloadHeight, 0, 0);
@@ -403,7 +427,7 @@ namespace GenieWP8
             MonthDownloadTotal.Margin = new Thickness(60 + intervalTotal * 7, 470 - MonthDownloadHeight / 2 - 20, 0, 0);
             double MonthUploadHeight = double.Parse(MonthUpload[0]) / maxOrdinateTotal * 400;
             Rectangle rectMonthUpload = new Rectangle();
-            rectMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectMonthUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectMonthUpload.Height = MonthUploadHeight;
             rectMonthUpload.Width = intervalTotal;
             rectMonthUpload.Margin = new Thickness(60 + intervalTotal * 7, 470 - MonthDownloadHeight - MonthUploadHeight, 0, 0);
@@ -419,7 +443,7 @@ namespace GenieWP8
             //Total Last month
             double LastMonthDownloadHeight = double.Parse(LastMonthDownload[0]) / maxOrdinateTotal * 400;
             Rectangle rectLastMonthDownload = new Rectangle();
-            rectLastMonthDownload.Fill = new SolidColorBrush(Colors.Cyan);
+            rectLastMonthDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectLastMonthDownload.Height = LastMonthDownloadHeight;
             rectLastMonthDownload.Width = intervalTotal;
             rectLastMonthDownload.Margin = new Thickness(60 + intervalTotal * 9, 470 - LastMonthDownloadHeight, 0, 0);
@@ -429,7 +453,7 @@ namespace GenieWP8
             LastMonthDownloadTotal.Margin = new Thickness(60 + intervalTotal * 9, 470 - LastMonthDownloadHeight / 2 - 20, 0, 0);
             double LastMonthUploadHeight = double.Parse(LastMonthUpload[0]) / maxOrdinateTotal * 400;
             Rectangle rectLastMonthUpload = new Rectangle();
-            rectLastMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectLastMonthUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectLastMonthUpload.Height = LastMonthUploadHeight;
             rectLastMonthUpload.Width = intervalTotal;
             rectLastMonthUpload.Margin = new Thickness(60 + intervalTotal * 9, 470 - LastMonthDownloadHeight - LastMonthUploadHeight, 0, 0);
@@ -445,7 +469,7 @@ namespace GenieWP8
             //Average This week
             double AvgWeekDownloadHeight = double.Parse(WeekDownload[1]) / maxOrdinateAvg * 400;
             Rectangle AvgrectWeekDownload = new Rectangle();
-            AvgrectWeekDownload.Fill = new SolidColorBrush(Colors.Cyan);
+            AvgrectWeekDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             AvgrectWeekDownload.Height = AvgWeekDownloadHeight;
             AvgrectWeekDownload.Width = intervalAvg;
             AvgrectWeekDownload.Margin = new Thickness(60 + intervalAvg, 470 - AvgWeekDownloadHeight, 0, 0);
@@ -455,7 +479,7 @@ namespace GenieWP8
             WeekDownloadAvg.Margin = new Thickness(60 + intervalAvg, 470 - AvgWeekDownloadHeight / 2 - 20, 0, 0);
             double AvgWeekUploadHeight = double.Parse(WeekUpload[1]) / maxOrdinateAvg * 400;
             Rectangle AvgrectWeekUpload = new Rectangle();
-            AvgrectWeekUpload.Fill = new SolidColorBrush(Colors.Gray);
+            AvgrectWeekUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             AvgrectWeekUpload.Height = AvgWeekUploadHeight;
             AvgrectWeekUpload.Width = intervalAvg;
             AvgrectWeekUpload.Margin = new Thickness(60 + intervalAvg, 470 - AvgWeekDownloadHeight - AvgWeekUploadHeight, 0, 0);
@@ -471,7 +495,7 @@ namespace GenieWP8
             //Average This month
             double AvgMonthDownloadHeight = double.Parse(MonthDownload[1]) / maxOrdinateAvg * 400;
             Rectangle AvgrectMonthDownload = new Rectangle();
-            AvgrectMonthDownload.Fill = new SolidColorBrush(Colors.Cyan);
+            AvgrectMonthDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             AvgrectMonthDownload.Height = AvgMonthDownloadHeight;
             AvgrectMonthDownload.Width = intervalAvg;
             AvgrectMonthDownload.Margin = new Thickness(60 + intervalAvg * 3, 470 - AvgMonthDownloadHeight, 0, 0);
@@ -481,7 +505,7 @@ namespace GenieWP8
             MonthDownloadAvg.Margin = new Thickness(60 + intervalAvg * 3, 470 - AvgMonthDownloadHeight / 2 - 20, 0, 0);
             double AvgMonthUploadHeight = double.Parse(MonthUpload[1]) / maxOrdinateAvg * 400;
             Rectangle AvgrectMonthUpload = new Rectangle();
-            AvgrectMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
+            AvgrectMonthUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             AvgrectMonthUpload.Height = AvgMonthUploadHeight;
             AvgrectMonthUpload.Width = intervalAvg;
             AvgrectMonthUpload.Margin = new Thickness(60 + intervalAvg * 3, 470 - AvgMonthDownloadHeight - AvgMonthUploadHeight, 0, 0);
@@ -497,7 +521,7 @@ namespace GenieWP8
             //Average Last month
             double AvgLastMonthDownloadHeight = double.Parse(LastMonthDownload[1]) / maxOrdinateAvg * 400;
             Rectangle AvgrectLastMonthDownload = new Rectangle();
-            AvgrectLastMonthDownload.Fill = new SolidColorBrush(Colors.Cyan);
+            AvgrectLastMonthDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             AvgrectLastMonthDownload.Height = AvgLastMonthDownloadHeight;
             AvgrectLastMonthDownload.Width = intervalAvg;
             AvgrectLastMonthDownload.Margin = new Thickness(60 + intervalAvg * 5, 470 - AvgLastMonthDownloadHeight, 0, 0);
@@ -507,7 +531,7 @@ namespace GenieWP8
             LastMonthDownloadAvg.Margin = new Thickness(60 + intervalAvg * 5, 470 - AvgLastMonthDownloadHeight / 2 - 20, 0, 0);
             double AvgLastMonthUploadHeight = double.Parse(LastMonthUpload[1]) / maxOrdinateAvg * 400;
             Rectangle AvgrectLastMonthUpload = new Rectangle();
-            AvgrectLastMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
+            AvgrectLastMonthUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             AvgrectLastMonthUpload.Height = AvgLastMonthUploadHeight;
             AvgrectLastMonthUpload.Width = intervalAvg;
             AvgrectLastMonthUpload.Margin = new Thickness(60 + intervalAvg * 5, 470 - AvgLastMonthDownloadHeight - AvgLastMonthUploadHeight, 0, 0);
@@ -529,19 +553,19 @@ namespace GenieWP8
             AverageCanvas.Children.Add(InstructionAvg);
         }
 
-        // 处理在 LongListSelector 中更改的选定内容
-        private void TrafficMeterLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (TrafficMeterLongListSelector.SelectedItem == null)
-                return;
+        //// 处理在 LongListSelector 中更改的选定内容
+        //private void TrafficMeterLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // 如果所选项为空(没有选定内容)，则不执行任何操作
+        //    if (TrafficMeterLongListSelector.SelectedItem == null)
+        //        return;
 
-            // 导航到新页面
-            NavigationService.Navigate(new Uri("/TrafficMeterSettingPage.xaml", UriKind.Relative));
+        //    // 导航到新页面
+        //    NavigationService.Navigate(new Uri("/TrafficMeterSettingPage.xaml", UriKind.Relative));
 
-            // 将所选项重置为 null (没有选定内容)
-            TrafficMeterLongListSelector.SelectedItem = null;
-        }
+        //    // 将所选项重置为 null (没有选定内容)
+        //    TrafficMeterLongListSelector.SelectedItem = null;
+        //}
 
         //用于生成本地化 ApplicationBar 的代码
         private void BuildLocalizedApplicationBar()
@@ -615,7 +639,8 @@ namespace GenieWP8
             {
                 trafficMeterEnable = "1";
                 dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
-                TrafficMeterLongListSelector.Visibility = Visibility.Visible;
+                //TrafficMeterLongListSelector.Visibility = Visibility.Visible;
+                TrafficMeterPanel.Visibility = Visibility.Visible;
                 TotalCanvas.Visibility = Visibility.Visible;
                 AverageCanvas.Visibility = Visibility.Visible;
             }
@@ -623,7 +648,8 @@ namespace GenieWP8
             {
                 trafficMeterEnable = "0";
                 dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
-                TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
+                //TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
+                TrafficMeterPanel.Visibility = Visibility.Collapsed;
                 TotalCanvas.Visibility = Visibility.Collapsed;
                 AverageCanvas.Visibility = Visibility.Collapsed;
             }
@@ -664,14 +690,16 @@ namespace GenieWP8
                 if (TrafficMeterInfo.isTrafficMeterEnabled == "0")
                 {
                     checkTrafficMeter.IsChecked = false;
-                    TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
+                    //TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
+                    TrafficMeterPanel.Visibility = Visibility.Collapsed;
                     TotalCanvas.Visibility = Visibility.Collapsed;
                     AverageCanvas.Visibility = Visibility.Collapsed;
                 }
                 else if (TrafficMeterInfo.isTrafficMeterEnabled == "1")
                 {
                     checkTrafficMeter.IsChecked = true;
-                    TrafficMeterLongListSelector.Visibility = Visibility.Visible;
+                    //TrafficMeterLongListSelector.Visibility = Visibility.Visible;
+                    TrafficMeterPanel.Visibility = Visibility.Visible;
                     TotalCanvas.Visibility = Visibility.Visible;
                     AverageCanvas.Visibility = Visibility.Visible;
                     Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
@@ -749,6 +777,73 @@ namespace GenieWP8
                 }
             }
             return max;
+        }
+
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridLimitPerMonth":
+                    gridLimitPerMonth.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridStartDate":
+                    gridStartDate.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridStartTime":
+                    gridStartTime.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridTrafficLimitation":
+                    gridTrafficLimitation.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridLimitPerMonth":
+                    gridLimitPerMonth.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridStartDate":
+                    gridStartDate.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridStartTime":
+                    gridStartTime.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridTrafficLimitation":
+                    gridTrafficLimitation.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridLimitPerMonth":
+                    gridLimitPerMonth.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridStartDate":
+                    gridStartDate.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridStartTime":
+                    gridStartTime.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridTrafficLimitation":
+                    gridTrafficLimitation.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                default:
+                    break;
+            }
+            NavigationService.Navigate(new Uri("/TrafficMeterSettingPage.xaml", UriKind.Relative));
         }
     }
 }

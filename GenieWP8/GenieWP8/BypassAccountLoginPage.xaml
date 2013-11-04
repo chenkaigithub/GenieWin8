@@ -13,6 +13,91 @@
     OrientationChanged="PhoneApplicationPage_OrientationChanged"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="TextBoxStyle1" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}"/>
+            <Setter Property="Background" Value="{StaticResource PhoneTextBoxBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource PhoneTextBoxForegroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PhoneTextBoxBrush}"/>
+            <Setter Property="SelectionBackground" Value="{StaticResource PhoneAccentBrush}"/>
+            <Setter Property="SelectionForeground" Value="{StaticResource PhoneTextBoxSelectionForegroundBrush}"/>
+            <Setter Property="BorderThickness" Value="{StaticResource PhoneBorderThickness}"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#D2D2D2"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#D2D2D2"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="ReadOnly">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Collapsed</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ReadonlyBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ReadonlyBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ReadonlyBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxReadOnlyBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxEditBackgroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxEditBorderBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="MainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <Border x:Name="ReadonlyBorder" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent" Margin="{StaticResource PhoneTouchTargetOverhang}" Visibility="Collapsed"/>
+                            <Border BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent" Margin="{StaticResource PhoneTouchTargetOverhang}">
+                                <ContentControl x:Name="ContentElement" BorderThickness="0" HorizontalContentAlignment="Stretch" Margin="{StaticResource PhoneTextBoxInnerMargin}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="Stretch"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="#FFE6E6E6">
@@ -36,14 +121,38 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <StackPanel Margin="12,17,0,28">
-                    <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="Black"/>
+                    <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#3C3C3C"/>
                     <TextBlock x:Name="PageTitle" Text="Bypass Account Login" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"
-                               FontSize="50" TextWrapping="Wrap" Foreground="Black"/>
+                               FontSize="50" TextWrapping="Wrap" Foreground="#1E1E1E"/>
                 </StackPanel>
 
                 <!--ContentPanel - 在此处放置其他内容-->
 
-                <Border Margin="20,0,20,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderBrush="Gray" BorderThickness="4" CornerRadius="20">
+                <StackPanel Grid.Row="1">
+                    <Grid Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="30,10,30,0">
+                        <Grid.Background>
+                            <ImageBrush Stretch="Fill" ImageSource="/Assets/LoginPage/text框.png"/>
+                        </Grid.Background>
+                        <Image Height="30" Source="/Assets/LoginPage/name.png" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+                        <Image Source="/Assets/LoginPage/分割线.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="60,5,0,5"/>
+                        <TextBox x:Name="tbBypassUserName" HorizontalAlignment="Stretch" Margin="60,0,0,0" IsEnabled="False" BorderThickness="0" Style="{StaticResource TextBoxStyle1}"/>
+                    </Grid>
+                    <Grid Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="30,20,30,0">
+                        <Grid.Background>
+                            <ImageBrush Stretch="Fill" ImageSource="/Assets/LoginPage/text框.png"/>
+                        </Grid.Background>
+                        <Image Height="30" Source="/Assets/LoginPage/password.png" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+                        <Image Source="/Assets/LoginPage/分割线.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="60,5,0,5"/>
+                        <PasswordBox x:Name="tbBypassPassword" HorizontalAlignment="Stretch" Margin="60,0,0,0" Background="White" BorderThickness="0" Foreground="Black"/>
+                    </Grid>
+                    <Grid Margin="0,25,0,0">
+                        <Button Content="{Binding Path=LocalizedResources.CancelButtonContent, Source={StaticResource LocalizedStrings}}" Click="CancelButton_Click" FontSize="24" FontWeight="Bold" Width="200" HorizontalAlignment="Center" Margin="0,0,220,0"
+                                    BorderThickness="0"  Foreground="White" Background="#8165A2"/>
+                        <Button Content="{Binding Path=LocalizedResources.LoginButtonContent, Source={StaticResource LocalizedStrings}}"  Click="LoginButton_Click" FontSize="24" FontWeight="Bold" Width="200" HorizontalAlignment="Center" Margin="220,0,0,0"
+                                    BorderThickness="0"  Foreground="White" Background="#8165A2"/>
+                    </Grid>
+                </StackPanel>
+                <!--<Border Margin="20,0,20,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderBrush="Gray" BorderThickness="4" CornerRadius="20">
                     <Border.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF004F74" Offset="1"/>
@@ -53,7 +162,7 @@
                     <StackPanel>
                         <TextBlock Text="{Binding Path=LocalizedResources.UserNameText, Source={StaticResource LocalizedStrings}}"
                                    FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,20,0,0" Foreground="White"/>
-                        <TextBox x:Name="tbBypassUserName" VerticalAlignment="Center" Background="White" GotFocus="tbBypassUserName_GotFocus"/>
+                        <TextBox x:Name="tbBypassUserName" VerticalAlignment="Center" Background="White" IsEnabled="False"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.PasswordText, Source={StaticResource LocalizedStrings}}"
                                    FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
                         <PasswordBox x:Name="tbBypassPassword" VerticalAlignment="Center" Background="White" GotFocus="tbBypassPassword_GotFocus"/>
@@ -66,7 +175,7 @@
                                     BorderBrush="White" Foreground="White"/>
                         </Grid>
                     </StackPanel>
-                </Border>
+                </Border>-->
             </StackPanel>
         </ScrollViewer>
 
@@ -76,7 +185,7 @@
                              IsIndeterminate="True"
                              Height="15"
                              Foreground="White"/>
-                <TextBlock x:Name="pleasewait" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White"/>
+                <TextBlock Text="{Binding Path=LocalizedResources.LoggingIn, Source={StaticResource LocalizedStrings}}"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -15,6 +15,7 @@ using System.IO;
 using ZXing;
 using ZXing.Common;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace GenieWP8
 {
@@ -50,10 +51,33 @@ namespace GenieWP8
             //{
             //    settingModel.LoadData();
             //}
-            settingModel.StrengthRateGroups.Clear();
-            settingModel.SettingGroups.Clear();
+            //settingModel.StrengthRateGroups.Clear();
+            //settingModel.SettingGroups.Clear();
             settingModel.EditChannelSecurity.Clear();
             settingModel.LoadData();
+            tbSSID.Text = WifiSettingInfo.ssid;
+            tbKey.Text = WifiSettingInfo.password;
+            tbLinkRate.Text = WifiSettingInfo.linkRate;
+            tbChannel.Text = WifiSettingInfo.channel;
+
+            string[] signal = WifiSettingInfo.signalStrength.Split('%');
+            int result = int.Parse(signal[0]);
+            if (result <= 20)
+            {
+                imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_1.png", UriKind.Relative));
+            }
+            else if (result > 20 && result <= 40)
+            {
+                imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_2.png", UriKind.Relative));
+            }
+            else if (result > 40 && result <= 70)
+            {
+                imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_3.png", UriKind.Relative));
+            }
+            else if (result > 70)
+            {
+                imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_4.png", UriKind.Relative));
+            }
 
             //生成二维码
             string codeString = "WIRELESS:" + WifiSettingInfo.ssid + ";PASSWORD:" + WifiSettingInfo.password;
@@ -74,33 +98,33 @@ namespace GenieWP8
             }
         }
 
-        // 处理在 LongListSelector 中更改的选定内容
-        private void StrengthRateLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (StrengthRateLongListSelector.SelectedItem == null)
-                return;
+        //// 处理在 LongListSelector 中更改的选定内容
+        //private void StrengthRateLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // 如果所选项为空(没有选定内容)，则不执行任何操作
+        //    if (StrengthRateLongListSelector.SelectedItem == null)
+        //        return;
 
-            // 将所选项重置为 null (没有选定内容)
-            StrengthRateLongListSelector.SelectedItem = null;
-        }
+        //    // 将所选项重置为 null (没有选定内容)
+        //    StrengthRateLongListSelector.SelectedItem = null;
+        //}
 
-        private void WifiSettingLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (WifiSettingLongListSelector.SelectedItem == null)
-                return;
+        //private void WifiSettingLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // 如果所选项为空(没有选定内容)，则不执行任何操作
+        //    if (WifiSettingLongListSelector.SelectedItem == null)
+        //        return;
 
-            // 导航到新页面
-            var groupId = ((SettingGroup)WifiSettingLongListSelector.SelectedItem).ID;
-            if (groupId != "SignalStrength" && groupId != "LinkRate")
-            {
-                NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
-            }            
+        //    // 导航到新页面
+        //    var groupId = ((SettingGroup)WifiSettingLongListSelector.SelectedItem).ID;
+        //    if (groupId != "SignalStrength" && groupId != "LinkRate")
+        //    {
+        //        NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+        //    }            
 
-            // 将所选项重置为 null (没有选定内容)
-            WifiSettingLongListSelector.SelectedItem = null;
-        }
+        //    // 将所选项重置为 null (没有选定内容)
+        //    WifiSettingLongListSelector.SelectedItem = null;
+        //}
 
         //用于生成本地化 ApplicationBar 的代码
         private void BuildLocalizedApplicationBar()
@@ -173,7 +197,7 @@ namespace GenieWP8
                     WifiSettingInfo.password = dicResponse1["NewWPAPassphrase"];
                     WifiSettingInfo.changedPassword = dicResponse1["NewWPAPassphrase"];
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                    PopupBackground.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;                    
                     OnNavigatedTo(null);
                 }
                 else
@@ -206,5 +230,63 @@ namespace GenieWP8
             var bmp = wt.Write(content);
             return bmp;
         }
+
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridSSID":
+                    gridSSID.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridKey":
+                    gridKey.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridChannel":
+                    gridChannel.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridSSID":
+                    gridSSID.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridKey":
+                    gridKey.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridChannel":
+                    gridChannel.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridSSID":
+                    gridSSID.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridKey":
+                    gridKey.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridChannel":
+                    gridChannel.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                default:
+                    break;
+            }
+            NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+        }       
     }
 }

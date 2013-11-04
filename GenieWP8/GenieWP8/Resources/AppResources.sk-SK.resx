@@ -1012,4 +1012,22 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Pole používateľského mena alebo hesla je prázdne.</value>
   </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Verzia firmvéru</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Heslo sa skopírovalo do schránky. Ak sa chcete pripojiť k tejto sieti, vyberte možnosť Nastavenia &gt; WLAN.</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Ste prihlásení ako</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Prihlasovanie…</value>
+  </data>
+  <data name="LoggingOut" xml:space="preserve">
+    <value>Odhlasovanie…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Heslo sa nezhoduje s týmto používateľským menom. Skúste to znova.</value>
+  </data>
 </root>

@@ -1021,4 +1021,22 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>The user name or password field is empty.</value>
   </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Firmware Version</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>The password is copied to the clipboard. To connect this network, select Settings &gt; WLAN.</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>You are logged in as</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Logging in…</value>
+  </data>
+  <data name="LoggingOut" xml:space="preserve">
+    <value>Logging out…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>The password does not match this user name. Please try again.</value>
+  </data>
 </root>

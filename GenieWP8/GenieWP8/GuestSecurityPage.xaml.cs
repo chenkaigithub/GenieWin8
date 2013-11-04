@@ -42,7 +42,7 @@ namespace GenieWP8
         // 为 GuestAccessModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            settingModel.GuestSettingGroups.Clear();
+            //settingModel.GuestSettingGroups.Clear();
             settingModel.EditTimesegSecurity.Clear();
             settingModel.LoadData();
 

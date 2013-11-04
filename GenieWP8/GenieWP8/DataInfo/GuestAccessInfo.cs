@@ -9,6 +9,7 @@ namespace GenieWP8.DataInfo
     class GuestAccessInfo
     {
         public static string isGuestAccessEnabled;
+        public static bool isOpenGuestAccess;                   //标识是否通过勾选框启用访客访问而进入修改页面
         public static string ssid;
         public static string password;
         public static string timePeriod;

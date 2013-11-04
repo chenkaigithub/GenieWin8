@@ -14,6 +14,8 @@ using GenieWP8.DataInfo;
 using ZXing;
 using ZXing.Common;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace GenieWP8
 {
@@ -44,14 +46,14 @@ namespace GenieWP8
             if (GuestAccessInfo.isGuestAccessEnabled == "0")
             {
                 checkGuestSetting.IsChecked = false;
-                GuestSettingsLongListSelector.Visibility = Visibility.Collapsed;
+                GuestSettingPanel.Visibility = Visibility.Collapsed;
                 textScanQRCode.Visibility = Visibility.Collapsed;
                 imageQRCode.Visibility = Visibility.Collapsed;
             }
             else if (GuestAccessInfo.isGuestAccessEnabled == "1")
             {
                 checkGuestSetting.IsChecked = true;
-                GuestSettingsLongListSelector.Visibility = Visibility.Visible;
+                GuestSettingPanel.Visibility = Visibility.Visible;
                 textScanQRCode.Visibility = Visibility.Visible;
                 imageQRCode.Visibility = Visibility.Visible;
             }
@@ -64,10 +66,12 @@ namespace GenieWP8
             //{
             //    settingModel.LoadData();
             //}
-            settingModel.GuestSettingGroups.Clear();
+            //settingModel.GuestSettingGroups.Clear();
             settingModel.EditTimesegSecurity.Clear();
             settingModel.LoadData();
-
+            tbSsid.Text = GuestAccessInfo.ssid;
+            tbKey.Text = GuestAccessInfo.password;
+            tbTimeseg.Text = GuestAccessInfo.timePeriod;
             //生成二维码
             string codeString = "WIRELESS:" + GuestAccessInfo.ssid + ";PASSWORD:" + GuestAccessInfo.password;
             WriteableBitmap wb = CreateBarcode(codeString);
@@ -87,19 +91,20 @@ namespace GenieWP8
             }
         }
 
-        // 处理在 LongListSelector 中更改的选定内容
-        private void GuestSettingsLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (GuestSettingsLongListSelector.SelectedItem == null)
-                return;
+        //// 处理在 LongListSelector 中更改的选定内容
+        //private void GuestSettingsLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // 如果所选项为空(没有选定内容)，则不执行任何操作
+        //    if (GuestSettingsLongListSelector.SelectedItem == null)
+        //        return;
 
-            // 导航到新页面
-            NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
+        //    // 导航到新页面
+        //    GuestAccessInfo.isOpenGuestAccess = false;
+        //    NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
 
-            // 将所选项重置为 null (没有选定内容)
-            GuestSettingsLongListSelector.SelectedItem = null;
-        }
+        //    // 将所选项重置为 null (没有选定内容)
+        //    GuestSettingsLongListSelector.SelectedItem = null;
+        //}
 
         //用于生成本地化 ApplicationBar 的代码
         private void BuildLocalizedApplicationBar()
@@ -135,23 +140,13 @@ namespace GenieWP8
         }
 
         //checkbox控件响应事件
-        private void checkGuestSetting_Click(Object sender, RoutedEventArgs e)
+        private async void checkGuestSetting_Click(Object sender, RoutedEventArgs e)
         {
-            PopupEnquire.IsOpen = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            InProgress.Visibility = Visibility.Collapsed;
-            pleasewait.Visibility = Visibility.Collapsed;
-        }
-
-        //“是”按钮响应事件
-        private async void YesButton_Click(Object sender, RoutedEventArgs e)
-        {
-            PopupEnquire.IsOpen = false;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            InProgress.Visibility = Visibility.Visible;
-            pleasewait.Visibility = Visibility.Visible;
+            //PopupEnquire.IsOpen = true;
+            //PopupBackgroundTop.Visibility = Visibility.Visible;
+            //PopupBackground.Visibility = Visibility.Visible;
+            //InProgress.Visibility = Visibility.Collapsed;
+            //pleasewait.Visibility = Visibility.Collapsed;
             GenieSoapApi soapApi = new GenieSoapApi();
             if (checkGuestSetting.IsChecked == true)
             {
@@ -174,34 +169,63 @@ namespace GenieWP8
                         GuestAccessInfo.changedPassword = "";
                     }
                 }
-                dicResponse = await soapApi.SetGuestAccessEnabled2(GuestAccessInfo.ssid, GuestAccessInfo.securityType, GuestAccessInfo.password);
-                GuestSettingsLongListSelector.Visibility = Visibility.Visible;
-                textScanQRCode.Visibility = Visibility.Visible;
-                imageQRCode.Visibility = Visibility.Visible;
-            }
+                GuestAccessInfo.isOpenGuestAccess = true;
+                NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
+            } 
             else if (checkGuestSetting.IsChecked == false)
             {
-                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                dicResponse = await soapApi.SetGuestAccessEnabled();
-                GuestSettingsLongListSelector.Visibility = Visibility.Collapsed;
+                PopupEnquire.IsOpen = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Collapsed;
+                pleasewait.Visibility = Visibility.Collapsed;
+                waittime.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        DispatcherTimer timer = new DispatcherTimer();      //计时器
+        //“是”按钮响应事件
+        private async void YesButton_Click(Object sender, RoutedEventArgs e)
+        {
+            PopupEnquire.IsOpen = false;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            InProgress.Visibility = Visibility.Visible;
+            pleasewait.Visibility = Visibility.Visible;
+            waittime.Visibility = Visibility.Visible;
+
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            timer.Start();
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            dicResponse = await soapApi.SetGuestAccessEnabled();
+        }
+
+        int count = 60;     //倒计时间
+        void timer_Tick(object sender, object e)
+        {
+            waittime.Text = count.ToString();
+            count--;
+            if (count < 0)
+            {
+                timer.Stop();
+                GuestSettingPanel.Visibility = Visibility.Collapsed;
                 textScanQRCode.Visibility = Visibility.Collapsed;
                 imageQRCode.Visibility = Visibility.Collapsed;
+
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                MessageBox.Show(AppResources.wirelesssettinrelogin);
+                MainPageInfo.bLogin = false;
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
-            MessageBox.Show(AppResources.wirelesssettinrelogin);
-            MainPageInfo.bLogin = false;
-            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         //“否”按钮响应事件
         private void NoButton_Click(Object sender, RoutedEventArgs e)
         {
-            if (checkGuestSetting.IsChecked == true)
-            {
-                checkGuestSetting.IsChecked = false;
-            }
-            else if (checkGuestSetting.IsChecked == false)
+            if (checkGuestSetting.IsChecked == false)
             {
                 checkGuestSetting.IsChecked = true;
             }
@@ -226,14 +250,14 @@ namespace GenieWP8
                 if (GuestAccessInfo.isGuestAccessEnabled == "0")
                 {
                     checkGuestSetting.IsChecked = false;
-                    GuestSettingsLongListSelector.Visibility = Visibility.Collapsed;
+                    GuestSettingPanel.Visibility = Visibility.Collapsed;
                     textScanQRCode.Visibility = Visibility.Collapsed;
                     imageQRCode.Visibility = Visibility.Collapsed;
                 }
                 else if (GuestAccessInfo.isGuestAccessEnabled == "1")
                 {
                     checkGuestSetting.IsChecked = true;
-                    GuestSettingsLongListSelector.Visibility = Visibility.Visible;
+                    GuestSettingPanel.Visibility = Visibility.Visible;
                     textScanQRCode.Visibility = Visibility.Visible;
                     imageQRCode.Visibility = Visibility.Visible;
                     Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
@@ -260,7 +284,7 @@ namespace GenieWP8
                             GuestAccessInfo.changedTimePeriod = "Always";
                         }
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;                        
                         OnNavigatedTo(null);
                     }
                     else
@@ -300,6 +324,65 @@ namespace GenieWP8
             };
             var bmp = wt.Write(content);
             return bmp;
+        }
+
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridSsid":
+                    gridSsid.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridKey":
+                    gridKey.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridTimeseg":
+                    gridTimeseg.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridSsid":
+                    gridSsid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridKey":
+                    gridKey.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridTimeseg":
+                    gridTimeseg.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridSsid":
+                    gridSsid.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridKey":
+                    gridKey.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridTimeseg":
+                    gridTimeseg.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    GuestAccessInfo.changedTimePeriod = GuestAccessInfo.timePeriod;
+                    break;
+                default:
+                    break;
+            }
+            NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
         }
     }
 }

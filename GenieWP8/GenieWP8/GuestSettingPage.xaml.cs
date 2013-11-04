@@ -48,7 +48,7 @@ namespace GenieWP8
             //{
             //    settingModel.LoadData();
             //}
-            settingModel.GuestSettingGroups.Clear();
+            //settingModel.GuestSettingGroups.Clear();
             settingModel.EditTimesegSecurity.Clear();
             settingModel.LoadData();
             SSID.Text = GuestAccessInfo.changedSsid;
@@ -77,6 +77,11 @@ namespace GenieWP8
             {
                 appBarButton_save.IsEnabled = false;
             }
+
+            if (GuestAccessInfo.isOpenGuestAccess == true)
+            {
+                appBarButton_save.IsEnabled = true;
+            }
         }
 
         private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
@@ -95,84 +100,98 @@ namespace GenieWP8
         //判断SSID是否更改以及保存按钮是否可点击
         private void ssid_changed(Object sender, RoutedEventArgs e)
         {
-            string ssid = SSID.Text.Trim();
-            string password = pwd.Text.Trim();
-            GuestAccessInfo.changedSsid = ssid;
-            if (ssid != GuestAccessInfo.ssid && ssid != "" && ((passwordPanel.Visibility == Visibility.Visible && password != "") || passwordPanel.Visibility == Visibility.Collapsed))
+            if (GuestAccessInfo.isOpenGuestAccess == true)
             {
                 appBarButton_save.IsEnabled = true;
-                GuestAccessInfo.isSSIDChanged = true;
-            }
-            else if (ssid == "" || (passwordPanel.Visibility == Visibility.Visible && password == ""))
-            {
-                appBarButton_save.IsEnabled = false;
-                GuestAccessInfo.isSSIDChanged = true;
             }
             else
             {
-                GuestAccessInfo.isSSIDChanged = false;
-                if ((passwordPanel.Visibility == Visibility.Visible && GuestAccessInfo.isPasswordChanged == true) || GuestAccessInfo.isTimePeriodChanged == true || GuestAccessInfo.isSecurityTypeChanged == true)
+                string ssid = SSID.Text.Trim();
+                string password = pwd.Text.Trim();
+                GuestAccessInfo.changedSsid = ssid;
+                if (ssid != GuestAccessInfo.ssid && ssid != "" && ((passwordPanel.Visibility == Visibility.Visible && password != "") || passwordPanel.Visibility == Visibility.Collapsed))
                 {
                     appBarButton_save.IsEnabled = true;
+                    GuestAccessInfo.isSSIDChanged = true;
+                }
+                else if (ssid == "" || (passwordPanel.Visibility == Visibility.Visible && password == ""))
+                {
+                    appBarButton_save.IsEnabled = false;
+                    GuestAccessInfo.isSSIDChanged = true;
                 }
                 else
                 {
-                    appBarButton_save.IsEnabled = false;
+                    GuestAccessInfo.isSSIDChanged = false;
+                    if ((passwordPanel.Visibility == Visibility.Visible && GuestAccessInfo.isPasswordChanged == true) || GuestAccessInfo.isTimePeriodChanged == true || GuestAccessInfo.isSecurityTypeChanged == true)
+                    {
+                        appBarButton_save.IsEnabled = true;
+                    }
+                    else
+                    {
+                        appBarButton_save.IsEnabled = false;
+                    }
                 }
-            }
+            }           
         }
 
         //判断密码是否更改以及保存按钮是否可点击
         private void pwd_changed(Object sender, RoutedEventArgs e)
         {
-            string ssid = SSID.Text.Trim();
-            string password = pwd.Text.Trim();
-            GuestAccessInfo.changedPassword = password;
-            if (password != GuestAccessInfo.password && password != "" && ssid != "")
+            if (GuestAccessInfo.isOpenGuestAccess == true)
             {
                 appBarButton_save.IsEnabled = true;
-                GuestAccessInfo.isPasswordChanged = true;
-            }
-            else if (password == "" || ssid == "")
-            {
-                appBarButton_save.IsEnabled = false;
-                GuestAccessInfo.isPasswordChanged = true;
             }
             else
             {
-                GuestAccessInfo.isPasswordChanged = false;
-                if (GuestAccessInfo.isSSIDChanged == true || GuestAccessInfo.isTimePeriodChanged == true || GuestAccessInfo.isSecurityTypeChanged == true)
+                string ssid = SSID.Text.Trim();
+                string password = pwd.Text.Trim();
+                GuestAccessInfo.changedPassword = password;
+                if (password != GuestAccessInfo.password && password != "" && ssid != "")
                 {
                     appBarButton_save.IsEnabled = true;
+                    GuestAccessInfo.isPasswordChanged = true;
+                }
+                else if (password == "" || ssid == "")
+                {
+                    appBarButton_save.IsEnabled = false;
+                    GuestAccessInfo.isPasswordChanged = true;
                 }
                 else
                 {
-                    appBarButton_save.IsEnabled = false;
+                    GuestAccessInfo.isPasswordChanged = false;
+                    if (GuestAccessInfo.isSSIDChanged == true || GuestAccessInfo.isTimePeriodChanged == true || GuestAccessInfo.isSecurityTypeChanged == true)
+                    {
+                        appBarButton_save.IsEnabled = true;
+                    }
+                    else
+                    {
+                        appBarButton_save.IsEnabled = false;
+                    }
                 }
             }
         }
 
-        //处理在 LongListSelector 中更改的选定内容
-        private void timeperiod_securitySetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (timeperiod_securitySettingLongListSelector.SelectedItem == null)
-                return;
+        ////处理在 LongListSelector 中更改的选定内容
+        //private void timeperiod_securitySetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // 如果所选项为空(没有选定内容)，则不执行任何操作
+        //    if (timeperiod_securitySettingLongListSelector.SelectedItem == null)
+        //        return;
 
-            // 导航到新页面
-            var groupId = ((GuestSettingGroup)timeperiod_securitySettingLongListSelector.SelectedItem).ID;
-            if (groupId == "TimeSegment")
-            {
-                NavigationService.Navigate(new Uri("/GuestTimeSegPage.xaml", UriKind.Relative));
-            }
-            else if (groupId == "Security")
-            {
-                NavigationService.Navigate(new Uri("/GuestSecurityPage.xaml", UriKind.Relative));
-            }
+        //    // 导航到新页面
+        //    var groupId = ((GuestSettingGroup)timeperiod_securitySettingLongListSelector.SelectedItem).ID;
+        //    if (groupId == "TimeSegment")
+        //    {
+        //        NavigationService.Navigate(new Uri("/GuestTimeSegPage.xaml", UriKind.Relative));
+        //    }
+        //    else if (groupId == "Security")
+        //    {
+        //        NavigationService.Navigate(new Uri("/GuestSecurityPage.xaml", UriKind.Relative));
+        //    }
 
-            // 将所选项重置为 null (没有选定内容)
-            timeperiod_securitySettingLongListSelector.SelectedItem = null;
-        }
+        //    // 将所选项重置为 null (没有选定内容)
+        //    timeperiod_securitySettingLongListSelector.SelectedItem = null;
+        //}
 
         //用于生成本地化 ApplicationBar 的代码
         ApplicationBarIconButton appBarButton_back = new ApplicationBarIconButton(new Uri("Assets/back.png", UriKind.Relative));
@@ -455,6 +474,56 @@ namespace GenieWP8
         private void pwd_GotFocus(object sender, RoutedEventArgs e)
         {
             pwd.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridTimeseg":
+                    gridTimeseg.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridSecurity":
+                    gridSecurity.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridTimeseg":
+                    gridTimeseg.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridSecurity":
+                    gridSecurity.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridTimeseg":
+                    gridTimeseg.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    NavigationService.Navigate(new Uri("/GuestTimeSegPage.xaml", UriKind.Relative));
+                    break;
+                case "gridSecurity":
+                    gridSecurity.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    NavigationService.Navigate(new Uri("/GuestSecurityPage.xaml", UriKind.Relative));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

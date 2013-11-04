@@ -64,7 +64,7 @@ namespace GenieWP8
                 if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
                 {
                     width = Application.Current.Host.Content.ActualWidth;
-                    height = Application.Current.Host.Content.ActualHeight - 250;
+                    height = Application.Current.Host.Content.ActualHeight - 200;
                     if (IsRouterInfoOpened)
                     {
                         DeviceInfoScrollViewer.Height = 300;
@@ -78,7 +78,7 @@ namespace GenieWP8
                 else
                 {
                     width = Application.Current.Host.Content.ActualHeight - 150;
-                    height = Application.Current.Host.Content.ActualWidth - 150;
+                    height = Application.Current.Host.Content.ActualWidth - 100;
                     DeviceInfoScrollViewer.Height = 250;
                 }
                 DrawNetworkMap(width, height);
@@ -96,7 +96,7 @@ namespace GenieWP8
             if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
                 width = Application.Current.Host.Content.ActualWidth;
-                height = Application.Current.Host.Content.ActualHeight - 250;
+                height = Application.Current.Host.Content.ActualHeight - 200;
                 if (IsRouterInfoOpened)
                 {
                     DeviceInfoScrollViewer.Height = 300;
@@ -110,7 +110,7 @@ namespace GenieWP8
             else
             {
                 width = Application.Current.Host.Content.ActualHeight - 150;
-                height = Application.Current.Host.Content.ActualWidth - 150;
+                height = Application.Current.Host.Content.ActualWidth - 100;
                 DeviceInfoScrollViewer.Height = 250;
             }
             DrawNetworkMap(width, height);
@@ -120,45 +120,75 @@ namespace GenieWP8
         private async void DrawNetworkMap(double width, double height)
         {         
             MapPivot.Items.Clear();
-            double PI = 3.141592653589793;
+            double PI = 3.141592653589793;            
             //double width = e.NewSize.Width;
             //double height = e.NewSize.Height - 150;
             double r1 = width / 2 - 50;
             double r2 = height / 2 - 50;
-            //m = （总设备数 - 1（路由器/交换机））/ 7 的商，即满设备的MAP页数
+            //m = （总设备数 - 1（路由器/交换机）- 1（本设备））/ 6 的商，即满设备的MAP页数
             //n 为上式得余数，即最后一页除路由器（交换机）和本设备外的设备数
             var Group = settingModel.DeviceGroups;
             var DeviceNumber = Group.Count();
-            int m = (DeviceNumber - 1) / 7;
-            int n = (DeviceNumber - 1) % 7;
+            int m = (DeviceNumber - 2) / 6;
+            int n = (DeviceNumber - 2) % 6;
             for (int i = 0; i < m + 1; i++)
             {
                 if (i != m)
                 {
+                    double Angle = 360.0 / 8;
                     Grid map = new Grid();
 
+                    //internet图标
                     Image internet = new Image();
                     internet.Source = new BitmapImage(new Uri("Assets/internet72.png", UriKind.Relative));
                     internet.HorizontalAlignment = HorizontalAlignment.Right;
-                    internet.Margin = new Thickness(0, 0, 0, 0);
-                    internet.Width = 75; internet.Height = 75;
+                    internet.VerticalAlignment = VerticalAlignment.Top;
+                    internet.Margin = new Thickness(0, height / 2 - 35, 0, 0);                                 // -35 为纠正由图标大小（70，70）造成的偏差
+                    internet.Width = 70; internet.Height = 70;
 
-
+                    //路由器图标
                     Button BtnRouter = new Button();
                     BtnRouter.Name = Group.ElementAt(0).NODE.uniqueId + "_" + (i + 1).ToString();
-                    BtnRouter.Width = 100;
-                    BtnRouter.Height = 100;
-                    BtnRouter.HorizontalAlignment = HorizontalAlignment.Center;
-                    BtnRouter.VerticalAlignment = VerticalAlignment.Center;
+                    BtnRouter.Width = 130;
+                    BtnRouter.Height = 130;
+                    BtnRouter.HorizontalAlignment = HorizontalAlignment.Left;
+                    BtnRouter.VerticalAlignment = VerticalAlignment.Top;
 
                     Image imgRouter = new Image();
                     imgRouter.Source = new BitmapImage(new Uri(routerImage, UriKind.Relative));
-                    imgRouter.Stretch = Stretch.UniformToFill;
+                    imgRouter.Stretch = Stretch.Uniform;
                     BtnRouter.Content = imgRouter;
-                    BtnRouter.Margin = new Thickness(20, 15, 0, 0);
+                    BtnRouter.Margin = new Thickness(width / 2 - 65, height / 2 - 65, 0, 0);                    // -65 为纠正由图标大小（130，130）造成的偏差
                     BtnRouter.Click += new RoutedEventHandler(RouterButton_Click);
 
-                    double Angle = 360.0 / 8;
+                    //本设备图标
+                    Button BtnLocalDevice = new Button();
+                    BtnLocalDevice.Name = Group.ElementAt(1).NODE.uniqueId;
+                    BtnLocalDevice.Width = 110;
+                    BtnLocalDevice.Height = 110;
+                    BtnLocalDevice.HorizontalAlignment = HorizontalAlignment.Left;
+                    BtnLocalDevice.VerticalAlignment = VerticalAlignment.Top;
+                    double xLocal = r1 * Math.Cos(Angle * PI / 180);
+                    double yLocal = r2 * Math.Sin(Angle * PI / 180);
+                    BtnLocalDevice.Margin = new Thickness(width / 2 + xLocal - 55, height / 2 - yLocal - 55, 0, 0);	                    // -55 为纠正由图标大小（110，110）造成的偏差
+                    Image imgLocalDevice = new Image();
+                    imgLocalDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphoneLocal.png", UriKind.Relative));
+                    imgLocalDevice.Stretch = Stretch.Uniform;
+                    imgLocalDevice.Height = 55;
+                    TextBlock LocalDeviceNameText = new TextBlock();
+                    LocalDeviceNameText.Text = Group.ElementAt(1).NODE.deviceName;
+                    LocalDeviceNameText.FontSize = 15;
+                    LocalDeviceNameText.FontWeight = FontWeights.Normal;
+                    LocalDeviceNameText.Margin = new Thickness(0, -5, 0, 0);
+                    LocalDeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+                    LocalDeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
+                    StackPanel stpLocalDevice = new StackPanel();
+                    stpLocalDevice.Children.Add(imgLocalDevice);
+                    stpLocalDevice.Children.Add(LocalDeviceNameText);
+                    BtnLocalDevice.Content = stpLocalDevice;
+                    BtnLocalDevice.Click += new RoutedEventHandler(DeviceButton_Click);
+
+                    //画线条和其余设备
                     for (int j = 0; j < 8; j++)
                     {
                         double x = r1 * Math.Cos(j * Angle * PI / 180);
@@ -183,13 +213,12 @@ namespace GenieWP8
                             }
                         }
                         Image imgSignal = new Image();
-                        if (j > 0 && Group.ElementAt(7 * i + j).NODE.connectType == "wireless")
+                        if (j == 1)         //本设备
                         {
                             DoubleCollection dc = new DoubleCollection();
                             dc.Add(2);
                             line.StrokeDashArray = dc;
-                            string[] signal = Group.ElementAt(7 * i + j).NODE.signalStrength.Split('%');
-                            int result = int.Parse(signal[0]);
+                            int result = int.Parse(Group.ElementAt(1).NODE.signalStrength);
                             if (result <= 20)
                             {
                                 imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
@@ -210,22 +239,51 @@ namespace GenieWP8
                             imgSignal.Width = 30; imgSignal.Height = 30;
                             imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
                             imgSignal.VerticalAlignment = VerticalAlignment.Top;
-                            imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);
+                            imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);                // -15 为纠正由图标大小（30，30）造成的偏差
+                        }
+                        else if (j > 1 && Group.ElementAt(6 * i + j).NODE.connectType == "wireless")
+                        {
+                            DoubleCollection dc = new DoubleCollection();
+                            dc.Add(2);
+                            line.StrokeDashArray = dc;
+                            int result = int.Parse(Group.ElementAt(6 * i + j).NODE.signalStrength);
+                            if (result <= 20)
+                            {
+                                imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
+                            }
+                            else if (result > 20 && result <= 40)
+                            {
+                                imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
+                            }
+                            else if (result > 40 && result <= 70)
+                            {
+                                imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
+                            }
+                            else if (result > 70)
+                            {
+                                imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
+                            }
+                            imgSignal.Stretch = Stretch.Fill;
+                            imgSignal.Width = 30; imgSignal.Height = 30;
+                            imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
+                            imgSignal.VerticalAlignment = VerticalAlignment.Top;
+                            imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);                // -15 为纠正由图标大小（30，30）造成的偏差
                         }
                         map.Children.Add(line);
                         map.Children.Add(imgSignal);
 
-                        if (j > 0)
+                        
+                        if (j > 1)
                         {
                             Button BtnDevice = new Button();
-                            BtnDevice.Name = Group.ElementAt(7 * i + j).NODE.uniqueId;
-                            BtnDevice.Width = 100;
-                            BtnDevice.Height = 100;
+                            BtnDevice.Name = Group.ElementAt(6 * i + j).NODE.uniqueId;
+                            BtnDevice.Width = 110;
+                            BtnDevice.Height = 110;
                             BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
                             BtnDevice.VerticalAlignment = VerticalAlignment.Top;
-                            BtnDevice.Margin = new Thickness(width / 2 + x - 50, height / 2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
+                            BtnDevice.Margin = new Thickness(width / 2 + x - 55, height / 2 - y - 55, 0, 0);	                    // -55 为纠正由图标大小（110，110）造成的偏差
                             Image imgDevice = new Image();
-                            switch (Group.ElementAt(7 * i + j).NODE.deviceType)
+                            switch (Group.ElementAt(6 * i + j).NODE.deviceType)
                             {
                                 case "gatewaydev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
@@ -330,26 +388,28 @@ namespace GenieWP8
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
                                     break;
                             }
-                            imgDevice.Stretch = Stretch.UniformToFill;
+                            imgDevice.Stretch = Stretch.Uniform;
+                            imgDevice.Height = 55;
                             TextBlock DeviceNameText = new TextBlock();
-                            DeviceNameText.Text = Group.ElementAt(7 * i + j).NODE.deviceName;
+                            DeviceNameText.Text = Group.ElementAt(6 * i + j).NODE.deviceName;
                             DeviceNameText.FontSize = 15;
                             DeviceNameText.FontWeight = FontWeights.Normal;
-                            DeviceNameText.Margin = new Thickness(0, -10, 0, 0);
+                            DeviceNameText.Margin = new Thickness(0, -5, 0, 0);
                             DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+                            DeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
                             StackPanel stpDevice = new StackPanel();
                             stpDevice.Children.Add(imgDevice);
                             stpDevice.Children.Add(DeviceNameText);
                             BtnDevice.Content = stpDevice;
                             BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
                             map.Children.Add(BtnDevice);
-                        }//if (j > 0)
+                        }//if (j > 1)
                     }//for (int j = 0; j < 8; j++)
 
                     map.Children.Add(internet);
                     map.Children.Add(BtnRouter);
+                    map.Children.Add(BtnLocalDevice);
                     PivotItem map_PivotItem = new PivotItem();
-                    map_PivotItem.Header = "MAP_" + (i + 1).ToString();
                     map_PivotItem.Content = map;
                     MapPivot.Items.Add(map_PivotItem);
                 }//if (i != m)
@@ -357,29 +417,60 @@ namespace GenieWP8
                 {
                     if (n != 0)
                     {
+                        double Angle = 360.0 / (n + 1);
                         Grid map = new Grid();
 
                         Image internet = new Image();
                         internet.Source = new BitmapImage(new Uri("Assets/internet72.png", UriKind.Relative));
                         internet.HorizontalAlignment = HorizontalAlignment.Right;
-                        internet.Margin = new Thickness(0, 0, 0, 0);
-                        internet.Width = 75; internet.Height = 75;
+                        internet.VerticalAlignment = VerticalAlignment.Top;
+                        internet.Margin = new Thickness(0, height / 2 - 35, 0, 0);
+                        internet.Width = 70; internet.Height = 70;
 
 
                         Button BtnRouter = new Button();
                         BtnRouter.Name = Group.ElementAt(0).NODE.uniqueId + "_" + (i + 1).ToString();
-                        BtnRouter.Width = 100;
-                        BtnRouter.Height = 100;
-                        BtnRouter.HorizontalAlignment = HorizontalAlignment.Center;
-                        BtnRouter.VerticalAlignment = VerticalAlignment.Center;
+                        BtnRouter.Width = 130;
+                        BtnRouter.Height = 130;
+                        BtnRouter.HorizontalAlignment = HorizontalAlignment.Left;
+                        BtnRouter.VerticalAlignment = VerticalAlignment.Top;
                         Image imgRouter = new Image();
                         imgRouter.Source = new BitmapImage(new Uri(routerImage, UriKind.Relative));
-                        imgRouter.Stretch = Stretch.UniformToFill;
+                        imgRouter.Stretch = Stretch.Uniform;
                         BtnRouter.Content = imgRouter;
-                        BtnRouter.Margin = new Thickness(20, 15, 0, 0);
+                        BtnRouter.Margin = new Thickness(width / 2 - 65, height / 2 - 65, 0, 0);
                         BtnRouter.Click += new RoutedEventHandler(RouterButton_Click);
 
-                        double Angle = 360.0 / (n + 1);
+
+                        //本设备图标
+                        Button BtnLocalDevice = new Button();
+                        BtnLocalDevice.Name = Group.ElementAt(1).NODE.uniqueId;
+                        BtnLocalDevice.Width = 110;
+                        BtnLocalDevice.Height = 110;
+                        BtnLocalDevice.HorizontalAlignment = HorizontalAlignment.Left;
+                        BtnLocalDevice.VerticalAlignment = VerticalAlignment.Top;
+                        double xLocal = r1 * Math.Cos(Angle * PI / 180);
+                        double yLocal = r2 * Math.Sin(Angle * PI / 180);
+                        BtnLocalDevice.Margin = new Thickness(width / 2 + xLocal - 55, height / 2 - yLocal - 55, 0, 0);	                    // -55 为纠正由图标大小（110，110）造成的偏差
+                        Image imgLocalDevice = new Image();
+                        imgLocalDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphoneLocal.png", UriKind.Relative));
+                        imgLocalDevice.Stretch = Stretch.Uniform;
+                        imgLocalDevice.Height = 55;
+                        TextBlock LocalDeviceNameText = new TextBlock();
+                        LocalDeviceNameText.Text = Group.ElementAt(1).NODE.deviceName;
+                        LocalDeviceNameText.FontSize = 15;
+                        LocalDeviceNameText.FontWeight = FontWeights.Normal;
+                        LocalDeviceNameText.Margin = new Thickness(0, -5, 0, 0);
+                        LocalDeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+                        LocalDeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
+                        StackPanel stpLocalDevice = new StackPanel();
+                        stpLocalDevice.Children.Add(imgLocalDevice);
+                        stpLocalDevice.Children.Add(LocalDeviceNameText);
+                        BtnLocalDevice.Content = stpLocalDevice;
+                        BtnLocalDevice.Click += new RoutedEventHandler(DeviceButton_Click);
+
+
+                        
                         for (int j = 0; j < n + 1; j++)
                         {
                             double x = r1 * Math.Cos(j * Angle * PI / 180);
@@ -404,13 +495,40 @@ namespace GenieWP8
                                 }
                             }
                             Image imgSignal = new Image();
-                            if (j > 0 && Group.ElementAt(7 * i + j).NODE.connectType == "wireless")
+                            if (j == 1)         //本设备
                             {
                                 DoubleCollection dc = new DoubleCollection();
                                 dc.Add(2);
                                 line.StrokeDashArray = dc;
-                                string[] signal = Group.ElementAt(7 * i + j).NODE.signalStrength.Split('%');
-                                int result = int.Parse(signal[0]);
+                                int result = int.Parse(Group.ElementAt(1).NODE.signalStrength);
+                                if (result <= 20)
+                                {
+                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
+                                }
+                                else if (result > 20 && result <= 40)
+                                {
+                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
+                                }
+                                else if (result > 40 && result <= 70)
+                                {
+                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
+                                }
+                                else if (result > 70)
+                                {
+                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
+                                }
+                                imgSignal.Stretch = Stretch.Fill;
+                                imgSignal.Width = 30; imgSignal.Height = 30;
+                                imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
+                                imgSignal.VerticalAlignment = VerticalAlignment.Top;
+                                imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);                // -15 为纠正由图标大小（30，30）造成的偏差
+                            }
+                            else if (j > 1 && Group.ElementAt(6 * i + j).NODE.connectType == "wireless")
+                            {
+                                DoubleCollection dc = new DoubleCollection();
+                                dc.Add(2);
+                                line.StrokeDashArray = dc;
+                                int result = int.Parse(Group.ElementAt(6 * i + j).NODE.signalStrength);
                                 if (result <= 20)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
@@ -436,17 +554,17 @@ namespace GenieWP8
                             map.Children.Add(line);
                             map.Children.Add(imgSignal);
 
-                            if (j > 0)
+                            if (j > 1)
                             {
                                 Button BtnDevice = new Button();
-                                BtnDevice.Name = Group.ElementAt(7 * i + j).NODE.uniqueId;
-                                BtnDevice.Width = 100;
-                                BtnDevice.Height = 100;
+                                BtnDevice.Name = Group.ElementAt(6 * i + j).NODE.uniqueId;
+                                BtnDevice.Width = 110;
+                                BtnDevice.Height = 110;
                                 BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
                                 BtnDevice.VerticalAlignment = VerticalAlignment.Top;
-                                BtnDevice.Margin = new Thickness(width / 2 + x - 50, height / 2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
+                                BtnDevice.Margin = new Thickness(width / 2 + x - 55, height / 2 - y - 55, 0, 0);	// -50 为纠正由图标大小（110，110）造成的偏差
                                 Image imgDevice = new Image();
-                                switch (Group.ElementAt(7 * i + j).NODE.deviceType)
+                                switch (Group.ElementAt(6 * i + j).NODE.deviceType)
                                 {
                                     case "gatewaydev":
                                         imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
@@ -551,25 +669,27 @@ namespace GenieWP8
                                         imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
                                         break;
                                 }
-                                imgDevice.Stretch = Stretch.UniformToFill;
+                                imgDevice.Stretch = Stretch.Uniform;
+                                imgDevice.Height = 55;
                                 TextBlock DeviceNameText = new TextBlock();
-                                DeviceNameText.Text = Group.ElementAt(7 * i + j).NODE.deviceName;
+                                DeviceNameText.Text = Group.ElementAt(6 * i + j).NODE.deviceName;
                                 DeviceNameText.FontSize = 15;
                                 DeviceNameText.FontWeight = FontWeights.Normal;
-                                DeviceNameText.Margin = new Thickness(0, -10, 0, 0);
+                                DeviceNameText.Margin = new Thickness(0, -5, 0, 0);
                                 DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+                                DeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
                                 StackPanel stpDevice = new StackPanel();
                                 stpDevice.Children.Add(imgDevice);
                                 stpDevice.Children.Add(DeviceNameText);
                                 BtnDevice.Content = stpDevice;
                                 BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
                                 map.Children.Add(BtnDevice);
-                            }//if (j > 0)
+                            }//if (j > 1)
                         }//for (int j = 0; j < n + 1; j++)
                         map.Children.Add(internet);
                         map.Children.Add(BtnRouter);
+                        map.Children.Add(BtnLocalDevice);
                         PivotItem map_PivotItem = new PivotItem();
-                        map_PivotItem.Header = "MAP_" + (i + 1).ToString();
                         map_PivotItem.Content = map;
                         MapPivot.Items.Add(map_PivotItem);
                     }//if (n != 0)
@@ -594,6 +714,7 @@ namespace GenieWP8
             InProgress.Visibility = Visibility.Collapsed;
             pleasewait.Visibility = Visibility.Collapsed;
             DeviceInfoPopup.IsOpen = true;
+            DeviceInfoScrollViewer.ScrollToVerticalOffset(0);
             Button btn = (Button)sender;
             string[] UniqueId = btn.Name.Split('_');
             var Group = NetworkMapModel.GetGroup(UniqueId[0]);
@@ -610,11 +731,21 @@ namespace GenieWP8
             Title.VerticalAlignment = VerticalAlignment.Center;
             Title.Margin = new Thickness(10, 0, 0, 0);
             Title.FontWeight = FontWeights.Bold;
+            Title.Width = 300;
             Title.TextWrapping = TextWrapping.Wrap;
+
+            //Firmware Version
+            txtRouterFirmware.Text = AppResources.txtRouterFirmware;
+            txtRouterFirmware.FontSize = 35;
+            txtRouterFirmware.Margin = new Thickness(10, 10, 0, 0);
+            txtRouterFirmware.HorizontalAlignment = HorizontalAlignment.Left;
+            Firmware.Text = Group.NODE.RouterFirmware;
+            Firmware.FontSize = 26;
+            Firmware.HorizontalAlignment = HorizontalAlignment.Center;   
 
             //IPAddress
             txtIPAddress.Text = AppResources.txtIPAddress;
-            txtIPAddress.FontSize = 22;
+            txtIPAddress.FontSize = 35;
             txtIPAddress.Margin = new Thickness(10, 10, 0, 0);
             txtIPAddress.HorizontalAlignment = HorizontalAlignment.Left;
             IPAddress.Text = Group.NODE.IPaddress;
@@ -623,7 +754,7 @@ namespace GenieWP8
 
             //MACAddress
             txtMACAddress.Text = AppResources.txtMACAddress;
-            txtMACAddress.FontSize = 22;
+            txtMACAddress.FontSize = 35;
             txtMACAddress.Margin = new Thickness(10, 0, 0, 0);
             txtMACAddress.HorizontalAlignment = HorizontalAlignment.Left;
             MACAddress.Text = Group.NODE.MACaddress;
@@ -642,11 +773,14 @@ namespace GenieWP8
                 StpTitle.Children.Add(Title);
 
                 txtRoutename.Text = AppResources.txtRoutename;
-                txtRoutename.FontSize = 22;
+                txtRoutename.FontSize = 35;
                 txtRoutename.Margin = new Thickness(10, 10, 0, 0);
                 txtRoutename.HorizontalAlignment = HorizontalAlignment.Left;
                 RouteName.Text = Group.NODE.deviceName;
                 RouteName.FontSize = 26;
+                RouteName.Width = 380;
+                RouteName.TextWrapping = TextWrapping.Wrap;
+                RouteName.TextAlignment = TextAlignment.Center;
                 RouteName.HorizontalAlignment = HorizontalAlignment.Center;
 
                 btnBack.Margin = new Thickness(0, 10, 0, 0);
@@ -654,6 +788,7 @@ namespace GenieWP8
                 StpRouter.Visibility = Visibility.Visible;
                 StpDeviceName.Visibility = Visibility.Collapsed;
                 StpType.Visibility = Visibility.Collapsed;
+                StpRouterFirmware.Visibility = Visibility.Visible;
                 StpLinkRate.Visibility = Visibility.Collapsed;
                 StpSignalStrength.Visibility = Visibility.Collapsed;
                 btnBack.Visibility = Visibility.Visible;
@@ -680,6 +815,7 @@ namespace GenieWP8
             }
 
             PopupBackground.Visibility = Visibility.Visible;
+            DeviceInfoScrollViewer.ScrollToVerticalOffset(0);
             InProgress.Visibility = Visibility.Collapsed;
             pleasewait.Visibility = Visibility.Collapsed;
             DeviceInfoPopup.IsOpen = true;
@@ -699,15 +835,19 @@ namespace GenieWP8
             Title.VerticalAlignment = VerticalAlignment.Center;
             Title.Margin = new Thickness(10, 0, 0, 0);
             Title.FontWeight = FontWeights.Bold;
+            Title.Width = 300;
             Title.TextWrapping = TextWrapping.Wrap;
 
             //DeviceName
             txtDeviceName.Text = AppResources.txtDeviceName;
-            txtDeviceName.FontSize = 22;
+            txtDeviceName.FontSize = 35;
             txtDeviceName.Margin = new Thickness(10, 10, 0, 0);
             txtDeviceName.HorizontalAlignment = HorizontalAlignment.Left;
             txtBlockDeviceName.Text = Group.NODE.deviceName;
             txtBlockDeviceName.FontSize = 26;
+            txtBlockDeviceName.Width = 380;
+            txtBlockDeviceName.TextWrapping = TextWrapping.Wrap;
+            txtBlockDeviceName.TextAlignment = TextAlignment.Center;
             txtBlockDeviceName.HorizontalAlignment = HorizontalAlignment.Center;
             txtBlockDeviceName.Visibility = Visibility.Visible;
             txtBoxDeviceName.Text = Group.NODE.deviceName;
@@ -720,7 +860,7 @@ namespace GenieWP8
             if (Group.NODE.deviceType != null)
             {
                 txtType.Text = AppResources.txtType;
-                txtType.FontSize = 22;
+                txtType.FontSize = 35;
                 txtType.Margin = new Thickness(10, 10, 0, 0);
                 txtType.HorizontalAlignment = HorizontalAlignment.Left;
                 switch (Group.NODE.deviceType)
@@ -1002,7 +1142,7 @@ namespace GenieWP8
 
             //IPAddress
             txtIPAddress.Text = AppResources.txtIPAddress;
-            txtIPAddress.FontSize = 22;
+            txtIPAddress.FontSize = 35;
             txtIPAddress.Margin = new Thickness(10, 10, 0, 0);
             txtIPAddress.HorizontalAlignment = HorizontalAlignment.Left;
             IPAddress.Text = Group.NODE.IPaddress;
@@ -1010,22 +1150,38 @@ namespace GenieWP8
             IPAddress.HorizontalAlignment = HorizontalAlignment.Center;
 
             //SignalStrength
-            if (Group.NODE.signalStrength != null)
+            if (Group.NODE.signalStrength != "")
             {
                 txtSignalStrength.Text = AppResources.txtSignalStrength;
-                txtSignalStrength.FontSize = 22;
+                txtSignalStrength.FontSize = 35;
                 txtSignalStrength.Margin = new Thickness(10, 10, 0, 0);
                 txtSignalStrength.HorizontalAlignment = HorizontalAlignment.Left;
-                SignalStrength.Text = Group.NODE.signalStrength;
-                SignalStrength.FontSize = 26;
-                SignalStrength.HorizontalAlignment = HorizontalAlignment.Center;
+                if (int.Parse(Group.NODE.signalStrength) <= 20)
+                {
+                    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_1.png", UriKind.Relative));
+                }
+                else if (int.Parse(Group.NODE.signalStrength) > 20 && int.Parse(Group.NODE.signalStrength) <= 40)
+                {
+                    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_2.png", UriKind.Relative));
+                }
+                else if (int.Parse(Group.NODE.signalStrength) > 40 && int.Parse(Group.NODE.signalStrength) <= 70)
+                {
+                    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_3.png", UriKind.Relative));
+                }
+                else if (int.Parse(Group.NODE.signalStrength) > 70)
+                {
+                    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_4.png", UriKind.Relative));
+                }
+                //SignalStrength.Text = Group.NODE.signalStrength;
+                //SignalStrength.FontSize = 26;
+                //SignalStrength.HorizontalAlignment = HorizontalAlignment.Center;
             }
 
             //LinkRate
-            if (Group.NODE.linkRate != null)
+            if (Group.NODE.linkRate != "Mbps")
             {
                 txtLinkRate.Text = AppResources.txtLinkRate;
-                txtLinkRate.FontSize = 22;
+                txtLinkRate.FontSize = 35;
                 txtLinkRate.Margin = new Thickness(10, 10, 0, 0);
                 txtLinkRate.HorizontalAlignment = HorizontalAlignment.Left;
                 LinkRate.Text = Group.NODE.linkRate;
@@ -1041,7 +1197,7 @@ namespace GenieWP8
 
             //MACAddress
             txtMACAddress.Text = AppResources.txtMACAddress;
-            txtMACAddress.FontSize = 22;
+            txtMACAddress.FontSize = 35;
             txtMACAddress.Margin = new Thickness(10, 0, 0, 0);
             txtMACAddress.HorizontalAlignment = HorizontalAlignment.Left;
             MACAddress.Text = Group.NODE.MACaddress;
@@ -1075,121 +1231,7 @@ namespace GenieWP8
 
             if (Group.NODE.uniqueId == "LocalDevice")
             {
-                //TitleImage.Source = new BitmapImage(new Uri("Assets/androidphone.png", UriKind.Relative));
-                switch (Group.NODE.deviceType)
-                {
-                    case "gatewaydev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
-                        break;
-                    case "networkdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
-                        break;
-                    case "windowspc":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
-                        break;
-                    case "blurayplayer":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
-                        break;
-                    case "bridge":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
-                        break;
-                    case "cablestb":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
-                        break;
-                    case "cameradev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
-                        break;
-                    case "gamedev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
-                        break;
-                    //case "amazonkindledev":
-                    //    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                    //    break;
-                    //case "ipadmini":
-                    //    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                    //    break;
-                    //case "iphone5":
-                    //    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                    //    break;
-                    case "imacdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
-                        break;
-                    case "ipad":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
-                        break;
-                    case "iphone":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
-                        break;
-                    case "ipodtouch":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
-                        break;
-                    case "linuxpc":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
-                        break;
-                    case "macbookdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
-                        break;
-                    case "macminidev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
-                        break;
-                    case "macprodev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
-                        break;
-                    case "mediadev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
-                        break;
-                    case "mobiledev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
-                        break;
-                    case "netstoragedev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                        break;
-                    case "switchdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
-                        break;
-                    case "printerdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
-                        break;
-                    case "repeater":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
-                        break;
-                    case "satellitestb":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
-                        break;
-                    case "scannerdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
-                        break;
-                    case "slingbox":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
-                        break;
-                    case "stb":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
-                        break;
-                    case "tablepc":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
-                        break;
-                    case "tv":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
-                        break;
-                    case "unixpc":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
-                        break;
-                    case "androiddevice":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
-                        break;
-                    case "androidphone":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                        break;
-                    case "androidtablet":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
-                        break;
-                    case "dvr":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
-                        break;
-                    case "windowsphone":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
-                        break;
-                }
+                TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphoneLocal.png", UriKind.Relative));
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
 
@@ -1198,11 +1240,12 @@ namespace GenieWP8
                 StpRouter.Visibility = Visibility.Collapsed;
                 StpDeviceName.Visibility = Visibility.Visible;
                 StpType.Visibility = Visibility.Collapsed;
-                if (Group.NODE.linkRate == null)
+                StpRouterFirmware.Visibility = Visibility.Collapsed;
+                if (Group.NODE.linkRate == "Mbps")
                     StpLinkRate.Visibility = Visibility.Collapsed;
                 else
                     StpLinkRate.Visibility = Visibility.Visible;
-                if (Group.NODE.signalStrength == null)
+                if (Group.NODE.signalStrength == "")
                     StpSignalStrength.Visibility = Visibility.Collapsed;
                 else
                     StpSignalStrength.Visibility = Visibility.Visible;
@@ -1344,12 +1387,14 @@ namespace GenieWP8
                 else
                     StpType.Visibility = Visibility.Visible;
 
-                if (Group.NODE.signalStrength == null)
+                StpRouterFirmware.Visibility = Visibility.Collapsed;
+
+                if (Group.NODE.signalStrength == "")
                     StpSignalStrength.Visibility = Visibility.Collapsed;
                 else
                     StpSignalStrength.Visibility = Visibility.Visible;
 
-                if (Group.NODE.linkRate == null)
+                if (Group.NODE.linkRate == "Mbps")
                     StpLinkRate.Visibility = Visibility.Collapsed;
                 else
                     StpLinkRate.Visibility = Visibility.Visible;
@@ -1698,19 +1743,6 @@ namespace GenieWP8
             await Windows.System.Launcher.LaunchUriAsync(uri);
         }
 
-        //按下屏幕键盘回车键后关闭屏幕键盘
-        protected override void OnKeyDown(System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                this.Focus();
-            }
-            else
-            {
-                base.OnKeyDown(e);
-            }
-        }
-
         public async void WriteDeviceInfoFile()
         {            
             IsolatedStorageFile fileStorage = IsolatedStorageFile.GetUserStoreForApplication();
@@ -1771,6 +1803,19 @@ namespace GenieWP8
         private void txtBoxDeviceName_GotFocus(object sender, RoutedEventArgs e)
         {
             txtBoxDeviceName.Background = new SolidColorBrush(Colors.White);
+        }
+
+        //修改设备信息输入设备名按下屏幕键盘回车键后焦点转移到类型栏
+        private void txtBoxDeviceName_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                lpType.Focus();
+            }
+            else
+            {
+                base.OnKeyDown(e);
+            }  
         }
     }
 }

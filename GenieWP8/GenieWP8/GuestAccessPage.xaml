@@ -38,15 +38,57 @@
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="Black"/>
+            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#3C3C3C"/>
             <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.GuestAccessPageTitleText, Source={StaticResource LocalizedStrings}}"
-                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="Black"/>
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="#1E1E1E"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
         <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <Grid>
+                <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White">
+                    <StackPanel>
+                        <Grid Height="80">
+                            <Image Source="/Assets/WirelessSetting/first.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Path=LocalizedResources.CheckGuestAccessText, Source={StaticResource LocalizedStrings}}"
+                                           FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <CheckBox x:Name="checkGuestSetting" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="24" IsChecked="True"
+                                      Click="checkGuestSetting_Click" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                        </Grid>
+                        <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,10,0"/>
+                        <StackPanel x:Name="GuestSettingPanel">
+                            <Grid x:Name="gridSsid" Height="80" DataContext="{Binding ssidGroup}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                                <Image Source="/Assets/WirelessSetting/second.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="tbSsid" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            </Grid>
+                            <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,10,0"/>
+                            <Grid x:Name="gridKey" Height="80" DataContext="{Binding keyGroup}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                                <Image Source="/Assets/WirelessSetting/third.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="tbKey" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            </Grid>
+                            <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,10,0"/>
+                            <Grid x:Name="gridTimeseg" Height="80" DataContext="{Binding timesegGroup}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                                <Image Source="/Assets/WirelessSetting/first.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="tbTimeseg" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <!--<Grid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -60,9 +102,9 @@
                                Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="35" VerticalAlignment="Center" Margin="10,0,60,0" TextWrapping="Wrap" Foreground="White"/>
                     <CheckBox x:Name="checkGuestSetting" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="24" IsChecked="True" Click="checkGuestSetting_Click"
                               Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
-                </Grid>
+                </Grid>-->
 
-                <phone:LongListSelector 
+                <!--<phone:LongListSelector 
                     x:Name="GuestSettingsLongListSelector"
                     ItemsSource="{Binding GuestSettingGroups}"
                     Margin="0,40,0,0"
@@ -88,7 +130,7 @@
                             </Grid>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
+                </phone:LongListSelector>-->
                 <TextBlock x:Name="textScanQRCode" Text="{Binding Path=LocalizedResources.ScanQrCodeTipsText, Source={StaticResource LocalizedStrings}}"
                            FontSize="24" HorizontalAlignment="Center" Margin="0,40,0,0" Foreground="#FF5A5A5A"/>
                 <Image x:Name="imageQRCode" Width="200" Height="200" Margin="0,20,0,0" HorizontalAlignment="Center"/>
@@ -102,8 +144,11 @@
                              IsIndeterminate="True"
                              Height="15"
                              Foreground="White"/>
-                <TextBlock x:Name="pleasewait" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"
-                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock x:Name="pleasewait" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}" 
+                               VerticalAlignment="Center" FontSize="20" Foreground="White"/>
+                    <TextBlock x:Name="waittime" VerticalAlignment="Center" FontSize="20" Foreground="White"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
 

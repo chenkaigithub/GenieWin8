@@ -43,18 +43,18 @@ namespace GenieWP8
         // 为 TrafficMeterModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            settingModel.TrafficMeterGroups.Clear();
-            settingModel.StartDate.Clear();
-            settingModel.TrafficLimitation.Clear();
+            //settingModel.TrafficMeterGroups.Clear();
+            //settingModel.StartDate.Clear();
+            //settingModel.TrafficLimitation.Clear();
             settingModel.LoadData();
 
             if (TrafficMeterInfo.changedControlOption == "No limit")
             {
-                monthlyLimit.IsEnabled = false;
+                tbMonthlyLimit.IsEnabled = false;
             }
             else
             {
-                monthlyLimit.IsEnabled = true;
+                tbMonthlyLimit.IsEnabled = true;
             }
 
             //判断保存按钮是否可点击
@@ -87,39 +87,39 @@ namespace GenieWP8
             }
         }
 
-        //处理在 StartDateLongListSelector 中更改的选定内容
-        private void StartDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (StartDateLongListSelector.SelectedItem == null)
-                return;
+        ////处理在 StartDateLongListSelector 中更改的选定内容
+        //private void StartDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // 如果所选项为空(没有选定内容)，则不执行任何操作
+        //    if (StartDateLongListSelector.SelectedItem == null)
+        //        return;
 
-            // 导航到新页面
-            TrafficMeterInfo.changedMonthlyLimit = monthlyLimit.Text.Trim();
-            TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
-            TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
-            NavigationService.Navigate(new Uri("/StartDatePage.xaml", UriKind.Relative));
+        //    // 导航到新页面
+        //    TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+        //    TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
+        //    TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
+        //    NavigationService.Navigate(new Uri("/StartDatePage.xaml", UriKind.Relative));
 
-            // 将所选项重置为 null (没有选定内容)
-            StartDateLongListSelector.SelectedItem = null;
-        }
+        //    // 将所选项重置为 null (没有选定内容)
+        //    StartDateLongListSelector.SelectedItem = null;
+        //}
 
-        //处理在 TrafficLimitationLongListSelector 中更改的选定内容
-        private void TrafficLimitation_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (TrafficLimitationLongListSelector.SelectedItem == null)
-                return;
+        ////处理在 TrafficLimitationLongListSelector 中更改的选定内容
+        //private void TrafficLimitation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // 如果所选项为空(没有选定内容)，则不执行任何操作
+        //    if (TrafficLimitationLongListSelector.SelectedItem == null)
+        //        return;
 
-            // 导航到新页面
-            TrafficMeterInfo.changedMonthlyLimit = monthlyLimit.Text.Trim();
-            TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
-            TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
-            NavigationService.Navigate(new Uri("/TrafficLimitationPage.xaml", UriKind.Relative));
+        //    // 导航到新页面
+        //    TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+        //    TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
+        //    TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
+        //    NavigationService.Navigate(new Uri("/TrafficLimitationPage.xaml", UriKind.Relative));
 
-            // 将所选项重置为 null (没有选定内容)
-            TrafficLimitationLongListSelector.SelectedItem = null;
-        }
+        //    // 将所选项重置为 null (没有选定内容)
+        //    TrafficLimitationLongListSelector.SelectedItem = null;
+        //}
 
         //用于生成本地化 ApplicationBar 的代码
         ApplicationBarIconButton appBarButton_back = new ApplicationBarIconButton(new Uri("Assets/back.png", UriKind.Relative));
@@ -147,7 +147,7 @@ namespace GenieWP8
         //判断每月限制是否更改以及保存按钮是否可点击
         private void monthlyLimit_changed(Object sender, RoutedEventArgs e)
         {
-            string MonthlyLimit = monthlyLimit.Text;
+            string MonthlyLimit = tbMonthlyLimit.Text;
             if (MonthlyLimit.Contains("."))
             {
                 int index = MonthlyLimit.IndexOf(".");
@@ -160,10 +160,10 @@ namespace GenieWP8
                     MonthlyLimit = MonthlyLimit.Remove(0, 1);
                 }
             }
-            monthlyLimit.Text = MonthlyLimit;
-            TrafficMeterInfo.changedMonthlyLimit = monthlyLimit.Text.Trim();
-            TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
-            TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
+            tbMonthlyLimit.Text = MonthlyLimit;
+            TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+            TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+            TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
             if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
                 && int.Parse(TrafficMeterInfo.changedMonthlyLimit) != int.Parse(TrafficMeterInfo.MonthlyLimit))
             {
@@ -196,7 +196,7 @@ namespace GenieWP8
         //判断重启时间-小时是否更改以及保存按钮是否可点击
         private void restartHour_changed(Object sender, RoutedEventArgs e)
         {
-            string RestartHour = restartHour.Text;
+            string RestartHour = tbRestartHour.Text;
             if (RestartHour.Contains("."))
             {
                 int index = RestartHour.IndexOf(".");
@@ -209,10 +209,10 @@ namespace GenieWP8
                     RestartHour = RestartHour.Remove(0, 1);
                 }
             }
-            restartHour.Text = RestartHour;
-            TrafficMeterInfo.changedMonthlyLimit = monthlyLimit.Text.Trim();
-            TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
-            TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
+            tbRestartHour.Text = RestartHour;
+            TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+            TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+            TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
             if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
                 && int.Parse(TrafficMeterInfo.changedRestartHour) != int.Parse(TrafficMeterInfo.RestartHour))
             {
@@ -245,7 +245,7 @@ namespace GenieWP8
         //判断重启时间-分钟是否更改以及保存按钮是否可点击
         private void restartMinute_changed(Object sender, RoutedEventArgs e)
         {
-            string RestartMin = restartMinute.Text;
+            string RestartMin = tbRestartMinute.Text;
             if (RestartMin.Contains("."))
             {
                 int index = RestartMin.IndexOf(".");
@@ -258,10 +258,10 @@ namespace GenieWP8
                     RestartMin = RestartMin.Remove(0, 1);
                 }
             }
-            restartMinute.Text = RestartMin;
-            TrafficMeterInfo.changedMonthlyLimit = monthlyLimit.Text.Trim();
-            TrafficMeterInfo.changedRestartHour = restartHour.Text.Trim();
-            TrafficMeterInfo.changedRestartMinute = restartMinute.Text.Trim();
+            tbRestartMinute.Text = RestartMin;
+            TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+            TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+            TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
             if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
                 && int.Parse(TrafficMeterInfo.changedRestartMinute) != int.Parse(TrafficMeterInfo.RestartMinute))
             {
@@ -429,9 +429,9 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Visible;
 
             GenieSoapApi soapApi = new GenieSoapApi();
-            string MonthlyLimit = monthlyLimit.Text.Trim();
-            string RestartHour = restartHour.Text.Trim();
-            string RestartMinute = restartMinute.Text.Trim();
+            string MonthlyLimit = tbMonthlyLimit.Text.Trim();
+            string RestartHour = tbRestartHour.Text.Trim();
+            string RestartMinute = tbRestartMinute.Text.Trim();
             if (MonthlyLimit != "" && MonthlyLimit != null && int.Parse(MonthlyLimit) <= 999999
                 && RestartHour != "" && RestartHour != null && int.Parse(RestartHour) >= 0 && int.Parse(RestartHour) <= 23
                 && RestartMinute != "" && RestartMinute != null && int.Parse(RestartMinute) >= 0 && int.Parse(RestartMinute) <= 59)
@@ -479,17 +479,63 @@ namespace GenieWP8
 
         private void monthlyLimit_GotFocus(object sender, RoutedEventArgs e)
         {
-            monthlyLimit.Background = new SolidColorBrush(Colors.White);
+            tbMonthlyLimit.Background = new SolidColorBrush(Colors.White);
         }
 
-        private void restartHour_GotFocus(object sender, RoutedEventArgs e)
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            restartHour.Background = new SolidColorBrush(Colors.White);
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridStartDate":
+                    gridStartDate.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridTrafficLimitation":
+                    gridTrafficLimitation.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                default:
+                    break;
+            }
         }
 
-        private void restartMinute_GotFocus(object sender, RoutedEventArgs e)
+        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            restartMinute.Background = new SolidColorBrush(Colors.White);
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridStartDate":
+                    gridStartDate.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridTrafficLimitation":
+                    gridTrafficLimitation.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridStartDate":
+                    gridStartDate.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+                    TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+                    TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
+                    NavigationService.Navigate(new Uri("/StartDatePage.xaml", UriKind.Relative));
+                    break;
+                case "gridTrafficLimitation":
+                    gridTrafficLimitation.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+                    TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+                    TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
+                    NavigationService.Navigate(new Uri("/TrafficLimitationPage.xaml", UriKind.Relative));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

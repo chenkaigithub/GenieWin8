@@ -49,7 +49,7 @@ namespace GenieWP8
             //{
             //    settingModel.LoadData();
             //}
-            settingModel.SettingGroups.Clear();
+            //settingModel.SettingGroups.Clear();
             settingModel.EditChannelSecurity.Clear();
             settingModel.LoadData();
             SSID.Text = WifiSettingInfo.changedSsid;
@@ -153,27 +153,27 @@ namespace GenieWP8
             }
         }
 
-         //处理在 LongListSelector 中更改的选定内容
-        private void channel_securitySetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 如果所选项为空(没有选定内容)，则不执行任何操作
-            if (channel_securitySettingLongListSelector.SelectedItem == null)
-                return;
+        // //处理在 LongListSelector 中更改的选定内容
+        //private void channel_securitySetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // 如果所选项为空(没有选定内容)，则不执行任何操作
+        //    if (channel_securitySettingLongListSelector.SelectedItem == null)
+        //        return;
 
-            // 导航到新页面
-            var groupId = ((SettingGroup)channel_securitySettingLongListSelector.SelectedItem).ID;
-            if (groupId == "Channel")
-            {
-                NavigationService.Navigate(new Uri("/WifiEditChannelPage.xaml", UriKind.Relative));
-            }
-            else if (groupId == "Security")
-            {
-                NavigationService.Navigate(new Uri("/WifiEditSecurityPage.xaml", UriKind.Relative));
-            }           
+        //    // 导航到新页面
+        //    var groupId = ((SettingGroup)channel_securitySettingLongListSelector.SelectedItem).ID;
+        //    if (groupId == "Channel")
+        //    {
+        //        NavigationService.Navigate(new Uri("/WifiEditChannelPage.xaml", UriKind.Relative));
+        //    }
+        //    else if (groupId == "Security")
+        //    {
+        //        NavigationService.Navigate(new Uri("/WifiEditSecurityPage.xaml", UriKind.Relative));
+        //    }           
 
-            // 将所选项重置为 null (没有选定内容)
-            channel_securitySettingLongListSelector.SelectedItem = null;
-        }
+        //    // 将所选项重置为 null (没有选定内容)
+        //    channel_securitySettingLongListSelector.SelectedItem = null;
+        //}
 
         //用于生成本地化 ApplicationBar 的代码
         ApplicationBarIconButton appBarButton_back = new ApplicationBarIconButton(new Uri("Assets/back.png", UriKind.Relative));
@@ -421,6 +421,56 @@ namespace GenieWP8
         private void pwd_GotFocus(object sender, RoutedEventArgs e)
         {
             pwd.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridChannel":
+                    gridChannel.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                case "gridSecurity":
+                    gridSecurity.Background = new SolidColorBrush(Color.FromArgb(255, 200, 174, 221));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridChannel":
+                    gridChannel.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                case "gridSecurity":
+                    gridSecurity.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Grid_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Grid gridItem = (Grid)sender;
+            switch (gridItem.Name)
+            {
+                case "gridChannel":
+                    gridChannel.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    NavigationService.Navigate(new Uri("/WifiEditChannelPage.xaml", UriKind.Relative));
+                    break;
+                case "gridSecurity":
+                    gridSecurity.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    NavigationService.Navigate(new Uri("/WifiEditSecurityPage.xaml", UriKind.Relative));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

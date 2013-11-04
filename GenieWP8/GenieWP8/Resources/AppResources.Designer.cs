@@ -484,6 +484,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 密码已复制到剪贴板。要连接此网络，请选择“设置”&gt;“WLAN”。 的本地化字符串。
+        /// </summary>
+        public static string CopyToClipboard {
+            get {
+                return ResourceManager.GetString("CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 计数器启动时间 的本地化字符串。
         /// </summary>
         public static string CounterStartTime {
@@ -1074,6 +1083,33 @@ namespace GenieWP8.Resources {
         public static string linuxpc {
             get {
                 return ResourceManager.GetString("linuxpc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 您已登录为 的本地化字符串。
+        /// </summary>
+        public static string LoggedInBypass {
+            get {
+                return ResourceManager.GetString("LoggedInBypass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在登录… 的本地化字符串。
+        /// </summary>
+        public static string LoggingIn {
+            get {
+                return ResourceManager.GetString("LoggingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在注销… 的本地化字符串。
+        /// </summary>
+        public static string LoggingOut {
+            get {
+                return ResourceManager.GetString("LoggingOut", resourceCulture);
             }
         }
         
@@ -2329,6 +2365,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 固件版本 的本地化字符串。
+        /// </summary>
+        public static string txtRouterFirmware {
+            get {
+                return ResourceManager.GetString("txtRouterFirmware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 信号强度 的本地化字符串。
         /// </summary>
         public static string txtSignalStrength {
@@ -2361,6 +2406,15 @@ namespace GenieWP8.Resources {
         public static string unixpc {
             get {
                 return ResourceManager.GetString("unixpc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 密码与此用户名不匹配。请重试。 的本地化字符串。
+        /// </summary>
+        public static string UnmatchedPassword {
+            get {
+                return ResourceManager.GetString("UnmatchedPassword", resourceCulture);
             }
         }
         

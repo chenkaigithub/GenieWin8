@@ -42,7 +42,7 @@ namespace GenieWP8
         // 为 WifiSettingModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            settingModel.SettingGroups.Clear();
+            //settingModel.SettingGroups.Clear();
             settingModel.EditChannelSecurity.Clear();
             settingModel.LoadData();
 

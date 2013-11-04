@@ -115,6 +115,7 @@ namespace GenieWP8
         //登录按钮事件
         private async void LoginButton_Click(object sender, EventArgs e)
         {
+            PopupBackgroundTop.Visibility = Visibility.Visible;
             PopupBackground.Visibility = Visibility.Visible;          
 
             string Username = tbUserName.Text.Trim();
@@ -146,6 +147,7 @@ namespace GenieWP8
                 if (dicResponse.Count > 0 && dicResponse["Firmware"] != "" && IsModelKeyExists && dicResponse["Model"] != "")
                 {
                     MainPageInfo.model = dicResponse["Model"];
+                    MainPageInfo.firmware = dicResponse["Firmware"];
                     Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                     dicResponse2 = await soapApi.Authenticate(Username, Password);
                     if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
@@ -153,12 +155,14 @@ namespace GenieWP8
                         MainPageInfo.bLogin = true;
                         MainPageInfo.username = Username;
                         MainPageInfo.password = Password;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         //NavigationService.GoBack();
                         NavigatedToPage();
                     }
                     else if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 401)
                     {
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         var strtext = AppResources.bad_password;
                         MessageBox.Show(strtext);
@@ -166,6 +170,7 @@ namespace GenieWP8
                 }
                 else
                 {
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     var strtext = AppResources.login_alertinfo;
                     MessageBox.Show(strtext);
@@ -173,6 +178,7 @@ namespace GenieWP8
             } 
             else
             {
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
                 var strtext = AppResources.login_alertinfo_disableWireless;
                 MessageBox.Show(strtext);
@@ -250,6 +256,7 @@ namespace GenieWP8
                     break;
 
                 case "WifiSettingPage":
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;                    
                     Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
                     attachDeviceAll = await soapApi.GetAttachDevice();
@@ -282,11 +289,13 @@ namespace GenieWP8
                         WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];
                         WifiSettingInfo.changedPassword = dicResponse["NewWPAPassphrase"];
                     }
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     NavigationService.Navigate(new Uri("/WifiSettingPage.xaml", UriKind.Relative));
                     break;
 
                 case "GuestAccessPage":
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetGuestAccessEnabled();
@@ -317,17 +326,20 @@ namespace GenieWP8
                                 GuestAccessInfo.changedTimePeriod = "Always";
                             }
                         }
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         NavigationService.Navigate(new Uri("/GuestAccessPage.xaml", UriKind.Relative));
                     }
                     else if (dicResponse["NewGuestAccessEnabled"] == "2")
                     {
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         MessageBox.Show(AppResources.notsupport);
                     }
                     break;
 
                 case "NetworkMapPage":
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     //UtilityTool util = new UtilityTool();
                     NetworkMapInfo.geteway = await util.GetGateway();
@@ -345,6 +357,7 @@ namespace GenieWP8
                         WifiSettingInfo.macAddr = dicResponse["NewWLANMACAddress"];
                     }
                     NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     //this.Frame.Navigate(typeof(NetworkMapPage));
                     NetworkMapInfo.bTypeChanged = false;
@@ -352,6 +365,7 @@ namespace GenieWP8
                     break;
 
                 case "TrafficMeterPage":
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetTrafficMeterEnabled();
@@ -387,17 +401,20 @@ namespace GenieWP8
                             TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
                             TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
                         }
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
                     }
                     else if (dicResponse["NewTrafficMeterEnable"] == "2")
                     {
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         MessageBox.Show(AppResources.notsupport);
                     }
                     break;
 
                 case "ParentalControlPage":
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;                                        
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = await soapApi.GetCurrentSetting();
@@ -406,6 +423,7 @@ namespace GenieWP8
                         //判断路由器是否已连接因特网
                         if (dicResponse["InternetConnectionStatus"] != "Up")
                         {
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Collapsed;
                             MessageBox.Show(AppResources.interneterror);
                         }
@@ -419,13 +437,18 @@ namespace GenieWP8
                                 NetworkMapInfo.attachDeviceDic = responseDic;
 
                                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                                dicResponse2 = await soapApi.GetInfo("WLANConfiguration");
+                                ParentalControlInfo.RouterMacaddr = dicResponse2["NewWLANMACAddress"];
+
                                 dicResponse2 = await soapApi.GetEnableStatus();
-                                ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
+                                ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];                               
+                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
                                 PopupBackground.Visibility = Visibility.Collapsed;
                                 NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
                             }
                             else
                             {
+                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
                                 PopupBackground.Visibility = Visibility.Collapsed;
                                 MessageBox.Show(AppResources.notsupport);
                             }

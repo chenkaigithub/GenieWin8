@@ -1012,4 +1012,22 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Το πεδίο ονόματος χρήστη ή κωδικού πρόσβασης είναι κενό.</value>
   </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Έκδοση υλικολογισμικού</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης αντιγράφεται στο πρόχειρο. Για να συνδεθείτε σε αυτό το δίκτυο, επιλέξτε Ρυθμίσεις &gt; WLAN.</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Έχετε συνδεθεί ως</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Γίνεται σύνδεση…</value>
+  </data>
+  <data name="LoggingOut" xml:space="preserve">
+    <value>Γίνεται αποσύνδεση…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης δεν αντιστοιχεί σε αυτό το όνομα χρήστη. Προσπαθήστε ξανά.</value>
+  </data>
 </root>

@@ -54,7 +54,7 @@ namespace GenieWP8
 
         private void LoadState()
         {
-            LoggedInAccount.Text = "You have logged in as " + ParentalControlInfo.BypassUsername;
+            LoggedInAccount.Text = AppResources.LoggedInBypass + " " + ParentalControlInfo.BypassUsername;
         }
 
         private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)

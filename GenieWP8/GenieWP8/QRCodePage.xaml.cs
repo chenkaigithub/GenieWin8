@@ -100,7 +100,8 @@ namespace GenieWP8
                             {
                                 string ssid = ssidString[1];
                                 string password = passwordString[1];
-                                MessageBox.Show(AppResources.WiFiName + "：" + ssid + "\r\n" + AppResources.PasswordText + "：" + password);      //由于API未开放，不能自动进行无线连接，暂以MessageBox显示之
+                                Clipboard.SetText(password);
+                                MessageBox.Show(AppResources.WiFiName + "：" + ssid + "\r\n" + AppResources.PasswordText + "：" + password + "\r\n" + AppResources.CopyToClipboard);      //由于API未开放，不能自动进行无线连接，暂以MessageBox显示之
                             }
                         }                                                
                     });

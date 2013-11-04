@@ -38,15 +38,66 @@
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,12,0,10">
-            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="Black"/>
+            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#3C3C3C"/>
             <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.TrafficMeterPageTitleText, Source={StaticResource LocalizedStrings}}"
-                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="Black"/>
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="#1E1E1E"/>
         </StackPanel>
         
         <!--ContentPanel - 在此处放置其他内容-->
         <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <Grid>
+                <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White">
+                    <StackPanel>
+                        <Grid Height="80">
+                            <Image Source="/Assets/WirelessSetting/first.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Path=LocalizedResources.CheckTrafficMeterText, Source={StaticResource LocalizedStrings}}"
+                                           FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <CheckBox x:Name="checkTrafficMeter" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="24" IsChecked="True"
+                                      Click="checkTrafficMeter_Click" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                        </Grid>
+                        <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,10,0"/>
+                        <StackPanel x:Name="TrafficMeterPanel">
+                            <Grid x:Name="gridLimitPerMonth" Height="80" DataContext="{Binding LimitPerMonth}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                                <Image Source="/Assets/WirelessSetting/second.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="tbLimitPerMonth" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            </Grid>
+                            <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,10,0"/>
+                            <Grid x:Name="gridStartDate" Height="80" DataContext="{Binding StartDate}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                                <Image Source="/Assets/WirelessSetting/third.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="tbStartDate" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            </Grid>
+                            <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,10,0"/>
+                            <Grid x:Name="gridStartTime" Height="80" DataContext="{Binding StartTime}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                                <Image Source="/Assets/WirelessSetting/first.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="tbStartTime" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            </Grid>
+                            <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,10,0"/>
+                            <Grid x:Name="gridTrafficLimitation" Height="80" DataContext="{Binding TrafficLimitation}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                                <Image Source="/Assets/WirelessSetting/second.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="tbTrafficLimitation" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <!--<Grid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <LinearGradientBrush.RelativeTransform>
@@ -88,9 +139,9 @@
                             </Grid>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
+                </phone:LongListSelector>-->
 
-                <Canvas x:Name="TotalCanvas" Grid.Row="1"  Background="White" Margin="0,40,0,0" Height="550">
+                <Canvas x:Name="TotalCanvas" Grid.Row="1"  Background="White" Margin="0,50,0,0" Height="550">
                     <TextBlock x:Name="TextMbytesTotal" Text="{Binding Path=LocalizedResources.MbytesText, Source={StaticResource LocalizedStrings}}"
                                Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="14" RenderTransformOrigin="0.5,0.5" Margin="5,300,0,0">
                         <TextBlock.RenderTransform>
@@ -120,9 +171,9 @@
                     <TextBlock x:Name="TotalMbytes_4" Foreground="Black" FontFamily="Global User Interface" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,140,0,0"/>
                     <TextBlock x:Name="TotalMbytes_5" Foreground="Black" FontFamily="Global User Interface" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,60,0,0"/>
                     <StackPanel x:Name="InstructionTotal"  Orientation="Horizontal">
-                        <Canvas Background="Cyan" Width="15" Height="15"/>
+                        <Canvas Background="#8064A2" Width="15" Height="15"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.DownloadText, Source={StaticResource LocalizedStrings}}" Foreground="Black" FontSize="14" Width="75" VerticalAlignment="Center" Margin="5,0,0,0" TextWrapping="Wrap"/>
-                        <Canvas Background="Gray" Width="15" Height="15" Margin="10,0,0,0"/>
+                        <Canvas Background="#C3B6D3" Width="15" Height="15" Margin="10,0,0,0"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.UploadText, Source={StaticResource LocalizedStrings}}" Foreground="Black" FontSize="14" Width="75" VerticalAlignment="Center" Margin="5,0,0,0" TextWrapping="Wrap"/>
                     </StackPanel>
                 </Canvas>
@@ -151,9 +202,9 @@
                     <TextBlock x:Name="AvgMbytes_4" Foreground="Black" FontFamily="Global User Interface" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,140,0,0"/>
                     <TextBlock x:Name="AvgMbytes_5" Foreground="Black" FontFamily="Global User Interface" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,60,0,0"/>
                     <StackPanel x:Name="InstructionAvg"  Orientation="Horizontal">
-                        <Canvas Background="Cyan" Width="15" Height="15"/>
+                        <Canvas Background="#8064A2" Width="15" Height="15"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.DownloadText, Source={StaticResource LocalizedStrings}}" Foreground="Black" FontSize="14" Width="75" VerticalAlignment="Center" Margin="5,0,0,0" TextWrapping="Wrap"/>
-                        <Canvas Background="Gray" Width="15" Height="15" Margin="10,0,0,0"/>
+                        <Canvas Background="#C3B6D3" Width="15" Height="15" Margin="10,0,0,0"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.UploadText, Source={StaticResource LocalizedStrings}}" Foreground="Black" FontSize="14" Width="75" VerticalAlignment="Center" Margin="5,0,0,0" TextWrapping="Wrap"/>
                     </StackPanel>
                 </Canvas>

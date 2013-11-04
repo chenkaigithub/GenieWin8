@@ -42,9 +42,9 @@ namespace GenieWP8
         // 为 TrafficMeterModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            settingModel.TrafficMeterGroups.Clear();
-            settingModel.StartDate.Clear();
-            settingModel.TrafficLimitation.Clear();
+            //settingModel.TrafficMeterGroups.Clear();
+            //settingModel.StartDate.Clear();
+            //settingModel.TrafficLimitation.Clear();
             settingModel.LoadData();
 
             string controlOption = TrafficMeterInfo.changedControlOption;

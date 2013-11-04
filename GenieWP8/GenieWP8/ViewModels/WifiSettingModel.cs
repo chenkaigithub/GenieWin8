@@ -87,6 +87,22 @@ namespace GenieWP8.ViewModels
 
     public class SettingItem : SettingCommon
     {
+        private string _imgpath;
+        public string ImgPath
+        {
+            get
+            {
+                return _imgpath;
+            }
+            set
+            {
+                if (value != _imgpath)
+                {
+                    _imgpath = value;
+                }
+            }
+        }
+
         private SettingGroup _group;
         public SettingGroup Group
         {
@@ -121,17 +137,25 @@ namespace GenieWP8.ViewModels
     {
         public WifiSettingModel()
         {
-            this.StrengthRateGroups = new ObservableCollection<SettingGroup>();
-            this.SettingGroups = new ObservableCollection<SettingGroup>();
-            this.EditName = new SettingGroup();
-            this.EditKey = new SettingGroup();
+            this.SignalStrengthGroup = new SettingGroup();
+            this.LinkRateGroup = new SettingGroup();
+            this.ssidGroup = new SettingGroup();
+            this.KeyGroup = new SettingGroup();
+            this.ChannelGroup = new SettingGroup();
+            this.SecurityGroup = new SettingGroup();
+            //this.EditName = new SettingGroup();
+            //this.EditKey = new SettingGroup();
             this.EditChannelSecurity = new ObservableCollection<SettingGroup>();
         }
 
-        public ObservableCollection<SettingGroup> StrengthRateGroups { get; private set; }
-        public ObservableCollection<SettingGroup> SettingGroups { get; private set; }
-        public SettingGroup EditName { get; private set; }
-        public SettingGroup EditKey { get; private set; }
+        public SettingGroup SignalStrengthGroup { get; private set; }
+        public SettingGroup LinkRateGroup { get; private set; }
+        public SettingGroup ssidGroup { get; private set; }
+        public SettingGroup KeyGroup { get; private set; }
+        public SettingGroup ChannelGroup { get; private set; }
+        public SettingGroup SecurityGroup { get; private set; }
+        //public SettingGroup EditName { get; private set; }
+        //public SettingGroup EditKey { get; private set; }
         public ObservableCollection<SettingGroup> EditChannelSecurity { get; private set; }
 
         //public bool IsDataLoaded
@@ -143,34 +167,34 @@ namespace GenieWP8.ViewModels
         public void LoadData()
         {          
             var group1 = new SettingGroup() { ID = "SignalStrength", Title = AppResources.txtSignalStrength, Content = WifiSettingInfo.signalStrength };
-            this.StrengthRateGroups.Add(group1);
+            SignalStrengthGroup = group1;
 
             var group2 = new SettingGroup() { ID = "LinkRate", Title = AppResources.txtLinkRate, Content = WifiSettingInfo.linkRate };
-            this.StrengthRateGroups.Add(group2);
+            LinkRateGroup = group2;
 
             var group3 = new SettingGroup() { ID = "WiFiName", Title = AppResources.WiFiName, Content = WifiSettingInfo.ssid };
-            EditName = group3;
-            this.SettingGroups.Add(group3);
+            //EditName = group3;
+            ssidGroup = group3;
 
             var group4 = new SettingGroup() { ID = "Password", Title = AppResources.Key_Password, Content = WifiSettingInfo.password };
-            EditKey = group4;
-            this.SettingGroups.Add(group4);
+            //EditKey = group4;
+            KeyGroup = group4;
 
             var group5 = new SettingGroup() { ID = "Channel", Title = AppResources.Channel, Content = WifiSettingInfo.changedChannel };
-            group5.Items.Add(new SettingItem() { ID = "Channel-1", Title = "Channel", Content = "Auto", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-2", Title = "Channel", Content = "1", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-3", Title = "Channel", Content = "2", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-4", Title = "Channel", Content = "3", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-5", Title = "Channel", Content = "4", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-6", Title = "Channel", Content = "5", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-7", Title = "Channel", Content = "6", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-8", Title = "Channel", Content = "7", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-9", Title = "Channel", Content = "8", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-10", Title = "Channel", Content = "9", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-11", Title = "Channel", Content = "10", Group = group5 });
-            group5.Items.Add(new SettingItem() { ID = "Channel-12", Title = "Channel", Content = "11", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-1", Title = "Channel", Content = "Auto", ImgPath="/Assets/WirelessSetting/first.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-2", Title = "Channel", Content = "1", ImgPath = "/Assets/WirelessSetting/second.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-3", Title = "Channel", Content = "2", ImgPath = "/Assets/WirelessSetting/third.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-4", Title = "Channel", Content = "3", ImgPath = "/Assets/WirelessSetting/first.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-5", Title = "Channel", Content = "4", ImgPath = "/Assets/WirelessSetting/second.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-6", Title = "Channel", Content = "5", ImgPath = "/Assets/WirelessSetting/third.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-7", Title = "Channel", Content = "6", ImgPath = "/Assets/WirelessSetting/first.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-8", Title = "Channel", Content = "7", ImgPath = "/Assets/WirelessSetting/second.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-9", Title = "Channel", Content = "8", ImgPath = "/Assets/WirelessSetting/third.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-10", Title = "Channel", Content = "9", ImgPath = "/Assets/WirelessSetting/first.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-11", Title = "Channel", Content = "10", ImgPath = "/Assets/WirelessSetting/second.png", Group = group5 });
+            group5.Items.Add(new SettingItem() { ID = "Channel-12", Title = "Channel", Content = "11", ImgPath = "/Assets/WirelessSetting/third.png", Group = group5 });
             this.EditChannelSecurity.Add(group5);
-            this.SettingGroups.Add(group5);
+            ChannelGroup = group5;
 
             string securityType = string.Empty;
             if (WifiSettingInfo.changedSecurityType == "None")
@@ -186,10 +210,11 @@ namespace GenieWP8.ViewModels
                 securityType = "WPA-PSK+WPA2-PSK";
             }
             var group6 = new SettingGroup() { ID = "Security", Title = AppResources.Security, Content = securityType };
-            group6.Items.Add(new SettingItem() { ID = "Security_None", Title = "Security", Content = AppResources.Security_None, Group = group6 });
-            group6.Items.Add(new SettingItem() { ID = "Security_WPA2-PSK[AES]", Title = "Security", Content = AppResources.Security_WPA2PSK_AES, Group = group6 });
-            group6.Items.Add(new SettingItem() { ID = "Security_WPA-PSK+WPA2-PSK", Title = "Security", Content = AppResources.Security_WPAPSK_WPA2PSK, Group = group6 });
+            group6.Items.Add(new SettingItem() { ID = "Security_None", Title = "Security", Content = AppResources.Security_None, ImgPath = "/Assets/WirelessSetting/first.png", Group = group6 });
+            group6.Items.Add(new SettingItem() { ID = "Security_WPA2-PSK[AES]", Title = "Security", Content = AppResources.Security_WPA2PSK_AES, ImgPath = "/Assets/WirelessSetting/second.png", Group = group6 });
+            group6.Items.Add(new SettingItem() { ID = "Security_WPA-PSK+WPA2-PSK", Title = "Security", Content = AppResources.Security_WPAPSK_WPA2PSK, ImgPath = "/Assets/WirelessSetting/third.png", Group = group6 });
             this.EditChannelSecurity.Add(group6);
+            SecurityGroup = group6;
             //this.IsDataLoaded = true;
         }
 

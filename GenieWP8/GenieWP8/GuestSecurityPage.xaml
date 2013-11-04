@@ -38,9 +38,9 @@
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="Black"/>
+            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#3C3C3C"/>
             <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.GuestSecurityPageTitleText, Source={StaticResource LocalizedStrings}}"
-                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="Black"/>
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="#1E1E1E"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
@@ -49,17 +49,17 @@
                 x:Name="securitySettingListBox"
                 ItemsSource="{Binding EditTimesegSecurity[1].Items}"
                 SelectionChanged="securitySetting_SelectionChanged"
-                Foreground="White">
-                <ListBox.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </ListBox.Background>
+                Foreground="Black"
+                BorderThickness="1" BorderBrush="#B4B3B8"
+                Background="White">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="10,0,0,10">
-                            <TextBlock Text="{Binding Content}" FontSize="28"/>
+                        <StackPanel>
+                            <Grid Height="60">
+                                <Image Source="{Binding ImgPath}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Content}" FontSize="28" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            </Grid>
+                            <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,10,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

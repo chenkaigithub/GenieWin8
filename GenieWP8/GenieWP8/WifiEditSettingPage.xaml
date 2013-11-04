@@ -38,25 +38,52 @@
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="Black"/>
+            <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#3C3C3C"/>
             <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.SettingPageTitleText, Source={StaticResource LocalizedStrings}}"
-                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="Black"/>
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="#1E1E1E"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
         <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <StackPanel Margin="0,0,0,10" DataContext="{Binding EditName}">
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" Foreground="#FF5A5A5A"/>
-                    <TextBox x:Name="SSID" Text="{Binding Content}" FontSize="20" TextChanged="ssid_changed" Background="White" GotFocus="SSID_GotFocus"/>
+                <StackPanel Margin="0,0,0,10" DataContext="{Binding ssidGroup}">
+                    <Grid>
+                        <Image Source="/Assets/WirelessSetting/ssid.png" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                        <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" TextWrapping="Wrap" Foreground="Black" Margin="55,0,0,0"/>
+                    </Grid>                   
+                    <TextBox x:Name="SSID" Text="{Binding Content}" FontSize="20" TextChanged="ssid_changed" Background="White" Foreground="Black" GotFocus="SSID_GotFocus"/>
                 </StackPanel>
                 
-                <StackPanel x:Name="passwordPanel" Margin="0,0,0,10" DataContext="{Binding EditKey}">
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}" TextWrapping="Wrap" Foreground="#FF5A5A5A"/>
-                    <TextBox x:Name="pwd" Text="{Binding Content}" FontSize="20" TextChanged="pwd_changed" Background="White" GotFocus="pwd_GotFocus"/>
+                <StackPanel x:Name="passwordPanel" Margin="0,0,0,10" DataContext="{Binding KeyGroup}">
+                    <Grid>
+                        <Image Source="/Assets/WirelessSetting/Key.png" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                        <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" TextWrapping="Wrap" Foreground="Black" Margin="55,0,0,0"/>
+                    </Grid>
+                    <TextBox x:Name="pwd" Text="{Binding Content}" FontSize="20" TextChanged="pwd_changed" Background="White" Foreground="Black" GotFocus="pwd_GotFocus"/>
                 </StackPanel>
-                
-                <phone:LongListSelector
+
+                <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White" Margin="10,30,10,0">
+                    <StackPanel>
+                        <Grid x:Name="gridChannel" Height="80" DataContext="{Binding ChannelGroup}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                            <Image Source="/Assets/WirelessSetting/second.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        </Grid>
+                        <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,5,0"/>
+                        <Grid x:Name="gridSecurity" Height="80" DataContext="{Binding SecurityGroup}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                            <Image Source="/Assets/WirelessSetting/third.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <!--<phone:LongListSelector
                     x:Name="channel_securitySettingLongListSelector"
                     ItemsSource="{Binding EditChannelSecurity}"
                     Margin="0,20,0,0"
@@ -82,7 +109,7 @@
                             </Grid>                            
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
+                </phone:LongListSelector>-->
             </StackPanel>            
         </ScrollViewer>
 

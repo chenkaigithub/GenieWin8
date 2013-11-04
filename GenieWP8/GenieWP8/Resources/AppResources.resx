@@ -1021,4 +1021,22 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>用户名或密码字段为空。</value>
   </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>固件版本</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>密码已复制到剪贴板。要连接此网络，请选择“设置”&gt;“WLAN”。</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>您已登录为</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>正在登录…</value>
+  </data>
+  <data name="LoggingOut" xml:space="preserve">
+    <value>正在注销…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>密码与此用户名不匹配。请重试。</value>
+  </data>
 </root>

@@ -1012,4 +1012,22 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>إن حقل اسم المستخدم أو كلمة المرور فارغ.</value>
   </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>إصدار البرنامج الثابت</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>تم نسخ كلمة المرور إلى الحافظة. للاتصال بهذه الشبكة، حدد إعدادات &gt; WLAN.</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>تم تسجيل دخولك كـ</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>جارٍ تسجيل الدخول...</value>
+  </data>
+  <data name="LoggingOut" xml:space="preserve">
+    <value>جارٍ تسجيل الخروج...</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>لا تتطابق كلمة المرور مع اسم المستخدم، يرجى المحاولة مرة أخرى.</value>
+  </data>
 </root>

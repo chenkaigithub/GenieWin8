@@ -118,6 +118,22 @@ namespace GenieWP8.ViewModels
                 }
             }
         }
+
+        private string _imgpath;
+        public string ImgPath
+        {
+            get
+            {
+                return _imgpath;
+            }
+            set
+            {
+                if (value != _imgpath)
+                {
+                    _imgpath = value;
+                }
+            }
+        }
     }
 
     public class FilterLevelGroup : FilterLevelCommon
@@ -128,11 +144,13 @@ namespace GenieWP8.ViewModels
     {
         public ParentalControlModel()
         {
-            this.FilterLevelGroups = new ObservableCollection<FilterLevelGroup>();
+            //this.FilterLevelGroups = new ObservableCollection<FilterLevelGroup>();
+            //this.FilterLvlGroup = new FilterLevelGroup();
             this.BypassAccountGroups = new ObservableCollection<BypassAccountGroup>();
         }
 
-        public ObservableCollection<FilterLevelGroup> FilterLevelGroups { get; private set; }
+        //public ObservableCollection<FilterLevelGroup> FilterLevelGroups { get; private set; }
+        //public FilterLevelGroup FilterLvlGroup { get; private set; }
         public ObservableCollection<BypassAccountGroup> BypassAccountGroups { get; private set; }
 
         //public bool IsDataLoaded
@@ -143,8 +161,9 @@ namespace GenieWP8.ViewModels
 
         public void LoadData()
         {
-            var group1 = new FilterLevelGroup() { ID = "FilterLevel", Title = AppResources.FilterLevel, Content = ParentalControlInfo.filterLevel };
-            this.FilterLevelGroups.Add(group1);
+            //var group1 = new FilterLevelGroup() { ID = "FilterLevel", Title = AppResources.FilterLevel, Content = ParentalControlInfo.filterLevel };
+            //FilterLvlGroup = group1;
+            //this.FilterLevelGroups.Add(group1);
 
             //if (ParentalControlInfo.BypassAccounts != null)
             //{
@@ -160,12 +179,24 @@ namespace GenieWP8.ViewModels
             if (ParentalControlInfo.BypassAccounts != null)
             {
                 string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
+                var group = new BypassAccountGroup();
                 for (int i = 0; i < bypassAccount.Length; i++)
                 {
                     if (bypassAccount[i] != null && bypassAccount[i] != "")
                     {
                         //bypassAccountListBox.Items.Add(bypassAccount[i]);
-                        var group = new BypassAccountGroup() { ID = (i + 1).ToString(), Account = bypassAccount[i] };
+                        switch (i % 3)
+                        {
+                            case 0:
+                                group = new BypassAccountGroup() { ID = (i + 1).ToString(), Account = bypassAccount[i], ImgPath = "/Assets/WirelessSetting/first.png" };
+                                break;
+                            case 1:
+                                group = new BypassAccountGroup() { ID = (i + 1).ToString(), Account = bypassAccount[i], ImgPath = "/Assets/WirelessSetting/second.png" };
+                                break;
+                            case 2:
+                                group = new BypassAccountGroup() { ID = (i + 1).ToString(), Account = bypassAccount[i], ImgPath = "/Assets/WirelessSetting/third.png" };
+                                break;
+                        }
                         this.BypassAccountGroups.Add(group);
                     }
                 }

@@ -134,7 +134,7 @@
             </LinearGradientBrush>
         </Grid.Background>-->
         <!--枢轴控件-->
-        <phone:Pivot x:Name="MapPivot" Title="NETGEAR Genie" Foreground="Black">
+        <phone:Pivot x:Name="MapPivot" Title="NETGEAR Genie" Foreground="#3C3C3C">
             <!--枢轴项一-->
         </phone:Pivot>
 
@@ -168,19 +168,19 @@
                             <Grid>
                                 <StackPanel x:Name="StpRouter">
                                     <TextBlock x:Name="txtRoutename" Foreground="Black"/>
-                                    <TextBlock x:Name="RouteName" Foreground="Black"/>
-                                    <Line Stroke="#BCBCBC" X2="1000" Margin="0,5,0,0"/>
+                                    <TextBlock x:Name="RouteName" Foreground="#B4B4B4"/>
+                                    <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                                 </StackPanel>
                                 <StackPanel x:Name="StpDeviceName">
                                     <TextBlock x:Name="txtDeviceName" Foreground="Black"/>
-                                    <TextBlock x:Name="txtBlockDeviceName" Foreground="Black"/>
-                                    <TextBox x:Name="txtBoxDeviceName" Background="White" GotFocus="txtBoxDeviceName_GotFocus" BorderBrush="#C5C5C5"/>
-                                    <Line Stroke="#BCBCBC" X2="1000" Margin="0,5,0,0"/>
+                                    <TextBlock x:Name="txtBlockDeviceName" Foreground="#B4B4B4"/>
+                                    <TextBox x:Name="txtBoxDeviceName" Background="White" GotFocus="txtBoxDeviceName_GotFocus" BorderBrush="#C5C5C5" KeyDown="txtBoxDeviceName_KeyDown"/>
+                                    <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </Grid>
                             <StackPanel x:Name="StpType">
                                 <TextBlock x:Name="txtType" Foreground="Black"/>
-                                <TextBlock x:Name="Type" Foreground="Black"/>
+                                <TextBlock x:Name="Type" Foreground="#B4B4B4"/>
                                 <toolkit:ListPicker x:Name="lpType" SelectionChanged="lpType_SelectionChanged" BorderBrush="#C5C5C5">
                                     <toolkit:ListPicker.ItemTemplate>
                                         <DataTemplate>
@@ -199,38 +199,44 @@
                                         </DataTemplate>
                                     </toolkit:ListPicker.FullModeItemTemplate>
                                 </toolkit:ListPicker>
-                                <Line Stroke="#BCBCBC" X2="1000" Margin="0,5,0,0"/>
+                                <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                                 <!--<ComboBox x:Name="ComboType"/>-->
+                            </StackPanel>
+                            <StackPanel x:Name="StpRouterFirmware">
+                                <TextBlock x:Name="txtRouterFirmware" Foreground="Black"/>
+                                <TextBlock x:Name="Firmware" Foreground="#B4B4B4"/>
+                                <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                             </StackPanel>
                             <StackPanel x:Name="StpIPAddress">
                                 <TextBlock x:Name="txtIPAddress" Foreground="Black"/>
-                                <TextBlock x:Name="IPAddress" Foreground="Black"/>
-                                <Line Stroke="#BCBCBC" X2="1000" Margin="0,5,0,0"/>
+                                <TextBlock x:Name="IPAddress" Foreground="#B4B4B4"/>
+                                <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                             </StackPanel>
                             <StackPanel x:Name="StpSignalStrength">
-                                <TextBlock x:Name="txtSignalStrength" Foreground="Black"/>
-                                <TextBlock x:Name="SignalStrength" Foreground="Black"/>
-                                <Line Stroke="#BCBCBC" X2="1000" Margin="0,5,0,0"/>
+                                <Grid>
+                                    <TextBlock x:Name="txtSignalStrength" Foreground="Black"/>
+                                    <Image x:Name="imgSignalStength" Height="50" Width="50" HorizontalAlignment="Right" Margin="0,15,30,10"/>
+                                </Grid>                               
+                                <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                             </StackPanel>
                             <StackPanel x:Name="StpLinkRate">
                                 <TextBlock x:Name="txtLinkRate" Foreground="Black"/>
-                                <TextBlock x:Name="LinkRate" Foreground="Black"/>
+                                <TextBlock x:Name="LinkRate" Foreground="#B4B4B4"/>
                                 <HyperlinkButton x:Name="btnWhat" Tag="http://support.netgear.com/app/answers/list/kw/link%20rate" Click="btnWhat_Click" Foreground="BlueViolet"/>
-                                <Line Stroke="#BCBCBC" X2="1000" Margin="0,5,0,0"/>
+                                <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                             </StackPanel>
                             <StackPanel x:Name="StpMACAddress">
                                 <TextBlock x:Name="txtMACAddress" Foreground="Black"/>
-                                <TextBlock x:Name="MACAddress" Foreground="Black"/>
-                                <Line Stroke="#BCBCBC" X2="1000" Margin="0,5,0,0"/>
+                                <TextBlock x:Name="MACAddress" Foreground="#B4B4B4"/>
                             </StackPanel>
-                            <Grid x:Name="GridButton">
-                                <Button x:Name="btnBack" Style="{StaticResource ButtonStyle1}" Click="BackButton_Click" BorderThickness="0"  Foreground="White" Background="#8064A2"/>
-                                <Button x:Name="btnModify" Style="{StaticResource ButtonStyle1}" Click="ModifyButton_Click" BorderThickness="0" Foreground="White" Background="#8064A2"/>
-                                <Button x:Name="btnFileUpload" Style="{StaticResource ButtonStyle1}" BorderThickness="0" Foreground="White" Background="#8064A2"/>
-                                <Button x:Name="btnApply" Style="{StaticResource ButtonStyle1}" Click="ApplyButton_Click" BorderThickness="0" Foreground="White" Background="#8064A2"/>
-                            </Grid>
                         </StackPanel>                       
                     </ScrollViewer>
+                    <Grid x:Name="GridButton">
+                        <Button x:Name="btnBack" Style="{StaticResource ButtonStyle1}" Click="BackButton_Click" BorderThickness="0"  Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnModify" Style="{StaticResource ButtonStyle1}" Click="ModifyButton_Click" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnFileUpload" Style="{StaticResource ButtonStyle1}" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnApply" Style="{StaticResource ButtonStyle1}" Click="ApplyButton_Click" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                    </Grid>
                 </StackPanel>
             </Border>            
         </Popup>
