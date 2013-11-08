@@ -147,20 +147,24 @@ namespace GenieWP8
         //判断每月限制是否更改以及保存按钮是否可点击
         private void monthlyLimit_changed(Object sender, RoutedEventArgs e)
         {
-            string MonthlyLimit = tbMonthlyLimit.Text;
-            if (MonthlyLimit.Contains("."))
+            //string MonthlyLimit = tbMonthlyLimit.Text;
+            if (tbMonthlyLimit.Text.Contains("."))
             {
-                int index = MonthlyLimit.IndexOf(".");
-                MonthlyLimit = MonthlyLimit.Remove(index, 1);
+                int CaretPos = tbMonthlyLimit.SelectionStart;
+                int index = tbMonthlyLimit.Text.IndexOf(".");
+                tbMonthlyLimit.Text = tbMonthlyLimit.Text.Remove(index, 1);
+                tbMonthlyLimit.SelectionStart = CaretPos - 1;
             }
-            if (MonthlyLimit.Length > 1)
+            //if (MonthlyLimit.Length > 1)
+            //{
+            while (tbMonthlyLimit.Text.Length > 1 && tbMonthlyLimit.Text.ElementAt(0).CompareTo('0') == 0)
             {
-                while (MonthlyLimit.ElementAt(0).CompareTo('0') == 0)
-                {
-                    MonthlyLimit = MonthlyLimit.Remove(0, 1);
-                }
+                int CaretPos = tbMonthlyLimit.SelectionStart;
+                tbMonthlyLimit.Text = tbMonthlyLimit.Text.Remove(0, 1);
+                tbMonthlyLimit.SelectionStart = CaretPos - 1;
             }
-            tbMonthlyLimit.Text = MonthlyLimit;
+            //}
+            //tbMonthlyLimit.Text = MonthlyLimit;
             TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
             TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
             TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
@@ -196,25 +200,27 @@ namespace GenieWP8
         //判断重启时间-小时是否更改以及保存按钮是否可点击
         private void restartHour_changed(Object sender, RoutedEventArgs e)
         {
-            string RestartHour = tbRestartHour.Text;
-            if (RestartHour.Contains("."))
+            //string RestartHour = tbRestartHour.Text;
+            if (tbRestartHour.Text.Contains("."))
             {
-                int index = RestartHour.IndexOf(".");
-                RestartHour = RestartHour.Remove(index, 1);
+                int CaretPos = tbRestartHour.SelectionStart;
+                int index = tbRestartHour.Text.IndexOf(".");
+                tbRestartHour.Text = tbRestartHour.Text.Remove(index, 1);
+                tbRestartHour.SelectionStart = CaretPos - 1;
             }
-            if (RestartHour.Length > 1)
-            {
-                while (RestartHour.ElementAt(0).CompareTo('0') == 0)
-                {
-                    RestartHour = RestartHour.Remove(0, 1);
-                }
-            }
-            tbRestartHour.Text = RestartHour;
+            //if (RestartHour.Length > 1)
+            //{
+            //    while (RestartHour.ElementAt(0).CompareTo('0') == 0)
+            //    {
+            //        RestartHour = RestartHour.Remove(0, 1);
+            //    }
+            //}
+            //tbRestartHour.Text = RestartHour;
             TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
             TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
             TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
             if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
-                && int.Parse(TrafficMeterInfo.changedRestartHour) != int.Parse(TrafficMeterInfo.RestartHour))
+                && TrafficMeterInfo.changedRestartHour != TrafficMeterInfo.RestartHour)
             {
                 appBarButton_save.IsEnabled = true;
                 TrafficMeterInfo.isRestartHourChanged = true;
@@ -245,25 +251,27 @@ namespace GenieWP8
         //判断重启时间-分钟是否更改以及保存按钮是否可点击
         private void restartMinute_changed(Object sender, RoutedEventArgs e)
         {
-            string RestartMin = tbRestartMinute.Text;
-            if (RestartMin.Contains("."))
+            //string RestartMin = tbRestartMinute.Text;
+            if (tbRestartMinute.Text.Contains("."))
             {
-                int index = RestartMin.IndexOf(".");
-                RestartMin = RestartMin.Remove(index, 1);
+                int CaretPos = tbRestartMinute.SelectionStart;
+                int index = tbRestartMinute.Text.IndexOf(".");
+                tbRestartMinute.Text = tbRestartMinute.Text.Remove(index, 1);
+                tbRestartMinute.SelectionStart = CaretPos - 1;
             }
-            if (RestartMin.Length > 1)
-            {
-                while (RestartMin.ElementAt(0).CompareTo('0') == 0)
-                {
-                    RestartMin = RestartMin.Remove(0, 1);
-                }
-            }
-            tbRestartMinute.Text = RestartMin;
+            //if (RestartMin.Length > 1)
+            //{
+            //    while (RestartMin.ElementAt(0).CompareTo('0') == 0)
+            //    {
+            //        RestartMin = RestartMin.Remove(0, 1);
+            //    }
+            //}
+            //tbRestartMinute.Text = RestartMin;
             TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
             TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
             TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
             if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
-                && int.Parse(TrafficMeterInfo.changedRestartMinute) != int.Parse(TrafficMeterInfo.RestartMinute))
+                && TrafficMeterInfo.changedRestartMinute != TrafficMeterInfo.RestartMinute)
             {
                 appBarButton_save.IsEnabled = true;
                 TrafficMeterInfo.isRestartMinuteChanged = true;
@@ -294,6 +302,11 @@ namespace GenieWP8
         //返回按钮响应事件
         private async void appBarButton_back_Click(object sender, EventArgs e)
         {
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            InProgress.Visibility = Visibility.Visible;
+            pleasewait.Visibility = Visibility.Visible;
+
             TrafficMeterInfo.isControlOptionChanged = false;
             TrafficMeterInfo.isMonthlyLimitChanged = false;
             TrafficMeterInfo.isRestartDayChanged = false;
@@ -302,12 +315,18 @@ namespace GenieWP8
 
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetTrafficMeterEnabled();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetTrafficMeterEnabled();
+            }
             TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
             if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
             {
                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                while (dicResponse2 == null || dicResponse2.Count == 0)
+                {
+                    dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                }
                 if (dicResponse2.Count > 0)
                 {
                     TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
@@ -321,7 +340,11 @@ namespace GenieWP8
                     TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
                     TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
                 }
-                dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                dicResponse2 = new Dictionary<string, string>();
+                while (dicResponse2 == null || dicResponse2.Count == 0)
+                {
+                    dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                }
                 if (dicResponse2.Count > 0)
                 {
                     TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
@@ -351,6 +374,11 @@ namespace GenieWP8
         //重写手机“返回”按钮事件
         protected async override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            InProgress.Visibility = Visibility.Visible;
+            pleasewait.Visibility = Visibility.Visible;
+
             TrafficMeterInfo.isControlOptionChanged = false;
             TrafficMeterInfo.isMonthlyLimitChanged = false;
             TrafficMeterInfo.isRestartDayChanged = false;
@@ -359,12 +387,18 @@ namespace GenieWP8
 
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetTrafficMeterEnabled();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetTrafficMeterEnabled();
+            }
             TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
             if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
             {
                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                while (dicResponse2 == null || dicResponse2.Count == 0)
+                {
+                    dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                }
                 if (dicResponse2.Count > 0)
                 {
                     TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
@@ -378,7 +412,11 @@ namespace GenieWP8
                     TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
                     TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
                 }
-                dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                dicResponse2 = new Dictionary<string, string>();
+                while (dicResponse2 == null || dicResponse2.Count == 0)
+                {
+                    dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                }
                 if (dicResponse2.Count > 0)
                 {
                     TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];

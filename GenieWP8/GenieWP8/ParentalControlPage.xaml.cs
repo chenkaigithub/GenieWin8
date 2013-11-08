@@ -63,50 +63,84 @@ namespace GenieWP8
 
         // 为 ParentalControlModel 项加载数据
         protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {            
-            ParentalControlInfo.SavedInfo = await ReadSavedInfoFromFile();
-            string[] SavedInfo = ParentalControlInfo.SavedInfo.Split(';');
-            if (SavedInfo[0] == ParentalControlInfo.RouterMacaddr)
+        {
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            InProgress.Visibility = Visibility.Visible;
+            pleasewait.Visibility = Visibility.Visible;
+            if (!EnquirePopup.IsOpen && !RegisterPopup.IsOpen && !LoginPopup.IsOpen && !FilterLevelPopup.IsOpen && !CategoriesPopup.IsOpen && !SettingCompletePopup.IsOpen)
             {
-                ParentalControlInfo.IsOpenDNSLoggedIn = true;
-                GenieWebApi webApi = new GenieWebApi();
-                ParentalControlInfo.token = SavedInfo[1];
-                ParentalControlInfo.DeviceId = SavedInfo[2];
-                Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                dicResponse1 = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
-                if (dicResponse1["status"] != "success")
+                ParentalControlInfo.SavedInfo = await ReadSavedInfoFromFile();
+                string[] SavedInfo = ParentalControlInfo.SavedInfo.Split(';');
+                if (SavedInfo[0] == ParentalControlInfo.RouterMacaddr)
                 {
-                    ParentalControlInfo.filterLevel = "";
+                    ParentalControlInfo.IsOpenDNSLoggedIn = true;
+                    GenieWebApi webApi = new GenieWebApi();
+                    ParentalControlInfo.token = SavedInfo[1];
+                    ParentalControlInfo.DeviceId = SavedInfo[2];
+                    Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                    dicResponse1 = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
+                    if (dicResponse1["status"] != "success")
+                    {
+                        ParentalControlInfo.filterLevel = "";
+                    }
+                    else
+                    {
+                        ParentalControlInfo.filterLevel = dicResponse1["bundle"];
+                    }
+                    ParentalControlInfo.categories = dicResponse1["categories"];
+                    ParentalControlInfo.Username = SavedInfo[3];
+
+                    ParentalControlInfo.BypassChildrenDeviceId = await ReadBypassChildrenDeviceIdFromFile();                      //读取本地保存的DeviceId，如果不为空则获得当前登录的Bypass账户
+                    if (ParentalControlInfo.BypassChildrenDeviceId != null && ParentalControlInfo.BypassChildrenDeviceId != "")
+                    {
+                        ParentalControlInfo.IsBypassUserLoggedIn = true;
+                        GenieWebApi webApi1 = new GenieWebApi();
+                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                        dicResponse2 = await webApi1.GetUserForChildDeviceId(ParentalControlInfo.BypassChildrenDeviceId);
+                        if (dicResponse2["status"] == "success")
+                        {
+                            ParentalControlInfo.BypassUsername = dicResponse2["bypass_user"];
+                        }
+                        else
+                        {
+                            MessageBox.Show(dicResponse2["error_message"]);
+                        }
+                    }
+                    else
+                    {
+                        ParentalControlInfo.IsBypassUserLoggedIn = false;
+                    }
                 }
                 else
                 {
-                    ParentalControlInfo.filterLevel = dicResponse1["bundle"];
-                }
-                ParentalControlInfo.categories = dicResponse1["categories"];
-                ParentalControlInfo.Username = SavedInfo[3];
+                    ParentalControlInfo.IsOpenDNSLoggedIn = false;
+                    ParentalControlInfo.IsBypassUserLoggedIn = false;
+                    IsolatedStorageFile fileStorage = IsolatedStorageFile.GetUserStoreForApplication();
+                    if (fileStorage.FileExists("Bypass_childrenDeviceId.txt"))
+                    {
+                        fileStorage.DeleteFile("Bypass_childrenDeviceId.txt");
+                    }
+                }  
             }
-            else
-            {
-                ParentalControlInfo.IsOpenDNSLoggedIn = false;
-            }          
 
             //settingModel.FilterLevelGroups.Clear();
             settingModel.LoadData();           
 
             if (!ParentalControlInfo.IsOpenDNSLoggedIn)	//未登录OpenDNS账户
             {
-                if (!EnquirePopup.IsOpen)
+                InProgress.Visibility = Visibility.Collapsed;
+                pleasewait.Visibility = Visibility.Collapsed;
+                if (!EnquirePopup.IsOpen && !RegisterPopup.IsOpen && !LoginPopup.IsOpen)
                 {
-                    EnquirePopup.IsOpen = true;
-                    PopupBackgroundTop.Visibility = Visibility.Visible;
-                    PopupBackground.Visibility = Visibility.Visible;
-                    InProgress.Visibility = Visibility.Collapsed;
-                    pleasewait.Visibility = Visibility.Collapsed;
+                    EnquirePopup.IsOpen = true;                    
                     appBarButton_refresh.IsEnabled = false;
                 }
             }
             else
             {
+                InProgress.Visibility = Visibility.Visible;
+                pleasewait.Visibility = Visibility.Visible;
                 if (ParentalControlInfo.isParentalControlEnabled == "0")
                 {
                     checkPatentalControl.IsChecked = false;
@@ -125,49 +159,29 @@ namespace GenieWP8
                     //stpOpenDNSAccount.Visibility = Visibility.Visible;
                     //BypassAccount.Visibility = Visibility.Visible;
                 }
-                appBarButton_refresh.IsEnabled = true;
-            }
+                tbFilterlevel.Text = ParentalControlInfo.filterLevel;
 
-            tbFilterlevel.Text = ParentalControlInfo.filterLevel;
-
-            if (ParentalControlInfo.Username != null)
-            {
-                OpenDNSUserName.Text = ParentalControlInfo.Username;
-            }
-            else
-            {
-                OpenDNSUserName.Text = "";
-            }
-
-            ParentalControlInfo.BypassChildrenDeviceId = await ReadBypassChildrenDeviceIdFromFile();                      //读取本地保存的DeviceId，如果不为空则获得当前登录的Bypass账户
-            if (ParentalControlInfo.BypassChildrenDeviceId != null && ParentalControlInfo.BypassChildrenDeviceId != "")
-            {
-                ParentalControlInfo.IsBypassUserLoggedIn = true;
-                GenieWebApi webApi = new GenieWebApi();
-                Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                dicResponse1 = await webApi.GetUserForChildDeviceId(ParentalControlInfo.BypassChildrenDeviceId);
-                if (dicResponse1["status"] == "success")
+                if (ParentalControlInfo.Username != null)
                 {
-                    ParentalControlInfo.BypassUsername = dicResponse1["bypass_user"];
+                    OpenDNSUserName.Text = ParentalControlInfo.Username;
                 }
                 else
                 {
-                    MessageBox.Show(dicResponse1["error_message"]);
+                    OpenDNSUserName.Text = "";
                 }
-            }
-            else
-            {
-                ParentalControlInfo.IsBypassUserLoggedIn = false;
-            }
 
-            if (ParentalControlInfo.IsBypassUserLoggedIn && ParentalControlInfo.BypassUsername != null)
-            {
-                bypassaccount.Text = ParentalControlInfo.BypassUsername;
-            }
-            else
-            {
-                bypassaccount.Text = "";
-            }
+                if (ParentalControlInfo.IsBypassUserLoggedIn && ParentalControlInfo.BypassUsername != null)
+                {
+                    bypassaccount.Text = ParentalControlInfo.BypassUsername;
+                }
+                else
+                {
+                    bypassaccount.Text = "";
+                }                
+                appBarButton_refresh.IsEnabled = true;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+            }           
         }
 
         //checkbox控件响应事件
@@ -581,7 +595,10 @@ namespace GenieWP8
 
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetEnableStatus();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetEnableStatus();
+            }           
             ParentalControlInfo.isParentalControlEnabled = dicResponse["ParentalControl"];
 
             //获取过滤等级
@@ -961,7 +978,10 @@ namespace GenieWP8
                         //认证路由器
                         GenieSoapApi soapApi = new GenieSoapApi();
                         Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                        dicResponse2 = await soapApi.Authenticate(MainPageInfo.username, MainPageInfo.password);
+                        while (dicResponse2 == null || dicResponse2.Count == 0)
+                        {
+                            dicResponse2 = await soapApi.Authenticate(MainPageInfo.username, MainPageInfo.password);
+                        }                      
                         if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
                         {
                             Dictionary<string, string> dicResponse3 = new Dictionary<string, string>();
@@ -1289,7 +1309,15 @@ namespace GenieWP8
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             if (ParentalControlInfo.IsCategoriesChanged)
             {
-                dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevelSelected, ParentalControlInfo.categoriesSelected);
+                if (ParentalControlInfo.categoriesSelected == string.Empty)
+                {
+                    ParentalControlInfo.filterLevelSelected = "None";
+                    dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevelSelected, ParentalControlInfo.categories);
+                } 
+                else
+                {
+                    dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevelSelected, ParentalControlInfo.categoriesSelected);
+                }                
             }
             else
             {
@@ -1370,13 +1398,19 @@ namespace GenieWP8
             string macAddr = "";
             string modelName = "";
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            }
             if (dicResponse.Count > 0)
             {
                 macAddr = dicResponse["NewWLANMACAddress"];                      //获取MAC地址
                 ParentalControlInfo.RouterMacaddr = macAddr;
             }
-            dicResponse = await soapApi.GetInfo("DeviceInfo");
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetInfo("DeviceInfo");
+            }
             if (dicResponse.Count > 0)
             {
                 modelName = dicResponse["ModelName"];                            //获取modelname

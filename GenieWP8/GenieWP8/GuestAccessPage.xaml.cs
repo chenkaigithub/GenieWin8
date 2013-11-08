@@ -151,7 +151,10 @@ namespace GenieWP8
             if (checkGuestSetting.IsChecked == true)
             {
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                dicResponse = await soapApi.GetGuestAccessNetworkInfo();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.GetGuestAccessNetworkInfo();
+                }                
                 if (dicResponse.Count > 0)
                 {
                     GuestAccessInfo.ssid = dicResponse["NewSSID"];
@@ -199,7 +202,10 @@ namespace GenieWP8
             timer.Start();
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.SetGuestAccessEnabled();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.SetGuestAccessEnabled();
+            }
         }
 
         int count = 60;     //倒计时间
@@ -243,7 +249,10 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetGuestAccessEnabled();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetGuestAccessEnabled();
+            }            
             if (dicResponse.Count > 0)
             {
                 GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
@@ -261,7 +270,10 @@ namespace GenieWP8
                     textScanQRCode.Visibility = Visibility.Visible;
                     imageQRCode.Visibility = Visibility.Visible;
                     Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                    dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                    while (dicResponse1 == null || dicResponse1.Count == 0)
+                    {
+                        dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                    }
                     if (dicResponse1.Count > 0)
                     {
                         GuestAccessInfo.ssid = dicResponse1["NewSSID"];

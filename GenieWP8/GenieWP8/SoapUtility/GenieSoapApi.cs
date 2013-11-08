@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 //using Windows.Data.Xml.Dom;
 
 
@@ -46,8 +47,16 @@ namespace GenieWP8
             Dictionary<string, string> param = new Dictionary<string,string>();
             param.Add("NewUsername", username);
             param.Add("NewPassword", password);
-            string retParam = await postSoap("ParentalControl", "Authenticate", param);
-            return util.TraverseXML(retParam);
+            try
+            {
+                string retParam = await postSoap("ParentalControl", "Authenticate", param);
+                return util.TraverseXML(retParam);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:Authenticate failed! press 'OK' to retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -60,44 +69,56 @@ namespace GenieWP8
             Dictionary<string, string> param = new Dictionary<string, string>();
             string retParam = "";
             Dictionary<string,Dictionary<string,string>> dicAttachDevice = new Dictionary<string,Dictionary<string,string>>();
-            retParam = await postSoap("DeviceInfo", "GetAttachDevice", param);
-            if (retParam != null)
+            try
             {
-               retParam = util.SubString(retParam, "<NewAttachDevice>", "</NewAttachDevice>");
-               string[] tempArray = retParam.Split('@');
-               string macAdr = ""; 
-               for (int i = 1; i < tempArray.Length; i++)
-               {
-                   if(tempArray[i] != "" && tempArray[i] != null)
-                   {
-                       Dictionary<string, string> dicRow = new Dictionary<string, string>();
-                       string[] itemArray = tempArray[i].Split(';');
-                       if (itemArray.Length >= 4)
-                       {
-                           dicRow.Add("Ip", itemArray[1]);
-                           dicRow.Add("HostName", itemArray[2]);
-                           macAdr = itemArray[3];
+                retParam = await postSoap("DeviceInfo", "GetAttachDevice", param);
+                if (retParam != null)
+                {
+                    retParam = util.SubString(retParam, "<NewAttachDevice>", "</NewAttachDevice>");
+                    string[] tempArray = retParam.Split('@');
+                    string macAdr = "";
+                    for (int i = 1; i < tempArray.Length; i++)
+                    {
+                        if (tempArray[i] != "" && tempArray[i] != null)
+                        {
+                            Dictionary<string, string> dicRow = new Dictionary<string, string>();
+                            string[] itemArray = tempArray[i].Split(';');
+                            if (itemArray.Length >= 4)
+                            {
+                                dicRow.Add("Ip", itemArray[1]);
+                                dicRow.Add("HostName", itemArray[2]);
+                                macAdr = itemArray[3];
 
 
-                       }
-                       if (itemArray.Length >= 5)
-                       {
-                           dicRow.Add("Connect", itemArray[4]);
-                       }
-                       if (itemArray.Length >= 7)
-                       {
-                           dicRow.Add("LinkSpeed", itemArray[5]);
-                           dicRow.Add("Signal", itemArray[6]);
-                       }
-                       if (macAdr != "")
-                       {
-                           System.Diagnostics.Debug.WriteLine(macAdr);
-                           dicAttachDevice.Add(macAdr, dicRow);
-                       }
-                   }
-               }
+                            }
+                            if (itemArray.Length >= 5)
+                            {
+                                dicRow.Add("Connect", itemArray[4]);
+                            }
+                            if (itemArray.Length >= 7)
+                            {
+                                dicRow.Add("LinkSpeed", itemArray[5]);
+                                dicRow.Add("Signal", itemArray[6]);
+                            }
+                            if (itemArray.Length >= 8)
+                            {
+                                dicRow.Add("AccessControl", itemArray[7]);
+                            }
+                            if (macAdr != "")
+                            {
+                                System.Diagnostics.Debug.WriteLine(macAdr);
+                                dicAttachDevice.Add(macAdr, dicRow);
+                            }
+                        }
+                    }
+                }
+                return dicAttachDevice;
             }
-            return  dicAttachDevice;
+            catch (System.Exception ex)
+            {
+                //MessageBox.Show("API:GetAttachDevice failed! please retry.");
+                return null;
+            }           
         }
         /// <summary>
         /// ************GetInfo*********Get router basic information*****************
@@ -107,8 +128,16 @@ namespace GenieWP8
         public async Task<Dictionary<string,string>> GetInfo(string module)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            string result = await postSoap(module, "GetInfo", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap(module, "GetInfo", param);
+                return util.TraverseXML(result);
+            }
+            catch (System.Exception ex)
+            {
+                //MessageBox.Show("API:GetInfo failed! please retry.");
+                return null;
+            }            
         }
 
         /// <summary>
@@ -119,8 +148,16 @@ namespace GenieWP8
         public async Task<Dictionary<string,string>> GetWPASecurityKeys()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            string result = await postSoap("WLANConfiguration", "GetWPASecurityKeys", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("WLANConfiguration", "GetWPASecurityKeys", param);
+                return util.TraverseXML(result);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:GetWPASecurityKeys failed! please retry.");
+                return null;
+            }           
         }
 
         /// <summary>
@@ -139,8 +176,17 @@ namespace GenieWP8
             param.Add("NewRegion",region);
             param.Add("NewChannel",channel);
             param.Add("NewWirelessMode",wirelessMode);
-            string result = await postSoap("WLANConfiguration", "SetWLANNoSecurity", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("WLANConfiguration", "SetWLANNoSecurity", param);
+                return util.TraverseXML(result);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:SetWLANNoSecurity failed! please retry.");
+                return null;
+            }
+
         }
 
         //////**************参数格式**************
@@ -164,8 +210,17 @@ namespace GenieWP8
             param.Add("NewWirelessMode", wirelessMode);
             param.Add("NewWPAEncryptionModes", encryptionModes);
             param.Add("NewWPAPassphrase", wpaPassphrase);
-            string result = await postSoap("WLANConfiguration", "SetWLANWEPByPassphrase", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("WLANConfiguration", "SetWLANWEPByPassphrase", param);
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:SetWLANWEPByPassphrase failed! please retry.");
+                return null;
+            }
         }
 
         //***************************** Wifi setting 5G api********************************
@@ -253,8 +308,16 @@ namespace GenieWP8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewMACAddress", newMACAddress);
-            string result = await postSoap("ParentalControl", "GetDNSMasqDeviceID", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("ParentalControl", "GetDNSMasqDeviceID", param);
+                return util.TraverseXML(result);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:GetDNSMasqDeviceID failed! please retry.");
+                return null;
+            }            
         }
 
         /// <summary>
@@ -270,8 +333,16 @@ namespace GenieWP8
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewMACAddress",macAddress);
             param.Add("NewDeviceID", deviceID);
-            string result = await postSoap("ParentalControl","SetDNSMasqDeviceID",param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("ParentalControl", "SetDNSMasqDeviceID", param);
+                return util.TraverseXML(result);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:SetDNSMasqDeviceID failed! please retry.");
+                return null;
+            }           
         }
 
         /// <summary>
@@ -282,8 +353,16 @@ namespace GenieWP8
         public async Task<Dictionary<string,string>> GetEnableStatus()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
-            string result = await postSoap("ParentalControl", "GetEnableStatus", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("ParentalControl", "GetEnableStatus", param);
+                return util.TraverseXML(result);
+            }
+            catch (System.Exception ex)
+            {
+                //MessageBox.Show("API:GetEnableStatus failed! please retry.");
+                return null;
+            }            
         }
 
         /// <summary>
@@ -297,8 +376,16 @@ namespace GenieWP8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewEnable",newEnable);
-            string result = await postSoap("ParentalControl", "EnableParentalControl", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("ParentalControl", "EnableParentalControl", param);
+                return util.TraverseXML(result);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:EnableParentalControl failed! please retry.");
+                return null;
+            }            
         }
 
         /// <summary>
@@ -310,8 +397,17 @@ namespace GenieWP8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewMACAddress",macAddress);
-            string result = await postSoap("ParentalControl", "DeleteMACAddress", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("ParentalControl", "DeleteMACAddress", param);
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:DeleteMACAddress failed! please retry.");
+                return null;
+            }
         }
 
         ////-----------------------------------------Guest Acccess Soap API---------------------------------------------------------
@@ -322,8 +418,17 @@ namespace GenieWP8
         /// <returns>NewGuestAccessEnabled：1（enable）,0(not enable)</returns>
         public async Task<Dictionary<string, string>> GetGuestAccessEnabled()
         {
-            string result = await postSoap("WLANConfiguration", "GetGuestAccessEnabled",new Dictionary<string,string>());
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("WLANConfiguration", "GetGuestAccessEnabled", new Dictionary<string, string>());
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                //MessageBox.Show("API:GetGuestAccessEnabled failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -335,21 +440,17 @@ namespace GenieWP8
         //<NewKey>密码</NewKey></returns>
         public async Task<Dictionary<string, string>> GetGuestAccessNetworkInfo()
         {
-          //  Dictionary<string, string> tempResult = new Dictionary<string, string>();
-           // tempResult = await GetGuestAccessEnabled();
-          //  if(int.Parse(tempResult["ResponseCode"])!=0)
-          //  {
-          //      return new Dictionary<string,string>();
-           // }
-          
-            //if (int.Parse(tempResult["NewGuestAccessEnabled"]) == 1)
-            //{
+            try
+            {
                 string result = await postSoap("WLANConfiguration", "GetGuestAccessNetworkInfo", new Dictionary<string, string>());
                 return util.TraverseXML(result);
-           // }
-            //tempResult.Clear();
-           // tempResult.Add("ResponseCode","-1");
-            //return tempResult;
+
+            }
+            catch (System.Exception ex)
+            {
+                //MessageBox.Show("API:GetGuestAccessNetworkInfo failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -361,8 +462,17 @@ namespace GenieWP8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewGuestAccessEnabled", "0");
-            string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled", param);
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                //MessageBox.Show("API:SetGuestAccessEnabled failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -384,8 +494,17 @@ namespace GenieWP8
             param.Add("NewKey3", "0");
             param.Add("NewKey4", "0");
             param.Add("NewGuestAccessEnabled", "1");
-            string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled2", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("WLANConfiguration", "SetGuestAccessEnabled2", param);
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:SetGuestAccessEnabled2 failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -406,8 +525,17 @@ namespace GenieWP8
             param.Add("NewKey2", "0");
             param.Add("NewKey3", "0");
             param.Add("NewKey4", "0");
-            string result = await postSoap("WLANConfiguration", "SetGuestAccessNetwork", param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("WLANConfiguration", "SetGuestAccessNetwork", param);
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:SetGuestAccessNetwork failed! please retry.");
+                return null;
+            }
         }
 
         //************************************ 5G Guest Access api *****************************************
@@ -502,9 +630,17 @@ namespace GenieWP8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewTrafficMeterEnable",newTrafficMeterEnable);
-            string result = await postSoap("DeviceConfig", "EnableTrafficMeter",param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("DeviceConfig", "EnableTrafficMeter", param);
+                return util.TraverseXML(result);
 
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:EnableTrafficMeter failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -514,8 +650,17 @@ namespace GenieWP8
         /// <returns></returns>
         public async Task<Dictionary<string, string>> GetTrafficMeterEnabled()
         {
-            string result = await postSoap("DeviceConfig", "GetTrafficMeterEnabled",new Dictionary<string,string>());
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("DeviceConfig", "GetTrafficMeterEnabled", new Dictionary<string, string>());
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                //MessageBox.Show("API:GetTrafficMeterEnabled failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -534,9 +679,18 @@ namespace GenieWP8
         public async Task<Dictionary<string, string>> GetTrafficMeterOptions()
         {
             Dictionary<string, string> resultDic = new Dictionary<string, string>();
-            string result = await postSoap("DeviceConfig", "GetTrafficMeterOptions",new Dictionary<string,string>());
-            resultDic = util.TraverseXML(result);
-            return resultDic;
+            try
+            {
+                string result = await postSoap("DeviceConfig", "GetTrafficMeterOptions", new Dictionary<string, string>());
+                resultDic = util.TraverseXML(result);
+                return resultDic;
+
+            }
+            catch (System.Exception ex)
+            {
+                //MessageBox.Show("API:GetTrafficMeterOptions failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -566,9 +720,18 @@ namespace GenieWP8
         public async Task<Dictionary<string, string>> GetTrafficMeterStatistics()
         {
             Dictionary<string, string> resultDic = new Dictionary<string, string>();
-            string result = await postSoap("DeviceConfig", "GetTrafficMeterStatistics", new Dictionary<string, string>());
-            resultDic = util.TraverseXML(result);
-            return resultDic;
+            try
+            {
+                string result = await postSoap("DeviceConfig", "GetTrafficMeterStatistics", new Dictionary<string, string>());
+                resultDic = util.TraverseXML(result);
+                return resultDic;
+
+            }
+            catch (System.Exception ex)
+            {
+                //MessageBox.Show("API:GetTrafficMeterStatistics failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -589,8 +752,17 @@ namespace GenieWP8
             param.Add("RestartHour",restartHour);
             param.Add("RestartMinute",restartMinute);
             param.Add("RestartDay",restartDay);
-            string result = await postSoap("DeviceConfig", "SetTrafficMeterOptions",param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("DeviceConfig", "SetTrafficMeterOptions", param);
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:SetTrafficMeterOptions failed! please retry.");
+                return null;
+            }
         }
 
         ///********************************** 访问控制 api **********************************
@@ -600,8 +772,17 @@ namespace GenieWP8
         /// ResponseCode ：0 (no error)，1 (error)
         public async Task<Dictionary<string, string>> GetBlockDeviceEnableStatus()
         {
-            string result = await postSoap("DeviceConfig", "GetBlockDeviceEnableStatus", new Dictionary<string, string>());
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("DeviceConfig", "GetBlockDeviceEnableStatus", new Dictionary<string, string>());
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:GetBlockDeviceEnableStatus failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -613,8 +794,17 @@ namespace GenieWP8
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewBlockDeviceEnable",newBlockDeviceEnable);
-            string result = await postSoap("DeviceConfig", "SetBlockDeviceEnable",param);
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("DeviceConfig", "SetBlockDeviceEnable", param);
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:SetBlockDeviceEnable failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -630,15 +820,32 @@ namespace GenieWP8
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("NewMACAddress", newMACAddress);
             param.Add("NewAllowOrBlock", newAllowOrBlock);
+            try
+            {
+                string result = await postSoap("DeviceConfig", "SetBlockDeviceByMAC", param);
+                return util.TraverseXML(result);
 
-            string result = await postSoap("DeviceConfig", "SetBlockDeviceByMAC", param);
-            return util.TraverseXML(result);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:SetBlockDeviceByMAC failed! please retry.");
+                return null;
+            }
         }
 
         public async Task<Dictionary<string, string>> EnableBlockDeviceForAll()
         {
-            string result = await postSoap("DeviceConfig", "EnableBlockDeviceForAll", new Dictionary<string, string>());
-            return util.TraverseXML(result);
+            try
+            {
+                string result = await postSoap("DeviceConfig", "EnableBlockDeviceForAll", new Dictionary<string, string>());
+                return util.TraverseXML(result);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("API:EnableBlockDeviceForAll failed! please retry.");
+                return null;
+            }
         }
 
         /// <summary>

@@ -609,7 +609,7 @@
     <value>Άλλος αποκωδικοποιητής</value>
   </data>
   <data name="SupportText" xml:space="preserve">
-    <value>Με την υποστήριξη της SiteView</value>
+    <value>Με την υποστήριξη της BIGIT.COM</value>
   </data>
   <data name="switchdev" xml:space="preserve">
     <value>Μεταγωγέας</value>
@@ -1029,5 +1029,20 @@
   </data>
   <data name="UnmatchedPassword" xml:space="preserve">
     <value>Ο κωδικός πρόσβασης δεν αντιστοιχεί σε αυτό το όνομα χρήστη. Προσπαθήστε ξανά.</value>
+  </data>
+  <data name="ipadmini" xml:space="preserve">
+    <value>iPad Mini</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone5/5S/5C</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Έλεγχος πρόσβασης</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Να επιτρέπεται</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Αποκλεισμός</value>
   </data>
 </root>

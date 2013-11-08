@@ -609,7 +609,7 @@
     <value>STB آخر</value>
   </data>
   <data name="SupportText" xml:space="preserve">
-    <value>يتم التشغيل بواسطة SiteView</value>
+    <value>يتم التشغيل بواسطة BIGIT.COM</value>
   </data>
   <data name="switchdev" xml:space="preserve">
     <value>التبديل</value>
@@ -1029,5 +1029,20 @@
   </data>
   <data name="UnmatchedPassword" xml:space="preserve">
     <value>لا تتطابق كلمة المرور مع اسم المستخدم، يرجى المحاولة مرة أخرى.</value>
+  </data>
+  <data name="ipadmini" xml:space="preserve">
+    <value>iPad Mini</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone5/5S/5C</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>التحكم بالوصول</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>السماح</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>حظر</value>
   </data>
 </root>

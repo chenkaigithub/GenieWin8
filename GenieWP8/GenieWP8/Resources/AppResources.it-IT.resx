@@ -609,7 +609,7 @@
     <value>Altro STB</value>
   </data>
   <data name="SupportText" xml:space="preserve">
-    <value>Con tecnologia SiteView</value>
+    <value>Con tecnologia BIGIT.COM</value>
   </data>
   <data name="switchdev" xml:space="preserve">
     <value>Switch</value>
@@ -1029,5 +1029,20 @@
   </data>
   <data name="UnmatchedPassword" xml:space="preserve">
     <value>La password non corrisponde al nome utente. Riprovare.</value>
+  </data>
+  <data name="ipadmini" xml:space="preserve">
+    <value>iPad Mini</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone5/5S/5C</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Controllo accessi</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Autorizza</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Blocca</value>
   </data>
 </root>

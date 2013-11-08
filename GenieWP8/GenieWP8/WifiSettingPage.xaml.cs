@@ -56,28 +56,45 @@ namespace GenieWP8
             settingModel.EditChannelSecurity.Clear();
             settingModel.LoadData();
             tbSSID.Text = WifiSettingInfo.ssid;
-            tbKey.Text = WifiSettingInfo.password;
-            tbLinkRate.Text = WifiSettingInfo.linkRate;
+            tbKey.Text = WifiSettingInfo.password;            
             tbChannel.Text = WifiSettingInfo.channel;
 
-            string[] signal = WifiSettingInfo.signalStrength.Split('%');
-            int result = int.Parse(signal[0]);
-            if (result <= 20)
+            if (WifiSettingInfo.linkRate == "")
             {
-                imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_1.png", UriKind.Relative));
-            }
-            else if (result > 20 && result <= 40)
+                gridLinkRate.Visibility = Visibility.Collapsed;
+            } 
+            else
             {
-                imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_2.png", UriKind.Relative));
+                tbLinkRate.Text = WifiSettingInfo.linkRate;
+                gridLinkRate.Visibility = Visibility.Visible;
             }
-            else if (result > 40 && result <= 70)
+            
+            if (WifiSettingInfo.signalStrength == "")
             {
-                imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_3.png", UriKind.Relative));
-            }
-            else if (result > 70)
+                gridSignal.Visibility = Visibility.Collapsed;
+            } 
+            else
             {
-                imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_4.png", UriKind.Relative));
-            }
+                string[] signal = WifiSettingInfo.signalStrength.Split('%');
+                int result = int.Parse(signal[0]);
+                if (result <= 20)
+                {
+                    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_1.png", UriKind.Relative));
+                }
+                else if (result > 20 && result <= 40)
+                {
+                    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_2.png", UriKind.Relative));
+                }
+                else if (result > 40 && result <= 70)
+                {
+                    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_3.png", UriKind.Relative));
+                }
+                else if (result > 70)
+                {
+                    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_4.png", UriKind.Relative));
+                }
+                gridSignal.Visibility = Visibility.Visible;
+            }            
 
             //生成二维码
             string codeString = "WIRELESS:" + WifiSettingInfo.ssid + ";PASSWORD:" + WifiSettingInfo.password;
@@ -167,7 +184,10 @@ namespace GenieWP8
             GenieSoapApi soapApi = new GenieSoapApi();
 
             Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-            attachDeviceAll = await soapApi.GetAttachDevice();
+            while (attachDeviceAll == null)
+            {
+                attachDeviceAll = await soapApi.GetAttachDevice();
+            }            
             UtilityTool util = new UtilityTool();
             var ipList = util.GetCurrentIpAddresses();
             string loacalIp = ipList.ToList()[0];
@@ -175,13 +195,30 @@ namespace GenieWP8
             {
                 if (loacalIp == attachDeviceAll[key]["Ip"])
                 {
-                    WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                    WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                    if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                    {
+                        WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                    }
+                    else
+                    {
+                        WifiSettingInfo.linkRate = "";
+                    }
+                    if (attachDeviceAll[key].ContainsKey("Signal"))
+                    {
+                        WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                    }
+                    else
+                    {
+                        WifiSettingInfo.signalStrength = "";
+                    }
                 }
             }
 
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            }
             if (dicResponse.Count > 0)
             {
                 WifiSettingInfo.ssid = dicResponse["NewSSID"];

@@ -13,6 +13,90 @@
     OrientationChanged="PhoneApplicationPage_OrientationChanged"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="CheckBoxStyle1" BasedOn="{StaticResource PhoneRadioButtonCheckBoxBase}" TargetType="CheckBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid Background="Transparent" HorizontalAlignment="Left">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="CheckBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneRadioCheckBoxPressedBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckMark">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneButtonBasePressedForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateMark">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneButtonBasePressedForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="CheckBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckMark">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateMark">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentContainer">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="CheckMark">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="IndeterminateMark">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid Margin="{StaticResource PhoneTouchTargetLargeOverhang}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" VerticalAlignment="Top">
+                                    <Border x:Name="CheckBackground" BorderBrush="White" BorderThickness="{StaticResource PhoneBorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="Left" Height="32" IsHitTestVisible="False" VerticalAlignment="Center" Width="32"/>
+                                    <Rectangle x:Name="IndeterminateMark" Fill="{StaticResource PhoneRadioCheckBoxCheckBrush}" HorizontalAlignment="Center" Height="16" IsHitTestVisible="False" Visibility="Collapsed" VerticalAlignment="Center" Width="16"/>
+                                    <Path x:Name="CheckMark" Data="M0,123 L39,93 L124,164 L256,18 L295,49 L124,240 z" Fill="White" FlowDirection="LeftToRight" HorizontalAlignment="Center" Height="21" IsHitTestVisible="False" Stretch="Fill" StrokeThickness="3" StrokeLineJoin="Round" Visibility="Collapsed" VerticalAlignment="Center" Width="23"/>
+                                </Grid>
+                                <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,0,0" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="#FFE6E6E6">
@@ -73,7 +157,7 @@
                                 <Image Source="/Assets/WirelessSetting/third.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
                                     <TextBlock Text="{Binding Path=LocalizedResources.ChangeCustomizingSettingText, Source={StaticResource LocalizedStrings}}"
-                                               FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>                                   
+                                               FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                             </Grid>
@@ -84,7 +168,7 @@
                                     <TextBlock Text="{Binding Path=LocalizedResources.OpenDNSUserText, Source={StaticResource LocalizedStrings}}"
                                                FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="OpenDNSUserName" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                </StackPanel>                            
+                                </StackPanel>
                             </Grid>
                             <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,0,10,0"/>
                             <Grid x:Name="gridBypass" Height="80" DataContext="{Binding timesegGroup}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Bypass_Click">
@@ -274,7 +358,7 @@
                                      Background="White" GotFocus="congfirmEmail_GotFocus" KeyDown="OnKeyDown"/>
                         </Grid>
                         <TextBlock x:Name="differentEmail" Text="Two Emails are different !"
-                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>                        
+                                   Margin="0,0,12,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                     </StackPanel>
                 </ScrollViewer>
                 <Grid>
@@ -294,7 +378,7 @@
                     <TextBlock x:Name="pleasewait1" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"
                                HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Visibility="Collapsed" Foreground="White"/>
                 </StackPanel>
-            </StackPanel>           
+            </StackPanel>
         </Popup>
 
         <Popup x:Name="LoginPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
@@ -362,7 +446,7 @@
                         <RadioButton x:Name="radioButton_Custom" Content="{Binding Path=LocalizedResources.radioButton_CustomContent, Source={StaticResource LocalizedStrings}}"
                                      GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Click="CustomRBClicked" BorderBrush="White" Foreground="White" Style="{StaticResource RadioButtonStyle_Custom}"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.Illustration_CustomText, Source={StaticResource LocalizedStrings}}"
-                                   FontSize="20" TextWrapping="Wrap"/>                        
+                                   FontSize="20" TextWrapping="Wrap"/>
                     </StackPanel>
                 </ScrollViewer>
                 <Grid>
@@ -382,7 +466,7 @@
                     <TextBlock x:Name="pleasewait3" Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}"
                                HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Visibility="Collapsed" Foreground="White"/>
                 </StackPanel>
-            </StackPanel>            
+            </StackPanel>
         </Popup>
 
         <Popup x:Name="CategoriesPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,400,0">
@@ -397,302 +481,302 @@
                 <ListBox x:Name="CategoriesList" Height="350"  SelectionChanged="CategoriesList_SelectionChanged">
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_1" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.AcademicFraud, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_2" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.AdultThemes, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_3" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Adware, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_4" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Alcohol, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_5" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.AnimeMangaWebcomic, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_6" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Auctions, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_7" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Automotive, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_8" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Blogs, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_9" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.BusinessServices, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_10" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Chat, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_11" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Classifieds, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_12" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Dating, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_13" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Drugs, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_14" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.EcommerceShopping, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_15" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.EducationalInstitutions, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_16" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.FileStorage, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_17" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.FinancialInstitutions, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_18" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.ForumsMessageboards, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_19" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Gambling, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_20" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Games, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_21" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.GermanYouthProtection, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_22" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Government, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_23" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.HateDiscrimination, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_24" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.HealthandFitness, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_25" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Humor, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_26" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.InstantMessaging, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_27" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.JobsEmployment, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_28" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.LingerieBikini, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_29" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Movies, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_30" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Music, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_31" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.NewsMedia, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_32" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Non_Profits, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_33" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Nudity, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_34" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.P2PFilesharing, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_35" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.ParkedDomains, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_36" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.PhotoSharing, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_37" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Podcasts, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_38" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Politics, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_39" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Pornography, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_40" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Portals, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_41" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.ProxyAnonymizer, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_42" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Radio, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_43" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Religious, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_44" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.ResearchReference, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_45" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.SearchEngines, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_46" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Sexuality, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_47" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.SocialNetworking, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_48" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.SoftwareTechnology, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_49" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Sports, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_50" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Tasteless, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_51" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Television, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_52" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Tobacco, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_53" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Travel, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_54" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.TypoSquatting, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_55" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.VideoSharing, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_56" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.VisualSearchEngines, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_57" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Weapons, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_58" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.WebSpam, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_59" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.Webmail, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Top" Width="400">
                         <CheckBox x:Name="category_60" VerticalAlignment="Center" Content="{Binding Path=LocalizedResources.PhishingProtection, Source={StaticResource LocalizedStrings}}"
-                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle_Custom}"/>
+                                  Padding="10,0,0,0" Foreground="White" Style="{StaticResource CheckBoxStyle1}"/>
                         <Line Width="400" Stroke="White" X2="400"/>
                     </StackPanel>
                 </ListBox>
@@ -707,7 +791,7 @@
                                    FontSize="30" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
                 </StackPanel>
                 <ScrollViewer x:Name="SettingCompleteScrollViewer" Width="400" Height="400" VerticalScrollBarVisibility="Auto" Foreground="White">
-                    <StackPanel>                       
+                    <StackPanel>
                         <TextBlock Text="{Binding Path=LocalizedResources.CompleteIllustrationText, Source={StaticResource LocalizedStrings}}"
                                FontSize="24" Margin="0,10,0,0" TextWrapping="Wrap"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.Illustration1Text, Source={StaticResource LocalizedStrings}}"
@@ -722,7 +806,7 @@
                 </ScrollViewer>
                 <Button x:Name="ReturnToStatusButton" Content="{Binding Path=LocalizedResources.ReturnButtonContent, Source={StaticResource LocalizedStrings}}"
                             Click="ReturnToStatusButton_Click" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" Foreground="White"/>
-            </StackPanel>            
+            </StackPanel>
         </Popup>
 
         <Popup x:Name="PopupEnquireBypassAccount" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,20,400,0">

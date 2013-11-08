@@ -48,13 +48,13 @@
             <StackPanel>
                 <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White">
                     <StackPanel>
-                        <Grid Height="80" DataContext="{Binding SignalStrengthGroup}">
+                        <Grid x:Name="gridSignal" Height="80" DataContext="{Binding SignalStrengthGroup}">
                             <Image Source="/Assets/WirelessSetting/SignalStrength.png" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,25,0,0"/>
                             <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="55,0,0,0"/>
                             <Image x:Name="imgSignalStrength" Height="50" Width="50" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0"/>
                         </Grid>
                         <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="10,0,10,0"/>
-                        <Grid Height="80" DataContext="{Binding LinkRateGroup}">
+                        <Grid x:Name="gridLinkRate" Height="80" DataContext="{Binding LinkRateGroup}">
                             <Image Source="/Assets/WirelessSetting/LinkRate.png" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,15,0,0"/>
                             <StackPanel Margin="55,0,0,0" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -62,11 +62,11 @@
                             </StackPanel>
                         </Grid>
                         <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="10,0,10,0"/>
-                        <Grid x:Name="gridSSID" Height="80" DataContext="{Binding ssidGroup}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                        <Grid x:Name="gridSSID" DataContext="{Binding ssidGroup}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
                             <Image Source="/Assets/WirelessSetting/ssid.png" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,15,0,0"/>
                             <StackPanel Margin="55,0,0,0" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="tbSSID" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,5,0,0"/>
+                                <TextBlock x:Name="tbSSID" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,35,5" TextWrapping="Wrap"/>
                             </StackPanel>
                             <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                         </Grid>

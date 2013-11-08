@@ -344,7 +344,7 @@
     <value>iPhone</value>
   </data>
   <data name="iphone5" xml:space="preserve">
-    <value>iPhone5</value>
+    <value>iPhone5/5S/5C</value>
   </data>
   <data name="ipodtouch" xml:space="preserve">
     <value>iPod Touch</value>
@@ -627,7 +627,7 @@
     <value>其他 STB</value>
   </data>
   <data name="SupportText" xml:space="preserve">
-    <value>由 SiteView 提供支持</value>
+    <value>由 BIGIT.COM 提供支持</value>
   </data>
   <data name="switchdev" xml:space="preserve">
     <value>交换机</value>
@@ -1038,5 +1038,14 @@
   </data>
   <data name="UnmatchedPassword" xml:space="preserve">
     <value>密码与此用户名不匹配。请重试。</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>访问控制</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>允许</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>阻止</value>
   </data>
 </root>

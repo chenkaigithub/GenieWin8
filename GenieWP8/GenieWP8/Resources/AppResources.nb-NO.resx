@@ -609,7 +609,7 @@
     <value>Andre STB</value>
   </data>
   <data name="SupportText" xml:space="preserve">
-    <value>Drevet av SiteView</value>
+    <value>Drevet av BIGIT.COM</value>
   </data>
   <data name="switchdev" xml:space="preserve">
     <value>Bryter</value>
@@ -1029,5 +1029,20 @@
   </data>
   <data name="UnmatchedPassword" xml:space="preserve">
     <value>Passordet samsvarer ikke med brukernavnet. Prøv på nytt.</value>
+  </data>
+  <data name="ipadmini" xml:space="preserve">
+    <value>iPad Mini</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone5/5S/5C</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Tilgangskontrolll</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Tillat</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Blokker</value>
   </data>
 </root>

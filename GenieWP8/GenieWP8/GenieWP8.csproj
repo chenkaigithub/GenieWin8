@@ -15,7 +15,7 @@
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>ru-RU%3bel-GR%3bit-IT%3bno%3bnb-NO%3bsk-SK%3bsl-SI%3bfr-FR%3bfi-FI%3ben-US%3bpt-PT%3bar-YE%3bar-IQ%3bar-DZ%3bar-AE%3bar-OM%3bar-LB%3bar</SupportedCultures>
+    <SupportedCultures>ru-RU%3bel-GR%3bit-IT%3bno%3bnb-NO%3bsk-SK%3bsl-SI%3bfr-FR%3bfi-FI%3ben-US%3bpt-PT%3bar-YE%3bar-IQ%3bar-DZ%3bar-AE%3bar-OM%3bar-LB%3bar%3ben</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>GenieWP8_$(Configuration)_$(Platform).xap</XapFilename>
@@ -329,7 +329,9 @@
     <Content Include="Assets\devices\gatewaydev.png" />
     <Content Include="Assets\devices\imacdev.png" />
     <Content Include="Assets\devices\ipad.png" />
+    <Content Include="Assets\devices\ipadmini.png" />
     <Content Include="Assets\devices\iphone.png" />
+    <Content Include="Assets\devices\iphone5.png" />
     <Content Include="Assets\devices\ipodtouch.png" />
     <Content Include="Assets\devices\linuxpc.png" />
     <Content Include="Assets\devices\macbookdev.png" />
@@ -454,6 +456,11 @@
     <Content Include="Assets\signal\signal_33s.png" />
     <Content Include="Assets\signal\signal_43.png" />
     <Content Include="Assets\signal\signal_43s.png" />
+    <Content Include="Assets\signal\wirelessflag0.png" />
+    <Content Include="Assets\signal\wirelessflag1.png" />
+    <Content Include="Assets\signal\wirelessflag2.png" />
+    <Content Include="Assets\signal\wirelessflag3.png" />
+    <Content Include="Assets\signal\wirelessflag4.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -514,6 +521,7 @@
     <EmbeddedResource Include="Resources\AppResources.en-US.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AppResources.en.resx" />
     <EmbeddedResource Include="Resources\AppResources.fi-FI.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

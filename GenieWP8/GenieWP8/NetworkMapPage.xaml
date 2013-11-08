@@ -117,7 +117,7 @@
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
-    <Grid x:Name="LayoutRoot" Background="#FFE6E6E6">
+    <Grid x:Name="LayoutRoot" Background="#FFE6E6E6" >
         <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
@@ -134,11 +134,12 @@
             </LinearGradientBrush>
         </Grid.Background>-->
         <!--枢轴控件-->
+        <!--<TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#3C3C3C" Margin="12,17,0,28"/>-->
         <phone:Pivot x:Name="MapPivot" Title="NETGEAR Genie" Foreground="#3C3C3C">
             <!--枢轴项一-->
         </phone:Pivot>
 
-        <Grid x:Name="PopupBackground" Background="#FF5A5A5A" Opacity="0.7" Visibility="Collapsed">
+        <Grid x:Name="PopupBackground" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center">
                 <ProgressBar x:Name="InProgress"
                              IsIndeterminate="True"
@@ -236,10 +237,24 @@
                         <Button x:Name="btnModify" Style="{StaticResource ButtonStyle1}" Click="ModifyButton_Click" BorderThickness="0" Foreground="White" Background="#8064A2"/>
                         <Button x:Name="btnFileUpload" Style="{StaticResource ButtonStyle1}" BorderThickness="0" Foreground="White" Background="#8064A2"/>
                         <Button x:Name="btnApply" Style="{StaticResource ButtonStyle1}" Click="ApplyButton_Click" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnAllow" Style="{StaticResource ButtonStyle1}" Click="AllowButton_Click" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnBlock" Style="{StaticResource ButtonStyle1}" Click="BlockButton_Click" BorderThickness="0" Foreground="White" Background="#8064A2"/>
                     </Grid>
                 </StackPanel>
             </Border>            
         </Popup>
+
+        <Popup x:Name="PopupWaitAccessControl" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,100,420,0">
+            <Border Width="425" Height="1200" Background="#FF5A5A5A" Opacity="0.9">
+                <StackPanel x:Name="stpWaitAccessControl" Margin="0,300,0,0">
+                    <ProgressBar IsIndeterminate="True"
+                                 Height="15"
+                                 Foreground="White"/>
+                    <TextBlock Text="{Binding Path=LocalizedResources.waitText, Source={StaticResource LocalizedStrings}}" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White"/>
+                </StackPanel>
+            </Border>
+        </Popup>            
     </Grid>
 
 </phone:PhoneApplicationPage>

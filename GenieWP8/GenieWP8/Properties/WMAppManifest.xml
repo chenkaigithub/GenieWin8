@@ -20,8 +20,9 @@
     <Language code="ar-OM" />
     <Language code="ar-LB" />
     <Language code="ar" />
+    <Language code="en" />
   </Languages>
-  <App xmlns="" ProductID="{28461904-1440-4fde-ad7e-5718decf246a}" Title="Genie" RuntimeType="Silverlight" Version="1.0.1.0" Genre="apps.normal" Author="siteview" Description="NETGEAR Genie for WP8" Publisher="siteview" PublisherID="{39444ae0-3ee6-4d0d-8608-8634f71efc9c}">
+  <App xmlns="" ProductID="{28461904-1440-4fde-ad7e-5718decf246a}" Title="Genie" RuntimeType="Silverlight" Version="1.0.3.0" Genre="apps.normal" Author="siteview" Description="NETGEAR Genie for WP8" Publisher="siteview" PublisherID="{39444ae0-3ee6-4d0d-8608-8634f71efc9c}">
     <IconPath IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_300.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -40,18 +41,12 @@
           <SmallImageURI IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_300.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\NETGEAR_Genie_ico_300.png</BackgroundImageURI>
-          <Title>
-          </Title>
-          <BackContent>
-          </BackContent>
-          <BackBackgroundImageURI>
-          </BackBackgroundImageURI>
-          <BackTitle>
-          </BackTitle>
-          <DeviceLockImageURI>
-          </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <Title></Title>
+          <BackContent></BackContent>
+          <BackBackgroundImageURI></BackBackgroundImageURI>
+          <BackTitle></BackTitle>
+          <DeviceLockImageURI></DeviceLockImageURI>
+          <HasLarge></HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>

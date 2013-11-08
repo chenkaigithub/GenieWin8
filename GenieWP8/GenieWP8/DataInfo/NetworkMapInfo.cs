@@ -13,19 +13,24 @@ namespace GenieWP8.DataInfo
         public static string fileContent;
         public static bool bTypeChanged;
         public static bool bRefreshMap;
+        public static bool IsAccessControlEnabled;
+        public static string deviceMacaddr;       //记录访问控制单个设备的Mac地址
+        public static string ChangedDeviceMacaddr;
+        public static string ChangedDeviceAccessControl;
     }
 
     public class Node
     {
-        public String uniqueId;
-        public String deviceName;
-        public String deviceType;
-        public String RouterFirmware;
-        public String IPaddress;
-        public String signalStrength;
-        public String linkRate;
-        public String MACaddress;
-        public String connectType;
+        public string uniqueId;
+        public string deviceName;
+        public string deviceType;
+        public string RouterFirmware;
+        public string IPaddress;
+        public string signalStrength;
+        public string linkRate;
+        public string MACaddress;
+        public string connectType;
+        public string AccessControl;
     }
 
     public class Devicetype

@@ -82,7 +82,7 @@ namespace GenieWP8.ViewModels
 
             Node NodeRouter = new Node();
             NodeRouter.uniqueId = "Router";
-            NodeRouter.deviceName = WifiSettingInfo.ssid;
+            NodeRouter.deviceName = MainPageInfo.model;
             NodeRouter.RouterFirmware = MainPageInfo.firmware;
             NodeRouter.IPaddress = NetworkMapInfo.geteway;
             NodeRouter.MACaddress = WifiSettingInfo.macAddr;
@@ -133,10 +133,33 @@ namespace GenieWP8.ViewModels
                         NodeDevice.deviceType = "networkdev";
                     }
                     NodeDevice.IPaddress = attachDeviceAll[key]["Ip"];
-                    NodeDevice.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                    NodeDevice.signalStrength = attachDeviceAll[key]["Signal"];
+                    if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                    {
+                        NodeDevice.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                    } 
+                    else
+                    {
+                        NodeDevice.linkRate = "";
+                    }
+
+                    if (attachDeviceAll[key].ContainsKey("Signal"))
+                    {
+                        NodeDevice.signalStrength = attachDeviceAll[key]["Signal"];
+                    } 
+                    else
+                    {
+                        NodeDevice.signalStrength = "";
+                    }                   
                     NodeDevice.MACaddress = key;
                     NodeDevice.connectType = attachDeviceAll[key]["Connect"];
+                    if (attachDeviceAll[key].ContainsKey("AccessControl"))
+                    {
+                        NodeDevice.AccessControl = attachDeviceAll[key]["AccessControl"];
+                    } 
+                    else
+                    {
+                        NodeDevice.AccessControl = "";
+                    }
                     //var group = new DeviceGroup(NodeDevice);
                     var group = new DeviceGroup() { NODE = NodeDevice };
                     this.DeviceGroups.Add(group);
@@ -191,6 +214,14 @@ namespace GenieWP8.ViewModels
                     NodeDevice.signalStrength = attachDeviceAll[key]["Signal"];
                     NodeDevice.MACaddress = key;
                     NodeDevice.connectType = attachDeviceAll[key]["Connect"];
+                    if (attachDeviceAll[key].ContainsKey("AccessControl"))
+                    {
+                        NodeDevice.AccessControl = attachDeviceAll[key]["AccessControl"];
+                    }
+                    else
+                    {
+                        NodeDevice.AccessControl = "";
+                    }
                     //var group = new DeviceGroup(NodeDevice);
                     var group = new DeviceGroup() { NODE = NodeDevice };
                     this.DeviceGroups.Add(group);

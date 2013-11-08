@@ -207,7 +207,10 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            }
             if (dicResponse.Count > 0)
             {
                 WifiSettingInfo.ssid = dicResponse["NewSSID"];
@@ -241,7 +244,10 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            }
             if (dicResponse.Count > 0)
             {
                 WifiSettingInfo.ssid = dicResponse["NewSSID"];
@@ -340,7 +346,7 @@ namespace GenieWP8
             string password = pwd.Text.Trim();
             if (ssid != "" && ssid != null)
             {
-                if (WifiSettingInfo.securityType.CompareTo("None") == 0)
+                if (WifiSettingInfo.changedSecurityType.CompareTo("None") == 0)
                 {
                     timer.Interval = TimeSpan.FromSeconds(1);
                     timer.Tick += timer_Tick;
@@ -349,6 +355,7 @@ namespace GenieWP8
                     WifiSettingInfo.ssid = WifiSettingInfo.changedSsid;
                     WifiSettingInfo.password = WifiSettingInfo.changedPassword;
                     WifiSettingInfo.channel = WifiSettingInfo.changedChannel;
+                    WifiSettingInfo.securityType = WifiSettingInfo.changedSecurityType;
                     WifiSettingInfo.isSSIDChanged = false;
                     WifiSettingInfo.isPasswordChanged = false;
                     WifiSettingInfo.isChannelChanged = false;

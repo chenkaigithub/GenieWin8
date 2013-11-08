@@ -79,6 +79,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 访问控制 的本地化字符串。
+        /// </summary>
+        public static string AccessControl {
+            get {
+                return ResourceManager.GetString("AccessControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 成人主题 的本地化字符串。
         /// </summary>
         public static string AdultThemes {
@@ -259,6 +268,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 允许 的本地化字符串。
+        /// </summary>
+        public static string btnAllow {
+            get {
+                return ResourceManager.GetString("btnAllow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 应用 的本地化字符串。
         /// </summary>
         public static string btnApply {
@@ -273,6 +291,15 @@ namespace GenieWP8.Resources {
         public static string btnBack {
             get {
                 return ResourceManager.GetString("btnBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 阻止 的本地化字符串。
+        /// </summary>
+        public static string btnBlock {
+            get {
+                return ResourceManager.GetString("btnBlock", resourceCulture);
             }
         }
         
@@ -979,7 +1006,7 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
-        ///   查找类似 iPhone5 的本地化字符串。
+        ///   查找类似 iPhone5/5S/5C 的本地化字符串。
         /// </summary>
         public static string iphone5 {
             get {
@@ -2059,7 +2086,7 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
-        ///   查找类似 由 SiteView 提供支持 的本地化字符串。
+        ///   查找类似 由 BIGIT.COM 提供支持 的本地化字符串。
         /// </summary>
         public static string SupportText {
             get {

@@ -225,12 +225,18 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetGuestAccessEnabled();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetGuestAccessEnabled();
+            }            
             GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
             if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
             {
                 Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                while (dicResponse1 == null || dicResponse1.Count == 0)
+                {
+                    dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                }
                 if (dicResponse1.Count > 0)
                 {
                     GuestAccessInfo.ssid = dicResponse1["NewSSID"];
@@ -283,12 +289,18 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetGuestAccessEnabled();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetGuestAccessEnabled();
+            }           
             GuestAccessInfo.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
             if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
             {
                 Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                while (dicResponse1 == null || dicResponse1.Count == 0)
+                {
+                    dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                }                
                 if (dicResponse1.Count > 0)
                 {
                     GuestAccessInfo.ssid = dicResponse1["NewSSID"];
@@ -430,9 +442,9 @@ namespace GenieWP8
         //“否”按钮响应事件
         private void NoButton_Click(Object sender, RoutedEventArgs e)
         {
-            //PopupEnquire.IsOpen = false;
-            //PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            //PopupBackground.Visibility = Visibility.Collapsed;
+            PopupEnquire.IsOpen = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         int count = 60;     //倒计时间

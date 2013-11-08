@@ -327,7 +327,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Path=LocalizedResources.VersionText, Source={StaticResource LocalizedStrings}}"
                                        FontSize="20" Margin="10,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
-                            <TextBlock Text="1.0.1.0" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
+                            <TextBlock Text="1.0.3.1" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
                         </StackPanel>
                         <TextBlock Text="{Binding Path=LocalizedResources.CopyrightText, Source={StaticResource LocalizedStrings}}"
                                    FontSize="20" Margin="10,0,0,0" Foreground="White"/>

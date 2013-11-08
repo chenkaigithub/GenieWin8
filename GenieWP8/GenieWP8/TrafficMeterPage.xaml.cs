@@ -683,7 +683,10 @@ namespace GenieWP8
             pleasewait.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetTrafficMeterEnabled();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetTrafficMeterEnabled();
+            }
             if (dicResponse.Count > 0)
             {
                 TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
@@ -694,6 +697,8 @@ namespace GenieWP8
                     TrafficMeterPanel.Visibility = Visibility.Collapsed;
                     TotalCanvas.Visibility = Visibility.Collapsed;
                     AverageCanvas.Visibility = Visibility.Collapsed;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
                 }
                 else if (TrafficMeterInfo.isTrafficMeterEnabled == "1")
                 {
@@ -703,7 +708,10 @@ namespace GenieWP8
                     TotalCanvas.Visibility = Visibility.Visible;
                     AverageCanvas.Visibility = Visibility.Visible;
                     Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                    dicResponse1 = await soapApi.GetTrafficMeterOptions();
+                    while (dicResponse1 == null || dicResponse1.Count == 0)
+                    {
+                        dicResponse1 = await soapApi.GetTrafficMeterOptions();
+                    }
                     if (dicResponse1.Count > 0)
                     {
                         TrafficMeterInfo.MonthlyLimit = dicResponse1["NewMonthlyLimit"];
@@ -718,7 +726,10 @@ namespace GenieWP8
                         TrafficMeterInfo.changedControlOption = dicResponse1["NewControlOption"];
 
                         Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                        dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                        while (dicResponse2 == null || dicResponse2.Count == 0)
+                        {
+                            dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                        }
                         if (dicResponse2.Count > 0)
                         {
                             TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
