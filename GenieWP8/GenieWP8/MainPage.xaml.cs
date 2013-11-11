@@ -273,9 +273,29 @@ namespace GenieWP8
         private async void Image_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             string text = tbSearch.Text.Trim();
+            if (text.Contains("%"))
+            {
+                text = text.Replace("%", "");
+            }
+            if (text.Contains(" "))
+            {
+                text = text.Replace(" ", "");
+            }
+            if (text.Contains("&"))
+            {
+                text = text.Replace("&", "");
+            }
+            if (text.Contains("*"))
+            {
+                text = text.Replace("*", "");
+            }
+            if (text.Contains(":"))
+            {
+                text = text.Replace(":", "");
+            }
             if (text != "")
             {
-                text = Uri.EscapeDataString(text);
+                text = Uri.EscapeUriString(text);
                 var uri = new Uri((String)("http://support.netgear.com/search/" + text));
                 await Windows.System.Launcher.LaunchUriAsync(uri);
             }
@@ -559,12 +579,12 @@ namespace GenieWP8
                             if (dicResponse["ParentalControlSupported"] == "1")
                             {
                                 ///通过attachDevice获取本机的Mac地址
-                                Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                                while (responseDic == null || responseDic.Count == 0)
-                                {
-                                    responseDic = await soapApi.GetAttachDevice();
-                                }                               
-                                NetworkMapInfo.attachDeviceDic = responseDic;
+                                //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                                //while (responseDic == null || responseDic.Count == 0)
+                                //{
+                                //    responseDic = await soapApi.GetAttachDevice();
+                                //}                               
+                                //NetworkMapInfo.attachDeviceDic = responseDic;
 
                                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                                 while (dicResponse2 == null || dicResponse2.Count == 0)
@@ -574,7 +594,7 @@ namespace GenieWP8
                                 ParentalControlInfo.RouterMacaddr = dicResponse2["NewWLANMACAddress"];
 
                                 dicResponse2 = new Dictionary<string, string>();
-                                while (dicResponse2 == null || dicResponse2.Count == 0)
+                                while (dicResponse2 == null || dicResponse2.Count == 0 || int.Parse(dicResponse2["ResponseCode"]) != 0)
                                 {
                                     dicResponse2 = await soapApi.GetEnableStatus();
                                 }
@@ -630,22 +650,22 @@ namespace GenieWP8
             SearchGrid.Background = SearchBackground;
         }        
 
-        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tbSearch.Text.Contains("%"))
-            {
-                int CaretPos = tbSearch.SelectionStart;
-                tbSearch.Text = tbSearch.Text.Replace("%", "");
-                tbSearch.SelectionStart = CaretPos - 1;
-            }
+        //private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (tbSearch.Text.Contains("%"))
+        //    {
+        //        int CaretPos = tbSearch.SelectionStart;
+        //        tbSearch.Text = tbSearch.Text.Replace("%", "");
+        //        tbSearch.SelectionStart = CaretPos - 1;
+        //    }
             
-            if (tbSearch.Text.Contains(" "))
-            {
-                int CaretPos = tbSearch.SelectionStart;
-                tbSearch.Text = tbSearch.Text.Replace(" ", "");
-                tbSearch.SelectionStart = CaretPos - 1;
-            }
-        }
+        //    if (tbSearch.Text.Contains(" "))
+        //    {
+        //        int CaretPos = tbSearch.SelectionStart;
+        //        tbSearch.Text = tbSearch.Text.Replace(" ", "");
+        //        tbSearch.SelectionStart = CaretPos - 1;
+        //    }
+        //}
 
         //按下屏幕键盘回车键后关闭屏幕键盘
         protected override void OnKeyDown(System.Windows.Input.KeyEventArgs e)

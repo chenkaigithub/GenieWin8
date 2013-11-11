@@ -65,7 +65,7 @@ namespace GenieWP8
                 GenieSoapApi soapApi = new GenieSoapApi();
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 dicResponse = await soapApi.GetBlockDeviceEnableStatus();
-                if (dicResponse["ResponseCode"] == "000")
+                if (int.Parse(dicResponse["ResponseCode"]) == 0)
                 {
                     if (dicResponse["NewBlockDeviceEnable"] == "0")
                     {
@@ -153,8 +153,11 @@ namespace GenieWP8
                 DeviceInfoScrollViewer.Height = 200;
                 stpWaitAccessControl.Margin = new Thickness(0, 150, 0, 0);
             }
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            timer.Start();
             DrawNetworkMap(width, height);
-            PopupBackground.Visibility = Visibility.Collapsed;
+            //PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         private async void DrawNetworkMap(double width, double height)
@@ -509,7 +512,7 @@ namespace GenieWP8
                     }
                     cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
                     cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
-                    cbAccessControl.Checked += new RoutedEventHandler(AccessControl_checked);
+                    cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
 
                     map.Children.Add(internet);
                     map.Children.Add(BtnRouter);
@@ -855,7 +858,7 @@ namespace GenieWP8
                     }
                     cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
                     cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
-                    cbAccessControl.Checked += new RoutedEventHandler(AccessControl_checked);
+                    cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
 
                     map.Children.Add(internet);
                     map.Children.Add(BtnRouter);
@@ -1566,7 +1569,7 @@ namespace GenieWP8
                 else
                     StpLinkRate.Visibility = Visibility.Visible;
 
-                if (Group.NODE.AccessControl == "")
+                if (Group.NODE.AccessControl == "" || NetworkMapInfo.IsAccessControlEnabled == false)
                 {
                     btnBack.Width = 200;
                     btnBack.Margin = new Thickness(200, 10, 0, 0);
@@ -1610,17 +1613,45 @@ namespace GenieWP8
             }
         }
 
-        private void BackButton_Click(Object sender, RoutedEventArgs e)
+        private async void BackButton_Click(Object sender, RoutedEventArgs e)
         {
             DeviceInfoPopup.IsOpen = false;
-            PopupBackground.Visibility = Visibility.Collapsed;
             if (NetworkMapInfo.bRefreshMap)
             {
+                pleasewait.Visibility = Visibility.Visible;
                 NetworkMapInfo.bRefreshMap = false;
                 NetworkMapInfo.bTypeChanged = false;
                 appBarButton_refresh.IsEnabled = false;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                UtilityTool util = new UtilityTool();
+                NetworkMapInfo.geteway = await util.GetGateway();
+                Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                while (responseDic == null || responseDic.Count == 0)
+                {
+                    responseDic = await soapApi.GetAttachDevice();
+                }
+                NetworkMapInfo.attachDeviceDic = responseDic;
+
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                }
+                if (dicResponse.Count > 0)
+                {
+                    WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                    WifiSettingInfo.channel = dicResponse["NewChannel"];
+                    WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                    WifiSettingInfo.macAddr = dicResponse["NewWLANMACAddress"];
+                }
+                NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
+                PopupBackground.Visibility = Visibility.Collapsed;
                 OnNavigatedTo(null);
-            }            
+            }
+            else
+            {
+                PopupBackground.Visibility = Visibility.Collapsed;
+            }
         }
         
         private void ModifyButton_Click(Object sender, RoutedEventArgs e)
@@ -2057,7 +2088,7 @@ namespace GenieWP8
             {
                 dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Allow");
             }
-            if (dicResponse["ResponseCode"] == "0")
+            if (int.Parse(dicResponse["ResponseCode"]) == 0)
             {
                 btnAllow.Visibility = Visibility.Collapsed;
                 btnBlock.Visibility = Visibility.Visible;
@@ -2079,7 +2110,7 @@ namespace GenieWP8
             {
                 dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Block");
             }
-            if (dicResponse["ResponseCode"] == "0")
+            if (int.Parse(dicResponse["ResponseCode"]) == 0)
             {
                 btnAllow.Visibility = Visibility.Visible;
                 btnBlock.Visibility = Visibility.Collapsed;

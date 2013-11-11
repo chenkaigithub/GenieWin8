@@ -595,7 +595,7 @@ namespace GenieWP8
 
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
+            while (dicResponse == null || dicResponse.Count == 0 || int.Parse(dicResponse["ResponseCode"]) != 0)
             {
                 dicResponse = await soapApi.GetEnableStatus();
             }           
@@ -1407,6 +1407,7 @@ namespace GenieWP8
                 macAddr = dicResponse["NewWLANMACAddress"];                      //获取MAC地址
                 ParentalControlInfo.RouterMacaddr = macAddr;
             }
+            dicResponse = new Dictionary<string, string>();
             while (dicResponse == null || dicResponse.Count == 0)
             {
                 dicResponse = await soapApi.GetInfo("DeviceInfo");

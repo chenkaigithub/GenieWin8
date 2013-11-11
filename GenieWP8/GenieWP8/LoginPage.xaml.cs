@@ -291,6 +291,7 @@ namespace GenieWP8
                             }
                         }
                     }
+                    dicResponse = new Dictionary<string, string>();
                     while (dicResponse == null || dicResponse.Count == 0)
                     {
                         dicResponse = await soapApi.GetInfo("WLANConfiguration");
@@ -374,6 +375,7 @@ namespace GenieWP8
                     //UtilityTool util = new UtilityTool();
                     NetworkMapInfo.geteway = await util.GetGateway();
                     //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                    responseDic = new Dictionary<string, Dictionary<string, string>>();
                     while (responseDic == null || responseDic.Count == 0)
                     {
                         responseDic = await soapApi.GetAttachDevice();
@@ -381,6 +383,7 @@ namespace GenieWP8
                     NetworkMapInfo.attachDeviceDic = responseDic;
 
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = new Dictionary<string, string>();
                     while (dicResponse == null || dicResponse.Count == 0)
                     {
                         dicResponse = await soapApi.GetInfo("WLANConfiguration");
@@ -404,6 +407,7 @@ namespace GenieWP8
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = new Dictionary<string, string>();
                     while (dicResponse == null || dicResponse.Count == 0)
                     {
                         dicResponse = await soapApi.GetTrafficMeterEnabled();
@@ -479,11 +483,11 @@ namespace GenieWP8
                             {
                                 ///通过attachDevice获取本机的Mac地址
                                 //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                                while (responseDic == null || responseDic.Count == 0)
-                                {
-                                    responseDic = await soapApi.GetAttachDevice();
-                                }                                
-                                NetworkMapInfo.attachDeviceDic = responseDic;
+                                //while (responseDic == null || responseDic.Count == 0)
+                                //{
+                                //    responseDic = await soapApi.GetAttachDevice();
+                                //}                                
+                                //NetworkMapInfo.attachDeviceDic = responseDic;
 
                                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                                 while (dicResponse2 == null || dicResponse2.Count == 0)
@@ -493,7 +497,7 @@ namespace GenieWP8
                                 ParentalControlInfo.RouterMacaddr = dicResponse2["NewWLANMACAddress"];
 
                                 dicResponse2 = new Dictionary<string, string>();
-                                while (dicResponse2 == null || dicResponse2.Count == 0)
+                                while (dicResponse2 == null || dicResponse2.Count == 0 || int.Parse(dicResponse2["ResponseCode"]) != 0)
                                 {
                                     dicResponse2 = await soapApi.GetEnableStatus();
                                 }

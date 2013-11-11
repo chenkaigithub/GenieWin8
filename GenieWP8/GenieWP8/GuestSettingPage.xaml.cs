@@ -426,7 +426,14 @@ namespace GenieWP8
                 timer.Interval = TimeSpan.FromSeconds(1);
                 timer.Tick += timer_Tick;
                 timer.Start();
-                await soapApi.SetGuestAccessNetwork(ssid, GuestAccessInfo.changedSecurityType, password);
+                if (GuestAccessInfo.isOpenGuestAccess)
+                {
+                    await soapApi.SetGuestAccessEnabled2(ssid, GuestAccessInfo.changedSecurityType, password);
+                } 
+                else
+                {
+                    await soapApi.SetGuestAccessNetwork(ssid, GuestAccessInfo.changedSecurityType, password);
+                }
                 GuestAccessInfo.ssid = GuestAccessInfo.changedSsid;
                 GuestAccessInfo.password = GuestAccessInfo.changedPassword;
                 GuestAccessInfo.timePeriod = GuestAccessInfo.changedTimePeriod;

@@ -394,6 +394,7 @@ namespace GenieWP8
                 default:
                     break;
             }
+            GuestAccessInfo.isOpenGuestAccess = false;
             NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
         }
     }

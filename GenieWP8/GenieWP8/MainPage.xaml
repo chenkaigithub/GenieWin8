@@ -172,7 +172,7 @@
                     <Grid.Background>
                         <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/search_normal.png"/>
                     </Grid.Background>
-                    <TextBox x:Name="tbSearch" FontSize="25" Margin="10,-8,40,0" Padding="0" BorderThickness="0" Height="60" Background="White" TextChanged="tbSearch_TextChanged"/>
+                    <TextBox x:Name="tbSearch" FontSize="25" Margin="10,-8,40,0" Padding="0" BorderThickness="0" Height="60" Background="White"/>
                     <Image Source="Assets/MainPage/search_ico.png" Height="28" Margin="0,0,20,0" HorizontalAlignment="Right" MouseLeftButtonUp="Image_MouseLeftButtonUp"/>
                 </Grid>
             </Grid>
