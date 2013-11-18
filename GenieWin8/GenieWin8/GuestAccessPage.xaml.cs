@@ -57,52 +57,8 @@ namespace GenieWin8
         /// </param>
         /// <param name="pageState">此页在以前会话期间保留的状态
         /// 字典。首次访问页面时为 null。</param>
-        protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
-        {
-            InProgress.IsActive = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetGuestAccessEnabled();
-            GuestAccessInfoModel.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
-            if (GuestAccessInfoModel.isGuestAccessEnabled == "0")
-            {
-                checkGuestSetting.IsChecked = false;
-                GuestSettingsList.Visibility = Visibility.Collapsed;
-                textScanQRCode.Visibility = Visibility.Collapsed;
-                imageQRCode.Visibility = Visibility.Collapsed;
-            }
-            else if (GuestAccessInfoModel.isGuestAccessEnabled == "1")
-            {
-                checkGuestSetting.IsChecked = true;
-                GuestSettingsList.Visibility = Visibility.Visible;
-                textScanQRCode.Visibility = Visibility.Visible;
-                imageQRCode.Visibility = Visibility.Visible;
-            }
-            dicResponse = await soapApi.GetGuestAccessNetworkInfo();
-            if (dicResponse.Count > 0)
-            {
-                GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
-                GuestAccessInfoModel.changedSsid = dicResponse["NewSSID"];
-                GuestAccessInfoModel.securityType = dicResponse["NewSecurityMode"];
-                GuestAccessInfoModel.changedSecurityType = dicResponse["NewSecurityMode"];
-                if (dicResponse["NewSecurityMode"] != "None")
-                {
-                    GuestAccessInfoModel.password = dicResponse["NewKey"];
-                    GuestAccessInfoModel.changedPassword = dicResponse["NewKey"];
-                }
-                else
-                {
-                    GuestAccessInfoModel.password = "";
-                    GuestAccessInfoModel.changedPassword = "";
-                }
-                if (GuestAccessInfoModel.timePeriod == null)
-                {
-                    GuestAccessInfoModel.timePeriod = "Always";
-                    GuestAccessInfoModel.changedTimePeriod = "Always";
-                }
-            }            
+        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        {        
             var GuestSettingGroup = GuestSettingSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = GuestSettingGroup;
 
@@ -110,10 +66,6 @@ namespace GenieWin8
             string codeString = "WIRELESS:" + GuestAccessInfoModel.ssid + ";PASSWORD:" + GuestAccessInfoModel.password;
             WriteableBitmap wb = CreateBarcode(codeString);
             imageQRCode.Source = wb;
-
-            InProgress.IsActive = false;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -128,45 +80,20 @@ namespace GenieWin8
 
         private void GuestSetting_ItemClick(Object sender, ItemClickEventArgs e)
         {
+            GuestAccessInfoModel.isOpenGuestAccess = false;
             this.Frame.Navigate(typeof(GuestSettingPage));
         }
 
         private async void checkGuestSetting_Click(Object sender, RoutedEventArgs e)
         {
-            // Create the message dialog and set its content
-            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-            var strtext = loader.GetString("wirelsssetting");
-            var messageDialog = new MessageDialog(strtext);
-
-            // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
-            messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandlerYes)));
-            messageDialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(this.CommandInvokedHandlerNo)));
-
-            // Set the command that will be invoked by default
-            messageDialog.DefaultCommandIndex = 0;
-
-            // Set the command to be invoked when escape is pressed
-            messageDialog.CancelCommandIndex = 1;
-
-            // Show the message dialog
-            await messageDialog.ShowAsync();
-        }
-
-        #region Commands
-        /// <summary>
-        /// Callback function for the invocation of the dialog commands.
-        /// </summary>
-        /// <param name="command">The command that was invoked.</param>
-        private async void CommandInvokedHandlerYes(IUICommand command)
-        {
-            InProgress.IsActive = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             if (checkGuestSetting.IsChecked == true)
             {
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                dicResponse = await soapApi.GetGuestAccessNetworkInfo();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.GetGuestAccessNetworkInfo();
+                }  
                 if (dicResponse.Count > 0)
                 {
                     GuestAccessInfoModel.ssid = dicResponse["NewSSID"];
@@ -184,46 +111,176 @@ namespace GenieWin8
                         GuestAccessInfoModel.changedPassword = "";
                     }
                 }
-                dicResponse = await soapApi.SetGuestAccessEnabled2(GuestAccessInfoModel.ssid, GuestAccessInfoModel.securityType, GuestAccessInfoModel.password);
-                GuestSettingsList.Visibility = Visibility.Visible;
-                textScanQRCode.Visibility = Visibility.Visible;
-                imageQRCode.Visibility = Visibility.Visible;
+                GuestAccessInfoModel.isOpenGuestAccess = true;
+                this.Frame.Navigate(typeof(GuestSettingPage));
             }
             else if (checkGuestSetting.IsChecked == false)
             {
-                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                // Create the message dialog and set its content
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var strtext = loader.GetString("wirelsssetting");
+                var messageDialog = new MessageDialog(strtext);
+
+                // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
+                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandlerYes)));
+                messageDialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(this.CommandInvokedHandlerNo)));
+
+                // Set the command that will be invoked by default
+                messageDialog.DefaultCommandIndex = 0;
+
+                // Set the command to be invoked when escape is pressed
+                messageDialog.CancelCommandIndex = 1;
+
+                // Show the message dialog
+                await messageDialog.ShowAsync();                
+            }
+        }
+
+        DispatcherTimer timer = new DispatcherTimer();      //计时器
+        #region Commands
+        /// <summary>
+        /// Callback function for the invocation of the dialog commands.
+        /// </summary>
+        /// <param name="command">The command that was invoked.</param>
+        private async void CommandInvokedHandlerYes(IUICommand command)
+        {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            waittime.Visibility = Visibility.Visible;
+
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += new System.EventHandler<object>(timer_Tick);
+            timer.Start();
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
                 dicResponse = await soapApi.SetGuestAccessEnabled();
+            }
+        }
+
+        int count = 60;     //倒计时间
+        async void timer_Tick(object sender, object e)
+        {
+            waittime.Text = count.ToString();
+            count--;
+            if (count < 0)
+            {
+                timer.Stop();
                 GuestSettingsList.Visibility = Visibility.Collapsed;
                 textScanQRCode.Visibility = Visibility.Collapsed;
                 imageQRCode.Visibility = Visibility.Collapsed;
+
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var strtext = loader.GetString("wirelesssettinrelogin");
+                var messageDialog = new MessageDialog(strtext);
+                await messageDialog.ShowAsync();
+                MainPageInfo.bLogin = false;
+                this.GoHome(null, null);
             }
-            InProgress.IsActive = false;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
-            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-            var strtext = loader.GetString("wirelesssettinrelogin");
-            var messageDialog = new MessageDialog(strtext);
-            await messageDialog.ShowAsync();
-            MainPageInfo.bLogin = false;
-            this.GoHome(null, null);
         }
 
         private void CommandInvokedHandlerNo(IUICommand command)
         {
-            if (checkGuestSetting.IsChecked == true)
-            {
-                checkGuestSetting.IsChecked = false;
-            }
-            else if (checkGuestSetting.IsChecked == false)
+            if (checkGuestSetting.IsChecked == false)
             {
                 checkGuestSetting.IsChecked = true;
             }           
         }
         #endregion
 
-        private void Refresh_Click(Object sender, RoutedEventArgs e)
+        private async void Refresh_Click(Object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(GuestAccessPage));
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            waittime.Visibility = Visibility.Collapsed;
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetGuestAccessEnabled();
+            } 
+            if (dicResponse.Count > 0)
+            {
+                GuestAccessInfoModel.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
+                if (GuestAccessInfoModel.isGuestAccessEnabled == "0")
+                {
+                    checkGuestSetting.IsChecked = false;
+                    GuestSettingsList.Visibility = Visibility.Collapsed;
+                    textScanQRCode.Visibility = Visibility.Collapsed;
+                    imageQRCode.Visibility = Visibility.Collapsed;
+                }
+                else if (GuestAccessInfoModel.isGuestAccessEnabled == "1")
+                {
+                    checkGuestSetting.IsChecked = true;
+                    GuestSettingsList.Visibility = Visibility.Visible;
+                    textScanQRCode.Visibility = Visibility.Visible;
+                    imageQRCode.Visibility = Visibility.Visible;
+                    Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                    while (dicResponse1 == null || dicResponse1.Count == 0)
+                    {
+                        dicResponse1 = await soapApi.GetGuestAccessNetworkInfo();
+                    }
+                    if (dicResponse1.Count > 0)
+                    {
+                        GuestAccessInfoModel.ssid = dicResponse1["NewSSID"];
+                        GuestAccessInfoModel.changedSsid = dicResponse1["NewSSID"];
+                        GuestAccessInfoModel.securityType = dicResponse1["NewSecurityMode"];
+                        GuestAccessInfoModel.changedSecurityType = dicResponse1["NewSecurityMode"];
+                        if (dicResponse1["NewSecurityMode"] != "None")
+                        {
+                            GuestAccessInfoModel.password = dicResponse1["NewKey"];
+                            GuestAccessInfoModel.changedPassword = dicResponse1["NewKey"];
+                        }
+                        else
+                        {
+                            GuestAccessInfoModel.password = "";
+                            GuestAccessInfoModel.changedPassword = "";
+                        }
+                        if (GuestAccessInfoModel.timePeriod == null)
+                        {
+                            GuestAccessInfoModel.timePeriod = "Always";
+                            GuestAccessInfoModel.changedTimePeriod = "Always";
+                        }
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        this.Frame.Navigate(typeof(GuestAccessPage));
+                    }
+                    else
+                    {
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        var messageDialog = new MessageDialog("GetGuestAccessNetworkInfo failed!");
+                        await messageDialog.ShowAsync();
+                    }
+                }
+                else if (GuestAccessInfoModel.isGuestAccessEnabled == "2")
+                {
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                    var strtext = loader.GetString("notsupport");
+                    var messageDialog = new MessageDialog(strtext);
+                    await messageDialog.ShowAsync();
+                    this.GoHome(null, null);
+                }
+            }
+            else
+            {
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                var messageDialog = new MessageDialog("GetGuestAccessEnabled failed!");
+                await messageDialog.ShowAsync();
+            }
         }
 
         //生成二维码

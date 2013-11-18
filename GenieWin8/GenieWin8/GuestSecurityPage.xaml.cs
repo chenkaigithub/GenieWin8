@@ -54,6 +54,9 @@ namespace GenieWin8
                 case "WPA-PSK/WPA2-PSK":
                     securityListView.SelectedIndex = 2;
                     break;
+                case "Mixed WPA":
+                    securityListView.SelectedIndex = 2;
+                    break;
             }
         }
 
@@ -67,9 +70,13 @@ namespace GenieWin8
         {
         }
 
+        int lastIndex = -1;         //记录上次的选择项
         private void Security_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = securityListView.SelectedIndex;
+            if (index == -1)
+                return;
+
             switch (index)
             {
                 case 0:
@@ -97,7 +104,12 @@ namespace GenieWin8
             {
                 GuestAccessInfoModel.isSecurityTypeChanged = false;
             }
-            this.Frame.Navigate(typeof(GuestSettingPage));
+
+            if (lastIndex != -1 && index != lastIndex)
+            {
+                this.Frame.Navigate(typeof(GuestSettingPage));
+            }
+            lastIndex = index;
         }
     }
 }

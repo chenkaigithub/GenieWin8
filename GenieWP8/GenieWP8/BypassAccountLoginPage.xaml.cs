@@ -115,7 +115,7 @@ namespace GenieWP8
                 UtilityTool util = new UtilityTool();
                 string macAddress = util.GetLocalMacAddress();
                 macAddress = macAddress.Replace(":", "");       ///本机mac地址
-                dicResponse = await soapApi.SetDNSMasqDeviceID(macAddress, ParentalControlInfo.BypassChildrenDeviceId);
+                dicResponse = await soapApi.SetDNSMasqDeviceID("default", ParentalControlInfo.BypassChildrenDeviceId);
 
                 PopupBackground.Visibility = Visibility.Collapsed;
                 NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));

@@ -1045,4 +1045,7 @@
   <data name="btnBlock" xml:space="preserve">
     <value>Zavrni</value>
   </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Tablični računalnik Windows</value>
+  </data>
 </root>

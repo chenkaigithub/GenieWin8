@@ -1045,4 +1045,7 @@
   <data name="btnBlock" xml:space="preserve">
     <value>Блокировать</value>
   </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Планшет с ОС Windows</value>
+  </data>
 </root>

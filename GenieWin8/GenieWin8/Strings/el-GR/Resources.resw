@@ -949,4 +949,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Το πεδίο ονόματος χρήστη ή κωδικού πρόσβασης είναι κενό.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης αντιγράφεται στο πρόχειρο. Για να συνδεθείτε σε αυτό το δίκτυο, επιλέξτε Ρυθμίσεις &gt; WLAN.</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Έκδοση υλικολογισμικού</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Έχετε συνδεθεί ως</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>Γίνεται σύνδεση…</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>Γίνεται αποσύνδεση…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης δεν αντιστοιχεί σε αυτό το όνομα χρήστη. Προσπαθήστε ξανά.</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Έλεγχος πρόσβασης</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Τηλέφωνο Windows</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Να επιτρέπεται</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Αποκλεισμός</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Tablet Windows</value>
+  </data>
 </root>

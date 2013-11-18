@@ -65,6 +65,19 @@ namespace GenieWin8
         {
         }
 
+        //按下屏幕键盘回车键后关闭屏幕键盘
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                this.Focus(FocusState.Keyboard);
+            } 
+            else
+            {
+                base.OnKeyDown(e);
+            }           
+        }
+
         private async void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
             InProgress.IsActive = true;
@@ -72,6 +85,16 @@ namespace GenieWin8
 
             string Username = tbUserName.Text.Trim();
             string Password = tbPassword.Password;
+            if (checkRememberPassword.IsChecked == true)
+            {
+                MainPageInfo.rememberpassword = Password;
+            }
+            else
+            {
+                MainPageInfo.rememberpassword = "";
+            }
+            WritePasswordToFile();
+
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             dicResponse = await soapApi.GetCurrentSetting();
@@ -86,6 +109,8 @@ namespace GenieWin8
             }
             if (dicResponse.Count > 0 && dicResponse["Firmware"] != "" && IsModelKeyExists && dicResponse["Model"] != "")
             {
+                MainPageInfo.model = dicResponse["Model"];
+                MainPageInfo.firmware = dicResponse["Firmware"];
                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                 dicResponse2 = await soapApi.Authenticate(Username, Password);
                 if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
@@ -93,17 +118,9 @@ namespace GenieWin8
                     MainPageInfo.bLogin = true;
                     MainPageInfo.username = Username;
                     MainPageInfo.password = Password;
-                    if (checkRememberPassword.IsChecked == true)
-                    {
-                        MainPageInfo.rememberpassword = Password;
-                    }
-                    else
-                    {
-                        MainPageInfo.rememberpassword = "";                       
-                    }
+                    
                     InProgress.IsActive = false;
-                    PopupBackground.Visibility = Visibility.Collapsed;
-                    WritePasswordToFile();
+                    PopupBackground.Visibility = Visibility.Collapsed;                   
                     //this.Frame.GoBack();
                     NavigatedToPage();
                 }
@@ -180,19 +197,39 @@ namespace GenieWin8
                     InProgress.IsActive = true;
                     PopupBackground.Visibility = Visibility.Visible;
                     Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-                    attachDeviceAll = await soapApi.GetAttachDevice();
+                    while (attachDeviceAll == null || attachDeviceAll.Count == 0)
+                    {
+                        attachDeviceAll = await soapApi.GetAttachDevice();
+                    } 
                     //UtilityTool util = new UtilityTool();
                     string loacalIp = util.GetLocalHostIp();
                     foreach (string key in attachDeviceAll.Keys)
                     {
                         if (loacalIp == attachDeviceAll[key]["Ip"])
                         {
-                            WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                            WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                            if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                            {
+                                WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                            } 
+                            else
+                            {
+                                WifiInfoModel.linkRate = "";
+                            }
+                            if (attachDeviceAll[key].ContainsKey("Signal"))
+                            {
+                                WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                            } 
+                            else
+                            {
+                                WifiInfoModel.signalStrength = "";
+                            } 
                         }
                     }
-                    //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    dicResponse = new Dictionary<string, string>();
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    }
                     if (dicResponse.Count > 0)
                     {
                         WifiInfoModel.ssid = dicResponse["NewSSID"];
@@ -219,12 +256,19 @@ namespace GenieWin8
                     InProgress.IsActive = true;
                     PopupBackground.Visibility = Visibility.Visible;
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetGuestAccessEnabled();
+                    dicResponse = new Dictionary<string, string>();
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.GetGuestAccessEnabled();
+                    } 
                     GuestAccessInfoModel.isGuestAccessEnabled = dicResponse["NewGuestAccessEnabled"];
                     if (dicResponse["NewGuestAccessEnabled"] == "0" || dicResponse["NewGuestAccessEnabled"] == "1")
                     {
                         Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                        dicResponse2 = await soapApi.GetGuestAccessNetworkInfo();
+                        while (dicResponse2 == null || dicResponse2.Count == 0)
+                        {
+                            dicResponse2 = await soapApi.GetGuestAccessNetworkInfo();
+                        } 
                         if (dicResponse2.Count > 0)
                         {
                             GuestAccessInfoModel.ssid = dicResponse2["NewSSID"];
@@ -266,20 +310,28 @@ namespace GenieWin8
                     InProgress.IsActive = true;
                     PopupBackground.Visibility = Visibility.Visible;
                     //UtilityTool util = new UtilityTool();
-                    NetworkMapModel.geteway = await util.GetGateway();
+                    NetworkMapInfo.geteway = await util.GetGateway();
                     //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                    responseDic = await soapApi.GetAttachDevice();
-                    NetworkMapModel.attachDeviceDic = responseDic;
+                    responseDic = new Dictionary<string, Dictionary<string, string>>();
+                    while (responseDic == null || responseDic.Count == 0)
+                    {
+                        responseDic = await soapApi.GetAttachDevice();
+                    }
+                    NetworkMapInfo.attachDeviceDic = responseDic;
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    dicResponse = new Dictionary<string, string>();
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    }
                     if (dicResponse.Count > 0)
                     {
                         WifiInfoModel.ssid = dicResponse["NewSSID"];
                         WifiInfoModel.channel = dicResponse["NewChannel"];
                         WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                         WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
-                    }                   
-                    NetworkMapModel.fileContent = await ReadDeviceInfoFile();
+                    }
+                    NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
                     InProgress.IsActive = false;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(NetworkMapPage));
@@ -289,12 +341,19 @@ namespace GenieWin8
                     InProgress.IsActive = true;
                     PopupBackground.Visibility = Visibility.Visible;
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                    dicResponse = await soapApi.GetTrafficMeterEnabled();
+                    dicResponse = new Dictionary<string, string>();
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.GetTrafficMeterEnabled();
+                    }
                     TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
                     if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
                     {
                         Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                        dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                        while (dicResponse2 == null || dicResponse2.Count == 0)
+                        {
+                            dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                        }
                         if (dicResponse2.Count > 0)
                         {
                             TrafficMeterInfoModel.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
@@ -308,7 +367,11 @@ namespace GenieWin8
                             TrafficMeterInfoModel.ControlOption = dicResponse2["NewControlOption"];
                             TrafficMeterInfoModel.changedControlOption = dicResponse2["NewControlOption"];
                         }
-                        dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                        dicResponse2 = new Dictionary<string, string>();
+                        while (dicResponse2 == null || dicResponse2.Count == 0)
+                        {
+                            dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                        }
                         if (dicResponse2.Count > 0)
                         {
                             TrafficMeterInfoModel.TodayUpload = dicResponse2["NewTodayUpload"];
@@ -361,11 +424,25 @@ namespace GenieWin8
                         {
                             ///通过attachDevice获取本机的Mac地址
                             //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                            responseDic = await soapApi.GetAttachDevice();
-                            NetworkMapModel.attachDeviceDic = responseDic;
+                            responseDic = new Dictionary<string, Dictionary<string, string>>();
+                            while (responseDic == null || responseDic.Count == 0)
+                            {
+                                responseDic = await soapApi.GetAttachDevice();
+                            }
+                            NetworkMapInfo.attachDeviceDic = responseDic;
 
                             Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                            dicResponse2 = await soapApi.GetEnableStatus();
+                            while (dicResponse2 == null || dicResponse2.Count == 0)
+                            {
+                                dicResponse2 = await soapApi.GetInfo("WLANConfiguration");
+                            }
+                            ParentalControlInfo.RouterMacaddr = dicResponse2["NewWLANMACAddress"];
+
+                            dicResponse2 = new Dictionary<string, string>();
+                            while (dicResponse2 == null || dicResponse2.Count == 0 || int.Parse(dicResponse2["ResponseCode"]) != 0)
+                            {
+                                dicResponse2 = await soapApi.GetEnableStatus();
+                            }
                             ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
                             InProgress.IsActive = false;
                             PopupBackground.Visibility = Visibility.Collapsed;

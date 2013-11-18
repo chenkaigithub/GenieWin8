@@ -2590,6 +2590,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Windows 平板电脑 的本地化字符串。
+        /// </summary>
+        public static string windowstablet {
+            get {
+                return ResourceManager.GetString("windowstablet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已成功更改无线设置。请使用新的无线设置重新加入无线网络，再登录精灵。 的本地化字符串。
         /// </summary>
         public static string wirelesssettinrelogin {

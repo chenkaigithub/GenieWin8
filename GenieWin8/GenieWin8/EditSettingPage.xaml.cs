@@ -51,6 +51,7 @@ namespace GenieWin8
 	        this.DefaultViewModel["itemChannelSecurity"] = channelsecurity;
             if (WifiInfoModel.changedSecurityType == "None")
             {
+                pwd.Text = "";
                 gridKey.Visibility = Visibility.Collapsed;
             }
             else
@@ -59,7 +60,7 @@ namespace GenieWin8
             }
 
             //判断保存按钮是否可点击
-            if (SSID.Text != "" && pwd.Text != "" && 
+            if (SSID.Text != "" && ((gridKey.Visibility == Visibility.Visible && pwd.Text != "") || gridKey.Visibility == Visibility.Collapsed) && 
                 (WifiInfoModel.isSSIDChanged == true || WifiInfoModel.isPasswordChanged == true || WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true))
             {
                 wifiSettingSave.IsEnabled = true;
@@ -86,12 +87,12 @@ namespace GenieWin8
             string ssid = SSID.Text.Trim();
             string password = pwd.Text.Trim();
             WifiInfoModel.changedSsid = ssid;
-            if (ssid != WifiInfoModel.ssid && ssid != "" && password != "")
+            if (ssid != WifiInfoModel.ssid && ssid != "" && ((gridKey.Visibility == Visibility.Visible && password != "") || gridKey.Visibility == Visibility.Collapsed))
             {
                 wifiSettingSave.IsEnabled = true;
                 WifiInfoModel.isSSIDChanged = true;                
             }
-            else if (ssid == "" || password == "")
+            else if (ssid == "" || (gridKey.Visibility == Visibility.Visible && password == ""))
             {
                 wifiSettingSave.IsEnabled = false;
                 WifiInfoModel.isSSIDChanged = true; 
@@ -99,7 +100,7 @@ namespace GenieWin8
             else
             {
                 WifiInfoModel.isSSIDChanged = false;
-                if (WifiInfoModel.isPasswordChanged == true || WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true)
+                if ((gridKey.Visibility == Visibility.Visible && WifiInfoModel.isPasswordChanged == true) || WifiInfoModel.isChannelChanged == true || WifiInfoModel.isSecurityTypeChanged == true)
                 {
                     wifiSettingSave.IsEnabled = true;
                 } 
@@ -155,9 +156,15 @@ namespace GenieWin8
 
         private async void GoBack_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
             GenieSoapApi soapApi = new GenieSoapApi();
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetInfo("WLANConfiguration");
+            }
             if (dicResponse.Count > 0)
             {
                 WifiInfoModel.ssid = dicResponse["NewSSID"];
@@ -177,7 +184,23 @@ namespace GenieWin8
             WifiInfoModel.isPasswordChanged = false;
             WifiInfoModel.isChannelChanged = false;
             WifiInfoModel.isSecurityTypeChanged = false;
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
             this.Frame.Navigate(typeof(WifiSettingPage));
+        }
+
+        //按下屏幕键盘回车键后关闭屏幕键盘
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                this.Focus(FocusState.Keyboard);
+            }
+            else
+            {
+                base.OnKeyDown(e);
+            }
         }
 
         DispatcherTimer timer = new DispatcherTimer();      //计时器
@@ -193,7 +216,7 @@ namespace GenieWin8
                 var messageDialog = new MessageDialog(loader.GetString("DisallowedSSIDChar"));
                 await messageDialog.ShowAsync();
             }
-            else if (password.Length < 8 || password.Length > 64)
+            else if (gridKey.Visibility == Visibility.Visible && password.Length < 8 || password.Length > 64)
             {
                 var messageDialog = new MessageDialog(loader.GetString("MsgPasswordFormat"));
                 await messageDialog.ShowAsync();
@@ -265,6 +288,7 @@ namespace GenieWin8
                     WifiInfoModel.ssid = WifiInfoModel.changedSsid;
                     WifiInfoModel.password = WifiInfoModel.changedPassword;
                     WifiInfoModel.channel = WifiInfoModel.changedChannel;
+                    WifiInfoModel.securityType = WifiInfoModel.changedSecurityType;
                     WifiInfoModel.isSSIDChanged = false;
                     WifiInfoModel.isPasswordChanged = false;
                     WifiInfoModel.isChannelChanged = false;

@@ -16,7 +16,7 @@
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid Background="#FFE6E6FB">
-            <Image Source="Assets/开机画面620x300.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Image Source="Assets/StartPage.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 

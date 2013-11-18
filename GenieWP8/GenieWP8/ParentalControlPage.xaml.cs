@@ -510,7 +510,9 @@ namespace GenieWP8
                     NavigationService.Navigate(new Uri("/BypassAccountPage.xaml", UriKind.Relative));
                 }
                 else
-                {                    
+                {
+                    InProgress.Visibility = Visibility.Collapsed;
+                    pleasewait.Visibility = Visibility.Collapsed;
                     if (dicResponse["error"] == "4012")
                     {
                         PopupEnquireBypassAccount.IsOpen = true;

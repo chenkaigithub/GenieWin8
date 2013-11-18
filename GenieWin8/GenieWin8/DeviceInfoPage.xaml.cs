@@ -17,7 +17,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Text;
 using GenieWin8.DataModel;
 using Windows.Storage;
-//using Windows.UI.Popups;
+using Windows.UI.Popups;
+using System.Threading.Tasks;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -28,9 +29,13 @@ namespace GenieWin8
     /// </summary>
     public sealed partial class DeviceInfoPage : GenieWin8.Common.LayoutAwarePage
     {
+        private string routerImage;
         public DeviceInfoPage()
         {
             this.InitializeComponent();
+            ImageNameGenerator imagePath = new ImageNameGenerator(MainPageInfo.model);
+            ///获取路由器图标路径
+            routerImage = imagePath.getImagePath(); 
         }
 
         /// <summary>
@@ -62,46 +67,37 @@ namespace GenieWin8
             Title.VerticalAlignment = VerticalAlignment.Center;
             Title.Margin = new Thickness(10, 0, 0, 0);
             Title.FontWeight = FontWeights.Bold;
+            Title.Width = Window.Current.Bounds.Width - 200;
+            Title.TextWrapping = TextWrapping.Wrap;
 
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             //DeviceName
-            //TextBlock txtDeviceName = new TextBlock();
             var strtext = loader.GetString("txtDeviceName");
             txtDeviceName.Text = strtext;
-            txtDeviceName.FontSize = 25;
+            txtDeviceName.FontSize = 30;
             txtDeviceName.Margin = new Thickness(10, 10, 0, 0);
             txtDeviceName.HorizontalAlignment = HorizontalAlignment.Left;
-            //TextBlock txtBlockDeviceName = new TextBlock();
-            //DeviceName.Text = Group.DeviceName;
             txtBlockDeviceName.Text = Group.NODE.deviceName;
-            txtBlockDeviceName.FontSize = 30;
+            txtBlockDeviceName.FontSize = 25;
+            txtBlockDeviceName.Width = 660;
+            txtBlockDeviceName.TextWrapping = TextWrapping.Wrap;
+            txtBlockDeviceName.TextAlignment = TextAlignment.Center;
             txtBlockDeviceName.HorizontalAlignment = HorizontalAlignment.Center;
-            //TextBox txtBoxDeviceName = new TextBox();
             txtBoxDeviceName.Text = Group.NODE.deviceName;
-            txtBoxDeviceName.FontSize = 26;
+            txtBoxDeviceName.FontSize = 25;
             txtBoxDeviceName.HorizontalAlignment = HorizontalAlignment.Center;
             txtBoxDeviceName.TextAlignment = TextAlignment.Center;
             txtBoxDeviceName.Width = 400;
             txtBoxDeviceName.Visibility = Visibility.Collapsed;
 
-            //StackPanel StpDeviceName = new StackPanel();
-            //StpDeviceName.Children.Add(txtDeviceName);
-            //StpDeviceName.Children.Add(txtBlockDeviceName);
-            //StpDeviceName.Children.Add(txtBoxDeviceName);
-
             //Type
-            //StackPanel StpType = new StackPanel();
             if (Group.NODE.deviceType != null)
             {
-                //TextBlock txtType = new TextBlock();
                 strtext = loader.GetString("txtType");
                 txtType.Text = strtext;
-                txtType.FontSize = 25;
+                txtType.FontSize = 30;
                 txtType.Margin = new Thickness(10, 10, 0, 0);
                 txtType.HorizontalAlignment = HorizontalAlignment.Left;
-                //TextBlock Type = new TextBlock();
-                //Type.Text = Group.DeviceType;
-                //Type.Text = Group.NODE.deviceType;
                 switch (Group.NODE.deviceType)
                 {
                     case "gatewaydev":
@@ -128,15 +124,6 @@ namespace GenieWin8
                     case "gamedev":
                         Type.Text = loader.GetString("gamedev");
                         break;
-                    //case "amazonkindledev":
-                    //    Type.Text = loader.GetString("amazonkindledev");
-                    //    break;
-                    //case "ipadmini":
-                    //    Type.Text = loader.GetString("ipadmini");
-                    //    break;
-                    //case "iphone5":
-                    //    Type.Text = loader.GetString("iphone5");
-                    //    break;
                     case "imacdev":
                         Type.Text = loader.GetString("imacdev");
                         break;
@@ -212,11 +199,23 @@ namespace GenieWin8
                     case "dvr":
                         Type.Text = loader.GetString("dvr");
                         break;
+                    case "windowsphone":
+                        Type.Text = loader.GetString("windowsphone");
+                        break;
+                    case "iphone5":
+                        Type.Text = loader.GetString("iphone5");
+                        break;
+                    case "ipadmini":
+                        Type.Text = loader.GetString("ipadmini");
+                        break;
+                    case "windowstablet":
+                        Type.Text = loader.GetString("windowstablet");
+                        break; 
                 }
-                Type.FontSize = 30;
+                Type.FontSize = 25;
                 Type.HorizontalAlignment = HorizontalAlignment.Center;
 
-                for (int i = 0; i < 33; i++ )
+                for (int i = 0; i < 37; i++ )
                 {
                     Image imgDevice = new Image();
                     Uri _baseUri = new Uri("ms-appx:///");
@@ -394,6 +393,26 @@ namespace GenieWin8
                             strtext = loader.GetString("dvr");
                             texttype.Text = strtext;
                             break;
+                        case 33:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowsphone.png"));
+                            strtext = loader.GetString("windowsphone");
+                            texttype.Text = strtext;
+                            break;
+                        case 34:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone5.png"));
+                            strtext = loader.GetString("iphone5");
+                            texttype.Text = strtext;
+                            break;
+                        case 35:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipadmini.png"));
+                            strtext = loader.GetString("ipadmini");
+                            texttype.Text = strtext;
+                            break;
+                        case 36:
+                            imgDevice.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowstablet.png"));
+                            strtext = loader.GetString("windowstablet");
+                            texttype.Text = strtext;
+                            break;
                     }
                     stpDevice.Children.Add(imgDevice);
                     stpDevice.Children.Add(texttype);
@@ -426,15 +445,6 @@ namespace GenieWin8
                     case "gamedev":
                         ComboType.SelectedIndex = 7;
                         break;
-                    //case "amazonkindledev":
-                    //    ComboType.SelectedIndex = 8;
-                    //    break;
-                    //case "ipadmini":
-                    //    ComboType.SelectedIndex = 9;
-                    //    break;
-                    //case "iphone5":
-                    //    ComboType.SelectedIndex = 10;
-                    //    break;
                     case "imacdev":
                         ComboType.SelectedIndex = 8;
                         break;
@@ -510,71 +520,59 @@ namespace GenieWin8
                     case "dvr":
                         ComboType.SelectedIndex = 32;
                         break;
+                    case "windowsphone":
+                        ComboType.SelectedIndex = 33;
+                        break;
+                    case "iphone5":
+                        ComboType.SelectedIndex = 34;
+                        break;
+                    case "ipadmini":
+                        ComboType.SelectedIndex = 35;
+                        break;
+                    case "windowstablet":
+                        ComboType.SelectedIndex = 36;
+                        break;
                 }
                 ComboType.Width = 400;
                 ComboType.HorizontalAlignment = HorizontalAlignment.Center;
                 ComboType.HorizontalContentAlignment = HorizontalAlignment.Center;
                 ComboType.Visibility = Visibility.Collapsed;
-
-
-                //StpType.Children.Add(txtType);
-                //StpType.Children.Add(Type);
             }
 
             //IPAddress
-            //TextBlock txtIPAddress = new TextBlock();
             strtext = loader.GetString("txtIPAddress");
             txtIPAddress.Text = strtext;
-            txtIPAddress.FontSize = 25;
+            txtIPAddress.FontSize = 30;
             txtIPAddress.Margin = new Thickness(10, 10, 0, 0);
             txtIPAddress.HorizontalAlignment = HorizontalAlignment.Left;
-            //TextBlock IPAddress = new TextBlock();
-            //IPAddress.Text = Group.IPAddress;
             IPAddress.Text = Group.NODE.IPaddress;
-            IPAddress.FontSize = 30;
+            IPAddress.FontSize = 25;
             IPAddress.HorizontalAlignment = HorizontalAlignment.Center;
 
-            //StackPanel StpIPAddress = new StackPanel();
-            //StpIPAddress.Children.Add(txtIPAddress);
-            //StpIPAddress.Children.Add(IPAddress);
-
             //SignalStrength
-            //StackPanel StpSignalStrength = new StackPanel();
-            if (Group.NODE.signalStrength != null)
+            if (Group.NODE.signalStrength != "%" && Group.NODE.signalStrength != null)
             {
-                //TextBlock txtSignalStrength = new TextBlock();
                 strtext = loader.GetString("txtSignalStrength");
                 txtSignalStrength.Text = strtext;
-                txtSignalStrength.FontSize = 25;
+                txtSignalStrength.FontSize = 30;
                 txtSignalStrength.Margin = new Thickness(10, 10, 0, 0);
                 txtSignalStrength.HorizontalAlignment = HorizontalAlignment.Left;
-                //TextBlock SignalStrength = new TextBlock();
-                //SignalStrength.Text = Group.SignalStrength;
                 SignalStrength.Text = Group.NODE.signalStrength;
-                SignalStrength.FontSize = 30;
+                SignalStrength.FontSize = 25;
                 SignalStrength.HorizontalAlignment = HorizontalAlignment.Center;
-
-
-                //StpSignalStrength.Children.Add(txtSignalStrength);
-                //StpSignalStrength.Children.Add(SignalStrength);
             }
 
             //LinkRate
-            //StackPanel StpLinkRate = new StackPanel();
-            if (Group.NODE.linkRate != null)
+            if (Group.NODE.linkRate != "Mbps" && Group.NODE.linkRate != null)
             {
-                //TextBlock txtLinkRate = new TextBlock();
                 strtext = loader.GetString("txtLinkRate");
                 txtLinkRate.Text = strtext;
-                txtLinkRate.FontSize = 25;
+                txtLinkRate.FontSize = 30;
                 txtLinkRate.Margin = new Thickness(10, 10, 0, 0);
                 txtLinkRate.HorizontalAlignment = HorizontalAlignment.Left;
-                //TextBlock LinkRate = new TextBlock();
-                //LinkRate.Text = Group.LinkRate;
                 LinkRate.Text = Group.NODE.linkRate;
-                LinkRate.FontSize = 30;
+                LinkRate.FontSize = 25;
                 LinkRate.HorizontalAlignment = HorizontalAlignment.Center;
-                //HyperlinkButton btnWhat = new HyperlinkButton();
                 strtext = loader.GetString("btnWhat");
                 btnWhat.Content = strtext;
                 btnWhat.Tag = "http://support.netgear.com/app/answers/list/kw/link%20rate";
@@ -582,87 +580,84 @@ namespace GenieWin8
                 btnWhat.Margin = new Thickness(10, 0, 0, 0);
                 btnWhat.Padding = new Thickness(0, 0, 0, 0);
                 btnWhat.HorizontalAlignment = HorizontalAlignment.Right;
-
-
-                //StpLinkRate.Children.Add(txtLinkRate);
-                //StpLinkRate.Children.Add(LinkRate);
-                //StpLinkRate.Children.Add(btnWhat);
             }
 
             //MACAddress
-            //TextBlock txtMACAddress = new TextBlock();
             strtext = loader.GetString("txtMACAddress");
             txtMACAddress.Text = strtext;
-            txtMACAddress.FontSize = 25;
+            txtMACAddress.FontSize = 30;
             txtMACAddress.Margin = new Thickness(10, 0, 0, 0);
             txtMACAddress.HorizontalAlignment = HorizontalAlignment.Left;
-            //TextBlock MACAddress = new TextBlock();
-            //MACAddress.Text = Group.MACAddress;
             MACAddress.Text = Group.NODE.MACaddress;
-            MACAddress.FontSize = 30;
+            MACAddress.FontSize = 25;
             MACAddress.HorizontalAlignment = HorizontalAlignment.Center;
-
-            //StackPanel StpMACAddress = new StackPanel();
-            //StpMACAddress.Children.Add(txtMACAddress);
-            //StpMACAddress.Children.Add(MACAddress);
+            NetworkMapInfo.deviceMacaddr = Group.NODE.MACaddress;
 
             //Buttons
-            //Button btnBack = new Button();
             strtext = loader.GetString("btnBack");
             btnBack.Content = strtext;
             btnBack.FontSize = 25;
-            btnBack.Width = 200;
             btnBack.HorizontalAlignment = HorizontalAlignment.Center;
             btnBack.Click += new RoutedEventHandler(BackButton_Click);
-            //Button btnModify = new Button();
             strtext = loader.GetString("btnModify");
             btnModify.Content = strtext;
             btnModify.FontSize = 25;
-            btnModify.Width = 200;
             btnModify.HorizontalAlignment = HorizontalAlignment.Center;
             btnModify.Click += new RoutedEventHandler(ModifyButton_Click);
             strtext = loader.GetString("btnApply");
             btnApply.Content = strtext;
             btnApply.FontSize = 25;
-            btnApply.Width = 200;
             btnApply.HorizontalAlignment = HorizontalAlignment.Center;
             btnApply.Click += new RoutedEventHandler(ApplyButton_Click);
-            //Button btnFileUpload = new Button();
             strtext = loader.GetString("btnFileUpload");
             btnFileUpload.Content = strtext;
             btnFileUpload.FontSize = 25;
-            btnFileUpload.Width = 200;
             btnFileUpload.HorizontalAlignment = HorizontalAlignment.Center;
+            strtext = loader.GetString("btnAllow");
+            btnAllow.Content = strtext;
+            btnAllow.FontSize = 25;
+            btnAllow.HorizontalAlignment = HorizontalAlignment.Center;
+            btnAllow.Click += new RoutedEventHandler(AllowButton_Click);
+            strtext = loader.GetString("btnBlock");
+            btnBlock.Content = strtext;
+            btnBlock.FontSize = 25;
+            btnBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            btnBlock.Click += new RoutedEventHandler(BlockButton_Click);
 
             if (Group.NODE.uniqueId == "Router")
             {
                 Uri _baseUri = new Uri("ms-appx:///");
-                TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
+                TitleImage.Source = new BitmapImage(new Uri(_baseUri, routerImage));
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
 
-                //TextBlock txtRoutename = new TextBlock();
                 strtext = loader.GetString("txtRoutename");
                 txtRoutename.Text = strtext;
-                txtRoutename.FontSize = 25;
+                txtRoutename.FontSize = 30;
                 txtRoutename.Margin = new Thickness(10, 10, 0, 0);
                 txtRoutename.HorizontalAlignment = HorizontalAlignment.Left;
-                //TextBlock RouteName = new TextBlock();
-                //RouteName.Text = Group.DeviceName;
                 RouteName.Text = Group.NODE.deviceName;
-                RouteName.FontSize = 30;
+                RouteName.FontSize = 25;
+                RouteName.Width = 660;
+                RouteName.TextWrapping = TextWrapping.Wrap;
+                RouteName.TextAlignment = TextAlignment.Center;
                 RouteName.HorizontalAlignment = HorizontalAlignment.Center;
 
-                //StackPanel StpRouter = new StackPanel();
-                //StpRouter.Children.Add(txtRoutename);
-                //StpRouter.Children.Add(RouteName);
+                //Firmware Version
+                txtRouterFirmware.Text = loader.GetString("txtRouterFirmware");
+                txtRouterFirmware.FontSize = 30;
+                txtRouterFirmware.Margin = new Thickness(10, 10, 0, 0);
+                txtRouterFirmware.HorizontalAlignment = HorizontalAlignment.Left;
+                Firmware.Text = Group.NODE.RouterFirmware;
+                Firmware.FontSize = 25;
+                Firmware.HorizontalAlignment = HorizontalAlignment.Center;
 
-                //Grid GridButton = new Grid();
+                btnBack.Width = 250;
                 btnBack.Margin = new Thickness(0, 10, 0, 0);
-                //GridButton.Children.Add(btnBack);
 
                 StpRouter.Visibility = Visibility.Visible;
                 StpDeviceName.Visibility = Visibility.Collapsed;
+                StpRouterFirmware.Visibility = Visibility.Visible;
                 StpType.Visibility = Visibility.Collapsed;
                 StpLinkRate.Visibility = Visibility.Collapsed;
                 StpSignalStrength.Visibility = Visibility.Collapsed;
@@ -670,147 +665,28 @@ namespace GenieWin8
                 btnFileUpload.Visibility = Visibility.Collapsed;
                 btnModify.Visibility = Visibility.Collapsed;
                 btnApply.Visibility = Visibility.Collapsed;
-                //StpDeviceInfo.Children.Add(StpRouter);
-                //StpDeviceInfo.Children.Add(StpIPAddress);
-                //StpDeviceInfo.Children.Add(StpMACAddress);
-                //StpDeviceInfo.Children.Add(GridButton);
+                btnAllow.Visibility = Visibility.Collapsed;
+                btnBlock.Visibility = Visibility.Collapsed;
             }
             else if (Group.NODE.uniqueId == "LocalDevice")
             {
                 Uri _baseUri = new Uri("ms-appx:///");
-                //TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/androidphone.png"));
-                switch (Group.NODE.deviceType)
-                {
-                    case "gatewaydev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
-                        break;
-                    case "networkdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/networkdev.png"));
-                        break;
-                    case "windowspc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowspc.png"));
-                        break;
-                    case "blurayplayer":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/blurayplayer.png"));
-                        break;
-                    case "bridge":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/bridge.png"));
-                        break;
-                    case "cablestb":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cablestb.png"));
-                        break;
-                    case "cameradev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cameradev.png"));
-                        break;
-                    case "gamedev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gamedev.png"));
-                        break;
-                    //case "amazonkindledev":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
-                    //    break;
-                    //case "ipadmini":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
-                    //    break;
-                    //case "iphone5":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
-                    //    break;
-                    case "imacdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/imacdev.png"));
-                        break;
-                    case "ipad":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipad.png"));
-                        break;
-                    case "iphone":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone.png"));
-                        break;
-                    case "ipodtouch":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipodtouch.png"));
-                        break;
-                    case "linuxpc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/linuxpc.png"));
-                        break;
-                    case "macbookdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macbookdev.png"));
-                        break;
-                    case "macminidev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macminidev.png"));
-                        break;
-                    case "macprodev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macprodev.png"));
-                        break;
-                    case "mediadev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mediadev.png"));
-                        break;
-                    case "mobiledev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mobiledev.png"));
-                        break;
-                    case "netstoragedev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/netstoragedev.png"));
-                        break;
-                    case "switchdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/switchdev.png"));
-                        break;
-                    case "printerdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/printerdev.png"));
-                        break;
-                    case "repeater":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/repeater.png"));
-                        break;
-                    case "satellitestb":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/satellitestb.png"));
-                        break;
-                    case "scannerdev":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/scannerdev.png"));
-                        break;
-                    case "slingbox":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/slingbox.png"));
-                        break;
-                    case "stb":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/stb.png"));
-                        break;
-                    case "tablepc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tablepc.png"));
-                        break;
-                    case "tv":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tv.png"));
-                        break;
-                    case "unixpc":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/unixpc.png"));
-                        break;
-                    case "androiddevice":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androiddevice.png"));
-                        break;
-                    case "androidphone":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
-                        break;
-                    case "androidtablet":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidtablet.png"));
-                        break;
-                    case "dvr":
-                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/dvr.png"));
-                        break;
-                }
+                TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowspc.png"));
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
 
-                //Grid GridButton = new Grid();
+                btnBack.Width = 250;
                 btnBack.Margin = new Thickness(0, 10, 0, 0);
-                //GridButton.Children.Add(btnBack);
 
                 StpRouter.Visibility = Visibility.Collapsed;
                 StpDeviceName.Visibility = Visibility.Visible;
+                StpRouterFirmware.Visibility = Visibility.Collapsed;
                 StpType.Visibility = Visibility.Collapsed;
-                //StpDeviceInfo.Children.Add(StpDeviceName);
-                //StpDeviceInfo.Children.Add(StpIPAddress);
-                //StpDeviceInfo.Children.Add(StpSignalStrength);
-                //if (Group.NODE.linkRate != null) StpDeviceInfo.Children.Add(StpLinkRate);
-                //if (Group.NODE.signalStrength != null) StpDeviceInfo.Children.Add(StpMACAddress);
-                //StpDeviceInfo.Children.Add(GridButton);
-                if (Group.NODE.linkRate == null)
+                if (Group.NODE.linkRate == "Mbps")
                     StpLinkRate.Visibility = Visibility.Collapsed;
                 else
                     StpLinkRate.Visibility = Visibility.Visible;
-                if (Group.NODE.signalStrength == null)
+                if (Group.NODE.signalStrength == "%")
                     StpSignalStrength.Visibility = Visibility.Collapsed;
                 else
                     StpSignalStrength.Visibility = Visibility.Visible;
@@ -819,11 +695,12 @@ namespace GenieWin8
                 btnFileUpload.Visibility = Visibility.Collapsed;
                 btnModify.Visibility = Visibility.Collapsed;
                 btnApply.Visibility = Visibility.Collapsed;
+                btnAllow.Visibility = Visibility.Collapsed;
+                btnBlock.Visibility = Visibility.Collapsed;
             }
             else
             {
                 Uri _baseUri = new Uri("ms-appx:///");
-                //TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/networkdev.png"));
                 switch (Group.NODE.deviceType)
                 {
                     case "gatewaydev":
@@ -850,15 +727,6 @@ namespace GenieWin8
                     case "gamedev":
                         TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gamedev.png"));
                         break;
-                    //case "amazonkindledev":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
-                    //    break;
-                    //case "ipadmini":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
-                    //    break;
-                    //case "iphone5":
-                    //    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
-                    //    break;
                     case "imacdev":
                         TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/imacdev.png"));
                         break;
@@ -934,46 +802,81 @@ namespace GenieWin8
                     case "dvr":
                         TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/dvr.png"));
                         break;
+                    case "windowsphone":
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowsphone.png"));
+                        break;
+                    case "iphone5":
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone5.png"));
+                        break;
+                    case "ipadmini":
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipadmini.png"));
+                        break;
+                    case "windowstablet":
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowstablet.png"));
+                        break;
                 }
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);
 
-                //Grid GridButton = new Grid();
-                btnBack.Margin = new Thickness(200, 10, 0, 0);
-                btnModify.Margin = new Thickness(0, 10, 200, 0);
-                btnApply.Margin = new Thickness(0, 10, 200, 0);
-                //GridButton.Children.Add(btnBack);
-                //GridButton.Children.Add(btnModify);
-
                 StpRouter.Visibility = Visibility.Collapsed;
                 StpDeviceName.Visibility = Visibility.Visible;
-                //StpDeviceInfo.Children.Add(StpDeviceName);
-                //if (Group.NODE.deviceType != null) StpDeviceInfo.Children.Add(StpType);                    
-                //StpDeviceInfo.Children.Add(StpIPAddress);
-                //if (Group.NODE.signalStrength != null) StpDeviceInfo.Children.Add(StpSignalStrength);
-                //if (Group.NODE.linkRate != null) StpDeviceInfo.Children.Add(StpLinkRate);
-                //StpDeviceInfo.Children.Add(StpMACAddress);
-                //StpDeviceInfo.Children.Add(GridButton);
+                StpRouterFirmware.Visibility = Visibility.Collapsed;
                 if (Group.NODE.deviceType == null)
                     StpType.Visibility = Visibility.Collapsed;
                 else
                     StpType.Visibility = Visibility.Visible;
 
-                if (Group.NODE.signalStrength == null)
+                if (Group.NODE.signalStrength == "%" || Group.NODE.signalStrength == null)
                     StpSignalStrength.Visibility = Visibility.Collapsed;
                 else
                     StpSignalStrength.Visibility = Visibility.Visible;
 
-                if (Group.NODE.linkRate == null)
+                if (Group.NODE.linkRate == "Mbps" || Group.NODE.linkRate == null)
                     StpLinkRate.Visibility = Visibility.Collapsed;
                 else
                     StpLinkRate.Visibility = Visibility.Visible;
 
+                if (Group.NODE.AccessControl == "" || NetworkMapInfo.IsAccessControlEnabled == false)
+                {
+                    btnBack.Width = 200;
+                    btnBack.Margin = new Thickness(200, 10, 0, 0);
+                    btnModify.Width = 200;
+                    btnModify.Margin = new Thickness(0, 10, 200, 0);
+                    btnApply.Width = 200;
+                    btnApply.Margin = new Thickness(0, 10, 200, 0);
+                    btnAllow.Visibility = Visibility.Collapsed;
+                    btnBlock.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    btnBack.Width = 150;
+                    btnBack.Margin = new Thickness(300, 10, 0, 0);
+                    btnModify.Width = 150;
+                    btnModify.Margin = new Thickness(0, 10, 300, 0);
+                    btnApply.Width = 150;
+                    btnApply.Margin = new Thickness(0, 10, 300, 0);
+                    btnAllow.Width = 150;
+                    btnAllow.Margin = new Thickness(0, 10, 0, 0);
+                    btnBlock.Width = 150;
+                    btnBlock.Margin = new Thickness(0, 10, 0, 0);
+                    if (Group.NODE.AccessControl == "Allow")
+                    {
+                        btnAllow.Visibility = Visibility.Collapsed;
+                        btnBlock.Visibility = Visibility.Visible;
+                    }
+                    else if (Group.NODE.AccessControl == "Block")
+                    {
+                        btnAllow.Visibility = Visibility.Visible;
+                        btnBlock.Visibility = Visibility.Collapsed;
+                    }
+
+                }   
                 btnBack.Visibility = Visibility.Visible;
                 btnFileUpload.Visibility = Visibility.Collapsed;
                 btnModify.Visibility = Visibility.Visible;
                 btnApply.Visibility = Visibility.Collapsed;
             }
+            NetworkMapInfo.bRefreshMap = false;
         }
 
         /// <summary>
@@ -986,8 +889,47 @@ namespace GenieWin8
         {
         }
 
-        private void BackButton_Click(Object sender, RoutedEventArgs e)
+        private async void BackButton_Click(Object sender, RoutedEventArgs e)
         {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            if (NetworkMapInfo.bRefreshMap)
+            {
+                NetworkMapInfo.bRefreshMap = false;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                UtilityTool util = new UtilityTool();
+                NetworkMapInfo.geteway = await util.GetGateway();
+                Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
+                while (responseDic == null || responseDic.Count == 0)
+                {
+                    responseDic = await soapApi.GetAttachDevice();
+                }
+                NetworkMapInfo.attachDeviceDic = responseDic;
+
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                }
+                if (dicResponse.Count > 0)
+                {
+                    WifiInfoModel.ssid = dicResponse["NewSSID"];
+                    WifiInfoModel.channel = dicResponse["NewChannel"];
+                    WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                    WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
+                }
+                NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+            }
             this.Frame.GoBack();
         }
 
@@ -1055,18 +997,6 @@ namespace GenieWin8
                     customDeviceType = "gamedev";
                     Type.Text = loader.GetString("gamedev");
                     break;
-                //case 8:
-                //    customDeviceType = "amazonkindledev";
-                //    Type.Text = loader.GetString("amazonkindledev");
-                //    break;
-                //case 9:
-                //    customDeviceType = "ipadmini";
-                //    Type.Text = loader.GetString("ipadmini");
-                //    break;
-                //case 10:
-                //    customDeviceType = "iphone5";
-                //    Type.Text = loader.GetString("iphone5");
-                //    break;
                 case 8:
                     TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/imacdev.png"));
                     customDeviceType = "imacdev";
@@ -1192,14 +1122,34 @@ namespace GenieWin8
                     customDeviceType = "dvr";
                     Type.Text = loader.GetString("dvr");
                     break;
+                case 33:
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowsphone.png"));
+                    customDeviceType = "windowsphone";
+                    Type.Text = loader.GetString("windowsphone");
+                    break;
+                case 34:
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone5.png"));
+                    customDeviceType = "iphone5";
+                    Type.Text = loader.GetString("iphone5");
+                    break;
+                case 35:
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipadmini.png"));
+                    customDeviceType = "ipadmini";
+                    Type.Text = loader.GetString("ipadmini");
+                    break;
+                case 36:
+                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowstablet.png"));
+                    customDeviceType = "windowstablet";
+                    Type.Text = loader.GetString("windowstablet");
+                    break;
             }
 
             string allDeviceInfo = string.Empty;
             string customDeviceInfo = string.Empty;
             bool bFound = false;
-            if (NetworkMapModel.fileContent != "")
+            if (NetworkMapInfo.fileContent != "")
             {
-                string[] AllDeviceInfo = NetworkMapModel.fileContent.Split(';');
+                string[] AllDeviceInfo = NetworkMapInfo.fileContent.Split(';');
                 for (int i = 0; i < AllDeviceInfo.Length; i++)
                 {
                     if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
@@ -1219,11 +1169,11 @@ namespace GenieWin8
                 {
                     allDeviceInfo += MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";
                 }
-                NetworkMapModel.fileContent = allDeviceInfo;
+                NetworkMapInfo.fileContent = allDeviceInfo;
             }
             else
             {
-                NetworkMapModel.fileContent = MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";              
+                NetworkMapInfo.fileContent = MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";              
             }
             WriteDeviceInfoFile();
 
@@ -1233,6 +1183,27 @@ namespace GenieWin8
             ComboType.Visibility = Visibility.Collapsed;
             btnModify.Visibility = Visibility.Visible;
             btnApply.Visibility = Visibility.Collapsed;
+
+            NetworkMapInfo.bRefreshMap = true;
+        }
+
+        public async Task<string> ReadDeviceInfoFile()
+        {
+            string fileContent = string.Empty;
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            try
+            {
+                StorageFile file = await storageFolder.GetFileAsync("CustomDeviceInfo.txt");    //CustomDeviceInfo.txt中保存本地修改的设备信息，包括设备MAC地址、设备名和设备类型，格式为"MACAddress,DeviceName,DeviceType;"
+                if (file != null)
+                {
+                    fileContent = await FileIO.ReadTextAsync(file);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+
+            }
+            return fileContent;
         }
 
         public async void WriteDeviceInfoFile()
@@ -1244,13 +1215,79 @@ namespace GenieWin8
             {                 
                 if (file != null)
                 {
-                    await FileIO.WriteTextAsync(file, NetworkMapModel.fileContent);
+                    await FileIO.WriteTextAsync(file, NetworkMapInfo.fileContent);
                 }
             }
             catch (FileNotFoundException)
             {
 
             }
+        }
+
+        private void txtBoxDeviceName_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                ComboType.Focus(FocusState.Programmatic);
+            } 
+            else
+            {
+                base.OnKeyDown(e);
+            }
+        }    
+  
+        private async void AllowButton_Click(Object sender, RoutedEventArgs e)
+        {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Allow");
+            }
+            if (int.Parse(dicResponse["ResponseCode"]) == 0)
+            {
+                btnAllow.Visibility = Visibility.Collapsed;
+                btnBlock.Visibility = Visibility.Visible;
+                NetworkMapInfo.bRefreshMap = true;
+            } 
+            else
+            {
+                var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                await messageDialog.ShowAsync();
+            }
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
+        }
+
+        private async void BlockButton_Click(Object sender, RoutedEventArgs e)
+        {
+            InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Block");
+            }
+            if (int.Parse(dicResponse["ResponseCode"]) == 0)
+            {
+                btnAllow.Visibility = Visibility.Visible;
+                btnBlock.Visibility = Visibility.Collapsed;
+                NetworkMapInfo.bRefreshMap = true;
+            } 
+            else
+            {
+                var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                await messageDialog.ShowAsync();
+            }
+            InProgress.IsActive = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
         }
     }
 }

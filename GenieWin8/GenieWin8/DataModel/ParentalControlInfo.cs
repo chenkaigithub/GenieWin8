@@ -28,10 +28,14 @@ namespace GenieWin8.DataModel
         public static string filterLevelSelected;
         public static string categories;
         public static string categoriesSelected;
+        public static bool IsCategoriesChanged;
 
         public static string BypassAccounts;
         public static string BypassUsername;
         public static string BypassChildrenDeviceId;
         public static bool IsBypassUserLoggedIn;
+
+        public static string SavedInfo;
+        public static string RouterMacaddr;
     }
 }

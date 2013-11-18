@@ -67,9 +67,13 @@ namespace GenieWin8
         {
         }
 
+        int lastIndex = -1;         //记录上次的选择项
         private void ControlOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = controlOptionsListView.SelectedIndex;
+            if (index == -1)
+                return;
+
             switch (index)
             {
                 case 0:
@@ -92,7 +96,12 @@ namespace GenieWin8
             {
                 TrafficMeterInfoModel.isControlOptionChanged = false;
             }
-            this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
+            
+            if (lastIndex != -1 && index != lastIndex)
+            {
+                this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
+            }
+            lastIndex = index;
         }
     }
 }

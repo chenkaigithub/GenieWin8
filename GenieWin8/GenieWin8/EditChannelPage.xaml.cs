@@ -64,11 +64,13 @@ namespace GenieWin8
         {
         }
 
-
+        int lastIndex = -1;         //记录上次的选择项
         private void ChangeChannelItemClick(object sender, SelectionChangedEventArgs e)
         {
             int index = channelListView.SelectedIndex;
-            if (index == 0)
+            if (index == -1)
+                return;
+            else if (index == 0)
             {
                 WifiInfoModel.changedChannel = "Auto";
             }
@@ -97,7 +99,12 @@ namespace GenieWin8
                     WifiInfoModel.isChannelChanged = false;
                 }
             }           
-            this.Frame.Navigate(typeof(EditSettingPage));
+
+            if (lastIndex != -1 && index != lastIndex)
+            {
+                this.Frame.Navigate(typeof(EditSettingPage));
+            }
+            lastIndex = index;
         }
     }
 }

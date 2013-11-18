@@ -982,4 +982,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>用户名或密码字段为空。</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>密码已复制到剪贴板。要连接此网络，请选择“设置”&gt;“WLAN”。</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>固件版本</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>您已登录为</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>正在登录…</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>正在注销…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>密码与此用户名不匹配。请重试。</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>访问控制</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Windows Phone</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>允许</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>阻止</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Windows 平板电脑</value>
+  </data>
 </root>

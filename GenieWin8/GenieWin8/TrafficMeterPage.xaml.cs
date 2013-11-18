@@ -56,48 +56,48 @@ namespace GenieWin8
         /// </param>
         /// <param name="pageState">此页在以前会话期间保留的状态
         /// 字典。首次访问页面时为 null。</param>
-        protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            InProgress.IsActive = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await soapApi.GetTrafficMeterEnabled();
-            TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
-            if (TrafficMeterInfoModel.isTrafficMeterEnabled == "0")
-            {
-                checkTrafficMeter.IsChecked = false;
-                TrafficMeterList.Visibility = Visibility.Collapsed;
-                TotalCanvas.Visibility = Visibility.Collapsed;
-                AverageCanvas.Visibility = Visibility.Collapsed;
-            }
-            else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "1")
-            {
-                checkTrafficMeter.IsChecked = true;
-                TrafficMeterList.Visibility = Visibility.Visible;
-                TotalCanvas.Visibility = Visibility.Visible;
-                AverageCanvas.Visibility = Visibility.Visible;
-            }
-            dicResponse = await soapApi.GetTrafficMeterOptions();
-            if (dicResponse.Count > 0)
-            {
-                TrafficMeterInfoModel.MonthlyLimit = dicResponse["NewMonthlyLimit"];
-                TrafficMeterInfoModel.changedMonthlyLimit = dicResponse["NewMonthlyLimit"];
-                TrafficMeterInfoModel.RestartHour = dicResponse["RestartHour"];
-                TrafficMeterInfoModel.changedRestartHour = dicResponse["RestartHour"];
-                TrafficMeterInfoModel.RestartMinute = dicResponse["RestartMinute"];
-                TrafficMeterInfoModel.changedRestartMinute = dicResponse["RestartMinute"];
-                TrafficMeterInfoModel.RestartDay = dicResponse["RestartDay"];
-                TrafficMeterInfoModel.changedRestartDay = dicResponse["RestartDay"];
-                TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
-                TrafficMeterInfoModel.changedControlOption = dicResponse["NewControlOption"];
-            }           
+            //InProgress.IsActive = true;
+            //PopupBackgroundTop.Visibility = Visibility.Visible;
+            //PopupBackground.Visibility = Visibility.Visible;
+            //GenieSoapApi soapApi = new GenieSoapApi();
+            //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            //dicResponse = await soapApi.GetTrafficMeterEnabled();
+            //TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+            //if (TrafficMeterInfoModel.isTrafficMeterEnabled == "0")
+            //{
+            //    checkTrafficMeter.IsChecked = false;
+            //    TrafficMeterList.Visibility = Visibility.Collapsed;
+            //    TotalCanvas.Visibility = Visibility.Collapsed;
+            //    AverageCanvas.Visibility = Visibility.Collapsed;
+            //}
+            //else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "1")
+            //{
+            //    checkTrafficMeter.IsChecked = true;
+            //    TrafficMeterList.Visibility = Visibility.Visible;
+            //    TotalCanvas.Visibility = Visibility.Visible;
+            //    AverageCanvas.Visibility = Visibility.Visible;
+            //}
+            //dicResponse = await soapApi.GetTrafficMeterOptions();
+            //if (dicResponse.Count > 0)
+            //{
+            //    TrafficMeterInfoModel.MonthlyLimit = dicResponse["NewMonthlyLimit"];
+            //    TrafficMeterInfoModel.changedMonthlyLimit = dicResponse["NewMonthlyLimit"];
+            //    TrafficMeterInfoModel.RestartHour = dicResponse["RestartHour"];
+            //    TrafficMeterInfoModel.changedRestartHour = dicResponse["RestartHour"];
+            //    TrafficMeterInfoModel.RestartMinute = dicResponse["RestartMinute"];
+            //    TrafficMeterInfoModel.changedRestartMinute = dicResponse["RestartMinute"];
+            //    TrafficMeterInfoModel.RestartDay = dicResponse["RestartDay"];
+            //    TrafficMeterInfoModel.changedRestartDay = dicResponse["RestartDay"];
+            //    TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
+            //    TrafficMeterInfoModel.changedControlOption = dicResponse["NewControlOption"];
+            //}           
             var groups = TrafficMeterSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = groups;
-            InProgress.IsActive = false;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
+            //InProgress.IsActive = false;
+            //PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            //PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -647,9 +647,116 @@ namespace GenieWin8
             return max;
         }
 
-        private void Refresh_Click(Object sender, RoutedEventArgs e)
+        private async void Refresh_Click(Object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(TrafficMeterPage));
+            PopupBackgroundTop.Visibility = Visibility.Visible;
+            PopupBackground.Visibility = Visibility.Visible;
+            InProgress.IsActive = true;
+            GenieSoapApi soapApi = new GenieSoapApi();
+            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetTrafficMeterEnabled();
+            }
+            if (dicResponse.Count > 0)
+            {
+                TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+                if (TrafficMeterInfoModel.isTrafficMeterEnabled == "0")
+                {
+                    checkTrafficMeter.IsChecked = false;
+                    //TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
+                    TrafficMeterList.Visibility = Visibility.Collapsed;
+                    TotalCanvas.Visibility = Visibility.Collapsed;
+                    AverageCanvas.Visibility = Visibility.Collapsed;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    InProgress.IsActive = false;
+                }
+                else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "1")
+                {
+                    checkTrafficMeter.IsChecked = true;
+                    //TrafficMeterLongListSelector.Visibility = Visibility.Visible;
+                    TrafficMeterList.Visibility = Visibility.Visible;
+                    TotalCanvas.Visibility = Visibility.Visible;
+                    AverageCanvas.Visibility = Visibility.Visible;
+                    Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                    while (dicResponse1 == null || dicResponse1.Count == 0)
+                    {
+                        dicResponse1 = await soapApi.GetTrafficMeterOptions();
+                    }
+                    if (dicResponse1.Count > 0)
+                    {
+                        TrafficMeterInfoModel.MonthlyLimit = dicResponse1["NewMonthlyLimit"];
+                        TrafficMeterInfoModel.changedMonthlyLimit = dicResponse1["NewMonthlyLimit"];
+                        TrafficMeterInfoModel.RestartHour = dicResponse1["RestartHour"];
+                        TrafficMeterInfoModel.changedRestartHour = dicResponse1["RestartHour"];
+                        TrafficMeterInfoModel.RestartMinute = dicResponse1["RestartMinute"];
+                        TrafficMeterInfoModel.changedRestartMinute = dicResponse1["RestartMinute"];
+                        TrafficMeterInfoModel.RestartDay = dicResponse1["RestartDay"];
+                        TrafficMeterInfoModel.changedRestartDay = dicResponse1["RestartDay"];
+                        TrafficMeterInfoModel.ControlOption = dicResponse1["NewControlOption"];
+                        TrafficMeterInfoModel.changedControlOption = dicResponse1["NewControlOption"];
+
+                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                        while (dicResponse2 == null || dicResponse2.Count == 0)
+                        {
+                            dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                        }
+                        if (dicResponse2.Count > 0)
+                        {
+                            TrafficMeterInfoModel.TodayUpload = dicResponse2["NewTodayUpload"];
+                            TrafficMeterInfoModel.TodayDownload = dicResponse2["NewTodayDownload"];
+                            TrafficMeterInfoModel.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+                            TrafficMeterInfoModel.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+                            TrafficMeterInfoModel.WeekUpload = dicResponse2["NewWeekUpload"];
+                            TrafficMeterInfoModel.WeekDownload = dicResponse2["NewWeekDownload"];
+                            TrafficMeterInfoModel.MonthUpload = dicResponse2["NewMonthUpload"];
+                            TrafficMeterInfoModel.MonthDownload = dicResponse2["NewMonthDownload"];
+                            TrafficMeterInfoModel.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+                            TrafficMeterInfoModel.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+
+                            InProgress.IsActive = false;
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                            PopupBackground.Visibility = Visibility.Collapsed;
+                            this.Frame.Navigate(typeof(TrafficMeterPage));
+                        }
+                        else
+                        {
+                            InProgress.IsActive = false;
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                            PopupBackground.Visibility = Visibility.Collapsed;
+                            var messageDialog = new MessageDialog("GetTrafficMeterStatistics failed!");
+                            await messageDialog.ShowAsync();
+                        }
+                    }
+                    else
+                    {
+                        InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        var messageDialog = new MessageDialog("GetGuestAccessNetworkInfo failed!");
+                        await messageDialog.ShowAsync();
+                    }
+                }
+                else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "2")
+                {
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                    var messageDialog = new MessageDialog(loader.GetString("notsupport"));
+                    await messageDialog.ShowAsync();
+                    this.GoHome(null, null);
+                }
+            }
+            else
+            {
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                var messageDialog = new MessageDialog("GetGuestAccessEnabled failed!");
+                await messageDialog.ShowAsync();
+            }
         }
     }
 }

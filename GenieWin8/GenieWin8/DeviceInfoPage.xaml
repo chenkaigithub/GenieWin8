@@ -71,9 +71,13 @@
                         <StackPanel x:Name="StpDeviceName">
                             <TextBlock x:Name="txtDeviceName" Foreground="White"/>
                             <TextBlock x:Name="txtBlockDeviceName" Foreground="White"/>
-                            <TextBox x:Name="txtBoxDeviceName"/>
+                            <TextBox x:Name="txtBoxDeviceName" KeyDown="txtBoxDeviceName_KeyDown"/>
                         </StackPanel>
                     </Grid>
+                    <StackPanel x:Name="StpRouterFirmware">
+                        <TextBlock x:Name="txtRouterFirmware" Foreground="White"/>
+                        <TextBlock x:Name="Firmware" Foreground="White"/>
+                    </StackPanel>
                     <StackPanel x:Name="StpType">
                         <TextBlock x:Name="txtType" Foreground="White"/>
                         <TextBlock x:Name="Type" Foreground="White"/>
@@ -101,9 +105,22 @@
                         <Button x:Name="btnModify" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                         <Button x:Name="btnFileUpload" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                         <Button x:Name="btnApply" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
+                        <Button x:Name="btnAllow" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
+                        <Button x:Name="btnBlock" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                     </Grid>
                 </StackPanel>
             </Border>
+        </Grid>
+
+        <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
+        <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="#FF5A5A5A"  Opacity="0.9" Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressRing x:Name="InProgress"
+                          IsActive="false"
+                          Height="60" Width="60"
+                          Foreground="White"/>
+                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Foreground="White"/>
+            </StackPanel>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

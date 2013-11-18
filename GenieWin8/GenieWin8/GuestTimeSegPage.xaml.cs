@@ -76,6 +76,7 @@ namespace GenieWin8
         {
         }
 
+        int lastIndex = -1;         //记录上次的选择项
         private void ChangeTimePeriodClick(object sender, SelectionChangedEventArgs e)
         {
             int index = timePeriodListView.SelectedIndex;
@@ -110,7 +111,12 @@ namespace GenieWin8
             {
                 GuestAccessInfoModel.isTimePeriodChanged = false;
             }
-            this.Frame.Navigate(typeof(GuestSettingPage));
+
+            if (lastIndex != -1 && index != lastIndex)
+            {
+                this.Frame.Navigate(typeof(GuestSettingPage));
+            }
+            lastIndex = index;
         }
     }
 }

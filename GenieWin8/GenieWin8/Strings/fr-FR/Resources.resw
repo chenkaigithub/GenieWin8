@@ -949,4 +949,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Le champ Nom d'utilisateur ou Mot de passe est vide.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Le mot de passe est copié dans le presse-papiers. Pour connecter ce réseau, sélectionnez Paramètres &gt; WLAN.</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Version du micrologiciel (firmware)</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Vous êtes connecté en tant que</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>Connexion…</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>Déconnexion…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Le mot de passe ne correspond pas à ce nom d'utilisateur. Veuillez réessayer.</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Contrôle d'accès</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Smartphone Windows</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Autoriser</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Bloquer</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Tablette Windows</value>
+  </data>
 </root>

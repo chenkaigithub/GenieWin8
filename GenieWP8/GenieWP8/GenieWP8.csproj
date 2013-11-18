@@ -354,12 +354,13 @@
     <Content Include="Assets\devices\windowspc.png" />
     <Content Include="Assets\devices\windowsphone.png" />
     <Content Include="Assets\devices\windowsphoneLocal.png" />
+    <Content Include="Assets\devices\windowstablet.png" />
     <Content Include="Assets\gofoward.png" />
     <Content Include="Assets\internet72.png" />
     <Content Include="Assets\LoginPage\name.png" />
     <Content Include="Assets\LoginPage\password.png" />
-    <Content Include="Assets\LoginPage\text框.png" />
-    <Content Include="Assets\LoginPage\分割线.png" />
+    <Content Include="Assets\LoginPage\SplitLine.png" />
+    <Content Include="Assets\LoginPage\textFrame.png" />
     <Content Include="Assets\logo.png" />
     <Content Include="Assets\MainPage\bg.png" />
     <Content Include="Assets\MainPage\logo_left.png" />
@@ -461,6 +462,7 @@
     <Content Include="Assets\signal\wirelessflag2.png" />
     <Content Include="Assets\signal\wirelessflag3.png" />
     <Content Include="Assets\signal\wirelessflag4.png" />
+    <Content Include="Assets\StartPage.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -485,7 +487,6 @@
     <Content Include="Assets\WirelessSetting\SignalStrength.png" />
     <Content Include="Assets\WirelessSetting\ssid.png" />
     <Content Include="Assets\WirelessSetting\third.png" />
-    <Content Include="Assets\开机画面620x300.png" />
     <Content Include="Logo.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

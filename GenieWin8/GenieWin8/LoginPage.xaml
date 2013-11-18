@@ -64,13 +64,13 @@
                 <TextBox x:Name="tbUserName" Text="admin" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,10,0,0" IsEnabled="False" BorderBrush="#C5C5C5"/>
                 <TextBlock x:Uid="Password"  FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,40,440,0" Foreground="#3C3C3C"/>
                 <PasswordBox x:Name="tbPassword" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,10,0,0" BorderBrush="#C5C5C5"/>
-                <TextBlock x:Uid="PasswordTips"  FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="#3C3C3C"/>
+                <TextBlock x:Uid="PasswordTips" x:Name="PasswordTips" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="#3C3C3C"/>
                 <CheckBox x:Name="checkRememberPassword" x:Uid="RememberPasswordCheckBox"  FontSize="24" HorizontalAlignment="Left" Margin="50,20,0,0" Padding="5,0,0,0" IsChecked="True" Foreground="#3C3C3C"/>
                 <Grid>
                     <Button x:Uid="CancelButton"  Click="GoHome" IsEnabled="{Binding Frame.CanGoHome, ElementName=pageRoot}"
                             FontSize="24" FontWeight="Bold"  Width="200" HorizontalAlignment="Center" Margin="0,50,250,0" VerticalAlignment="Center"
                             BorderThickness="0" Foreground="White" Background="#8165A2"/>
-                    <Button x:Uid="LoginButton"  Click="LoginButton_Click" FontSize="24" FontWeight="Bold"  HorizontalAlignment="Center" Width="200" Margin="250,50,0,0"
+                    <Button x:Uid="LoginButton" Click="LoginButton_Click" FontSize="24" FontWeight="Bold"  HorizontalAlignment="Center" Width="200" Margin="250,50,0,0"
                             BorderThickness="3" BorderBrush="White" Foreground="White" Background="#8165A2"/>
                 </Grid>
             </StackPanel>

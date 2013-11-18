@@ -182,9 +182,18 @@ namespace GenieWin8.Data
             this.TrafficMeterGroups.Add(group1);
 
             strTitle = loader.GetString("StartDate");
-            var group2 = new TrafficMeterGroup("StartDate",
-                strTitle,
-                TrafficMeterInfoModel.changedRestartDay);
+            var group2 = new TrafficMeterGroup(null, null, null);
+            if (TrafficMeterInfoModel.changedRestartDay == DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month).ToString())
+            {
+                group2 = new TrafficMeterGroup("StartDate", strTitle, loader.GetString("LastDay"));
+            } 
+            else
+            {
+                group2 = new TrafficMeterGroup("StartDate", strTitle, TrafficMeterInfoModel.changedRestartDay);
+            }
+            //var group2 = new TrafficMeterGroup("StartDate",
+            //    strTitle,
+            //    TrafficMeterInfoModel.changedRestartDay);
             group2.Items.Add(new TrafficMeterItem("StartDate-1",
                 "StartDate",
                 "1",

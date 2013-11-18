@@ -115,7 +115,7 @@
     </Compile>
     <Compile Include="DataModel\GuestAccessInfoModel.cs" />
     <Compile Include="DataModel\MainPageInfo.cs" />
-    <Compile Include="DataModel\NetworkMapModel.cs" />
+    <Compile Include="DataModel\NetworkMapInfo.cs" />
     <Compile Include="DataModel\ParentalControlInfo.cs" />
     <Compile Include="DataModel\TrafficMeterInfoModel.cs" />
     <Compile Include="DataModel\WifiInfoModel.cs" />
@@ -131,9 +131,10 @@
     <Compile Include="EditSettingPage.xaml.cs">
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GenieFcml.cs" />
-    <Compile Include="GenieSoapApi.cs" />
-    <Compile Include="GenieWebApi.cs" />
+    <Compile Include="SoapUtility\GenieFcml.cs" />
+    <Compile Include="SoapUtility\GenieSoapApi.cs" />
+    <Compile Include="SoapUtility\GenieTopoNode.cs" />
+    <Compile Include="SoapUtility\GenieWebApi.cs" />
     <Compile Include="GuestAccessPage.xaml.cs">
       <DependentUpon>GuestAccessPage.xaml</DependentUpon>
     </Compile>
@@ -180,7 +181,7 @@
     <Compile Include="QRCodePage.xaml.cs">
       <DependentUpon>QRCodePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UtilityTool.cs" />
+    <Compile Include="SoapUtility\UtilityTool.cs" />
     <Compile Include="StartDatePage.xaml.cs">
       <DependentUpon>StartDatePage.xaml</DependentUpon>
     </Compile>
@@ -208,7 +209,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Assets\Thumbs.db" />
     <None Include="Common\ReadMe.txt" />
     <None Include="GenieWin8_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -236,6 +236,10 @@
     <Content Include="Assets\devices\androiddevice.png" />
     <Content Include="Assets\devices\androidphone.png" />
     <Content Include="Assets\devices\androidtablet.png" />
+    <Content Include="Assets\devices\ipadmini.png" />
+    <Content Include="Assets\devices\iphone5.png" />
+    <Content Include="Assets\devices\windowsphone.png" />
+    <Content Include="Assets\devices\windowstablet.png" />
     <Content Include="Assets\MainPage\appstore.png" />
     <Content Include="Assets\devices\blurayplayer.png" />
     <Content Include="Assets\devices\bridge.png" />
@@ -277,6 +281,66 @@
     <Content Include="Assets\devices\satellitestb.png" />
     <Content Include="Assets\devices\scannerdev.png" />
     <Content Include="Assets\devices\slingbox.png" />
+    <Content Include="Assets\router\cg3300.png" />
+    <Content Include="Assets\router\cgd24g.png" />
+    <Content Include="Assets\router\default_netgear.png" />
+    <Content Include="Assets\router\dg834.png" />
+    <Content Include="Assets\router\dg834g.png" />
+    <Content Include="Assets\router\dg834gt.png" />
+    <Content Include="Assets\router\dg834gv.png" />
+    <Content Include="Assets\router\dg834n.png" />
+    <Content Include="Assets\router\dg834pn.png" />
+    <Content Include="Assets\router\dgn1000_rn.png" />
+    <Content Include="Assets\router\dgn2000.png" />
+    <Content Include="Assets\router\dgn2200.png" />
+    <Content Include="Assets\router\dgn2200m.png" />
+    <Content Include="Assets\router\dgn3500.png" />
+    <Content Include="Assets\router\dgnb2100.png" />
+    <Content Include="Assets\router\dgnd3300.png" />
+    <Content Include="Assets\router\dgnd3700.png" />
+    <Content Include="Assets\router\dgnd4000.png" />
+    <Content Include="Assets\router\dm111p.png" />
+    <Content Include="Assets\router\dm111psp.png" />
+    <Content Include="Assets\router\jnr3000.png" />
+    <Content Include="Assets\router\jnr3210.png" />
+    <Content Include="Assets\router\jwnr2000.png" />
+    <Content Include="Assets\router\jwnr2000t.png" />
+    <Content Include="Assets\router\mbm621.png" />
+    <Content Include="Assets\router\mbr1210_1bmcns.png" />
+    <Content Include="Assets\router\mbr624gu.png" />
+    <Content Include="Assets\router\mbrn3000.png" />
+    <Content Include="Assets\router\r6200.png" />
+    <Content Include="Assets\router\r6300.png" />
+    <Content Include="Assets\router\r7000.png" />
+    <Content Include="Assets\router\rp614.png" />
+    <Content Include="Assets\router\wgr612.png" />
+    <Content Include="Assets\router\wgr614.png" />
+    <Content Include="Assets\router\wgr614l.png" />
+    <Content Include="Assets\router\wgt624.png" />
+    <Content Include="Assets\router\wnb2100.png" />
+    <Content Include="Assets\router\wndr3300.png" />
+    <Content Include="Assets\router\wndr3400.png" />
+    <Content Include="Assets\router\wndr3700.png" />
+    <Content Include="Assets\router\wndr37av.png" />
+    <Content Include="Assets\router\wndr3800.png" />
+    <Content Include="Assets\router\wndr4000.png" />
+    <Content Include="Assets\router\wndr4500.png" />
+    <Content Include="Assets\router\wndr4700.png" />
+    <Content Include="Assets\router\wndrmac.png" />
+    <Content Include="Assets\router\wnr1000.png" />
+    <Content Include="Assets\router\wnr2000.png" />
+    <Content Include="Assets\router\wnr2200.png" />
+    <Content Include="Assets\router\wnr3500.png" />
+    <Content Include="Assets\router\wnr3500l.png" />
+    <Content Include="Assets\router\wnr500.png" />
+    <Content Include="Assets\router\wnr612.png" />
+    <Content Include="Assets\router\wnr834b.png" />
+    <Content Include="Assets\router\wnr834m.png" />
+    <Content Include="Assets\router\wnr854t.png" />
+    <Content Include="Assets\router\wnxr2000.png" />
+    <Content Include="Assets\router\wpn824.png" />
+    <Content Include="Assets\router\wpn824ext.png" />
+    <Content Include="Assets\router\wpn824n.png" />
     <Content Include="Assets\signal\signal_13.png" />
     <Content Include="Assets\signal\signal_13s.png" />
     <Content Include="Assets\signal\signal_23.png" />
@@ -293,6 +357,11 @@
     <Content Include="Assets\devices\unixpc.png" />
     <Content Include="Assets\devices\windowspc.png" />
     <Content Include="Assets\MainPage\wireless.png" />
+    <Content Include="Assets\signal\wirelessflag0.png" />
+    <Content Include="Assets\signal\wirelessflag1.png" />
+    <Content Include="Assets\signal\wirelessflag2.png" />
+    <Content Include="Assets\signal\wirelessflag3.png" />
+    <Content Include="Assets\signal\wirelessflag4.png" />
     <Content Include="Assets\开机画面620x300.png" />
   </ItemGroup>
   <ItemGroup>

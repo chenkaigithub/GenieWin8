@@ -949,4 +949,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Käyttäjätunnus- tai salasanakenttä on tyhjä.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Salasana kopioidaan leikepöydälle. Muodosta yhteys tähän verkkoon valitsemalla asetukset &gt; WLAN.</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Laiteohjelman versio</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Et ole kirjautuneena sisään tunnuksella</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>Kirjaudutaan sisään…</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>Kirjaudutaan ulos…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Salasana ei vastaa käyttäjänimeä. Yritä uudelleen.</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Käytön valvonta</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Windows-puhelin</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Salli</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Estä</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Windows-tablet</value>
+  </data>
 </root>

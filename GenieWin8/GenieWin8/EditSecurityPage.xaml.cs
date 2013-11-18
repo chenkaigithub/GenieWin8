@@ -67,10 +67,13 @@ namespace GenieWin8
         {
         }
 
-
+        int lastIndex = -1;         //记录上次的选择项
         private void Security_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = securityListView.SelectedIndex;
+            if (index == -1)
+                return;
+
             switch (index)
             {
                 case 0:
@@ -93,7 +96,12 @@ namespace GenieWin8
             {
                 WifiInfoModel.isSecurityTypeChanged = false;
             }
-            this.Frame.Navigate(typeof(EditSettingPage));
+
+            if (lastIndex!= -1 && index != lastIndex)
+            {
+                this.Frame.Navigate(typeof(EditSettingPage));
+            }
+            lastIndex = index;
         }
     }
 }

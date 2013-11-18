@@ -184,7 +184,7 @@ namespace GenieWP8
             GenieSoapApi soapApi = new GenieSoapApi();
 
             Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-            while (attachDeviceAll == null)
+            while (attachDeviceAll == null || attachDeviceAll.Count == 0)
             {
                 attachDeviceAll = await soapApi.GetAttachDevice();
             }            

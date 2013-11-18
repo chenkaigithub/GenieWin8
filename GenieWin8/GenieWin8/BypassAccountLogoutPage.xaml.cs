@@ -39,7 +39,8 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            LoggedInAccount.Text = "You have logged in as " + ParentalControlInfo.BypassUsername;
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            LoggedInAccount.Text = loader.GetString("LoggedInBypass") + " " + ParentalControlInfo.BypassUsername;
         }
 
         /// <summary>

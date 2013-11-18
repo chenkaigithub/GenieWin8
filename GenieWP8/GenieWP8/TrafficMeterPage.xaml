@@ -52,7 +52,7 @@
                             <Image Source="/Assets/WirelessSetting/first.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Path=LocalizedResources.CheckTrafficMeterText, Source={StaticResource LocalizedStrings}}"
-                                           FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                           FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,60,0"/>
                             </StackPanel>
                             <CheckBox x:Name="checkTrafficMeter" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="24" IsChecked="True"
                                       Click="checkTrafficMeter_Click" Style="{StaticResource CheckBoxStyle_Custom}"/>
@@ -62,7 +62,7 @@
                             <Grid x:Name="gridLimitPerMonth" Height="80" DataContext="{Binding LimitPerMonth}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
                                 <Image Source="/Assets/WirelessSetting/second.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,35,0"/>
                                     <TextBlock x:Name="tbLimitPerMonth" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -80,7 +80,7 @@
                             <Grid x:Name="gridStartTime" Height="80" DataContext="{Binding StartTime}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
                                 <Image Source="/Assets/WirelessSetting/first.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,35,0"/>
                                     <TextBlock x:Name="tbStartTime" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -89,7 +89,7 @@
                             <Grid x:Name="gridTrafficLimitation" Height="80" DataContext="{Binding TrafficLimitation}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
                                 <Image Source="/Assets/WirelessSetting/second.png" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,35,0"/>
                                     <TextBlock x:Name="tbTrafficLimitation" Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>

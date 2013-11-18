@@ -949,4 +949,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Pole používateľského mena alebo hesla je prázdne.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Heslo sa skopírovalo do schránky. Ak sa chcete pripojiť k tejto sieti, vyberte možnosť Nastavenia &gt; WLAN.</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Verzia firmvéru</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Ste prihlásení ako</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>Prihlasovanie…</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>Odhlasovanie…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Heslo sa nezhoduje s týmto používateľským menom. Skúste to znova.</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Riadenie prístupu</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Telefón so systémom Windows</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Povoliť</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Blokovať</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Počítač typu Tablet so systémom Windows</value>
+  </data>
 </root>

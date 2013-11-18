@@ -53,6 +53,19 @@ namespace GenieWin8
         {
         }
 
+        //按下屏幕键盘回车键后关闭屏幕键盘
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                this.Focus(FocusState.Keyboard);
+            }
+            else
+            {
+                base.OnKeyDown(e);
+            }
+        }
+
         private async void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
             InProgress.IsActive = true;
@@ -73,7 +86,7 @@ namespace GenieWin8
                 UtilityTool util = new UtilityTool();
                 string macAddress = util.GetLocalMacAddress();
                 macAddress = macAddress.Replace(":", "");       ///本机mac地址
-                dicResponse = await soapApi.SetDNSMasqDeviceID(macAddress, ParentalControlInfo.BypassChildrenDeviceId);
+                dicResponse = await soapApi.SetDNSMasqDeviceID("default", ParentalControlInfo.BypassChildrenDeviceId);
             
                 InProgress.IsActive = false;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
@@ -85,8 +98,17 @@ namespace GenieWin8
                 InProgress.IsActive = false;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
-                var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                await messageDialog.ShowAsync();
+                if (dicResponse["error"] == "3003")
+                {
+                    var loader = new Windows.ApplicationModel.Resources.ResourceLoader();                    
+                    var messageDialog = new MessageDialog(loader.GetString("UnmatchedPassword"));
+                    await messageDialog.ShowAsync();
+                } 
+                else
+                {
+                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                    await messageDialog.ShowAsync();
+                }
             }
         }
 

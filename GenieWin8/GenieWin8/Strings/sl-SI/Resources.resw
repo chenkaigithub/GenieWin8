@@ -949,4 +949,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Polje z uporabniškim imenom ali geslom je prazno.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Geslo je bilo kopirano na odložišče. Če želite vzpostaviti povezavo s tem omrežjem, izberite Nastavitve &gt; WLAN.</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Različica vdelane programske opreme</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Prijavljeni ste kot</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>Prijavljanje ...</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>Odjavljanje ...</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Geslo se ne ujema z uporabniškim imenom Poskusite znova.</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Nadzor dostopa</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Telefon Windows</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Dovoli</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Zavrni</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Tablični računalnik Windows</value>
+  </data>
 </root>

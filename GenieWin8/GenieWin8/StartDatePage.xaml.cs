@@ -63,9 +63,13 @@ namespace GenieWin8
         {
         }
 
+        int lastIndex = -1;         //记录上次的选择项
         private void ChangeRestartDayClick(object sender, SelectionChangedEventArgs e)
         {
             int index = restartDayListView.SelectedIndex;
+            if (index == -1)
+                return;
+
             if (index < 28)
             {
                 TrafficMeterInfoModel.changedRestartDay = (index + 1).ToString();
@@ -85,7 +89,12 @@ namespace GenieWin8
             {
                 TrafficMeterInfoModel.isRestartDayChanged = false;
             }
-            this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
+
+            if (lastIndex != -1 && index != lastIndex)
+            {
+                this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
+            }
+            lastIndex = index;
         }
     }
 }

@@ -949,4 +949,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Campo nome utente o password vuoto.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>La password viene copiata negli appunti. Per connettersi a questa rete, selezionare Impostazioni &gt; WLAN.</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Versione firmware</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>L'accesso è stato effettuato come</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>Accesso in corso...</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>Disconnessione in corso...</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>La password non corrisponde al nome utente. Riprovare.</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Controllo accessi</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Telefono Windows</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Autorizza</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Blocca</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Tablet Windows</value>
+  </data>
 </root>

@@ -949,4 +949,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>إن حقل اسم المستخدم أو كلمة المرور فارغ.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>تم نسخ كلمة المرور إلى الحافظة. للاتصال بهذه الشبكة، حدد إعدادات &gt; WLAN.</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>إصدار البرنامج الثابت</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>تم تسجيل دخولك كـ</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>جارٍ تسجيل الدخول...</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>جارٍ تسجيل الخروج...</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>لا تتطابق كلمة المرور مع اسم المستخدم، يرجى المحاولة مرة أخرى.</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>التحكم بالوصول</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>هاتف Windows</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>السماح</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>حظر</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>جهاز Windows اللوحي</value>
+  </data>
 </root>

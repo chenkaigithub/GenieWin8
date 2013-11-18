@@ -118,6 +118,7 @@ namespace GenieWP8
             if (IsDrawCompleted)
             {
                 timer.Stop();
+                this.SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
                 PopupBackground.Visibility = Visibility.Collapsed;
                 appBarButton_refresh.IsEnabled = true;
                 IsDrawCompleted = false;
@@ -125,7 +126,7 @@ namespace GenieWP8
         }
 
         private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
-        {
+        {      
             PopupBackground.Visibility = Visibility.Visible;
             InProgress.Visibility = Visibility.Visible;
             pleasewait.Visibility = Visibility.Visible;
@@ -133,6 +134,7 @@ namespace GenieWP8
             double height;
             if ((e.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
             {
+                this.SupportedOrientations = SupportedPageOrientation.Portrait;
                 width = Application.Current.Host.Content.ActualWidth;
                 height = Application.Current.Host.Content.ActualHeight - 300;
                 if (IsRouterInfoOpened)
@@ -148,6 +150,7 @@ namespace GenieWP8
             // If not in portrait, move buttonList content to visible row and column.
             else
             {
+                this.SupportedOrientations = SupportedPageOrientation.Landscape;
                 width = Application.Current.Host.Content.ActualHeight - 150;
                 height = Application.Current.Host.Content.ActualWidth - 200;
                 DeviceInfoScrollViewer.Height = 200;
@@ -480,6 +483,9 @@ namespace GenieWP8
                                 case "ipadmini":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
                                     break;
+                                case "windowstablet":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
+                                    break;
                             }
                             imgDevice.Stretch = Stretch.Uniform;
                             imgDevice.Height = 55;
@@ -502,6 +508,7 @@ namespace GenieWP8
                     CheckBox cbAccessControl = new CheckBox();
                     cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
                     cbAccessControl.Content = AppResources.AccessControl;
+                    cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
                     if (NetworkMapInfo.IsAccessControlEnabled)
                     {
                         cbAccessControl.IsChecked = true;
@@ -826,6 +833,9 @@ namespace GenieWP8
                                 case "ipadmini":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
                                     break;
+                                case "windowstablet":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
+                                    break;
                             }
                             imgDevice.Stretch = Stretch.Uniform;
                             imgDevice.Height = 55;
@@ -848,6 +858,7 @@ namespace GenieWP8
                     CheckBox cbAccessControl = new CheckBox();
                     cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
                     cbAccessControl.Content = AppResources.AccessControl;
+                    cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
                     if (NetworkMapInfo.IsAccessControlEnabled)
                     {
                         cbAccessControl.IsChecked = true;
@@ -1150,7 +1161,10 @@ namespace GenieWP8
                         break;
                     case "ipadmini":
                         Type.Text = AppResources.ipadmini;
-                        break;                    
+                        break;
+                    case "windowstablet":
+                        Type.Text = AppResources.windowstablet;
+                        break; 
                 }
                 Type.FontSize = 26;
                 Type.HorizontalAlignment = HorizontalAlignment.Center;
@@ -1193,6 +1207,7 @@ namespace GenieWP8
                 source.Add(new Devicetype() { type = AppResources.windowsphone, deviceIcon = "Assets/devices/windowsphone.png" });
                 source.Add(new Devicetype() { type = AppResources.iphone5, deviceIcon = "Assets/devices/iphone5.png" });
                 source.Add(new Devicetype() { type = AppResources.ipadmini, deviceIcon = "Assets/devices/ipadmini.png" });
+                source.Add(new Devicetype() { type = AppResources.windowstablet, deviceIcon = "Assets/devices/windowstablet.png" });
                 lpType.ItemsSource = source;
 
                 switch (Group.NODE.deviceType)
@@ -1304,6 +1319,9 @@ namespace GenieWP8
                         break;
                     case "ipadmini":
                         lpType.SelectedIndex = 35;
+                        break;
+                    case "windowstablet":
+                        lpType.SelectedIndex = 36;
                         break;
                 }
                 lpType.HorizontalContentAlignment = HorizontalAlignment.Center;
@@ -1545,7 +1563,10 @@ namespace GenieWP8
                         break;
                     case "ipadmini":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
-                        break;                 
+                        break;
+                    case "windowstablet":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
+                        break;
                 }
                 StpTitle.Children.Add(TitleImage);
                 StpTitle.Children.Add(Title);                
@@ -1856,6 +1877,11 @@ namespace GenieWP8
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
                     customDeviceType = "ipadmini";
                     Type.Text = AppResources.ipadmini;
+                    break;
+                case 36:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
+                    customDeviceType = "windowstablet";
+                    Type.Text = AppResources.windowstablet;
                     break;
             }
 

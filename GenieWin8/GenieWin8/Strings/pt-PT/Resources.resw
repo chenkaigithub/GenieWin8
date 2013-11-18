@@ -949,4 +949,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>O campo nome de usuário ou senha está vazio.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>A senha está copiada na área de transferência. Para conectar-se a esta rede, selecione Configurações &gt; WLAN.</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Versão do firmware</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Você está conectado como</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>Fazendo login…</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>Desconectando…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>A senha não corresponde com este nome de usuário. Tente novamente.</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Controle de acesso</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Telefone Windows</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Permitir</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Bloquear</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Tablet Windows</value>
+  </data>
 </root>

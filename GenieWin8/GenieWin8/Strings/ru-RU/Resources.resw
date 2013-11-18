@@ -949,4 +949,37 @@
   <data name="EmptyUsernameOrPassword" xml:space="preserve">
     <value>Необходимо ввести имя пользователя или пароль.</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Пароль скопирован в буфер обмена. Для подключения к данной сети выберите пункт меню \"Настройки\" &gt; WLAN.</value>
+  </data>
+  <data name="txtRouterFirmware" xml:space="preserve">
+    <value>Версия микропрограммного обеспечения</value>
+  </data>
+  <data name="LoggedInBypass" xml:space="preserve">
+    <value>Вы зарегистрированы как</value>
+  </data>
+  <data name="LoggingIn.Text" xml:space="preserve">
+    <value>Выполняется вход в систему…</value>
+  </data>
+  <data name="LoggingOut.Text" xml:space="preserve">
+    <value>Выполняется выход из системы…</value>
+  </data>
+  <data name="UnmatchedPassword" xml:space="preserve">
+    <value>Пароль не соответствует этому имени пользователя. Повторите попытку.</value>
+  </data>
+  <data name="AccessControl" xml:space="preserve">
+    <value>Контроль доступа</value>
+  </data>
+  <data name="windowsphone" xml:space="preserve">
+    <value>Телефон с ОС Windows</value>
+  </data>
+  <data name="btnAllow" xml:space="preserve">
+    <value>Разрешить</value>
+  </data>
+  <data name="btnBlock" xml:space="preserve">
+    <value>Блокировать</value>
+  </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Планшет с ОС Windows</value>
+  </data>
 </root>

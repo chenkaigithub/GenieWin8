@@ -1048,4 +1048,7 @@
   <data name="btnBlock" xml:space="preserve">
     <value>阻止</value>
   </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Windows 平板电脑</value>
+  </data>
 </root>

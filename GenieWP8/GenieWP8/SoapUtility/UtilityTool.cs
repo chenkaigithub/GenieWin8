@@ -18,7 +18,7 @@ using System.Windows;
 using System.Net.Sockets;
 using System.Threading;
 
-//using GenieWin8.DataModel;
+using GenieWP8.DataInfo;
 
 namespace GenieWP8
 {
@@ -324,24 +324,24 @@ namespace GenieWP8
         /// <returns></returns>
         public string GetLocalMacAddress()
         {
-            //Dictionary<string, Dictionary<string, string>> attachDevice = NetworkMapModel.attachDeviceDic;
-            //var iplist = GetCurrentIpAddresses();
-            //if (iplist.Count() > 0)
-            //{
-            //    foreach (string ip in iplist)
-            //    {
-            //        if (attachDevice.Count > 0)
-            //        {
-            //            foreach (string key in attachDevice.Keys)
-            //            {
-            //                if (ip == attachDevice[key]["Ip"])
-            //                {
-            //                    return key;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+            Dictionary<string, Dictionary<string, string>> attachDevice = NetworkMapInfo.attachDeviceDic;
+            var iplist = GetCurrentIpAddresses();
+            if (iplist.Count() > 0)
+            {
+                foreach (string ip in iplist)
+                {
+                    if (attachDevice.Count > 0)
+                    {
+                        foreach (string key in attachDevice.Keys)
+                        {
+                            if (ip == attachDevice[key]["Ip"])
+                            {
+                                return key;
+                            }
+                        }
+                    }
+                }
+            }
 
             /*
             byte[] myDeviceID = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");

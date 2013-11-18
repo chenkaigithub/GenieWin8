@@ -1045,4 +1045,7 @@
   <data name="btnBlock" xml:space="preserve">
     <value>Blokovať</value>
   </data>
+  <data name="windowstablet" xml:space="preserve">
+    <value>Počítač typu Tablet so systémom Windows</value>
+  </data>
 </root>

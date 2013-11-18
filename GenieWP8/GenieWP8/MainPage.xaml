@@ -189,9 +189,9 @@
                             <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/bg.png"/>
                         </Button.Background>
                         <Grid Width="170" Height="170">
-                            <Image Source="Assets/MainPage/WirelessSetting.png" Stretch="Fill" Height="95" Width="95" VerticalAlignment="Top" Margin="0,20,0,0"/>
-                            <TextBlock Text="{Binding Path=LocalizedResources.WiFiSetting, Source={StaticResource LocalizedStrings}}"
-                                       Width="160" Margin="0,130,0,0" HorizontalAlignment="Center" Foreground="White"/>
+                            <Image Source="Assets/MainPage/WirelessSetting.png" Stretch="Fill" Height="100" Width="100" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                            <TextBlock Text="{Binding Path=LocalizedResources.WiFiSetting, Source={StaticResource LocalizedStrings}}" FontSize="20"
+                                       Width="170" Margin="0,115,0,0" HorizontalAlignment="Center" Foreground="White" TextAlignment="Center" TextWrapping="Wrap"/>
                         </Grid>
                     </Button>
                     <Button x:Name="GuestAccess" Width="170" Height="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="180,0,0,0"
@@ -200,9 +200,9 @@
                             <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/bg.png"/>
                         </Button.Background>
                         <Grid Width="170" Height="170">
-                            <Image Source="Assets/MainPage/GuestAccess.png" Stretch="Fill" Height="95" Width="95" VerticalAlignment="Top" Margin="0,20,0,0"/>
-                            <TextBlock Text="{Binding Path=LocalizedResources.GuestAccess, Source={StaticResource LocalizedStrings}}"
-                                       Width="160" Margin="0,130,0,0" HorizontalAlignment="Center" Foreground="White"/>
+                            <Image Source="Assets/MainPage/GuestAccess.png" Stretch="Fill" Height="100" Width="100" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                            <TextBlock Text="{Binding Path=LocalizedResources.GuestAccess, Source={StaticResource LocalizedStrings}}" FontSize="20"
+                                       Width="170" Margin="0,115,0,0" HorizontalAlignment="Center" Foreground="White" TextAlignment="Center" TextWrapping="Wrap"/>
                         </Grid>                      
                     </Button>
                     <Button x:Name="NetworkMap" Width="170" Height="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-180,180,0,0"
@@ -211,9 +211,9 @@
                             <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/bg.png"/>
                         </Button.Background>
                         <Grid Width="170" Height="170">
-                            <Image Source="Assets/MainPage/NetworkMap.png" Stretch="Fill" Height="95" Width="95" VerticalAlignment="Top" Margin="0,20,0,0"/>
-                            <TextBlock Text="{Binding Path=LocalizedResources.NetworkMap, Source={StaticResource LocalizedStrings}}"
-                                       Width="160" Margin="0,130,0,0" HorizontalAlignment="Center" Foreground="White"/>
+                            <Image Source="Assets/MainPage/NetworkMap.png" Stretch="Fill" Height="100" Width="100" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                            <TextBlock Text="{Binding Path=LocalizedResources.NetworkMap, Source={StaticResource LocalizedStrings}}" FontSize="20"
+                                       Width="170" Margin="0,115,0,0" HorizontalAlignment="Center" Foreground="White" TextAlignment="Center" TextWrapping="Wrap"/>
                         </Grid>                           
                     </Button>
                     <Button x:Name="ParentalControl" Width="170" Height="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="180,180,0,0"
@@ -222,9 +222,9 @@
                             <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/bg.png"/>
                         </Button.Background>
                         <Grid Width="170" Height="170">
-                            <Image Source="Assets/MainPage/ParentalControl.png" Stretch="Fill" Height="95" Width="95" VerticalAlignment="Top" Margin="0,20,0,0"/>
-                            <TextBlock Text="{Binding Path=LocalizedResources.ParentalControl, Source={StaticResource LocalizedStrings}}"
-                                       Width="160" Margin="0,130,0,0" HorizontalAlignment="Center" Foreground="White"/>
+                            <Image Source="Assets/MainPage/ParentalControl.png" Stretch="Fill" Height="100" Width="100" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                            <TextBlock Text="{Binding Path=LocalizedResources.ParentalControl, Source={StaticResource LocalizedStrings}}" FontSize="20"
+                                       Width="170" Margin="0,115,0,0" HorizontalAlignment="Center" Foreground="White" TextAlignment="Center" TextWrapping="Wrap"/>
                         </Grid>                            
                     </Button>
                     <Button x:Name="TrafficMeter" Width="170" Height="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-180,360,0,0"
@@ -233,9 +233,9 @@
                             <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/bg.png"/>
                         </Button.Background>
                         <Grid Width="170" Height="170">
-                            <Image Source="Assets/MainPage/TrafficMeter.png" Stretch="Fill" Height="95" Width="95" VerticalAlignment="Top" Margin="0,20,0,0"/>
-                            <TextBlock Text="{Binding Path=LocalizedResources.TrafficMeter, Source={StaticResource LocalizedStrings}}"
-                                       Width="160" Margin="0,130,0,0" HorizontalAlignment="Center" Foreground="White"/>
+                            <Image Source="Assets/MainPage/TrafficMeter.png" Stretch="Fill" Height="100" Width="100" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                            <TextBlock Text="{Binding Path=LocalizedResources.TrafficMeter, Source={StaticResource LocalizedStrings}}" FontSize="20"
+                                       Width="170" Margin="0,115,0,0" HorizontalAlignment="Center" Foreground="White" TextAlignment="Center" TextWrapping="Wrap"/>
                         </Grid>                           
                     </Button>
                     <Button x:Name="QRCode" Width="170" Height="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="180,360,0,0"
@@ -244,9 +244,9 @@
                             <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/bg.png"/>
                         </Button.Background>
                         <Grid Width="170" Height="170">
-                            <Image Source="Assets/MainPage/QRCode.png" Stretch="Fill" Height="95" Width="95" VerticalAlignment="Top" Margin="0,20,0,0"/>
-                            <TextBlock Text="{Binding Path=LocalizedResources.QRCode, Source={StaticResource LocalizedStrings}}"
-                                       Width="160" Margin="0,130,0,0" HorizontalAlignment="Center" Foreground="White"/>
+                            <Image Source="Assets/MainPage/QRCode.png" Stretch="Fill" Height="100" Width="100" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                            <TextBlock Text="{Binding Path=LocalizedResources.QRCode, Source={StaticResource LocalizedStrings}}" FontSize="20"
+                                       Width="170" Margin="0,115,0,0" HorizontalAlignment="Center" Foreground="White" TextAlignment="Center" TextWrapping="Wrap"/>
                         </Grid>                            
                     </Button>
                 </Grid>

@@ -178,7 +178,7 @@ namespace GenieWP8
                     var strtext = AppResources.login_alertinfo;
                     MessageBox.Show(strtext);
                 }
-            } 
+            }
             else
             {
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
@@ -482,12 +482,12 @@ namespace GenieWP8
                             if (dicResponse["ParentalControlSupported"] == "1")
                             {
                                 ///通过attachDevice获取本机的Mac地址
-                                //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                                //while (responseDic == null || responseDic.Count == 0)
-                                //{
-                                //    responseDic = await soapApi.GetAttachDevice();
-                                //}                                
-                                //NetworkMapInfo.attachDeviceDic = responseDic;
+                                responseDic = new Dictionary<string, Dictionary<string, string>>();
+                                while (responseDic == null || responseDic.Count == 0)
+                                {
+                                    responseDic = await soapApi.GetAttachDevice();
+                                }
+                                NetworkMapInfo.attachDeviceDic = responseDic;
 
                                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                                 while (dicResponse2 == null || dicResponse2.Count == 0)

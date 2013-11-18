@@ -131,18 +131,18 @@
                 <StackPanel Grid.Row="1">
                     <Grid Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="30,10,30,0">
                         <Grid.Background>
-                            <ImageBrush Stretch="Fill" ImageSource="/Assets/LoginPage/text框.png"/>
+                            <ImageBrush Stretch="Fill" ImageSource="/Assets/LoginPage/textFrame.png"/>
                         </Grid.Background>
                         <Image Height="30" Source="/Assets/LoginPage/name.png" HorizontalAlignment="Left" Margin="15,0,0,0"/>
-                        <Image Source="/Assets/LoginPage/分割线.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="60,5,0,5"/>
+                        <Image Source="/Assets/LoginPage/SplitLine.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="60,5,0,5"/>
                         <TextBox x:Name="tbBypassUserName" HorizontalAlignment="Stretch" Margin="60,0,0,0" IsEnabled="False" BorderThickness="0" Style="{StaticResource TextBoxStyle1}"/>
                     </Grid>
                     <Grid Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="30,20,30,0">
                         <Grid.Background>
-                            <ImageBrush Stretch="Fill" ImageSource="/Assets/LoginPage/text框.png"/>
+                            <ImageBrush Stretch="Fill" ImageSource="/Assets/LoginPage/textFrame.png"/>
                         </Grid.Background>
                         <Image Height="30" Source="/Assets/LoginPage/password.png" HorizontalAlignment="Left" Margin="15,0,0,0"/>
-                        <Image Source="/Assets/LoginPage/分割线.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="60,5,0,5"/>
+                        <Image Source="/Assets/LoginPage/SplitLine.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="60,5,0,5"/>
                         <PasswordBox x:Name="tbBypassPassword" HorizontalAlignment="Stretch" Margin="60,0,0,0" Background="White" BorderThickness="0" Foreground="Black"/>
                     </Grid>
                     <Grid Margin="0,25,0,0">

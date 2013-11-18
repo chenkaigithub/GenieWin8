@@ -61,7 +61,7 @@
             </Border.Background>
             <StackPanel>
                 <TextBlock x:Uid="UserName"  FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,420,0" Foreground="White"/>
-                <TextBox x:Name="tbBypassUserName" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,10,0,0"/>
+                <TextBox x:Name="tbBypassUserName" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,10,0,0" IsEnabled="False"/>
                 <TextBlock x:Uid="Password"  FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,40,440,0" Foreground="White"/>
                 <PasswordBox x:Name="tbBypassPassword" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,10,0,0"/>
                 <Grid>
@@ -81,7 +81,7 @@
                           IsActive="false"
                           Height="60" Width="60"
                           Foreground="White"/>
-                <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Foreground="White"/>
+                <TextBlock x:Uid="LoggingIn" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Foreground="White"/>
             </StackPanel>
         </Grid>
 

@@ -98,6 +98,28 @@ namespace GenieWin8.Data
             return _settingSource.SettingGroups;
         }
 
+        private ObservableCollection<SettingGroup> _signalStrengthGroup = new ObservableCollection<SettingGroup>();
+        public ObservableCollection<SettingGroup> SignalStrengthGroup
+        {
+            get { return this._signalStrengthGroup; }
+        }
+
+        public static IEnumerable<SettingGroup> GetSignalStrengthGroup(string uniqueId)
+        {
+            return _settingSource.SignalStrengthGroup;
+        }
+
+        private ObservableCollection<SettingGroup> _linkRateGroup = new ObservableCollection<SettingGroup>();
+        public ObservableCollection<SettingGroup> LinkRateGroup
+        {
+            get { return this._linkRateGroup; }
+        }
+
+        public static IEnumerable<SettingGroup> GetLinkRateGroup(string uniqueId)
+        {
+            return _settingSource.LinkRateGroup;
+        }
+
         private ObservableCollection<SettingGroup> _editName = new ObservableCollection<SettingGroup>();
         public ObservableCollection<SettingGroup> EditName
         {
@@ -154,7 +176,19 @@ namespace GenieWin8.Data
            
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
 
-            var strTitle = loader.GetString("WiFiName");
+            var strTitle = loader.GetString("txtSignalStrength");
+            var groupSignalStrength = new SettingGroup("txtSignalStrength",
+                strTitle,
+                WifiInfoModel.signalStrength);
+            this.SignalStrengthGroup.Add(groupSignalStrength);
+
+            strTitle = loader.GetString("txtLinkRate");
+            var groupLinkRate = new SettingGroup("txtLinkRate",
+                strTitle,
+                WifiInfoModel.linkRate);
+            this.LinkRateGroup.Add(groupLinkRate);
+
+            strTitle = loader.GetString("WiFiName");
             var group1 = new SettingGroup("WiFiName",
                 strTitle,
                 WifiInfoModel.ssid);

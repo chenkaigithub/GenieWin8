@@ -142,7 +142,7 @@
                         <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" TextWrapping="Wrap" Foreground="Black" Margin="15,0,0,0"/>
                     </Grid>
                     <TextBox x:Name="tbMonthlyLimit" Text="{Binding Content}" FontSize="20" TextChanged="monthlyLimit_changed" InputScope="TimeHour"
-                             Background="White" Foreground="Black" MaxLength="6" BorderThickness="1" GotFocus="monthlyLimit_GotFocus"/>
+                             Background="White" Foreground="Black" MaxLength="6" BorderThickness="1" BorderBrush="#B4B3B8" GotFocus="monthlyLimit_GotFocus"/>
                 </StackPanel>
                 <!--<Grid DataContext="{Binding LimitPerMonth}">
                     <Grid.Background>
@@ -181,7 +181,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding Path=LocalizedResources.StartTimeHourText, Source={StaticResource LocalizedStrings}}"
                                            Grid.Column="0" FontSize="22" VerticalAlignment="Center" Foreground="#3C3C3C"/>
-                                <TextBox x:Name="tbRestartHour" Text="{Binding Content}" Grid.Column="1" FontSize="20" VerticalAlignment="Center" BorderThickness="1"
+                                <TextBox x:Name="tbRestartHour" Text="{Binding Content}" Grid.Column="1" FontSize="20" VerticalAlignment="Center" BorderThickness="1" BorderBrush="#B4B3B8"
                                          TextAlignment="Center" TextChanged="restartHour_changed" InputScope="Number" MaxLength="2" Background="#BCADCE" Style="{StaticResource TextBoxStyle1}"/>
                             </Grid>
                             <Grid Width="140" HorizontalAlignment="Right" DataContext="{Binding StartTimeMin}">
@@ -191,7 +191,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding Path=LocalizedResources.StartTimeMinuteText, Source={StaticResource LocalizedStrings}}"
                                            Grid.Column="0" FontSize="22" VerticalAlignment="Center" Foreground="#3C3C3C"/>
-                                <TextBox x:Name="tbRestartMinute" Text="{Binding Content}" Grid.Column="1" FontSize="20" VerticalAlignment="Center" BorderThickness="1"
+                                <TextBox x:Name="tbRestartMinute" Text="{Binding Content}" Grid.Column="1" FontSize="20" VerticalAlignment="Center" BorderThickness="1" BorderBrush="#B4B3B8"
                                          TextAlignment="Center" TextChanged="restartMinute_changed" InputScope="Number" MaxLength="2" Background="#BCADCE" Style="{StaticResource TextBoxStyle1}"/>
                             </Grid>
                         </Grid>
@@ -202,7 +202,7 @@
                     <StackPanel>
                         <Grid x:Name="gridTrafficLimitation" Height="80" DataContext="{Binding TrafficLimitation}" MouseLeftButtonDown="Grid_MouseLeftButtonDown" MouseLeave="Grid_MouseLeave" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
                             <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="#3C3C3C" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Title}" FontSize="30" FontWeight="Bold" Foreground="#3C3C3C" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,35,0"/>
                                 <TextBlock Text="{Binding Content}" FontSize="20" Foreground="#B4B4B4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             </StackPanel>
                             <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
