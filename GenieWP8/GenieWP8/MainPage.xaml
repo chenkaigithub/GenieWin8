@@ -159,21 +159,22 @@
         <StackPanel Grid.Row="0">
             <!--<TextBlock Text="我的应用程序" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Text="页面名称" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
-            <Grid Margin="0,0,0,20" HorizontalAlignment="Stretch">
-                <Image Source="Assets/MainPage/logo_left.png" Height="60" HorizontalAlignment="Left"/>
-                <Image Source="Assets/MainPage/NETGEAR_Genie_Logo.png" Height="38"  Margin="0,20,0,0" HorizontalAlignment="Center"/>
+            <Grid HorizontalAlignment="Stretch">
+                <Image Source="Assets/MainPage/logo_left.png" Height="70" HorizontalAlignment="Left"/>
+                <Image Source="Assets/MainPage/NETGEAR_Genie_Logo.png" Height="35"  Margin="0,25,0,0" HorizontalAlignment="Center"/>
             </Grid>
-            <Grid Height="60" HorizontalAlignment="Stretch">
+            <Grid Height="60">
                 <Grid.Background>
                     <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/statusBar_bg.png"/>
                 </Grid.Background>
-                <!--<TextBlock x:Name="ssid" Text="NETGEAR" FontSize="25" VerticalAlignment="Center" Margin="10,0,10,0" Width="150" HorizontalAlignment="Left" Foreground="White"/>-->
-                <Grid x:Name="SearchGrid" Margin="0,8,0,5" HorizontalAlignment="Stretch" GotFocus="SearchGrid_GotFocus" LostFocus="SearchGrid_LostFocus">
-                    <Grid.Background>
-                        <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/search_normal.png"/>
-                    </Grid.Background>
-                    <TextBox x:Name="tbSearch" FontSize="25" Margin="10,-8,40,0" Padding="0" BorderThickness="0" Height="60" Background="White"/>
-                    <Image Source="Assets/MainPage/search_ico.png" Height="28" Margin="0,0,20,0" HorizontalAlignment="Right" MouseLeftButtonUp="Image_MouseLeftButtonUp"/>
+                <Image x:Name="imgWifi" Height="25" HorizontalAlignment="Left" MouseLeftButtonUp="Image_MouseLeftButtonUp" Margin="5,0,0,0"/>
+                <TextBlock x:Name="tbSsid" FontSize="20" VerticalAlignment="Center" Margin="30,0,0,0" MaxWidth="130" HorizontalAlignment="Left" Foreground="White" TextTrimming="WordEllipsis"/>
+                <Grid x:Name="SearchGrid" HorizontalAlignment="Stretch" GotFocus="SearchGrid_GotFocus" LostFocus="SearchGrid_LostFocus" Margin="155,0,0,0">
+                    <Image x:Name="seach_bg_left" Source="Assets/MainPage/search_normal_left.png" Height="55" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Image x:Name="seach_bg_middle" Source="Assets/MainPage/search_normal_middle.png" Height="58" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="26,0,36,0" Stretch="Fill"/>
+                    <Image x:Name="seach_bg_right" Source="Assets/MainPage/search_normal_right.png" Height="55" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox x:Name="tbSearch" FontSize="25" Margin="20,0,50,0" Padding="0" BorderThickness="0" Height="60" Background="White"/>
+                    <Image Source="Assets/MainPage/search_ico.png" Height="40" Margin="0,0,20,0" HorizontalAlignment="Right" MouseLeftButtonUp="Image_MouseLeftButtonUp"/>
                 </Grid>
             </Grid>
         </StackPanel>

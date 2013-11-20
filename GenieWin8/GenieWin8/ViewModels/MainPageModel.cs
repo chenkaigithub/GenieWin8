@@ -122,7 +122,7 @@ namespace GenieWin8.Data
             var strTitle = loader.GetString("WiFiSetting");
             var group1 = new DataGroup("WiFiSetting",
                     strTitle,
-                    "Assets/MainPage/wireless.png");         
+                    "Assets/MainPage/WirelessSetting.png");         
             this.AllGroups.Add(group1);
 
             strTitle = loader.GetString("GuestAccess");
@@ -134,19 +134,19 @@ namespace GenieWin8.Data
             strTitle = loader.GetString("NetworkMap");
             var group3 = new DataGroup("NetworkMap",
                     strTitle,
-                    "Assets/MainPage/map.png");
+                    "Assets/MainPage/NetworkMap.png");
             this.AllGroups.Add(group3);
 
             strTitle = loader.GetString("ParentalControl");
             var group4 = new DataGroup("ParentalControl",
                     strTitle,
-                    "Assets/MainPage/parentalcontrols.png");
+                    "Assets/MainPage/ParentalControl.png");
             this.AllGroups.Add(group4);
 
             strTitle = loader.GetString("TrafficMeter");
             var group5 = new DataGroup("TrafficMeter",
                     strTitle,
-                    "Assets/MainPage/traffic.png");
+                    "Assets/MainPage/TrafficMeter.png");
             this.AllGroups.Add(group5);
 
             //strTitle = loader.GetString("MyMedia");

@@ -68,6 +68,18 @@ namespace GenieWP8
                 double width = System.Windows.Application.Current.Host.Content.ActualWidth;
                 appBarMenuItem_Login.Click += new EventHandler(appBarMenuItem_Login_Click);
             }
+
+            //判断wifi是否连接，并显示SSID
+            tbSsid.Text = AppResources.WifiEnabled;
+            imgWifi.Source = new BitmapImage(new Uri("Assets/signal/nowifi.png", UriKind.Relative));
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    tbSsid.Text = network.InterfaceName;
+                    imgWifi.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
+                }
+            }
         }
 
         //用于生成本地化 ApplicationBar 的代码
@@ -155,10 +167,6 @@ namespace GenieWP8
                     tbFirmwareVersion.Text = "N/A";
                 }
                 AboutPopup.IsOpen = true;
-                //PopupBackgroundTop.Visibility = Visibility.Visible;
-                //tbSearch.Visibility = Visibility.Collapsed;
-                //btnSearch.Visibility = Visibility.Collapsed;
-                //PopupBackground.Visibility = Visibility.Visible;
                 InProgress.Visibility = Visibility.Collapsed;
                 pleasewait.Visibility = Visibility.Collapsed;
             }
@@ -637,17 +645,17 @@ namespace GenieWP8
         }
 
         private void SearchGrid_GotFocus(object sender, RoutedEventArgs e)
-        {            
-            ImageBrush SearchBackground = new ImageBrush();
-            SearchBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/search_input.png", UriKind.Relative));
-            SearchGrid.Background = SearchBackground;
+        {
+            seach_bg_left.Source = new BitmapImage(new Uri("Assets/MainPage/search_input_left.png", UriKind.Relative));
+            seach_bg_middle.Source = new BitmapImage(new Uri("Assets/MainPage/search_input_middle.png", UriKind.Relative));
+            seach_bg_right.Source = new BitmapImage(new Uri("Assets/MainPage/search_input_right.png", UriKind.Relative));
         }
 
         private void SearchGrid_LostFocus(object sender, RoutedEventArgs e)
         {
-            ImageBrush SearchBackground = new ImageBrush();
-            SearchBackground.ImageSource = new BitmapImage(new Uri("Assets/MainPage/search_normal.png", UriKind.Relative));
-            SearchGrid.Background = SearchBackground;
+            seach_bg_left.Source = new BitmapImage(new Uri("Assets/MainPage/search_normal_left.png", UriKind.Relative));
+            seach_bg_middle.Source = new BitmapImage(new Uri("Assets/MainPage/search_normal_middle.png", UriKind.Relative));
+            seach_bg_right.Source = new BitmapImage(new Uri("Assets/MainPage/search_normal_right.png", UriKind.Relative));
         }        
 
         //private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)

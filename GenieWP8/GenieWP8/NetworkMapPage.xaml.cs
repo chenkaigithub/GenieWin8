@@ -375,14 +375,32 @@ namespace GenieWP8
                             Image imgDevice = new Image();
                             switch (Group.ElementAt(6 * i + j).NODE.deviceType)
                             {
-                                case "gatewaydev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                                case "imacdev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
                                     break;
-                                case "networkdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
+                                case "ipad":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
                                     break;
-                                case "windowspc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
+                                case "ipadmini":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
+                                    break;
+                                case "iphone":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
+                                    break;
+                                case "iphone5":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
+                                    break;
+                                case "ipodtouch":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
+                                    break;
+                                case "androiddevice":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                                    break;
+                                case "androidphone":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
+                                    break;
+                                case "androidtablet":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
                                     break;
                                 case "blurayplayer":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
@@ -396,26 +414,14 @@ namespace GenieWP8
                                 case "cameradev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
                                     break;
+                                case "dvr":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                                    break;
                                 case "gamedev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
                                     break;
-                                case "imacdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
-                                    break;
-                                case "ipad":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
-                                    break;
-                                case "iphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
-                                    break;
-                                case "ipodtouch":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
-                                    break;
                                 case "linuxpc":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
-                                    break;
-                                case "macbookdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
                                     break;
                                 case "macminidev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
@@ -423,23 +429,26 @@ namespace GenieWP8
                                 case "macprodev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
                                     break;
+                                case "macbookdev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
+                                    break;
                                 case "mediadev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
                                     break;
-                                case "mobiledev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                                case "networkdev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
                                     break;
-                                case "netstoragedev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                                    break;
-                                case "switchdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
+                                case "stb":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
                                     break;
                                 case "printerdev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
                                     break;
                                 case "repeater":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
+                                    break;
+                                case "gatewaydev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
                                     break;
                                 case "satellitestb":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
@@ -450,38 +459,32 @@ namespace GenieWP8
                                 case "slingbox":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
                                     break;
-                                case "stb":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
+                                case "netstoragedev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
                                     break;
-                                case "tablepc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                                case "mobiledev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                                    break;
+                                case "switchdev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
                                     break;
                                 case "tv":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
                                     break;
+                                case "tablepc":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                                    break;
                                 case "unixpc":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
                                     break;
-                                case "androiddevice":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                                case "windowspc":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
                                     break;
-                                case "androidphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                                    break;
-                                case "androidtablet":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
-                                    break;
-                                case "dvr":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                                case "amazonkindle":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
                                     break;
                                 case "windowsphone":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
-                                    break;
-                                case "iphone5":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
-                                    break;
-                                case "ipadmini":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
                                     break;
                                 case "windowstablet":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
@@ -725,14 +728,32 @@ namespace GenieWP8
                             Image imgDevice = new Image();
                             switch (Group.ElementAt(6 * i + j).NODE.deviceType)
                             {
-                                case "gatewaydev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                                case "imacdev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
                                     break;
-                                case "networkdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
+                                case "ipad":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
                                     break;
-                                case "windowspc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
+                                case "ipadmini":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
+                                    break;
+                                case "iphone":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
+                                    break;
+                                case "iphone5":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
+                                    break;
+                                case "ipodtouch":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
+                                    break;
+                                case "androiddevice":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                                    break;
+                                case "androidphone":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
+                                    break;
+                                case "androidtablet":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
                                     break;
                                 case "blurayplayer":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
@@ -746,26 +767,14 @@ namespace GenieWP8
                                 case "cameradev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
                                     break;
+                                case "dvr":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                                    break;
                                 case "gamedev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
                                     break;
-                                case "imacdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
-                                    break;
-                                case "ipad":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
-                                    break;
-                                case "iphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
-                                    break;
-                                case "ipodtouch":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
-                                    break;
                                 case "linuxpc":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
-                                    break;
-                                case "macbookdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
                                     break;
                                 case "macminidev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
@@ -773,23 +782,26 @@ namespace GenieWP8
                                 case "macprodev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
                                     break;
+                                case "macbookdev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
+                                    break;
                                 case "mediadev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
                                     break;
-                                case "mobiledev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                                case "networkdev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
                                     break;
-                                case "netstoragedev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                                    break;
-                                case "switchdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
+                                case "stb":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
                                     break;
                                 case "printerdev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
                                     break;
                                 case "repeater":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
+                                    break;
+                                case "gatewaydev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
                                     break;
                                 case "satellitestb":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
@@ -800,38 +812,32 @@ namespace GenieWP8
                                 case "slingbox":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
                                     break;
-                                case "stb":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
+                                case "netstoragedev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
                                     break;
-                                case "tablepc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                                case "mobiledev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                                    break;
+                                case "switchdev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
                                     break;
                                 case "tv":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
                                     break;
+                                case "tablepc":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                                    break;
                                 case "unixpc":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
                                     break;
-                                case "androiddevice":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                                case "windowspc":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
                                     break;
-                                case "androidphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                                    break;
-                                case "androidtablet":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
-                                    break;
-                                case "dvr":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                                case "amazonkindle":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
                                     break;
                                 case "windowsphone":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
-                                    break;
-                                case "iphone5":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
-                                    break;
-                                case "ipadmini":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
                                     break;
                                 case "windowstablet":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
@@ -1054,14 +1060,32 @@ namespace GenieWP8
                 txtType.HorizontalAlignment = HorizontalAlignment.Left;
                 switch (Group.NODE.deviceType)
                 {
-                    case "gatewaydev":
-                        Type.Text = AppResources.gatewaydev;
+                    case "imacdev":
+                        Type.Text = AppResources.imacdev;
                         break;
-                    case "networkdev":
-                        Type.Text = AppResources.networkdev;
+                    case "ipad":
+                        Type.Text = AppResources.ipad;
                         break;
-                    case "windowspc":
-                        Type.Text = AppResources.windowspc;
+                    case "ipadmini":
+                        Type.Text = AppResources.ipadmini;
+                        break;
+                    case "iphone":
+                        Type.Text = AppResources.iphone;
+                        break;
+                    case "iphone5":
+                        Type.Text = AppResources.iphone5;
+                        break;
+                    case "ipodtouch":
+                        Type.Text = AppResources.ipodtouch;
+                        break;
+                    case "androiddevice":
+                        Type.Text = AppResources.androiddevice;
+                        break;
+                    case "androidphone":
+                        Type.Text = AppResources.androidphone;
+                        break;
+                    case "androidtablet":
+                        Type.Text = AppResources.androidtablet;
                         break;
                     case "blurayplayer":
                         Type.Text = AppResources.blurayplayer;
@@ -1075,26 +1099,14 @@ namespace GenieWP8
                     case "cameradev":
                         Type.Text = AppResources.cameradev;
                         break;
+                    case "dvr":
+                        Type.Text = AppResources.dvr;
+                        break;
                     case "gamedev":
                         Type.Text = AppResources.gamedev;
                         break;
-                    case "imacdev":
-                        Type.Text = AppResources.imacdev;
-                        break;
-                    case "ipad":
-                        Type.Text = AppResources.ipad;
-                        break;
-                    case "iphone":
-                        Type.Text = AppResources.iphone;
-                        break;
-                    case "ipodtouch":
-                        Type.Text = AppResources.ipodtouch;
-                        break;
                     case "linuxpc":
                         Type.Text = AppResources.linuxpc;
-                        break;
-                    case "macbookdev":
-                        Type.Text = AppResources.macbookdev;
                         break;
                     case "macminidev":
                         Type.Text = AppResources.macminidev;
@@ -1102,23 +1114,26 @@ namespace GenieWP8
                     case "macprodev":
                         Type.Text = AppResources.macprodev;
                         break;
+                    case "macbookdev":
+                        Type.Text = AppResources.macbookdev;
+                        break;
                     case "mediadev":
                         Type.Text = AppResources.mediadev;
                         break;
-                    case "mobiledev":
-                        Type.Text = AppResources.mobiledev;
+                    case "networkdev":
+                        Type.Text = AppResources.networkdev;
                         break;
-                    case "netstoragedev":
-                        Type.Text = AppResources.netstoragedev;
-                        break;
-                    case "switchdev":
-                        Type.Text = AppResources.switchdev;
+                    case "stb":
+                        Type.Text = AppResources.stb;
                         break;
                     case "printerdev":
                         Type.Text = AppResources.printerdev;
                         break;
                     case "repeater":
                         Type.Text = AppResources.repeater;
+                        break;
+                    case "gatewaydev":
+                        Type.Text = AppResources.gatewaydev;
                         break;
                     case "satellitestb":
                         Type.Text = AppResources.satellitestb;
@@ -1129,38 +1144,32 @@ namespace GenieWP8
                     case "slingbox":
                         Type.Text = AppResources.slingbox;
                         break;
-                    case "stb":
-                        Type.Text = AppResources.stb;
+                    case "netstoragedev":
+                        Type.Text = AppResources.netstoragedev;
                         break;
-                    case "tablepc":
-                        Type.Text = AppResources.tablepc;
+                    case "mobiledev":
+                        Type.Text = AppResources.mobiledev;
+                        break;
+                    case "switchdev":
+                        Type.Text = AppResources.switchdev;
                         break;
                     case "tv":
                         Type.Text = AppResources.tv;
                         break;
+                    case "tablepc":
+                        Type.Text = AppResources.tablepc;
+                        break;
                     case "unixpc":
                         Type.Text = AppResources.unixpc;
                         break;
-                    case "androiddevice":
-                        Type.Text = AppResources.androiddevice;
+                    case "windowspc":
+                        Type.Text = AppResources.windowspc;
                         break;
-                    case "androidphone":
-                        Type.Text = AppResources.androidphone;
-                        break;
-                    case "androidtablet":
-                        Type.Text = AppResources.androidtablet;
-                        break;
-                    case "dvr":
-                        Type.Text = AppResources.dvr;
+                    case "amazonkindle":
+                        Type.Text = AppResources.amazonkindle;
                         break;
                     case "windowsphone":
                         Type.Text = AppResources.windowsphone;
-                        break;
-                    case "iphone5":
-                        Type.Text = AppResources.iphone5;
-                        break;
-                    case "ipadmini":
-                        Type.Text = AppResources.ipadmini;
                         break;
                     case "windowstablet":
                         Type.Text = AppResources.windowstablet;
@@ -1171,157 +1180,161 @@ namespace GenieWP8
                 Type.Visibility = Visibility.Visible;
 
                 List<Devicetype> source = new List<Devicetype>();
-                source.Add(new Devicetype() { type = AppResources.gatewaydev, deviceIcon = "Assets/devices/gatewaydev.png" });
-                source.Add(new Devicetype() { type = AppResources.networkdev, deviceIcon = "Assets/devices/networkdev.png" });
-                source.Add(new Devicetype() { type = AppResources.windowspc, deviceIcon = "Assets/devices/windowspc.png" });
+                source.Add(new Devicetype() { type = AppResources.imacdev, deviceIcon = "Assets/devices/imacdev.png" });
+                source.Add(new Devicetype() { type = AppResources.ipad, deviceIcon = "Assets/devices/ipad.png" });
+                source.Add(new Devicetype() { type = AppResources.ipadmini, deviceIcon = "Assets/devices/ipadmini.png" });
+                source.Add(new Devicetype() { type = AppResources.iphone, deviceIcon = "Assets/devices/iphone.png" });
+                source.Add(new Devicetype() { type = AppResources.iphone5, deviceIcon = "Assets/devices/iphone5.png" });
+                source.Add(new Devicetype() { type = AppResources.ipodtouch, deviceIcon = "Assets/devices/ipodtouch.png" });
+                source.Add(new Devicetype() { type = AppResources.androiddevice, deviceIcon = "Assets/devices/androiddevice.png" });
+                source.Add(new Devicetype() { type = AppResources.androidphone, deviceIcon = "Assets/devices/androidphone.png" });
+                source.Add(new Devicetype() { type = AppResources.androidtablet, deviceIcon = "Assets/devices/androidtablet.png" });
                 source.Add(new Devicetype() { type = AppResources.blurayplayer, deviceIcon = "Assets/devices/blurayplayer.png" });
                 source.Add(new Devicetype() { type = AppResources.bridge, deviceIcon = "Assets/devices/bridge.png" });
                 source.Add(new Devicetype() { type = AppResources.cablestb, deviceIcon = "Assets/devices/cablestb.png" });
                 source.Add(new Devicetype() { type = AppResources.cameradev, deviceIcon = "Assets/devices/cameradev.png" });
+                source.Add(new Devicetype() { type = AppResources.dvr, deviceIcon = "Assets/devices/dvr.png" });
                 source.Add(new Devicetype() { type = AppResources.gamedev, deviceIcon = "Assets/devices/gamedev.png" });
-                source.Add(new Devicetype() { type = AppResources.imacdev, deviceIcon = "Assets/devices/imacdev.png" });
-                source.Add(new Devicetype() { type = AppResources.ipad, deviceIcon = "Assets/devices/ipad.png" });
-                source.Add(new Devicetype() { type = AppResources.iphone, deviceIcon = "Assets/devices/iphone.png" });
-                source.Add(new Devicetype() { type = AppResources.ipodtouch, deviceIcon = "Assets/devices/ipodtouch.png" });
                 source.Add(new Devicetype() { type = AppResources.linuxpc, deviceIcon = "Assets/devices/linuxpc.png" });
-                source.Add(new Devicetype() { type = AppResources.macbookdev, deviceIcon = "Assets/devices/macbookdev.png" });
                 source.Add(new Devicetype() { type = AppResources.macminidev, deviceIcon = "Assets/devices/macminidev.png" });
                 source.Add(new Devicetype() { type = AppResources.macprodev, deviceIcon = "Assets/devices/macprodev.png" });
+                source.Add(new Devicetype() { type = AppResources.macbookdev, deviceIcon = "Assets/devices/macbookdev.png" });
                 source.Add(new Devicetype() { type = AppResources.mediadev, deviceIcon = "Assets/devices/mediadev.png" });
-                source.Add(new Devicetype() { type = AppResources.mobiledev, deviceIcon = "Assets/devices/mobiledev.png" });
-                source.Add(new Devicetype() { type = AppResources.netstoragedev, deviceIcon = "Assets/devices/netstoragedev.png" });
-                source.Add(new Devicetype() { type = AppResources.switchdev, deviceIcon = "Assets/devices/switchdev.png" });
+                source.Add(new Devicetype() { type = AppResources.networkdev, deviceIcon = "Assets/devices/networkdev.png" });
+                source.Add(new Devicetype() { type = AppResources.stb, deviceIcon = "Assets/devices/stb.png" });
                 source.Add(new Devicetype() { type = AppResources.printerdev, deviceIcon = "Assets/devices/printerdev.png" });
                 source.Add(new Devicetype() { type = AppResources.repeater, deviceIcon = "Assets/devices/repeater.png" });
+                source.Add(new Devicetype() { type = AppResources.gatewaydev, deviceIcon = "Assets/devices/gatewaydev.png" });
                 source.Add(new Devicetype() { type = AppResources.satellitestb, deviceIcon = "Assets/devices/satellitestb.png" });
                 source.Add(new Devicetype() { type = AppResources.scannerdev, deviceIcon = "Assets/devices/scannerdev.png" });
                 source.Add(new Devicetype() { type = AppResources.slingbox, deviceIcon = "Assets/devices/slingbox.png" });
-                source.Add(new Devicetype() { type = AppResources.stb, deviceIcon = "Assets/devices/stb.png" });
-                source.Add(new Devicetype() { type = AppResources.tablepc, deviceIcon = "Assets/devices/tablepc.png" });
+                source.Add(new Devicetype() { type = AppResources.netstoragedev, deviceIcon = "Assets/devices/netstoragedev.png" });
+                source.Add(new Devicetype() { type = AppResources.mobiledev, deviceIcon = "Assets/devices/mobiledev.png" });
+                source.Add(new Devicetype() { type = AppResources.switchdev, deviceIcon = "Assets/devices/switchdev.png" });
                 source.Add(new Devicetype() { type = AppResources.tv, deviceIcon = "Assets/devices/tv.png" });
+                source.Add(new Devicetype() { type = AppResources.tablepc, deviceIcon = "Assets/devices/tablepc.png" });
                 source.Add(new Devicetype() { type = AppResources.unixpc, deviceIcon = "Assets/devices/unixpc.png" });
-                source.Add(new Devicetype() { type = AppResources.androiddevice, deviceIcon = "Assets/devices/androiddevice.png" });
-                source.Add(new Devicetype() { type = AppResources.androidphone, deviceIcon = "Assets/devices/androidphone.png" });
-                source.Add(new Devicetype() { type = AppResources.androidtablet, deviceIcon = "Assets/devices/androidtablet.png" });
-                source.Add(new Devicetype() { type = AppResources.dvr, deviceIcon = "Assets/devices/dvr.png" });
+                source.Add(new Devicetype() { type = AppResources.windowspc, deviceIcon = "Assets/devices/windowspc.png" });
+                source.Add(new Devicetype() { type = AppResources.amazonkindle, deviceIcon = "Assets/devices/amazonkindle.png" });
                 source.Add(new Devicetype() { type = AppResources.windowsphone, deviceIcon = "Assets/devices/windowsphone.png" });
-                source.Add(new Devicetype() { type = AppResources.iphone5, deviceIcon = "Assets/devices/iphone5.png" });
-                source.Add(new Devicetype() { type = AppResources.ipadmini, deviceIcon = "Assets/devices/ipadmini.png" });
                 source.Add(new Devicetype() { type = AppResources.windowstablet, deviceIcon = "Assets/devices/windowstablet.png" });
                 lpType.ItemsSource = source;
 
                 switch (Group.NODE.deviceType)
                 {
-                    case "gatewaydev":
+                    case "imacdev":
                         lpType.SelectedIndex = 0;
                         break;
-                    case "networkdev":
+                    case "ipad":
                         lpType.SelectedIndex = 1;
                         break;
-                    case "windowspc":
+                    case "ipadmini":
                         lpType.SelectedIndex = 2;
                         break;
-                    case "blurayplayer":
+                    case "iphone":
                         lpType.SelectedIndex = 3;
                         break;
-                    case "bridge":
+                    case "iphone5":
                         lpType.SelectedIndex = 4;
                         break;
-                    case "cablestb":
+                    case "ipodtouch":
                         lpType.SelectedIndex = 5;
                         break;
-                    case "cameradev":
+                    case "androiddevice":
                         lpType.SelectedIndex = 6;
                         break;
-                    case "gamedev":
+                    case "androidphone":
                         lpType.SelectedIndex = 7;
                         break;
-                    case "imacdev":
+                    case "androidtablet":
                         lpType.SelectedIndex = 8;
                         break;
-                    case "ipad":
+                    case "blurayplayer":
                         lpType.SelectedIndex = 9;
                         break;
-                    case "iphone":
+                    case "bridge":
                         lpType.SelectedIndex = 10;
                         break;
-                    case "ipodtouch":
+                    case "cablestb":
                         lpType.SelectedIndex = 11;
                         break;
-                    case "linuxpc":
+                    case "cameradev":
                         lpType.SelectedIndex = 12;
                         break;
-                    case "macbookdev":
+                    case "dvr":
                         lpType.SelectedIndex = 13;
                         break;
-                    case "macminidev":
+                    case "gamedev":
                         lpType.SelectedIndex = 14;
                         break;
-                    case "macprodev":
+                    case "linuxpc":
                         lpType.SelectedIndex = 15;
                         break;
-                    case "mediadev":
+                    case "macminidev":
                         lpType.SelectedIndex = 16;
                         break;
-                    case "mobiledev":
+                    case "macprodev":
                         lpType.SelectedIndex = 17;
                         break;
-                    case "netstoragedev":
+                    case "macbookdev":
                         lpType.SelectedIndex = 18;
                         break;
-                    case "switchdev":
+                    case "mediadev":
                         lpType.SelectedIndex = 19;
                         break;
-                    case "printerdev":
+                    case "networkdev":
                         lpType.SelectedIndex = 20;
                         break;
-                    case "repeater":
+                    case "stb":
                         lpType.SelectedIndex = 21;
                         break;
-                    case "satellitestb":
+                    case "printerdev":
                         lpType.SelectedIndex = 22;
                         break;
-                    case "scannerdev":
+                    case "repeater":
                         lpType.SelectedIndex = 23;
                         break;
-                    case "slingbox":
+                    case "gatewaydev":
                         lpType.SelectedIndex = 24;
                         break;
-                    case "stb":
+                    case "satellitestb":
                         lpType.SelectedIndex = 25;
                         break;
-                    case "tablepc":
+                    case "scannerdev":
                         lpType.SelectedIndex = 26;
                         break;
-                    case "tv":
+                    case "slingbox":
                         lpType.SelectedIndex = 27;
                         break;
-                    case "unixpc":
+                    case "netstoragedev":
                         lpType.SelectedIndex = 28;
                         break;
-                    case "androiddevice":
+                    case "mobiledev":
                         lpType.SelectedIndex = 29;
                         break;
-                    case "androidphone":
+                    case "switchdev":
                         lpType.SelectedIndex = 30;
                         break;
-                    case "androidtablet":
+                    case "tv":
                         lpType.SelectedIndex = 31;
                         break;
-                    case "dvr":
+                    case "tablepc":
                         lpType.SelectedIndex = 32;
                         break;
-                    case "windowsphone":
+                    case "unixpc":
                         lpType.SelectedIndex = 33;
                         break;
-                    case "iphone5":
+                    case "windowspc":
                         lpType.SelectedIndex = 34;
                         break;
-                    case "ipadmini":
+                    case "amazonkindle":
                         lpType.SelectedIndex = 35;
                         break;
-                    case "windowstablet":
+                    case "windowsphone":
                         lpType.SelectedIndex = 36;
+                        break;
+                    case "windowstablet":
+                        lpType.SelectedIndex = 37;
                         break;
                 }
                 lpType.HorizontalContentAlignment = HorizontalAlignment.Center;
@@ -1456,14 +1469,32 @@ namespace GenieWP8
             {
                 switch (Group.NODE.deviceType)
                 {
-                    case "gatewaydev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                    case "imacdev":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
                         break;
-                    case "networkdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
+                    case "ipad":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
                         break;
-                    case "windowspc":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
+                    case "ipadmini":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
+                        break;
+                    case "iphone":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
+                        break;
+                    case "iphone5":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
+                        break;
+                    case "ipodtouch":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
+                        break;
+                    case "androiddevice":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                        break;
+                    case "androidphone":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
+                        break;
+                    case "androidtablet":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
                         break;
                     case "blurayplayer":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
@@ -1477,26 +1508,14 @@ namespace GenieWP8
                     case "cameradev":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
                         break;
+                    case "dvr":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                        break;
                     case "gamedev":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
                         break;
-                    case "imacdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
-                        break;
-                    case "ipad":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
-                        break;
-                    case "iphone":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
-                        break;
-                    case "ipodtouch":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
-                        break;
                     case "linuxpc":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
-                        break;
-                    case "macbookdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
                         break;
                     case "macminidev":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
@@ -1504,23 +1523,26 @@ namespace GenieWP8
                     case "macprodev":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
                         break;
+                    case "macbookdev":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
+                        break;
                     case "mediadev":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
                         break;
-                    case "mobiledev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                    case "networkdev":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
                         break;
-                    case "netstoragedev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                        break;
-                    case "switchdev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
+                    case "stb":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
                         break;
                     case "printerdev":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
                         break;
                     case "repeater":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
+                        break;
+                    case "gatewaydev":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
                         break;
                     case "satellitestb":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
@@ -1531,38 +1553,32 @@ namespace GenieWP8
                     case "slingbox":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
                         break;
-                    case "stb":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
+                    case "netstoragedev":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
                         break;
-                    case "tablepc":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                    case "mobiledev":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                        break;
+                    case "switchdev":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
                         break;
                     case "tv":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
                         break;
+                    case "tablepc":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                        break;
                     case "unixpc":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
                         break;
-                    case "androiddevice":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                    case "windowspc":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
                         break;
-                    case "androidphone":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                        break;
-                    case "androidtablet":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
-                        break;
-                    case "dvr":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                    case "amazonkindle":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
                         break;
                     case "windowsphone":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
-                        break;
-                    case "iphone5":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
-                        break;
-                    case "ipadmini":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
                         break;
                     case "windowstablet":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
@@ -1699,186 +1715,191 @@ namespace GenieWP8
             switch (lpType.SelectedIndex)
             {
                 case 0:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
-                    customDeviceType = "gatewaydev";
-                    Type.Text = AppResources.gatewaydev;
-                    break;
-                case 1:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
-                    customDeviceType = "networkdev";
-                    Type.Text = AppResources.networkdev;
-                    break;
-                case 2:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
-                    customDeviceType = "windowspc";
-                    Type.Text = AppResources.windowspc;
-                    break;
-                case 3:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
-                    customDeviceType = "blurayplayer";
-                    Type.Text = AppResources.blurayplayer;
-                    break;
-                case 4:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
-                    customDeviceType = "bridge";
-                    Type.Text = AppResources.bridge;
-                    break;
-                case 5:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
-                    customDeviceType = "cablestb";
-                    Type.Text = AppResources.cablestb;
-                    break;
-                case 6:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
-                    customDeviceType = "cameradev";
-                    Type.Text = AppResources.cameradev;
-                    break;
-                case 7:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
-                    customDeviceType = "gamedev";
-                    Type.Text = AppResources.gamedev;
-                    break;
-                case 8:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
                     customDeviceType = "imacdev";
                     Type.Text = AppResources.imacdev;
                     break;
-                case 9:
+                case 1:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
                     customDeviceType = "ipad";
                     Type.Text = AppResources.ipad;
                     break;
-                case 10:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
-                    customDeviceType = "iphone";
-                    Type.Text = AppResources.iphone;
-                    break;
-                case 11:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
-                    customDeviceType = "ipodtouch";
-                    Type.Text = AppResources.ipodtouch;
-                    break;
-                case 12:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
-                    customDeviceType = "linuxpc";
-                    Type.Text = AppResources.linuxpc;
-                    break;
-                case 13:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
-                    customDeviceType = "macbookdev";
-                    Type.Text = AppResources.macbookdev;
-                    break;
-                case 14:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
-                    customDeviceType = "macminidev";
-                    Type.Text = AppResources.macminidev;
-                    break;
-                case 15:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
-                    customDeviceType = "macprodev";
-                    Type.Text = AppResources.macprodev;
-                    break;
-                case 16:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
-                    customDeviceType = "mediadev";
-                    Type.Text = AppResources.mediadev;
-                    break;
-                case 17:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
-                    customDeviceType = "mobiledev";
-                    Type.Text = AppResources.mobiledev;
-                    break;
-                case 18:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                    customDeviceType = "netstoragedev";
-                    Type.Text = AppResources.netstoragedev;
-                    break;
-                case 19:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
-                    customDeviceType = "switchdev";
-                    Type.Text = AppResources.switchdev;
-                    break;
-                case 20:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
-                    customDeviceType = "printerdev";
-                    Type.Text = AppResources.printerdev;
-                    break;
-                case 21:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
-                    customDeviceType = "repeater";
-                    Type.Text = AppResources.repeater;
-                    break;
-                case 22:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
-                    customDeviceType = "satellitestb";
-                    Type.Text = AppResources.satellitestb;
-                    break;
-                case 23:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
-                    customDeviceType = "scannerdev";
-                    Type.Text = AppResources.scannerdev;
-                    break;
-                case 24:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
-                    customDeviceType = "slingbox";
-                    Type.Text = AppResources.slingbox;
-                    break;
-                case 25:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
-                    customDeviceType = "stb";
-                    Type.Text = AppResources.stb;
-                    break;
-                case 26:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
-                    customDeviceType = "tablepc";
-                    Type.Text = AppResources.tablepc;
-                    break;
-                case 27:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
-                    customDeviceType = "tv";
-                    Type.Text = AppResources.tv;
-                    break;
-                case 28:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
-                    customDeviceType = "unixpc";
-                    Type.Text = AppResources.unixpc;
-                    break;
-                case 29:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
-                    customDeviceType = "androiddevice";
-                    Type.Text = AppResources.androiddevice;
-                    break;
-                case 30:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                    customDeviceType = "androidphone";
-                    Type.Text = AppResources.androidphone;
-                    break;
-                case 31:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
-                    customDeviceType = "androidtablet";
-                    Type.Text = AppResources.androidtablet;
-                    break;
-                case 32:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
-                    customDeviceType = "dvr";
-                    Type.Text = AppResources.dvr;
-                    break;
-                case 33:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
-                    customDeviceType = "windowsphone";
-                    Type.Text = AppResources.windowsphone;
-                    break;
-                case 34:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
-                    customDeviceType = "iphone5";
-                    Type.Text = AppResources.iphone5;
-                    break;
-                case 35:
+                case 2:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
                     customDeviceType = "ipadmini";
                     Type.Text = AppResources.ipadmini;
                     break;
+                case 3:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
+                    customDeviceType = "iphone";
+                    Type.Text = AppResources.iphone;
+                    break;
+                case 4:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
+                    customDeviceType = "iphone5";
+                    Type.Text = AppResources.iphone5;
+                    break;
+                case 5:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
+                    customDeviceType = "ipodtouch";
+                    Type.Text = AppResources.ipodtouch;
+                    break;
+                case 6:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                    customDeviceType = "androiddevice";
+                    Type.Text = AppResources.androiddevice;
+                    break;
+                case 7:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
+                    customDeviceType = "androidphone";
+                    Type.Text = AppResources.androidphone;
+                    break;
+                case 8:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
+                    customDeviceType = "androidtablet";
+                    Type.Text = AppResources.androidtablet;
+                    break;
+                case 9:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
+                    customDeviceType = "blurayplayer";
+                    Type.Text = AppResources.blurayplayer;
+                    break;
+                case 10:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
+                    customDeviceType = "bridge";
+                    Type.Text = AppResources.bridge;
+                    break;
+                case 11:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
+                    customDeviceType = "cablestb";
+                    Type.Text = AppResources.cablestb;
+                    break;
+                case 12:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
+                    customDeviceType = "cameradev";
+                    Type.Text = AppResources.cameradev;
+                    break;
+                case 13:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                    customDeviceType = "dvr";
+                    Type.Text = AppResources.dvr;
+                    break;
+                case 14:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
+                    customDeviceType = "gamedev";
+                    Type.Text = AppResources.gamedev;
+                    break;
+                case 15:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
+                    customDeviceType = "linuxpc";
+                    Type.Text = AppResources.linuxpc;
+                    break;
+                case 16:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
+                    customDeviceType = "macminidev";
+                    Type.Text = AppResources.macminidev;
+                    break;
+                case 17:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
+                    customDeviceType = "macprodev";
+                    Type.Text = AppResources.macprodev;
+                    break;
+                case 18:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
+                    customDeviceType = "macbookdev";
+                    Type.Text = AppResources.macbookdev;
+                    break;
+                case 19:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
+                    customDeviceType = "mediadev";
+                    Type.Text = AppResources.mediadev;
+                    break;
+                case 20:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
+                    customDeviceType = "networkdev";
+                    Type.Text = AppResources.networkdev;
+                    break;
+                case 21:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
+                    customDeviceType = "stb";
+                    Type.Text = AppResources.stb;
+                    break;
+                case 22:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
+                    customDeviceType = "printerdev";
+                    Type.Text = AppResources.printerdev;
+                    break;
+                case 23:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
+                    customDeviceType = "repeater";
+                    Type.Text = AppResources.repeater;
+                    break;
+                case 24:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                    customDeviceType = "gatewaydev";
+                    Type.Text = AppResources.gatewaydev;
+                    break;
+                case 25:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
+                    customDeviceType = "satellitestb";
+                    Type.Text = AppResources.satellitestb;
+                    break;
+                case 26:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
+                    customDeviceType = "scannerdev";
+                    Type.Text = AppResources.scannerdev;
+                    break;
+                case 27:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
+                    customDeviceType = "slingbox";
+                    Type.Text = AppResources.slingbox;
+                    break;
+                case 28:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
+                    customDeviceType = "netstoragedev";
+                    Type.Text = AppResources.netstoragedev;
+                    break;
+                case 29:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                    customDeviceType = "mobiledev";
+                    Type.Text = AppResources.mobiledev;
+                    break;
+                case 30:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
+                    customDeviceType = "switchdev";
+                    Type.Text = AppResources.switchdev;
+                    break;
+                case 31:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
+                    customDeviceType = "tv";
+                    Type.Text = AppResources.tv;
+                    break;
+                case 32:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                    customDeviceType = "tablepc";
+                    Type.Text = AppResources.tablepc;
+                    break;
+                case 33:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
+                    customDeviceType = "unixpc";
+                    Type.Text = AppResources.unixpc;
+                    break;
+                case 34:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
+                    customDeviceType = "windowspc";
+                    Type.Text = AppResources.windowspc;
+                    break;
+                case 35:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
+                    customDeviceType = "amazonkindle";
+                    Type.Text = AppResources.amazonkindle;
+                    break;
                 case 36:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
+                    customDeviceType = "windowsphone";
+                    Type.Text = AppResources.windowsphone;
+                    break;
+                case 37:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
                     customDeviceType = "windowstablet";
                     Type.Text = AppResources.windowstablet;

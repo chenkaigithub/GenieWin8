@@ -48,7 +48,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack_Click" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="QRCodePageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="Black"/>
+            <TextBlock x:Name="pageTitle" x:Uid="QRCodePageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
         </Grid>
 
         <!--<TextBlock x:Name="StatusBlock" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="20" Foreground="#FF5A5A5A"/>-->

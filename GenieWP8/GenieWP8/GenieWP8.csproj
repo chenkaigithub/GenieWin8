@@ -372,6 +372,12 @@
     <Content Include="Assets\MainPage\NetworkMap.png" />
     <Content Include="Assets\MainPage\ParentalControl.png" />
     <Content Include="Assets\MainPage\QRCode.png" />
+    <Content Include="Assets\MainPage\search_input_left.png" />
+    <Content Include="Assets\MainPage\search_input_middle.png" />
+    <Content Include="Assets\MainPage\search_input_right.png" />
+    <Content Include="Assets\MainPage\search_normal_left.png" />
+    <Content Include="Assets\MainPage\search_normal_middle.png" />
+    <Content Include="Assets\MainPage\search_normal_right.png" />
     <Content Include="Assets\MainPage\statusBar_bg.png" />
     <Content Include="Assets\MainPage\TrafficMeter.png" />
     <Content Include="Assets\MainPage\WirelessSetting.png" />
@@ -449,6 +455,7 @@
     <Content Include="Assets\MainPage\search_ico.png" />
     <Content Include="Assets\MainPage\search_input.png" />
     <Content Include="Assets\MainPage\search_normal.png" />
+    <Content Include="Assets\signal\nowifi.png" />
     <Content Include="Assets\signal\signal_13.png" />
     <Content Include="Assets\signal\signal_13s.png" />
     <Content Include="Assets\signal\signal_23.png" />

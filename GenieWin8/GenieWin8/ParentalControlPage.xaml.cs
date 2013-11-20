@@ -103,11 +103,18 @@ namespace GenieWin8
                     ParentalControlInfo.IsOpenDNSLoggedIn = false;
                     ParentalControlInfo.IsBypassUserLoggedIn = false;
                     StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-                    StorageFile file = await storageFolder.GetFileAsync("Bypass_childrenDeviceId.txt");
-                    if (file != null)
+                    try
                     {
-                        await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-                    }  
+                        StorageFile file = await storageFolder.GetFileAsync("Bypass_childrenDeviceId.txt");
+                        if (file != null)
+                        {
+                            await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
+                        }  
+                    }
+                    catch (FileNotFoundException)
+                    {
+
+                    }
                 }
             }
             
@@ -119,6 +126,7 @@ namespace GenieWin8
             {
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 if (!EnquirePopup.IsOpen && !RegisterPopup.IsOpen && !LoginPopup.IsOpen)
                 {
                     EnquirePopup.IsOpen = true;
@@ -397,7 +405,7 @@ namespace GenieWin8
 		        FilterLevelPopup.IsOpen = true;
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
                 refreshButton.IsEnabled = false;
 	        }
@@ -519,7 +527,7 @@ namespace GenieWin8
                 IsAvailableName.Visibility = Visibility.Collapsed;
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
                 refreshButton.IsEnabled = false;
 	        }
@@ -534,7 +542,7 @@ namespace GenieWin8
 		        LoginPopup.IsOpen = true;
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
                 refreshButton.IsEnabled = false;
 	        }
@@ -742,7 +750,7 @@ namespace GenieWin8
 		        RegisterPopup.IsOpen = false;
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
                 refreshButton.IsEnabled = false;
 	        }
@@ -779,7 +787,7 @@ namespace GenieWin8
                         LoginPopup.IsOpen = true;
                         InProgress2.IsActive = false;
                         pleasewait2.Visibility = Visibility.Collapsed;
-                        PopupBackgroundTop.Visibility = Visibility.Visible;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Visible;
                         refreshButton.IsEnabled = false;
                     }
@@ -824,7 +832,7 @@ namespace GenieWin8
 		        LoginPopup.IsOpen = false;
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
                 refreshButton.IsEnabled = false;
 	        }
@@ -1143,7 +1151,7 @@ namespace GenieWin8
                                         ParentalControlInfo.IsCategoriesChanged = false;
                                         InProgress.IsActive = false;
                                         pleasewait.Visibility = Visibility.Collapsed;
-                                        PopupBackgroundTop.Visibility = Visibility.Visible;
+                                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                                         PopupBackground.Visibility = Visibility.Visible;
                                         refreshButton.IsEnabled = false;
                                     }
@@ -1185,7 +1193,7 @@ namespace GenieWin8
 		        FilterLevelPopup.IsOpen = false;
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
 		        PopupBackground.Visibility = Visibility.Visible;
                 refreshButton.IsEnabled = false;
 	        }
@@ -1238,7 +1246,7 @@ namespace GenieWin8
                     SettingCompletePopup.IsOpen = true;
                     InProgress3.IsActive = false;
                     pleasewait3.Visibility = Visibility.Collapsed;
-                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Visible;
                     refreshButton.IsEnabled = false;
                 }
@@ -1552,7 +1560,7 @@ namespace GenieWin8
             }
             catch (FileNotFoundException)
             {
-
+                return fileContent;
             }
             return fileContent;
         }
@@ -2401,18 +2409,33 @@ namespace GenieWin8
             CategoriesList.SelectedItem = null;
         }
 
-        //按下屏幕键盘回车键后关闭屏幕键盘
-        private void OnKeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == Windows.System.VirtualKey.Enter)
-            {
-                this.Focus(FocusState.Programmatic);
-            }
-            else
-            {
-                base.OnKeyDown(e);
-            }
-        }
+        //注册时按下回车键后默认为点击下一步
+        //private void RegOnKeyDown(object sender, KeyRoutedEventArgs e)
+        //{
+        //    TextBox tb = (TextBox)sender;
+        //    if (e.Key == Windows.System.VirtualKey.Enter)
+        //    {
+        //        RegisterNextButton.Focus(FocusState.Keyboard);
+        //    }
+        //    else
+        //    {
+        //        base.OnKeyDown(e);
+        //    }
+        //}
+
+        //登录时按下回车键后默认为点击下一步
+        //private void LoginOnKeyDown(object sender, KeyRoutedEventArgs e)
+        //{
+        //    TextBox tb = (TextBox)sender;
+        //    if (e.Key == Windows.System.VirtualKey.Enter)
+        //    {
+        //        LoginNextButton.Focus(FocusState.Keyboard);
+        //    }
+        //    else
+        //    {
+        //        base.OnKeyDown(e);
+        //    }
+        //}
 
         //登录OpenDNS账号后保存信息，不切换路由器就无需再次登录
         public async void WriteSavedInfoToFile()
@@ -2447,7 +2470,7 @@ namespace GenieWin8
             }
             catch (FileNotFoundException)
             {
-
+                return fileContent;
             }
             return fileContent;
         }

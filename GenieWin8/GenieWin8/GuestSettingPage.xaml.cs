@@ -245,18 +245,18 @@ namespace GenieWin8
             }
         }
 
-        //按下屏幕键盘回车键后关闭屏幕键盘
-        protected override void OnKeyDown(KeyRoutedEventArgs e)
-        {
-            if (e.Key == Windows.System.VirtualKey.Enter)
-            {
-                this.Focus(FocusState.Keyboard);
-            }
-            else
-            {
-                base.OnKeyDown(e);
-            }
-        }
+        //按下回车键后保存
+        //protected override void OnKeyDown(KeyRoutedEventArgs e)
+        //{
+        //    if (e.Key == Windows.System.VirtualKey.Enter)
+        //    {
+        //        GuestSettingSave.Focus(FocusState.Keyboard);
+        //    }
+        //    else
+        //    {
+        //        base.OnKeyDown(e);
+        //    }
+        //}
 
         DispatcherTimer timer = new DispatcherTimer();      //计时器
         private async void GuestSettingSave_Click(object sender, RoutedEventArgs e)

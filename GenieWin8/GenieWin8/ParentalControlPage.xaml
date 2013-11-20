@@ -60,7 +60,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoHome" IsEnabled="{Binding Frame.CanGoHome, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="ParentalControlPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="Black"/>
+            <TextBlock x:Name="pageTitle" x:Uid="ParentalControlPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
             <Button x:Name="refreshButton" Click="Refresh_Click" Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
@@ -195,7 +195,7 @@
                 <TextBlock x:Uid="EnterRegInformation" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22" Foreground="White"/>
                 <Grid Margin="20,15,20,0">
                     <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                    <TextBox x:Name="RegUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="IsBlankRegUsername" KeyDown="OnKeyDown"/>
+                    <TextBox x:Name="RegUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="IsBlankRegUsername"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal"  Margin="0,5,20,0">
                     <Button x:Name="checkNameAvailable" x:Uid="CheckAvailability" Click="CheckAvailable_Click"  FontSize="24" Margin="230,0,20,0" HorizontalAlignment="Left" Width="230" IsEnabled="False"
@@ -207,25 +207,25 @@
                 </Grid>
                 <Grid Margin="20,0,20,0">
                     <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                    <PasswordBox x:Name="RegPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" PasswordChanged="IsBlankRegPassword" KeyDown="OnKeyDown"/>
+                    <PasswordBox x:Name="RegPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" PasswordChanged="IsBlankRegPassword"/>
                 </Grid>
                 <Grid Margin="20,15,20,0">
                     <TextBlock x:Uid="ConfirmPassword" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                    <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" PasswordChanged="eventConfirmPassword" KeyDown="OnKeyDown"/>
+                    <PasswordBox x:Name="confirmPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" PasswordChanged="eventConfirmPassword"/>
                 </Grid>
                 <Grid Margin="20,0,20,0" Height="20">
                     <TextBlock x:Name="differentPassword" Text="Two passwords are different !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                 </Grid>
                 <Grid Margin="20,0,20,0">
                     <TextBlock x:Uid="Email" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                    <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="IsEmailValid" KeyDown="OnKeyDown"/>
+                    <TextBox x:Name="email" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="IsEmailValid"/>
                 </Grid>
                 <Grid Margin="20,0,20,0" Height="20">
                     <TextBlock x:Name="invalidEmail" Text="Email is invalid !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
                 </Grid>
                 <Grid Margin="20,0,20,0">
                     <TextBlock x:Uid="ConfirmEmail" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                    <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="eventConfirmEmail" KeyDown="OnKeyDown"/>
+                    <TextBox x:Name="congfirmEmail" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" TextChanged="eventConfirmEmail"/>
                 </Grid>
                 <Grid Margin="20,0,20,0" Height="20">
                     <TextBlock x:Name="differentEmail" Text="Two Emails are different !" HorizontalAlignment="Right" VerticalAlignment="Center" Width="350" FontSize="16" Foreground="Red" Visibility="Collapsed"/>
@@ -253,11 +253,11 @@
                 <TextBlock x:Uid="EnterUsername_Password" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,30,0,0" FontFamily="Global User Interface" FontSize="22" Foreground="White"/>
                 <Grid Margin="20,15,20,0">
                     <TextBlock x:Uid="UserName" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                    <TextBox x:Name="LoginUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" KeyDown="OnKeyDown"/>
+                    <TextBox x:Name="LoginUsername" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
                 </Grid>
                 <Grid Margin="20,15,20,0">
                     <TextBlock x:Uid="Password" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                    <PasswordBox x:Name="LoginPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400" KeyDown="OnKeyDown"/>
+                    <PasswordBox x:Name="LoginPassword" HorizontalAlignment="Right" VerticalAlignment="Center" Width="400"/>
                 </Grid>
                 <Grid>
                     <Button x:Name="LoginPreviousButton" x:Uid="PreviousButton" Click="LoginPreviousButton_Click"

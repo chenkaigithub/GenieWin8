@@ -126,9 +126,6 @@
   <data name="AllowPlayInNetworkText" xml:space="preserve">
     <value>Allow play in network</value>
   </data>
-  <data name="amazonkindledev" xml:space="preserve">
-    <value>Amazon Kindle</value>
-  </data>
   <data name="androiddevice" xml:space="preserve">
     <value>Android Device</value>
   </data>
@@ -1050,5 +1047,11 @@
   </data>
   <data name="windowstablet" xml:space="preserve">
     <value>Windows Tablet</value>
+  </data>
+  <data name="WifiEnabled" xml:space="preserve">
+    <value>NOT ENABLED</value>
+  </data>
+  <data name="amazonkindle" xml:space="preserve">
+    <value>Amazon Kindle Fire</value>
   </data>
 </root>

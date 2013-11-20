@@ -982,4 +982,7 @@
   <data name="windowstablet" xml:space="preserve">
     <value>Tablet Windows</value>
   </data>
+  <data name="amazonkindle" xml:space="preserve">
+    <value>Amazon Kindle Fire</value>
+  </data>
 </root>

@@ -49,7 +49,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}" Foreground="Black"/>
+            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
         </Grid>
 
         <Border Grid.Row="1" Width="600" Height="400" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Gray" BorderThickness="4" CornerRadius="30">
@@ -68,7 +68,7 @@
                     <Button x:Uid="CancelButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" 
                             FontSize="24" FontWeight="Bold"  Width="200" HorizontalAlignment="Center" Margin="0,50,250,0" VerticalAlignment="Center"
                             BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
-                    <Button x:Uid="LoginButton" Click="LoginButton_Click" FontSize="24" FontWeight="Bold"  HorizontalAlignment="Center" Width="200" Margin="250,50,0,0"
+                    <Button x:Uid="LoginButton" x:Name="LoginButton" Click="LoginButton_Click" FontSize="24" FontWeight="Bold"  HorizontalAlignment="Center" Width="200" Margin="250,50,0,0"
                             BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                 </Grid>
             </StackPanel>

@@ -34,10 +34,28 @@ namespace GenieWP8
         {
             InitializeComponent();
 
+            // 用于本地化 ApplicationBar 的代码
+            BuildLocalizedApplicationBar();
+
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromMilliseconds(250);
             //间隔250ms调用读取函数
             _timer.Tick += (o, arg) => ScanPreviewBuffer();
+        }
+
+        //用于生成本地化 ApplicationBar 的代码
+        private void BuildLocalizedApplicationBar()
+        {
+            // 将页面的 ApplicationBar 设置为 ApplicationBar 的新实例。
+            ApplicationBar = new ApplicationBar();
+            ApplicationBar.Mode = ApplicationBarMode.Default;
+
+            // 创建新按钮并将文本值设置为 AppResources 中的本地化字符串。
+            //后退按钮
+            ApplicationBarIconButton appBarButton_back = new ApplicationBarIconButton(new Uri("Assets/back.png", UriKind.Relative));
+            appBarButton_back.Text = AppResources.btnBack;
+            ApplicationBar.Buttons.Add(appBarButton_back);
+            appBarButton_back.Click += new EventHandler(appBarButton_back_Click);
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -114,6 +132,17 @@ namespace GenieWP8
             catch
             {
             }
+        }
+
+        private void appBarButton_back_Click(object sender, EventArgs e)
+        {
+            if (_photoCamera != null)
+            {
+                _timer.Stop();
+                _photoCamera.CancelFocus();
+                _photoCamera.Dispose();
+            }
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         //重写手机“返回”按钮事件

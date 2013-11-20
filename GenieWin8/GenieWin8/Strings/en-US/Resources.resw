@@ -603,9 +603,6 @@
   <data name="btnApply" xml:space="preserve">
     <value>Apply</value>
   </data>
-  <data name="amazonkindledev" xml:space="preserve">
-    <value>Amazon Kindle</value>
-  </data>
   <data name="blurayplayer" xml:space="preserve">
     <value>Blu-ray Player</value>
   </data>
@@ -1014,5 +1011,8 @@
   </data>
   <data name="windowstablet" xml:space="preserve">
     <value>Windows Tablet</value>
+  </data>
+  <data name="amazonkindle" xml:space="preserve">
+    <value>Amazon Kindle Fire</value>
   </data>
 </root>

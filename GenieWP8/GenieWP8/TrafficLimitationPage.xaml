@@ -40,7 +40,7 @@
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#3C3C3C"/>
             <TextBlock x:Name="PageTitle" Text="{Binding Path=LocalizedResources.TrafficLimitationPageTitleText, Source={StaticResource LocalizedStrings}}"
-                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="50" TextWrapping="Wrap" Foreground="#1E1E1E"/>
+                       Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="40" TextWrapping="Wrap" Foreground="#1E1E1E"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->

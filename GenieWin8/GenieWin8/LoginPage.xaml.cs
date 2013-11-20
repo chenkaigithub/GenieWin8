@@ -65,22 +65,23 @@ namespace GenieWin8
         {
         }
 
-        //按下屏幕键盘回车键后关闭屏幕键盘
-        protected override void OnKeyDown(KeyRoutedEventArgs e)
-        {
-            if (e.Key == Windows.System.VirtualKey.Enter)
-            {
-                this.Focus(FocusState.Keyboard);
-            } 
-            else
-            {
-                base.OnKeyDown(e);
-            }           
-        }
+        //按下回车键后登陆
+        //protected override void OnKeyDown(KeyRoutedEventArgs e)
+        //{
+        //    if (e.Key == Windows.System.VirtualKey.Enter)
+        //    {
+        //        LoginButton.Focus(FocusState.Keyboard);
+        //    } 
+        //    else
+        //    {
+        //        base.OnKeyDown(e);
+        //    }           
+        //}
 
         private async void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
             InProgress.IsActive = true;
+            PopupBackgroundTop.Visibility = Visibility.Visible;
             PopupBackground.Visibility = Visibility.Visible;
 
             string Username = tbUserName.Text.Trim();
@@ -112,7 +113,10 @@ namespace GenieWin8
                 MainPageInfo.model = dicResponse["Model"];
                 MainPageInfo.firmware = dicResponse["Firmware"];
                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                dicResponse2 = await soapApi.Authenticate(Username, Password);
+                while (dicResponse2 == null || dicResponse2.Count == 0)
+                {
+                    dicResponse2 = await soapApi.Authenticate(Username, Password);
+                }
                 if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
                 {
                     MainPageInfo.bLogin = true;
@@ -120,6 +124,7 @@ namespace GenieWin8
                     MainPageInfo.password = Password;
                     
                     InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;                   
                     //this.Frame.GoBack();
                     NavigatedToPage();
@@ -127,6 +132,7 @@ namespace GenieWin8
                 else if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 401)
                 {
                     InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
                     var strtext = loader.GetString("bad_password");
@@ -137,6 +143,7 @@ namespace GenieWin8
             else
             {
                 InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
                 var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
                 var strtext = loader.GetString("login_alertinfo");
@@ -176,7 +183,7 @@ namespace GenieWin8
             }
             catch (FileNotFoundException)
             {
-
+                return fileContent;
             }
             return fileContent;
         }
@@ -195,6 +202,7 @@ namespace GenieWin8
 
                 case "WifiSettingPage":
                     InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
                     while (attachDeviceAll == null || attachDeviceAll.Count == 0)
@@ -248,12 +256,14 @@ namespace GenieWin8
                         WifiInfoModel.changedPassword = dicResponse["NewWPAPassphrase"];
                     }
                     InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(WifiSettingPage));
                     break;
 
                 case "GuestAccessPage":
                     InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = new Dictionary<string, string>();
@@ -292,12 +302,14 @@ namespace GenieWin8
                             }
                         }                        
                         InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         this.Frame.Navigate(typeof(GuestAccessPage));
                     }
                     else if (dicResponse["NewGuestAccessEnabled"] == "2")
                     {
                         InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
                         var strtext = loader.GetString("notsupport");
@@ -308,6 +320,7 @@ namespace GenieWin8
 
                 case "NetworkMapPage":
                     InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     //UtilityTool util = new UtilityTool();
                     NetworkMapInfo.geteway = await util.GetGateway();
@@ -333,12 +346,14 @@ namespace GenieWin8
                     }
                     NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
                     InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
                     this.Frame.Navigate(typeof(NetworkMapPage));
                     break;
 
                 case "TrafficMeterPage":
                     InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = new Dictionary<string, string>();
@@ -386,12 +401,14 @@ namespace GenieWin8
                             TrafficMeterInfoModel.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
                         }
                         InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         this.Frame.Navigate(typeof(TrafficMeterPage));
                     }
                     else if (dicResponse["NewTrafficMeterEnable"] == "2")
                     {
                         InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
                         var strtext = loader.GetString("notsupport");
@@ -402,6 +419,7 @@ namespace GenieWin8
 
                 case "ParentalControlPage":
                     InProgress.IsActive = true;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
 
                     //这里需要判断是否已连接因特网
@@ -410,6 +428,7 @@ namespace GenieWin8
                     if (!isConnectToInternet)
                     {
                         InProgress.IsActive = false;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
                         var strtext = loader.GetString("interneterror");
@@ -445,12 +464,14 @@ namespace GenieWin8
                             }
                             ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
                             InProgress.IsActive = false;
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Collapsed;
                             this.Frame.Navigate(typeof(ParentalControlPage));
                         }
                         else
                         {
                             InProgress.IsActive = false;
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Collapsed;
                             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
                             var strtext = loader.GetString("notsupport");
@@ -476,7 +497,7 @@ namespace GenieWin8
             }
             catch (FileNotFoundException)
             {
-
+                return fileContent;
             }
             return fileContent;
         }

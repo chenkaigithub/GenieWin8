@@ -603,8 +603,8 @@
   <data name="btnApply" xml:space="preserve">
     <value>应用</value>
   </data>
-  <data name="amazonkindledev" xml:space="preserve">
-    <value>亚马逊Kindle</value>
+  <data name="amazonkindle" xml:space="preserve">
+    <value>亚马逊Kindle Fire</value>
   </data>
   <data name="blurayplayer" xml:space="preserve">
     <value>蓝牙播放器</value>

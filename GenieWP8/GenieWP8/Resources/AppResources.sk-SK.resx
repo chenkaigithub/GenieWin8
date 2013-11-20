@@ -1048,4 +1048,10 @@
   <data name="windowstablet" xml:space="preserve">
     <value>Počítač typu Tablet so systémom Windows</value>
   </data>
+  <data name="WifiEnabled" xml:space="preserve">
+    <value>NEPOVOLENÉ</value>
+  </data>
+  <data name="amazonkindle" xml:space="preserve">
+    <value>Amazon Kindle Fire</value>
+  </data>
 </root>

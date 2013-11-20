@@ -53,18 +53,18 @@ namespace GenieWin8
         {
         }
 
-        //按下屏幕键盘回车键后关闭屏幕键盘
-        protected override void OnKeyDown(KeyRoutedEventArgs e)
-        {
-            if (e.Key == Windows.System.VirtualKey.Enter)
-            {
-                this.Focus(FocusState.Keyboard);
-            }
-            else
-            {
-                base.OnKeyDown(e);
-            }
-        }
+        //按下回车键后登录
+        //protected override void OnKeyDown(KeyRoutedEventArgs e)
+        //{
+        //    if (e.Key == Windows.System.VirtualKey.Enter)
+        //    {
+        //        LoginButton.Focus(FocusState.Keyboard);
+        //    }
+        //    else
+        //    {
+        //        base.OnKeyDown(e);
+        //    }
+        //}
 
         private async void LoginButton_Click(Object sender, RoutedEventArgs e)
         {

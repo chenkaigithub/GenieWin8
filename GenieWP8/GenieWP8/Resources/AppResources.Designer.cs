@@ -124,11 +124,11 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
-        ///   查找类似 亚马逊Kindle 的本地化字符串。
+        ///   查找类似 亚马逊Kindle Fire 的本地化字符串。
         /// </summary>
-        public static string amazonkindledev {
+        public static string amazonkindle {
             get {
-                return ResourceManager.GetString("amazonkindledev", resourceCulture);
+                return ResourceManager.GetString("amazonkindle", resourceCulture);
             }
         }
         
@@ -2541,6 +2541,15 @@ namespace GenieWP8.Resources {
         public static string WeekTotalText {
             get {
                 return ResourceManager.GetString("WeekTotalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未启用 的本地化字符串。
+        /// </summary>
+        public static string WifiEnabled {
+            get {
+                return ResourceManager.GetString("WifiEnabled", resourceCulture);
             }
         }
         

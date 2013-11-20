@@ -126,9 +126,6 @@
   <data name="AllowPlayInNetworkText" xml:space="preserve">
     <value>允许在网络中播放</value>
   </data>
-  <data name="amazonkindledev" xml:space="preserve">
-    <value>亚马逊Kindle</value>
-  </data>
   <data name="androiddevice" xml:space="preserve">
     <value>Android 设备</value>
   </data>
@@ -1050,5 +1047,11 @@
   </data>
   <data name="windowstablet" xml:space="preserve">
     <value>Windows 平板电脑</value>
+  </data>
+  <data name="WifiEnabled" xml:space="preserve">
+    <value>未启用</value>
+  </data>
+  <data name="amazonkindle" xml:space="preserve">
+    <value>亚马逊Kindle Fire</value>
   </data>
 </root>

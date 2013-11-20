@@ -434,38 +434,6 @@ namespace GenieWin8
             //}         
         }
 
-        private async void SearchButton_Click(Object sender, RoutedEventArgs e)
-        {
-            string text = SearchText.Text.Trim();
-            if (text.Contains("%"))
-            {
-                text = text.Replace("%", "");
-            }
-            if (text.Contains(" "))
-            {
-                text = text.Replace(" ", "");
-            }
-            if (text.Contains("&"))
-            {
-                text = text.Replace("&", "");
-            }
-            if (text.Contains("*"))
-            {
-                text = text.Replace("*", "");
-            }
-            if (text.Contains(":"))
-            {
-                text = text.Replace(":", "");
-            }
-            if (text != "")
-            {
-                text = Uri.EscapeUriString(text);
-                var uri = new Uri((String)("http://support.netgear.com/search/" + text));
-                await Windows.System.Launcher.LaunchUriAsync(uri);
-            }
-            
-        }
-
         private void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(LoginPage));
@@ -589,7 +557,7 @@ namespace GenieWin8
             }
             catch (FileNotFoundException)
             {
-
+                return fileContent;
             }
             return fileContent;
         }
@@ -624,6 +592,53 @@ namespace GenieWin8
                     ms.Write(buffer, 0, read);
                 }
                 return ms.ToArray();
+            }
+        }
+
+        private void SearchGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Uri _baseUri = new Uri("ms-appx:///");
+            seach_bg_left.Source = new BitmapImage(new Uri(_baseUri, "Assets/MainPage/search_input_left.png"));
+            seach_bg_middle.Source = new BitmapImage(new Uri(_baseUri, "Assets/MainPage/search_input_middle.png"));
+            seach_bg_right.Source = new BitmapImage(new Uri(_baseUri, "Assets/MainPage/search_input_right.png"));
+        }
+
+        private void SearchGrid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Uri _baseUri = new Uri("ms-appx:///");
+            seach_bg_left.Source = new BitmapImage(new Uri(_baseUri, "Assets/MainPage/search_normal_left.png"));
+            seach_bg_middle.Source = new BitmapImage(new Uri(_baseUri, "Assets/MainPage/search_normal_middle.png"));
+            seach_bg_right.Source = new BitmapImage(new Uri(_baseUri, "Assets/MainPage/search_normal_right.png"));
+        }
+
+        private async void Image_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            string text = SearchText.Text.Trim();
+            if (text.Contains("%"))
+            {
+                text = text.Replace("%", "");
+            }
+            if (text.Contains(" "))
+            {
+                text = text.Replace(" ", "");
+            }
+            if (text.Contains("&"))
+            {
+                text = text.Replace("&", "");
+            }
+            if (text.Contains("*"))
+            {
+                text = text.Replace("*", "");
+            }
+            if (text.Contains(":"))
+            {
+                text = text.Replace(":", "");
+            }
+            if (text != "")
+            {
+                text = Uri.EscapeUriString(text);
+                var uri = new Uri((String)("http://support.netgear.com/search/" + text));
+                await Windows.System.Launcher.LaunchUriAsync(uri);
             }
         }
     }

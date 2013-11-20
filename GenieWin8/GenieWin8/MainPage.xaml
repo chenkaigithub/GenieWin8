@@ -23,17 +23,12 @@
             <Grid HorizontalAlignment="Left" Width="250" Height="250">
                 <Border>
                     <Border.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="Gray" Offset="0.4"/>
-                            <GradientStop Color="White"/>
-                            <GradientStop Color="White" Offset="0.75"/>
-                            <GradientStop Color="#FFCDCDCD" Offset="1"/>
-                        </LinearGradientBrush>
+                        <ImageBrush ImageSource="Assets/MainPage/bg.png"/>
                     </Border.Background>
-                    <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+                    <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Width="150" Height="150" VerticalAlignment="Top" Margin="0,20,0,0"/>
                 </Border>
-                <StackPanel VerticalAlignment="Bottom" Height="50">
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="0,20,0,0" Foreground="#FF5A5A5A"/>
+                <StackPanel VerticalAlignment="Bottom" Height="70">
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="White"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -57,7 +52,7 @@
     -->
     <Grid Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="140"/>
+            <RowDefinition Height="180"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -67,8 +62,8 @@
             AutomationProperties.AutomationId="ItemsGridView"
             AutomationProperties.Name="Items"
             TabIndex="1"
-            Grid.RowSpan="2"
-            Padding="116,136,116,46"
+            Grid.Row="1"
+            Padding="116,20,116,46"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
             ItemTemplate="{StaticResource 250x250ItemTemplate}"
             SelectionMode="None"
@@ -76,21 +71,6 @@
             IsItemClickEnabled="True"
             ItemClick="ItemView_ItemClick" RenderTransformOrigin="0.5,0.5"
             Background="#FFE6E6E6">
-            <!--<GridView.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <LinearGradientBrush.RelativeTransform>
-                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
-                    </LinearGradientBrush.RelativeTransform>
-                    <GradientStop Color="#FFFFE7B4" Offset="1"/>
-                    <GradientStop Color="#FF058D7A"/>
-                    <GradientStop Color="#FFFF645C" Offset="0.75"/>
-                    <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
-                    <GradientStop Color="#FFC59FB2" Offset="0.3"/>
-                    <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
-                    <GradientStop Color="#FFFF495A" Offset="0.6"/>
-                    <GradientStop Color="#FFFFC547" Offset="0.9"/>
-                </LinearGradientBrush>
-            </GridView.Background>-->
         </GridView>
 
         <!-- 垂直滚动列表仅在对齐后使用-->
@@ -123,7 +103,7 @@
         </Grid>
 
         <!--关于-->
-        <Popup x:Name="AboutPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,100,300,0">
+        <Popup x:Name="AboutPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,50,300,0">
             <!--<local:PopupAbout/>-->
             <StackPanel>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Width="400">
@@ -209,13 +189,28 @@
 
         <!-- 后退按钮和页标题-->
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <!--<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>-->
-            <Image Source="Assets/NETGEAR_Genie_Logo.png" Grid.Column="1" Width="600" Height="80" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,20,0,0"/>
+            <StackPanel>
+                <Grid>
+                    <!--<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>-->
+                    <!--<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>-->
+                    <Image Source="Assets/MainPage/logo_left.png" Height="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Image Source="Assets/NETGEAR_Genie_Logo.png" Grid.Column="1" Width="500" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0"/>
+                </Grid>
+                <Grid Height="60" HorizontalAlignment="Stretch">
+                    <Grid.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/statusBar_bg.png"/>
+                    </Grid.Background>
+                    <Grid x:Name="SearchGrid" Margin="0,5,0,5" HorizontalAlignment="Stretch" GotFocus="SearchGrid_GotFocus" LostFocus="SearchGrid_LostFocus">
+                        <Image x:Name="seach_bg_left" Source="Assets/MainPage/search_normal_left.png" Height="55" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <Image x:Name="seach_bg_middle" Source="Assets/MainPage/search_normal_middle.png" Height="58" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="36,0,41,0" Stretch="Fill"/>
+                        <Image x:Name="seach_bg_right" Source="Assets/MainPage/search_normal_right.png" Height="55" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBox x:Name="SearchText" FontSize="30" Margin="35,0,70,0" Padding="0" BorderThickness="0" Height="45" Background="White"/>
+                        <Image Source="Assets/MainPage/search_ico.png" Height="40" Margin="0,0,20,0" HorizontalAlignment="Right" PointerReleased="Image_PointerReleased"/>
+                    </Grid>
+                </Grid>
+            </StackPanel>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
@@ -232,7 +227,7 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="96,136,86,56"/>
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="96,20,86,56"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
@@ -261,15 +256,6 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
     </Grid>
-
-    <Page.TopAppBar>
-        <AppBar Padding="10,0,10,0">
-            <Grid>
-                <TextBox x:Name="SearchText" VerticalAlignment="Center" Margin="10,0,100,0" FontSize="18"/>
-                <Button Click="SearchButton_Click" Style="{StaticResource SearchAppBarButtonStyle}" HorizontalAlignment="Right"/>
-            </Grid>
-        </AppBar>
-    </Page.TopAppBar>
 
     <Page.BottomAppBar>
         <AppBar Padding="10,0,10,0">

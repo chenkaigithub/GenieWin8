@@ -68,7 +68,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack_Click" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" x:Uid="SettingPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="Black"/>
+            <TextBlock x:Name="pageTitle" x:Uid="SettingPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
             <Button x:Name="wifiSettingSave" Click="WifiSettingSave_Click" Grid.Column="1" Style="{StaticResource SaveAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" IsEnabled="False"/>
         </Grid>
 

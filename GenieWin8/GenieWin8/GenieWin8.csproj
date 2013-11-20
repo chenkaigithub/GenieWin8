@@ -212,6 +212,7 @@
     <None Include="Common\ReadMe.txt" />
     <None Include="GenieWin8_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <PRIResource Include="Strings\en\Resources.resw" />
     <PRIResource Include="Strings\sl-SI\Resources.resw" />
     <PRIResource Include="Strings\sk-SK\Resources.resw" />
     <PRIResource Include="Strings\ru-RU\Resources.resw" />
@@ -240,9 +241,31 @@
     <Content Include="Assets\devices\iphone5.png" />
     <Content Include="Assets\devices\windowsphone.png" />
     <Content Include="Assets\devices\windowstablet.png" />
+    <Content Include="Assets\LoginPage\name.png" />
+    <Content Include="Assets\LoginPage\password.png" />
+    <Content Include="Assets\LoginPage\SplitLine.png" />
+    <Content Include="Assets\LoginPage\textFrame.png" />
     <Content Include="Assets\MainPage\appstore.png" />
     <Content Include="Assets\devices\blurayplayer.png" />
     <Content Include="Assets\devices\bridge.png" />
+    <Content Include="Assets\MainPage\bg.png" />
+    <Content Include="Assets\MainPage\logo_left.png" />
+    <Content Include="Assets\MainPage\NETGEAR_Genie_Logo.png" />
+    <Content Include="Assets\MainPage\NetworkMap.png" />
+    <Content Include="Assets\MainPage\ParentalControl.png" />
+    <Content Include="Assets\MainPage\search_background.png" />
+    <Content Include="Assets\MainPage\search_ico.png" />
+    <Content Include="Assets\MainPage\search_input.png" />
+    <Content Include="Assets\MainPage\search_input_left.png" />
+    <Content Include="Assets\MainPage\search_input_middle.png" />
+    <Content Include="Assets\MainPage\search_input_right.png" />
+    <Content Include="Assets\MainPage\search_normal.png" />
+    <Content Include="Assets\MainPage\search_normal_left.png" />
+    <Content Include="Assets\MainPage\search_normal_middle.png" />
+    <Content Include="Assets\MainPage\search_normal_right.png" />
+    <Content Include="Assets\MainPage\statusBar_bg.png" />
+    <Content Include="Assets\MainPage\TrafficMeter.png" />
+    <Content Include="Assets\MainPage\WirelessSetting.png" />
     <Content Include="Assets\MyMedia\browse.png" />
     <Content Include="Assets\devices\cablestb.png" />
     <Content Include="Assets\devices\cameradev.png" />
@@ -362,7 +385,7 @@
     <Content Include="Assets\signal\wirelessflag2.png" />
     <Content Include="Assets\signal\wirelessflag3.png" />
     <Content Include="Assets\signal\wirelessflag4.png" />
-    <Content Include="Assets\开机画面620x300.png" />
+    <Content Include="Assets\StartPage_620x300.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
