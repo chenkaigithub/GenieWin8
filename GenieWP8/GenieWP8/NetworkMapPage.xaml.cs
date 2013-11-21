@@ -62,27 +62,36 @@ namespace GenieWP8
                 InProgress.Visibility = Visibility.Visible;
                 pleasewait.Visibility = Visibility.Visible;
 
-                GenieSoapApi soapApi = new GenieSoapApi();
-                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                dicResponse = await soapApi.GetBlockDeviceEnableStatus();
-                if (int.Parse(dicResponse["ResponseCode"]) == 0)
+                settingModel.DeviceGroups.Clear();
+                settingModel.LoadData();
+
+                if (settingModel.DeviceGroups.ElementAt(1).NODE.AccessControl != "")
                 {
-                    if (dicResponse["NewBlockDeviceEnable"] == "0")
+                    GenieSoapApi soapApi = new GenieSoapApi();
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await soapApi.GetBlockDeviceEnableStatus();
+                    if (int.Parse(dicResponse["ResponseCode"]) == 0)
                     {
-                        NetworkMapInfo.IsAccessControlEnabled = false;
+                        NetworkMapInfo.IsAccessControlSupported = true;
+                        if (dicResponse["NewBlockDeviceEnable"] == "0")
+                        {
+                            NetworkMapInfo.IsAccessControlEnabled = false;
+                        }
+                        else if (dicResponse["NewBlockDeviceEnable"] == "1")
+                        {
+                            NetworkMapInfo.IsAccessControlEnabled = true;
+                        }
                     }
-                    else if (dicResponse["NewBlockDeviceEnable"] == "1")
+                    else
                     {
-                        NetworkMapInfo.IsAccessControlEnabled = true;
+                        NetworkMapInfo.IsAccessControlSupported = false;
                     }
                 }
                 else
                 {
-                    NetworkMapInfo.IsAccessControlEnabled = false;
+                    NetworkMapInfo.IsAccessControlSupported = false;
                 }
 
-                settingModel.DeviceGroups.Clear();
-                settingModel.LoadData();
                 double width;
                 double height;
                 if ((this.Orientation & PageOrientation.Portrait) == (PageOrientation.Portrait))
@@ -393,6 +402,9 @@ namespace GenieWP8
                                 case "ipodtouch":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
                                     break;
+                                case "amazonkindle":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
+                                    break;
                                 case "androiddevice":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
                                     break;
@@ -459,11 +471,11 @@ namespace GenieWP8
                                 case "slingbox":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
                                     break;
-                                case "netstoragedev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                                    break;
                                 case "mobiledev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                                    break;
+                                case "netstoragedev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
                                     break;
                                 case "switchdev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
@@ -479,9 +491,6 @@ namespace GenieWP8
                                     break;
                                 case "windowspc":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
-                                    break;
-                                case "amazonkindle":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
                                     break;
                                 case "windowsphone":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
@@ -508,28 +517,31 @@ namespace GenieWP8
                         }//if (j > 1)
                     }//for (int j = 0; j < 8; j++)
 
-                    CheckBox cbAccessControl = new CheckBox();
-                    cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
-                    cbAccessControl.Content = AppResources.AccessControl;
-                    cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
-                    if (NetworkMapInfo.IsAccessControlEnabled)
+                    if (NetworkMapInfo.IsAccessControlSupported)
                     {
-                        cbAccessControl.IsChecked = true;
-                    } 
-                    else
-                    {
-                        cbAccessControl.IsChecked = false;
+                        CheckBox cbAccessControl = new CheckBox();
+                        cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
+                        cbAccessControl.Content = AppResources.AccessControl;
+                        cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
+                        if (NetworkMapInfo.IsAccessControlEnabled)
+                        {
+                            cbAccessControl.IsChecked = true;
+                        }
+                        else
+                        {
+                            cbAccessControl.IsChecked = false;
+                        }
+                        cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
+                        cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
+                        cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
+                        map.Children.Add(cbAccessControl);
                     }
-                    cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
-                    cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
-                    cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
 
                     map.Children.Add(internet);
                     map.Children.Add(BtnRouter);
                     map.Children.Add(BtnLocalDevice);
-                    map.Children.Add(cbAccessControl);
                     PivotItem map_PivotItem = new PivotItem();
-                    map_PivotItem.Header = AppResources.NetworkMapPageTitleText;
+                    //map_PivotItem.Header = AppResources.NetworkMapPageTitleText;
                     map_PivotItem.Content = map;
                     MapPivot.Items.Add(map_PivotItem);
                 }//if (i != m)
@@ -618,41 +630,49 @@ namespace GenieWP8
                             DoubleCollection dc = new DoubleCollection();
                             dc.Add(2);
                             line.StrokeDashArray = dc;
-                            int result = int.Parse(Group.ElementAt(1).NODE.signalStrength);
+                            int signal;
+                            if (NetworkMapInfo.attachDeviceDic.Count == 0)
+                            {
+                                signal = 100;
+                            } 
+                            else
+                            {
+                                signal = int.Parse(Group.ElementAt(1).NODE.signalStrength);
+                            }
                             if (Group.ElementAt(1).NODE.AccessControl == "Allow")
                             {
-                                if (result <= 20)
+                                if (signal <= 20)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
                                 }
-                                else if (result > 20 && result <= 40)
+                                else if (signal > 20 && signal <= 40)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
                                 }
-                                else if (result > 40 && result <= 70)
+                                else if (signal > 40 && signal <= 70)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
                                 }
-                                else if (result > 70)
+                                else if (signal > 70)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
                                 }
                             }
                             else
                             {
-                                if (result <= 20)
+                                if (signal <= 20)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
                                 }
-                                else if (result > 20 && result <= 40)
+                                else if (signal > 20 && signal <= 40)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
                                 }
-                                else if (result > 40 && result <= 70)
+                                else if (signal > 40 && signal <= 70)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
                                 }
-                                else if (result > 70)
+                                else if (signal > 70)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
                                 }
@@ -746,6 +766,9 @@ namespace GenieWP8
                                 case "ipodtouch":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
                                     break;
+                                case "amazonkindle":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
+                                    break;
                                 case "androiddevice":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
                                     break;
@@ -812,11 +835,11 @@ namespace GenieWP8
                                 case "slingbox":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
                                     break;
-                                case "netstoragedev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                                    break;
                                 case "mobiledev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                                    break;
+                                case "netstoragedev":
+                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
                                     break;
                                 case "switchdev":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
@@ -832,9 +855,6 @@ namespace GenieWP8
                                     break;
                                 case "windowspc":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
-                                    break;
-                                case "amazonkindle":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
                                     break;
                                 case "windowsphone":
                                     imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
@@ -861,28 +881,31 @@ namespace GenieWP8
                         }//if (j > 1)
                     }//for (int j = 0; j < n + 1; j++)
 
-                    CheckBox cbAccessControl = new CheckBox();
-                    cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
-                    cbAccessControl.Content = AppResources.AccessControl;
-                    cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
-                    if (NetworkMapInfo.IsAccessControlEnabled)
+                    if (NetworkMapInfo.IsAccessControlSupported)
                     {
-                        cbAccessControl.IsChecked = true;
+                        CheckBox cbAccessControl = new CheckBox();
+                        cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
+                        cbAccessControl.Content = AppResources.AccessControl;
+                        cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
+                        if (NetworkMapInfo.IsAccessControlEnabled)
+                        {
+                            cbAccessControl.IsChecked = true;
+                        }
+                        else
+                        {
+                            cbAccessControl.IsChecked = false;
+                        }
+                        cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
+                        cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
+                        cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
+                        map.Children.Add(cbAccessControl);
                     }
-                    else
-                    {
-                        cbAccessControl.IsChecked = false;
-                    }
-                    cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
-                    cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
-                    cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
 
                     map.Children.Add(internet);
                     map.Children.Add(BtnRouter);
                     map.Children.Add(BtnLocalDevice);
-                    map.Children.Add(cbAccessControl);
                     PivotItem map_PivotItem = new PivotItem();
-                    map_PivotItem.Header = AppResources.NetworkMapPageTitleText;
+                    //map_PivotItem.Header = AppResources.NetworkMapPageTitleText;
                     map_PivotItem.Content = map;
                     MapPivot.Items.Add(map_PivotItem);
                 }
@@ -1078,6 +1101,9 @@ namespace GenieWP8
                     case "ipodtouch":
                         Type.Text = AppResources.ipodtouch;
                         break;
+                    case "amazonkindle":
+                        Type.Text = AppResources.amazonkindle;
+                        break;
                     case "androiddevice":
                         Type.Text = AppResources.androiddevice;
                         break;
@@ -1144,11 +1170,11 @@ namespace GenieWP8
                     case "slingbox":
                         Type.Text = AppResources.slingbox;
                         break;
-                    case "netstoragedev":
-                        Type.Text = AppResources.netstoragedev;
-                        break;
                     case "mobiledev":
                         Type.Text = AppResources.mobiledev;
+                        break;
+                    case "netstoragedev":
+                        Type.Text = AppResources.netstoragedev;
                         break;
                     case "switchdev":
                         Type.Text = AppResources.switchdev;
@@ -1164,9 +1190,6 @@ namespace GenieWP8
                         break;
                     case "windowspc":
                         Type.Text = AppResources.windowspc;
-                        break;
-                    case "amazonkindle":
-                        Type.Text = AppResources.amazonkindle;
                         break;
                     case "windowsphone":
                         Type.Text = AppResources.windowsphone;
@@ -1186,6 +1209,7 @@ namespace GenieWP8
                 source.Add(new Devicetype() { type = AppResources.iphone, deviceIcon = "Assets/devices/iphone.png" });
                 source.Add(new Devicetype() { type = AppResources.iphone5, deviceIcon = "Assets/devices/iphone5.png" });
                 source.Add(new Devicetype() { type = AppResources.ipodtouch, deviceIcon = "Assets/devices/ipodtouch.png" });
+                source.Add(new Devicetype() { type = AppResources.amazonkindle, deviceIcon = "Assets/devices/amazonkindle.png" });
                 source.Add(new Devicetype() { type = AppResources.androiddevice, deviceIcon = "Assets/devices/androiddevice.png" });
                 source.Add(new Devicetype() { type = AppResources.androidphone, deviceIcon = "Assets/devices/androidphone.png" });
                 source.Add(new Devicetype() { type = AppResources.androidtablet, deviceIcon = "Assets/devices/androidtablet.png" });
@@ -1208,14 +1232,13 @@ namespace GenieWP8
                 source.Add(new Devicetype() { type = AppResources.satellitestb, deviceIcon = "Assets/devices/satellitestb.png" });
                 source.Add(new Devicetype() { type = AppResources.scannerdev, deviceIcon = "Assets/devices/scannerdev.png" });
                 source.Add(new Devicetype() { type = AppResources.slingbox, deviceIcon = "Assets/devices/slingbox.png" });
-                source.Add(new Devicetype() { type = AppResources.netstoragedev, deviceIcon = "Assets/devices/netstoragedev.png" });
                 source.Add(new Devicetype() { type = AppResources.mobiledev, deviceIcon = "Assets/devices/mobiledev.png" });
+                source.Add(new Devicetype() { type = AppResources.netstoragedev, deviceIcon = "Assets/devices/netstoragedev.png" });
                 source.Add(new Devicetype() { type = AppResources.switchdev, deviceIcon = "Assets/devices/switchdev.png" });
                 source.Add(new Devicetype() { type = AppResources.tv, deviceIcon = "Assets/devices/tv.png" });
                 source.Add(new Devicetype() { type = AppResources.tablepc, deviceIcon = "Assets/devices/tablepc.png" });
                 source.Add(new Devicetype() { type = AppResources.unixpc, deviceIcon = "Assets/devices/unixpc.png" });
                 source.Add(new Devicetype() { type = AppResources.windowspc, deviceIcon = "Assets/devices/windowspc.png" });
-                source.Add(new Devicetype() { type = AppResources.amazonkindle, deviceIcon = "Assets/devices/amazonkindle.png" });
                 source.Add(new Devicetype() { type = AppResources.windowsphone, deviceIcon = "Assets/devices/windowsphone.png" });
                 source.Add(new Devicetype() { type = AppResources.windowstablet, deviceIcon = "Assets/devices/windowstablet.png" });
                 lpType.ItemsSource = source;
@@ -1240,94 +1263,94 @@ namespace GenieWP8
                     case "ipodtouch":
                         lpType.SelectedIndex = 5;
                         break;
-                    case "androiddevice":
+                    case "amazonkindle":
                         lpType.SelectedIndex = 6;
                         break;
-                    case "androidphone":
+                    case "androiddevice":
                         lpType.SelectedIndex = 7;
                         break;
-                    case "androidtablet":
+                    case "androidphone":
                         lpType.SelectedIndex = 8;
                         break;
-                    case "blurayplayer":
+                    case "androidtablet":
                         lpType.SelectedIndex = 9;
                         break;
-                    case "bridge":
+                    case "blurayplayer":
                         lpType.SelectedIndex = 10;
                         break;
-                    case "cablestb":
+                    case "bridge":
                         lpType.SelectedIndex = 11;
                         break;
-                    case "cameradev":
+                    case "cablestb":
                         lpType.SelectedIndex = 12;
                         break;
-                    case "dvr":
+                    case "cameradev":
                         lpType.SelectedIndex = 13;
                         break;
-                    case "gamedev":
+                    case "dvr":
                         lpType.SelectedIndex = 14;
                         break;
-                    case "linuxpc":
+                    case "gamedev":
                         lpType.SelectedIndex = 15;
                         break;
-                    case "macminidev":
+                    case "linuxpc":
                         lpType.SelectedIndex = 16;
                         break;
-                    case "macprodev":
+                    case "macminidev":
                         lpType.SelectedIndex = 17;
                         break;
-                    case "macbookdev":
+                    case "macprodev":
                         lpType.SelectedIndex = 18;
                         break;
-                    case "mediadev":
+                    case "macbookdev":
                         lpType.SelectedIndex = 19;
                         break;
-                    case "networkdev":
+                    case "mediadev":
                         lpType.SelectedIndex = 20;
                         break;
-                    case "stb":
+                    case "networkdev":
                         lpType.SelectedIndex = 21;
                         break;
-                    case "printerdev":
+                    case "stb":
                         lpType.SelectedIndex = 22;
                         break;
-                    case "repeater":
+                    case "printerdev":
                         lpType.SelectedIndex = 23;
                         break;
-                    case "gatewaydev":
+                    case "repeater":
                         lpType.SelectedIndex = 24;
                         break;
-                    case "satellitestb":
+                    case "gatewaydev":
                         lpType.SelectedIndex = 25;
                         break;
-                    case "scannerdev":
+                    case "satellitestb":
                         lpType.SelectedIndex = 26;
                         break;
-                    case "slingbox":
+                    case "scannerdev":
                         lpType.SelectedIndex = 27;
                         break;
-                    case "netstoragedev":
+                    case "slingbox":
                         lpType.SelectedIndex = 28;
                         break;
                     case "mobiledev":
                         lpType.SelectedIndex = 29;
                         break;
-                    case "switchdev":
+                    case "netstoragedev":
                         lpType.SelectedIndex = 30;
                         break;
-                    case "tv":
+                    case "switchdev":
                         lpType.SelectedIndex = 31;
                         break;
-                    case "tablepc":
+                    case "tv":
                         lpType.SelectedIndex = 32;
                         break;
-                    case "unixpc":
+                    case "tablepc":
                         lpType.SelectedIndex = 33;
                         break;
-                    case "windowspc":
+                    case "unixpc":
                         lpType.SelectedIndex = 34;
                         break;
-                    case "amazonkindle":
+                    case "windowspc":
                         lpType.SelectedIndex = 35;
                         break;
                     case "windowsphone":
@@ -1361,25 +1384,25 @@ namespace GenieWP8
                 txtSignalStrength.FontSize = 35;
                 txtSignalStrength.Margin = new Thickness(10, 10, 0, 0);
                 txtSignalStrength.HorizontalAlignment = HorizontalAlignment.Left;
-                if (int.Parse(Group.NODE.signalStrength) <= 20)
-                {
-                    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_1.png", UriKind.Relative));
-                }
-                else if (int.Parse(Group.NODE.signalStrength) > 20 && int.Parse(Group.NODE.signalStrength) <= 40)
-                {
-                    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_2.png", UriKind.Relative));
-                }
-                else if (int.Parse(Group.NODE.signalStrength) > 40 && int.Parse(Group.NODE.signalStrength) <= 70)
-                {
-                    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_3.png", UriKind.Relative));
-                }
-                else if (int.Parse(Group.NODE.signalStrength) > 70)
-                {
-                    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_4.png", UriKind.Relative));
-                }
-                //SignalStrength.Text = Group.NODE.signalStrength;
-                //SignalStrength.FontSize = 26;
-                //SignalStrength.HorizontalAlignment = HorizontalAlignment.Center;
+                //if (int.Parse(Group.NODE.signalStrength) <= 20)
+                //{
+                //    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_1.png", UriKind.Relative));
+                //}
+                //else if (int.Parse(Group.NODE.signalStrength) > 20 && int.Parse(Group.NODE.signalStrength) <= 40)
+                //{
+                //    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_2.png", UriKind.Relative));
+                //}
+                //else if (int.Parse(Group.NODE.signalStrength) > 40 && int.Parse(Group.NODE.signalStrength) <= 70)
+                //{
+                //    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_3.png", UriKind.Relative));
+                //}
+                //else if (int.Parse(Group.NODE.signalStrength) > 70)
+                //{
+                //    imgSignalStength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_4.png", UriKind.Relative));
+                //}
+                SignalStrength.Text = Group.NODE.signalStrength + "%";
+                SignalStrength.FontSize = 26;
+                SignalStrength.HorizontalAlignment = HorizontalAlignment.Center;
             }
 
             //LinkRate
@@ -1447,14 +1470,23 @@ namespace GenieWP8
                 StpDeviceName.Visibility = Visibility.Visible;
                 StpType.Visibility = Visibility.Collapsed;
                 StpRouterFirmware.Visibility = Visibility.Collapsed;
-                if (Group.NODE.linkRate == "Mbps" || Group.NODE.linkRate == "")
+                if (NetworkMapInfo.attachDeviceDic.Count == 0)
+                {
+                    StpMACAddress.Visibility = Visibility.Collapsed;
                     StpLinkRate.Visibility = Visibility.Collapsed;
-                else
-                    StpLinkRate.Visibility = Visibility.Visible;
-                if (Group.NODE.signalStrength == "")
                     StpSignalStrength.Visibility = Visibility.Collapsed;
+                } 
                 else
-                    StpSignalStrength.Visibility = Visibility.Visible;
+                {
+                    if (Group.NODE.linkRate == "Mbps" || Group.NODE.linkRate == "")
+                        StpLinkRate.Visibility = Visibility.Collapsed;
+                    else
+                        StpLinkRate.Visibility = Visibility.Visible;
+                    if (Group.NODE.signalStrength == "" || Group.NODE.connectType != "wireless")
+                        StpSignalStrength.Visibility = Visibility.Collapsed;
+                    else
+                        StpSignalStrength.Visibility = Visibility.Visible;
+                }
 
                 btnBack.Visibility = Visibility.Visible;
                 btnFileUpload.Visibility = Visibility.Collapsed;
@@ -1486,6 +1518,9 @@ namespace GenieWP8
                         break;
                     case "ipodtouch":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
+                        break;
+                    case "amazonkindle":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
                         break;
                     case "androiddevice":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
@@ -1553,11 +1588,11 @@ namespace GenieWP8
                     case "slingbox":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
                         break;
-                    case "netstoragedev":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                        break;
                     case "mobiledev":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                        break;
+                    case "netstoragedev":
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
                         break;
                     case "switchdev":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
@@ -1573,9 +1608,6 @@ namespace GenieWP8
                         break;
                     case "windowspc":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
-                        break;
-                    case "amazonkindle":
-                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
                         break;
                     case "windowsphone":
                         TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
@@ -1596,7 +1628,7 @@ namespace GenieWP8
 
                 StpRouterFirmware.Visibility = Visibility.Collapsed;
 
-                if (Group.NODE.signalStrength == "")
+                if (Group.NODE.signalStrength == "" || Group.NODE.connectType != "wireless")
                     StpSignalStrength.Visibility = Visibility.Collapsed;
                 else
                     StpSignalStrength.Visibility = Visibility.Visible;
@@ -1606,7 +1638,7 @@ namespace GenieWP8
                 else
                     StpLinkRate.Visibility = Visibility.Visible;
 
-                if (Group.NODE.AccessControl == "" || NetworkMapInfo.IsAccessControlEnabled == false)
+                if (Group.NODE.AccessControl == "" || NetworkMapInfo.IsAccessControlSupported == false)
                 {
                     btnBack.Width = 200;
                     btnBack.Margin = new Thickness(200, 10, 0, 0);
@@ -1662,12 +1694,7 @@ namespace GenieWP8
                 GenieSoapApi soapApi = new GenieSoapApi();
                 UtilityTool util = new UtilityTool();
                 NetworkMapInfo.geteway = await util.GetGateway();
-                Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                while (responseDic == null || responseDic.Count == 0)
-                {
-                    responseDic = await soapApi.GetAttachDevice();
-                }
-                NetworkMapInfo.attachDeviceDic = responseDic;
+                NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
 
                 Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                 while (dicResponse == null || dicResponse.Count == 0)
@@ -1745,119 +1772,119 @@ namespace GenieWP8
                     Type.Text = AppResources.ipodtouch;
                     break;
                 case 6:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
+                    customDeviceType = "amazonkindle";
+                    Type.Text = AppResources.amazonkindle;
+                    break;
+                case 7:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
                     customDeviceType = "androiddevice";
                     Type.Text = AppResources.androiddevice;
                     break;
-                case 7:
+                case 8:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
                     customDeviceType = "androidphone";
                     Type.Text = AppResources.androidphone;
                     break;
-                case 8:
+                case 9:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
                     customDeviceType = "androidtablet";
                     Type.Text = AppResources.androidtablet;
                     break;
-                case 9:
+                case 10:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
                     customDeviceType = "blurayplayer";
                     Type.Text = AppResources.blurayplayer;
                     break;
-                case 10:
+                case 11:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
                     customDeviceType = "bridge";
                     Type.Text = AppResources.bridge;
                     break;
-                case 11:
+                case 12:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
                     customDeviceType = "cablestb";
                     Type.Text = AppResources.cablestb;
                     break;
-                case 12:
+                case 13:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
                     customDeviceType = "cameradev";
                     Type.Text = AppResources.cameradev;
                     break;
-                case 13:
+                case 14:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
                     customDeviceType = "dvr";
                     Type.Text = AppResources.dvr;
                     break;
-                case 14:
+                case 15:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
                     customDeviceType = "gamedev";
                     Type.Text = AppResources.gamedev;
                     break;
-                case 15:
+                case 16:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
                     customDeviceType = "linuxpc";
                     Type.Text = AppResources.linuxpc;
                     break;
-                case 16:
+                case 17:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
                     customDeviceType = "macminidev";
                     Type.Text = AppResources.macminidev;
                     break;
-                case 17:
+                case 18:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
                     customDeviceType = "macprodev";
                     Type.Text = AppResources.macprodev;
                     break;
-                case 18:
+                case 19:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
                     customDeviceType = "macbookdev";
                     Type.Text = AppResources.macbookdev;
                     break;
-                case 19:
+                case 20:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
                     customDeviceType = "mediadev";
                     Type.Text = AppResources.mediadev;
                     break;
-                case 20:
+                case 21:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
                     customDeviceType = "networkdev";
                     Type.Text = AppResources.networkdev;
                     break;
-                case 21:
+                case 22:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
                     customDeviceType = "stb";
                     Type.Text = AppResources.stb;
                     break;
-                case 22:
+                case 23:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
                     customDeviceType = "printerdev";
                     Type.Text = AppResources.printerdev;
                     break;
-                case 23:
+                case 24:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
                     customDeviceType = "repeater";
                     Type.Text = AppResources.repeater;
                     break;
-                case 24:
+                case 25:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
                     customDeviceType = "gatewaydev";
                     Type.Text = AppResources.gatewaydev;
                     break;
-                case 25:
+                case 26:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
                     customDeviceType = "satellitestb";
                     Type.Text = AppResources.satellitestb;
                     break;
-                case 26:
+                case 27:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
                     customDeviceType = "scannerdev";
                     Type.Text = AppResources.scannerdev;
                     break;
-                case 27:
+                case 28:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
                     customDeviceType = "slingbox";
                     Type.Text = AppResources.slingbox;
-                    break;
-                case 28:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                    customDeviceType = "netstoragedev";
-                    Type.Text = AppResources.netstoragedev;
                     break;
                 case 29:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
@@ -1865,34 +1892,34 @@ namespace GenieWP8
                     Type.Text = AppResources.mobiledev;
                     break;
                 case 30:
+                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
+                    customDeviceType = "netstoragedev";
+                    Type.Text = AppResources.netstoragedev;
+                    break;
+                case 31:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
                     customDeviceType = "switchdev";
                     Type.Text = AppResources.switchdev;
                     break;
-                case 31:
+                case 32:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
                     customDeviceType = "tv";
                     Type.Text = AppResources.tv;
                     break;
-                case 32:
+                case 33:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
                     customDeviceType = "tablepc";
                     Type.Text = AppResources.tablepc;
                     break;
-                case 33:
+                case 34:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
                     customDeviceType = "unixpc";
                     Type.Text = AppResources.unixpc;
                     break;
-                case 34:
+                case 35:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
                     customDeviceType = "windowspc";
                     Type.Text = AppResources.windowspc;
-                    break;
-                case 35:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
-                    customDeviceType = "amazonkindle";
-                    Type.Text = AppResources.amazonkindle;
                     break;
                 case 36:
                     TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
@@ -1993,12 +2020,7 @@ namespace GenieWP8
             GenieSoapApi soapApi = new GenieSoapApi();
             UtilityTool util = new UtilityTool();
             NetworkMapInfo.geteway = await util.GetGateway();
-            Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-            while (responseDic == null || responseDic.Count == 0)
-            {
-                responseDic = await soapApi.GetAttachDevice();
-            }            
-            NetworkMapInfo.attachDeviceDic = responseDic;
+            NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
 
             Dictionary<string, string> dicResponse = new Dictionary<string, string>();
             while (dicResponse == null || dicResponse.Count == 0)

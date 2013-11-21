@@ -317,6 +317,7 @@
     <Content Include="Assets\deviceInfoPopup\wifi_3.png" />
     <Content Include="Assets\deviceInfoPopup\wifi_4.png" />
     <Content Include="Assets\deviceInfoPopup\wifi_5.png" />
+    <Content Include="Assets\devices\amazonkindle.png" />
     <Content Include="Assets\devices\androiddevice.png" />
     <Content Include="Assets\devices\androidphone.png" />
     <Content Include="Assets\devices\androidtablet.png" />
@@ -529,7 +530,9 @@
     <EmbeddedResource Include="Resources\AppResources.en-US.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\AppResources.en.resx" />
+    <EmbeddedResource Include="Resources\AppResources.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.fi-FI.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -1996,7 +1996,7 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
-        ///   查找类似 SlingBox 的本地化字符串。
+        ///   查找类似 Sling Box 的本地化字符串。
         /// </summary>
         public static string slingbox {
             get {
@@ -2547,9 +2547,18 @@ namespace GenieWP8.Resources {
         /// <summary>
         ///   查找类似 未启用 的本地化字符串。
         /// </summary>
-        public static string WifiEnabled {
+        public static string WifiDisabled {
             get {
-                return ResourceManager.GetString("WifiEnabled", resourceCulture);
+                return ResourceManager.GetString("WifiDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无连接 的本地化字符串。
+        /// </summary>
+        public static string WifiDisconnected {
+            get {
+                return ResourceManager.GetString("WifiDisconnected", resourceCulture);
             }
         }
         

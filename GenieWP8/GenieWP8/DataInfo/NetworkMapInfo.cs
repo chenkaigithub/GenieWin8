@@ -13,6 +13,7 @@ namespace GenieWP8.DataInfo
         public static string fileContent;
         public static bool bTypeChanged;
         public static bool bRefreshMap;
+        public static bool IsAccessControlSupported;
         public static bool IsAccessControlEnabled;
         public static string deviceMacaddr;       //记录访问控制单个设备的Mac地址
     }

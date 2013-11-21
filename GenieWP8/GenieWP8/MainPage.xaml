@@ -168,10 +168,10 @@
                     <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/statusBar_bg.png"/>
                 </Grid.Background>
                 <Image x:Name="imgWifi" Height="25" HorizontalAlignment="Left" MouseLeftButtonUp="Image_MouseLeftButtonUp" Margin="5,0,0,0"/>
-                <TextBlock x:Name="tbSsid" FontSize="20" VerticalAlignment="Center" Margin="30,0,0,0" MaxWidth="130" HorizontalAlignment="Left" Foreground="White" TextTrimming="WordEllipsis"/>
+                <TextBlock x:Name="tbSsid" Text="Not Connected"  FontSize="19" VerticalAlignment="Center" Margin="30,0,0,0" MaxWidth="130" HorizontalAlignment="Left" Foreground="White" TextTrimming="WordEllipsis"/>
                 <Grid x:Name="SearchGrid" HorizontalAlignment="Stretch" GotFocus="SearchGrid_GotFocus" LostFocus="SearchGrid_LostFocus" Margin="155,0,0,0">
                     <Image x:Name="seach_bg_left" Source="Assets/MainPage/search_normal_left.png" Height="55" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Image x:Name="seach_bg_middle" Source="Assets/MainPage/search_normal_middle.png" Height="58" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="26,0,36,0" Stretch="Fill"/>
+                    <Image x:Name="seach_bg_middle" Source="Assets/MainPage/search_normal_middle.png" Height="55" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="29,0,35,0" Stretch="Fill"/>
                     <Image x:Name="seach_bg_right" Source="Assets/MainPage/search_normal_right.png" Height="55" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <TextBox x:Name="tbSearch" FontSize="25" Margin="20,0,50,0" Padding="0" BorderThickness="0" Height="60" Background="White"/>
                     <Image Source="Assets/MainPage/search_ico.png" Height="40" Margin="0,0,20,0" HorizontalAlignment="Right" MouseLeftButtonUp="Image_MouseLeftButtonUp"/>

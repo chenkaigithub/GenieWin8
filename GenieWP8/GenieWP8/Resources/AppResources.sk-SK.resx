@@ -586,7 +586,7 @@
     <value>Zdieľať súbory v sieti</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Deň</value>
@@ -1048,10 +1048,13 @@
   <data name="windowstablet" xml:space="preserve">
     <value>Počítač typu Tablet so systémom Windows</value>
   </data>
-  <data name="WifiEnabled" xml:space="preserve">
-    <value>NEPOVOLENÉ</value>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Nepovolené</value>
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Nie je pripojené</value>
   </data>
 </root>

@@ -630,7 +630,7 @@
     <value>P2P/File sharing</value>
   </data>
   <data name="ParentalControl" xml:space="preserve">
-    <value>Parental Control</value>
+    <value>Parental Controls</value>
     <comment>Parental Control</comment>
   </data>
   <data name="ParentalControlPageTitleText" xml:space="preserve">
@@ -803,7 +803,7 @@
     <value>Share files in network</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="SocialNetworking" xml:space="preserve">
     <value>Social Networking</value>
@@ -1048,10 +1048,13 @@
   <data name="windowstablet" xml:space="preserve">
     <value>Windows Tablet</value>
   </data>
-  <data name="WifiEnabled" xml:space="preserve">
-    <value>NOT ENABLED</value>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Not Enabled</value>
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Not Connected</value>
   </data>
 </root>

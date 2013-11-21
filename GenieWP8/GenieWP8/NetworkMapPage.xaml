@@ -114,6 +114,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <DataTemplate x:Key="DataTemplate1">
+            <Grid>
+                <TextBlock Margin="0,0,0,0" Width="380" Text="{Binding Path=LocalizedResources.NetworkMapPageTitleText, Source={StaticResource LocalizedStrings}}" FontSize="40" />
+            </Grid>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
@@ -135,7 +140,7 @@
         </Grid.Background>-->
         <!--枢轴控件-->
         <!--<TextBlock Text="NETGEAR Genie" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#3C3C3C" Margin="12,17,0,28"/>-->
-        <phone:Pivot x:Name="MapPivot" Title="NETGEAR Genie" Foreground="#3C3C3C">
+        <phone:Pivot x:Name="MapPivot" Title="NETGEAR Genie" Foreground="#3C3C3C" HeaderTemplate="{StaticResource DataTemplate1}">
             <!--枢轴项一-->
         </phone:Pivot>
 
@@ -175,7 +180,7 @@
                                 <StackPanel x:Name="StpDeviceName">
                                     <TextBlock x:Name="txtDeviceName" Foreground="Black"/>
                                     <TextBlock x:Name="txtBlockDeviceName" Foreground="#B4B4B4"/>
-                                    <TextBox x:Name="txtBoxDeviceName" Background="White" GotFocus="txtBoxDeviceName_GotFocus" BorderBrush="#C5C5C5" KeyDown="txtBoxDeviceName_KeyDown"/>
+                                    <TextBox x:Name="txtBoxDeviceName" Background="White" Foreground="Black" GotFocus="txtBoxDeviceName_GotFocus" BorderBrush="#C5C5C5" KeyDown="txtBoxDeviceName_KeyDown"/>
                                     <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </Grid>
@@ -187,11 +192,11 @@
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{Binding deviceIcon}" Height="30" Width="30"/>
-                                                <TextBlock Text="{Binding type}" Margin="5,0,0,0"/>
-                                            </StackPanel>                                          
+                                                <TextBlock Text="{Binding type}" Margin="5,0,0,0" Foreground="Black"/>
+                                            </StackPanel>
                                         </DataTemplate>
                                     </toolkit:ListPicker.ItemTemplate>
-                                    <toolkit:ListPicker.FullModeItemTemplate>                                       
+                                    <toolkit:ListPicker.FullModeItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
                                                 <Image Source="{Binding deviceIcon}" Height="40" Width="40"/>
@@ -214,10 +219,9 @@
                                 <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                             </StackPanel>
                             <StackPanel x:Name="StpSignalStrength">
-                                <Grid>
-                                    <TextBlock x:Name="txtSignalStrength" Foreground="Black"/>
-                                    <Image x:Name="imgSignalStength" Height="50" Width="50" HorizontalAlignment="Right" Margin="0,15,30,10"/>
-                                </Grid>                               
+                                <TextBlock x:Name="txtSignalStrength" Foreground="Black"/>
+                                <TextBlock x:Name="SignalStrength" Foreground="#B4B4B4"/>
+                                <!--<Image x:Name="imgSignalStength" Height="50" Width="50" HorizontalAlignment="Right" Margin="0,15,30,10"/>-->
                                 <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                             </StackPanel>
                             <StackPanel x:Name="StpLinkRate">
@@ -230,7 +234,7 @@
                                 <TextBlock x:Name="txtMACAddress" Foreground="Black"/>
                                 <TextBlock x:Name="MACAddress" Foreground="#B4B4B4"/>
                             </StackPanel>
-                        </StackPanel>                       
+                        </StackPanel>
                     </ScrollViewer>
                     <Grid x:Name="GridButton">
                         <Button x:Name="btnBack" Style="{StaticResource ButtonStyle1}" Click="BackButton_Click" BorderThickness="0"  Foreground="White" Background="#8064A2"/>
@@ -241,7 +245,7 @@
                         <Button x:Name="btnBlock" Style="{StaticResource ButtonStyle1}" Click="BlockButton_Click" BorderThickness="0" Foreground="White" Background="#8064A2"/>
                     </Grid>
                 </StackPanel>
-            </Border>            
+            </Border>
         </Popup>
 
         <Popup x:Name="PopupWaitAccessControl" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,100,420,0">
@@ -254,7 +258,7 @@
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White"/>
                 </StackPanel>
             </Border>
-        </Popup>            
+        </Popup>
     </Grid>
 
 </phone:PhoneApplicationPage>

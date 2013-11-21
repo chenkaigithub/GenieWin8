@@ -586,7 +586,7 @@
     <value>Condividi file nella rete</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Giorno</value>
@@ -1048,10 +1048,13 @@
   <data name="windowstablet" xml:space="preserve">
     <value>Tablet Windows</value>
   </data>
-  <data name="WifiEnabled" xml:space="preserve">
-    <value>NON ATTIVATO</value>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Non attivato</value>
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Non connesso</value>
   </data>
 </root>

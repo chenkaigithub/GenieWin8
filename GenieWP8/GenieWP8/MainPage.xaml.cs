@@ -70,8 +70,12 @@ namespace GenieWP8
             }
 
             //判断wifi是否连接，并显示SSID
-            tbSsid.Text = AppResources.WifiEnabled;
+            tbSsid.Text = AppResources.WifiDisabled;
             imgWifi.Source = new BitmapImage(new Uri("Assets/signal/nowifi.png", UriKind.Relative));
+            if (DeviceNetworkInformation.IsWiFiEnabled)
+            {
+                tbSsid.Text = AppResources.WifiDisconnected;
+            }
             foreach (var network in new NetworkInterfaceList())
             {
                 if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
@@ -325,32 +329,37 @@ namespace GenieWP8
                     pleasewait.Visibility = Visibility.Visible;
 
                     Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-                    while (attachDeviceAll == null || attachDeviceAll.Count == 0)
-                    {
-                        attachDeviceAll = await soapApi.GetAttachDevice();
-                    }                    
+                    attachDeviceAll = await soapApi.GetAttachDevice();
                     UtilityTool util = new UtilityTool();
                     var ipList = util.GetCurrentIpAddresses();
                     string loacalIp = ipList.ToList()[0];
-                    foreach (string key in attachDeviceAll.Keys)
+                    if (attachDeviceAll.Count == 0)
                     {
-                        if (loacalIp == attachDeviceAll[key]["Ip"])
+                        WifiSettingInfo.linkRate = "";
+                        WifiSettingInfo.signalStrength = "";
+                    } 
+                    else
+                    {
+                        foreach (string key in attachDeviceAll.Keys)
                         {
-                            if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                            if (loacalIp == attachDeviceAll[key]["Ip"])
                             {
-                                WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                            }
-                            else
-                            {
-                                WifiSettingInfo.linkRate = "";
-                            }
-                            if (attachDeviceAll[key].ContainsKey("Signal"))
-                            {
-                                WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                            } 
-                            else
-                            {
-                                WifiSettingInfo.signalStrength = "";
+                                if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                                {
+                                    WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                                }
+                                else
+                                {
+                                    WifiSettingInfo.linkRate = "";
+                                }
+                                if (attachDeviceAll[key].ContainsKey("Signal"))
+                                {
+                                    WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                                }
+                                else
+                                {
+                                    WifiSettingInfo.signalStrength = "";
+                                }
                             }
                         }
                     }
@@ -459,12 +468,7 @@ namespace GenieWP8
                     pleasewait.Visibility = Visibility.Visible;
                     UtilityTool util = new UtilityTool();
                     NetworkMapInfo.geteway = await util.GetGateway();
-                    Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                    while (responseDic == null || responseDic.Count == 0)
-                    {
-                        responseDic = await soapApi.GetAttachDevice();
-                    }                    
-                    NetworkMapInfo.attachDeviceDic = responseDic;
+                    NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
 
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     while (dicResponse == null || dicResponse.Count == 0)
@@ -587,12 +591,7 @@ namespace GenieWP8
                             if (dicResponse["ParentalControlSupported"] == "1")
                             {
                                 ///通过attachDevice获取本机的Mac地址
-                                Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                                while (responseDic == null || responseDic.Count == 0)
-                                {
-                                    responseDic = await soapApi.GetAttachDevice();
-                                }
-                                NetworkMapInfo.attachDeviceDic = responseDic;
+                                NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
 
                                 Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                                 while (dicResponse2 == null || dicResponse2.Count == 0)

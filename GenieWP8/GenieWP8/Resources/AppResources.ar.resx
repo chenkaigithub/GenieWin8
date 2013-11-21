@@ -592,7 +592,7 @@
     <value>مشاركة الملفات في الشبكة</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>يوم</value>
@@ -1048,10 +1048,13 @@
   <data name="windowstablet" xml:space="preserve">
     <value>جهاز Windows اللوحي</value>
   </data>
-  <data name="WifiEnabled" xml:space="preserve">
+  <data name="WifiDisabled" xml:space="preserve">
     <value>غير ممكّن</value>
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>غير متصل</value>
   </data>
 </root>

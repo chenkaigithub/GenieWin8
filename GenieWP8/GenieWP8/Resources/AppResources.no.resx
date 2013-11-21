@@ -586,7 +586,7 @@
     <value>Del filer på nettverk</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Dag</value>
@@ -1048,10 +1048,13 @@
   <data name="windowstablet" xml:space="preserve">
     <value>Windows-nettbrett</value>
   </data>
-  <data name="WifiEnabled" xml:space="preserve">
-    <value>IKKE AKTIVERT</value>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Ikke aktivert</value>
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Ikke tilkoblet</value>
   </data>
 </root>

@@ -75,24 +75,25 @@ namespace GenieWP8
             } 
             else
             {
-                string[] signal = WifiSettingInfo.signalStrength.Split('%');
-                int result = int.Parse(signal[0]);
-                if (result <= 20)
-                {
-                    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_1.png", UriKind.Relative));
-                }
-                else if (result > 20 && result <= 40)
-                {
-                    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_2.png", UriKind.Relative));
-                }
-                else if (result > 40 && result <= 70)
-                {
-                    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_3.png", UriKind.Relative));
-                }
-                else if (result > 70)
-                {
-                    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_4.png", UriKind.Relative));
-                }
+                //string[] signal = WifiSettingInfo.signalStrength.Split('%');
+                //int result = int.Parse(signal[0]);
+                //if (result <= 20)
+                //{
+                //    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_1.png", UriKind.Relative));
+                //}
+                //else if (result > 20 && result <= 40)
+                //{
+                //    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_2.png", UriKind.Relative));
+                //}
+                //else if (result > 40 && result <= 70)
+                //{
+                //    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_3.png", UriKind.Relative));
+                //}
+                //else if (result > 70)
+                //{
+                //    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_4.png", UriKind.Relative));
+                //}
+                tbSignalStrength.Text = WifiSettingInfo.signalStrength;
                 gridSignal.Visibility = Visibility.Visible;
             }            
 
@@ -184,32 +185,37 @@ namespace GenieWP8
             GenieSoapApi soapApi = new GenieSoapApi();
 
             Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-            while (attachDeviceAll == null || attachDeviceAll.Count == 0)
-            {
-                attachDeviceAll = await soapApi.GetAttachDevice();
-            }            
+            attachDeviceAll = await soapApi.GetAttachDevice();      
             UtilityTool util = new UtilityTool();
             var ipList = util.GetCurrentIpAddresses();
             string loacalIp = ipList.ToList()[0];
-            foreach (string key in attachDeviceAll.Keys)
+            if (attachDeviceAll.Count == 0)
             {
-                if (loacalIp == attachDeviceAll[key]["Ip"])
+                WifiSettingInfo.linkRate = "";
+                WifiSettingInfo.signalStrength = "";
+            } 
+            else
+            {
+                foreach (string key in attachDeviceAll.Keys)
                 {
-                    if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                    if (loacalIp == attachDeviceAll[key]["Ip"])
                     {
-                        WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                    }
-                    else
-                    {
-                        WifiSettingInfo.linkRate = "";
-                    }
-                    if (attachDeviceAll[key].ContainsKey("Signal"))
-                    {
-                        WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                    }
-                    else
-                    {
-                        WifiSettingInfo.signalStrength = "";
+                        if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                        {
+                            WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                        }
+                        else
+                        {
+                            WifiSettingInfo.linkRate = "";
+                        }
+                        if (attachDeviceAll[key].ContainsKey("Signal"))
+                        {
+                            WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        }
+                        else
+                        {
+                            WifiSettingInfo.signalStrength = "";
+                        }
                     }
                 }
             }

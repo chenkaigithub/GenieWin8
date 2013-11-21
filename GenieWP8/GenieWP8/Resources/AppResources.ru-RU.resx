@@ -586,7 +586,7 @@
     <value>Открыть доступ к файлам по сети</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>День</value>
@@ -1048,10 +1048,13 @@
   <data name="windowstablet" xml:space="preserve">
     <value>Планшет с ОС Windows</value>
   </data>
-  <data name="WifiEnabled" xml:space="preserve">
-    <value>НЕ ВКЛЮЧЕНО</value>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Не включено</value>
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Не подключен</value>
   </data>
 </root>
