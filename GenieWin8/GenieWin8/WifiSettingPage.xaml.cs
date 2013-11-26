@@ -97,32 +97,37 @@ namespace GenieWin8
             GenieSoapApi soapApi = new GenieSoapApi();
 
             Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-            while (attachDeviceAll == null || attachDeviceAll.Count == 0)
-            {
-                attachDeviceAll = await soapApi.GetAttachDevice();
-            }
+            attachDeviceAll = await soapApi.GetAttachDevice();
             UtilityTool util = new UtilityTool();
             string loacalIp = util.GetLocalHostIp();
-            foreach (string key in attachDeviceAll.Keys)
+            if (attachDeviceAll.Count == 0)
             {
-                if (loacalIp == attachDeviceAll[key]["Ip"])
+                WifiInfoModel.linkRate = "";
+                WifiInfoModel.signalStrength = "";
+            } 
+            else
+            {
+                foreach (string key in attachDeviceAll.Keys)
                 {
-                    if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                    if (loacalIp == attachDeviceAll[key]["Ip"])
                     {
-                        WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                        if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                        {
+                            WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                        }
+                        else
+                        {
+                            WifiInfoModel.linkRate = "";
+                        }
+                        if (attachDeviceAll[key].ContainsKey("Signal"))
+                        {
+                            WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        }
+                        else
+                        {
+                            WifiInfoModel.signalStrength = "";
+                        }
                     }
-                    else
-                    {
-                        WifiInfoModel.linkRate = "";
-                    }
-                    if (attachDeviceAll[key].ContainsKey("Signal"))
-                    {
-                        WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                    }
-                    else
-                    {
-                        WifiInfoModel.signalStrength = "";
-                    } 
                 }
             }
 
@@ -139,8 +144,12 @@ namespace GenieWin8
                 WifiInfoModel.changedChannel = dicResponse["NewChannel"];
                 WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                 WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
-            }           
-            dicResponse = await soapApi.GetWPASecurityKeys();
+            }
+            dicResponse = new Dictionary<string, string>();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetWPASecurityKeys();
+            }
             if (dicResponse.Count > 0)
             {
                 WifiInfoModel.password = dicResponse["NewWPAPassphrase"];

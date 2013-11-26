@@ -25,6 +25,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Graphics.Imaging;
 using System.Text.RegularExpressions;
+using Windows.Networking.Connectivity;
 
 // “项目页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234233 上提供
 
@@ -55,6 +56,34 @@ namespace GenieWin8
             // TODO: 创建适用于问题域的合适数据模型以替换示例数据
             var dataGroups = DataSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Items"] = dataGroups;
+
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            tbSsid.Text = loader.GetString("WifiDisconnected");
+            Uri _baseUri = new Uri("ms-appx:///");
+            imgWifi.Source = new BitmapImage(new Uri(_baseUri, "Assets/signal/nowifi.png"));
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        tbSsid.Text = connectionProfile.ProfileName;
+                        imgWifi.Source = new BitmapImage(new Uri(_baseUri, "Assets/signal/wirelessflag4.png"));
+                    }
+                    //if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                    //{
+                    //    tbSsid.Text = network.InterfaceName;
+                    //    imgWifi.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
+                    //}
+                }
+                //rootPage.NotifyUser(connectionProfileList, NotifyType.StatusMessage);
+            }
+            catch (Exception ex)
+            {
+                //rootPage.NotifyUser("Unexpected exception occured: " + ex.ToString(), NotifyType.ErrorMessage);
+            }
+
             if (MainPageInfo.bLogin)
             {
                 btnLogin.Visibility = Visibility.Collapsed;
@@ -93,32 +122,37 @@ namespace GenieWin8
                     PopupBackground.Visibility = Visibility.Visible;
 
                     Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-                    while (attachDeviceAll == null || attachDeviceAll.Count == 0)
-                    {
-                        attachDeviceAll = await soapApi.GetAttachDevice();
-                    }
+                    attachDeviceAll = await soapApi.GetAttachDevice();
                     UtilityTool util = new UtilityTool();
                     string loacalIp = util.GetLocalHostIp();
-                    foreach (string key in attachDeviceAll.Keys)
+                    if (attachDeviceAll.Count == 0)
                     {
-                        if (loacalIp == attachDeviceAll[key]["Ip"])
+                        WifiInfoModel.linkRate = "";
+                        WifiInfoModel.signalStrength = "";
+                    } 
+                    else
+                    {
+                        foreach (string key in attachDeviceAll.Keys)
                         {
-                            if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                            if (loacalIp == attachDeviceAll[key]["Ip"])
                             {
-                                WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                            } 
-                            else
-                            {
-                                WifiInfoModel.linkRate = "";
+                                if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                                {
+                                    WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                                }
+                                else
+                                {
+                                    WifiInfoModel.linkRate = "";
+                                }
+                                if (attachDeviceAll[key].ContainsKey("Signal"))
+                                {
+                                    WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                                }
+                                else
+                                {
+                                    WifiInfoModel.signalStrength = "";
+                                }
                             }
-                            if (attachDeviceAll[key].ContainsKey("Signal"))
-                            {
-                                WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                            } 
-                            else
-                            {
-                                WifiInfoModel.signalStrength = "";
-                            }                            
                         }
                     }
 
@@ -138,7 +172,11 @@ namespace GenieWin8
                         WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                         WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
                     }
-                    dicResponse = await soapApi.GetWPASecurityKeys();
+                    dicResponse = new Dictionary<string, string>();
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.GetWPASecurityKeys();
+                    }
                     if (dicResponse.Count > 0)
                     {
                         WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
@@ -230,12 +268,7 @@ namespace GenieWin8
                     PopupBackground.Visibility = Visibility.Visible;
                     UtilityTool util = new UtilityTool();
                     NetworkMapInfo.geteway = await util.GetGateway();
-                    Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                    while (responseDic == null || responseDic.Count == 0)
-                    {
-                        responseDic = await soapApi.GetAttachDevice();
-                    }
-                    NetworkMapInfo.attachDeviceDic = responseDic;
+                    NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
 
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     while (dicResponse == null || dicResponse.Count == 0)
@@ -364,12 +397,7 @@ namespace GenieWin8
                         if (dicResponse["ParentalControlSupported"] == "1")
                         {
                             ///通过attachDevice获取本机的Mac地址
-                            Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                            while (responseDic == null || responseDic.Count == 0)
-                            {
-                                responseDic = await soapApi.GetAttachDevice();
-                            }
-                            NetworkMapInfo.attachDeviceDic = responseDic;
+                            NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
 
                             Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                             while (dicResponse2 == null || dicResponse2.Count == 0)
@@ -499,11 +527,11 @@ namespace GenieWin8
             }
         }
 
-        private async void Policy_Click(Object sender, RoutedEventArgs e)
-        {
-            var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
-            await Windows.System.Launcher.LaunchUriAsync(uri);
-        }
+        //private async void Policy_Click(Object sender, RoutedEventArgs e)
+        //{
+        //    var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
+        //    await Windows.System.Launcher.LaunchUriAsync(uri);
+        //}
 
         private void CloseAboutButton_Click(Object sender, RoutedEventArgs e)
         {

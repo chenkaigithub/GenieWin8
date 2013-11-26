@@ -19,7 +19,7 @@
 
             <!-- 应用程序特定的资源-->
 
-            <x:String x:Key="AppName">GenieWin8</x:String>
+            <x:String x:Key="AppName">GenieWin8</x:String>            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -90,6 +90,33 @@
             IsItemClickEnabled="True"
             ItemClick="ItemView_ItemClick"/>
 
+        <!-- 后退按钮和页标题-->
+        <Grid>
+            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+            <!--<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>-->
+            <StackPanel>
+                <Grid>
+                    <!--<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>-->
+                    <!--<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>-->
+                    <Image Source="Assets/MainPage/logo_left.png" Height="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Image Source="Assets/NETGEAR_Genie_Logo.png" Grid.Column="1" Width="500" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0"/>
+                </Grid>
+                <Grid Height="60" HorizontalAlignment="Stretch">
+                    <Grid.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/statusBar_bg.png"/>
+                    </Grid.Background>
+                    <Image x:Name="imgWifi" Height="30" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                    <TextBlock x:Name="tbSsid" FontSize="22" Foreground="White" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" TextTrimming="WordEllipsis"/>
+                    <Grid x:Name="SearchGrid" Margin="0,5,0,5" HorizontalAlignment="Stretch" GotFocus="SearchGrid_GotFocus" LostFocus="SearchGrid_LostFocus">
+                        <Image x:Name="seach_bg_left" Source="Assets/MainPage/search_normal_left.png" Height="55" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="190,0,0,0"/>
+                        <Image x:Name="seach_bg_middle" Source="Assets/MainPage/search_normal_middle.png" Height="55" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="219,0,39,0" Stretch="Fill"/>
+                        <Image x:Name="seach_bg_right" Source="Assets/MainPage/search_normal_right.png" Height="55" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBox x:Name="SearchText" FontSize="30" Margin="215,0,70,0" Padding="0" BorderThickness="0" Height="45" Background="White"/>
+                        <Image Source="Assets/MainPage/search_ico.png" Height="40" Margin="0,0,20,0" HorizontalAlignment="Right" PointerReleased="Image_PointerReleased"/>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </Grid>
 
         <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
         <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="#FF5A5A5A"  Opacity="0.9" Visibility="Collapsed">
@@ -126,8 +153,8 @@
                         </StackPanel>
                         <TextBlock x:Uid="Copyright" FontSize="20" Margin="10,0,0,0" Foreground="White"/>
                         <TextBlock x:Uid="RightsReserved" FontSize="20" Margin="10,0,0,0" Foreground="White"/>
-                        <HyperlinkButton x:Uid="PrivacyPolicy" Tag="http://www.netgear.com/about/privacypolicy/"
-                                         Click="Policy_Click" FontSize="20" Margin="10,0,0,0" HorizontalContentAlignment="Left" Padding="0" Foreground="BlueViolet"/>
+                        <HyperlinkButton x:Uid="PrivacyPolicy" NavigateUri="http://www.netgear.com/about/privacypolicy/"
+                                         FontSize="20" Margin="10,0,0,0" HorizontalContentAlignment="Left" Padding="0" Foreground="BlueViolet"/>
                         <TextBlock x:Uid="Support" FontSize="20" Margin="10,0,0,0" Foreground="White"/>
                     </StackPanel>
                 </ScrollViewer>
@@ -153,10 +180,9 @@
                         <StackPanel>
                             <TextBlock x:Uid="Terms_Conditions" FontSize="24" Margin="0,10,0,0"/>
                             <TextBlock Text="NETGEAR Genie is distributed under license. No title to or ownership rights in NETGEAR Genie or any portion of NETGEAR Genie are transferred. The end user of NETGEAR Genie agrees not to reverse engineer, decompile, disassemble or otherwise attempt to discover the source code."
-                           FontSize="20" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                                       FontSize="20" Margin="0,10,0,0" TextWrapping="Wrap"/>
                             <TextBlock x:Uid="within_distribution" FontSize="24" Margin="0,20,0,0"/>
-                            <TextBlock Text="Neptune C++ Runtime System"
-                           FontSize="20" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                            <TextBlock Text="Neptune C++ Runtime System" FontSize="20" Margin="0,10,0,0" TextWrapping="Wrap"/>
                             <TextBlock Text="----------------------------------------" FontSize="20"/>
                             <TextBlock Text="This software is provided under the following license:" FontSize="20" Margin="0,10,0,0" TextWrapping="Wrap"/>
                             <TextBlock FontSize="20" Margin="0,10,0,0" TextWrapping="Wrap">
@@ -185,33 +211,6 @@
                         Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" BorderThickness="3"  BorderBrush="White" Foreground="White" Background="{x:Null}"/>
             </StackPanel>
         </Popup>
-
-
-        <!-- 后退按钮和页标题-->
-        <Grid>
-            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <!--<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>-->
-            <StackPanel>
-                <Grid>
-                    <!--<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>-->
-                    <!--<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>-->
-                    <Image Source="Assets/MainPage/logo_left.png" Height="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <Image Source="Assets/NETGEAR_Genie_Logo.png" Grid.Column="1" Width="500" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0"/>
-                </Grid>
-                <Grid Height="60" HorizontalAlignment="Stretch">
-                    <Grid.Background>
-                        <ImageBrush Stretch="Fill" ImageSource="/Assets/MainPage/statusBar_bg.png"/>
-                    </Grid.Background>
-                    <Grid x:Name="SearchGrid" Margin="0,5,0,5" HorizontalAlignment="Stretch" GotFocus="SearchGrid_GotFocus" LostFocus="SearchGrid_LostFocus">
-                        <Image x:Name="seach_bg_left" Source="Assets/MainPage/search_normal_left.png" Height="55" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <Image x:Name="seach_bg_middle" Source="Assets/MainPage/search_normal_middle.png" Height="58" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="36,0,41,0" Stretch="Fill"/>
-                        <Image x:Name="seach_bg_right" Source="Assets/MainPage/search_normal_right.png" Height="55" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <TextBox x:Name="SearchText" FontSize="30" Margin="35,0,70,0" Padding="0" BorderThickness="0" Height="45" Background="White"/>
-                        <Image Source="Assets/MainPage/search_ico.png" Height="40" Margin="0,0,20,0" HorizontalAlignment="Right" PointerReleased="Image_PointerReleased"/>
-                    </Grid>
-                </Grid>
-            </StackPanel>
-        </Grid>
 
         <VisualStateManager.VisualStateGroups>
 

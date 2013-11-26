@@ -72,166 +72,180 @@ namespace GenieWin8.Data
             var routerGroup = new DeviceGroup(NodeRouter);
             this.DeviceGroups.Add(routerGroup);
 
-            foreach (string key in attachDeviceAll.Keys)                                                //先找出本设备放在设备列表第二个（第一个位路由器）
+            if (attachDeviceAll.Count == 0)
             {
                 Node NodeDevice = new Node();
-
-                if (loacalIp == attachDeviceAll[key]["Ip"])
+                NodeDevice.uniqueId = "LocalDevice";
+                NodeDevice.deviceName = "Win8 Tablet/PC";
+                NodeDevice.IPaddress = loacalIp;
+                NodeDevice.MACaddress = "";
+                NodeDevice.AccessControl = "";
+                var group = new DeviceGroup(NodeDevice);
+                this.DeviceGroups.Add(group);
+            } 
+            else
+            {
+                foreach (string key in attachDeviceAll.Keys)                                                //先找出本设备放在设备列表第二个（第一个位路由器）
                 {
-                    NodeDevice.uniqueId = "LocalDevice";
-                    bool bFound = false;
-                    if (NetworkMapInfo.fileContent != "")
-                    {
-                        string[] AllDeviceInfo = NetworkMapInfo.fileContent.Split(';');
-                        for (int i = 0; i < AllDeviceInfo.Length; i++)
-                        {
-                            if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
-                            {
-                                string[] DeviceInfo = AllDeviceInfo[i].Split(',');
-                                if (DeviceInfo[0] == key)
-                                {
-                                    bFound = true;
-                                    if (DeviceInfo[1] != "")
-                                        NodeDevice.deviceName = DeviceInfo[1];
-                                    else
-                                        NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+                    Node NodeDevice = new Node();
 
-                                    if (DeviceInfo[2] != "")
-                                        NodeDevice.deviceType = DeviceInfo[2];
-                                    else
-                                        NodeDevice.deviceType = "networkdev";
+                    if (loacalIp == attachDeviceAll[key]["Ip"])
+                    {
+                        NodeDevice.uniqueId = "LocalDevice";
+                        bool bFound = false;
+                        if (NetworkMapInfo.fileContent != "")
+                        {
+                            string[] AllDeviceInfo = NetworkMapInfo.fileContent.Split(';');
+                            for (int i = 0; i < AllDeviceInfo.Length; i++)
+                            {
+                                if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
+                                {
+                                    string[] DeviceInfo = AllDeviceInfo[i].Split(',');
+                                    if (DeviceInfo[0] == key)
+                                    {
+                                        bFound = true;
+                                        if (DeviceInfo[1] != "")
+                                            NodeDevice.deviceName = DeviceInfo[1];
+                                        else
+                                            NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+
+                                        if (DeviceInfo[2] != "")
+                                            NodeDevice.deviceType = DeviceInfo[2];
+                                        else
+                                            NodeDevice.deviceType = "networkdev";
+                                    }
                                 }
                             }
+                            if (!bFound)
+                            {
+                                NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+                                NodeDevice.deviceType = "networkdev";
+                            }
                         }
-                        if (!bFound)
+                        else
                         {
                             NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
                             NodeDevice.deviceType = "networkdev";
                         }
-                    }
-                    else
-                    {
-                        NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
-                        NodeDevice.deviceType = "networkdev";
-                    }
-                    NodeDevice.IPaddress = attachDeviceAll[key]["Ip"];
-                    if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
-                    {
-                        NodeDevice.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                    }
-                    else
-                    {
-                        NodeDevice.linkRate = "Mbps";
-                    }
-
-                    if (attachDeviceAll[key].ContainsKey("Signal"))
-                    {
-                        NodeDevice.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                    }
-                    else
-                    {
-                        NodeDevice.signalStrength = "%";
-                    }
-                    
-                    NodeDevice.MACaddress = key;
-                    NodeDevice.connectType = attachDeviceAll[key]["Connect"];
-                    if (attachDeviceAll[key].ContainsKey("AccessControl"))
-                    {
-                        NodeDevice.AccessControl = attachDeviceAll[key]["AccessControl"];
-                    }
-                    else
-                    {
-                        NodeDevice.AccessControl = "";
-                    }
-                    //var group = new DeviceGroup(NodeDevice);
-                    var group = new DeviceGroup(NodeDevice);
-                    this.DeviceGroups.Add(group);
-                }
-            }
-
-            int num = 0;
-            foreach (string key in attachDeviceAll.Keys)
-            {
-                num++;
-                Node NodeDevice = new Node();
-
-                if (loacalIp != attachDeviceAll[key]["Ip"])
-                {
-                    NodeDevice.uniqueId = "Device" + num.ToString();
-                    bool bFound = false;
-                    if (NetworkMapInfo.fileContent != "")
-                    {
-                        string[] AllDeviceInfo = NetworkMapInfo.fileContent.Split(';');
-                        for (int i = 0; i < AllDeviceInfo.Length; i++)
+                        NodeDevice.IPaddress = attachDeviceAll[key]["Ip"];
+                        if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
                         {
-                            if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
-                            {
-                                string[] DeviceInfo = AllDeviceInfo[i].Split(',');
-                                if (DeviceInfo[0] == key)
-                                {
-                                    bFound = true;
-                                    if (DeviceInfo[1] != "")
-                                        NodeDevice.deviceName = DeviceInfo[1];
-                                    else
-                                        NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+                            NodeDevice.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                        }
+                        else
+                        {
+                            NodeDevice.linkRate = "Mbps";
+                        }
 
-                                    if (DeviceInfo[2] != "")
-                                        NodeDevice.deviceType = DeviceInfo[2];
-                                    else
-                                        NodeDevice.deviceType = "networkdev";
+                        if (attachDeviceAll[key].ContainsKey("Signal"))
+                        {
+                            NodeDevice.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        }
+                        else
+                        {
+                            NodeDevice.signalStrength = "%";
+                        }
+
+                        NodeDevice.MACaddress = key;
+                        NodeDevice.connectType = attachDeviceAll[key]["Connect"];
+                        if (attachDeviceAll[key].ContainsKey("AccessControl"))
+                        {
+                            NodeDevice.AccessControl = attachDeviceAll[key]["AccessControl"];
+                        }
+                        else
+                        {
+                            NodeDevice.AccessControl = "";
+                        }
+                        //var group = new DeviceGroup(NodeDevice);
+                        var group = new DeviceGroup(NodeDevice);
+                        this.DeviceGroups.Add(group);
+                    }
+                }   //foreach
+
+                int num = 0;
+                foreach (string key in attachDeviceAll.Keys)
+                {
+                    num++;
+                    Node NodeDevice = new Node();
+
+                    if (loacalIp != attachDeviceAll[key]["Ip"])
+                    {
+                        NodeDevice.uniqueId = "Device" + num.ToString();
+                        bool bFound = false;
+                        if (NetworkMapInfo.fileContent != "")
+                        {
+                            string[] AllDeviceInfo = NetworkMapInfo.fileContent.Split(';');
+                            for (int i = 0; i < AllDeviceInfo.Length; i++)
+                            {
+                                if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
+                                {
+                                    string[] DeviceInfo = AllDeviceInfo[i].Split(',');
+                                    if (DeviceInfo[0] == key)
+                                    {
+                                        bFound = true;
+                                        if (DeviceInfo[1] != "")
+                                            NodeDevice.deviceName = DeviceInfo[1];
+                                        else
+                                            NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+
+                                        if (DeviceInfo[2] != "")
+                                            NodeDevice.deviceType = DeviceInfo[2];
+                                        else
+                                            NodeDevice.deviceType = "networkdev";
+                                    }
+                                    //else
+                                    //{
+                                    //    NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+                                    //    NodeDevice.deviceType = "networkdev";
+                                    //}
                                 }
-                                //else
-                                //{
-                                //    NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
-                                //    NodeDevice.deviceType = "networkdev";
-                                //}
+                            }
+                            if (!bFound)
+                            {
+                                NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+                                NodeDevice.deviceType = "networkdev";
                             }
                         }
-                        if (!bFound)
+                        else
                         {
                             NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
                             NodeDevice.deviceType = "networkdev";
                         }
-                    }
-                    else
-                    {
-                        NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
-                        NodeDevice.deviceType = "networkdev";
-                    }
-                    //NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
-                    //NodeDevice.deviceType = attachDeviceAll[key]["Connect"];
-                    NodeDevice.IPaddress = attachDeviceAll[key]["Ip"];
-                    if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
-                    {
-                        NodeDevice.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                    }
-                    else
-                    {
-                        NodeDevice.linkRate = "Mbps";
-                    }
+                        //NodeDevice.deviceName = attachDeviceAll[key]["HostName"];
+                        //NodeDevice.deviceType = attachDeviceAll[key]["Connect"];
+                        NodeDevice.IPaddress = attachDeviceAll[key]["Ip"];
+                        if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                        {
+                            NodeDevice.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                        }
+                        else
+                        {
+                            NodeDevice.linkRate = "Mbps";
+                        }
 
-                    if (attachDeviceAll[key].ContainsKey("Signal"))
-                    {
-                        NodeDevice.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        if (attachDeviceAll[key].ContainsKey("Signal"))
+                        {
+                            NodeDevice.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        }
+                        else
+                        {
+                            NodeDevice.signalStrength = "%";
+                        }
+                        NodeDevice.MACaddress = key;
+                        NodeDevice.connectType = attachDeviceAll[key]["Connect"];
+                        if (attachDeviceAll[key].ContainsKey("AccessControl"))
+                        {
+                            NodeDevice.AccessControl = attachDeviceAll[key]["AccessControl"];
+                        }
+                        else
+                        {
+                            NodeDevice.AccessControl = "";
+                        }
+                        var group = new DeviceGroup(NodeDevice);
+                        this.DeviceGroups.Add(group);
                     }
-                    else
-                    {
-                        NodeDevice.signalStrength = "%";
-                    }
-                    NodeDevice.MACaddress = key;
-                    NodeDevice.connectType = attachDeviceAll[key]["Connect"];
-                    if (attachDeviceAll[key].ContainsKey("AccessControl"))
-                    {
-                        NodeDevice.AccessControl = attachDeviceAll[key]["AccessControl"];
-                    }
-                    else
-                    {
-                        NodeDevice.AccessControl = "";
-                    }
-                    var group = new DeviceGroup(NodeDevice);
-                    this.DeviceGroups.Add(group);
-                }               
-            }
+                }   //foreach
+            }   //else
         }
     }
 }

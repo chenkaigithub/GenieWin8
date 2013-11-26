@@ -260,7 +260,7 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6" SizeChanged="OnWindowSizeChanged">
         <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
@@ -323,7 +323,7 @@
                 </Grid.Background>
                 <Image Height="40" Source="/Assets/LoginPage/password.png" HorizontalAlignment="Left" Margin="15,0,0,0"/>
                 <Image Source="/Assets/LoginPage/SplitLine.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="70,5,0,5"/>
-                <PasswordBox x:Name="tbPassword" HorizontalAlignment="Stretch" Margin="71,2,2,2" Background="White" BorderThickness="0" Foreground="Black" FontSize="40"/>
+                <PasswordBox x:Name="tbPassword" HorizontalAlignment="Stretch" Margin="71,2,2,2" Background="White" BorderThickness="0" Foreground="Black" FontSize="40" IsPasswordRevealButtonEnabled="True"/>
             </Grid>
             <TextBlock x:Uid="PasswordTips" x:Name="PasswordTips" FontSize="35" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Foreground="#3C3C3C" Margin="0,15,0,0"/>
             <CheckBox x:Name="checkRememberPassword" x:Uid="RememberPasswordCheckBox" FontSize="35" HorizontalAlignment="Left" Margin="60,0,0,0" IsChecked="True" Foreground="#3C3C3C" Padding="10,0,0,0" Style="{StaticResource CheckBoxStyle1}"/>
@@ -345,6 +345,23 @@
                 <TextBlock x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Foreground="White"/>
             </StackPanel>
         </Grid>
+
+        <Popup x:Name="LoginalertPopup" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,2000,130">
+            <!--<local:PopupLicense/>-->
+            <StackPanel x:Name="stpLoginalertinfo" Background="White">
+                <StackPanel Width="650" Margin="25,20">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Uid="login_alertinfo1" FontSize="15" TextWrapping="Wrap"/>
+                        <HyperlinkButton x:Uid="hlbtnSupport" NavigateUri="http://www.netgear.com/landing/en-us/netgear-genie-routers.aspx"
+                                         FontSize="15" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="0,-5">
+                        </HyperlinkButton>
+                    </StackPanel>
+                    <TextBlock x:Uid="login_alertinfo2" FontSize="15" TextWrapping="Wrap"/>
+                    <Button x:Uid="CloseButton" x:Name="CloseButton" Width="100" Click="CloseButton_Click" HorizontalAlignment="Right" Margin="0,10,0,0" Background="#3030FF" Foreground="White"
+                            BorderThickness="2" BorderBrush="#3030FF" PointerEntered="Button_PointerEntered" PointerExited="CloseButton_PointerExited"/> 
+                </StackPanel>
+            </StackPanel>
+        </Popup>
 
         <VisualStateManager.VisualStateGroups>
 

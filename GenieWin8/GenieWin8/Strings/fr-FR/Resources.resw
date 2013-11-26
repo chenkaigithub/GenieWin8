@@ -486,7 +486,7 @@
     <value>Minute</value>
   </data>
   <data name="Support.Text" xml:space="preserve">
-    <value>Développé par SiteView</value>
+    <value>Développé par BIGIT.COM</value>
   </data>
   <data name="Terms_Conditions.Text" xml:space="preserve">
     <value>Conditions générales</value>
@@ -682,7 +682,7 @@
     <value>Scanner</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>Autre décodeur</value>
@@ -950,7 +950,7 @@
     <value>Le champ Nom d'utilisateur ou Mot de passe est vide.</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>Le mot de passe est copié dans le presse-papiers. Pour connecter ce réseau, sélectionnez Paramètres &gt; WLAN.</value>
+    <value>Le mot de passe est copié dans le presse-papiers. Pour connecter ce réseau, sélectionnez Réseaux &gt; Wi-Fi.</value>
   </data>
   <data name="txtRouterFirmware" xml:space="preserve">
     <value>Version du micrologiciel (firmware)</value>
@@ -984,5 +984,26 @@
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone 5/5S/5C</value>
+  </data>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Non active</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Non connecté</value>
+  </data>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="hlbtnSupport.Content" xml:space="preserve">
+    <value>(Soutien)</value>
+  </data>
+  <data name="login_alertinfo1.Text" xml:space="preserve">
+    <value>Routeur NETGEAR introuvable ou non pris en charge.</value>
+  </data>
+  <data name="login_alertinfo2.Text" xml:space="preserve">
+    <value>Assurez-vous également que le périphérique n'est pas connecté au réseau invité du routeur et qu'aucun protocole IPv6 n'est activé.</value>
   </data>
 </root>

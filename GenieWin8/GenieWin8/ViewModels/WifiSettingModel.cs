@@ -257,10 +257,19 @@ namespace GenieWin8.Data
             this.EditChannelSecurity.Add(group3);
             this.SettingGroups.Add(group3);
 
+            string SecurityType;
+            if (WifiInfoModel.changedSecurityType == "WPA-PSK/WPA2-PSK")
+            {
+                SecurityType = "WPA-PSK+WPA2-PSK";
+            } 
+            else
+            {
+                SecurityType = WifiInfoModel.changedSecurityType;
+            }
             strTitle = loader.GetString("Security");
             var group4 = new SettingGroup("Security",
                 strTitle,
-                WifiInfoModel.changedSecurityType);
+                SecurityType);
             var strContent = loader.GetString("Security_None");
             group4.Items.Add(new SettingItem("Security-1",
                 "Security",

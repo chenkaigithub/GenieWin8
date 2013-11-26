@@ -265,7 +265,7 @@
     <value>Copyright (c) 2013, NETGEAR Inc.</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>The password is copied to the clipboard. To connect this network, select Settings &gt; WLAN.</value>
+    <value>The password is copied to the clipboard. To connect this network, select Networks &gt; Wi-Fi.</value>
   </data>
   <data name="CounterStartTime" xml:space="preserve">
     <value>Counter Start Time</value>
@@ -437,7 +437,7 @@
     <value>iPhone</value>
   </data>
   <data name="iphone5" xml:space="preserve">
-    <value>iPhone5</value>
+    <value>iPhone 5/5S/5C</value>
   </data>
   <data name="ipodtouch" xml:space="preserve">
     <value>iPod Touch</value>
@@ -623,7 +623,7 @@
     <value>P2P/File sharing</value>
   </data>
   <data name="ParentalControl" xml:space="preserve">
-    <value>Parental Control</value>
+    <value>Parental Controls</value>
     <comment>Parental Control</comment>
   </data>
   <data name="ParentalControlPageTitle.Text" xml:space="preserve">
@@ -779,7 +779,7 @@
     <value>Share files in network</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="SocialNetworking.Content" xml:space="preserve">
     <value>Social Networking</value>
@@ -811,7 +811,7 @@
     <value>Other STB</value>
   </data>
   <data name="Support.Text" xml:space="preserve">
-    <value>Powered by SiteView</value>
+    <value>Powered by BIGIT.COM</value>
   </data>
   <data name="switchdev" xml:space="preserve">
     <value>Switch</value>
@@ -1014,5 +1014,23 @@
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Not Enabled</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Not Connected</value>
+  </data>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="hlbtnSupport.Content" xml:space="preserve">
+    <value>(Support)</value>
+  </data>
+  <data name="login_alertinfo1.Text" xml:space="preserve">
+    <value>NETGEAR router is not found or is not supported.</value>
+  </data>
+  <data name="login_alertinfo2.Text" xml:space="preserve">
+    <value>Also make sure the device is not connected to the guest network of the router, and no IPv6 is enabled.</value>
   </data>
 </root>

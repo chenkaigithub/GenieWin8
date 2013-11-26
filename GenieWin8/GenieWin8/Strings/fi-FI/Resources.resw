@@ -486,7 +486,7 @@
     <value>Minuutit</value>
   </data>
   <data name="Support.Text" xml:space="preserve">
-    <value>Powered by SiteView</value>
+    <value>Powered by BIGIT.COM</value>
   </data>
   <data name="Terms_Conditions.Text" xml:space="preserve">
     <value>Käyttöehdot</value>
@@ -682,7 +682,7 @@
     <value>Skanneri</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>Muu digisovitin</value>
@@ -950,7 +950,7 @@
     <value>Käyttäjätunnus- tai salasanakenttä on tyhjä.</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>Salasana kopioidaan leikepöydälle. Muodosta yhteys tähän verkkoon valitsemalla asetukset &gt; WLAN.</value>
+    <value>Salasana kopioidaan leikepöydälle. Muodosta yhteys tähän verkkoon valitsemalla verkot &gt; Wi-Fi.</value>
   </data>
   <data name="txtRouterFirmware" xml:space="preserve">
     <value>Laiteohjelman versio</value>
@@ -984,5 +984,26 @@
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone 5/5S/5C</value>
+  </data>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Ei Käytössä</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Ei yhdistetty</value>
+  </data>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="hlbtnSupport.Content" xml:space="preserve">
+    <value>(Tuki)</value>
+  </data>
+  <data name="login_alertinfo1.Text" xml:space="preserve">
+    <value>NETGEAR-reititintä ei löydy tai sitä ei tueta.</value>
+  </data>
+  <data name="login_alertinfo2.Text" xml:space="preserve">
+    <value>Varmista myös, että laitetta ei ole liitetty reitittimen vierasverkkoon eikä IPv6 ole käytössä.</value>
   </data>
 </root>

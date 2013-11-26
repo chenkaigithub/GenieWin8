@@ -173,8 +173,12 @@ namespace GenieWin8
                 WifiInfoModel.changedChannel = dicResponse["NewChannel"];
                 WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                 WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
-            }            
-            dicResponse = await soapApi.GetWPASecurityKeys();
+            }
+            dicResponse = new Dictionary<string, string>();
+            while (dicResponse == null || dicResponse.Count == 0)
+            {
+                dicResponse = await soapApi.GetWPASecurityKeys();
+            }
             if (dicResponse.Count > 0)
             {
                 WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
@@ -279,7 +283,7 @@ namespace GenieWin8
             string password = pwd.Text.Trim();
             if (ssid != "" && ssid != null)
             {
-                if (WifiInfoModel.securityType.CompareTo("None") == 0)
+                if (WifiInfoModel.changedSecurityType.CompareTo("None") == 0)
                 {
                     timer.Interval = TimeSpan.FromSeconds(1);
                     timer.Tick += new System.EventHandler<object>(timer_Tick);

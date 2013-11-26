@@ -486,7 +486,7 @@
     <value>Minúta</value>
   </data>
   <data name="Support.Text" xml:space="preserve">
-    <value>Prevádzkované na báze technológie SiteView</value>
+    <value>Prevádzkované na báze technológie BIGIT.COM</value>
   </data>
   <data name="Terms_Conditions.Text" xml:space="preserve">
     <value>Podmienky a požiadavky</value>
@@ -682,7 +682,7 @@
     <value>Skener</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>Iné STB</value>
@@ -950,7 +950,7 @@
     <value>Pole používateľského mena alebo hesla je prázdne.</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>Heslo sa skopírovalo do schránky. Ak sa chcete pripojiť k tejto sieti, vyberte možnosť Nastavenia &gt; WLAN.</value>
+    <value>Heslo sa skopírovalo do schránky. Ak sa chcete pripojiť k tejto sieti, vyberte možnosť siete &gt; Wi-Fi.</value>
   </data>
   <data name="txtRouterFirmware" xml:space="preserve">
     <value>Verzia firmvéru</value>
@@ -984,5 +984,26 @@
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone 5/5S/5C</value>
+  </data>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Nepovolené</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Nie je pripojené</value>
+  </data>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Zavrieť</value>
+  </data>
+  <data name="hlbtnSupport.Content" xml:space="preserve">
+    <value>(Podpora)</value>
+  </data>
+  <data name="login_alertinfo1.Text" xml:space="preserve">
+    <value>Smerovač NETGEAR sa nenašiel alebo nie je podporovaný.</value>
+  </data>
+  <data name="login_alertinfo2.Text" xml:space="preserve">
+    <value>Overte, či zariadenie nie je pripojené k hostiteľskej sieti smerovača a či nie je povolený žiadny protokol IPv6.</value>
   </data>
 </root>

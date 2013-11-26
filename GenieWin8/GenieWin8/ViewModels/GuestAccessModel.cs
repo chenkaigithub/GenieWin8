@@ -202,9 +202,9 @@ namespace GenieWin8.Data
 
             strTitle = loader.GetString("Security");
             string securityType;
-            if (GuestAccessInfoModel.changedSecurityType == "Mixed WPA")
+            if (GuestAccessInfoModel.changedSecurityType == "Mixed WPA" || GuestAccessInfoModel.changedSecurityType == "WPA-PSK/WPA2-PSK")
             {
-                securityType = "WPA-PSK/WPA2-PSK";
+                securityType = "WPA-PSK+WPA2-PSK";
             } 
             else
             {

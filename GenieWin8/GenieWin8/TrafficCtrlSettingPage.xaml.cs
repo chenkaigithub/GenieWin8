@@ -90,20 +90,24 @@ namespace GenieWin8
         //判断每月限制是否更改以及保存按钮是否可点击
         private void monthlyLimit_changed(Object sender, RoutedEventArgs e)
         {
-            string MonthlyLimit = monthlyLimit.Text;
-            if (MonthlyLimit.Contains("."))
+            if (DeleteCharPos != -1)
             {
-                int index = MonthlyLimit.IndexOf(".");
-                MonthlyLimit = MonthlyLimit.Remove(index, 1);
+                monthlyLimit.Text = monthlyLimit.Text.Remove(DeleteCharPos, 1);
+                monthlyLimit.SelectionStart = DeleteCharPos;
+                DeleteCharPos = -1;
             }
-            if (MonthlyLimit.Length > 1)
+            //if (monthlyLimit.Text.Contains("."))
+            //{
+            //    int index = monthlyLimit.Text.IndexOf(".");
+            //    monthlyLimit.Text = monthlyLimit.Text.Remove(index, 1);
+            //}
+            if (monthlyLimit.Text.Length > 1)
             {
-                while (MonthlyLimit.IndexOf("0") == 0)
+                while (monthlyLimit.Text.IndexOf("0") == 0)
                 {
-                    MonthlyLimit = MonthlyLimit.Remove(0, 1);
+                    monthlyLimit.Text = monthlyLimit.Text.Remove(0, 1);
                 }
             }
-            monthlyLimit.Text = MonthlyLimit;
             TrafficMeterInfoModel.changedMonthlyLimit = monthlyLimit.Text.Trim();
             TrafficMeterInfoModel.changedRestartHour = restartHour.Text.Trim();
             TrafficMeterInfoModel.changedRestartMinute = restartMinute.Text.Trim();
@@ -139,6 +143,12 @@ namespace GenieWin8
         //判断重启时间-小时是否更改以及保存按钮是否可点击
         private void restartHour_changed(Object sender, RoutedEventArgs e)
         {
+            if (DeleteCharPos != -1)
+            {
+                restartHour.Text = restartHour.Text.Remove(DeleteCharPos, 1);
+                restartHour.SelectionStart = DeleteCharPos;
+                DeleteCharPos = -1;
+            }
             //string RestartHour = restartHour.Text;
             if (restartHour.Text.Contains("."))
             {
@@ -190,6 +200,12 @@ namespace GenieWin8
         //判断重启时间-分钟是否更改以及保存按钮是否可点击
         private void restartMinute_changed(Object sender, RoutedEventArgs e)
         {
+            if (DeleteCharPos != -1)
+            {
+                restartMinute.Text = restartMinute.Text.Remove(DeleteCharPos, 1);
+                restartMinute.SelectionStart = DeleteCharPos;
+                DeleteCharPos = -1;
+            }
             //string RestartMin = restartMinute.Text;
             if (restartMinute.Text.Contains("."))
             {
@@ -385,6 +401,37 @@ namespace GenieWin8
                     var messageDialog = new MessageDialog("MonthlyLimit must be between 0 and 999999.");
                     await messageDialog.ShowAsync();
                 }
+            }
+        }
+
+        int DeleteCharPos = -1;
+        private void Textbox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            if (e.Key != Windows.System.VirtualKey.Number0 && e.Key != Windows.System.VirtualKey.Number1 && e.Key != Windows.System.VirtualKey.Number2 && e.Key != Windows.System.VirtualKey.Number3
+                && e.Key != Windows.System.VirtualKey.Number4 && e.Key != Windows.System.VirtualKey.Number5 && e.Key != Windows.System.VirtualKey.Number6 && e.Key != Windows.System.VirtualKey.Number7
+                && e.Key != Windows.System.VirtualKey.Number8 && e.Key != Windows.System.VirtualKey.Number9 && e.Key != Windows.System.VirtualKey.NumberPad0 && e.Key != Windows.System.VirtualKey.NumberPad1
+                && e.Key != Windows.System.VirtualKey.NumberPad2 && e.Key != Windows.System.VirtualKey.NumberPad3 && e.Key != Windows.System.VirtualKey.NumberPad4 && e.Key != Windows.System.VirtualKey.NumberPad5
+                && e.Key != Windows.System.VirtualKey.NumberPad6 && e.Key != Windows.System.VirtualKey.NumberPad7 && e.Key != Windows.System.VirtualKey.NumberPad8 && e.Key != Windows.System.VirtualKey.NumberPad9
+                && e.Key != Windows.System.VirtualKey.Back && e.Key != Windows.System.VirtualKey.Delete)
+            {
+                if (tb.Name == "monthlyLimit")
+                {
+                    DeleteCharPos = monthlyLimit.SelectionStart;
+                }
+                else if (tb.Name == "restartHour")
+                {
+                    DeleteCharPos = restartHour.SelectionStart;
+                }
+                else if (tb.Name == "restartMinute")
+                {
+                    DeleteCharPos = restartMinute.SelectionStart;
+                }
+            }
+            else
+            {
+                DeleteCharPos = -1;
+                base.OnKeyDown(e);
             }
         }
     }

@@ -51,8 +51,8 @@ namespace GenieWin8
             }
             catch (System.Exception ex)
             {
-                var messageDialog = new MessageDialog("API:Authenticate failed! press 'OK' to retry.");
-                messageDialog.ShowAsync();
+                //var messageDialog = new MessageDialog("API:Authenticate failed! press 'OK' to retry.");
+                //messageDialog.ShowAsync();
                 return null;
             }
         }
@@ -155,8 +155,8 @@ namespace GenieWin8
             }
             catch (System.Exception ex)
             {
-                var messageDialog = new MessageDialog("API:GetWPASecurityKeys failed! press 'OK' to retry.");
-                messageDialog.ShowAsync();
+                //var messageDialog = new MessageDialog("API:GetWPASecurityKeys failed! press 'OK' to retry.");
+                //messageDialog.ShowAsync();
                 return null;
             }
         }
@@ -480,8 +480,8 @@ namespace GenieWin8
             }
             catch (System.Exception ex)
             {
-                var messageDialog = new MessageDialog("API:EnableTrafficMeter failed! press 'OK' to retry.");
-                messageDialog.ShowAsync();
+                //var messageDialog = new MessageDialog("API:EnableTrafficMeter failed! press 'OK' to retry.");
+                //messageDialog.ShowAsync();
                 return null;
             }
         }

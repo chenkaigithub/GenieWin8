@@ -234,6 +234,7 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\devices\amazonkindle.png" />
     <Content Include="Assets\devices\androiddevice.png" />
     <Content Include="Assets\devices\androidphone.png" />
     <Content Include="Assets\devices\androidtablet.png" />
@@ -364,6 +365,7 @@
     <Content Include="Assets\router\wpn824.png" />
     <Content Include="Assets\router\wpn824ext.png" />
     <Content Include="Assets\router\wpn824n.png" />
+    <Content Include="Assets\signal\nowifi.png" />
     <Content Include="Assets\signal\signal_13.png" />
     <Content Include="Assets\signal\signal_13s.png" />
     <Content Include="Assets\signal\signal_23.png" />

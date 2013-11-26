@@ -486,7 +486,7 @@
     <value>دقيقة</value>
   </data>
   <data name="Support.Text" xml:space="preserve">
-    <value>يتم التشغيل بواسطة SiteView</value>
+    <value>يتم التشغيل بواسطة BIGIT.COM</value>
   </data>
   <data name="Terms_Conditions.Text" xml:space="preserve">
     <value>البنود والشروط</value>
@@ -682,7 +682,7 @@
     <value>ماسحة ضوئية</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>STB آخر</value>
@@ -950,7 +950,7 @@
     <value>إن حقل اسم المستخدم أو كلمة المرور فارغ.</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>تم نسخ كلمة المرور إلى الحافظة. للاتصال بهذه الشبكة، حدد إعدادات &gt; WLAN.</value>
+    <value>تم نسخ كلمة المرور إلى الحافظة. للاتصال بهذه الشبكة، حدد الشبكات &gt; Wi-Fi.</value>
   </data>
   <data name="txtRouterFirmware" xml:space="preserve">
     <value>إصدار البرنامج الثابت</value>
@@ -984,5 +984,26 @@
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone 5/5S/5C</value>
+  </data>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>غير ممكّن</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>غير متصل</value>
+  </data>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="hlbtnSupport.Content" xml:space="preserve">
+    <value>(دعم)</value>
+  </data>
+  <data name="login_alertinfo1.Text" xml:space="preserve">
+    <value>فشل تسجيل الدخول! يرجى التحقق لمعرفة ما إذا كان هذا الكمبيوتر متصلاً بموجه NETGEAR.</value>
+  </data>
+  <data name="login_alertinfo2.Text" xml:space="preserve">
+    <value>تأكد أيضاً من عدم اتصال الجهاز بشبكة الضيف الخاصة بالموجه، ومن عدم تمكين أي IPv6.</value>
   </data>
 </root>

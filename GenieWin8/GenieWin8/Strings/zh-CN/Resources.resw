@@ -471,7 +471,7 @@
     <value>分</value>
   </data>
   <data name="Support.Text" xml:space="preserve">
-    <value>由 SiteView 提供支持</value>
+    <value>由 BIGIT.COM 提供支持</value>
   </data>
   <data name="Terms_Conditions.Text" xml:space="preserve">
     <value>条款与条件</value>
@@ -637,7 +637,7 @@
     <value>iPhone</value>
   </data>
   <data name="iphone5" xml:space="preserve">
-    <value>iPhone5</value>
+    <value>iPhone 5/5S/5C</value>
   </data>
   <data name="ipodtouch" xml:space="preserve">
     <value>iPod Touch</value>
@@ -679,7 +679,7 @@
     <value>扫描仪</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>其他 STB</value>
@@ -983,7 +983,7 @@
     <value>用户名或密码字段为空。</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>密码已复制到剪贴板。要连接此网络，请选择“设置”&gt;“WLAN”。</value>
+    <value>密码已复制到剪贴板。要连接此网络，请选择“网络”&gt;“Wi-Fi”。</value>
   </data>
   <data name="txtRouterFirmware" xml:space="preserve">
     <value>固件版本</value>
@@ -1014,5 +1014,23 @@
   </data>
   <data name="windowstablet" xml:space="preserve">
     <value>Windows 平板电脑</value>
+  </data>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>未启用</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>无连接</value>
+  </data>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="hlbtnSupport.Content" xml:space="preserve">
+    <value>(支持)</value>
+  </data>
+  <data name="login_alertinfo1.Text" xml:space="preserve">
+    <value>NETGEAR 路由器未找到或不受支持。</value>
+  </data>
+  <data name="login_alertinfo2.Text" xml:space="preserve">
+    <value>同时确保该设备未连接至路由器的访客网络，并且未启用 IPv6。</value>
   </data>
 </root>

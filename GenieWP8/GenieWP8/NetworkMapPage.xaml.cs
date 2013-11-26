@@ -273,41 +273,49 @@ namespace GenieWP8
                             DoubleCollection dc = new DoubleCollection();
                             dc.Add(2);
                             line.StrokeDashArray = dc;
-                            int result = int.Parse(Group.ElementAt(1).NODE.signalStrength);
+                            int signal;
+                            if (NetworkMapInfo.attachDeviceDic.Count == 0)
+                            {
+                                signal = 100;
+                            }
+                            else
+                            {
+                                signal = int.Parse(Group.ElementAt(1).NODE.signalStrength);
+                            }
                             if (Group.ElementAt(1).NODE.AccessControl == "Allow")
                             {
-                                if (result <= 20)
+                                if (signal <= 20)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
                                 }
-                                else if (result > 20 && result <= 40)
+                                else if (signal > 20 && signal <= 40)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
                                 }
-                                else if (result > 40 && result <= 70)
+                                else if (signal > 40 && signal <= 70)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
                                 }
-                                else if (result > 70)
+                                else if (signal > 70)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
                                 }
                             }
                             else
                             {
-                                if (result <= 20)
+                                if (signal <= 20)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
                                 }
-                                else if (result > 20 && result <= 40)
+                                else if (signal > 20 && signal <= 40)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
                                 }
-                                else if (result > 40 && result <= 70)
+                                else if (signal > 40 && signal <= 70)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
                                 }
-                                else if (result > 70)
+                                else if (signal > 70)
                                 {
                                     imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
                                 }
@@ -1638,7 +1646,7 @@ namespace GenieWP8
                 else
                     StpLinkRate.Visibility = Visibility.Visible;
 
-                if (Group.NODE.AccessControl == "" || NetworkMapInfo.IsAccessControlSupported == false)
+                if (Group.NODE.AccessControl == "" || NetworkMapInfo.IsAccessControlSupported == false || NetworkMapInfo.IsAccessControlEnabled == false)
                 {
                     btnBack.Width = 200;
                     btnBack.Margin = new Thickness(200, 10, 0, 0);

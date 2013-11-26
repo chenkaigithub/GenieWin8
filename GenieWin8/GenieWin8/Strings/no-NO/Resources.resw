@@ -486,7 +486,7 @@
     <value>Minutt</value>
   </data>
   <data name="Support.Text" xml:space="preserve">
-    <value>Drevet av SiteView</value>
+    <value>Drevet av BIGIT.COM</value>
   </data>
   <data name="Terms_Conditions.Text" xml:space="preserve">
     <value>Vilkår og betingelser</value>
@@ -682,7 +682,7 @@
     <value>Skanner</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>Andre STB</value>
@@ -950,7 +950,7 @@
     <value>Feltet for brukernavn eller passord er tomt.</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>Passordet er kopiert til utklippstavlen. Velg Innstillinger &gt; WLAN for å koble til dette nettverket.</value>
+    <value>Passordet er kopiert til utklippstavlen. Velg Nettverk &gt; Wi-Fi for å koble til dette nettverket.</value>
   </data>
   <data name="txtRouterFirmware" xml:space="preserve">
     <value>Fastvareversjon</value>
@@ -984,5 +984,26 @@
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone 5/5S/5C</value>
+  </data>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Ikke aktivert</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Ikke tilkoblet</value>
+  </data>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="hlbtnSupport.Content" xml:space="preserve">
+    <value>(Støtte)</value>
+  </data>
+  <data name="login_alertinfo1.Text" xml:space="preserve">
+    <value>Finner ikke NETGEAR-ruteren, eller den er ikke støttet.</value>
+  </data>
+  <data name="login_alertinfo2.Text" xml:space="preserve">
+    <value>Kontroller også at enheten ikke er tilkoblet ruterens gjestenettverk, og at ingen IPv6 er aktivert.</value>
   </data>
 </root>

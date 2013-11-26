@@ -17,6 +17,7 @@ using GenieWin8.DataModel;
 using Windows.UI.Popups;
 using Windows.Storage;
 using System.Threading.Tasks;
+using Windows.UI;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -63,6 +64,11 @@ namespace GenieWin8
         /// <param name="pageState">要使用可序列化状态填充的空字典。</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        private void OnWindowSizeChanged(Object sender, SizeChangedEventArgs e)
+        {
+            stpLoginalertinfo.Width = Window.Current.Bounds.Width;
         }
 
         //按下回车键后登陆
@@ -142,13 +148,17 @@ namespace GenieWin8
             }
             else
             {
+                //InProgress.IsActive = false;
+                //PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                //PopupBackground.Visibility = Visibility.Collapsed;
+                //var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                //var strtext = loader.GetString("login_alertinfo");
+                //var messageDialog = new MessageDialog(strtext);
+                //await messageDialog.ShowAsync();
                 InProgress.IsActive = false;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-                var strtext = loader.GetString("login_alertinfo");
-                var messageDialog = new MessageDialog(strtext);
-                await messageDialog.ShowAsync();
+                PopupBackgroundTop.Opacity = 0.5;
+                PopupBackground.Opacity = 0.5;
+                LoginalertPopup.IsOpen = true;
             }
         }
 
@@ -205,32 +215,37 @@ namespace GenieWin8
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
                     Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-                    while (attachDeviceAll == null || attachDeviceAll.Count == 0)
-                    {
-                        attachDeviceAll = await soapApi.GetAttachDevice();
-                    } 
+                    attachDeviceAll = await soapApi.GetAttachDevice();
                     //UtilityTool util = new UtilityTool();
                     string loacalIp = util.GetLocalHostIp();
-                    foreach (string key in attachDeviceAll.Keys)
+                    if (attachDeviceAll.Count == 0)
                     {
-                        if (loacalIp == attachDeviceAll[key]["Ip"])
+                        WifiInfoModel.linkRate = "";
+                        WifiInfoModel.signalStrength = "";
+                    } 
+                    else
+                    {
+                        foreach (string key in attachDeviceAll.Keys)
                         {
-                            if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                            if (loacalIp == attachDeviceAll[key]["Ip"])
                             {
-                                WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                            } 
-                            else
-                            {
-                                WifiInfoModel.linkRate = "";
+                                if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                                {
+                                    WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                                }
+                                else
+                                {
+                                    WifiInfoModel.linkRate = "";
+                                }
+                                if (attachDeviceAll[key].ContainsKey("Signal"))
+                                {
+                                    WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                                }
+                                else
+                                {
+                                    WifiInfoModel.signalStrength = "";
+                                }
                             }
-                            if (attachDeviceAll[key].ContainsKey("Signal"))
-                            {
-                                WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                            } 
-                            else
-                            {
-                                WifiInfoModel.signalStrength = "";
-                            } 
                         }
                     }
                     dicResponse = new Dictionary<string, string>();
@@ -249,7 +264,11 @@ namespace GenieWin8
                         WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
                         WifiInfoModel.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
                     }
-                    dicResponse = await soapApi.GetWPASecurityKeys();
+                    dicResponse = new Dictionary<string, string>();
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.GetWPASecurityKeys();
+                    }
                     if (dicResponse.Count > 0)
                     {
                         WifiInfoModel.password = dicResponse["NewWPAPassphrase"];
@@ -324,13 +343,7 @@ namespace GenieWin8
                     PopupBackground.Visibility = Visibility.Visible;
                     //UtilityTool util = new UtilityTool();
                     NetworkMapInfo.geteway = await util.GetGateway();
-                    //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                    responseDic = new Dictionary<string, Dictionary<string, string>>();
-                    while (responseDic == null || responseDic.Count == 0)
-                    {
-                        responseDic = await soapApi.GetAttachDevice();
-                    }
-                    NetworkMapInfo.attachDeviceDic = responseDic;
+                    NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
                     //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
                     dicResponse = new Dictionary<string, string>();
                     while (dicResponse == null || dicResponse.Count == 0)
@@ -442,13 +455,7 @@ namespace GenieWin8
                         if (dicResponse["ParentalControlSupported"] == "1")
                         {
                             ///通过attachDevice获取本机的Mac地址
-                            //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
-                            responseDic = new Dictionary<string, Dictionary<string, string>>();
-                            while (responseDic == null || responseDic.Count == 0)
-                            {
-                                responseDic = await soapApi.GetAttachDevice();
-                            }
-                            NetworkMapInfo.attachDeviceDic = responseDic;
+                            NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
 
                             Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
                             while (dicResponse2 == null || dicResponse2.Count == 0)
@@ -501,5 +508,25 @@ namespace GenieWin8
             }
             return fileContent;
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginalertPopup.IsOpen = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
+            PopupBackgroundTop.Opacity = 0.9;
+            PopupBackground.Opacity = 0.9;
+        }
+
+        private void Button_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            CloseButton.Background = new SolidColorBrush(Color.FromArgb(255, 98, 98, 255));
+        }
+
+        private void CloseButton_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            CloseButton.Background = new SolidColorBrush(Color.FromArgb(255, 48, 48, 255));
+        }
+
     }
 }

@@ -486,7 +486,7 @@
     <value>Λεπτό</value>
   </data>
   <data name="Support.Text" xml:space="preserve">
-    <value>Με την υποστήριξη της SiteView</value>
+    <value>Με την υποστήριξη της BIGIT.COM</value>
   </data>
   <data name="Terms_Conditions.Text" xml:space="preserve">
     <value>Όροι και προϋποθέσεις</value>
@@ -682,7 +682,7 @@
     <value>Σαρωτής</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>Άλλος αποκωδικοποιητής</value>
@@ -950,7 +950,7 @@
     <value>Το πεδίο ονόματος χρήστη ή κωδικού πρόσβασης είναι κενό.</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>Ο κωδικός πρόσβασης αντιγράφεται στο πρόχειρο. Για να συνδεθείτε σε αυτό το δίκτυο, επιλέξτε Ρυθμίσεις &gt; WLAN.</value>
+    <value>Ο κωδικός πρόσβασης αντιγράφεται στο πρόχειρο. Για να συνδεθείτε σε αυτό το δίκτυο, επιλέξτε Δίκτυα &gt; Wi-Fi.</value>
   </data>
   <data name="txtRouterFirmware" xml:space="preserve">
     <value>Έκδοση υλικολογισμικού</value>
@@ -984,5 +984,26 @@
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone 5/5S/5C</value>
+  </data>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Απενεργοποιημενη</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Δεν συνδέθηκε</value>
+  </data>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="hlbtnSupport.Content" xml:space="preserve">
+    <value>(Υποστήριξη)</value>
+  </data>
+  <data name="login_alertinfo1.Text" xml:space="preserve">
+    <value>Ο δρομολογητής NETGEAR δεν βρέθηκε ή δεν υποστηρίζεται.</value>
+  </data>
+  <data name="login_alertinfo2.Text" xml:space="preserve">
+    <value>Επίσης, βεβαιωθείτε ότι η συσκευή δεν είναι συνδεδεμένη στο δίκτυο επισκεπτών του δρομολογητή και ότι το πρωτόκολλο IPv6 δεν είναι ενεργοποιημένο.</value>
   </data>
 </root>

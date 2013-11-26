@@ -486,7 +486,7 @@
     <value>Минут</value>
   </data>
   <data name="Support.Text" xml:space="preserve">
-    <value>С использованием сервиса SiteView</value>
+    <value>С использованием сервиса BIGIT.COM</value>
   </data>
   <data name="Terms_Conditions.Text" xml:space="preserve">
     <value>Условия</value>
@@ -682,7 +682,7 @@
     <value>Сканер</value>
   </data>
   <data name="slingbox" xml:space="preserve">
-    <value>SlingBox</value>
+    <value>Sling Box</value>
   </data>
   <data name="stb" xml:space="preserve">
     <value>Другая STB</value>
@@ -950,7 +950,7 @@
     <value>Необходимо ввести имя пользователя или пароль.</value>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
-    <value>Пароль скопирован в буфер обмена. Для подключения к данной сети выберите пункт меню \"Настройки\" &gt; WLAN.</value>
+    <value>Пароль скопирован в буфер обмена. Для подключения к данной сети выберите пункт меню \"сети\" &gt; Wi-Fi.</value>
   </data>
   <data name="txtRouterFirmware" xml:space="preserve">
     <value>Версия микропрограммного обеспечения</value>
@@ -984,5 +984,26 @@
   </data>
   <data name="amazonkindle" xml:space="preserve">
     <value>Amazon Kindle Fire</value>
+  </data>
+  <data name="iphone5" xml:space="preserve">
+    <value>iPhone 5/5S/5C</value>
+  </data>
+  <data name="WifiDisabled" xml:space="preserve">
+    <value>Не включено</value>
+  </data>
+  <data name="WifiDisconnected" xml:space="preserve">
+    <value>Не подключен</value>
+  </data>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="hlbtnSupport.Content" xml:space="preserve">
+    <value>(Поддержка)</value>
+  </data>
+  <data name="login_alertinfo1.Text" xml:space="preserve">
+    <value>Роутер NETGEAR не найден или не поддерживается.</value>
+  </data>
+  <data name="login_alertinfo2.Text" xml:space="preserve">
+    <value>Также убедитесь в том, что устройство подключено не к гостевой сети роутера, и что не активирован протокол IPv6.</value>
   </data>
 </root>
