@@ -50,15 +50,7 @@ namespace GenieWin8
         /// <param name="pageState">此页在以前会话期间保留的状态
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
-        {
-            //InProgress.IsActive = true;
-            //PopupBackgroundTop.Visibility = Visibility.Visible;
-            //PopupBackground.Visibility = Visibility.Visible;           
-
-            
-            
-            //PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            //PopupBackground.Visibility = Visibility.Collapsed;   
+        {  
         }
 
         /// <summary>
@@ -138,8 +130,6 @@ namespace GenieWin8
                     BtnRouter.Name = Group.ElementAt(0).NODE.uniqueId;
                     BtnRouter.Width = 150;
                     BtnRouter.Height = 150;
-                    //BtnRouter.SetValue(WidthProperty, 150);
-                    //BtnRouter.SetValue(HeightProperty, 150);
                     BtnRouter.HorizontalAlignment = HorizontalAlignment.Center;
                     BtnRouter.VerticalAlignment = VerticalAlignment.Center;
                     Image imgRouter = new Image();
@@ -155,8 +145,6 @@ namespace GenieWin8
                     BtnLocalDevice.Name = Group.ElementAt(1).NODE.uniqueId;
                     BtnLocalDevice.Width = 100;
                     BtnLocalDevice.Height = 100;
-                    //BtnLocalDevice.SetValue(WidthProperty, 100);
-                    //BtnLocalDevice.SetValue(HeightProperty, 100);
                     BtnLocalDevice.HorizontalAlignment = HorizontalAlignment.Left;
                     BtnLocalDevice.VerticalAlignment = VerticalAlignment.Top;
                     double xLocal = r1 * Math.Cos(Angle * PI / 180);
@@ -318,8 +306,6 @@ namespace GenieWin8
                             BtnDevice.Name = Group.ElementAt(6 * i + j).NODE.uniqueId;
                             BtnDevice.Width = 100;
                             BtnDevice.Height = 100;
-                            //BtnDevice.SetValue(WidthProperty, 100);
-                            //BtnDevice.SetValue(HeightProperty, 100);
                             BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
                             BtnDevice.VerticalAlignment = VerticalAlignment.Top;
                             BtnDevice.Margin = new Thickness(width / 2 + x - 50, height / 2 - y - 50, 0, 0);	// -50 为纠正由图标大小（100，100）造成的偏差
@@ -520,8 +506,6 @@ namespace GenieWin8
                     BtnLocalDevice.Name = Group.ElementAt(1).NODE.uniqueId;
                     BtnLocalDevice.Width = 100;
                     BtnLocalDevice.Height = 100;
-                    //BtnLocalDevice.SetValue(WidthProperty, 100);
-                    //BtnLocalDevice.SetValue(HeightProperty, 100);
                     BtnLocalDevice.HorizontalAlignment = HorizontalAlignment.Left;
                     BtnLocalDevice.VerticalAlignment = VerticalAlignment.Top;
                     double xLocal = r1 * Math.Cos(Angle * PI / 180);
@@ -860,8 +844,6 @@ namespace GenieWin8
         {
             Button btn = (Button)sender;
             var UniqueId = btn.Name;
-            //var messageDialog = new MessageDialog(UniqueId);
-            //await messageDialog.ShowAsync();
             this.Frame.Navigate(typeof(DeviceInfoPage), UniqueId);
         }
 

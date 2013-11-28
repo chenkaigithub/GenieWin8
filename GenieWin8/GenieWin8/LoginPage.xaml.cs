@@ -71,19 +71,6 @@ namespace GenieWin8
             stpLoginalertinfo.Width = Window.Current.Bounds.Width;
         }
 
-        //按下回车键后登陆
-        //protected override void OnKeyDown(KeyRoutedEventArgs e)
-        //{
-        //    if (e.Key == Windows.System.VirtualKey.Enter)
-        //    {
-        //        LoginButton.Focus(FocusState.Keyboard);
-        //    } 
-        //    else
-        //    {
-        //        base.OnKeyDown(e);
-        //    }           
-        //}
-
         private async void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
             InProgress.IsActive = true;
@@ -148,13 +135,6 @@ namespace GenieWin8
             }
             else
             {
-                //InProgress.IsActive = false;
-                //PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                //PopupBackground.Visibility = Visibility.Collapsed;
-                //var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-                //var strtext = loader.GetString("login_alertinfo");
-                //var messageDialog = new MessageDialog(strtext);
-                //await messageDialog.ShowAsync();
                 InProgress.IsActive = false;
                 PopupBackgroundTop.Opacity = 0.5;
                 PopupBackground.Opacity = 0.5;

@@ -8,6 +8,11 @@ namespace GenieWin8.DataModel
 {
     class MainPageInfo
     {
+        public static double itemWidth;                        //主页上每个Item的宽度
+        public static double itemHeight;                       //主页上每个Item的高度
+        public static double itemImageWidth;                   //主页上每个Item的图片宽度
+        public static double itemImageHeight;                  //主页上每个Item的图片高度
+
         public static bool bLogin = false;
         public static string username;
         public static string password;

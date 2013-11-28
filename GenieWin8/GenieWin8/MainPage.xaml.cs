@@ -37,9 +37,14 @@ namespace GenieWin8
     /// </summary>
     public sealed partial class MainPage : GenieWin8.Common.LayoutAwarePage
     {
+        private static DataSource ItemModel = null;
         public MainPage()
         {
             this.InitializeComponent();
+
+            // 绑定数据
+            if (ItemModel == null)
+                ItemModel = new DataSource();
         }
        
         /// <summary>
@@ -54,8 +59,8 @@ namespace GenieWin8
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // TODO: 创建适用于问题域的合适数据模型以替换示例数据
-            var dataGroups = DataSource.GetGroups((String)navigationParameter);
-            this.DefaultViewModel["Items"] = dataGroups;
+            //var dataGroups = DataSource.GetGroups((String)navigationParameter);
+            //this.DefaultViewModel["Items"] = dataGroups;
 
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             tbSsid.Text = loader.GetString("WifiDisconnected");
@@ -71,17 +76,10 @@ namespace GenieWin8
                         tbSsid.Text = connectionProfile.ProfileName;
                         imgWifi.Source = new BitmapImage(new Uri(_baseUri, "Assets/signal/wirelessflag4.png"));
                     }
-                    //if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
-                    //{
-                    //    tbSsid.Text = network.InterfaceName;
-                    //    imgWifi.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
-                    //}
                 }
-                //rootPage.NotifyUser(connectionProfileList, NotifyType.StatusMessage);
             }
             catch (Exception ex)
             {
-                //rootPage.NotifyUser("Unexpected exception occured: " + ex.ToString(), NotifyType.ErrorMessage);
             }
 
             if (MainPageInfo.bLogin)
@@ -95,6 +93,36 @@ namespace GenieWin8
                 btnLogout.Visibility = Visibility.Collapsed;
             }
         }
+        
+        private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (DisplayProperties.CurrentOrientation == DisplayOrientations.Landscape || DisplayProperties.CurrentOrientation == DisplayOrientations.LandscapeFlipped)
+            {
+                itemGridView.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
+                //itemGridView.Width = Window.Current.Bounds.Width * 4 / 5;
+                //itemGridView.Height = (Window.Current.Bounds.Height - 180) * 4 / 5;
+                MainPageInfo.itemWidth = (Window.Current.Bounds.Width * 4 / 5 - 30) / 3;
+                MainPageInfo.itemHeight = ((Window.Current.Bounds.Height - 180) * 4 / 5 - 30) / 2;
+                MainPageInfo.itemImageWidth = MainPageInfo.itemImageHeight = MainPageInfo.itemHeight - 120;
+            }
+            else if (DisplayProperties.CurrentOrientation == DisplayOrientations.Portrait || DisplayProperties.CurrentOrientation == DisplayOrientations.PortraitFlipped)
+            {
+                itemGridView.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
+                //itemGridView.Width = Window.Current.Bounds.Width * 4 / 5;
+                MainPageInfo.itemHeight = MainPageInfo.itemWidth = (Window.Current.Bounds.Width * 4 / 5 - 20) / 2;
+                //itemGridView.Height = MainPageInfo.itemHeight * 3.5;
+                MainPageInfo.itemImageWidth = MainPageInfo.itemImageHeight = MainPageInfo.itemHeight - 120;
+            }
+
+            ItemModel.AllGroups.Clear();
+            ItemModel.LoadData();
+            var dataGroups = ItemModel.AllGroups;
+            this.DefaultViewModel["Items"] = dataGroups;
+            if (SearchText.FocusState != FocusState.Pointer)
+            {
+                itemGridView.Focus(FocusState.Pointer);
+            }
+        }
 
         /// <summary>
         /// 在单击某个项时进行调用。
@@ -106,11 +134,8 @@ namespace GenieWin8
         {
             // 导航至相应的目标页，并
             // 通过将所需信息作为导航参数传入来配置新页
-            //var groupId = ((SampleDataGroup)e.ClickedItem).UniqueId;
-            //this.Frame.Navigate(typeof(SplitPage), groupId);
             var groupId = ((DataGroup)e.ClickedItem).UniqueId;
-            //if (MainPageInfo.bLogin)	//已登陆
-            //{
+
             GenieSoapApi soapApi = new GenieSoapApi();
             //无线设置
             if (groupId == "WiFiSetting")
@@ -526,12 +551,6 @@ namespace GenieWin8
                 //CloseLicenseButton.Visibility = Visibility.Collapsed;
             }
         }
-
-        //private async void Policy_Click(Object sender, RoutedEventArgs e)
-        //{
-        //    var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
-        //    await Windows.System.Launcher.LaunchUriAsync(uri);
-        //}
 
         private void CloseAboutButton_Click(Object sender, RoutedEventArgs e)
         {

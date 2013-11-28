@@ -34,6 +34,7 @@ namespace GenieWin8
     public sealed partial class QRCodePage : GenieWin8.Common.LayoutAwarePage
     {
         private Windows.Media.Capture.MediaCapture mediaCaptureMgr;
+        private bool bMediaCaptureInitialized;
 
         public QRCodePage()
         {
@@ -69,19 +70,12 @@ namespace GenieWin8
         private async void GoBack_Click(Object sender, RoutedEventArgs e)
         {
             timer.Stop();
-            await mediaCaptureMgr.StopPreviewAsync();
+            if (bMediaCaptureInitialized)
+            {
+                await mediaCaptureMgr.StopPreviewAsync();
+            }
             this.GoHome(null, null);
         }
-
-        //protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        //{
-        //    if (mediaCaptureMgr != null)
-        //    {
-        //        timer.Stop();
-        //    }
-
-        //    base.OnNavigatingFrom(e);
-        //}
 
         private async void OnWindowSizeChanged(Object sender, SizeChangedEventArgs e)
         {
@@ -90,7 +84,7 @@ namespace GenieWin8
             {
                 mediaCaptureMgr = new Windows.Media.Capture.MediaCapture();
                 await mediaCaptureMgr.InitializeAsync();
-
+                bMediaCaptureInitialized = true;
                 captureElement.Source = mediaCaptureMgr;
                 await mediaCaptureMgr.StartPreviewAsync();
                 DisplayOrientations orientation = DisplayProperties.CurrentOrientation;
@@ -121,35 +115,14 @@ namespace GenieWin8
             }
         }
 
-        //扫描二维码
-        //async void ScanQRCode()
-        //{
-        //    try
-        //    {
-        //        mediaCaptureMgr = new Windows.Media.Capture.MediaCapture();
-        //        await mediaCaptureMgr.InitializeAsync();                
-
-        //        captureElement.Source = mediaCaptureMgr;
-        //        await mediaCaptureMgr.StartPreviewAsync();
-
-        //        timer.Interval = TimeSpan.FromMilliseconds(250);
-        //        timer.Tick += new System.EventHandler<object>(timer_Tick);
-        //        timer.Start();
-        //    }
-        //    catch (Exception exception)
-        //    {
-        //        //this.NotifyUser(exception.Message);
-        //    }
-        //}
-
         async void timer_Tick(object sender, object e)
         {
             try
             {
-                Windows.Storage.StorageFile m_photoStorageFile = await Windows.Storage.KnownFolders.PicturesLibrary.CreateFileAsync("qrcode.jpg", CreationCollisionOption.ReplaceExisting);
+                StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+                StorageFile m_photoStorageFile = await storageFolder.CreateFileAsync("qrcode.jpg", CreationCollisionOption.ReplaceExisting);
                 ImageEncodingProperties imageProperties = ImageEncodingProperties.CreateJpeg();
                 await mediaCaptureMgr.CapturePhotoToStorageFileAsync(imageProperties, m_photoStorageFile);
-                //var m_photoStorageFile = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync(@"Assets\1.jpg");
 
                 IRandomAccessStream stream = await m_photoStorageFile.OpenAsync(FileAccessMode.Read);
                 // initialize with 1,1 to get the current size of the image
@@ -181,7 +154,6 @@ namespace GenieWin8
                             var strWiFiName = loader.GetString("WiFiName");
                             var strPassword = loader.GetString("Key/Password");
                             var strCopyToClipboard = loader.GetString("CopyToClipboard");
-                            //this.NotifyUser(strWiFiName + "：" + ssid + "\r\n" + strPassword + "：" + password + "\r\n" + strCopyToClipboard);      //由于API未开放，不能自动进行无线连接，暂以文本显示之
                             var messageDialog = new MessageDialog(strWiFiName + "：" + ssid + "\r\n" + strPassword + "：" + password + "\r\n" + strCopyToClipboard);
                             await messageDialog.ShowAsync();
                         }
@@ -203,21 +175,6 @@ namespace GenieWin8
             //    }
             //}
         }
-
-        //public void NotifyUser(string strMessage)
-        //{
-        //    StatusBlock.Text = strMessage;
-
-        //    // Collapse the StatusBlock if it has no text to conserve real estate.
-        //    if (StatusBlock.Text != String.Empty)
-        //    {
-        //        StatusBlock.Visibility = Windows.UI.Xaml.Visibility.Visible;
-        //    }
-        //    else
-        //    {
-        //        StatusBlock.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-        //    }
-        //}
 
         private Result ScanBitmap(WriteableBitmap writeableBmp)
         {

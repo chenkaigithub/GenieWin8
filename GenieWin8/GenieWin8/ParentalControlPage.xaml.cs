@@ -795,34 +795,6 @@ namespace GenieWin8
             }          
         }
 
-        ////登陆用户名是否为空
-        //private void IsBlankLoginUsername(Object sender, RoutedEventArgs e)
-        //{
-        //    if (LoginUsername.Text == "")
-        //    {
-        //        ParentalControlInfo.IsEmptyUsername = true;
-        //    }
-        //    else
-        //    {
-        //        ParentalControlInfo.Username = LoginUsername.Text;
-        //        ParentalControlInfo.IsEmptyUsername = false;
-        //    }
-        //}
-
-        ////登陆密码是否为空
-        //private void IsBlankLoginPassword(Object sender, RoutedEventArgs e)
-        //{
-        //    if (LoginPassword.Password == "")
-        //    {
-        //        ParentalControlInfo.IsEmptyPassword = true;
-        //    }
-        //    else
-        //    {
-        //        ParentalControlInfo.Password = LoginPassword.Password;
-        //        ParentalControlInfo.IsEmptyPassword = false;
-        //    }
-        //}
-
         //登陆上一步
         private void LoginPreviousButton_Click(Object sender, RoutedEventArgs e)
         {
@@ -2408,34 +2380,6 @@ namespace GenieWin8
             // 将所选项重置为 null (没有选定内容)
             CategoriesList.SelectedItem = null;
         }
-
-        //注册时按下回车键后默认为点击下一步
-        //private void RegOnKeyDown(object sender, KeyRoutedEventArgs e)
-        //{
-        //    TextBox tb = (TextBox)sender;
-        //    if (e.Key == Windows.System.VirtualKey.Enter)
-        //    {
-        //        RegisterNextButton.Focus(FocusState.Keyboard);
-        //    }
-        //    else
-        //    {
-        //        base.OnKeyDown(e);
-        //    }
-        //}
-
-        //登录时按下回车键后默认为点击下一步
-        //private void LoginOnKeyDown(object sender, KeyRoutedEventArgs e)
-        //{
-        //    TextBox tb = (TextBox)sender;
-        //    if (e.Key == Windows.System.VirtualKey.Enter)
-        //    {
-        //        LoginNextButton.Focus(FocusState.Keyboard);
-        //    }
-        //    else
-        //    {
-        //        base.OnKeyDown(e);
-        //    }
-        //}
 
         //登录OpenDNS账号后保存信息，不切换路由器就无需再次登录
         public async void WriteSavedInfoToFile()

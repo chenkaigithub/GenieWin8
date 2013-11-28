@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Collections.Specialized;
+using GenieWin8.DataModel;
 
 namespace GenieWin8.Data
 {
@@ -75,37 +76,73 @@ namespace GenieWin8.Data
 
     public class DataGroup : DataCommon
     {
-        public DataGroup(String uniqueId, String title, String imagePath)
+        public DataGroup(String uniqueId, String title, String imagePath, double itemWidth, double itemHeight, double itemImageWidth, double itemImageHeight)
             : base(uniqueId, title, imagePath)
         {
             //Items.CollectionChanged += ItemsCollectionChanged;
+            this._itemWidth = itemWidth;
+            this._itemHeight = itemHeight;
+            this._itemImageWidth = itemImageWidth;
+            this._itemImageHeight = itemImageHeight;
+        }
+
+        private double _itemWidth = 0.0;
+        public double ItemWidth
+        {
+            get { return this._itemWidth; }
+            set { this.SetProperty(ref this._itemWidth, value); }
+        }
+
+        private double _itemHeight = 0.0;
+        public double ItemHeight
+        {
+            get { return this._itemHeight; }
+            set { this.SetProperty(ref this._itemHeight, value); }
+        }
+
+        private double _itemImageWidth = 0.0;
+        public double ItemImageWidth
+        {
+            get { return this._itemImageWidth; }
+            set { this.SetProperty(ref this._itemImageWidth, value); }
+        }
+
+        private double _itemImageHeight = 0.0;
+        public double ItemImageHeight
+        {
+            get { return this._itemImageHeight; }
+            set { this.SetProperty(ref this._itemImageHeight, value); }
         }
     }
 
     public sealed class DataSource
     {
-        private static DataSource _dataSource = new DataSource();
-
-        private ObservableCollection<DataGroup> _allGroups = new ObservableCollection<DataGroup>();
-        public ObservableCollection<DataGroup> AllGroups
+        public DataSource()
         {
-            get { return this._allGroups; }
+            this.AllGroups = new ObservableCollection<DataGroup>();
         }
+        //private static DataSource _dataSource = new DataSource();
 
-        public static IEnumerable<DataGroup> GetGroups(string uniqueId)
-        {
-            if (!uniqueId.Equals("AllGroups")) throw new ArgumentException("Only 'AllGroups' is supported as a collection of groups");
+        public ObservableCollection<DataGroup> AllGroups { get; private set; }
+        //public ObservableCollection<DataGroup> AllGroups
+        //{
+        //    get { return this._allGroups; }
+        //}
 
-            return _dataSource.AllGroups;
-        }
+        //public static IEnumerable<DataGroup> GetGroups(string uniqueId)
+        //{
+        //    if (!uniqueId.Equals("AllGroups")) throw new ArgumentException("Only 'AllGroups' is supported as a collection of groups");
 
-        public static DataGroup GetGroup(string uniqueId)
-        {
-            // 对于小型数据集可接受简单线性搜索
-            var matches = _dataSource.AllGroups.Where((group) => group.UniqueId.Equals(uniqueId));
-            if (matches.Count() == 1) return matches.First();
-            return null;
-        }
+        //    return _dataSource.AllGroups;
+        //}
+
+        //public static DataGroup GetGroup(string uniqueId)
+        //{
+        //    // 对于小型数据集可接受简单线性搜索
+        //    var matches = _dataSource.AllGroups.Where((group) => group.UniqueId.Equals(uniqueId));
+        //    if (matches.Count() == 1) return matches.First();
+        //    return null;
+        //}
 
         //public static SampleDataItem GetItem(string uniqueId)
         //{
@@ -115,56 +152,88 @@ namespace GenieWin8.Data
         //    return null;
         //}
 
-        public DataSource()
+        public void LoadData()
         {
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
 
             var strTitle = loader.GetString("WiFiSetting");
             var group1 = new DataGroup("WiFiSetting",
-                    strTitle,
-                    "Assets/MainPage/WirelessSetting.png");         
+                strTitle,
+                "Assets/MainPage/WirelessSetting.png",
+                MainPageInfo.itemWidth,
+                MainPageInfo.itemHeight,
+                MainPageInfo.itemImageWidth,
+                MainPageInfo.itemImageHeight);         
             this.AllGroups.Add(group1);
 
             strTitle = loader.GetString("GuestAccess");
             var group2 = new DataGroup("GuestAccess",
-                    strTitle,
-                    "Assets/MainPage/guestaccess.png");            
+                strTitle,
+                "Assets/MainPage/guestaccess.png",
+                MainPageInfo.itemWidth,
+                MainPageInfo.itemHeight,
+                MainPageInfo.itemImageWidth,
+                MainPageInfo.itemImageHeight);            
             this.AllGroups.Add(group2);
 
             strTitle = loader.GetString("NetworkMap");
             var group3 = new DataGroup("NetworkMap",
-                    strTitle,
-                    "Assets/MainPage/NetworkMap.png");
+                strTitle,
+                "Assets/MainPage/NetworkMap.png",
+                MainPageInfo.itemWidth,
+                MainPageInfo.itemHeight,
+                MainPageInfo.itemImageWidth,
+                MainPageInfo.itemImageHeight);
             this.AllGroups.Add(group3);
 
             strTitle = loader.GetString("ParentalControl");
             var group4 = new DataGroup("ParentalControl",
-                    strTitle,
-                    "Assets/MainPage/ParentalControl.png");
+                strTitle,
+                "Assets/MainPage/ParentalControl.png",
+                MainPageInfo.itemWidth,
+                MainPageInfo.itemHeight,
+                MainPageInfo.itemImageWidth,
+                MainPageInfo.itemImageHeight);
             this.AllGroups.Add(group4);
 
             strTitle = loader.GetString("TrafficMeter");
             var group5 = new DataGroup("TrafficMeter",
-                    strTitle,
-                    "Assets/MainPage/TrafficMeter.png");
+                strTitle,
+                "Assets/MainPage/TrafficMeter.png",
+                MainPageInfo.itemWidth,
+                MainPageInfo.itemHeight,
+                MainPageInfo.itemImageWidth,
+                MainPageInfo.itemImageHeight);
             this.AllGroups.Add(group5);
 
             //strTitle = loader.GetString("MyMedia");
             //var group6 = new DataGroup("MyMedia",
-            //        strTitle,
-            //        "Assets/MainPage/mymedia.png");
+            //    strTitle,
+            //    "Assets/MainPage/mymedia.png",
+            //    MainPageInfo.itemWidth,
+            //    MainPageInfo.itemHeight,
+            //    MainPageInfo.itemImageWidth,
+            //    MainPageInfo.itemImageHeight);
             //this.AllGroups.Add(group6);
 
             strTitle = loader.GetString("QRCode");
             var group7 = new DataGroup("QRCode",
-                    strTitle,
-                    "Assets/MainPage/qrcode.png");
+                strTitle,
+                "Assets/MainPage/qrcode.png",
+                MainPageInfo.itemWidth,
+                MainPageInfo.itemHeight,
+                MainPageInfo.itemImageWidth,
+                MainPageInfo.itemImageHeight);
             this.AllGroups.Add(group7);
 
             //strTitle = loader.GetString("MarketPlace");
             //var group8 = new DataGroup("MarketPlace",
-            //        strTitle,
-            //        "Assets/MainPage/appstore.png");
+            //    strTitle,
+            //    "Assets/MainPage/appstore.png",
+            //    MainPageInfo.itemWidth,
+            //    MainPageInfo.itemHeight,
+            //    MainPageInfo.itemImageWidth,
+            //    MainPageInfo.itemImageHeight);
             //this.AllGroups.Add(group8);
         }
     }

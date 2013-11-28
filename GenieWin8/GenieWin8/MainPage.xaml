@@ -19,16 +19,16 @@
             Source="{Binding Items}"
             d:Source="{Binding AllGroups, Source={d:DesignInstance Type=data:DataSource, IsDesignTimeCreatable=True}}"/>
 
-        <DataTemplate x:Key="250x250ItemTemplate">
-            <Grid HorizontalAlignment="Left" Width="250" Height="250">
+        <DataTemplate x:Key="ItemTemplate">
+            <Grid HorizontalAlignment="Left" Width="{Binding ItemWidth}" Height="{Binding ItemHeight}">
                 <Border>
                     <Border.Background>
                         <ImageBrush ImageSource="Assets/MainPage/bg.png"/>
                     </Border.Background>
-                    <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Width="150" Height="150" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                    <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Width="{Binding ItemImageWidth}" Height="{Binding ItemImageHeight}" VerticalAlignment="Top" Margin="0,20,0,0"/>
                 </Border>
-                <StackPanel VerticalAlignment="Bottom" Height="70">
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="White"/>
+                <StackPanel VerticalAlignment="Bottom" Height="80">
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center" FontSize="35" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="White"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -50,7 +50,7 @@
         * 第 0 行包含后退按钮和页标题
         * 第 1 行包含页布局的其余部分
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
+    <Grid Style="{StaticResource LayoutRootStyle}" SizeChanged="OnWindowSizeChanged" Background="#FFE6E6E6">
         <Grid.RowDefinitions>
             <RowDefinition Height="180"/>
             <RowDefinition Height="*"/>
@@ -63,14 +63,14 @@
             AutomationProperties.Name="Items"
             TabIndex="1"
             Grid.Row="1"
-            Padding="116,20,116,46"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource 250x250ItemTemplate}"
+            ItemTemplate="{StaticResource ItemTemplate}"
             SelectionMode="None"
             IsSwipeEnabled="false"
             IsItemClickEnabled="True"
             ItemClick="ItemView_ItemClick" RenderTransformOrigin="0.5,0.5"
-            Background="#FFE6E6E6">
+            Padding="0"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         </GridView>
 
         <!-- 垂直滚动列表仅在对齐后使用-->
@@ -225,9 +225,9 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
+                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="96,20,86,56"/>
-                        </ObjectAnimationUsingKeyFrames>
+                        </ObjectAnimationUsingKeyFrames>-->
                     </Storyboard>
                 </VisualState>
 
