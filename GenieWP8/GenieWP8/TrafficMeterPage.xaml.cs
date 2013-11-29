@@ -638,7 +638,10 @@ namespace GenieWP8
             if (checkTrafficMeter.IsChecked == true)
             {
                 trafficMeterEnable = "1";
-                dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
+                }
                 //TrafficMeterLongListSelector.Visibility = Visibility.Visible;
                 TrafficMeterPanel.Visibility = Visibility.Visible;
                 TotalCanvas.Visibility = Visibility.Visible;
@@ -647,7 +650,10 @@ namespace GenieWP8
             else if (checkTrafficMeter.IsChecked == false)
             {
                 trafficMeterEnable = "0";
-                dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
+                }
                 //TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
                 TrafficMeterPanel.Visibility = Visibility.Collapsed;
                 TotalCanvas.Visibility = Visibility.Collapsed;

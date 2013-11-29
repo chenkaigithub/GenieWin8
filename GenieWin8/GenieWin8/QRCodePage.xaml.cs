@@ -87,20 +87,19 @@ namespace GenieWin8
                 bMediaCaptureInitialized = true;
                 captureElement.Source = mediaCaptureMgr;
                 await mediaCaptureMgr.StartPreviewAsync();
-                DisplayOrientations orientation = DisplayProperties.CurrentOrientation;
-                if (orientation == DisplayOrientations.Landscape)
+                if (DisplayProperties.CurrentOrientation == DisplayOrientations.Landscape)
                 {
                     mediaCaptureMgr.SetPreviewRotation(VideoRotation.None);
                 }
-                else if (orientation == DisplayOrientations.Portrait)
+                else if (DisplayProperties.CurrentOrientation == DisplayOrientations.Portrait)
                 {
                     mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise270Degrees);
                 }
-                else if (orientation == DisplayOrientations.LandscapeFlipped)
+                else if (DisplayProperties.CurrentOrientation == DisplayOrientations.LandscapeFlipped)
                 {
                     mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise180Degrees);
                 }
-                else if (orientation == DisplayOrientations.PortraitFlipped)
+                else if (DisplayProperties.CurrentOrientation == DisplayOrientations.PortraitFlipped)
                 {
                     mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise90Degrees);
                 }

@@ -54,7 +54,7 @@ namespace GenieWP8
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("API:Authenticate failed! press 'OK' to retry.");
+                //MessageBox.Show("API:Authenticate failed! press 'OK' to retry.");
                 return null;
             }
         }
@@ -155,7 +155,7 @@ namespace GenieWP8
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("API:GetWPASecurityKeys failed! please retry.");
+                //MessageBox.Show("API:GetWPASecurityKeys failed! please retry.");
                 return null;
             }           
         }
@@ -638,7 +638,7 @@ namespace GenieWP8
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("API:EnableTrafficMeter failed! please retry.");
+                //MessageBox.Show("API:EnableTrafficMeter failed! please retry.");
                 return null;
             }
         }

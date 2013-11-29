@@ -2054,11 +2054,11 @@ namespace GenieWP8
         }
 
         //"这是什么"链接响应事件
-        private async void btnWhat_Click(Object sender, RoutedEventArgs e)
-        {
-            var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
-            await Windows.System.Launcher.LaunchUriAsync(uri);
-        }
+        //private async void btnWhat_Click(Object sender, RoutedEventArgs e)
+        //{
+        //    var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
+        //    await Windows.System.Launcher.LaunchUriAsync(uri);
+        //}
 
         public async void WriteDeviceInfoFile()
         {            

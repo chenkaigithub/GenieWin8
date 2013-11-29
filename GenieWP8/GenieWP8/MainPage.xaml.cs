@@ -209,11 +209,11 @@ namespace GenieWP8
         //}
 
         //隐私权政策链接响应事件
-        private async void Policy_Click(Object sender, RoutedEventArgs e)
-        {
-            var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
-            await Windows.System.Launcher.LaunchUriAsync(uri);
-        }
+        //private async void Policy_Click(Object sender, RoutedEventArgs e)
+        //{
+        //    var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
+        //    await Windows.System.Launcher.LaunchUriAsync(uri);
+        //}
 
         //关闭“关于”事件
         private void CloseAboutButton_Click(Object sender, RoutedEventArgs e)
@@ -380,7 +380,11 @@ namespace GenieWP8
                         WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
                         WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
                     }
-                    dicResponse = await soapApi.GetWPASecurityKeys();
+                    dicResponse = new Dictionary<string, string>();
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.GetWPASecurityKeys();
+                    }
                     if (dicResponse.Count > 0)
                     {
                         WifiSettingInfo.password = dicResponse["NewWPAPassphrase"];

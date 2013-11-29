@@ -234,7 +234,10 @@ namespace GenieWP8
                 WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
                 WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
                 Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                dicResponse1 = await soapApi.GetWPASecurityKeys();
+                while (dicResponse1 == null || dicResponse1.Count == 0)
+                {
+                    dicResponse1 = await soapApi.GetWPASecurityKeys();
+                }
                 if (dicResponse1.Count > 0)
                 {
                     WifiSettingInfo.password = dicResponse1["NewWPAPassphrase"];
