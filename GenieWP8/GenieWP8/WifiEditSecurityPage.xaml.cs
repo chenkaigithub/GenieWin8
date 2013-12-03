@@ -11,12 +11,14 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class WifiEditSecurityPage : PhoneApplicationPage
     {
         private static WifiSettingModel settingModel = null;
+        private static bool IsWifiSsidChanged;
         public WifiEditSecurityPage()
         {
             InitializeComponent();
@@ -59,6 +61,19 @@ namespace GenieWP8
                     securitySettingListBox.SelectedIndex = 2;
                     break;
             }
+
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         //用于生成本地化 ApplicationBar 的代码
@@ -93,38 +108,46 @@ namespace GenieWP8
         int lastIndex = -1;         //记录上次的选择项
         private void securitySetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = securitySettingListBox.SelectedIndex;
-            if (index == -1)
-                return;
-
-            switch (index)
+            if (IsWifiSsidChanged)
             {
-                case 0:
-                    WifiSettingInfo.changedSecurityType = "None";
-                    break;
-                case 1:
-                    WifiSettingInfo.changedSecurityType = "WPA2-PSK";
-                    break;
-                case 2:
-                    WifiSettingInfo.changedSecurityType = "WPA-PSK/WPA2-PSK";
-                    break;
-            }
-
-            //判断安全是否更改
-            if (WifiSettingInfo.changedSecurityType != WifiSettingInfo.securityType)
-            {
-                WifiSettingInfo.isSecurityTypeChanged = true;
-            }
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "WifiSettingPage";
+            } 
             else
             {
-                WifiSettingInfo.isSecurityTypeChanged = false;
-            }
+                int index = securitySettingListBox.SelectedIndex;
+                if (index == -1)
+                    return;
 
-            if (lastIndex != -1 && index != lastIndex)
-            {                
-                NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+                switch (index)
+                {
+                    case 0:
+                        WifiSettingInfo.changedSecurityType = "None";
+                        break;
+                    case 1:
+                        WifiSettingInfo.changedSecurityType = "WPA2-PSK";
+                        break;
+                    case 2:
+                        WifiSettingInfo.changedSecurityType = "WPA-PSK/WPA2-PSK";
+                        break;
+                }
+
+                //判断安全是否更改
+                if (WifiSettingInfo.changedSecurityType != WifiSettingInfo.securityType)
+                {
+                    WifiSettingInfo.isSecurityTypeChanged = true;
+                }
+                else
+                {
+                    WifiSettingInfo.isSecurityTypeChanged = false;
+                }
+
+                if (lastIndex != -1 && index != lastIndex)
+                {
+                    NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+                }
+                lastIndex = index;
             }
-            lastIndex = index;
         }
 
         //返回按钮响应事件

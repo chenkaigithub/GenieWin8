@@ -11,12 +11,14 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class TrafficLimitationPage : PhoneApplicationPage
     {
         private static TrafficMeterModel settingModel = null;
+        private static bool IsWifiSsidChanged;
         public TrafficLimitationPage()
         {
             InitializeComponent();
@@ -60,6 +62,19 @@ namespace GenieWP8
                     ControlOptionListBox.SelectedIndex = 2;
                     break;
             }
+
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         //用于生成本地化 ApplicationBar 的代码
@@ -94,38 +109,46 @@ namespace GenieWP8
         int lastIndex = -1;         //记录上次的选择项
         private void ControlOption_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = ControlOptionListBox.SelectedIndex;
-            if (index == -1)
-                return;
-
-            switch (index)
+            if (IsWifiSsidChanged)
             {
-                case 0:
-                    TrafficMeterInfo.changedControlOption = "No limit";
-                    break;
-                case 1:
-                    TrafficMeterInfo.changedControlOption = "Download only";
-                    break;
-                case 2:
-                    TrafficMeterInfo.changedControlOption = "Both directions";
-                    break;
-            }
-
-            //判断流量限制是否更改
-            if (TrafficMeterInfo.changedControlOption != TrafficMeterInfo.ControlOption)
-            {
-                TrafficMeterInfo.isControlOptionChanged = true;
-            }
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
+            } 
             else
             {
-                TrafficMeterInfo.isControlOptionChanged = false;
-            }
+                int index = ControlOptionListBox.SelectedIndex;
+                if (index == -1)
+                    return;
 
-            if (lastIndex != -1 && index != lastIndex)
-            {
-                NavigationService.Navigate(new Uri("/TrafficMeterSettingPage.xaml", UriKind.Relative));
+                switch (index)
+                {
+                    case 0:
+                        TrafficMeterInfo.changedControlOption = "No limit";
+                        break;
+                    case 1:
+                        TrafficMeterInfo.changedControlOption = "Download only";
+                        break;
+                    case 2:
+                        TrafficMeterInfo.changedControlOption = "Both directions";
+                        break;
+                }
+
+                //判断流量限制是否更改
+                if (TrafficMeterInfo.changedControlOption != TrafficMeterInfo.ControlOption)
+                {
+                    TrafficMeterInfo.isControlOptionChanged = true;
+                }
+                else
+                {
+                    TrafficMeterInfo.isControlOptionChanged = false;
+                }
+
+                if (lastIndex != -1 && index != lastIndex)
+                {
+                    NavigationService.Navigate(new Uri("/TrafficMeterSettingPage.xaml", UriKind.Relative));
+                }
+                lastIndex = index;
             }
-            lastIndex = index;
         }
 
         //返回按钮响应事件

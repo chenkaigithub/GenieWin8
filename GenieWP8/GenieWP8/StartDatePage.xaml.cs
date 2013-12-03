@@ -11,12 +11,14 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class StartDatePage : PhoneApplicationPage
     {
         private static TrafficMeterModel settingModel = null;
+        private static bool IsWifiSsidChanged;
         public StartDatePage()
         {
             InitializeComponent();
@@ -57,6 +59,19 @@ namespace GenieWP8
                 StartDateListBox.SelectedIndex = 28;
             }            
             //StartDateListBox.SelectedIndex = 0;
+
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         //用于生成本地化 ApplicationBar 的代码
@@ -91,35 +106,43 @@ namespace GenieWP8
         int lastIndex = -1;         //记录上次的选择项
         private void StartDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = StartDateListBox.SelectedIndex;
-            if (index == -1)
-                return;
-
-            if (index < 28)
+            if (IsWifiSsidChanged)
             {
-                TrafficMeterInfo.changedRestartDay = (index + 1).ToString();
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
             } 
             else
             {
-                int RestartDay = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
-                TrafficMeterInfo.changedRestartDay = RestartDay.ToString();
-            }           
+                int index = StartDateListBox.SelectedIndex;
+                if (index == -1)
+                    return;
 
-            //判断重启日期是否更改
-            if (TrafficMeterInfo.changedRestartDay != TrafficMeterInfo.RestartDay)
-            {
-                TrafficMeterInfo.isRestartDayChanged = true;
-            }
-            else
-            {
-                TrafficMeterInfo.isRestartDayChanged = false;
-            }
+                if (index < 28)
+                {
+                    TrafficMeterInfo.changedRestartDay = (index + 1).ToString();
+                }
+                else
+                {
+                    int RestartDay = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                    TrafficMeterInfo.changedRestartDay = RestartDay.ToString();
+                }
 
-            if (lastIndex != -1 && index != lastIndex)
-            {
-                NavigationService.Navigate(new Uri("/TrafficMeterSettingPage.xaml", UriKind.Relative));
+                //判断重启日期是否更改
+                if (TrafficMeterInfo.changedRestartDay != TrafficMeterInfo.RestartDay)
+                {
+                    TrafficMeterInfo.isRestartDayChanged = true;
+                }
+                else
+                {
+                    TrafficMeterInfo.isRestartDayChanged = false;
+                }
+
+                if (lastIndex != -1 && index != lastIndex)
+                {
+                    NavigationService.Navigate(new Uri("/TrafficMeterSettingPage.xaml", UriKind.Relative));
+                }
+                lastIndex = index;
             }
-            lastIndex = index;
         }
 
         //返回按钮响应事件

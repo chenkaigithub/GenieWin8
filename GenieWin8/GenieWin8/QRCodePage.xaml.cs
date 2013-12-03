@@ -57,6 +57,12 @@ namespace GenieWin8
             //ScanQRCode();
         }
 
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    int a = 0;
+        //    base.OnNavigatedTo(e);
+        //}
+
         /// <summary>
         /// 保留与此页关联的状态，以防挂起应用程序或
         /// 从导航缓存中放弃此页。值必须符合

@@ -19,6 +19,7 @@ using GenieWin8.DataModel;
 using Windows.Storage;
 using Windows.UI.Popups;
 using System.Threading.Tasks;
+using Windows.Networking.Connectivity;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -30,12 +31,37 @@ namespace GenieWin8
     public sealed partial class DeviceInfoPage : GenieWin8.Common.LayoutAwarePage
     {
         private string routerImage;
+        private static bool IsWifiSsidChanged;
         public DeviceInfoPage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
             ImageNameGenerator imagePath = new ImageNameGenerator(MainPageInfo.model);
             ///获取路由器图标路径
             routerImage = imagePath.getImagePath(); 
+        }
+
+        private void App_Resuming(Object sender, Object e)
+        {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        if (connectionProfile.ProfileName == MainPageInfo.ssid)
+                            IsWifiSsidChanged = false;
+                        else
+                            IsWifiSsidChanged = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         /// <summary>
@@ -49,6 +75,26 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        if (connectionProfile.ProfileName == MainPageInfo.ssid)
+                            IsWifiSsidChanged = false;
+                        else
+                            IsWifiSsidChanged = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
             var Group = DeviceSource.GetGroup((String)(navigationParameter));
 
             StpTitle.Children.Clear();
@@ -914,300 +960,324 @@ namespace GenieWin8
 
         private async void BackButton_Click(Object sender, RoutedEventArgs e)
         {
-            InProgress.IsActive = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            if (NetworkMapInfo.bRefreshMap)
+            if (IsWifiSsidChanged)
             {
-                NetworkMapInfo.bRefreshMap = false;
-                GenieSoapApi soapApi = new GenieSoapApi();
-                UtilityTool util = new UtilityTool();
-                NetworkMapInfo.geteway = await util.GetGateway();
-                NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
-
-                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                while (dicResponse == null || dicResponse.Count == 0)
-                {
-                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
-                }
-                if (dicResponse.Count > 0)
-                {
-                    WifiInfoModel.ssid = dicResponse["NewSSID"];
-                    WifiInfoModel.channel = dicResponse["NewChannel"];
-                    WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
-                    WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
-                }
-                NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
-                InProgress.IsActive = false;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-            }
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
+            } 
             else
             {
-                InProgress.IsActive = false;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
+                InProgress.IsActive = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                if (NetworkMapInfo.bRefreshMap)
+                {
+                    NetworkMapInfo.bRefreshMap = false;
+                    GenieSoapApi soapApi = new GenieSoapApi();
+                    UtilityTool util = new UtilityTool();
+                    NetworkMapInfo.geteway = await util.GetGateway();
+                    NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
+
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                    }
+                    if (dicResponse.Count > 0)
+                    {
+                        WifiInfoModel.ssid = dicResponse["NewSSID"];
+                        WifiInfoModel.channel = dicResponse["NewChannel"];
+                        WifiInfoModel.securityType = dicResponse["NewWPAEncryptionModes"];
+                        WifiInfoModel.macAddr = dicResponse["NewWLANMACAddress"];
+                    }
+                    NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                }
+                this.Frame.GoBack();
             }
-            this.Frame.GoBack();
         }
 
         private void ModifyButton_Click(Object sender, RoutedEventArgs e)
         {
-            txtBlockDeviceName.Visibility = Visibility.Collapsed;
-            txtBoxDeviceName.Visibility = Visibility.Visible;
-            Type.Visibility = Visibility.Collapsed;
-            ComboType.Visibility = Visibility.Visible;
-            btnModify.Visibility = Visibility.Collapsed;
-            btnApply.Visibility = Visibility.Visible;
+            if (IsWifiSsidChanged)
+            {
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
+            } 
+            else
+            {
+                txtBlockDeviceName.Visibility = Visibility.Collapsed;
+                txtBoxDeviceName.Visibility = Visibility.Visible;
+                Type.Visibility = Visibility.Collapsed;
+                ComboType.Visibility = Visibility.Visible;
+                btnModify.Visibility = Visibility.Collapsed;
+                btnApply.Visibility = Visibility.Visible;
+            }
         }
 
         private void ApplyButton_Click(Object sender, RoutedEventArgs e)
         {
-            string customDeviceName = txtBoxDeviceName.Text;
-            if (customDeviceName != "")
+            if (IsWifiSsidChanged)
             {
-                txtBlockDeviceName.Text = customDeviceName;
-                Title.Text = customDeviceName;
-            }          
-
-            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-            string customDeviceType = string.Empty;
-            Uri _baseUri = new Uri("ms-appx:///");
-            switch (ComboType.SelectedIndex)
-            {
-                case 0:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/imacdev.png"));
-                    customDeviceType = "imacdev";
-                    Type.Text = loader.GetString("imacdev");
-                    break;
-                case 1:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipad.png"));
-                    customDeviceType = "ipad";
-                    Type.Text = loader.GetString("ipad");
-                    break;
-                case 2:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipadmini.png"));
-                    customDeviceType = "ipadmini";
-                    Type.Text = loader.GetString("ipadmini");
-                    break;
-                case 3:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone.png"));
-                    customDeviceType = "iphone";
-                    Type.Text = loader.GetString("iphone");
-                    break;
-                case 4:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone5.png"));
-                    customDeviceType = "iphone5";
-                    Type.Text = loader.GetString("iphone5");
-                    break;
-                case 5:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipodtouch.png"));
-                    customDeviceType = "ipodtouch";
-                    Type.Text = loader.GetString("ipodtouch");
-                    break;
-                case 6:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/amazonkindle.png"));
-                    customDeviceType = "amazonkindle";
-                    Type.Text = loader.GetString("amazonkindle");
-                    break;
-                case 7:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androiddevice.png"));
-                    customDeviceType = "androiddevice";
-                    Type.Text = loader.GetString("androiddevice");
-                    break;
-                case 8:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
-                    customDeviceType = "androidphone";
-                    Type.Text = loader.GetString("androidphone");
-                    break;
-                case 9:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidtablet.png"));
-                    customDeviceType = "androidtablet";
-                    Type.Text = loader.GetString("androidtablet");
-                    break;
-                case 10:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/blurayplayer.png"));
-                    customDeviceType = "blurayplayer";
-                    Type.Text = loader.GetString("blurayplayer");
-                    break;
-                case 11:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/bridge.png"));
-                    customDeviceType = "bridge";
-                    Type.Text = loader.GetString("bridge");
-                    break;
-                case 12:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cablestb.png"));
-                    customDeviceType = "cablestb";
-                    Type.Text = loader.GetString("cablestb");
-                    break;
-                case 13:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cameradev.png"));
-                    customDeviceType = "cameradev";
-                    Type.Text = loader.GetString("cameradev");
-                    break;
-                case 14:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/dvr.png"));
-                    customDeviceType = "dvr";
-                    Type.Text = loader.GetString("dvr");
-                    break;
-                case 15:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gamedev.png"));
-                    customDeviceType = "gamedev";
-                    Type.Text = loader.GetString("gamedev");
-                    break;
-                case 16:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/linuxpc.png"));
-                    customDeviceType = "linuxpc";
-                    Type.Text = loader.GetString("linuxpc");
-                    break;
-                case 17:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macminidev.png"));
-                    customDeviceType = "macminidev";
-                    Type.Text = loader.GetString("macminidev");
-                    break;
-                case 18:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macprodev.png"));
-                    customDeviceType = "macprodev";
-                    Type.Text = loader.GetString("macprodev");
-                    break;
-                case 19:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macbookdev.png"));
-                    customDeviceType = "macbookdev";
-                    Type.Text = loader.GetString("macbookdev");
-                    break;
-                case 20:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mediadev.png"));
-                    customDeviceType = "mediadev";
-                    Type.Text = loader.GetString("mediadev");
-                    break;
-                case 21:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/networkdev.png"));
-                    customDeviceType = "networkdev";
-                    Type.Text = loader.GetString("networkdev");
-                    break;
-                case 22:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/stb.png"));
-                    customDeviceType = "stb";
-                    Type.Text = loader.GetString("stb");
-                    break;
-                case 23:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/printerdev.png"));
-                    customDeviceType = "printerdev";
-                    Type.Text = loader.GetString("printerdev");
-                    break;
-                case 24:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/repeater.png"));
-                    customDeviceType = "repeater";
-                    Type.Text = loader.GetString("repeater");
-                    break;
-                case 25:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
-                    customDeviceType = "gatewaydev";
-                    Type.Text = loader.GetString("gatewaydev");
-                    break;
-                case 26:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/satellitestb.png"));
-                    customDeviceType = "satellitestb";
-                    Type.Text = loader.GetString("satellitestb");
-                    break;
-                case 27:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/scannerdev.png"));
-                    customDeviceType = "scannerdev";
-                    Type.Text = loader.GetString("scannerdev");
-                    break;
-                case 28:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/slingbox.png"));
-                    customDeviceType = "slingbox";
-                    Type.Text = loader.GetString("slingbox");
-                    break;
-                case 29:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mobiledev.png"));
-                    customDeviceType = "mobiledev";
-                    Type.Text = loader.GetString("mobiledev");
-                    break;
-                case 30:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/netstoragedev.png"));
-                    customDeviceType = "netstoragedev";
-                    Type.Text = loader.GetString("netstoragedev");
-                    break;
-                case 31:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/switchdev.png"));
-                    customDeviceType = "switchdev";
-                    Type.Text = loader.GetString("switchdev");
-                    break;
-                case 32:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tv.png"));
-                    customDeviceType = "tv";
-                    Type.Text = loader.GetString("tv");
-                    break;
-                case 33:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tablepc.png"));
-                    customDeviceType = "tablepc";
-                    Type.Text = loader.GetString("tablepc");
-                    break;
-                case 34:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/unixpc.png"));
-                    customDeviceType = "unixpc";
-                    Type.Text = loader.GetString("unixpc");
-                    break;
-                case 35:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowspc.png"));
-                    customDeviceType = "windowspc";
-                    Type.Text = loader.GetString("windowspc");
-                    break;
-                case 36:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowsphone.png"));
-                    customDeviceType = "windowsphone";
-                    Type.Text = loader.GetString("windowsphone");
-                    break;
-                case 37:
-                    TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowstablet.png"));
-                    customDeviceType = "windowstablet";
-                    Type.Text = loader.GetString("windowstablet");
-                    break;
-            }
-
-            string allDeviceInfo = string.Empty;
-            string customDeviceInfo = string.Empty;
-            bool bFound = false;
-            if (NetworkMapInfo.fileContent != "")
-            {
-                string[] AllDeviceInfo = NetworkMapInfo.fileContent.Split(';');
-                for (int i = 0; i < AllDeviceInfo.Length; i++)
-                {
-                    if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
-                    {
-                        string[] DeviceInfo = AllDeviceInfo[i].Split(',');
-                        if (DeviceInfo[0] == MACAddress.Text)
-                        {
-                            bFound = true;
-                            DeviceInfo[1] = customDeviceName;
-                            DeviceInfo[2] = customDeviceType;
-                        }
-                        customDeviceInfo = DeviceInfo[0] + "," + DeviceInfo[1] + "," + DeviceInfo[2] + ";";
-                        allDeviceInfo += customDeviceInfo;
-                    }                  
-                }
-                if (!bFound)
-                {
-                    allDeviceInfo += MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";
-                }
-                NetworkMapInfo.fileContent = allDeviceInfo;
-            }
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
+            } 
             else
             {
-                NetworkMapInfo.fileContent = MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";              
+                string customDeviceName = txtBoxDeviceName.Text;
+                if (customDeviceName != "")
+                {
+                    txtBlockDeviceName.Text = customDeviceName;
+                    Title.Text = customDeviceName;
+                }
+
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                string customDeviceType = string.Empty;
+                Uri _baseUri = new Uri("ms-appx:///");
+                switch (ComboType.SelectedIndex)
+                {
+                    case 0:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/imacdev.png"));
+                        customDeviceType = "imacdev";
+                        Type.Text = loader.GetString("imacdev");
+                        break;
+                    case 1:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipad.png"));
+                        customDeviceType = "ipad";
+                        Type.Text = loader.GetString("ipad");
+                        break;
+                    case 2:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipadmini.png"));
+                        customDeviceType = "ipadmini";
+                        Type.Text = loader.GetString("ipadmini");
+                        break;
+                    case 3:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone.png"));
+                        customDeviceType = "iphone";
+                        Type.Text = loader.GetString("iphone");
+                        break;
+                    case 4:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/iphone5.png"));
+                        customDeviceType = "iphone5";
+                        Type.Text = loader.GetString("iphone5");
+                        break;
+                    case 5:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/ipodtouch.png"));
+                        customDeviceType = "ipodtouch";
+                        Type.Text = loader.GetString("ipodtouch");
+                        break;
+                    case 6:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/amazonkindle.png"));
+                        customDeviceType = "amazonkindle";
+                        Type.Text = loader.GetString("amazonkindle");
+                        break;
+                    case 7:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androiddevice.png"));
+                        customDeviceType = "androiddevice";
+                        Type.Text = loader.GetString("androiddevice");
+                        break;
+                    case 8:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidphone.png"));
+                        customDeviceType = "androidphone";
+                        Type.Text = loader.GetString("androidphone");
+                        break;
+                    case 9:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/androidtablet.png"));
+                        customDeviceType = "androidtablet";
+                        Type.Text = loader.GetString("androidtablet");
+                        break;
+                    case 10:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/blurayplayer.png"));
+                        customDeviceType = "blurayplayer";
+                        Type.Text = loader.GetString("blurayplayer");
+                        break;
+                    case 11:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/bridge.png"));
+                        customDeviceType = "bridge";
+                        Type.Text = loader.GetString("bridge");
+                        break;
+                    case 12:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cablestb.png"));
+                        customDeviceType = "cablestb";
+                        Type.Text = loader.GetString("cablestb");
+                        break;
+                    case 13:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/cameradev.png"));
+                        customDeviceType = "cameradev";
+                        Type.Text = loader.GetString("cameradev");
+                        break;
+                    case 14:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/dvr.png"));
+                        customDeviceType = "dvr";
+                        Type.Text = loader.GetString("dvr");
+                        break;
+                    case 15:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gamedev.png"));
+                        customDeviceType = "gamedev";
+                        Type.Text = loader.GetString("gamedev");
+                        break;
+                    case 16:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/linuxpc.png"));
+                        customDeviceType = "linuxpc";
+                        Type.Text = loader.GetString("linuxpc");
+                        break;
+                    case 17:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macminidev.png"));
+                        customDeviceType = "macminidev";
+                        Type.Text = loader.GetString("macminidev");
+                        break;
+                    case 18:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macprodev.png"));
+                        customDeviceType = "macprodev";
+                        Type.Text = loader.GetString("macprodev");
+                        break;
+                    case 19:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/macbookdev.png"));
+                        customDeviceType = "macbookdev";
+                        Type.Text = loader.GetString("macbookdev");
+                        break;
+                    case 20:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mediadev.png"));
+                        customDeviceType = "mediadev";
+                        Type.Text = loader.GetString("mediadev");
+                        break;
+                    case 21:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/networkdev.png"));
+                        customDeviceType = "networkdev";
+                        Type.Text = loader.GetString("networkdev");
+                        break;
+                    case 22:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/stb.png"));
+                        customDeviceType = "stb";
+                        Type.Text = loader.GetString("stb");
+                        break;
+                    case 23:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/printerdev.png"));
+                        customDeviceType = "printerdev";
+                        Type.Text = loader.GetString("printerdev");
+                        break;
+                    case 24:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/repeater.png"));
+                        customDeviceType = "repeater";
+                        Type.Text = loader.GetString("repeater");
+                        break;
+                    case 25:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/gatewaydev.png"));
+                        customDeviceType = "gatewaydev";
+                        Type.Text = loader.GetString("gatewaydev");
+                        break;
+                    case 26:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/satellitestb.png"));
+                        customDeviceType = "satellitestb";
+                        Type.Text = loader.GetString("satellitestb");
+                        break;
+                    case 27:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/scannerdev.png"));
+                        customDeviceType = "scannerdev";
+                        Type.Text = loader.GetString("scannerdev");
+                        break;
+                    case 28:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/slingbox.png"));
+                        customDeviceType = "slingbox";
+                        Type.Text = loader.GetString("slingbox");
+                        break;
+                    case 29:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/mobiledev.png"));
+                        customDeviceType = "mobiledev";
+                        Type.Text = loader.GetString("mobiledev");
+                        break;
+                    case 30:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/netstoragedev.png"));
+                        customDeviceType = "netstoragedev";
+                        Type.Text = loader.GetString("netstoragedev");
+                        break;
+                    case 31:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/switchdev.png"));
+                        customDeviceType = "switchdev";
+                        Type.Text = loader.GetString("switchdev");
+                        break;
+                    case 32:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tv.png"));
+                        customDeviceType = "tv";
+                        Type.Text = loader.GetString("tv");
+                        break;
+                    case 33:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/tablepc.png"));
+                        customDeviceType = "tablepc";
+                        Type.Text = loader.GetString("tablepc");
+                        break;
+                    case 34:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/unixpc.png"));
+                        customDeviceType = "unixpc";
+                        Type.Text = loader.GetString("unixpc");
+                        break;
+                    case 35:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowspc.png"));
+                        customDeviceType = "windowspc";
+                        Type.Text = loader.GetString("windowspc");
+                        break;
+                    case 36:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowsphone.png"));
+                        customDeviceType = "windowsphone";
+                        Type.Text = loader.GetString("windowsphone");
+                        break;
+                    case 37:
+                        TitleImage.Source = new BitmapImage(new Uri(_baseUri, "Assets/devices/windowstablet.png"));
+                        customDeviceType = "windowstablet";
+                        Type.Text = loader.GetString("windowstablet");
+                        break;
+                }
+
+                string allDeviceInfo = string.Empty;
+                string customDeviceInfo = string.Empty;
+                bool bFound = false;
+                if (NetworkMapInfo.fileContent != "")
+                {
+                    string[] AllDeviceInfo = NetworkMapInfo.fileContent.Split(';');
+                    for (int i = 0; i < AllDeviceInfo.Length; i++)
+                    {
+                        if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
+                        {
+                            string[] DeviceInfo = AllDeviceInfo[i].Split(',');
+                            if (DeviceInfo[0] == MACAddress.Text)
+                            {
+                                bFound = true;
+                                DeviceInfo[1] = customDeviceName;
+                                DeviceInfo[2] = customDeviceType;
+                            }
+                            customDeviceInfo = DeviceInfo[0] + "," + DeviceInfo[1] + "," + DeviceInfo[2] + ";";
+                            allDeviceInfo += customDeviceInfo;
+                        }
+                    }
+                    if (!bFound)
+                    {
+                        allDeviceInfo += MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";
+                    }
+                    NetworkMapInfo.fileContent = allDeviceInfo;
+                }
+                else
+                {
+                    NetworkMapInfo.fileContent = MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";
+                }
+                WriteDeviceInfoFile();
+
+                txtBlockDeviceName.Visibility = Visibility.Visible;
+                txtBoxDeviceName.Visibility = Visibility.Collapsed;
+                Type.Visibility = Visibility.Visible;
+                ComboType.Visibility = Visibility.Collapsed;
+                btnModify.Visibility = Visibility.Visible;
+                btnApply.Visibility = Visibility.Collapsed;
+
+                NetworkMapInfo.bRefreshMap = true;
             }
-            WriteDeviceInfoFile();
-
-            txtBlockDeviceName.Visibility = Visibility.Visible;
-            txtBoxDeviceName.Visibility = Visibility.Collapsed;
-            Type.Visibility = Visibility.Visible;
-            ComboType.Visibility = Visibility.Collapsed;
-            btnModify.Visibility = Visibility.Visible;
-            btnApply.Visibility = Visibility.Collapsed;
-
-            NetworkMapInfo.bRefreshMap = true;
         }
 
         public async Task<string> ReadDeviceInfoFile()
@@ -1261,56 +1331,72 @@ namespace GenieWin8
   
         private async void AllowButton_Click(Object sender, RoutedEventArgs e)
         {
-            InProgress.IsActive = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
+            if (IsWifiSsidChanged)
             {
-                dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Allow");
-            }
-            if (int.Parse(dicResponse["ResponseCode"]) == 0)
-            {
-                btnAllow.Visibility = Visibility.Collapsed;
-                btnBlock.Visibility = Visibility.Visible;
-                NetworkMapInfo.bRefreshMap = true;
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
             } 
             else
             {
-                var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                await messageDialog.ShowAsync();
+                InProgress.IsActive = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Allow");
+                }
+                if (int.Parse(dicResponse["ResponseCode"]) == 0)
+                {
+                    btnAllow.Visibility = Visibility.Collapsed;
+                    btnBlock.Visibility = Visibility.Visible;
+                    NetworkMapInfo.bRefreshMap = true;
+                }
+                else
+                {
+                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                    await messageDialog.ShowAsync();
+                }
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
             }
-            InProgress.IsActive = false;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         private async void BlockButton_Click(Object sender, RoutedEventArgs e)
         {
-            InProgress.IsActive = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
+            if (IsWifiSsidChanged)
             {
-                dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Block");
-            }
-            if (int.Parse(dicResponse["ResponseCode"]) == 0)
-            {
-                btnAllow.Visibility = Visibility.Visible;
-                btnBlock.Visibility = Visibility.Collapsed;
-                NetworkMapInfo.bRefreshMap = true;
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
             } 
             else
             {
-                var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                await messageDialog.ShowAsync();
+                InProgress.IsActive = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Block");
+                }
+                if (int.Parse(dicResponse["ResponseCode"]) == 0)
+                {
+                    btnAllow.Visibility = Visibility.Visible;
+                    btnBlock.Visibility = Visibility.Collapsed;
+                    NetworkMapInfo.bRefreshMap = true;
+                }
+                else
+                {
+                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                    await messageDialog.ShowAsync();
+                }
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
             }
-            InProgress.IsActive = false;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         //private async void btnWhat_Click(object sender, RoutedEventArgs e)

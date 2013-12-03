@@ -78,7 +78,15 @@ namespace GenieWP8.ViewModels
             attachDeviceAll = NetworkMapInfo.attachDeviceDic;
             UtilityTool util = new UtilityTool();
             var ipList = util.GetCurrentIpAddresses();
-            string loacalIp = ipList.ToList()[0];
+            string loacalIp;
+            if (ipList.ToList().Count == 0)
+            {
+                loacalIp = "0.0.0.0";
+            } 
+            else
+            {
+                loacalIp = ipList.ToList()[0];
+            }
 
             Node NodeRouter = new Node();
             NodeRouter.uniqueId = "Router";

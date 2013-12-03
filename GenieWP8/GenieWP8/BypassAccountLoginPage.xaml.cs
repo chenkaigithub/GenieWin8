@@ -13,11 +13,13 @@ using GenieWP8.DataInfo;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Windows.Media;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class BypassAccountLoginPage : PhoneApplicationPage
     {
+        private static bool IsWifiSsidChanged;
         public BypassAccountLoginPage()
         {
             InitializeComponent();
@@ -36,6 +38,22 @@ namespace GenieWP8
 
             //加载页面状态
             LoadState();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         //用于生成本地化 ApplicationBar 的代码
@@ -98,39 +116,47 @@ namespace GenieWP8
         //登录按钮事件
         private async void LoginButton_Click(object sender, EventArgs e)
         {
-            PopupBackground.Visibility = Visibility.Visible;
-
-            string Username = tbBypassUserName.Text.Trim();
-            string Password = tbBypassPassword.Password;
-            GenieWebApi webApi = new GenieWebApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await webApi.GetDeviceChild(ParentalControlInfo.DeviceId, Username, Password);
-            if (dicResponse["status"] == "success")
+            if (IsWifiSsidChanged)
             {
-                ParentalControlInfo.BypassUsername = Username;
-                ParentalControlInfo.BypassChildrenDeviceId = dicResponse["child_device_id"];
-                WriteChildrenDeviceIdToFile();                  //登录成功后将childrenDeviceId保存到本地，如果未注销则以后登录Genie时，通过读取本地DeviceId获得当前登录的Bypass账户
-                GenieSoapApi soapApi = new GenieSoapApi();
-                dicResponse.Clear();
-                UtilityTool util = new UtilityTool();
-                string macAddress = util.GetLocalMacAddress();
-                macAddress = macAddress.Replace(":", "");       ///本机mac地址
-                dicResponse = await soapApi.SetDNSMasqDeviceID("default", ParentalControlInfo.BypassChildrenDeviceId);
-
-                PopupBackground.Visibility = Visibility.Collapsed;
-                NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
-            }
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
             else
             {
-                PopupBackground.Visibility = Visibility.Collapsed;
-                if (dicResponse["error"] == "3003")
+                PopupBackground.Visibility = Visibility.Visible;
+
+                string Username = tbBypassUserName.Text.Trim();
+                string Password = tbBypassPassword.Password;
+                GenieWebApi webApi = new GenieWebApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await webApi.GetDeviceChild(ParentalControlInfo.DeviceId, Username, Password);
+                if (dicResponse["status"] == "success")
                 {
-                    MessageBox.Show(AppResources.UnmatchedPassword);
+                    ParentalControlInfo.BypassUsername = Username;
+                    ParentalControlInfo.BypassChildrenDeviceId = dicResponse["child_device_id"];
+                    WriteChildrenDeviceIdToFile();                  //登录成功后将childrenDeviceId保存到本地，如果未注销则以后登录Genie时，通过读取本地DeviceId获得当前登录的Bypass账户
+                    GenieSoapApi soapApi = new GenieSoapApi();
+                    dicResponse.Clear();
+                    UtilityTool util = new UtilityTool();
+                    string macAddress = util.GetLocalMacAddress();
+                    macAddress = macAddress.Replace(":", "");       ///本机mac地址
+                    dicResponse = await soapApi.SetDNSMasqDeviceID("default", ParentalControlInfo.BypassChildrenDeviceId);
+
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
                 }
                 else
                 {
-                    MessageBox.Show(dicResponse["error_message"]);
-                }               
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    if (dicResponse["error"] == "3003")
+                    {
+                        MessageBox.Show(AppResources.UnmatchedPassword);
+                    }
+                    else
+                    {
+                        MessageBox.Show(dicResponse["error_message"]);
+                    }
+                }
             }
         }
 

@@ -12,11 +12,13 @@ using GenieWP8.Resources;
 using GenieWP8.DataInfo;
 using System.IO;
 using System.IO.IsolatedStorage;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class BypassAccountLogoutPage : PhoneApplicationPage
     {
+        private static bool IsWifiSsidChanged;
         public BypassAccountLogoutPage()
         {
             InitializeComponent();
@@ -35,6 +37,22 @@ namespace GenieWP8
 
             //加载页面状态
             LoadState();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         //用于生成本地化 ApplicationBar 的代码
@@ -84,20 +102,28 @@ namespace GenieWP8
         //登录按钮事件
         private async void LogoutButton_Click(object sender, EventArgs e)
         {
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            UtilityTool util = new UtilityTool();
-            string MacAddress = util.GetLocalMacAddress();  //获取本机mac地址
-            MacAddress = MacAddress.Replace(":", "");
-            dicResponse = await soapApi.DeleteMACAddress(MacAddress);
-            ParentalControlInfo.BypassUsername = "";
-            ParentalControlInfo.BypassChildrenDeviceId = "";
-            WriteChildrenDeviceIdToFile();                  //登录成功后将childrenDeviceId保存到本地，如果未注销则以后登录Genie时，通过读取本地DeviceId获得当前登录的Bypass账户
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
-            NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
+            if (IsWifiSsidChanged)
+            {
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                UtilityTool util = new UtilityTool();
+                string MacAddress = util.GetLocalMacAddress();  //获取本机mac地址
+                MacAddress = MacAddress.Replace(":", "");
+                dicResponse = await soapApi.DeleteMACAddress(MacAddress);
+                ParentalControlInfo.BypassUsername = "";
+                ParentalControlInfo.BypassChildrenDeviceId = "";
+                WriteChildrenDeviceIdToFile();                  //登录成功后将childrenDeviceId保存到本地，如果未注销则以后登录Genie时，通过读取本地DeviceId获得当前登录的Bypass账户
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                NavigationService.Navigate(new Uri("/ParentalControlPage.xaml", UriKind.Relative));
+            }
         }
 
         public async void WriteChildrenDeviceIdToFile()

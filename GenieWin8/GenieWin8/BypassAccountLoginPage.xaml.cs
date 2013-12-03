@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
 using Windows.UI.Popups;
 using Windows.Storage;
+using Windows.Networking.Connectivity;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -24,9 +25,34 @@ namespace GenieWin8
     /// </summary>
     public sealed partial class BypassAccountLoginPage : GenieWin8.Common.LayoutAwarePage
     {
+        private static bool IsWifiSsidChanged;
         public BypassAccountLoginPage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+        }
+
+        private void App_Resuming(Object sender, Object e)
+        {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        if (connectionProfile.ProfileName == MainPageInfo.ssid)
+                            IsWifiSsidChanged = false;
+                        else
+                            IsWifiSsidChanged = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         /// <summary>
@@ -68,46 +94,54 @@ namespace GenieWin8
 
         private async void LoginButton_Click(Object sender, RoutedEventArgs e)
         {
-            InProgress.IsActive = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            string Username = tbBypassUserName.Text.Trim();
-            string Password = tbBypassPassword.Password;
-            GenieWebApi webApi = new GenieWebApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await webApi.GetDeviceChild(ParentalControlInfo.DeviceId, Username, Password);
-            if (dicResponse["status"] == "success")
+            if (IsWifiSsidChanged)
             {
-                ParentalControlInfo.BypassUsername = Username;
-                ParentalControlInfo.BypassChildrenDeviceId = dicResponse["child_device_id"];
-                WriteChildrenDeviceIdToFile();                  //登录成功后将childrenDeviceId保存到本地，如果未注销则以后登录Genie时，通过读取本地DeviceId获得当前登录的Bypass账户
-                GenieSoapApi soapApi = new GenieSoapApi();
-                dicResponse.Clear();
-                UtilityTool util = new UtilityTool();
-                string macAddress = util.GetLocalMacAddress();
-                macAddress = macAddress.Replace(":", "");       ///本机mac地址
-                dicResponse = await soapApi.SetDNSMasqDeviceID("default", ParentalControlInfo.BypassChildrenDeviceId);
-            
-                InProgress.IsActive = false;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-                this.Frame.Navigate(typeof(ParentalControlPage));
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
             } 
             else
             {
-                InProgress.IsActive = false;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-                if (dicResponse["error"] == "3003")
+                InProgress.IsActive = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                string Username = tbBypassUserName.Text.Trim();
+                string Password = tbBypassPassword.Password;
+                GenieWebApi webApi = new GenieWebApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await webApi.GetDeviceChild(ParentalControlInfo.DeviceId, Username, Password);
+                if (dicResponse["status"] == "success")
                 {
-                    var loader = new Windows.ApplicationModel.Resources.ResourceLoader();                    
-                    var messageDialog = new MessageDialog(loader.GetString("UnmatchedPassword"));
-                    await messageDialog.ShowAsync();
-                } 
+                    ParentalControlInfo.BypassUsername = Username;
+                    ParentalControlInfo.BypassChildrenDeviceId = dicResponse["child_device_id"];
+                    WriteChildrenDeviceIdToFile();                  //登录成功后将childrenDeviceId保存到本地，如果未注销则以后登录Genie时，通过读取本地DeviceId获得当前登录的Bypass账户
+                    GenieSoapApi soapApi = new GenieSoapApi();
+                    dicResponse.Clear();
+                    UtilityTool util = new UtilityTool();
+                    string macAddress = util.GetLocalMacAddress();
+                    macAddress = macAddress.Replace(":", "");       ///本机mac地址
+                    dicResponse = await soapApi.SetDNSMasqDeviceID("default", ParentalControlInfo.BypassChildrenDeviceId);
+
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    this.Frame.Navigate(typeof(ParentalControlPage));
+                }
                 else
                 {
-                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                    await messageDialog.ShowAsync();
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    if (dicResponse["error"] == "3003")
+                    {
+                        var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                        var messageDialog = new MessageDialog(loader.GetString("UnmatchedPassword"));
+                        await messageDialog.ShowAsync();
+                    }
+                    else
+                    {
+                        var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                        await messageDialog.ShowAsync();
+                    }
                 }
             }
         }

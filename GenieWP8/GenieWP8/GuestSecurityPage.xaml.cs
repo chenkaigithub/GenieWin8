@@ -11,12 +11,14 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class GuestSecurityPage : PhoneApplicationPage
     {
         private static GuestAccessModel settingModel = null;
+        private static bool IsWifiSsidChanged;
         public GuestSecurityPage()
         {
             InitializeComponent();
@@ -62,6 +64,19 @@ namespace GenieWP8
                     securitySettingListBox.SelectedIndex = 2;
                     break;
             }
+
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
@@ -96,43 +111,51 @@ namespace GenieWP8
         int lastIndex = -1;         //记录上次的选择项
         private void securitySetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = securitySettingListBox.SelectedIndex;
-            if (index == -1)
-                return;
-
-            switch (index)
+            if (IsWifiSsidChanged)
             {
-                case 0:
-                    GuestAccessInfo.changedSecurityType = "None";
-                    break;
-                case 1:
-                    GuestAccessInfo.changedSecurityType = "WPA2-PSK";
-                    break;
-                case 2:
-                    GuestAccessInfo.changedSecurityType = "Mixed WPA";
-                    break;
-            }
-
-            //判断安全是否更改
-            if (GuestAccessInfo.changedSecurityType != GuestAccessInfo.securityType)
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "GuestAccessPage";
+            } 
+            else
             {
-                if (GuestAccessInfo.changedSecurityType == "Mixed WPA" && GuestAccessInfo.securityType == "WPA-PSK/WPA2-PSK")
+                int index = securitySettingListBox.SelectedIndex;
+                if (index == -1)
+                    return;
+
+                switch (index)
+                {
+                    case 0:
+                        GuestAccessInfo.changedSecurityType = "None";
+                        break;
+                    case 1:
+                        GuestAccessInfo.changedSecurityType = "WPA2-PSK";
+                        break;
+                    case 2:
+                        GuestAccessInfo.changedSecurityType = "Mixed WPA";
+                        break;
+                }
+
+                //判断安全是否更改
+                if (GuestAccessInfo.changedSecurityType != GuestAccessInfo.securityType)
+                {
+                    if (GuestAccessInfo.changedSecurityType == "Mixed WPA" && GuestAccessInfo.securityType == "WPA-PSK/WPA2-PSK")
+                    {
+                        GuestAccessInfo.isSecurityTypeChanged = false;
+                    }
+                    else
+                        GuestAccessInfo.isSecurityTypeChanged = true;
+                }
+                else
                 {
                     GuestAccessInfo.isSecurityTypeChanged = false;
                 }
-                else
-                    GuestAccessInfo.isSecurityTypeChanged = true;
-            }
-            else
-            {
-                GuestAccessInfo.isSecurityTypeChanged = false;
-            }
 
-            if (lastIndex != -1 && index != lastIndex)
-            {
-                NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
+                if (lastIndex != -1 && index != lastIndex)
+                {
+                    NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
+                }
+                lastIndex = index;
             }
-            lastIndex = index;
         }
 
         //返回按钮响应事件

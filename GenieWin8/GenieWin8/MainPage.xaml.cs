@@ -41,12 +41,52 @@ namespace GenieWin8
         public MainPage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
 
             // 绑定数据
             if (ItemModel == null)
                 ItemModel = new DataSource();
         }
-       
+
+        private void App_Resuming(Object sender, Object e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            tbSsid.Text = loader.GetString("WifiDisconnected");
+            Uri _baseUri = new Uri("ms-appx:///");
+            imgWifi.Source = new BitmapImage(new Uri(_baseUri, "Assets/signal/nowifi.png"));
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        tbSsid.Text = connectionProfile.ProfileName;
+                        imgWifi.Source = new BitmapImage(new Uri(_baseUri, "Assets/signal/wirelessflag4.png"));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            if (tbSsid.Text != MainPageInfo.ssid)
+            {
+                MainPageInfo.bLogin = false;
+            }
+
+            if (MainPageInfo.bLogin)
+            {
+                btnLogin.Visibility = Visibility.Collapsed;
+                btnLogout.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnLogin.Visibility = Visibility.Visible;
+                btnLogout.Visibility = Visibility.Collapsed;
+            }
+        }
+
         /// <summary>
         /// 使用在导航过程中传递的内容填充页。在从以前的会话
         /// 重新创建页时，也会提供任何已保存状态。
@@ -80,6 +120,11 @@ namespace GenieWin8
             }
             catch (Exception ex)
             {
+            }
+
+            if (tbSsid.Text != MainPageInfo.ssid)
+            {
+                MainPageInfo.bLogin = false;
             }
 
             if (MainPageInfo.bLogin)

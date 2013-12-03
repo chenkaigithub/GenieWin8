@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
+using Windows.Networking.Connectivity;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -24,9 +25,34 @@ namespace GenieWin8
     /// </summary>
     public sealed partial class EditSecurityPage : GenieWin8.Common.LayoutAwarePage
     {
+        private static bool IsWifiSsidChanged;
         public EditSecurityPage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+        }
+
+        private void App_Resuming(Object sender, Object e)
+        {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        if (connectionProfile.ProfileName == MainPageInfo.ssid)
+                            IsWifiSsidChanged = false;
+                        else
+                            IsWifiSsidChanged = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         /// <summary>
@@ -70,38 +96,46 @@ namespace GenieWin8
         int lastIndex = -1;         //记录上次的选择项
         private void Security_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = securityListView.SelectedIndex;
-            if (index == -1)
-                return;
-
-            switch (index)
+            if (IsWifiSsidChanged)
             {
-                case 0:
-                    WifiInfoModel.changedSecurityType = "None";
-                    break;
-                case 1:
-                    WifiInfoModel.changedSecurityType = "WPA2-PSK";
-                    break;
-                case 2:
-                    WifiInfoModel.changedSecurityType = "WPA-PSK/WPA2-PSK";
-                    break;
-            }
-
-            //判断安全是否更改
-            if (WifiInfoModel.changedSecurityType != WifiInfoModel.securityType)
-            {
-                WifiInfoModel.isSecurityTypeChanged = true;
-            }
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "WifiSettingPage";
+            } 
             else
             {
-                WifiInfoModel.isSecurityTypeChanged = false;
-            }
+                int index = securityListView.SelectedIndex;
+                if (index == -1)
+                    return;
 
-            if (lastIndex!= -1 && index != lastIndex)
-            {
-                this.Frame.Navigate(typeof(EditSettingPage));
+                switch (index)
+                {
+                    case 0:
+                        WifiInfoModel.changedSecurityType = "None";
+                        break;
+                    case 1:
+                        WifiInfoModel.changedSecurityType = "WPA2-PSK";
+                        break;
+                    case 2:
+                        WifiInfoModel.changedSecurityType = "WPA-PSK/WPA2-PSK";
+                        break;
+                }
+
+                //判断安全是否更改
+                if (WifiInfoModel.changedSecurityType != WifiInfoModel.securityType)
+                {
+                    WifiInfoModel.isSecurityTypeChanged = true;
+                }
+                else
+                {
+                    WifiInfoModel.isSecurityTypeChanged = false;
+                }
+
+                if (lastIndex != -1 && index != lastIndex)
+                {
+                    this.Frame.Navigate(typeof(EditSettingPage));
+                }
+                lastIndex = index;
             }
-            lastIndex = index;
         }
     }
 }

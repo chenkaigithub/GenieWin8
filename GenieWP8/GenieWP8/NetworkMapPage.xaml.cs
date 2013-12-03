@@ -18,6 +18,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
@@ -28,6 +29,7 @@ namespace GenieWP8
         private bool IsRouterInfoOpened = false;
         private bool IsDrawCompleted = false;
         DispatcherTimer timer = new DispatcherTimer();      //计时器
+        private static bool IsWifiSsidChanged;
 
         public NetworkMapPage()
         {
@@ -48,10 +50,19 @@ namespace GenieWP8
         // 为 NetworkMapModel 项加载数据
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            //if (!settingModel.IsDataLoaded)
-            //{
-            //    settingModel.LoadData();
-            //}
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
+
             if (NetworkMapInfo.bTypeChanged)
             {
                 DeviceInfoPopup.IsOpen = true;
@@ -65,7 +76,7 @@ namespace GenieWP8
                 settingModel.DeviceGroups.Clear();
                 settingModel.LoadData();
 
-                if (settingModel.DeviceGroups.ElementAt(1).NODE.AccessControl != "")
+                if (settingModel.DeviceGroups.ElementAt(1).NODE.AccessControl != "" && IsWifiSsidChanged == false)
                 {
                     GenieSoapApi soapApi = new GenieSoapApi();
                     Dictionary<string, string> dicResponse = new Dictionary<string, string>();
@@ -114,10 +125,18 @@ namespace GenieWP8
                     height = Application.Current.Host.Content.ActualWidth - 200;
                     DeviceInfoScrollViewer.Height = 250;
                 }
-                timer.Interval = TimeSpan.FromSeconds(1);
-                timer.Tick += timer_Tick;
-                timer.Start();
-                DrawNetworkMap(width, height);
+                if (!IsWifiSsidChanged)
+                {
+                    timer.Interval = TimeSpan.FromSeconds(1);
+                    timer.Tick += timer_Tick;
+                    timer.Start();
+                    DrawNetworkMap(width, height);
+                }
+                else
+                {
+                    this.SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                }
                 //PopupBackground.Visibility = Visibility.Collapsed;
             }         
         }
@@ -174,751 +193,759 @@ namespace GenieWP8
 
         private async void DrawNetworkMap(double width, double height)
         {         
-            MapPivot.Items.Clear();
-            double PI = 3.141592653589793;            
-            //double width = e.NewSize.Width;
-            //double height = e.NewSize.Height - 150;
-            double r1 = width / 2 - 50;
-            double r2 = height / 2 - 50;
-            //m = （总设备数 - 1（路由器/交换机）- 1（本设备））/ 6 的商，即满设备的MAP页数
-            //n 为上式得余数，即最后一页除路由器（交换机）和本设备外的设备数
-            var Group = settingModel.DeviceGroups;
-            var DeviceNumber = Group.Count();
-            int m = (DeviceNumber - 2) / 6;
-            int n = (DeviceNumber - 2) % 6;
-            for (int i = 0; i < m + 1; i++)
+            if (IsWifiSsidChanged)
             {
-                if (i != m)
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
+            } 
+            else
+            {
+                MapPivot.Items.Clear();
+                double PI = 3.141592653589793;
+                //double width = e.NewSize.Width;
+                //double height = e.NewSize.Height - 150;
+                double r1 = width / 2 - 50;
+                double r2 = height / 2 - 50;
+                //m = （总设备数 - 1（路由器/交换机）- 1（本设备））/ 6 的商，即满设备的MAP页数
+                //n 为上式得余数，即最后一页除路由器（交换机）和本设备外的设备数
+                var Group = settingModel.DeviceGroups;
+                var DeviceNumber = Group.Count();
+                int m = (DeviceNumber - 2) / 6;
+                int n = (DeviceNumber - 2) % 6;
+                for (int i = 0; i < m + 1; i++)
                 {
-                    double Angle = 360.0 / 8;
-                    Grid map = new Grid();
-
-                    //internet图标
-                    Image internet = new Image();
-                    internet.Source = new BitmapImage(new Uri("Assets/internet72.png", UriKind.Relative));
-                    internet.HorizontalAlignment = HorizontalAlignment.Right;
-                    internet.VerticalAlignment = VerticalAlignment.Top;
-                    internet.Margin = new Thickness(0, height / 2 - 35, 0, 0);                                 // -35 为纠正由图标大小（70，70）造成的偏差
-                    internet.Width = 70; internet.Height = 70;
-
-                    //路由器图标
-                    Button BtnRouter = new Button();
-                    BtnRouter.Name = Group.ElementAt(0).NODE.uniqueId + "_" + (i + 1).ToString();
-                    BtnRouter.Width = 130;
-                    BtnRouter.Height = 130;
-                    BtnRouter.HorizontalAlignment = HorizontalAlignment.Left;
-                    BtnRouter.VerticalAlignment = VerticalAlignment.Top;
-
-                    Image imgRouter = new Image();
-                    imgRouter.Source = new BitmapImage(new Uri(routerImage, UriKind.Relative));
-                    imgRouter.Stretch = Stretch.Uniform;
-                    BtnRouter.Content = imgRouter;
-                    BtnRouter.Margin = new Thickness(width / 2 - 65, height / 2 - 65, 0, 0);                    // -65 为纠正由图标大小（130，130）造成的偏差
-                    BtnRouter.Click += new RoutedEventHandler(RouterButton_Click);
-
-                    //本设备图标
-                    Button BtnLocalDevice = new Button();
-                    BtnLocalDevice.Name = Group.ElementAt(1).NODE.uniqueId + "_" + (i + 1).ToString();
-                    BtnLocalDevice.Width = 110;
-                    BtnLocalDevice.Height = 110;
-                    BtnLocalDevice.HorizontalAlignment = HorizontalAlignment.Left;
-                    BtnLocalDevice.VerticalAlignment = VerticalAlignment.Top;
-                    double xLocal = r1 * Math.Cos(Angle * PI / 180);
-                    double yLocal = r2 * Math.Sin(Angle * PI / 180);
-                    BtnLocalDevice.Margin = new Thickness(width / 2 + xLocal - 55, height / 2 - yLocal - 55, 0, 0);	                    // -55 为纠正由图标大小（110，110）造成的偏差
-                    Image imgLocalDevice = new Image();
-                    imgLocalDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphoneLocal.png", UriKind.Relative));
-                    imgLocalDevice.Stretch = Stretch.Uniform;
-                    imgLocalDevice.Height = 55;
-                    TextBlock LocalDeviceNameText = new TextBlock();
-                    LocalDeviceNameText.Text = Group.ElementAt(1).NODE.deviceName;
-                    LocalDeviceNameText.FontSize = 15;
-                    LocalDeviceNameText.FontWeight = FontWeights.Normal;
-                    LocalDeviceNameText.Margin = new Thickness(0, -5, 0, 0);
-                    LocalDeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
-                    LocalDeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
-                    StackPanel stpLocalDevice = new StackPanel();
-                    stpLocalDevice.Children.Add(imgLocalDevice);
-                    stpLocalDevice.Children.Add(LocalDeviceNameText);
-                    BtnLocalDevice.Content = stpLocalDevice;
-                    BtnLocalDevice.Click += new RoutedEventHandler(DeviceButton_Click);
-
-                    //画线条和其余设备
-                    for (int j = 0; j < 8; j++)
+                    if (i != m)
                     {
-                        double x = r1 * Math.Cos(j * Angle * PI / 180);
-                        double y = r2 * Math.Sin(j * Angle * PI / 180);
-                        Line line = new Line();
-                        line.X1 = width / 2; line.Y1 = height / 2;
-                        line.X2 = width / 2 + x; line.Y2 = height / 2 - y;
-                        line.Stroke = new SolidColorBrush(Colors.Green);
-                        line.StrokeThickness = 2;
-                        if (j == 0)
-                        {
-                            //判断路由器是否已连接因特网
-                            GenieSoapApi soapApi = new GenieSoapApi();
-                            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                            dicResponse = await soapApi.GetCurrentSetting();
-                            if (dicResponse.Count > 0)
-                            {
-                                if (dicResponse["InternetConnectionStatus"] != "Up")
-                                {
-                                    line.Stroke = new SolidColorBrush(Colors.Red);
-                                }
-                            }
-                        }
-                        Image imgSignal = new Image();
-                        if (j == 1)         //本设备
-                        {
-                            DoubleCollection dc = new DoubleCollection();
-                            dc.Add(2);
-                            line.StrokeDashArray = dc;
-                            int signal;
-                            if (NetworkMapInfo.attachDeviceDic.Count == 0)
-                            {
-                                signal = 100;
-                            }
-                            else
-                            {
-                                signal = int.Parse(Group.ElementAt(1).NODE.signalStrength);
-                            }
-                            if (Group.ElementAt(1).NODE.AccessControl == "Allow")
-                            {
-                                if (signal <= 20)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
-                                }
-                                else if (signal > 20 && signal <= 40)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
-                                }
-                                else if (signal > 40 && signal <= 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
-                                }
-                                else if (signal > 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
-                                }
-                            }
-                            else
-                            {
-                                if (signal <= 20)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
-                                }
-                                else if (signal > 20 && signal <= 40)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
-                                }
-                                else if (signal > 40 && signal <= 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
-                                }
-                                else if (signal > 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
-                                }
-                            }
-                            imgSignal.Stretch = Stretch.Fill;
-                            imgSignal.Width = 30; imgSignal.Height = 30;
-                            imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
-                            imgSignal.VerticalAlignment = VerticalAlignment.Top;
-                            imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);                // -15 为纠正由图标大小（30，30）造成的偏差
-                        }
-                        else if (j > 1 && Group.ElementAt(6 * i + j).NODE.connectType == "wireless")
-                        {
-                            DoubleCollection dc = new DoubleCollection();
-                            dc.Add(2);
-                            line.StrokeDashArray = dc;
-                            int result = int.Parse(Group.ElementAt(6 * i + j).NODE.signalStrength);
-                            if (Group.ElementAt(6 * i + j).NODE.AccessControl == "Allow")
-                            {
-                                if (result <= 20)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
-                                }
-                                else if (result > 20 && result <= 40)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
-                                }
-                                else if (result > 40 && result <= 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
-                                }
-                                else if (result > 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
-                                }
-                            }
-                            else
-                            {
-                                if (result <= 20)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
-                                }
-                                else if (result > 20 && result <= 40)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
-                                }
-                                else if (result > 40 && result <= 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
-                                }
-                                else if (result > 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
-                                }
-                            }
-                            imgSignal.Stretch = Stretch.Fill;
-                            imgSignal.Width = 30; imgSignal.Height = 30;
-                            imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
-                            imgSignal.VerticalAlignment = VerticalAlignment.Top;
-                            imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);                // -15 为纠正由图标大小（30，30）造成的偏差
-                        }
-                        map.Children.Add(line);
-                        map.Children.Add(imgSignal);
+                        double Angle = 360.0 / 8;
+                        Grid map = new Grid();
 
-                        
-                        if (j > 1)
-                        {
-                            Button BtnDevice = new Button();
-                            BtnDevice.Name = Group.ElementAt(6 * i + j).NODE.uniqueId;
-                            BtnDevice.Width = 110;
-                            BtnDevice.Height = 110;
-                            BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
-                            BtnDevice.VerticalAlignment = VerticalAlignment.Top;
-                            BtnDevice.Margin = new Thickness(width / 2 + x - 55, height / 2 - y - 55, 0, 0);	                    // -55 为纠正由图标大小（110，110）造成的偏差
-                            Image imgDevice = new Image();
-                            switch (Group.ElementAt(6 * i + j).NODE.deviceType)
-                            {
-                                case "imacdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
-                                    break;
-                                case "ipad":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
-                                    break;
-                                case "ipadmini":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
-                                    break;
-                                case "iphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
-                                    break;
-                                case "iphone5":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
-                                    break;
-                                case "ipodtouch":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
-                                    break;
-                                case "amazonkindle":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
-                                    break;
-                                case "androiddevice":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
-                                    break;
-                                case "androidphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                                    break;
-                                case "androidtablet":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
-                                    break;
-                                case "blurayplayer":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
-                                    break;
-                                case "bridge":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
-                                    break;
-                                case "cablestb":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
-                                    break;
-                                case "cameradev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
-                                    break;
-                                case "dvr":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
-                                    break;
-                                case "gamedev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
-                                    break;
-                                case "linuxpc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
-                                    break;
-                                case "macminidev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
-                                    break;
-                                case "macprodev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
-                                    break;
-                                case "macbookdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
-                                    break;
-                                case "mediadev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
-                                    break;
-                                case "networkdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
-                                    break;
-                                case "stb":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
-                                    break;
-                                case "printerdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
-                                    break;
-                                case "repeater":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
-                                    break;
-                                case "gatewaydev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
-                                    break;
-                                case "satellitestb":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
-                                    break;
-                                case "scannerdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
-                                    break;
-                                case "slingbox":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
-                                    break;
-                                case "mobiledev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
-                                    break;
-                                case "netstoragedev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                                    break;
-                                case "switchdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
-                                    break;
-                                case "tv":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
-                                    break;
-                                case "tablepc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
-                                    break;
-                                case "unixpc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
-                                    break;
-                                case "windowspc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
-                                    break;
-                                case "windowsphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
-                                    break;
-                                case "windowstablet":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
-                                    break;
-                            }
-                            imgDevice.Stretch = Stretch.Uniform;
-                            imgDevice.Height = 55;
-                            TextBlock DeviceNameText = new TextBlock();
-                            DeviceNameText.Text = Group.ElementAt(6 * i + j).NODE.deviceName;
-                            DeviceNameText.FontSize = 15;
-                            DeviceNameText.FontWeight = FontWeights.Normal;
-                            DeviceNameText.Margin = new Thickness(0, -5, 0, 0);
-                            DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
-                            DeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
-                            StackPanel stpDevice = new StackPanel();
-                            stpDevice.Children.Add(imgDevice);
-                            stpDevice.Children.Add(DeviceNameText);
-                            BtnDevice.Content = stpDevice;
-                            BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
-                            map.Children.Add(BtnDevice);
-                        }//if (j > 1)
-                    }//for (int j = 0; j < 8; j++)
+                        //internet图标
+                        Image internet = new Image();
+                        internet.Source = new BitmapImage(new Uri("Assets/internet72.png", UriKind.Relative));
+                        internet.HorizontalAlignment = HorizontalAlignment.Right;
+                        internet.VerticalAlignment = VerticalAlignment.Top;
+                        internet.Margin = new Thickness(0, height / 2 - 35, 0, 0);                                 // -35 为纠正由图标大小（70，70）造成的偏差
+                        internet.Width = 70; internet.Height = 70;
 
-                    if (NetworkMapInfo.IsAccessControlSupported)
+                        //路由器图标
+                        Button BtnRouter = new Button();
+                        BtnRouter.Name = Group.ElementAt(0).NODE.uniqueId + "_" + (i + 1).ToString();
+                        BtnRouter.Width = 130;
+                        BtnRouter.Height = 130;
+                        BtnRouter.HorizontalAlignment = HorizontalAlignment.Left;
+                        BtnRouter.VerticalAlignment = VerticalAlignment.Top;
+
+                        Image imgRouter = new Image();
+                        imgRouter.Source = new BitmapImage(new Uri(routerImage, UriKind.Relative));
+                        imgRouter.Stretch = Stretch.Uniform;
+                        BtnRouter.Content = imgRouter;
+                        BtnRouter.Margin = new Thickness(width / 2 - 65, height / 2 - 65, 0, 0);                    // -65 为纠正由图标大小（130，130）造成的偏差
+                        BtnRouter.Click += new RoutedEventHandler(RouterButton_Click);
+
+                        //本设备图标
+                        Button BtnLocalDevice = new Button();
+                        BtnLocalDevice.Name = Group.ElementAt(1).NODE.uniqueId + "_" + (i + 1).ToString();
+                        BtnLocalDevice.Width = 110;
+                        BtnLocalDevice.Height = 110;
+                        BtnLocalDevice.HorizontalAlignment = HorizontalAlignment.Left;
+                        BtnLocalDevice.VerticalAlignment = VerticalAlignment.Top;
+                        double xLocal = r1 * Math.Cos(Angle * PI / 180);
+                        double yLocal = r2 * Math.Sin(Angle * PI / 180);
+                        BtnLocalDevice.Margin = new Thickness(width / 2 + xLocal - 55, height / 2 - yLocal - 55, 0, 0);	                    // -55 为纠正由图标大小（110，110）造成的偏差
+                        Image imgLocalDevice = new Image();
+                        imgLocalDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphoneLocal.png", UriKind.Relative));
+                        imgLocalDevice.Stretch = Stretch.Uniform;
+                        imgLocalDevice.Height = 55;
+                        TextBlock LocalDeviceNameText = new TextBlock();
+                        LocalDeviceNameText.Text = Group.ElementAt(1).NODE.deviceName;
+                        LocalDeviceNameText.FontSize = 15;
+                        LocalDeviceNameText.FontWeight = FontWeights.Normal;
+                        LocalDeviceNameText.Margin = new Thickness(0, -5, 0, 0);
+                        LocalDeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+                        LocalDeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
+                        StackPanel stpLocalDevice = new StackPanel();
+                        stpLocalDevice.Children.Add(imgLocalDevice);
+                        stpLocalDevice.Children.Add(LocalDeviceNameText);
+                        BtnLocalDevice.Content = stpLocalDevice;
+                        BtnLocalDevice.Click += new RoutedEventHandler(DeviceButton_Click);
+
+                        //画线条和其余设备
+                        for (int j = 0; j < 8; j++)
+                        {
+                            double x = r1 * Math.Cos(j * Angle * PI / 180);
+                            double y = r2 * Math.Sin(j * Angle * PI / 180);
+                            Line line = new Line();
+                            line.X1 = width / 2; line.Y1 = height / 2;
+                            line.X2 = width / 2 + x; line.Y2 = height / 2 - y;
+                            line.Stroke = new SolidColorBrush(Colors.Green);
+                            line.StrokeThickness = 2;
+                            if (j == 0)
+                            {
+                                //判断路由器是否已连接因特网
+                                GenieSoapApi soapApi = new GenieSoapApi();
+                                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                                dicResponse = await soapApi.GetCurrentSetting();
+                                if (dicResponse.Count > 0)
+                                {
+                                    if (dicResponse["InternetConnectionStatus"] != "Up")
+                                    {
+                                        line.Stroke = new SolidColorBrush(Colors.Red);
+                                    }
+                                }
+                            }
+                            Image imgSignal = new Image();
+                            if (j == 1)         //本设备
+                            {
+                                DoubleCollection dc = new DoubleCollection();
+                                dc.Add(2);
+                                line.StrokeDashArray = dc;
+                                int signal;
+                                if (NetworkMapInfo.attachDeviceDic.Count == 0)
+                                {
+                                    signal = 100;
+                                }
+                                else
+                                {
+                                    signal = int.Parse(Group.ElementAt(1).NODE.signalStrength);
+                                }
+                                if (Group.ElementAt(1).NODE.AccessControl == "Allow")
+                                {
+                                    if (signal <= 20)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 20 && signal <= 40)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 40 && signal <= 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
+                                    }
+                                }
+                                else
+                                {
+                                    if (signal <= 20)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 20 && signal <= 40)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 40 && signal <= 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
+                                    }
+                                }
+                                imgSignal.Stretch = Stretch.Fill;
+                                imgSignal.Width = 30; imgSignal.Height = 30;
+                                imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
+                                imgSignal.VerticalAlignment = VerticalAlignment.Top;
+                                imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);                // -15 为纠正由图标大小（30，30）造成的偏差
+                            }
+                            else if (j > 1 && Group.ElementAt(6 * i + j).NODE.connectType == "wireless")
+                            {
+                                DoubleCollection dc = new DoubleCollection();
+                                dc.Add(2);
+                                line.StrokeDashArray = dc;
+                                int result = int.Parse(Group.ElementAt(6 * i + j).NODE.signalStrength);
+                                if (Group.ElementAt(6 * i + j).NODE.AccessControl == "Allow")
+                                {
+                                    if (result <= 20)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
+                                    }
+                                    else if (result > 20 && result <= 40)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
+                                    }
+                                    else if (result > 40 && result <= 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
+                                    }
+                                    else if (result > 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
+                                    }
+                                }
+                                else
+                                {
+                                    if (result <= 20)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
+                                    }
+                                    else if (result > 20 && result <= 40)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
+                                    }
+                                    else if (result > 40 && result <= 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
+                                    }
+                                    else if (result > 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
+                                    }
+                                }
+                                imgSignal.Stretch = Stretch.Fill;
+                                imgSignal.Width = 30; imgSignal.Height = 30;
+                                imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
+                                imgSignal.VerticalAlignment = VerticalAlignment.Top;
+                                imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);                // -15 为纠正由图标大小（30，30）造成的偏差
+                            }
+                            map.Children.Add(line);
+                            map.Children.Add(imgSignal);
+
+
+                            if (j > 1)
+                            {
+                                Button BtnDevice = new Button();
+                                BtnDevice.Name = Group.ElementAt(6 * i + j).NODE.uniqueId;
+                                BtnDevice.Width = 110;
+                                BtnDevice.Height = 110;
+                                BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
+                                BtnDevice.VerticalAlignment = VerticalAlignment.Top;
+                                BtnDevice.Margin = new Thickness(width / 2 + x - 55, height / 2 - y - 55, 0, 0);	                    // -55 为纠正由图标大小（110，110）造成的偏差
+                                Image imgDevice = new Image();
+                                switch (Group.ElementAt(6 * i + j).NODE.deviceType)
+                                {
+                                    case "imacdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
+                                        break;
+                                    case "ipad":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
+                                        break;
+                                    case "ipadmini":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
+                                        break;
+                                    case "iphone":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
+                                        break;
+                                    case "iphone5":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
+                                        break;
+                                    case "ipodtouch":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
+                                        break;
+                                    case "amazonkindle":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
+                                        break;
+                                    case "androiddevice":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                                        break;
+                                    case "androidphone":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
+                                        break;
+                                    case "androidtablet":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
+                                        break;
+                                    case "blurayplayer":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
+                                        break;
+                                    case "bridge":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
+                                        break;
+                                    case "cablestb":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
+                                        break;
+                                    case "cameradev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
+                                        break;
+                                    case "dvr":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                                        break;
+                                    case "gamedev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
+                                        break;
+                                    case "linuxpc":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
+                                        break;
+                                    case "macminidev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
+                                        break;
+                                    case "macprodev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
+                                        break;
+                                    case "macbookdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
+                                        break;
+                                    case "mediadev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
+                                        break;
+                                    case "networkdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
+                                        break;
+                                    case "stb":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
+                                        break;
+                                    case "printerdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
+                                        break;
+                                    case "repeater":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
+                                        break;
+                                    case "gatewaydev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                                        break;
+                                    case "satellitestb":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
+                                        break;
+                                    case "scannerdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
+                                        break;
+                                    case "slingbox":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
+                                        break;
+                                    case "mobiledev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                                        break;
+                                    case "netstoragedev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
+                                        break;
+                                    case "switchdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
+                                        break;
+                                    case "tv":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
+                                        break;
+                                    case "tablepc":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                                        break;
+                                    case "unixpc":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
+                                        break;
+                                    case "windowspc":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
+                                        break;
+                                    case "windowsphone":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
+                                        break;
+                                    case "windowstablet":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
+                                        break;
+                                }
+                                imgDevice.Stretch = Stretch.Uniform;
+                                imgDevice.Height = 55;
+                                TextBlock DeviceNameText = new TextBlock();
+                                DeviceNameText.Text = Group.ElementAt(6 * i + j).NODE.deviceName;
+                                DeviceNameText.FontSize = 15;
+                                DeviceNameText.FontWeight = FontWeights.Normal;
+                                DeviceNameText.Margin = new Thickness(0, -5, 0, 0);
+                                DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+                                DeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
+                                StackPanel stpDevice = new StackPanel();
+                                stpDevice.Children.Add(imgDevice);
+                                stpDevice.Children.Add(DeviceNameText);
+                                BtnDevice.Content = stpDevice;
+                                BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
+                                map.Children.Add(BtnDevice);
+                            }//if (j > 1)
+                        }//for (int j = 0; j < 8; j++)
+
+                        if (NetworkMapInfo.IsAccessControlSupported)
+                        {
+                            CheckBox cbAccessControl = new CheckBox();
+                            cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
+                            cbAccessControl.Content = AppResources.AccessControl;
+                            cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
+                            if (NetworkMapInfo.IsAccessControlEnabled)
+                            {
+                                cbAccessControl.IsChecked = true;
+                            }
+                            else
+                            {
+                                cbAccessControl.IsChecked = false;
+                            }
+                            cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
+                            cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
+                            cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
+                            map.Children.Add(cbAccessControl);
+                        }
+
+                        map.Children.Add(internet);
+                        map.Children.Add(BtnRouter);
+                        map.Children.Add(BtnLocalDevice);
+                        PivotItem map_PivotItem = new PivotItem();
+                        //map_PivotItem.Header = AppResources.NetworkMapPageTitleText;
+                        map_PivotItem.Content = map;
+                        MapPivot.Items.Add(map_PivotItem);
+                    }//if (i != m)
+                    else
                     {
-                        CheckBox cbAccessControl = new CheckBox();
-                        cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
-                        cbAccessControl.Content = AppResources.AccessControl;
-                        cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
-                        if (NetworkMapInfo.IsAccessControlEnabled)
+                        double Angle = 360.0 / (n + 2);
+                        Grid map = new Grid();
+
+                        Image internet = new Image();
+                        internet.Source = new BitmapImage(new Uri("Assets/internet72.png", UriKind.Relative));
+                        internet.HorizontalAlignment = HorizontalAlignment.Right;
+                        internet.VerticalAlignment = VerticalAlignment.Top;
+                        internet.Margin = new Thickness(0, height / 2 - 35, 0, 0);
+                        internet.Width = 70; internet.Height = 70;
+
+
+                        Button BtnRouter = new Button();
+                        BtnRouter.Name = Group.ElementAt(0).NODE.uniqueId + "_" + (i + 1).ToString();
+                        BtnRouter.Width = 130;
+                        BtnRouter.Height = 130;
+                        BtnRouter.HorizontalAlignment = HorizontalAlignment.Left;
+                        BtnRouter.VerticalAlignment = VerticalAlignment.Top;
+                        Image imgRouter = new Image();
+                        imgRouter.Source = new BitmapImage(new Uri(routerImage, UriKind.Relative));
+                        imgRouter.Stretch = Stretch.Uniform;
+                        BtnRouter.Content = imgRouter;
+                        BtnRouter.Margin = new Thickness(width / 2 - 65, height / 2 - 65, 0, 0);
+                        BtnRouter.Click += new RoutedEventHandler(RouterButton_Click);
+
+
+                        //本设备图标
+                        Button BtnLocalDevice = new Button();
+                        BtnLocalDevice.Name = Group.ElementAt(1).NODE.uniqueId + "_" + (i + 1).ToString();
+                        BtnLocalDevice.Width = 110;
+                        BtnLocalDevice.Height = 110;
+                        BtnLocalDevice.HorizontalAlignment = HorizontalAlignment.Left;
+                        BtnLocalDevice.VerticalAlignment = VerticalAlignment.Top;
+                        double xLocal = r1 * Math.Cos(Angle * PI / 180);
+                        double yLocal = r2 * Math.Sin(Angle * PI / 180);
+                        BtnLocalDevice.Margin = new Thickness(width / 2 + xLocal - 55, height / 2 - yLocal - 55, 0, 0);	                    // -55 为纠正由图标大小（110，110）造成的偏差
+                        Image imgLocalDevice = new Image();
+                        imgLocalDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphoneLocal.png", UriKind.Relative));
+                        imgLocalDevice.Stretch = Stretch.Uniform;
+                        imgLocalDevice.Height = 55;
+                        TextBlock LocalDeviceNameText = new TextBlock();
+                        LocalDeviceNameText.Text = Group.ElementAt(1).NODE.deviceName;
+                        LocalDeviceNameText.FontSize = 15;
+                        LocalDeviceNameText.FontWeight = FontWeights.Normal;
+                        LocalDeviceNameText.Margin = new Thickness(0, -5, 0, 0);
+                        LocalDeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+                        LocalDeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
+                        StackPanel stpLocalDevice = new StackPanel();
+                        stpLocalDevice.Children.Add(imgLocalDevice);
+                        stpLocalDevice.Children.Add(LocalDeviceNameText);
+                        BtnLocalDevice.Content = stpLocalDevice;
+                        BtnLocalDevice.Click += new RoutedEventHandler(DeviceButton_Click);
+
+
+
+                        for (int j = 0; j < n + 2; j++)
                         {
-                            cbAccessControl.IsChecked = true;
-                        }
-                        else
+                            double x = r1 * Math.Cos(j * Angle * PI / 180);
+                            double y = r2 * Math.Sin(j * Angle * PI / 180);
+                            Line line = new Line();
+                            line.X1 = width / 2; line.Y1 = height / 2;
+                            line.X2 = width / 2 + x; line.Y2 = height / 2 - y;
+                            line.Stroke = new SolidColorBrush(Colors.Green);
+                            line.StrokeThickness = 2;
+                            if (j == 0)
+                            {
+                                //判断路由器是否已连接因特网
+                                GenieSoapApi soapApi = new GenieSoapApi();
+                                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                                dicResponse = await soapApi.GetCurrentSetting();
+                                if (dicResponse.Count > 0)
+                                {
+                                    if (dicResponse["InternetConnectionStatus"] != "Up")
+                                    {
+                                        line.Stroke = new SolidColorBrush(Colors.Red);
+                                    }
+                                }
+                            }
+                            Image imgSignal = new Image();
+                            if (j == 1)         //本设备
+                            {
+                                DoubleCollection dc = new DoubleCollection();
+                                dc.Add(2);
+                                line.StrokeDashArray = dc;
+                                int signal;
+                                if (NetworkMapInfo.attachDeviceDic.Count == 0)
+                                {
+                                    signal = 100;
+                                }
+                                else
+                                {
+                                    signal = int.Parse(Group.ElementAt(1).NODE.signalStrength);
+                                }
+                                if (Group.ElementAt(1).NODE.AccessControl == "Allow")
+                                {
+                                    if (signal <= 20)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 20 && signal <= 40)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 40 && signal <= 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
+                                    }
+                                }
+                                else
+                                {
+                                    if (signal <= 20)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 20 && signal <= 40)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 40 && signal <= 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
+                                    }
+                                    else if (signal > 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
+                                    }
+                                }
+                                imgSignal.Stretch = Stretch.Fill;
+                                imgSignal.Width = 30; imgSignal.Height = 30;
+                                imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
+                                imgSignal.VerticalAlignment = VerticalAlignment.Top;
+                                imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);                // -15 为纠正由图标大小（30，30）造成的偏差
+                            }
+                            else if (j > 1 && Group.ElementAt(6 * i + j).NODE.connectType == "wireless")
+                            {
+                                DoubleCollection dc = new DoubleCollection();
+                                dc.Add(2);
+                                line.StrokeDashArray = dc;
+                                int result = int.Parse(Group.ElementAt(6 * i + j).NODE.signalStrength);
+                                if (Group.ElementAt(6 * i + j).NODE.AccessControl == "Allow")
+                                {
+                                    if (result <= 20)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
+                                    }
+                                    else if (result > 20 && result <= 40)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
+                                    }
+                                    else if (result > 40 && result <= 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
+                                    }
+                                    else if (result > 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
+                                    }
+                                }
+                                else
+                                {
+                                    if (result <= 20)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
+                                    }
+                                    else if (result > 20 && result <= 40)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
+                                    }
+                                    else if (result > 40 && result <= 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
+                                    }
+                                    else if (result > 70)
+                                    {
+                                        imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
+                                    }
+                                }
+                                imgSignal.Stretch = Stretch.Fill;
+                                imgSignal.Width = 30; imgSignal.Height = 30;
+                                imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
+                                imgSignal.VerticalAlignment = VerticalAlignment.Top;
+                                imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);
+                            }
+                            map.Children.Add(line);
+                            map.Children.Add(imgSignal);
+
+                            if (j > 1)
+                            {
+                                Button BtnDevice = new Button();
+                                BtnDevice.Name = Group.ElementAt(6 * i + j).NODE.uniqueId;
+                                BtnDevice.Width = 110;
+                                BtnDevice.Height = 110;
+                                BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
+                                BtnDevice.VerticalAlignment = VerticalAlignment.Top;
+                                BtnDevice.Margin = new Thickness(width / 2 + x - 55, height / 2 - y - 55, 0, 0);	// -50 为纠正由图标大小（110，110）造成的偏差
+                                Image imgDevice = new Image();
+                                switch (Group.ElementAt(6 * i + j).NODE.deviceType)
+                                {
+                                    case "imacdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
+                                        break;
+                                    case "ipad":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
+                                        break;
+                                    case "ipadmini":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
+                                        break;
+                                    case "iphone":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
+                                        break;
+                                    case "iphone5":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
+                                        break;
+                                    case "ipodtouch":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
+                                        break;
+                                    case "amazonkindle":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
+                                        break;
+                                    case "androiddevice":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                                        break;
+                                    case "androidphone":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
+                                        break;
+                                    case "androidtablet":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
+                                        break;
+                                    case "blurayplayer":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
+                                        break;
+                                    case "bridge":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
+                                        break;
+                                    case "cablestb":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
+                                        break;
+                                    case "cameradev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
+                                        break;
+                                    case "dvr":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                                        break;
+                                    case "gamedev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
+                                        break;
+                                    case "linuxpc":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
+                                        break;
+                                    case "macminidev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
+                                        break;
+                                    case "macprodev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
+                                        break;
+                                    case "macbookdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
+                                        break;
+                                    case "mediadev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
+                                        break;
+                                    case "networkdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
+                                        break;
+                                    case "stb":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
+                                        break;
+                                    case "printerdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
+                                        break;
+                                    case "repeater":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
+                                        break;
+                                    case "gatewaydev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                                        break;
+                                    case "satellitestb":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
+                                        break;
+                                    case "scannerdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
+                                        break;
+                                    case "slingbox":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
+                                        break;
+                                    case "mobiledev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                                        break;
+                                    case "netstoragedev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
+                                        break;
+                                    case "switchdev":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
+                                        break;
+                                    case "tv":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
+                                        break;
+                                    case "tablepc":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                                        break;
+                                    case "unixpc":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
+                                        break;
+                                    case "windowspc":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
+                                        break;
+                                    case "windowsphone":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
+                                        break;
+                                    case "windowstablet":
+                                        imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
+                                        break;
+                                }
+                                imgDevice.Stretch = Stretch.Uniform;
+                                imgDevice.Height = 55;
+                                TextBlock DeviceNameText = new TextBlock();
+                                DeviceNameText.Text = Group.ElementAt(6 * i + j).NODE.deviceName;
+                                DeviceNameText.FontSize = 15;
+                                DeviceNameText.FontWeight = FontWeights.Normal;
+                                DeviceNameText.Margin = new Thickness(0, -5, 0, 0);
+                                DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+                                DeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
+                                StackPanel stpDevice = new StackPanel();
+                                stpDevice.Children.Add(imgDevice);
+                                stpDevice.Children.Add(DeviceNameText);
+                                BtnDevice.Content = stpDevice;
+                                BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
+                                map.Children.Add(BtnDevice);
+                            }//if (j > 1)
+                        }//for (int j = 0; j < n + 1; j++)
+
+                        if (NetworkMapInfo.IsAccessControlSupported)
                         {
-                            cbAccessControl.IsChecked = false;
+                            CheckBox cbAccessControl = new CheckBox();
+                            cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
+                            cbAccessControl.Content = AppResources.AccessControl;
+                            cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
+                            if (NetworkMapInfo.IsAccessControlEnabled)
+                            {
+                                cbAccessControl.IsChecked = true;
+                            }
+                            else
+                            {
+                                cbAccessControl.IsChecked = false;
+                            }
+                            cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
+                            cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
+                            cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
+                            map.Children.Add(cbAccessControl);
                         }
-                        cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
-                        cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
-                        cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
-                        map.Children.Add(cbAccessControl);
+
+                        map.Children.Add(internet);
+                        map.Children.Add(BtnRouter);
+                        map.Children.Add(BtnLocalDevice);
+                        PivotItem map_PivotItem = new PivotItem();
+                        //map_PivotItem.Header = AppResources.NetworkMapPageTitleText;
+                        map_PivotItem.Content = map;
+                        MapPivot.Items.Add(map_PivotItem);
                     }
-
-                    map.Children.Add(internet);
-                    map.Children.Add(BtnRouter);
-                    map.Children.Add(BtnLocalDevice);
-                    PivotItem map_PivotItem = new PivotItem();
-                    //map_PivotItem.Header = AppResources.NetworkMapPageTitleText;
-                    map_PivotItem.Content = map;
-                    MapPivot.Items.Add(map_PivotItem);
-                }//if (i != m)
-                else
-                {
-                    double Angle = 360.0 / (n + 2);
-                    Grid map = new Grid();
-
-                    Image internet = new Image();
-                    internet.Source = new BitmapImage(new Uri("Assets/internet72.png", UriKind.Relative));
-                    internet.HorizontalAlignment = HorizontalAlignment.Right;
-                    internet.VerticalAlignment = VerticalAlignment.Top;
-                    internet.Margin = new Thickness(0, height / 2 - 35, 0, 0);
-                    internet.Width = 70; internet.Height = 70;
-
-
-                    Button BtnRouter = new Button();
-                    BtnRouter.Name = Group.ElementAt(0).NODE.uniqueId + "_" + (i + 1).ToString();
-                    BtnRouter.Width = 130;
-                    BtnRouter.Height = 130;
-                    BtnRouter.HorizontalAlignment = HorizontalAlignment.Left;
-                    BtnRouter.VerticalAlignment = VerticalAlignment.Top;
-                    Image imgRouter = new Image();
-                    imgRouter.Source = new BitmapImage(new Uri(routerImage, UriKind.Relative));
-                    imgRouter.Stretch = Stretch.Uniform;
-                    BtnRouter.Content = imgRouter;
-                    BtnRouter.Margin = new Thickness(width / 2 - 65, height / 2 - 65, 0, 0);
-                    BtnRouter.Click += new RoutedEventHandler(RouterButton_Click);
-
-
-                    //本设备图标
-                    Button BtnLocalDevice = new Button();
-                    BtnLocalDevice.Name = Group.ElementAt(1).NODE.uniqueId + "_" + (i + 1).ToString();
-                    BtnLocalDevice.Width = 110;
-                    BtnLocalDevice.Height = 110;
-                    BtnLocalDevice.HorizontalAlignment = HorizontalAlignment.Left;
-                    BtnLocalDevice.VerticalAlignment = VerticalAlignment.Top;
-                    double xLocal = r1 * Math.Cos(Angle * PI / 180);
-                    double yLocal = r2 * Math.Sin(Angle * PI / 180);
-                    BtnLocalDevice.Margin = new Thickness(width / 2 + xLocal - 55, height / 2 - yLocal - 55, 0, 0);	                    // -55 为纠正由图标大小（110，110）造成的偏差
-                    Image imgLocalDevice = new Image();
-                    imgLocalDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphoneLocal.png", UriKind.Relative));
-                    imgLocalDevice.Stretch = Stretch.Uniform;
-                    imgLocalDevice.Height = 55;
-                    TextBlock LocalDeviceNameText = new TextBlock();
-                    LocalDeviceNameText.Text = Group.ElementAt(1).NODE.deviceName;
-                    LocalDeviceNameText.FontSize = 15;
-                    LocalDeviceNameText.FontWeight = FontWeights.Normal;
-                    LocalDeviceNameText.Margin = new Thickness(0, -5, 0, 0);
-                    LocalDeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
-                    LocalDeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
-                    StackPanel stpLocalDevice = new StackPanel();
-                    stpLocalDevice.Children.Add(imgLocalDevice);
-                    stpLocalDevice.Children.Add(LocalDeviceNameText);
-                    BtnLocalDevice.Content = stpLocalDevice;
-                    BtnLocalDevice.Click += new RoutedEventHandler(DeviceButton_Click);
-
-
-                        
-                    for (int j = 0; j < n + 2; j++)
-                    {
-                        double x = r1 * Math.Cos(j * Angle * PI / 180);
-                        double y = r2 * Math.Sin(j * Angle * PI / 180);
-                        Line line = new Line();
-                        line.X1 = width / 2; line.Y1 = height / 2;
-                        line.X2 = width / 2 + x; line.Y2 = height / 2 - y;
-                        line.Stroke = new SolidColorBrush(Colors.Green);
-                        line.StrokeThickness = 2;
-                        if (j == 0)
-                        {
-                            //判断路由器是否已连接因特网
-                            GenieSoapApi soapApi = new GenieSoapApi();
-                            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                            dicResponse = await soapApi.GetCurrentSetting();
-                            if (dicResponse.Count > 0)
-                            {
-                                if (dicResponse["InternetConnectionStatus"] != "Up")
-                                {
-                                    line.Stroke = new SolidColorBrush(Colors.Red);
-                                }
-                            }
-                        }
-                        Image imgSignal = new Image();
-                        if (j == 1)         //本设备
-                        {
-                            DoubleCollection dc = new DoubleCollection();
-                            dc.Add(2);
-                            line.StrokeDashArray = dc;
-                            int signal;
-                            if (NetworkMapInfo.attachDeviceDic.Count == 0)
-                            {
-                                signal = 100;
-                            } 
-                            else
-                            {
-                                signal = int.Parse(Group.ElementAt(1).NODE.signalStrength);
-                            }
-                            if (Group.ElementAt(1).NODE.AccessControl == "Allow")
-                            {
-                                if (signal <= 20)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
-                                }
-                                else if (signal > 20 && signal <= 40)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
-                                }
-                                else if (signal > 40 && signal <= 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
-                                }
-                                else if (signal > 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
-                                }
-                            }
-                            else
-                            {
-                                if (signal <= 20)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
-                                }
-                                else if (signal > 20 && signal <= 40)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
-                                }
-                                else if (signal > 40 && signal <= 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
-                                }
-                                else if (signal > 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
-                                }
-                            }
-                            imgSignal.Stretch = Stretch.Fill;
-                            imgSignal.Width = 30; imgSignal.Height = 30;
-                            imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
-                            imgSignal.VerticalAlignment = VerticalAlignment.Top;
-                            imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);                // -15 为纠正由图标大小（30，30）造成的偏差
-                        }
-                        else if (j > 1 && Group.ElementAt(6 * i + j).NODE.connectType == "wireless")
-                        {
-                            DoubleCollection dc = new DoubleCollection();
-                            dc.Add(2);
-                            line.StrokeDashArray = dc;
-                            int result = int.Parse(Group.ElementAt(6 * i + j).NODE.signalStrength);
-                            if (Group.ElementAt(6 * i + j).NODE.AccessControl == "Allow")
-                            {
-                                if (result <= 20)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_13.png", UriKind.Relative));
-                                }
-                                else if (result > 20 && result <= 40)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_23.png", UriKind.Relative));
-                                }
-                                else if (result > 40 && result <= 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_33.png", UriKind.Relative));
-                                }
-                                else if (result > 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/signal_43.png", UriKind.Relative));
-                                }
-                            }
-                            else
-                            {
-                                if (result <= 20)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag1.png", UriKind.Relative));
-                                }
-                                else if (result > 20 && result <= 40)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag2.png", UriKind.Relative));
-                                }
-                                else if (result > 40 && result <= 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag3.png", UriKind.Relative));
-                                }
-                                else if (result > 70)
-                                {
-                                    imgSignal.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
-                                }
-                            }
-                            imgSignal.Stretch = Stretch.Fill;
-                            imgSignal.Width = 30; imgSignal.Height = 30;
-                            imgSignal.HorizontalAlignment = HorizontalAlignment.Left;
-                            imgSignal.VerticalAlignment = VerticalAlignment.Top;
-                            imgSignal.Margin = new Thickness(width / 2 + x / 2 - 15, height / 2 - y / 2 - 15, 0, 0);
-                        }
-                        map.Children.Add(line);
-                        map.Children.Add(imgSignal);
-
-                        if (j > 1)
-                        {
-                            Button BtnDevice = new Button();
-                            BtnDevice.Name = Group.ElementAt(6 * i + j).NODE.uniqueId;
-                            BtnDevice.Width = 110;
-                            BtnDevice.Height = 110;
-                            BtnDevice.HorizontalAlignment = HorizontalAlignment.Left;
-                            BtnDevice.VerticalAlignment = VerticalAlignment.Top;
-                            BtnDevice.Margin = new Thickness(width / 2 + x - 55, height / 2 - y - 55, 0, 0);	// -50 为纠正由图标大小（110，110）造成的偏差
-                            Image imgDevice = new Image();
-                            switch (Group.ElementAt(6 * i + j).NODE.deviceType)
-                            {
-                                case "imacdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
-                                    break;
-                                case "ipad":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
-                                    break;
-                                case "ipadmini":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
-                                    break;
-                                case "iphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
-                                    break;
-                                case "iphone5":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
-                                    break;
-                                case "ipodtouch":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
-                                    break;
-                                case "amazonkindle":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
-                                    break;
-                                case "androiddevice":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
-                                    break;
-                                case "androidphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                                    break;
-                                case "androidtablet":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
-                                    break;
-                                case "blurayplayer":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
-                                    break;
-                                case "bridge":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
-                                    break;
-                                case "cablestb":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
-                                    break;
-                                case "cameradev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
-                                    break;
-                                case "dvr":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
-                                    break;
-                                case "gamedev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
-                                    break;
-                                case "linuxpc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
-                                    break;
-                                case "macminidev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
-                                    break;
-                                case "macprodev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
-                                    break;
-                                case "macbookdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
-                                    break;
-                                case "mediadev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
-                                    break;
-                                case "networkdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
-                                    break;
-                                case "stb":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
-                                    break;
-                                case "printerdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
-                                    break;
-                                case "repeater":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
-                                    break;
-                                case "gatewaydev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
-                                    break;
-                                case "satellitestb":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
-                                    break;
-                                case "scannerdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
-                                    break;
-                                case "slingbox":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
-                                    break;
-                                case "mobiledev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
-                                    break;
-                                case "netstoragedev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                                    break;
-                                case "switchdev":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
-                                    break;
-                                case "tv":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
-                                    break;
-                                case "tablepc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
-                                    break;
-                                case "unixpc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
-                                    break;
-                                case "windowspc":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
-                                    break;
-                                case "windowsphone":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
-                                    break;
-                                case "windowstablet":
-                                    imgDevice.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
-                                    break;
-                            }
-                            imgDevice.Stretch = Stretch.Uniform;
-                            imgDevice.Height = 55;
-                            TextBlock DeviceNameText = new TextBlock();
-                            DeviceNameText.Text = Group.ElementAt(6 * i + j).NODE.deviceName;
-                            DeviceNameText.FontSize = 15;
-                            DeviceNameText.FontWeight = FontWeights.Normal;
-                            DeviceNameText.Margin = new Thickness(0, -5, 0, 0);
-                            DeviceNameText.Foreground = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
-                            DeviceNameText.TextTrimming = TextTrimming.WordEllipsis;
-                            StackPanel stpDevice = new StackPanel();
-                            stpDevice.Children.Add(imgDevice);
-                            stpDevice.Children.Add(DeviceNameText);
-                            BtnDevice.Content = stpDevice;
-                            BtnDevice.Click += new RoutedEventHandler(DeviceButton_Click);
-                            map.Children.Add(BtnDevice);
-                        }//if (j > 1)
-                    }//for (int j = 0; j < n + 1; j++)
-
-                    if (NetworkMapInfo.IsAccessControlSupported)
-                    {
-                        CheckBox cbAccessControl = new CheckBox();
-                        cbAccessControl.Name = "cbAccessControl_" + (i + 1).ToString();
-                        cbAccessControl.Content = AppResources.AccessControl;
-                        cbAccessControl.Foreground = new SolidColorBrush(Colors.Black);
-                        if (NetworkMapInfo.IsAccessControlEnabled)
-                        {
-                            cbAccessControl.IsChecked = true;
-                        }
-                        else
-                        {
-                            cbAccessControl.IsChecked = false;
-                        }
-                        cbAccessControl.HorizontalAlignment = HorizontalAlignment.Right;
-                        cbAccessControl.VerticalAlignment = VerticalAlignment.Bottom;
-                        cbAccessControl.Click += new RoutedEventHandler(AccessControl_checked);
-                        map.Children.Add(cbAccessControl);
-                    }
-
-                    map.Children.Add(internet);
-                    map.Children.Add(BtnRouter);
-                    map.Children.Add(BtnLocalDevice);
-                    PivotItem map_PivotItem = new PivotItem();
-                    //map_PivotItem.Header = AppResources.NetworkMapPageTitleText;
-                    map_PivotItem.Content = map;
-                    MapPivot.Items.Add(map_PivotItem);
                 }
+                IsDrawCompleted = true;
             }
-            IsDrawCompleted = true;
         }
 
         private void RouterButton_Click(Object sender, RoutedEventArgs e)
@@ -1728,260 +1755,276 @@ namespace GenieWP8
         
         private void ModifyButton_Click(Object sender, RoutedEventArgs e)
         {
-            txtBlockDeviceName.Visibility = Visibility.Collapsed;
-            txtBoxDeviceName.Visibility = Visibility.Visible;
-            Type.Visibility = Visibility.Collapsed;
-            lpType.Visibility = Visibility.Visible;
-            btnModify.Visibility = Visibility.Collapsed;
-            btnApply.Visibility = Visibility.Visible;
-            DeviceInfoScrollViewer.ScrollToVerticalOffset(0);
+            if (IsWifiSsidChanged)
+            {
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
+            } 
+            else
+            {
+                txtBlockDeviceName.Visibility = Visibility.Collapsed;
+                txtBoxDeviceName.Visibility = Visibility.Visible;
+                Type.Visibility = Visibility.Collapsed;
+                lpType.Visibility = Visibility.Visible;
+                btnModify.Visibility = Visibility.Collapsed;
+                btnApply.Visibility = Visibility.Visible;
+                DeviceInfoScrollViewer.ScrollToVerticalOffset(0);
+            }
         }
 
         private void ApplyButton_Click(Object sender, RoutedEventArgs e)
         {
-            string customDeviceName = txtBoxDeviceName.Text;
-            if (customDeviceName != "")
+            if (IsWifiSsidChanged)
             {
-                txtBlockDeviceName.Text = customDeviceName;
-                Title.Text = customDeviceName;
-            }
-
-            string customDeviceType = string.Empty;
-            switch (lpType.SelectedIndex)
-            {
-                case 0:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
-                    customDeviceType = "imacdev";
-                    Type.Text = AppResources.imacdev;
-                    break;
-                case 1:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
-                    customDeviceType = "ipad";
-                    Type.Text = AppResources.ipad;
-                    break;
-                case 2:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
-                    customDeviceType = "ipadmini";
-                    Type.Text = AppResources.ipadmini;
-                    break;
-                case 3:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
-                    customDeviceType = "iphone";
-                    Type.Text = AppResources.iphone;
-                    break;
-                case 4:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
-                    customDeviceType = "iphone5";
-                    Type.Text = AppResources.iphone5;
-                    break;
-                case 5:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
-                    customDeviceType = "ipodtouch";
-                    Type.Text = AppResources.ipodtouch;
-                    break;
-                case 6:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
-                    customDeviceType = "amazonkindle";
-                    Type.Text = AppResources.amazonkindle;
-                    break;
-                case 7:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
-                    customDeviceType = "androiddevice";
-                    Type.Text = AppResources.androiddevice;
-                    break;
-                case 8:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
-                    customDeviceType = "androidphone";
-                    Type.Text = AppResources.androidphone;
-                    break;
-                case 9:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
-                    customDeviceType = "androidtablet";
-                    Type.Text = AppResources.androidtablet;
-                    break;
-                case 10:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
-                    customDeviceType = "blurayplayer";
-                    Type.Text = AppResources.blurayplayer;
-                    break;
-                case 11:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
-                    customDeviceType = "bridge";
-                    Type.Text = AppResources.bridge;
-                    break;
-                case 12:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
-                    customDeviceType = "cablestb";
-                    Type.Text = AppResources.cablestb;
-                    break;
-                case 13:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
-                    customDeviceType = "cameradev";
-                    Type.Text = AppResources.cameradev;
-                    break;
-                case 14:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
-                    customDeviceType = "dvr";
-                    Type.Text = AppResources.dvr;
-                    break;
-                case 15:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
-                    customDeviceType = "gamedev";
-                    Type.Text = AppResources.gamedev;
-                    break;
-                case 16:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
-                    customDeviceType = "linuxpc";
-                    Type.Text = AppResources.linuxpc;
-                    break;
-                case 17:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
-                    customDeviceType = "macminidev";
-                    Type.Text = AppResources.macminidev;
-                    break;
-                case 18:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
-                    customDeviceType = "macprodev";
-                    Type.Text = AppResources.macprodev;
-                    break;
-                case 19:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
-                    customDeviceType = "macbookdev";
-                    Type.Text = AppResources.macbookdev;
-                    break;
-                case 20:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
-                    customDeviceType = "mediadev";
-                    Type.Text = AppResources.mediadev;
-                    break;
-                case 21:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
-                    customDeviceType = "networkdev";
-                    Type.Text = AppResources.networkdev;
-                    break;
-                case 22:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
-                    customDeviceType = "stb";
-                    Type.Text = AppResources.stb;
-                    break;
-                case 23:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
-                    customDeviceType = "printerdev";
-                    Type.Text = AppResources.printerdev;
-                    break;
-                case 24:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
-                    customDeviceType = "repeater";
-                    Type.Text = AppResources.repeater;
-                    break;
-                case 25:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
-                    customDeviceType = "gatewaydev";
-                    Type.Text = AppResources.gatewaydev;
-                    break;
-                case 26:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
-                    customDeviceType = "satellitestb";
-                    Type.Text = AppResources.satellitestb;
-                    break;
-                case 27:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
-                    customDeviceType = "scannerdev";
-                    Type.Text = AppResources.scannerdev;
-                    break;
-                case 28:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
-                    customDeviceType = "slingbox";
-                    Type.Text = AppResources.slingbox;
-                    break;
-                case 29:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
-                    customDeviceType = "mobiledev";
-                    Type.Text = AppResources.mobiledev;
-                    break;
-                case 30:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
-                    customDeviceType = "netstoragedev";
-                    Type.Text = AppResources.netstoragedev;
-                    break;
-                case 31:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
-                    customDeviceType = "switchdev";
-                    Type.Text = AppResources.switchdev;
-                    break;
-                case 32:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
-                    customDeviceType = "tv";
-                    Type.Text = AppResources.tv;
-                    break;
-                case 33:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
-                    customDeviceType = "tablepc";
-                    Type.Text = AppResources.tablepc;
-                    break;
-                case 34:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
-                    customDeviceType = "unixpc";
-                    Type.Text = AppResources.unixpc;
-                    break;
-                case 35:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
-                    customDeviceType = "windowspc";
-                    Type.Text = AppResources.windowspc;
-                    break;
-                case 36:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
-                    customDeviceType = "windowsphone";
-                    Type.Text = AppResources.windowsphone;
-                    break;
-                case 37:
-                    TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
-                    customDeviceType = "windowstablet";
-                    Type.Text = AppResources.windowstablet;
-                    break;
-            }
-
-            string allDeviceInfo = string.Empty;
-            string customDeviceInfo = string.Empty;
-            bool bFound = false;
-            if (NetworkMapInfo.fileContent != "")
-            {
-                string[] AllDeviceInfo = NetworkMapInfo.fileContent.Split(';');
-                for (int i = 0; i < AllDeviceInfo.Length; i++)
-                {
-                    if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
-                    {
-                        string[] DeviceInfo = AllDeviceInfo[i].Split(',');
-                        if (DeviceInfo[0] == MACAddress.Text)
-                        {
-                            bFound = true;
-                            DeviceInfo[1] = customDeviceName;
-                            DeviceInfo[2] = customDeviceType;
-                        }
-                        customDeviceInfo = DeviceInfo[0] + "," + DeviceInfo[1] + "," + DeviceInfo[2] + ";";
-                        allDeviceInfo += customDeviceInfo;
-                    }
-                }
-                if (!bFound)
-                {
-                    allDeviceInfo += MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";
-                }
-                NetworkMapInfo.fileContent = allDeviceInfo;
-            }
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
+            } 
             else
             {
-                NetworkMapInfo.fileContent = MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";
+                string customDeviceName = txtBoxDeviceName.Text;
+                if (customDeviceName != "")
+                {
+                    txtBlockDeviceName.Text = customDeviceName;
+                    Title.Text = customDeviceName;
+                }
+
+                string customDeviceType = string.Empty;
+                switch (lpType.SelectedIndex)
+                {
+                    case 0:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/imacdev.png", UriKind.Relative));
+                        customDeviceType = "imacdev";
+                        Type.Text = AppResources.imacdev;
+                        break;
+                    case 1:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipad.png", UriKind.Relative));
+                        customDeviceType = "ipad";
+                        Type.Text = AppResources.ipad;
+                        break;
+                    case 2:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipadmini.png", UriKind.Relative));
+                        customDeviceType = "ipadmini";
+                        Type.Text = AppResources.ipadmini;
+                        break;
+                    case 3:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone.png", UriKind.Relative));
+                        customDeviceType = "iphone";
+                        Type.Text = AppResources.iphone;
+                        break;
+                    case 4:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/iphone5.png", UriKind.Relative));
+                        customDeviceType = "iphone5";
+                        Type.Text = AppResources.iphone5;
+                        break;
+                    case 5:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/ipodtouch.png", UriKind.Relative));
+                        customDeviceType = "ipodtouch";
+                        Type.Text = AppResources.ipodtouch;
+                        break;
+                    case 6:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/amazonkindle.png", UriKind.Relative));
+                        customDeviceType = "amazonkindle";
+                        Type.Text = AppResources.amazonkindle;
+                        break;
+                    case 7:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androiddevice.png", UriKind.Relative));
+                        customDeviceType = "androiddevice";
+                        Type.Text = AppResources.androiddevice;
+                        break;
+                    case 8:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidphone.png", UriKind.Relative));
+                        customDeviceType = "androidphone";
+                        Type.Text = AppResources.androidphone;
+                        break;
+                    case 9:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/androidtablet.png", UriKind.Relative));
+                        customDeviceType = "androidtablet";
+                        Type.Text = AppResources.androidtablet;
+                        break;
+                    case 10:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/blurayplayer.png", UriKind.Relative));
+                        customDeviceType = "blurayplayer";
+                        Type.Text = AppResources.blurayplayer;
+                        break;
+                    case 11:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/bridge.png", UriKind.Relative));
+                        customDeviceType = "bridge";
+                        Type.Text = AppResources.bridge;
+                        break;
+                    case 12:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cablestb.png", UriKind.Relative));
+                        customDeviceType = "cablestb";
+                        Type.Text = AppResources.cablestb;
+                        break;
+                    case 13:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/cameradev.png", UriKind.Relative));
+                        customDeviceType = "cameradev";
+                        Type.Text = AppResources.cameradev;
+                        break;
+                    case 14:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/dvr.png", UriKind.Relative));
+                        customDeviceType = "dvr";
+                        Type.Text = AppResources.dvr;
+                        break;
+                    case 15:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gamedev.png", UriKind.Relative));
+                        customDeviceType = "gamedev";
+                        Type.Text = AppResources.gamedev;
+                        break;
+                    case 16:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/linuxpc.png", UriKind.Relative));
+                        customDeviceType = "linuxpc";
+                        Type.Text = AppResources.linuxpc;
+                        break;
+                    case 17:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macminidev.png", UriKind.Relative));
+                        customDeviceType = "macminidev";
+                        Type.Text = AppResources.macminidev;
+                        break;
+                    case 18:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macprodev.png", UriKind.Relative));
+                        customDeviceType = "macprodev";
+                        Type.Text = AppResources.macprodev;
+                        break;
+                    case 19:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/macbookdev.png", UriKind.Relative));
+                        customDeviceType = "macbookdev";
+                        Type.Text = AppResources.macbookdev;
+                        break;
+                    case 20:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mediadev.png", UriKind.Relative));
+                        customDeviceType = "mediadev";
+                        Type.Text = AppResources.mediadev;
+                        break;
+                    case 21:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/networkdev.png", UriKind.Relative));
+                        customDeviceType = "networkdev";
+                        Type.Text = AppResources.networkdev;
+                        break;
+                    case 22:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/stb.png", UriKind.Relative));
+                        customDeviceType = "stb";
+                        Type.Text = AppResources.stb;
+                        break;
+                    case 23:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/printerdev.png", UriKind.Relative));
+                        customDeviceType = "printerdev";
+                        Type.Text = AppResources.printerdev;
+                        break;
+                    case 24:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/repeater.png", UriKind.Relative));
+                        customDeviceType = "repeater";
+                        Type.Text = AppResources.repeater;
+                        break;
+                    case 25:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/gatewaydev.png", UriKind.Relative));
+                        customDeviceType = "gatewaydev";
+                        Type.Text = AppResources.gatewaydev;
+                        break;
+                    case 26:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/satellitestb.png", UriKind.Relative));
+                        customDeviceType = "satellitestb";
+                        Type.Text = AppResources.satellitestb;
+                        break;
+                    case 27:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/scannerdev.png", UriKind.Relative));
+                        customDeviceType = "scannerdev";
+                        Type.Text = AppResources.scannerdev;
+                        break;
+                    case 28:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/slingbox.png", UriKind.Relative));
+                        customDeviceType = "slingbox";
+                        Type.Text = AppResources.slingbox;
+                        break;
+                    case 29:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/mobiledev.png", UriKind.Relative));
+                        customDeviceType = "mobiledev";
+                        Type.Text = AppResources.mobiledev;
+                        break;
+                    case 30:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/netstoragedev.png", UriKind.Relative));
+                        customDeviceType = "netstoragedev";
+                        Type.Text = AppResources.netstoragedev;
+                        break;
+                    case 31:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/switchdev.png", UriKind.Relative));
+                        customDeviceType = "switchdev";
+                        Type.Text = AppResources.switchdev;
+                        break;
+                    case 32:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tv.png", UriKind.Relative));
+                        customDeviceType = "tv";
+                        Type.Text = AppResources.tv;
+                        break;
+                    case 33:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/tablepc.png", UriKind.Relative));
+                        customDeviceType = "tablepc";
+                        Type.Text = AppResources.tablepc;
+                        break;
+                    case 34:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/unixpc.png", UriKind.Relative));
+                        customDeviceType = "unixpc";
+                        Type.Text = AppResources.unixpc;
+                        break;
+                    case 35:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowspc.png", UriKind.Relative));
+                        customDeviceType = "windowspc";
+                        Type.Text = AppResources.windowspc;
+                        break;
+                    case 36:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowsphone.png", UriKind.Relative));
+                        customDeviceType = "windowsphone";
+                        Type.Text = AppResources.windowsphone;
+                        break;
+                    case 37:
+                        TitleImage.Source = new BitmapImage(new Uri("Assets/devices/windowstablet.png", UriKind.Relative));
+                        customDeviceType = "windowstablet";
+                        Type.Text = AppResources.windowstablet;
+                        break;
+                }
+
+                string allDeviceInfo = string.Empty;
+                string customDeviceInfo = string.Empty;
+                bool bFound = false;
+                if (NetworkMapInfo.fileContent != "")
+                {
+                    string[] AllDeviceInfo = NetworkMapInfo.fileContent.Split(';');
+                    for (int i = 0; i < AllDeviceInfo.Length; i++)
+                    {
+                        if (AllDeviceInfo[i] != "" && AllDeviceInfo[i] != null)
+                        {
+                            string[] DeviceInfo = AllDeviceInfo[i].Split(',');
+                            if (DeviceInfo[0] == MACAddress.Text)
+                            {
+                                bFound = true;
+                                DeviceInfo[1] = customDeviceName;
+                                DeviceInfo[2] = customDeviceType;
+                            }
+                            customDeviceInfo = DeviceInfo[0] + "," + DeviceInfo[1] + "," + DeviceInfo[2] + ";";
+                            allDeviceInfo += customDeviceInfo;
+                        }
+                    }
+                    if (!bFound)
+                    {
+                        allDeviceInfo += MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";
+                    }
+                    NetworkMapInfo.fileContent = allDeviceInfo;
+                }
+                else
+                {
+                    NetworkMapInfo.fileContent = MACAddress.Text + "," + customDeviceName + "," + customDeviceType + ";";
+                }
+                WriteDeviceInfoFile();
+
+                txtBlockDeviceName.Visibility = Visibility.Visible;
+                txtBoxDeviceName.Visibility = Visibility.Collapsed;
+                Type.Visibility = Visibility.Visible;
+                lpType.Visibility = Visibility.Collapsed;
+                btnModify.Visibility = Visibility.Visible;
+                btnApply.Visibility = Visibility.Collapsed;
+
+                NetworkMapInfo.bRefreshMap = true;
             }
-            WriteDeviceInfoFile();
-
-            txtBlockDeviceName.Visibility = Visibility.Visible;
-            txtBoxDeviceName.Visibility = Visibility.Collapsed;
-            Type.Visibility = Visibility.Visible;
-            lpType.Visibility = Visibility.Collapsed;
-            btnModify.Visibility = Visibility.Visible;
-            btnApply.Visibility = Visibility.Collapsed;
-
-            NetworkMapInfo.bRefreshMap = true;
         }
 
         
@@ -2021,31 +2064,39 @@ namespace GenieWP8
         //刷新按钮响应事件
         private async void appBarButton_refresh_Click(object sender, EventArgs e)
         {
-            PopupBackground.Visibility = Visibility.Visible;
-            InProgress.Visibility = Visibility.Visible;
-            pleasewait.Visibility = Visibility.Visible;
-            appBarButton_refresh.IsEnabled = false;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            UtilityTool util = new UtilityTool();
-            NetworkMapInfo.geteway = await util.GetGateway();
-            NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
+            if (IsWifiSsidChanged)
+            {
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
+            } 
+            else
+            {
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Visible;
+                pleasewait.Visibility = Visibility.Visible;
+                appBarButton_refresh.IsEnabled = false;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                UtilityTool util = new UtilityTool();
+                NetworkMapInfo.geteway = await util.GetGateway();
+                NetworkMapInfo.attachDeviceDic = await soapApi.GetAttachDevice();
 
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
-            {
-                dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
+                }
+                if (dicResponse.Count > 0)
+                {
+                    WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                    WifiSettingInfo.channel = dicResponse["NewChannel"];
+                    WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                    WifiSettingInfo.macAddr = dicResponse["NewWLANMACAddress"];
+                }
+                NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
+                PopupBackground.Visibility = Visibility.Collapsed;
+                NetworkMapInfo.bTypeChanged = false;
+                OnNavigatedTo(null);
             }
-            if (dicResponse.Count > 0)
-            {
-                WifiSettingInfo.ssid = dicResponse["NewSSID"];
-                WifiSettingInfo.channel = dicResponse["NewChannel"];
-                WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
-                WifiSettingInfo.macAddr = dicResponse["NewWLANMACAddress"];
-            }
-            NetworkMapInfo.fileContent = await ReadDeviceInfoFile();
-            PopupBackground.Visibility = Visibility.Collapsed;
-            NetworkMapInfo.bTypeChanged = false;
-            OnNavigatedTo(null);
         }
 
         private void lpType_SelectionChanged(Object sender, SelectionChangedEventArgs e)
@@ -2137,67 +2188,91 @@ namespace GenieWP8
 
         private async void AccessControl_checked(Object sender, RoutedEventArgs e)
         {
-            PopupBackground.Visibility = Visibility.Visible;
-            InProgress.Visibility = Visibility.Visible;
-            pleasewait.Visibility = Visibility.Visible;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            CheckBox cbAccessControl = (CheckBox)sender;
-            if (cbAccessControl.IsChecked == true)
+            if (IsWifiSsidChanged)
             {
-                dicResponse = await soapApi.SetBlockDeviceEnable("1");
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
             } 
-            else if (cbAccessControl.IsChecked == false)
+            else
             {
-                dicResponse = await soapApi.SetBlockDeviceEnable("0");
-            }            
-            PopupBackground.Visibility = Visibility.Collapsed;
-            NetworkMapInfo.bTypeChanged = false;
-            OnNavigatedTo(null);
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Visible;
+                pleasewait.Visibility = Visibility.Visible;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                CheckBox cbAccessControl = (CheckBox)sender;
+                if (cbAccessControl.IsChecked == true)
+                {
+                    dicResponse = await soapApi.SetBlockDeviceEnable("1");
+                }
+                else if (cbAccessControl.IsChecked == false)
+                {
+                    dicResponse = await soapApi.SetBlockDeviceEnable("0");
+                }
+                PopupBackground.Visibility = Visibility.Collapsed;
+                NetworkMapInfo.bTypeChanged = false;
+                OnNavigatedTo(null);
+            }
         }
 
         private async void AllowButton_Click(Object sender, RoutedEventArgs e)
         {
-            PopupWaitAccessControl.IsOpen = true;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
+            if (IsWifiSsidChanged)
             {
-                dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Allow");
-            }
-            if (int.Parse(dicResponse["ResponseCode"]) == 0)
-            {
-                btnAllow.Visibility = Visibility.Collapsed;
-                btnBlock.Visibility = Visibility.Visible;
-                NetworkMapInfo.bRefreshMap = true;
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
             } 
             else
             {
-                MessageBox.Show(dicResponse["error_message"]);
-            }            
-            PopupWaitAccessControl.IsOpen = false;
+                PopupWaitAccessControl.IsOpen = true;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Allow");
+                }
+                if (int.Parse(dicResponse["ResponseCode"]) == 0)
+                {
+                    btnAllow.Visibility = Visibility.Collapsed;
+                    btnBlock.Visibility = Visibility.Visible;
+                    NetworkMapInfo.bRefreshMap = true;
+                }
+                else
+                {
+                    MessageBox.Show(dicResponse["error_message"]);
+                }
+                PopupWaitAccessControl.IsOpen = false;
+            }
         }
 
         private async void BlockButton_Click(Object sender, RoutedEventArgs e)
         {
-            PopupWaitAccessControl.IsOpen = true;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
+            if (IsWifiSsidChanged)
             {
-                dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Block");
-            }
-            if (int.Parse(dicResponse["ResponseCode"]) == 0)
-            {
-                btnAllow.Visibility = Visibility.Visible;
-                btnBlock.Visibility = Visibility.Collapsed;
-                NetworkMapInfo.bRefreshMap = true;
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "NetworkMapPage";
             } 
             else
             {
-                MessageBox.Show(dicResponse["error_message"]);
-            }           
-            PopupWaitAccessControl.IsOpen = false;
+                PopupWaitAccessControl.IsOpen = true;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.SetBlockDeviceByMAC(NetworkMapInfo.deviceMacaddr, "Block");
+                }
+                if (int.Parse(dicResponse["ResponseCode"]) == 0)
+                {
+                    btnAllow.Visibility = Visibility.Visible;
+                    btnBlock.Visibility = Visibility.Collapsed;
+                    NetworkMapInfo.bRefreshMap = true;
+                }
+                else
+                {
+                    MessageBox.Show(dicResponse["error_message"]);
+                }
+                PopupWaitAccessControl.IsOpen = false;
+            }
         }
     }
 }

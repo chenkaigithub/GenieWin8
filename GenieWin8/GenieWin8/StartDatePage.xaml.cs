@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
+using Windows.Networking.Connectivity;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -24,9 +25,34 @@ namespace GenieWin8
     /// </summary>
     public sealed partial class StartDatePage : GenieWin8.Common.LayoutAwarePage
     {
+        private static bool IsWifiSsidChanged;
         public StartDatePage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+        }
+
+        private void App_Resuming(Object sender, Object e)
+        {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        if (connectionProfile.ProfileName == MainPageInfo.ssid)
+                            IsWifiSsidChanged = false;
+                        else
+                            IsWifiSsidChanged = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         /// <summary>
@@ -66,35 +92,43 @@ namespace GenieWin8
         int lastIndex = -1;         //记录上次的选择项
         private void ChangeRestartDayClick(object sender, SelectionChangedEventArgs e)
         {
-            int index = restartDayListView.SelectedIndex;
-            if (index == -1)
-                return;
-
-            if (index < 28)
+            if (IsWifiSsidChanged)
             {
-                TrafficMeterInfoModel.changedRestartDay = (index + 1).ToString();
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
             } 
             else
             {
-                int RestartDay = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
-                TrafficMeterInfoModel.changedRestartDay = RestartDay.ToString();
-            }            
+                int index = restartDayListView.SelectedIndex;
+                if (index == -1)
+                    return;
 
-            //判断重启日期是否更改
-            if (TrafficMeterInfoModel.changedRestartDay != TrafficMeterInfoModel.RestartDay)
-            {
-                TrafficMeterInfoModel.isRestartDayChanged = true;
-            }
-            else
-            {
-                TrafficMeterInfoModel.isRestartDayChanged = false;
-            }
+                if (index < 28)
+                {
+                    TrafficMeterInfoModel.changedRestartDay = (index + 1).ToString();
+                }
+                else
+                {
+                    int RestartDay = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                    TrafficMeterInfoModel.changedRestartDay = RestartDay.ToString();
+                }
 
-            if (lastIndex != -1 && index != lastIndex)
-            {
-                this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
+                //判断重启日期是否更改
+                if (TrafficMeterInfoModel.changedRestartDay != TrafficMeterInfoModel.RestartDay)
+                {
+                    TrafficMeterInfoModel.isRestartDayChanged = true;
+                }
+                else
+                {
+                    TrafficMeterInfoModel.isRestartDayChanged = false;
+                }
+
+                if (lastIndex != -1 && index != lastIndex)
+                {
+                    this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
+                }
+                lastIndex = index;
             }
-            lastIndex = index;
         }
     }
 }

@@ -11,12 +11,14 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class BypassAccountPage : PhoneApplicationPage
     {
         private static ParentalControlModel settingModel = null;
+        private static bool IsWifiSsidChanged;
         public BypassAccountPage()
         {
             InitializeComponent();
@@ -55,6 +57,19 @@ namespace GenieWP8
             //        }
             //    }
             //}
+
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
@@ -73,15 +88,23 @@ namespace GenieWP8
         // 处理在 ListBox 中更改的选定内容
         private void BypassAccountItemClick(object sender, SelectionChangedEventArgs e)
         {
-            if (bypassAccountListBox.SelectedIndex == -1)
+            if (IsWifiSsidChanged)
             {
-                return;
-            }
-            int index = bypassAccountListBox.SelectedIndex;
-            string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
-            ParentalControlInfo.BypassUsername = bypassAccount[index];
-            NavigationService.Navigate(new Uri("/BypassAccountLoginPage.xaml", UriKind.Relative));
-            bypassAccountListBox.SelectedIndex = -1;            
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                if (bypassAccountListBox.SelectedIndex == -1)
+                {
+                    return;
+                }
+                int index = bypassAccountListBox.SelectedIndex;
+                string[] bypassAccount = ParentalControlInfo.BypassAccounts.Split(';');
+                ParentalControlInfo.BypassUsername = bypassAccount[index];
+                NavigationService.Navigate(new Uri("/BypassAccountLoginPage.xaml", UriKind.Relative));
+                bypassAccountListBox.SelectedIndex = -1;  
+            }       
         }
 
         //用于生成本地化 ApplicationBar 的代码

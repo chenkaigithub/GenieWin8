@@ -16,12 +16,14 @@ using ZXing;
 using ZXing.Common;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class WifiSettingPage : PhoneApplicationPage
     {
         private static WifiSettingModel settingModel = null;
+        private static bool IsWifiSsidChanged;
         public WifiSettingPage()
         {
             InitializeComponent();
@@ -101,6 +103,19 @@ namespace GenieWP8
             string codeString = "WIRELESS:" + WifiSettingInfo.ssid + ";PASSWORD:" + WifiSettingInfo.password;
             WriteableBitmap wb = CreateBarcode(codeString);
             imageQRCode.Source = wb;
+
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
@@ -180,85 +195,93 @@ namespace GenieWP8
         //刷新按钮响应事件
         private async void appBarButton_refresh_Click(object sender, EventArgs e)
         {
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            GenieSoapApi soapApi = new GenieSoapApi();
-
-            Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
-            attachDeviceAll = await soapApi.GetAttachDevice();      
-            UtilityTool util = new UtilityTool();
-            var ipList = util.GetCurrentIpAddresses();
-            string loacalIp = ipList.ToList()[0];
-            if (attachDeviceAll.Count == 0)
+            if (IsWifiSsidChanged)
             {
-                WifiSettingInfo.linkRate = "";
-                WifiSettingInfo.signalStrength = "";
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "WifiSettingPage";
             } 
             else
             {
-                foreach (string key in attachDeviceAll.Keys)
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                GenieSoapApi soapApi = new GenieSoapApi();
+
+                Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                attachDeviceAll = await soapApi.GetAttachDevice();
+                UtilityTool util = new UtilityTool();
+                var ipList = util.GetCurrentIpAddresses();
+                string loacalIp = ipList.ToList()[0];
+                if (attachDeviceAll.Count == 0)
                 {
-                    if (loacalIp == attachDeviceAll[key]["Ip"])
+                    WifiSettingInfo.linkRate = "";
+                    WifiSettingInfo.signalStrength = "";
+                }
+                else
+                {
+                    foreach (string key in attachDeviceAll.Keys)
                     {
-                        if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                        if (loacalIp == attachDeviceAll[key]["Ip"])
                         {
-                            WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                        }
-                        else
-                        {
-                            WifiSettingInfo.linkRate = "";
-                        }
-                        if (attachDeviceAll[key].ContainsKey("Signal"))
-                        {
-                            WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                        }
-                        else
-                        {
-                            WifiSettingInfo.signalStrength = "";
+                            if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                            {
+                                WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                            }
+                            else
+                            {
+                                WifiSettingInfo.linkRate = "";
+                            }
+                            if (attachDeviceAll[key].ContainsKey("Signal"))
+                            {
+                                WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                            }
+                            else
+                            {
+                                WifiSettingInfo.signalStrength = "";
+                            }
                         }
                     }
                 }
-            }
 
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
-            {
-                dicResponse = await soapApi.GetInfo("WLANConfiguration");
-            }
-            if (dicResponse.Count > 0)
-            {
-                WifiSettingInfo.ssid = dicResponse["NewSSID"];
-                WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
-                WifiSettingInfo.channel = dicResponse["NewChannel"];
-                WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
-                WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
-                WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
-                Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                while (dicResponse1 == null || dicResponse1.Count == 0)
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
                 {
-                    dicResponse1 = await soapApi.GetWPASecurityKeys();
+                    dicResponse = await soapApi.GetInfo("WLANConfiguration");
                 }
-                if (dicResponse1.Count > 0)
+                if (dicResponse.Count > 0)
                 {
-                    WifiSettingInfo.password = dicResponse1["NewWPAPassphrase"];
-                    WifiSettingInfo.changedPassword = dicResponse1["NewWPAPassphrase"];
-                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                    PopupBackground.Visibility = Visibility.Collapsed;                    
-                    OnNavigatedTo(null);
+                    WifiSettingInfo.ssid = dicResponse["NewSSID"];
+                    WifiSettingInfo.changedSsid = dicResponse["NewSSID"];
+                    WifiSettingInfo.channel = dicResponse["NewChannel"];
+                    WifiSettingInfo.changedChannel = dicResponse["NewChannel"];
+                    WifiSettingInfo.securityType = dicResponse["NewWPAEncryptionModes"];
+                    WifiSettingInfo.changedSecurityType = dicResponse["NewWPAEncryptionModes"];
+                    Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                    while (dicResponse1 == null || dicResponse1.Count == 0)
+                    {
+                        dicResponse1 = await soapApi.GetWPASecurityKeys();
+                    }
+                    if (dicResponse1.Count > 0)
+                    {
+                        WifiSettingInfo.password = dicResponse1["NewWPAPassphrase"];
+                        WifiSettingInfo.changedPassword = dicResponse1["NewWPAPassphrase"];
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        OnNavigatedTo(null);
+                    }
+                    else
+                    {
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        MessageBox.Show("GetWPASecurityKeys failed!");
+                    }
                 }
                 else
                 {
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
-                    MessageBox.Show("GetWPASecurityKeys failed!");
+                    MessageBox.Show("Get WLANConfiguration failed!");
                 }
-            }
-            else
-            {
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-                MessageBox.Show("Get WLANConfiguration failed!");
-            }           
+            }   
         }
 
         //生成二维码
@@ -332,7 +355,16 @@ namespace GenieWP8
                 default:
                     break;
             }
-            NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+
+            if (IsWifiSsidChanged)
+            {
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "WifiSettingPage";
+            } 
+            else
+            {
+                NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+            }
         }       
     }
 }

@@ -12,12 +12,14 @@ using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
 using System.Windows.Media;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class TrafficMeterSettingPage : PhoneApplicationPage
     {
-        private static TrafficMeterModel settingModel = null; 
+        private static TrafficMeterModel settingModel = null;
+        private static bool IsWifiSsidChanged;
         public TrafficMeterSettingPage()
         {
             InitializeComponent();
@@ -57,6 +59,19 @@ namespace GenieWP8
                 tbMonthlyLimit.IsEnabled = true;
             }
 
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
+
             //判断保存按钮是否可点击
             string monthlylimit = TrafficMeterInfo.changedMonthlyLimit;
             string restarthour = TrafficMeterInfo.changedRestartHour;
@@ -64,7 +79,7 @@ namespace GenieWP8
             if (monthlylimit != "" && int.Parse(monthlylimit) != int.Parse(TrafficMeterInfo.MonthlyLimit)
                 || restarthour != "" && int.Parse(restarthour) != int.Parse(TrafficMeterInfo.RestartHour)
                 || restartminute != "" && int.Parse(restartminute) != int.Parse(TrafficMeterInfo.RestartMinute)
-                || TrafficMeterInfo.isRestartDayChanged == true || TrafficMeterInfo.isControlOptionChanged == true)
+                || TrafficMeterInfo.isRestartDayChanged == true || TrafficMeterInfo.isControlOptionChanged == true && IsWifiSsidChanged == false)
             {
                 appBarButton_save.IsEnabled = true;
             }
@@ -147,51 +162,59 @@ namespace GenieWP8
         //判断每月限制是否更改以及保存按钮是否可点击
         private void monthlyLimit_changed(Object sender, RoutedEventArgs e)
         {
-            //string MonthlyLimit = tbMonthlyLimit.Text;
-            if (tbMonthlyLimit.Text.Contains("."))
+            if (IsWifiSsidChanged)
             {
-                int CaretPos = tbMonthlyLimit.SelectionStart;
-                int index = tbMonthlyLimit.Text.IndexOf(".");
-                tbMonthlyLimit.Text = tbMonthlyLimit.Text.Remove(index, 1);
-                tbMonthlyLimit.SelectionStart = CaretPos - 1;
-            }
-            //if (MonthlyLimit.Length > 1)
-            //{
-            while (tbMonthlyLimit.Text.Length > 1 && tbMonthlyLimit.Text.ElementAt(0).CompareTo('0') == 0)
-            {
-                int CaretPos = tbMonthlyLimit.SelectionStart;
-                tbMonthlyLimit.Text = tbMonthlyLimit.Text.Remove(0, 1);
-                tbMonthlyLimit.SelectionStart = CaretPos - 1;
-            }
-            //}
-            //tbMonthlyLimit.Text = MonthlyLimit;
-            TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
-            TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
-            TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
-            if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
-                && int.Parse(TrafficMeterInfo.changedMonthlyLimit) != int.Parse(TrafficMeterInfo.MonthlyLimit))
-            {
-                appBarButton_save.IsEnabled = true;
-                TrafficMeterInfo.isMonthlyLimitChanged = true;
-            }
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
+            } 
             else
             {
-                TrafficMeterInfo.isMonthlyLimitChanged = false;
-                if (TrafficMeterInfo.changedMonthlyLimit == "")
+                //string MonthlyLimit = tbMonthlyLimit.Text;
+                if (tbMonthlyLimit.Text.Contains("."))
                 {
-                    appBarButton_save.IsEnabled = false;
+                    int CaretPos = tbMonthlyLimit.SelectionStart;
+                    int index = tbMonthlyLimit.Text.IndexOf(".");
+                    tbMonthlyLimit.Text = tbMonthlyLimit.Text.Remove(index, 1);
+                    tbMonthlyLimit.SelectionStart = CaretPos - 1;
+                }
+                //if (MonthlyLimit.Length > 1)
+                //{
+                while (tbMonthlyLimit.Text.Length > 1 && tbMonthlyLimit.Text.ElementAt(0).CompareTo('0') == 0)
+                {
+                    int CaretPos = tbMonthlyLimit.SelectionStart;
+                    tbMonthlyLimit.Text = tbMonthlyLimit.Text.Remove(0, 1);
+                    tbMonthlyLimit.SelectionStart = CaretPos - 1;
+                }
+                //}
+                //tbMonthlyLimit.Text = MonthlyLimit;
+                TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+                TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+                TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
+                if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
+                    && int.Parse(TrafficMeterInfo.changedMonthlyLimit) != int.Parse(TrafficMeterInfo.MonthlyLimit))
+                {
+                    appBarButton_save.IsEnabled = true;
+                    TrafficMeterInfo.isMonthlyLimitChanged = true;
                 }
                 else
                 {
-                    if (TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
-                        && (TrafficMeterInfo.isRestartDayChanged == true || TrafficMeterInfo.isRestartHourChanged == true
-                        || TrafficMeterInfo.isRestartMinuteChanged == true || TrafficMeterInfo.isControlOptionChanged == true))
+                    TrafficMeterInfo.isMonthlyLimitChanged = false;
+                    if (TrafficMeterInfo.changedMonthlyLimit == "")
                     {
-                        appBarButton_save.IsEnabled = true;
+                        appBarButton_save.IsEnabled = false;
                     }
                     else
                     {
-                        appBarButton_save.IsEnabled = false;
+                        if (TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
+                            && (TrafficMeterInfo.isRestartDayChanged == true || TrafficMeterInfo.isRestartHourChanged == true
+                            || TrafficMeterInfo.isRestartMinuteChanged == true || TrafficMeterInfo.isControlOptionChanged == true))
+                        {
+                            appBarButton_save.IsEnabled = true;
+                        }
+                        else
+                        {
+                            appBarButton_save.IsEnabled = false;
+                        }
                     }
                 }
             }
@@ -200,49 +223,57 @@ namespace GenieWP8
         //判断重启时间-小时是否更改以及保存按钮是否可点击
         private void restartHour_changed(Object sender, RoutedEventArgs e)
         {
-            //string RestartHour = tbRestartHour.Text;
-            if (tbRestartHour.Text.Contains("."))
+            if (IsWifiSsidChanged)
             {
-                int CaretPos = tbRestartHour.SelectionStart;
-                int index = tbRestartHour.Text.IndexOf(".");
-                tbRestartHour.Text = tbRestartHour.Text.Remove(index, 1);
-                tbRestartHour.SelectionStart = CaretPos - 1;
-            }
-            //if (RestartHour.Length > 1)
-            //{
-            //    while (RestartHour.ElementAt(0).CompareTo('0') == 0)
-            //    {
-            //        RestartHour = RestartHour.Remove(0, 1);
-            //    }
-            //}
-            //tbRestartHour.Text = RestartHour;
-            TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
-            TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
-            TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
-            if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
-                && TrafficMeterInfo.changedRestartHour != TrafficMeterInfo.RestartHour)
-            {
-                appBarButton_save.IsEnabled = true;
-                TrafficMeterInfo.isRestartHourChanged = true;
-            }
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
+            } 
             else
             {
-                TrafficMeterInfo.isRestartHourChanged = false;
-                if (TrafficMeterInfo.changedRestartHour == "")
+                //string RestartHour = tbRestartHour.Text;
+                if (tbRestartHour.Text.Contains("."))
                 {
-                    appBarButton_save.IsEnabled = false;
+                    int CaretPos = tbRestartHour.SelectionStart;
+                    int index = tbRestartHour.Text.IndexOf(".");
+                    tbRestartHour.Text = tbRestartHour.Text.Remove(index, 1);
+                    tbRestartHour.SelectionStart = CaretPos - 1;
+                }
+                //if (RestartHour.Length > 1)
+                //{
+                //    while (RestartHour.ElementAt(0).CompareTo('0') == 0)
+                //    {
+                //        RestartHour = RestartHour.Remove(0, 1);
+                //    }
+                //}
+                //tbRestartHour.Text = RestartHour;
+                TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+                TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+                TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
+                if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
+                    && TrafficMeterInfo.changedRestartHour != TrafficMeterInfo.RestartHour)
+                {
+                    appBarButton_save.IsEnabled = true;
+                    TrafficMeterInfo.isRestartHourChanged = true;
                 }
                 else
                 {
-                    if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartMinute != ""
-                        && (TrafficMeterInfo.isRestartDayChanged == true || TrafficMeterInfo.isMonthlyLimitChanged == true
-                        || TrafficMeterInfo.isRestartMinuteChanged == true || TrafficMeterInfo.isControlOptionChanged == true))
+                    TrafficMeterInfo.isRestartHourChanged = false;
+                    if (TrafficMeterInfo.changedRestartHour == "")
                     {
-                        appBarButton_save.IsEnabled = true;
+                        appBarButton_save.IsEnabled = false;
                     }
                     else
                     {
-                        appBarButton_save.IsEnabled = false;
+                        if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartMinute != ""
+                            && (TrafficMeterInfo.isRestartDayChanged == true || TrafficMeterInfo.isMonthlyLimitChanged == true
+                            || TrafficMeterInfo.isRestartMinuteChanged == true || TrafficMeterInfo.isControlOptionChanged == true))
+                        {
+                            appBarButton_save.IsEnabled = true;
+                        }
+                        else
+                        {
+                            appBarButton_save.IsEnabled = false;
+                        }
                     }
                 }
             }
@@ -251,49 +282,57 @@ namespace GenieWP8
         //判断重启时间-分钟是否更改以及保存按钮是否可点击
         private void restartMinute_changed(Object sender, RoutedEventArgs e)
         {
-            //string RestartMin = tbRestartMinute.Text;
-            if (tbRestartMinute.Text.Contains("."))
+            if (IsWifiSsidChanged)
             {
-                int CaretPos = tbRestartMinute.SelectionStart;
-                int index = tbRestartMinute.Text.IndexOf(".");
-                tbRestartMinute.Text = tbRestartMinute.Text.Remove(index, 1);
-                tbRestartMinute.SelectionStart = CaretPos - 1;
-            }
-            //if (RestartMin.Length > 1)
-            //{
-            //    while (RestartMin.ElementAt(0).CompareTo('0') == 0)
-            //    {
-            //        RestartMin = RestartMin.Remove(0, 1);
-            //    }
-            //}
-            //tbRestartMinute.Text = RestartMin;
-            TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
-            TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
-            TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
-            if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
-                && TrafficMeterInfo.changedRestartMinute != TrafficMeterInfo.RestartMinute)
-            {
-                appBarButton_save.IsEnabled = true;
-                TrafficMeterInfo.isRestartMinuteChanged = true;
-            }
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
+            } 
             else
             {
-                TrafficMeterInfo.isRestartMinuteChanged = false;
-                if (TrafficMeterInfo.changedRestartMinute == "")
+                //string RestartMin = tbRestartMinute.Text;
+                if (tbRestartMinute.Text.Contains("."))
                 {
-                    appBarButton_save.IsEnabled = false;
+                    int CaretPos = tbRestartMinute.SelectionStart;
+                    int index = tbRestartMinute.Text.IndexOf(".");
+                    tbRestartMinute.Text = tbRestartMinute.Text.Remove(index, 1);
+                    tbRestartMinute.SelectionStart = CaretPos - 1;
+                }
+                //if (RestartMin.Length > 1)
+                //{
+                //    while (RestartMin.ElementAt(0).CompareTo('0') == 0)
+                //    {
+                //        RestartMin = RestartMin.Remove(0, 1);
+                //    }
+                //}
+                //tbRestartMinute.Text = RestartMin;
+                TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+                TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+                TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
+                if (TrafficMeterInfo.changedMonthlyLimit != "" && TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedRestartMinute != ""
+                    && TrafficMeterInfo.changedRestartMinute != TrafficMeterInfo.RestartMinute)
+                {
+                    appBarButton_save.IsEnabled = true;
+                    TrafficMeterInfo.isRestartMinuteChanged = true;
                 }
                 else
                 {
-                    if (TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedMonthlyLimit != ""
-                        && (TrafficMeterInfo.isRestartDayChanged == true || TrafficMeterInfo.isMonthlyLimitChanged == true
-                        || TrafficMeterInfo.isRestartHourChanged == true || TrafficMeterInfo.isControlOptionChanged == true))
+                    TrafficMeterInfo.isRestartMinuteChanged = false;
+                    if (TrafficMeterInfo.changedRestartMinute == "")
                     {
-                        appBarButton_save.IsEnabled = true;
+                        appBarButton_save.IsEnabled = false;
                     }
                     else
                     {
-                        appBarButton_save.IsEnabled = false;
+                        if (TrafficMeterInfo.changedRestartHour != "" && TrafficMeterInfo.changedMonthlyLimit != ""
+                            && (TrafficMeterInfo.isRestartDayChanged == true || TrafficMeterInfo.isMonthlyLimitChanged == true
+                            || TrafficMeterInfo.isRestartHourChanged == true || TrafficMeterInfo.isControlOptionChanged == true))
+                        {
+                            appBarButton_save.IsEnabled = true;
+                        }
+                        else
+                        {
+                            appBarButton_save.IsEnabled = false;
+                        }
                     }
                 }
             }
@@ -302,144 +341,158 @@ namespace GenieWP8
         //返回按钮响应事件
         private async void appBarButton_back_Click(object sender, EventArgs e)
         {
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            InProgress.Visibility = Visibility.Visible;
-            pleasewait.Visibility = Visibility.Visible;
-
-            TrafficMeterInfo.isControlOptionChanged = false;
-            TrafficMeterInfo.isMonthlyLimitChanged = false;
-            TrafficMeterInfo.isRestartDayChanged = false;
-            TrafficMeterInfo.isRestartHourChanged = false;
-            TrafficMeterInfo.isRestartMinuteChanged = false;
-
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
+            if (IsWifiSsidChanged)
             {
-                dicResponse = await soapApi.GetTrafficMeterEnabled();
-            }
-            TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
-            if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
-            {
-                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                while (dicResponse2 == null || dicResponse2.Count == 0)
-                {
-                    dicResponse2 = await soapApi.GetTrafficMeterOptions();
-                }
-                if (dicResponse2.Count > 0)
-                {
-                    TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
-                    TrafficMeterInfo.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
-                    TrafficMeterInfo.RestartHour = dicResponse2["RestartHour"];
-                    TrafficMeterInfo.changedRestartHour = dicResponse2["RestartHour"];
-                    TrafficMeterInfo.RestartMinute = dicResponse2["RestartMinute"];
-                    TrafficMeterInfo.changedRestartMinute = dicResponse2["RestartMinute"];
-                    TrafficMeterInfo.RestartDay = dicResponse2["RestartDay"];
-                    TrafficMeterInfo.changedRestartDay = dicResponse2["RestartDay"];
-                    TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
-                    TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
-                }
-                dicResponse2 = new Dictionary<string, string>();
-                while (dicResponse2 == null || dicResponse2.Count == 0)
-                {
-                    dicResponse2 = await soapApi.GetTrafficMeterStatistics();
-                }
-                if (dicResponse2.Count > 0)
-                {
-                    TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
-                    TrafficMeterInfo.TodayDownload = dicResponse2["NewTodayDownload"];
-                    TrafficMeterInfo.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
-                    TrafficMeterInfo.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
-                    TrafficMeterInfo.WeekUpload = dicResponse2["NewWeekUpload"];
-                    TrafficMeterInfo.WeekDownload = dicResponse2["NewWeekDownload"];
-                    TrafficMeterInfo.MonthUpload = dicResponse2["NewMonthUpload"];
-                    TrafficMeterInfo.MonthDownload = dicResponse2["NewMonthDownload"];
-                    TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
-                    TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
-                }
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
                 NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
-                //this.Frame.Navigate(typeof(TrafficMeterPage));
-            }
-            else if (dicResponse["NewTrafficMeterEnable"] == "2")
+            } 
+            else
             {
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-                MessageBox.Show(AppResources.notsupport);
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Visible;
+                pleasewait.Visibility = Visibility.Visible;
+
+                TrafficMeterInfo.isControlOptionChanged = false;
+                TrafficMeterInfo.isMonthlyLimitChanged = false;
+                TrafficMeterInfo.isRestartDayChanged = false;
+                TrafficMeterInfo.isRestartHourChanged = false;
+                TrafficMeterInfo.isRestartMinuteChanged = false;
+
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.GetTrafficMeterEnabled();
+                }
+                TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+                if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
+                {
+                    Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                    while (dicResponse2 == null || dicResponse2.Count == 0)
+                    {
+                        dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                    }
+                    if (dicResponse2.Count > 0)
+                    {
+                        TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                        TrafficMeterInfo.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                        TrafficMeterInfo.RestartHour = dicResponse2["RestartHour"];
+                        TrafficMeterInfo.changedRestartHour = dicResponse2["RestartHour"];
+                        TrafficMeterInfo.RestartMinute = dicResponse2["RestartMinute"];
+                        TrafficMeterInfo.changedRestartMinute = dicResponse2["RestartMinute"];
+                        TrafficMeterInfo.RestartDay = dicResponse2["RestartDay"];
+                        TrafficMeterInfo.changedRestartDay = dicResponse2["RestartDay"];
+                        TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
+                        TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
+                    }
+                    dicResponse2 = new Dictionary<string, string>();
+                    while (dicResponse2 == null || dicResponse2.Count == 0)
+                    {
+                        dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                    }
+                    if (dicResponse2.Count > 0)
+                    {
+                        TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
+                        TrafficMeterInfo.TodayDownload = dicResponse2["NewTodayDownload"];
+                        TrafficMeterInfo.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+                        TrafficMeterInfo.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+                        TrafficMeterInfo.WeekUpload = dicResponse2["NewWeekUpload"];
+                        TrafficMeterInfo.WeekDownload = dicResponse2["NewWeekDownload"];
+                        TrafficMeterInfo.MonthUpload = dicResponse2["NewMonthUpload"];
+                        TrafficMeterInfo.MonthDownload = dicResponse2["NewMonthDownload"];
+                        TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+                        TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+                    }
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
+                    //this.Frame.Navigate(typeof(TrafficMeterPage));
+                }
+                else if (dicResponse["NewTrafficMeterEnable"] == "2")
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    MessageBox.Show(AppResources.notsupport);
+                }
             }
         }
 
         //重写手机“返回”按钮事件
         protected async override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            InProgress.Visibility = Visibility.Visible;
-            pleasewait.Visibility = Visibility.Visible;
-
-            TrafficMeterInfo.isControlOptionChanged = false;
-            TrafficMeterInfo.isMonthlyLimitChanged = false;
-            TrafficMeterInfo.isRestartDayChanged = false;
-            TrafficMeterInfo.isRestartHourChanged = false;
-            TrafficMeterInfo.isRestartMinuteChanged = false;
-
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
+            if (IsWifiSsidChanged)
             {
-                dicResponse = await soapApi.GetTrafficMeterEnabled();
-            }
-            TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
-            if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
-            {
-                Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                while (dicResponse2 == null || dicResponse2.Count == 0)
-                {
-                    dicResponse2 = await soapApi.GetTrafficMeterOptions();
-                }
-                if (dicResponse2.Count > 0)
-                {
-                    TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
-                    TrafficMeterInfo.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
-                    TrafficMeterInfo.RestartHour = dicResponse2["RestartHour"];
-                    TrafficMeterInfo.changedRestartHour = dicResponse2["RestartHour"];
-                    TrafficMeterInfo.RestartMinute = dicResponse2["RestartMinute"];
-                    TrafficMeterInfo.changedRestartMinute = dicResponse2["RestartMinute"];
-                    TrafficMeterInfo.RestartDay = dicResponse2["RestartDay"];
-                    TrafficMeterInfo.changedRestartDay = dicResponse2["RestartDay"];
-                    TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
-                    TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
-                }
-                dicResponse2 = new Dictionary<string, string>();
-                while (dicResponse2 == null || dicResponse2.Count == 0)
-                {
-                    dicResponse2 = await soapApi.GetTrafficMeterStatistics();
-                }
-                if (dicResponse2.Count > 0)
-                {
-                    TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
-                    TrafficMeterInfo.TodayDownload = dicResponse2["NewTodayDownload"];
-                    TrafficMeterInfo.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
-                    TrafficMeterInfo.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
-                    TrafficMeterInfo.WeekUpload = dicResponse2["NewWeekUpload"];
-                    TrafficMeterInfo.WeekDownload = dicResponse2["NewWeekDownload"];
-                    TrafficMeterInfo.MonthUpload = dicResponse2["NewMonthUpload"];
-                    TrafficMeterInfo.MonthDownload = dicResponse2["NewMonthDownload"];
-                    TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
-                    TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
-                }
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
                 NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
-                //this.Frame.Navigate(typeof(TrafficMeterPage));
-            }
-            else if (dicResponse["NewTrafficMeterEnable"] == "2")
+            } 
+            else
             {
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-                MessageBox.Show(AppResources.notsupport);
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.Visibility = Visibility.Visible;
+                pleasewait.Visibility = Visibility.Visible;
+
+                TrafficMeterInfo.isControlOptionChanged = false;
+                TrafficMeterInfo.isMonthlyLimitChanged = false;
+                TrafficMeterInfo.isRestartDayChanged = false;
+                TrafficMeterInfo.isRestartHourChanged = false;
+                TrafficMeterInfo.isRestartMinuteChanged = false;
+
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
+                {
+                    dicResponse = await soapApi.GetTrafficMeterEnabled();
+                }
+                TrafficMeterInfo.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+                if (dicResponse["NewTrafficMeterEnable"] == "0" || dicResponse["NewTrafficMeterEnable"] == "1")
+                {
+                    Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                    while (dicResponse2 == null || dicResponse2.Count == 0)
+                    {
+                        dicResponse2 = await soapApi.GetTrafficMeterOptions();
+                    }
+                    if (dicResponse2.Count > 0)
+                    {
+                        TrafficMeterInfo.MonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                        TrafficMeterInfo.changedMonthlyLimit = dicResponse2["NewMonthlyLimit"];
+                        TrafficMeterInfo.RestartHour = dicResponse2["RestartHour"];
+                        TrafficMeterInfo.changedRestartHour = dicResponse2["RestartHour"];
+                        TrafficMeterInfo.RestartMinute = dicResponse2["RestartMinute"];
+                        TrafficMeterInfo.changedRestartMinute = dicResponse2["RestartMinute"];
+                        TrafficMeterInfo.RestartDay = dicResponse2["RestartDay"];
+                        TrafficMeterInfo.changedRestartDay = dicResponse2["RestartDay"];
+                        TrafficMeterInfo.ControlOption = dicResponse2["NewControlOption"];
+                        TrafficMeterInfo.changedControlOption = dicResponse2["NewControlOption"];
+                    }
+                    dicResponse2 = new Dictionary<string, string>();
+                    while (dicResponse2 == null || dicResponse2.Count == 0)
+                    {
+                        dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                    }
+                    if (dicResponse2.Count > 0)
+                    {
+                        TrafficMeterInfo.TodayUpload = dicResponse2["NewTodayUpload"];
+                        TrafficMeterInfo.TodayDownload = dicResponse2["NewTodayDownload"];
+                        TrafficMeterInfo.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+                        TrafficMeterInfo.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+                        TrafficMeterInfo.WeekUpload = dicResponse2["NewWeekUpload"];
+                        TrafficMeterInfo.WeekDownload = dicResponse2["NewWeekDownload"];
+                        TrafficMeterInfo.MonthUpload = dicResponse2["NewMonthUpload"];
+                        TrafficMeterInfo.MonthDownload = dicResponse2["NewMonthDownload"];
+                        TrafficMeterInfo.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+                        TrafficMeterInfo.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+                    }
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    NavigationService.Navigate(new Uri("/TrafficMeterPage.xaml", UriKind.Relative));
+                    //this.Frame.Navigate(typeof(TrafficMeterPage));
+                }
+                else if (dicResponse["NewTrafficMeterEnable"] == "2")
+                {
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    MessageBox.Show(AppResources.notsupport);
+                }
             }
         }
 
@@ -559,17 +612,33 @@ namespace GenieWP8
             {
                 case "gridStartDate":
                     gridStartDate.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-                    TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
-                    TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
-                    TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
-                    NavigationService.Navigate(new Uri("/StartDatePage.xaml", UriKind.Relative));
+                    if (IsWifiSsidChanged)
+                    {
+                        NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                        MainPageInfo.navigatedPage = "TrafficMeterPage";
+                    } 
+                    else
+                    {
+                        TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+                        TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+                        TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
+                        NavigationService.Navigate(new Uri("/StartDatePage.xaml", UriKind.Relative));
+                    }
                     break;
                 case "gridTrafficLimitation":
                     gridTrafficLimitation.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-                    TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
-                    TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
-                    TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
-                    NavigationService.Navigate(new Uri("/TrafficLimitationPage.xaml", UriKind.Relative));
+                    if (IsWifiSsidChanged)
+                    {
+                        NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                        MainPageInfo.navigatedPage = "TrafficMeterPage";
+                    } 
+                    else
+                    {
+                        TrafficMeterInfo.changedMonthlyLimit = tbMonthlyLimit.Text.Trim();
+                        TrafficMeterInfo.changedRestartHour = tbRestartHour.Text.Trim();
+                        TrafficMeterInfo.changedRestartMinute = tbRestartMinute.Text.Trim();
+                        NavigationService.Navigate(new Uri("/TrafficLimitationPage.xaml", UriKind.Relative));
+                    }
                     break;
                 default:
                     break;

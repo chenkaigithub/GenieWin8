@@ -158,6 +158,13 @@ namespace GenieWP8
                         MainPageInfo.bLogin = true;
                         MainPageInfo.username = Username;
                         MainPageInfo.password = Password;
+                        foreach (var network in new NetworkInterfaceList())
+                        {
+                            if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                            {
+                                MainPageInfo.ssid = network.InterfaceName;                                                  //保存登陆成功后所连接WiFi的SSID
+                            }
+                        }
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
                         //NavigationService.GoBack();

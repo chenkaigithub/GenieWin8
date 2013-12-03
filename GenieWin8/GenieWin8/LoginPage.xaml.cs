@@ -18,6 +18,7 @@ using Windows.UI.Popups;
 using Windows.Storage;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.Networking.Connectivity;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -115,6 +116,20 @@ namespace GenieWin8
                     MainPageInfo.bLogin = true;
                     MainPageInfo.username = Username;
                     MainPageInfo.password = Password;
+                    try
+                    {
+                        var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                        foreach (var connectionProfile in ConnectionProfiles)
+                        {
+                            if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                            {
+                                MainPageInfo.ssid = connectionProfile.ProfileName;                                                 //保存登陆成功后所连接WiFi的SSID
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     
                     InProgress.IsActive = false;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;

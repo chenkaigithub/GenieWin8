@@ -11,12 +11,14 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class GuestTimeSegPage : PhoneApplicationPage
     {
         private static GuestAccessModel settingModel = null;
+        private static bool IsWifiSsidChanged;
         public GuestTimeSegPage()
         {
             InitializeComponent();
@@ -68,6 +70,19 @@ namespace GenieWP8
                     timePeriodSettingListBox.SelectedIndex = 5;
                     break;
             }
+
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         private void PhoneApplicationPage_OrientationChanged(Object sender, OrientationChangedEventArgs e)
@@ -102,47 +117,55 @@ namespace GenieWP8
         int lastIndex = -1;         //记录上次的选择项
         private void timePeriodSetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = timePeriodSettingListBox.SelectedIndex;
-            if (index == -1)
-                return;
-
-            switch (index)
+            if (IsWifiSsidChanged)
             {
-                case 0:
-                    GuestAccessInfo.changedTimePeriod = "Always";
-                    break;
-                case 1:
-                    GuestAccessInfo.changedTimePeriod = "1 hour";
-                    break;
-                case 2:
-                    GuestAccessInfo.changedTimePeriod = "5 hours";
-                    break;
-                case 3:
-                    GuestAccessInfo.changedTimePeriod = "10 hours";
-                    break;
-                case 4:
-                    GuestAccessInfo.changedTimePeriod = "1 day";
-                    break;
-                case 5:
-                    GuestAccessInfo.changedTimePeriod = "1 week";
-                    break;
-            }
-
-            //判断时间段是否更改
-            if (GuestAccessInfo.changedTimePeriod != GuestAccessInfo.timePeriod)
-            {
-                GuestAccessInfo.isTimePeriodChanged = true;
-            }
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "GuestAccessPage";
+            } 
             else
             {
-                GuestAccessInfo.isTimePeriodChanged = false;
-            }
+                int index = timePeriodSettingListBox.SelectedIndex;
+                if (index == -1)
+                    return;
 
-            if (lastIndex != -1 && index != lastIndex)
-            {
-                NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
+                switch (index)
+                {
+                    case 0:
+                        GuestAccessInfo.changedTimePeriod = "Always";
+                        break;
+                    case 1:
+                        GuestAccessInfo.changedTimePeriod = "1 hour";
+                        break;
+                    case 2:
+                        GuestAccessInfo.changedTimePeriod = "5 hours";
+                        break;
+                    case 3:
+                        GuestAccessInfo.changedTimePeriod = "10 hours";
+                        break;
+                    case 4:
+                        GuestAccessInfo.changedTimePeriod = "1 day";
+                        break;
+                    case 5:
+                        GuestAccessInfo.changedTimePeriod = "1 week";
+                        break;
+                }
+
+                //判断时间段是否更改
+                if (GuestAccessInfo.changedTimePeriod != GuestAccessInfo.timePeriod)
+                {
+                    GuestAccessInfo.isTimePeriodChanged = true;
+                }
+                else
+                {
+                    GuestAccessInfo.isTimePeriodChanged = false;
+                }
+
+                if (lastIndex != -1 && index != lastIndex)
+                {
+                    NavigationService.Navigate(new Uri("/GuestSettingPage.xaml", UriKind.Relative));
+                }
+                lastIndex = index;
             }
-            lastIndex = index;
         }
 
         //返回按钮响应事件

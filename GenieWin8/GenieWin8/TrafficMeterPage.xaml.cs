@@ -18,6 +18,7 @@ using Windows.UI;
 using Windows.UI.Text;
 using GenieWin8.DataModel;
 using Windows.UI.Popups;
+using Windows.Networking.Connectivity;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -28,9 +29,11 @@ namespace GenieWin8
     /// </summary>
     public sealed partial class TrafficMeterPage : GenieWin8.Common.LayoutAwarePage
     {
+        private static bool IsWifiSsidChanged;
         public TrafficMeterPage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
             if (TrafficMeterInfoModel.isTrafficMeterEnabled == "0")
             {
                 checkTrafficMeter.IsChecked = false;
@@ -47,6 +50,29 @@ namespace GenieWin8
             }
         }
 
+        private void App_Resuming(Object sender, Object e)
+        {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        if (connectionProfile.ProfileName == MainPageInfo.ssid)
+                            IsWifiSsidChanged = false;
+                        else
+                            IsWifiSsidChanged = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
         /// <summary>
         /// 使用在导航过程中传递的内容填充页。在从以前的会话
         /// 重新创建页时，也会提供任何已保存状态。
@@ -58,46 +84,28 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            //InProgress.IsActive = true;
-            //PopupBackgroundTop.Visibility = Visibility.Visible;
-            //PopupBackground.Visibility = Visibility.Visible;
-            //GenieSoapApi soapApi = new GenieSoapApi();
-            //Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            //dicResponse = await soapApi.GetTrafficMeterEnabled();
-            //TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
-            //if (TrafficMeterInfoModel.isTrafficMeterEnabled == "0")
-            //{
-            //    checkTrafficMeter.IsChecked = false;
-            //    TrafficMeterList.Visibility = Visibility.Collapsed;
-            //    TotalCanvas.Visibility = Visibility.Collapsed;
-            //    AverageCanvas.Visibility = Visibility.Collapsed;
-            //}
-            //else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "1")
-            //{
-            //    checkTrafficMeter.IsChecked = true;
-            //    TrafficMeterList.Visibility = Visibility.Visible;
-            //    TotalCanvas.Visibility = Visibility.Visible;
-            //    AverageCanvas.Visibility = Visibility.Visible;
-            //}
-            //dicResponse = await soapApi.GetTrafficMeterOptions();
-            //if (dicResponse.Count > 0)
-            //{
-            //    TrafficMeterInfoModel.MonthlyLimit = dicResponse["NewMonthlyLimit"];
-            //    TrafficMeterInfoModel.changedMonthlyLimit = dicResponse["NewMonthlyLimit"];
-            //    TrafficMeterInfoModel.RestartHour = dicResponse["RestartHour"];
-            //    TrafficMeterInfoModel.changedRestartHour = dicResponse["RestartHour"];
-            //    TrafficMeterInfoModel.RestartMinute = dicResponse["RestartMinute"];
-            //    TrafficMeterInfoModel.changedRestartMinute = dicResponse["RestartMinute"];
-            //    TrafficMeterInfoModel.RestartDay = dicResponse["RestartDay"];
-            //    TrafficMeterInfoModel.changedRestartDay = dicResponse["RestartDay"];
-            //    TrafficMeterInfoModel.ControlOption = dicResponse["NewControlOption"];
-            //    TrafficMeterInfoModel.changedControlOption = dicResponse["NewControlOption"];
-            //}           
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        if (connectionProfile.ProfileName == MainPageInfo.ssid)
+                            IsWifiSsidChanged = false;
+                        else
+                            IsWifiSsidChanged = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
             var groups = TrafficMeterSource.GetGroups((String)navigationParameter);
             this.DefaultViewModel["Groups"] = groups;
-            //InProgress.IsActive = false;
-            //PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            //PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -112,7 +120,15 @@ namespace GenieWin8
 
         private void TrafficMeter_ItemClick(Object sender, ItemClickEventArgs e)
         {
-            this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
+            if (IsWifiSsidChanged)
+            {
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
+            } 
+            else
+            {
+                this.Frame.Navigate(typeof(TrafficCtrlSettingPage));
+            }
         }
 
         private async void OnWindowSizeChanged(Object sender, SizeChangedEventArgs e)
@@ -545,45 +561,53 @@ namespace GenieWin8
 
         private async void checkTrafficMeter_Click(Object sender, RoutedEventArgs e)
         {
-            if (checkTrafficMeter.IsChecked == true)
+            if (IsWifiSsidChanged)
             {
-                // Create the message dialog and set its content
-                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-                var strtext = loader.GetString("traffic_enable");
-                var messageDialog = new MessageDialog(strtext);
-
-                // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
-                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandlerYes)));
-                messageDialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(this.CommandInvokedHandlerNo)));
-
-                // Set the command that will be invoked by default
-                messageDialog.DefaultCommandIndex = 0;
-
-                // Set the command to be invoked when escape is pressed
-                messageDialog.CancelCommandIndex = 1;
-
-                // Show the message dialog
-                await messageDialog.ShowAsync();
-            }
-            else if (checkTrafficMeter.IsChecked == false)
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
+            } 
+            else
             {
-                // Create the message dialog and set its content
-                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-                var strtext = loader.GetString("traffic_disable");
-                var messageDialog = new MessageDialog(strtext);
+                if (checkTrafficMeter.IsChecked == true)
+                {
+                    // Create the message dialog and set its content
+                    var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                    var strtext = loader.GetString("traffic_enable");
+                    var messageDialog = new MessageDialog(strtext);
 
-                // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
-                messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandlerYes)));
-                messageDialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(this.CommandInvokedHandlerNo)));
+                    // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
+                    messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandlerYes)));
+                    messageDialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(this.CommandInvokedHandlerNo)));
 
-                // Set the command that will be invoked by default
-                messageDialog.DefaultCommandIndex = 0;
+                    // Set the command that will be invoked by default
+                    messageDialog.DefaultCommandIndex = 0;
 
-                // Set the command to be invoked when escape is pressed
-                messageDialog.CancelCommandIndex = 1;
+                    // Set the command to be invoked when escape is pressed
+                    messageDialog.CancelCommandIndex = 1;
 
-                // Show the message dialog
-                await messageDialog.ShowAsync();
+                    // Show the message dialog
+                    await messageDialog.ShowAsync();
+                }
+                else if (checkTrafficMeter.IsChecked == false)
+                {
+                    // Create the message dialog and set its content
+                    var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                    var strtext = loader.GetString("traffic_disable");
+                    var messageDialog = new MessageDialog(strtext);
+
+                    // Add commands and set their callbacks; both buttons use the same callback function instead of inline event handlers
+                    messageDialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(this.CommandInvokedHandlerYes)));
+                    messageDialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(this.CommandInvokedHandlerNo)));
+
+                    // Set the command that will be invoked by default
+                    messageDialog.DefaultCommandIndex = 0;
+
+                    // Set the command to be invoked when escape is pressed
+                    messageDialog.CancelCommandIndex = 1;
+
+                    // Show the message dialog
+                    await messageDialog.ShowAsync();
+                }
             }
         }
 
@@ -594,48 +618,64 @@ namespace GenieWin8
         /// <param name="command">The command that was invoked.</param>
         private async void CommandInvokedHandlerYes(IUICommand command)
         {
-            InProgress.IsActive = true;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            string trafficMeterEnable;
-            if (checkTrafficMeter.IsChecked == true)
+            if (IsWifiSsidChanged)
             {
-                trafficMeterEnable = "1";
-                while (dicResponse == null || dicResponse.Count == 0)
-                {
-                    dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
-                }
-                TrafficMeterList.Visibility = Visibility.Visible;
-                TotalCanvas.Visibility = Visibility.Visible;
-                AverageCanvas.Visibility = Visibility.Visible;
-            }
-            else if (checkTrafficMeter.IsChecked == false)
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
+            } 
+            else
             {
-                trafficMeterEnable = "0";
-                while (dicResponse == null || dicResponse.Count == 0)
+                InProgress.IsActive = true;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                string trafficMeterEnable;
+                if (checkTrafficMeter.IsChecked == true)
                 {
-                    dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
+                    trafficMeterEnable = "1";
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
+                    }
+                    TrafficMeterList.Visibility = Visibility.Visible;
+                    TotalCanvas.Visibility = Visibility.Visible;
+                    AverageCanvas.Visibility = Visibility.Visible;
                 }
-                TrafficMeterList.Visibility = Visibility.Collapsed;
-                TotalCanvas.Visibility = Visibility.Collapsed;
-                AverageCanvas.Visibility = Visibility.Collapsed;               
+                else if (checkTrafficMeter.IsChecked == false)
+                {
+                    trafficMeterEnable = "0";
+                    while (dicResponse == null || dicResponse.Count == 0)
+                    {
+                        dicResponse = await soapApi.EnableTrafficMeter(trafficMeterEnable);
+                    }
+                    TrafficMeterList.Visibility = Visibility.Collapsed;
+                    TotalCanvas.Visibility = Visibility.Collapsed;
+                    AverageCanvas.Visibility = Visibility.Collapsed;
+                }
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
             }
-            InProgress.IsActive = false;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
         }
 
         private void CommandInvokedHandlerNo(IUICommand command)
         {
-            if (checkTrafficMeter.IsChecked == true)
+            if (IsWifiSsidChanged)
             {
-                checkTrafficMeter.IsChecked = false;
-            }
-            else if (checkTrafficMeter.IsChecked == false)
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
+            } 
+            else
             {
-                checkTrafficMeter.IsChecked = true;
+                if (checkTrafficMeter.IsChecked == true)
+                {
+                    checkTrafficMeter.IsChecked = false;
+                }
+                else if (checkTrafficMeter.IsChecked == false)
+                {
+                    checkTrafficMeter.IsChecked = true;
+                }
             }
         }
         #endregion
@@ -655,113 +695,121 @@ namespace GenieWin8
 
         private async void Refresh_Click(Object sender, RoutedEventArgs e)
         {
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            InProgress.IsActive = true;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0)
+            if (IsWifiSsidChanged)
             {
-                dicResponse = await soapApi.GetTrafficMeterEnabled();
-            }
-            if (dicResponse.Count > 0)
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "TrafficMeterPage";
+            } 
+            else
             {
-                TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
-                if (TrafficMeterInfoModel.isTrafficMeterEnabled == "0")
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                InProgress.IsActive = true;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0)
                 {
-                    checkTrafficMeter.IsChecked = false;
-                    //TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
-                    TrafficMeterList.Visibility = Visibility.Collapsed;
-                    TotalCanvas.Visibility = Visibility.Collapsed;
-                    AverageCanvas.Visibility = Visibility.Collapsed;
-                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                    PopupBackground.Visibility = Visibility.Collapsed;
-                    InProgress.IsActive = false;
+                    dicResponse = await soapApi.GetTrafficMeterEnabled();
                 }
-                else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "1")
+                if (dicResponse.Count > 0)
                 {
-                    checkTrafficMeter.IsChecked = true;
-                    //TrafficMeterLongListSelector.Visibility = Visibility.Visible;
-                    TrafficMeterList.Visibility = Visibility.Visible;
-                    TotalCanvas.Visibility = Visibility.Visible;
-                    AverageCanvas.Visibility = Visibility.Visible;
-                    Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
-                    while (dicResponse1 == null || dicResponse1.Count == 0)
+                    TrafficMeterInfoModel.isTrafficMeterEnabled = dicResponse["NewTrafficMeterEnable"];
+                    if (TrafficMeterInfoModel.isTrafficMeterEnabled == "0")
                     {
-                        dicResponse1 = await soapApi.GetTrafficMeterOptions();
+                        checkTrafficMeter.IsChecked = false;
+                        //TrafficMeterLongListSelector.Visibility = Visibility.Collapsed;
+                        TrafficMeterList.Visibility = Visibility.Collapsed;
+                        TotalCanvas.Visibility = Visibility.Collapsed;
+                        AverageCanvas.Visibility = Visibility.Collapsed;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        InProgress.IsActive = false;
                     }
-                    if (dicResponse1.Count > 0)
+                    else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "1")
                     {
-                        TrafficMeterInfoModel.MonthlyLimit = dicResponse1["NewMonthlyLimit"];
-                        TrafficMeterInfoModel.changedMonthlyLimit = dicResponse1["NewMonthlyLimit"];
-                        TrafficMeterInfoModel.RestartHour = dicResponse1["RestartHour"];
-                        TrafficMeterInfoModel.changedRestartHour = dicResponse1["RestartHour"];
-                        TrafficMeterInfoModel.RestartMinute = dicResponse1["RestartMinute"];
-                        TrafficMeterInfoModel.changedRestartMinute = dicResponse1["RestartMinute"];
-                        TrafficMeterInfoModel.RestartDay = dicResponse1["RestartDay"];
-                        TrafficMeterInfoModel.changedRestartDay = dicResponse1["RestartDay"];
-                        TrafficMeterInfoModel.ControlOption = dicResponse1["NewControlOption"];
-                        TrafficMeterInfoModel.changedControlOption = dicResponse1["NewControlOption"];
-
-                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                        while (dicResponse2 == null || dicResponse2.Count == 0)
+                        checkTrafficMeter.IsChecked = true;
+                        //TrafficMeterLongListSelector.Visibility = Visibility.Visible;
+                        TrafficMeterList.Visibility = Visibility.Visible;
+                        TotalCanvas.Visibility = Visibility.Visible;
+                        AverageCanvas.Visibility = Visibility.Visible;
+                        Dictionary<string, string> dicResponse1 = new Dictionary<string, string>();
+                        while (dicResponse1 == null || dicResponse1.Count == 0)
                         {
-                            dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                            dicResponse1 = await soapApi.GetTrafficMeterOptions();
                         }
-                        if (dicResponse2.Count > 0)
+                        if (dicResponse1.Count > 0)
                         {
-                            TrafficMeterInfoModel.TodayUpload = dicResponse2["NewTodayUpload"];
-                            TrafficMeterInfoModel.TodayDownload = dicResponse2["NewTodayDownload"];
-                            TrafficMeterInfoModel.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
-                            TrafficMeterInfoModel.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
-                            TrafficMeterInfoModel.WeekUpload = dicResponse2["NewWeekUpload"];
-                            TrafficMeterInfoModel.WeekDownload = dicResponse2["NewWeekDownload"];
-                            TrafficMeterInfoModel.MonthUpload = dicResponse2["NewMonthUpload"];
-                            TrafficMeterInfoModel.MonthDownload = dicResponse2["NewMonthDownload"];
-                            TrafficMeterInfoModel.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
-                            TrafficMeterInfoModel.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+                            TrafficMeterInfoModel.MonthlyLimit = dicResponse1["NewMonthlyLimit"];
+                            TrafficMeterInfoModel.changedMonthlyLimit = dicResponse1["NewMonthlyLimit"];
+                            TrafficMeterInfoModel.RestartHour = dicResponse1["RestartHour"];
+                            TrafficMeterInfoModel.changedRestartHour = dicResponse1["RestartHour"];
+                            TrafficMeterInfoModel.RestartMinute = dicResponse1["RestartMinute"];
+                            TrafficMeterInfoModel.changedRestartMinute = dicResponse1["RestartMinute"];
+                            TrafficMeterInfoModel.RestartDay = dicResponse1["RestartDay"];
+                            TrafficMeterInfoModel.changedRestartDay = dicResponse1["RestartDay"];
+                            TrafficMeterInfoModel.ControlOption = dicResponse1["NewControlOption"];
+                            TrafficMeterInfoModel.changedControlOption = dicResponse1["NewControlOption"];
 
-                            InProgress.IsActive = false;
-                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                            PopupBackground.Visibility = Visibility.Collapsed;
-                            this.Frame.Navigate(typeof(TrafficMeterPage));
+                            Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                            while (dicResponse2 == null || dicResponse2.Count == 0)
+                            {
+                                dicResponse2 = await soapApi.GetTrafficMeterStatistics();
+                            }
+                            if (dicResponse2.Count > 0)
+                            {
+                                TrafficMeterInfoModel.TodayUpload = dicResponse2["NewTodayUpload"];
+                                TrafficMeterInfoModel.TodayDownload = dicResponse2["NewTodayDownload"];
+                                TrafficMeterInfoModel.YesterdayUpload = dicResponse2["NewYesterdayUpload"];
+                                TrafficMeterInfoModel.YesterdayDownload = dicResponse2["NewYesterdayDownload"];
+                                TrafficMeterInfoModel.WeekUpload = dicResponse2["NewWeekUpload"];
+                                TrafficMeterInfoModel.WeekDownload = dicResponse2["NewWeekDownload"];
+                                TrafficMeterInfoModel.MonthUpload = dicResponse2["NewMonthUpload"];
+                                TrafficMeterInfoModel.MonthDownload = dicResponse2["NewMonthDownload"];
+                                TrafficMeterInfoModel.LastMonthUpload = dicResponse2["NewLastMonthUpload"];
+                                TrafficMeterInfoModel.LastMonthDownload = dicResponse2["NewLastMonthDownload"];
+
+                                InProgress.IsActive = false;
+                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                                PopupBackground.Visibility = Visibility.Collapsed;
+                                this.Frame.Navigate(typeof(TrafficMeterPage));
+                            }
+                            else
+                            {
+                                InProgress.IsActive = false;
+                                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                                PopupBackground.Visibility = Visibility.Collapsed;
+                                var messageDialog = new MessageDialog("GetTrafficMeterStatistics failed!");
+                                await messageDialog.ShowAsync();
+                            }
                         }
                         else
                         {
                             InProgress.IsActive = false;
                             PopupBackgroundTop.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Collapsed;
-                            var messageDialog = new MessageDialog("GetTrafficMeterStatistics failed!");
+                            var messageDialog = new MessageDialog("GetGuestAccessNetworkInfo failed!");
                             await messageDialog.ShowAsync();
                         }
                     }
-                    else
+                    else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "2")
                     {
                         InProgress.IsActive = false;
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
-                        var messageDialog = new MessageDialog("GetGuestAccessNetworkInfo failed!");
+                        var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                        var messageDialog = new MessageDialog(loader.GetString("notsupport"));
                         await messageDialog.ShowAsync();
+                        this.GoHome(null, null);
                     }
                 }
-                else if (TrafficMeterInfoModel.isTrafficMeterEnabled == "2")
+                else
                 {
                     InProgress.IsActive = false;
                     PopupBackgroundTop.Visibility = Visibility.Collapsed;
                     PopupBackground.Visibility = Visibility.Collapsed;
-                    var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-                    var messageDialog = new MessageDialog(loader.GetString("notsupport"));
+                    var messageDialog = new MessageDialog("GetGuestAccessEnabled failed!");
                     await messageDialog.ShowAsync();
-                    this.GoHome(null, null);
                 }
-            }
-            else
-            {
-                InProgress.IsActive = false;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-                var messageDialog = new MessageDialog("GetGuestAccessEnabled failed!");
-                await messageDialog.ShowAsync();
             }
         }
     }

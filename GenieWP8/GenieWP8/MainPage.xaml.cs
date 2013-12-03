@@ -52,6 +52,27 @@ namespace GenieWP8
                 }
             }
 
+            //判断wifi是否连接，并显示SSID
+            tbSsid.Text = AppResources.WifiDisabled;
+            imgWifi.Source = new BitmapImage(new Uri("Assets/signal/nowifi.png", UriKind.Relative));
+            if (DeviceNetworkInformation.IsWiFiEnabled)
+            {
+                tbSsid.Text = AppResources.WifiDisconnected;
+            }
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    tbSsid.Text = network.InterfaceName;
+                    imgWifi.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
+                }
+            }
+
+            if (tbSsid.Text != MainPageInfo.ssid)
+            {
+                MainPageInfo.bLogin = false;
+            }
+
             // 更新菜单项。
             ApplicationBar.MenuItems.Clear();
             if (MainPageInfo.bLogin)
@@ -69,21 +90,7 @@ namespace GenieWP8
                 appBarMenuItem_Login.Click += new EventHandler(appBarMenuItem_Login_Click);
             }
 
-            //判断wifi是否连接，并显示SSID
-            tbSsid.Text = AppResources.WifiDisabled;
-            imgWifi.Source = new BitmapImage(new Uri("Assets/signal/nowifi.png", UriKind.Relative));
-            if (DeviceNetworkInformation.IsWiFiEnabled)
-            {
-                tbSsid.Text = AppResources.WifiDisconnected;
-            }
-            foreach (var network in new NetworkInterfaceList())
-            {
-                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
-                {
-                    tbSsid.Text = network.InterfaceName;
-                    imgWifi.Source = new BitmapImage(new Uri("Assets/signal/wirelessflag4.png", UriKind.Relative));
-                }
-            }
+            
         }
 
         //用于生成本地化 ApplicationBar 的代码

@@ -11,12 +11,14 @@ using Microsoft.Phone.Shell;
 using GenieWP8.Resources;
 using GenieWP8.ViewModels;
 using GenieWP8.DataInfo;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GenieWP8
 {
     public partial class WifiEditChannelPage : PhoneApplicationPage
     {
         private static WifiSettingModel settingModel = null;
+        private static bool IsWifiSsidChanged;
         public WifiEditChannelPage()
         {
             InitializeComponent();
@@ -56,6 +58,19 @@ namespace GenieWP8
                 int result = int.Parse(channel);
                 channelSettingListBox.SelectedIndex = result;
             }
+
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            foreach (var network in new NetworkInterfaceList())
+            {
+                if ((network.InterfaceType == NetworkInterfaceType.Wireless80211) && (network.InterfaceState == ConnectState.Connected))
+                {
+                    if (network.InterfaceName == MainPageInfo.ssid)
+                        IsWifiSsidChanged = false;
+                    else
+                        IsWifiSsidChanged = true;
+                }
+            }
         }
 
         //用于生成本地化 ApplicationBar 的代码
@@ -90,44 +105,52 @@ namespace GenieWP8
         int lastIndex = -1;         //记录上次的选择项
         private void channelSetting_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = channelSettingListBox.SelectedIndex;
-            if (index == -1)
-                return;
-            else if (index == 0)
+            if (IsWifiSsidChanged)
             {
-                WifiSettingInfo.changedChannel = "Auto";
-            }
+                NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+                MainPageInfo.navigatedPage = "WifiSettingPage";
+            } 
             else
             {
-                WifiSettingInfo.changedChannel = string.Format("{0}", index);
-            }
+                int index = channelSettingListBox.SelectedIndex;
+                if (index == -1)
+                    return;
+                else if (index == 0)
+                {
+                    WifiSettingInfo.changedChannel = "Auto";
+                }
+                else
+                {
+                    WifiSettingInfo.changedChannel = string.Format("{0}", index);
+                }
 
-            //判断频道是否更改
-            if (WifiSettingInfo.changedChannel == "Auto" && WifiSettingInfo.channel == "Auto")
-            {
-                WifiSettingInfo.isChannelChanged = false;
-            }
-            else if ((WifiSettingInfo.changedChannel != "Auto" && WifiSettingInfo.channel == "Auto") || (WifiSettingInfo.changedChannel == "Auto" && WifiSettingInfo.channel != "Auto"))
-            {
-                WifiSettingInfo.isChannelChanged = true;
-            }
-            else
-            {
-                if (int.Parse(WifiSettingInfo.changedChannel) != int.Parse(WifiSettingInfo.channel))
+                //判断频道是否更改
+                if (WifiSettingInfo.changedChannel == "Auto" && WifiSettingInfo.channel == "Auto")
+                {
+                    WifiSettingInfo.isChannelChanged = false;
+                }
+                else if ((WifiSettingInfo.changedChannel != "Auto" && WifiSettingInfo.channel == "Auto") || (WifiSettingInfo.changedChannel == "Auto" && WifiSettingInfo.channel != "Auto"))
                 {
                     WifiSettingInfo.isChannelChanged = true;
                 }
                 else
                 {
-                    WifiSettingInfo.isChannelChanged = false;
+                    if (int.Parse(WifiSettingInfo.changedChannel) != int.Parse(WifiSettingInfo.channel))
+                    {
+                        WifiSettingInfo.isChannelChanged = true;
+                    }
+                    else
+                    {
+                        WifiSettingInfo.isChannelChanged = false;
+                    }
                 }
-            }
 
-            if (lastIndex != -1 && index != lastIndex)
-            {
-                NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+                if (lastIndex != -1 && index != lastIndex)
+                {
+                    NavigationService.Navigate(new Uri("/WifiEditSettingPage.xaml", UriKind.Relative));
+                }
+                lastIndex = index;
             }
-            lastIndex = index;
         }
 
         //返回按钮响应事件

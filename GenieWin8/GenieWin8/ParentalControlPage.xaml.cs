@@ -20,6 +20,7 @@ using Newtonsoft.Json.Linq;
 using Windows.Storage;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.Networking.Connectivity;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -30,11 +31,34 @@ namespace GenieWin8
     /// </summary>
     public sealed partial class ParentalControlPage : GenieWin8.Common.LayoutAwarePage
     {
+        private static bool IsWifiSsidChanged;
         public ParentalControlPage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+        }
 
-            
+        private void App_Resuming(Object sender, Object e)
+        {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        if (connectionProfile.ProfileName == MainPageInfo.ssid)
+                            IsWifiSsidChanged = false;
+                        else
+                            IsWifiSsidChanged = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         /// <summary>
@@ -48,12 +72,32 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            //判断所连接Wifi的Ssid是否改变
+            IsWifiSsidChanged = true;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        if (connectionProfile.ProfileName == MainPageInfo.ssid)
+                            IsWifiSsidChanged = false;
+                        else
+                            IsWifiSsidChanged = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
             PopupBackgroundTop.Visibility = Visibility.Visible;
             PopupBackground.Visibility = Visibility.Visible;
             InProgress.IsActive = true;
             pleasewait.Visibility = Visibility.Visible;
 
-            if (!EnquirePopup.IsOpen && !RegisterPopup.IsOpen && !LoginPopup.IsOpen && !FilterLevelPopup.IsOpen && !CategoriesPopup.IsOpen && !SettingCompletePopup.IsOpen)
+            if (!EnquirePopup.IsOpen && !RegisterPopup.IsOpen && !LoginPopup.IsOpen && !FilterLevelPopup.IsOpen && !CategoriesPopup.IsOpen && !SettingCompletePopup.IsOpen && IsWifiSsidChanged == false)
             {
                 ParentalControlInfo.SavedInfo = await ReadSavedInfoFromFile();
                 string[] SavedInfo = ParentalControlInfo.SavedInfo.Split(';');
@@ -189,9 +233,1208 @@ namespace GenieWin8
 
         private void FilterLevel_ItemClick(Object sender, ItemClickEventArgs e)
         {
-            //PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();
-            if (!FilterLevelPopup.IsOpen)
+            if (IsWifiSsidChanged)
+            {
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                //PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();
+                if (!FilterLevelPopup.IsOpen)
+                {
+                    switch (ParentalControlInfo.filterLevel)
+                    {
+                        case "None":
+                            radioButton_None.IsChecked = true;
+                            break;
+                        case "Minimal":
+                            radioButton_Minimum.IsChecked = true;
+                            break;
+                        case "Low":
+                            radioButton_Low.IsChecked = true;
+                            break;
+                        case "Moderate":
+                            radioButton_Medium.IsChecked = true;
+                            break;
+                        case "High":
+                            radioButton_High.IsChecked = true;
+                            break;
+                        case "Custom":
+                            radioButton_Custom.IsChecked = true;
+                            string[] category = ParentalControlInfo.categories.Split(',');
+                            for (int i = 0; i < category.Length; i++)
+                            {
+                                switch (category[i])
+                                {
+                                    case "Academic Fraud":
+                                        category_1.IsChecked = true;
+                                        break;
+                                    case "Adult Themes":
+                                        category_2.IsChecked = true;
+                                        break;
+                                    case "Adware":
+                                        category_3.IsChecked = true;
+                                        break;
+                                    case "Alcohol":
+                                        category_4.IsChecked = true;
+                                        break;
+                                    case "Anime/Manga/Webcomic":
+                                        category_5.IsChecked = true;
+                                        break;
+                                    case "Auctions":
+                                        category_6.IsChecked = true;
+                                        break;
+                                    case "Automotive":
+                                        category_7.IsChecked = true;
+                                        break;
+                                    case "Blogs":
+                                        category_8.IsChecked = true;
+                                        break;
+                                    case "Business Services":
+                                        category_9.IsChecked = true;
+                                        break;
+                                    case "Chat":
+                                        category_10.IsChecked = true;
+                                        break;
+                                    case "Classifieds":
+                                        category_11.IsChecked = true;
+                                        break;
+                                    case "Dating":
+                                        category_12.IsChecked = true;
+                                        break;
+                                    case "Drugs":
+                                        category_13.IsChecked = true;
+                                        break;
+                                    case "Ecommerce/Shopping":
+                                        category_14.IsChecked = true;
+                                        break;
+                                    case "Educational Institutions":
+                                        category_15.IsChecked = true;
+                                        break;
+                                    case "File Storage":
+                                        category_16.IsChecked = true;
+                                        break;
+                                    case "Financial Institutions":
+                                        category_17.IsChecked = true;
+                                        break;
+                                    case "Forums/Message boards":
+                                        category_18.IsChecked = true;
+                                        break;
+                                    case "Gambling":
+                                        category_19.IsChecked = true;
+                                        break;
+                                    case "Games":
+                                        category_20.IsChecked = true;
+                                        break;
+                                    case "German Youth Protection":
+                                        category_21.IsChecked = true;
+                                        break;
+                                    case "Government":
+                                        category_22.IsChecked = true;
+                                        break;
+                                    case "Hate/Discrimination":
+                                        category_23.IsChecked = true;
+                                        break;
+                                    case "Health and Fitness":
+                                        category_24.IsChecked = true;
+                                        break;
+                                    case "Humor":
+                                        category_25.IsChecked = true;
+                                        break;
+                                    case "Instant Messaging":
+                                        category_26.IsChecked = true;
+                                        break;
+                                    case "Jobs/Employment":
+                                        category_27.IsChecked = true;
+                                        break;
+                                    case "Lingerie/Bikini":
+                                        category_28.IsChecked = true;
+                                        break;
+                                    case "Movies":
+                                        category_29.IsChecked = true;
+                                        break;
+                                    case "Music":
+                                        category_30.IsChecked = true;
+                                        break;
+                                    case "News/Media":
+                                        category_31.IsChecked = true;
+                                        break;
+                                    case "Non-Profits":
+                                        category_32.IsChecked = true;
+                                        break;
+                                    case "Nudity":
+                                        category_33.IsChecked = true;
+                                        break;
+                                    case "P2P/File sharing":
+                                        category_34.IsChecked = true;
+                                        break;
+                                    case "Parked Domains":
+                                        category_35.IsChecked = true;
+                                        break;
+                                    case "Photo Sharing":
+                                        category_36.IsChecked = true;
+                                        break;
+                                    case "Podcasts":
+                                        category_37.IsChecked = true;
+                                        break;
+                                    case "Politics":
+                                        category_38.IsChecked = true;
+                                        break;
+                                    case "Pornography":
+                                        category_39.IsChecked = true;
+                                        break;
+                                    case "Portals":
+                                        category_40.IsChecked = true;
+                                        break;
+                                    case "Proxy/Anonymizer":
+                                        category_41.IsChecked = true;
+                                        break;
+                                    case "Radio":
+                                        category_42.IsChecked = true;
+                                        break;
+                                    case "Religious":
+                                        category_43.IsChecked = true;
+                                        break;
+                                    case "Research/Reference":
+                                        category_44.IsChecked = true;
+                                        break;
+                                    case "Search Engines":
+                                        category_45.IsChecked = true;
+                                        break;
+                                    case "Sexuality":
+                                        category_46.IsChecked = true;
+                                        break;
+                                    case "Social Networking":
+                                        category_47.IsChecked = true;
+                                        break;
+                                    case "Software/Technology":
+                                        category_48.IsChecked = true;
+                                        break;
+                                    case "Sports":
+                                        category_49.IsChecked = true;
+                                        break;
+                                    case "Tasteless":
+                                        category_50.IsChecked = true;
+                                        break;
+                                    case "Television":
+                                        category_51.IsChecked = true;
+                                        break;
+                                    case "Tobacco":
+                                        category_52.IsChecked = true;
+                                        break;
+                                    case "Travel":
+                                        category_53.IsChecked = true;
+                                        break;
+                                    case "Typo Squatting":
+                                        category_54.IsChecked = true;
+                                        break;
+                                    case "Video Sharing":
+                                        category_55.IsChecked = true;
+                                        break;
+                                    case "Visual Search Engines":
+                                        category_56.IsChecked = true;
+                                        break;
+                                    case "Weapons":
+                                        category_57.IsChecked = true;
+                                        break;
+                                    case "Web Spam":
+                                        category_58.IsChecked = true;
+                                        break;
+                                    case "Webmail":
+                                        category_59.IsChecked = true;
+                                        break;
+                                    case "Phishing Protection":
+                                        category_60.IsChecked = true;
+                                        break;
+                                }   //switch (category[i])
+                            }   //for
+                            break;
+                        default:
+                            break;
+                    }
+                    FilterLevelPopup.IsOpen = true;
+                    InProgress.IsActive = false;
+                    pleasewait.Visibility = Visibility.Collapsed;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    refreshButton.IsEnabled = false;
+                }
+            }
+        }
+
+        private async void ChangeSetting_ItemClick(Object sender, ItemClickEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                InProgress.IsActive = true;
+                pleasewait.Visibility = Visibility.Visible;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                GenieWebApi webApi = new GenieWebApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await webApi.AccountRelay(ParentalControlInfo.token);
+                if (dicResponse["status"] == "success")
+                {
+                    InProgress.IsActive = false;
+                    pleasewait.Visibility = Visibility.Collapsed;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    string relay_token = dicResponse["relay_token"];
+                    var uri = new Uri("http://netgear.opendns.com/account.php?device_id=" + ParentalControlInfo.DeviceId + "&api_key=3D8C85A77ADA886B967984DF1F8B3711" + "&relay_token=" + relay_token);
+                    await Windows.System.Launcher.LaunchUriAsync(uri);
+                }
+                else
+                {
+                    InProgress.IsActive = false;
+                    pleasewait.Visibility = Visibility.Collapsed;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                    await messageDialog.ShowAsync();
+                }
+            }
+        }
+
+        private async void Bypass_ItemClick(Object sender, ItemClickEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                if (ParentalControlInfo.IsBypassUserLoggedIn == false)                        //未登录Bypass账户
+                {
+                    InProgress.IsActive = true;
+                    pleasewait.Visibility = Visibility.Visible;
+                    PopupBackgroundTop.Visibility = Visibility.Visible;
+                    PopupBackground.Visibility = Visibility.Visible;
+                    ParentalControlInfo.BypassAccounts = "";
+                    GenieWebApi webApi = new GenieWebApi();
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await webApi.GetUsersForDeviceId(ParentalControlInfo.DeviceId);
+                    if (dicResponse["status"] == "success")
+                    {
+                        var jarry = JArray.Parse(dicResponse["bypassUsers"]);
+                        if (jarry != null)
+                        {
+                            for (int i = 0; i < jarry.Count; i++)
+                            {
+                                string user = jarry[i].ToString();
+                                ParentalControlInfo.BypassAccounts = ParentalControlInfo.BypassAccounts + user + ";";
+                            }
+                        }
+                        InProgress.IsActive = false;
+                        pleasewait.Visibility = Visibility.Collapsed;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Collapsed;
+                        this.Frame.Navigate(typeof(BypassAccountPage));
+                    }
+                    else
+                    {
+                        InProgress.IsActive = false;
+                        pleasewait.Visibility = Visibility.Collapsed;
+                        if (dicResponse["error"] == "4012")
+                        {
+                            PopupEnquireBypassAccount.IsOpen = true;
+                        }
+                        else
+                        {
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                            PopupBackground.Visibility = Visibility.Collapsed;
+                            var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                            await messageDialog.ShowAsync();
+                        }
+                    }
+                }
+                else                                                                        //已登录Bypass账户
+                {
+                    this.Frame.Navigate(typeof(BypassAccountLogoutPage));
+                }  
+            }                 
+        }
+
+        private void CancelButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (PopupEnquireBypassAccount.IsOpen)
+            {
+                PopupEnquireBypassAccount.IsOpen = false;
+                InProgress.IsActive = false;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private async void OkButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                if (PopupEnquireBypassAccount.IsOpen)
+                {
+                    PopupEnquireBypassAccount.IsOpen = false;
+                    InProgress.IsActive = false;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    var uri = new Uri("http://netgear.opendns.com/sign_in.php?");
+                    await Windows.System.Launcher.LaunchUriAsync(uri);
+                }
+            }
+        }
+
+        //没有OpenDNS账号
+        private void NoButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (EnquirePopup.IsOpen)
 	        {
+		        EnquirePopup.IsOpen = false;
+		        RegisterPopup.IsOpen = true;
+                IsAvailableName.Visibility = Visibility.Collapsed;
+                InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+		        PopupBackground.Visibility = Visibility.Visible;
+                refreshButton.IsEnabled = false;
+	        }
+        }
+
+        //拥有OpenDNS账号
+        private void YesButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (EnquirePopup.IsOpen)
+	        {
+		        EnquirePopup.IsOpen = false;
+		        LoginPopup.IsOpen = true;
+                InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+		        PopupBackground.Visibility = Visibility.Visible;
+                refreshButton.IsEnabled = false;
+	        }
+        }
+
+        //检查可用性
+        private async void CheckAvailable_Click(Object sender, RoutedEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                RegisterPopup.IsOpen = false;
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                InProgress1.IsActive = true;
+                GenieWebApi webApi = new GenieWebApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                dicResponse = await webApi.CheckNameAvailable(RegUsername.Text);
+                if (dicResponse.Count > 0)
+                {
+                    if (dicResponse["status"] != "success")
+                    {
+                        InProgress1.IsActive = false;
+                        IsAvailableName.Visibility = Visibility.Visible;
+                        IsAvailableName.Text = dicResponse["error_message"];
+                        IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
+                        ParentalControlInfo.IsUsernameAvailable = false;
+                    }
+                    else
+                    {
+                        string isAvailable = dicResponse["available"];
+                        InProgress1.IsActive = false;
+                        if (isAvailable == "no")
+                        {
+                            IsAvailableName.Visibility = Visibility.Visible;
+                            IsAvailableName.Text = "User Name is unavailable.";
+                            IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
+                        }
+                        else if (isAvailable == "yes")
+                        {
+                            IsAvailableName.Visibility = Visibility.Visible;
+                            IsAvailableName.Text = "User Name is Available.";
+                            IsAvailableName.Foreground = new SolidColorBrush(Colors.Green);
+                        }
+                        else
+                        {
+                            IsAvailableName.Visibility = Visibility.Visible;
+                            IsAvailableName.Text = dicResponse["available"];
+                        }
+                        ParentalControlInfo.IsUsernameAvailable = true;
+                    }
+                }
+                else
+                {
+                    InProgress1.IsActive = false;
+                    IsAvailableName.Visibility = Visibility.Visible;
+                    IsAvailableName.Text = "Check failed!";
+                    IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
+                }
+            }
+        }
+
+        //注册用户名是否为空
+        private void IsBlankRegUsername(Object sender, RoutedEventArgs e)
+        {
+            if (RegUsername.Text == "")
+            {
+                checkNameAvailable.IsEnabled = false;
+                ParentalControlInfo.IsEmptyUsername = true;
+            }
+            else
+            {
+                ParentalControlInfo.Username = RegUsername.Text;
+                checkNameAvailable.IsEnabled = true;
+                ParentalControlInfo.IsEmptyUsername = false;
+            }
+        }
+
+        //注册密码是否为空
+        private void IsBlankRegPassword(Object sender, RoutedEventArgs e)
+        {
+            if (RegPassword.Password == "")
+            {
+                ParentalControlInfo.IsEmptyPassword = true;
+            }
+            else
+            {
+                ParentalControlInfo.Password = RegPassword.Password;
+                ParentalControlInfo.IsEmptyPassword = false;
+            }
+            eventConfirmPassword(null, null);
+        }
+
+        //确认密码
+        private void eventConfirmPassword(Object sender, RoutedEventArgs e)
+        {
+            if (ParentalControlInfo.IsEmptyPassword)
+            {
+                if (confirmPassword.Password != "")
+                {
+                    differentPassword.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentPassword = true;
+                }
+                else
+                {
+                    differentPassword.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentPassword = false;
+                }
+            }
+            else
+            {
+                if (RegPassword.Password != confirmPassword.Password)
+                {
+                    differentPassword.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentPassword = true;
+                }
+                else
+                {
+                    differentPassword.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentPassword = false;
+                }
+            }
+        }
+
+        //邮箱是否有效
+        private void IsEmailValid(Object sender, RoutedEventArgs e)
+        {
+            if (email.Text == "")
+            {
+                invalidEmail.Visibility = Visibility.Collapsed;
+                ParentalControlInfo.IsEmptyEmail = true;
+            }
+            else
+            {
+                bool bValidEmail = ValidateEmail(email.Text);
+                if (bValidEmail == true)
+                {
+                    invalidEmail.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.Email = email.Text;
+                    ParentalControlInfo.IsEmptyEmail = false;
+                }
+                else
+                {
+                    invalidEmail.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsEmptyEmail = true;
+                }
+            }
+            eventConfirmEmail(null, null);
+        }
+
+        //确认邮箱
+        private void eventConfirmEmail(Object sender, RoutedEventArgs e)
+        {
+            if (ParentalControlInfo.IsEmptyEmail)
+            {
+                if (congfirmEmail.Text != "")
+                {
+                    differentEmail.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentEmail = true;
+                }
+                else
+                {
+                    differentEmail.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentEmail = false;
+                }
+            }
+            else
+            {
+                if (email.Text != congfirmEmail.Text)
+                {
+                    differentEmail.Visibility = Visibility.Visible;
+                    ParentalControlInfo.IsDifferentEmail = true;
+                }
+                else
+                {
+                    differentEmail.Visibility = Visibility.Collapsed;
+                    ParentalControlInfo.IsDifferentEmail = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 验证邮箱是否合法
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private bool ValidateEmail(string email)
+        {
+            string regexEmail = @"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+            System.Text.RegularExpressions.RegexOptions options = ((System.Text.RegularExpressions.RegexOptions.IgnorePatternWhitespace
+
+                | System.Text.RegularExpressions.RegexOptions.Multiline)
+                        | System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            System.Text.RegularExpressions.Regex regEmail = new System.Text.RegularExpressions.Regex(regexEmail, options);
+            if (regEmail.IsMatch(email))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //注册上一步
+        private void RegisterPreviousButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (RegisterPopup.IsOpen)
+	        {
+		        EnquirePopup.IsOpen = true;
+		        RegisterPopup.IsOpen = false;
+                InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+		        PopupBackground.Visibility = Visibility.Visible;
+                refreshButton.IsEnabled = false;
+	        }
+        }
+
+        //注册下一步
+        private async void RegisterNextButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                RegisterPopup.IsOpen = false;
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                if (ParentalControlInfo.IsUsernameAvailable == false || ParentalControlInfo.IsEmptyUsername == true || ParentalControlInfo.IsEmptyPassword == true
+                || ParentalControlInfo.IsDifferentPassword == true || ParentalControlInfo.IsEmptyEmail == true || ParentalControlInfo.IsDifferentEmail == true)
+                {
+                    var messageDialog = new MessageDialog("Failed, please enter the correct information");
+                    await messageDialog.ShowAsync();
+                }
+                else
+                {
+                    InProgress2.IsActive = true;
+                    pleasewait2.Visibility = Visibility.Visible;
+                    GenieWebApi webApi = new GenieWebApi();
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await webApi.CreateAccount(ParentalControlInfo.Username, ParentalControlInfo.Password, ParentalControlInfo.Email);
+                    if (dicResponse["status"] != "success")
+                    {
+                        InProgress2.IsActive = false;
+                        pleasewait2.Visibility = Visibility.Collapsed;
+                        var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                        await messageDialog.ShowAsync();
+                    }
+                    else
+                    {
+                        if (RegisterPopup.IsOpen)
+                        {
+                            RegisterPopup.IsOpen = false;
+                            LoginPopup.IsOpen = true;
+                            InProgress2.IsActive = false;
+                            pleasewait2.Visibility = Visibility.Collapsed;
+                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                            PopupBackground.Visibility = Visibility.Visible;
+                            refreshButton.IsEnabled = false;
+                        }
+                    }
+                } 
+            }      
+        }
+
+        //登陆上一步
+        private void LoginPreviousButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (LoginPopup.IsOpen)
+	        {
+		        EnquirePopup.IsOpen = true;
+		        LoginPopup.IsOpen = false;
+                InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+		        PopupBackground.Visibility = Visibility.Visible;
+                refreshButton.IsEnabled = false;
+	        }
+        }
+
+        //登陆下一步
+        private async void LoginNextButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                LoginPopup.IsOpen = false;
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                if (LoginUsername.Text == "" || LoginPassword.Password == "")
+                {
+                    var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                    var messageDialog = new MessageDialog(loader.GetString("EmptyUsernameOrPassword"));
+                    await messageDialog.ShowAsync();
+                }
+                else
+                {
+                    InProgress.IsActive = true;
+                    pleasewait.Visibility = Visibility.Visible;
+                    //登录OpenDNS账号
+                    GenieWebApi webApi = new GenieWebApi();
+                    Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                    dicResponse = await webApi.BeginLogin(LoginUsername.Text, LoginPassword.Password);
+                    if (dicResponse.Count > 0)
+                    {
+                        if (dicResponse["status"] != "success")
+                        {
+                            InProgress.IsActive = false;
+                            pleasewait.Visibility = Visibility.Collapsed;
+                            var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                            await messageDialog.ShowAsync();
+                        }
+                        else
+                        {
+                            ParentalControlInfo.IsOpenDNSLoggedIn = true;
+                            ParentalControlInfo.Username = LoginUsername.Text;
+                            ParentalControlInfo.token = dicResponse["token"];
+                            //认证路由器
+                            GenieSoapApi soapApi = new GenieSoapApi();
+                            Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
+                            while (dicResponse2 == null || dicResponse2.Count == 0)
+                            {
+                                dicResponse2 = await soapApi.Authenticate(MainPageInfo.username, MainPageInfo.password);
+                            }
+                            if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
+                            {
+                                Dictionary<string, string> dicResponse3 = new Dictionary<string, string>();
+                                dicResponse3 = await soapApi.GetDNSMasqDeviceID("default");
+                                if (dicResponse3.Count > 0 && int.Parse(dicResponse3["ResponseCode"]) == 0)
+                                {
+                                    bool bBindSuccessed = false;
+                                    ParentalControlInfo.DeviceId = dicResponse3["NewDeviceID"];
+                                    if (ParentalControlInfo.DeviceId == "")                                   //deviceID == empty
+                                    {
+                                        bBindSuccessed = await BindingAccount();
+                                    }
+                                    else                                                                      //deviceID != empty
+                                    {
+                                        Dictionary<string, string> dicResponse4 = new Dictionary<string, string>();
+                                        dicResponse4 = await webApi.GetLabel(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
+                                        if (dicResponse4.Count > 0 && dicResponse4["status"] == "success")
+                                        {
+                                            bBindSuccessed = await BindingAccount();
+                                        }
+                                        else if (dicResponse4.Count > 0 && dicResponse4["status"] != "success")
+                                        {
+                                            if (dicResponse4["error"] == "4003")
+                                            {
+                                                ParentalControlInfo.DeviceId = "";
+                                                bBindSuccessed = await BindingAccount();
+                                            }
+                                            else if (dicResponse4["error"] == "4001")
+                                            {
+                                                InProgress.IsActive = false;
+                                                pleasewait.Visibility = Visibility.Collapsed;
+                                                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                                                var messageDialog = new MessageDialog(loader.GetString("AnotherUserRegisters"));
+                                                await messageDialog.ShowAsync();
+                                                bBindSuccessed = false;
+                                            }
+                                            else
+                                            {
+                                                bBindSuccessed = await BindingAccount();
+                                            }
+                                        }
+                                    }
+
+                                    if (bBindSuccessed)                                                     //绑定账号成功后获取过滤等级，跳到过滤等级设置界面
+                                    {
+                                        Dictionary<string, string> dicResponse5 = new Dictionary<string, string>();
+                                        dicResponse5 = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
+                                        if (dicResponse5["status"] != "success")
+                                        {
+                                            ParentalControlInfo.filterLevel = "";
+                                        }
+                                        else
+                                        {
+                                            ParentalControlInfo.filterLevel = dicResponse5["bundle"];
+                                        }
+                                        //PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();       //再次初始化 PopupFilterLevel，标识出过滤等级
+
+                                        if (LoginPopup.IsOpen)
+                                        {
+                                            LoginPopup.IsOpen = false;
+                                            switch (ParentalControlInfo.filterLevel)
+                                            {
+                                                case "None":
+                                                    radioButton_None.IsChecked = true;
+                                                    break;
+                                                case "Minimal":
+                                                    radioButton_Minimum.IsChecked = true;
+                                                    break;
+                                                case "Low":
+                                                    radioButton_Low.IsChecked = true;
+                                                    break;
+                                                case "Moderate":
+                                                    radioButton_Medium.IsChecked = true;
+                                                    break;
+                                                case "High":
+                                                    radioButton_High.IsChecked = true;
+                                                    break;
+                                                case "Custom":
+                                                    radioButton_Custom.IsChecked = true;
+                                                    ParentalControlInfo.categories = dicResponse5["categories"];
+                                                    string[] category = ParentalControlInfo.categories.Split(',');
+                                                    for (int i = 0; i < category.Length; i++)
+                                                    {
+                                                        switch (category[i])
+                                                        {
+                                                            case "Academic Fraud":
+                                                                category_1.IsChecked = true;
+                                                                break;
+                                                            case "Adult Themes":
+                                                                category_2.IsChecked = true;
+                                                                break;
+                                                            case "Adware":
+                                                                category_3.IsChecked = true;
+                                                                break;
+                                                            case "Alcohol":
+                                                                category_4.IsChecked = true;
+                                                                break;
+                                                            case "Anime/Manga/Webcomic":
+                                                                category_5.IsChecked = true;
+                                                                break;
+                                                            case "Auctions":
+                                                                category_6.IsChecked = true;
+                                                                break;
+                                                            case "Automotive":
+                                                                category_7.IsChecked = true;
+                                                                break;
+                                                            case "Blogs":
+                                                                category_8.IsChecked = true;
+                                                                break;
+                                                            case "Business Services":
+                                                                category_9.IsChecked = true;
+                                                                break;
+                                                            case "Chat":
+                                                                category_10.IsChecked = true;
+                                                                break;
+                                                            case "Classifieds":
+                                                                category_11.IsChecked = true;
+                                                                break;
+                                                            case "Dating":
+                                                                category_12.IsChecked = true;
+                                                                break;
+                                                            case "Drugs":
+                                                                category_13.IsChecked = true;
+                                                                break;
+                                                            case "Ecommerce/Shopping":
+                                                                category_14.IsChecked = true;
+                                                                break;
+                                                            case "Educational Institutions":
+                                                                category_15.IsChecked = true;
+                                                                break;
+                                                            case "File Storage":
+                                                                category_16.IsChecked = true;
+                                                                break;
+                                                            case "Financial Institutions":
+                                                                category_17.IsChecked = true;
+                                                                break;
+                                                            case "Forums/Message boards":
+                                                                category_18.IsChecked = true;
+                                                                break;
+                                                            case "Gambling":
+                                                                category_19.IsChecked = true;
+                                                                break;
+                                                            case "Games":
+                                                                category_20.IsChecked = true;
+                                                                break;
+                                                            case "German Youth Protection":
+                                                                category_21.IsChecked = true;
+                                                                break;
+                                                            case "Government":
+                                                                category_22.IsChecked = true;
+                                                                break;
+                                                            case "Hate/Discrimination":
+                                                                category_23.IsChecked = true;
+                                                                break;
+                                                            case "Health and Fitness":
+                                                                category_24.IsChecked = true;
+                                                                break;
+                                                            case "Humor":
+                                                                category_25.IsChecked = true;
+                                                                break;
+                                                            case "Instant Messaging":
+                                                                category_26.IsChecked = true;
+                                                                break;
+                                                            case "Jobs/Employment":
+                                                                category_27.IsChecked = true;
+                                                                break;
+                                                            case "Lingerie/Bikini":
+                                                                category_28.IsChecked = true;
+                                                                break;
+                                                            case "Movies":
+                                                                category_29.IsChecked = true;
+                                                                break;
+                                                            case "Music":
+                                                                category_30.IsChecked = true;
+                                                                break;
+                                                            case "News/Media":
+                                                                category_31.IsChecked = true;
+                                                                break;
+                                                            case "Non-Profits":
+                                                                category_32.IsChecked = true;
+                                                                break;
+                                                            case "Nudity":
+                                                                category_33.IsChecked = true;
+                                                                break;
+                                                            case "P2P/File sharing":
+                                                                category_34.IsChecked = true;
+                                                                break;
+                                                            case "Parked Domains":
+                                                                category_35.IsChecked = true;
+                                                                break;
+                                                            case "Photo Sharing":
+                                                                category_36.IsChecked = true;
+                                                                break;
+                                                            case "Podcasts":
+                                                                category_37.IsChecked = true;
+                                                                break;
+                                                            case "Politics":
+                                                                category_38.IsChecked = true;
+                                                                break;
+                                                            case "Pornography":
+                                                                category_39.IsChecked = true;
+                                                                break;
+                                                            case "Portals":
+                                                                category_40.IsChecked = true;
+                                                                break;
+                                                            case "Proxy/Anonymizer":
+                                                                category_41.IsChecked = true;
+                                                                break;
+                                                            case "Radio":
+                                                                category_42.IsChecked = true;
+                                                                break;
+                                                            case "Religious":
+                                                                category_43.IsChecked = true;
+                                                                break;
+                                                            case "Research/Reference":
+                                                                category_44.IsChecked = true;
+                                                                break;
+                                                            case "Search Engines":
+                                                                category_45.IsChecked = true;
+                                                                break;
+                                                            case "Sexuality":
+                                                                category_46.IsChecked = true;
+                                                                break;
+                                                            case "Social Networking":
+                                                                category_47.IsChecked = true;
+                                                                break;
+                                                            case "Software/Technology":
+                                                                category_48.IsChecked = true;
+                                                                break;
+                                                            case "Sports":
+                                                                category_49.IsChecked = true;
+                                                                break;
+                                                            case "Tasteless":
+                                                                category_50.IsChecked = true;
+                                                                break;
+                                                            case "Television":
+                                                                category_51.IsChecked = true;
+                                                                break;
+                                                            case "Tobacco":
+                                                                category_52.IsChecked = true;
+                                                                break;
+                                                            case "Travel":
+                                                                category_53.IsChecked = true;
+                                                                break;
+                                                            case "Typo Squatting":
+                                                                category_54.IsChecked = true;
+                                                                break;
+                                                            case "Video Sharing":
+                                                                category_55.IsChecked = true;
+                                                                break;
+                                                            case "Visual Search Engines":
+                                                                category_56.IsChecked = true;
+                                                                break;
+                                                            case "Weapons":
+                                                                category_57.IsChecked = true;
+                                                                break;
+                                                            case "Web Spam":
+                                                                category_58.IsChecked = true;
+                                                                break;
+                                                            case "Webmail":
+                                                                category_59.IsChecked = true;
+                                                                break;
+                                                            case "Phishing Protection":
+                                                                category_60.IsChecked = true;
+                                                                break;
+                                                        }   //switch (category[i])
+                                                    }   //for
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                            FilterLevelPopup.IsOpen = true;
+                                            ParentalControlInfo.IsCategoriesChanged = false;
+                                            InProgress.IsActive = false;
+                                            pleasewait.Visibility = Visibility.Collapsed;
+                                            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                                            PopupBackground.Visibility = Visibility.Visible;
+                                            refreshButton.IsEnabled = false;
+                                        }
+                                    }
+                                }
+                                else if (dicResponse3.Count > 0 && int.Parse(dicResponse3["ResponseCode"]) == 401)
+                                {
+                                    InProgress.IsActive = false;
+                                    pleasewait.Visibility = Visibility.Collapsed;
+                                    var messageDialog = new MessageDialog("Not authenticated");
+                                    await messageDialog.ShowAsync();
+                                }
+                            }
+                            else if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 401)
+                            {
+                                InProgress.IsActive = false;
+                                pleasewait.Visibility = Visibility.Collapsed;
+                                var messageDialog = new MessageDialog("Invalid username and/or password");
+                                await messageDialog.ShowAsync();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        InProgress.IsActive = false;
+                        pleasewait.Visibility = Visibility.Collapsed;
+                        var messageDialog = new MessageDialog("Login openDNS failed");
+                        await messageDialog.ShowAsync();
+                    }
+                }
+            }
+        }
+
+        //设置过滤等级上一步
+        private void FilterLvPreviousButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (FilterLevelPopup.IsOpen)
+	        {
+		        LoginPopup.IsOpen = true;
+		        FilterLevelPopup.IsOpen = false;
+                InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+		        PopupBackground.Visibility = Visibility.Visible;
+                refreshButton.IsEnabled = false;
+	        }
+        }
+
+        //设置过滤等级下一步
+        private async void FilterLvNextButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                FilterLevelPopup.IsOpen = false;
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                InProgress3.IsActive = true;
+                pleasewait3.Visibility = Visibility.Visible;
+                GenieWebApi webApi = new GenieWebApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                if (ParentalControlInfo.IsCategoriesChanged)
+                {
+                    if (ParentalControlInfo.categoriesSelected == string.Empty)
+                    {
+                        ParentalControlInfo.filterLevelSelected = "None";
+                        dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevelSelected, ParentalControlInfo.categories);
+                    }
+                    else
+                    {
+                        dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevelSelected, ParentalControlInfo.categoriesSelected);
+                    }
+                }
+                else
+                {
+                    dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevelSelected, ParentalControlInfo.categories);
+                }
+
+                if (dicResponse["status"] != "success")
+                {
+                    InProgress3.IsActive = false;
+                    pleasewait3.Visibility = Visibility.Collapsed;
+                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
+                    await messageDialog.ShowAsync();
+                }
+                else
+                {
+                    if (FilterLevelPopup.IsOpen)
+                    {
+                        ParentalControlInfo.filterLevel = ParentalControlInfo.filterLevelSelected;
+                        if (ParentalControlInfo.IsCategoriesChanged)
+                        {
+                            ParentalControlInfo.categories = ParentalControlInfo.categoriesSelected;
+                        }
+                        ParentalControlInfo.SavedInfo = string.Empty;
+                        ParentalControlInfo.SavedInfo = ParentalControlInfo.RouterMacaddr + ";" + ParentalControlInfo.token + ";" + ParentalControlInfo.DeviceId + ";" + ParentalControlInfo.Username;
+                        WriteSavedInfoToFile();
+                        FilterLevelPopup.IsOpen = false;
+                        SettingCompletePopup.IsOpen = true;
+                        InProgress3.IsActive = false;
+                        pleasewait3.Visibility = Visibility.Collapsed;
+                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                        PopupBackground.Visibility = Visibility.Visible;
+                        refreshButton.IsEnabled = false;
+                    }
+                } 
+            }     
+        }
+
+        //返回状态页面
+        private void ReturnToStatusButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                SettingCompletePopup.IsOpen = false;
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                if (SettingCompletePopup.IsOpen)
+                {
+                    SettingCompletePopup.IsOpen = false;
+                    InProgress.IsActive = false;
+                    pleasewait.Visibility = Visibility.Collapsed;
+                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                    PopupBackground.Visibility = Visibility.Collapsed;
+                    this.Frame.Navigate(typeof(ParentalControlPage));
+                }
+            }
+        }
+
+        private async void checkParentalControl_Click(Object sender, RoutedEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                InProgress.IsActive = true;
+                pleasewait.Visibility = Visibility.Visible;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                string parentalControlEnable;
+                if (checkPatentalControl.IsChecked == true)
+                {
+                    parentalControlEnable = "1";
+                    dicResponse = await soapApi.EnableParentalControl(parentalControlEnable);
+                    ParentalControlInfo.isParentalControlEnabled = "1";
+                    FilterLevelListView.Visibility = Visibility.Visible;
+                    ChangeCustomSettings.Visibility = Visibility.Visible;
+                    stpOpenDNSAccount.Visibility = Visibility.Visible;
+                    BypassAccount.Visibility = Visibility.Visible;
+                }
+                else if (checkPatentalControl.IsChecked == false)
+                {
+                    parentalControlEnable = "0";
+                    dicResponse = await soapApi.EnableParentalControl(parentalControlEnable);
+                    ParentalControlInfo.isParentalControlEnabled = "0";
+                    FilterLevelListView.Visibility = Visibility.Collapsed;
+                    ChangeCustomSettings.Visibility = Visibility.Collapsed;
+                    stpOpenDNSAccount.Visibility = Visibility.Collapsed;
+                    BypassAccount.Visibility = Visibility.Collapsed;
+                }
+                InProgress.IsActive = false;
+                pleasewait.Visibility = Visibility.Collapsed;
+                PopupBackgroundTop.Visibility = Visibility.Collapsed;
+                PopupBackground.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private async void Refresh_Click(Object sender, RoutedEventArgs e)
+        {
+            if (IsWifiSsidChanged)
+            {
+                this.Frame.Navigate(typeof(LoginPage));
+                MainPageInfo.navigatedPage = "ParentalControlPage";
+            } 
+            else
+            {
+                InProgress.IsActive = true;
+                pleasewait.Visibility = Visibility.Visible;
+                PopupBackgroundTop.Visibility = Visibility.Visible;
+                PopupBackground.Visibility = Visibility.Visible;
+
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0 || int.Parse(dicResponse["ResponseCode"]) != 0)
+                {
+                    dicResponse = await soapApi.GetEnableStatus();
+                }
+                ParentalControlInfo.isParentalControlEnabled = dicResponse["ParentalControl"];
+
+                //获取过滤等级
+                GenieWebApi webApi = new GenieWebApi();
+                dicResponse = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
+                if (dicResponse["status"] != "success")
+                {
+                    ParentalControlInfo.filterLevel = "";
+                }
+                else
+                {
+                    ParentalControlInfo.filterLevel = dicResponse["bundle"];
+                }
                 switch (ParentalControlInfo.filterLevel)
                 {
                     case "None":
@@ -211,6 +1454,7 @@ namespace GenieWin8
                         break;
                     case "Custom":
                         radioButton_Custom.IsChecked = true;
+                        ParentalControlInfo.categories = dicResponse["categories"];
                         string[] category = ParentalControlInfo.categories.Split(',');
                         for (int i = 0; i < category.Length; i++)
                         {
@@ -401,1121 +1645,13 @@ namespace GenieWin8
                         break;
                     default:
                         break;
-                }
-		        FilterLevelPopup.IsOpen = true;
-                InProgress.IsActive = false;
-                pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-		        PopupBackground.Visibility = Visibility.Visible;
-                refreshButton.IsEnabled = false;
-	        }
-        }
-
-        private async void ChangeSetting_ItemClick(Object sender, ItemClickEventArgs e)
-        {
-            InProgress.IsActive = true;
-            pleasewait.Visibility = Visibility.Visible;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            GenieWebApi webApi = new GenieWebApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await webApi.AccountRelay(ParentalControlInfo.token);
-            if (dicResponse["status"] == "success")
-            {
+                }   //switch (ParentalControlInfo.filterLevel)
                 InProgress.IsActive = false;
                 pleasewait.Visibility = Visibility.Collapsed;
                 PopupBackgroundTop.Visibility = Visibility.Collapsed;
                 PopupBackground.Visibility = Visibility.Collapsed;
-                string relay_token = dicResponse["relay_token"];
-                var uri = new Uri("http://netgear.opendns.com/account.php?device_id=" + ParentalControlInfo.DeviceId + "&api_key=3D8C85A77ADA886B967984DF1F8B3711" + "&relay_token=" + relay_token);
-                await Windows.System.Launcher.LaunchUriAsync(uri);
-            }
-            else
-            {
-                InProgress.IsActive = false;
-                pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-                var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                await messageDialog.ShowAsync();
-            }
-        }
-
-        private async void Bypass_ItemClick(Object sender, ItemClickEventArgs e)
-        {
-            if (ParentalControlInfo.IsBypassUserLoggedIn == false)                        //未登录Bypass账户
-            {
-                InProgress.IsActive = true;
-                pleasewait.Visibility = Visibility.Visible;
-                PopupBackgroundTop.Visibility = Visibility.Visible;
-                PopupBackground.Visibility = Visibility.Visible;
-                ParentalControlInfo.BypassAccounts = "";
-                GenieWebApi webApi = new GenieWebApi();
-                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                dicResponse = await webApi.GetUsersForDeviceId(ParentalControlInfo.DeviceId);
-                if (dicResponse["status"] == "success")
-                {
-                    var jarry = JArray.Parse(dicResponse["bypassUsers"]);
-                    if (jarry != null)
-                    {
-                        for (int i = 0; i < jarry.Count; i++)
-                        {
-                            string user = jarry[i].ToString();
-                            ParentalControlInfo.BypassAccounts = ParentalControlInfo.BypassAccounts + user + ";";
-                        }
-                    }
-                    InProgress.IsActive = false;
-                    pleasewait.Visibility = Visibility.Collapsed;
-                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                    PopupBackground.Visibility = Visibility.Collapsed;
-                    this.Frame.Navigate(typeof(BypassAccountPage));
-                }
-                else
-                {
-                    InProgress.IsActive = false;
-                    pleasewait.Visibility = Visibility.Collapsed;
-                    if (dicResponse["error"] == "4012")
-                    {
-                        PopupEnquireBypassAccount.IsOpen = true;
-                    } 
-                    else
-                    {
-                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Collapsed;
-                        var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                        await messageDialog.ShowAsync();
-                    }                                       
-                } 
-            } 
-            else                                                                        //已登录Bypass账户
-            {
-                this.Frame.Navigate(typeof(BypassAccountLogoutPage));
-            }                     
-        }
-
-        private void CancelButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (PopupEnquireBypassAccount.IsOpen)
-            {
-                PopupEnquireBypassAccount.IsOpen = false;
-                InProgress.IsActive = false;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private async void OkButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (PopupEnquireBypassAccount.IsOpen)
-            {
-                PopupEnquireBypassAccount.IsOpen = false;
-                InProgress.IsActive = false;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                PopupBackground.Visibility = Visibility.Collapsed;
-                var uri = new Uri("http://netgear.opendns.com/sign_in.php?");
-                await Windows.System.Launcher.LaunchUriAsync(uri);
-            }
-        }
-
-        //没有OpenDNS账号
-        private void NoButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (EnquirePopup.IsOpen)
-	        {
-		        EnquirePopup.IsOpen = false;
-		        RegisterPopup.IsOpen = true;
-                IsAvailableName.Visibility = Visibility.Collapsed;
-                InProgress.IsActive = false;
-                pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-		        PopupBackground.Visibility = Visibility.Visible;
-                refreshButton.IsEnabled = false;
-	        }
-        }
-
-        //拥有OpenDNS账号
-        private void YesButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (EnquirePopup.IsOpen)
-	        {
-		        EnquirePopup.IsOpen = false;
-		        LoginPopup.IsOpen = true;
-                InProgress.IsActive = false;
-                pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-		        PopupBackground.Visibility = Visibility.Visible;
-                refreshButton.IsEnabled = false;
-	        }
-        }
-
-        //检查可用性
-        private async void CheckAvailable_Click(Object sender, RoutedEventArgs e)
-        {
-            InProgress1.IsActive = true;
-            GenieWebApi webApi = new GenieWebApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            dicResponse = await webApi.CheckNameAvailable(RegUsername.Text);
-            if (dicResponse.Count > 0)
-            {
-                if (dicResponse["status"] != "success")
-                {
-                    InProgress1.IsActive = false;
-                    IsAvailableName.Visibility = Visibility.Visible;
-                    IsAvailableName.Text = dicResponse["error_message"];
-                    IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
-                    ParentalControlInfo.IsUsernameAvailable = false;
-                }
-                else
-                {
-                    string isAvailable = dicResponse["available"];
-                    InProgress1.IsActive = false;
-                    if (isAvailable == "no")
-                    {
-                        IsAvailableName.Visibility = Visibility.Visible;
-                        IsAvailableName.Text = "User Name is unavailable.";
-                        IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
-                    }
-                    else if (isAvailable == "yes")
-                    {
-                        IsAvailableName.Visibility = Visibility.Visible;
-                        IsAvailableName.Text = "User Name is Available.";
-                        IsAvailableName.Foreground = new SolidColorBrush(Colors.Green);
-                    }
-                    else
-                    {
-                        IsAvailableName.Visibility = Visibility.Visible;
-                        IsAvailableName.Text = dicResponse["available"];
-                    }
-                    ParentalControlInfo.IsUsernameAvailable = true;
-                }
-            }
-            else
-            {
-                InProgress1.IsActive = false;
-                IsAvailableName.Visibility = Visibility.Visible;
-                IsAvailableName.Text = "Check failed!";
-                IsAvailableName.Foreground = new SolidColorBrush(Colors.Red);
-            }
-            
-        }
-
-        //注册用户名是否为空
-        private void IsBlankRegUsername(Object sender, RoutedEventArgs e)
-        {
-            if (RegUsername.Text == "")
-            {
-                checkNameAvailable.IsEnabled = false;
-                ParentalControlInfo.IsEmptyUsername = true;
-            }
-            else
-            {
-                ParentalControlInfo.Username = RegUsername.Text;
-                checkNameAvailable.IsEnabled = true;
-                ParentalControlInfo.IsEmptyUsername = false;
-            }
-        }
-
-        //注册密码是否为空
-        private void IsBlankRegPassword(Object sender, RoutedEventArgs e)
-        {
-            if (RegPassword.Password == "")
-            {
-                ParentalControlInfo.IsEmptyPassword = true;
-            }
-            else
-            {
-                ParentalControlInfo.Password = RegPassword.Password;
-                ParentalControlInfo.IsEmptyPassword = false;
-            }
-            eventConfirmPassword(null, null);
-        }
-
-        //确认密码
-        private void eventConfirmPassword(Object sender, RoutedEventArgs e)
-        {
-            if (ParentalControlInfo.IsEmptyPassword)
-            {
-                if (confirmPassword.Password != "")
-                {
-                    differentPassword.Visibility = Visibility.Visible;
-                    ParentalControlInfo.IsDifferentPassword = true;
-                }
-                else
-                {
-                    differentPassword.Visibility = Visibility.Collapsed;
-                    ParentalControlInfo.IsDifferentPassword = false;
-                }
-            }
-            else
-            {
-                if (RegPassword.Password != confirmPassword.Password)
-                {
-                    differentPassword.Visibility = Visibility.Visible;
-                    ParentalControlInfo.IsDifferentPassword = true;
-                }
-                else
-                {
-                    differentPassword.Visibility = Visibility.Collapsed;
-                    ParentalControlInfo.IsDifferentPassword = false;
-                }
-            }
-        }
-
-        //邮箱是否有效
-        private void IsEmailValid(Object sender, RoutedEventArgs e)
-        {
-            if (email.Text == "")
-            {
-                invalidEmail.Visibility = Visibility.Collapsed;
-                ParentalControlInfo.IsEmptyEmail = true;
-            }
-            else
-            {
-                bool bValidEmail = ValidateEmail(email.Text);
-                if (bValidEmail == true)
-                {
-                    invalidEmail.Visibility = Visibility.Collapsed;
-                    ParentalControlInfo.Email = email.Text;
-                    ParentalControlInfo.IsEmptyEmail = false;
-                }
-                else
-                {
-                    invalidEmail.Visibility = Visibility.Visible;
-                    ParentalControlInfo.IsEmptyEmail = true;
-                }
-            }
-            eventConfirmEmail(null, null);
-        }
-
-        //确认邮箱
-        private void eventConfirmEmail(Object sender, RoutedEventArgs e)
-        {
-            if (ParentalControlInfo.IsEmptyEmail)
-            {
-                if (congfirmEmail.Text != "")
-                {
-                    differentEmail.Visibility = Visibility.Visible;
-                    ParentalControlInfo.IsDifferentEmail = true;
-                }
-                else
-                {
-                    differentEmail.Visibility = Visibility.Collapsed;
-                    ParentalControlInfo.IsDifferentEmail = false;
-                }
-            }
-            else
-            {
-                if (email.Text != congfirmEmail.Text)
-                {
-                    differentEmail.Visibility = Visibility.Visible;
-                    ParentalControlInfo.IsDifferentEmail = true;
-                }
-                else
-                {
-                    differentEmail.Visibility = Visibility.Collapsed;
-                    ParentalControlInfo.IsDifferentEmail = false;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 验证邮箱是否合法
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
-        private bool ValidateEmail(string email)
-        {
-            string regexEmail = @"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
-            System.Text.RegularExpressions.RegexOptions options = ((System.Text.RegularExpressions.RegexOptions.IgnorePatternWhitespace
-
-                | System.Text.RegularExpressions.RegexOptions.Multiline)
-                        | System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            System.Text.RegularExpressions.Regex regEmail = new System.Text.RegularExpressions.Regex(regexEmail, options);
-            if (regEmail.IsMatch(email))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        //注册上一步
-        private void RegisterPreviousButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (RegisterPopup.IsOpen)
-	        {
-		        EnquirePopup.IsOpen = true;
-		        RegisterPopup.IsOpen = false;
-                InProgress.IsActive = false;
-                pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-		        PopupBackground.Visibility = Visibility.Visible;
-                refreshButton.IsEnabled = false;
-	        }
-        }
-
-        //注册下一步
-        private async void RegisterNextButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (ParentalControlInfo.IsUsernameAvailable == false || ParentalControlInfo.IsEmptyUsername == true || ParentalControlInfo.IsEmptyPassword == true
-                || ParentalControlInfo.IsDifferentPassword == true || ParentalControlInfo.IsEmptyEmail == true || ParentalControlInfo.IsDifferentEmail == true)
-            {
-                var messageDialog = new MessageDialog("Failed, please enter the correct information");
-                await messageDialog.ShowAsync();
-            } 
-            else
-            {
-                InProgress2.IsActive = true;
-                pleasewait2.Visibility = Visibility.Visible;
-                GenieWebApi webApi = new GenieWebApi();
-                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                dicResponse = await webApi.CreateAccount(ParentalControlInfo.Username, ParentalControlInfo.Password, ParentalControlInfo.Email);
-                if (dicResponse["status"] != "success")
-                {
-                    InProgress2.IsActive = false;
-                    pleasewait2.Visibility = Visibility.Collapsed;
-                    var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                    await messageDialog.ShowAsync();
-                } 
-                else
-                {
-                    if (RegisterPopup.IsOpen)
-                    {
-                        RegisterPopup.IsOpen = false;
-                        LoginPopup.IsOpen = true;
-                        InProgress2.IsActive = false;
-                        pleasewait2.Visibility = Visibility.Collapsed;
-                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                        PopupBackground.Visibility = Visibility.Visible;
-                        refreshButton.IsEnabled = false;
-                    }
-                }              
-            }          
-        }
-
-        //登陆上一步
-        private void LoginPreviousButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (LoginPopup.IsOpen)
-	        {
-		        EnquirePopup.IsOpen = true;
-		        LoginPopup.IsOpen = false;
-                InProgress.IsActive = false;
-                pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-		        PopupBackground.Visibility = Visibility.Visible;
-                refreshButton.IsEnabled = false;
-	        }
-        }
-
-        //登陆下一步
-        private async void LoginNextButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (LoginUsername.Text == "" || LoginPassword.Password == "")
-            {
-                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-                var messageDialog = new MessageDialog(loader.GetString("EmptyUsernameOrPassword"));
-                await messageDialog.ShowAsync();
-            }
-            else
-            {
-                InProgress.IsActive = true;
-                pleasewait.Visibility = Visibility.Visible;
-                //登录OpenDNS账号
-                GenieWebApi webApi = new GenieWebApi();
-                Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-                dicResponse = await webApi.BeginLogin(LoginUsername.Text, LoginPassword.Password);
-                if (dicResponse.Count > 0)
-                {
-                    if (dicResponse["status"] != "success")
-                    {
-                        InProgress.IsActive = false;
-                        pleasewait.Visibility = Visibility.Collapsed;
-                        var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                        await messageDialog.ShowAsync();
-                    }
-                    else
-                    {
-                        ParentalControlInfo.IsOpenDNSLoggedIn = true;
-                        ParentalControlInfo.Username = LoginUsername.Text;
-                        ParentalControlInfo.token = dicResponse["token"];
-                        //认证路由器
-                        GenieSoapApi soapApi = new GenieSoapApi();
-                        Dictionary<string, string> dicResponse2 = new Dictionary<string, string>();
-                        while (dicResponse2 == null || dicResponse2.Count == 0)
-                        {
-                            dicResponse2 = await soapApi.Authenticate(MainPageInfo.username, MainPageInfo.password);
-                        } 
-                        if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 0)
-                        {
-                            Dictionary<string, string> dicResponse3 = new Dictionary<string, string>();
-                            dicResponse3 = await soapApi.GetDNSMasqDeviceID("default");
-                            if (dicResponse3.Count > 0 && int.Parse(dicResponse3["ResponseCode"]) == 0)
-                            {
-                                bool bBindSuccessed = false;
-                                ParentalControlInfo.DeviceId = dicResponse3["NewDeviceID"];
-                                if (ParentalControlInfo.DeviceId == "")                                   //deviceID == empty
-                                {                                   
-                                    bBindSuccessed = await BindingAccount();
-                                }
-                                else                                                                      //deviceID != empty
-                                {
-                                    Dictionary<string, string> dicResponse4 = new Dictionary<string, string>();
-                                    dicResponse4 = await webApi.GetLabel(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
-                                    if (dicResponse4.Count > 0 && dicResponse4["status"] == "success")
-                                    {
-                                        bBindSuccessed = await BindingAccount();
-                                    }
-                                    else if (dicResponse4.Count > 0 && dicResponse4["status"] != "success")
-                                    {
-                                        if (dicResponse4["error"] == "4003")
-                                        {
-                                            ParentalControlInfo.DeviceId = "";
-                                            bBindSuccessed = await BindingAccount();
-                                        }
-                                        else if (dicResponse4["error"] == "4001")
-                                        {
-                                            InProgress.IsActive = false;
-                                            pleasewait.Visibility = Visibility.Collapsed;
-                                            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-                                            var messageDialog = new MessageDialog(loader.GetString("AnotherUserRegisters"));
-                                            await messageDialog.ShowAsync();
-                                            bBindSuccessed = false;
-                                        }
-                                        else
-                                        {
-                                            bBindSuccessed = await BindingAccount();
-                                        }
-                                    }
-                                }
-
-                                if (bBindSuccessed)                                                     //绑定账号成功后获取过滤等级，跳到过滤等级设置界面
-                                {
-                                    Dictionary<string, string> dicResponse5 = new Dictionary<string, string>();
-                                    dicResponse5 = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
-                                    if (dicResponse5["status"] != "success")
-                                    {
-                                        ParentalControlInfo.filterLevel = "";
-                                    }
-                                    else
-                                    {
-                                        ParentalControlInfo.filterLevel = dicResponse5["bundle"];
-                                    }
-                                    //PopupFilterLevel __popupFilterLevel = new PopupFilterLevel();       //再次初始化 PopupFilterLevel，标识出过滤等级
-
-                                    if (LoginPopup.IsOpen)
-                                    {
-                                        LoginPopup.IsOpen = false;
-                                        switch (ParentalControlInfo.filterLevel)
-                                        {
-                                            case "None":
-                                                radioButton_None.IsChecked = true;
-                                                break;
-                                            case "Minimal":
-                                                radioButton_Minimum.IsChecked = true;
-                                                break;
-                                            case "Low":
-                                                radioButton_Low.IsChecked = true;
-                                                break;
-                                            case "Moderate":
-                                                radioButton_Medium.IsChecked = true;
-                                                break;
-                                            case "High":
-                                                radioButton_High.IsChecked = true;
-                                                break;
-                                            case "Custom":
-                                                radioButton_Custom.IsChecked = true;
-                                                ParentalControlInfo.categories = dicResponse5["categories"];
-                                                string[] category = ParentalControlInfo.categories.Split(',');
-                                                for (int i = 0; i < category.Length; i++)
-                                                {
-                                                    switch (category[i])
-                                                    {
-                                                        case "Academic Fraud":
-                                                            category_1.IsChecked = true;
-                                                            break;
-                                                        case "Adult Themes":
-                                                            category_2.IsChecked = true;
-                                                            break;
-                                                        case "Adware":
-                                                            category_3.IsChecked = true;
-                                                            break;
-                                                        case "Alcohol":
-                                                            category_4.IsChecked = true;
-                                                            break;
-                                                        case "Anime/Manga/Webcomic":
-                                                            category_5.IsChecked = true;
-                                                            break;
-                                                        case "Auctions":
-                                                            category_6.IsChecked = true;
-                                                            break;
-                                                        case "Automotive":
-                                                            category_7.IsChecked = true;
-                                                            break;
-                                                        case "Blogs":
-                                                            category_8.IsChecked = true;
-                                                            break;
-                                                        case "Business Services":
-                                                            category_9.IsChecked = true;
-                                                            break;
-                                                        case "Chat":
-                                                            category_10.IsChecked = true;
-                                                            break;
-                                                        case "Classifieds":
-                                                            category_11.IsChecked = true;
-                                                            break;
-                                                        case "Dating":
-                                                            category_12.IsChecked = true;
-                                                            break;
-                                                        case "Drugs":
-                                                            category_13.IsChecked = true;
-                                                            break;
-                                                        case "Ecommerce/Shopping":
-                                                            category_14.IsChecked = true;
-                                                            break;
-                                                        case "Educational Institutions":
-                                                            category_15.IsChecked = true;
-                                                            break;
-                                                        case "File Storage":
-                                                            category_16.IsChecked = true;
-                                                            break;
-                                                        case "Financial Institutions":
-                                                            category_17.IsChecked = true;
-                                                            break;
-                                                        case "Forums/Message boards":
-                                                            category_18.IsChecked = true;
-                                                            break;
-                                                        case "Gambling":
-                                                            category_19.IsChecked = true;
-                                                            break;
-                                                        case "Games":
-                                                            category_20.IsChecked = true;
-                                                            break;
-                                                        case "German Youth Protection":
-                                                            category_21.IsChecked = true;
-                                                            break;
-                                                        case "Government":
-                                                            category_22.IsChecked = true;
-                                                            break;
-                                                        case "Hate/Discrimination":
-                                                            category_23.IsChecked = true;
-                                                            break;
-                                                        case "Health and Fitness":
-                                                            category_24.IsChecked = true;
-                                                            break;
-                                                        case "Humor":
-                                                            category_25.IsChecked = true;
-                                                            break;
-                                                        case "Instant Messaging":
-                                                            category_26.IsChecked = true;
-                                                            break;
-                                                        case "Jobs/Employment":
-                                                            category_27.IsChecked = true;
-                                                            break;
-                                                        case "Lingerie/Bikini":
-                                                            category_28.IsChecked = true;
-                                                            break;
-                                                        case "Movies":
-                                                            category_29.IsChecked = true;
-                                                            break;
-                                                        case "Music":
-                                                            category_30.IsChecked = true;
-                                                            break;
-                                                        case "News/Media":
-                                                            category_31.IsChecked = true;
-                                                            break;
-                                                        case "Non-Profits":
-                                                            category_32.IsChecked = true;
-                                                            break;
-                                                        case "Nudity":
-                                                            category_33.IsChecked = true;
-                                                            break;
-                                                        case "P2P/File sharing":
-                                                            category_34.IsChecked = true;
-                                                            break;
-                                                        case "Parked Domains":
-                                                            category_35.IsChecked = true;
-                                                            break;
-                                                        case "Photo Sharing":
-                                                            category_36.IsChecked = true;
-                                                            break;
-                                                        case "Podcasts":
-                                                            category_37.IsChecked = true;
-                                                            break;
-                                                        case "Politics":
-                                                            category_38.IsChecked = true;
-                                                            break;
-                                                        case "Pornography":
-                                                            category_39.IsChecked = true;
-                                                            break;
-                                                        case "Portals":
-                                                            category_40.IsChecked = true;
-                                                            break;
-                                                        case "Proxy/Anonymizer":
-                                                            category_41.IsChecked = true;
-                                                            break;
-                                                        case "Radio":
-                                                            category_42.IsChecked = true;
-                                                            break;
-                                                        case "Religious":
-                                                            category_43.IsChecked = true;
-                                                            break;
-                                                        case "Research/Reference":
-                                                            category_44.IsChecked = true;
-                                                            break;
-                                                        case "Search Engines":
-                                                            category_45.IsChecked = true;
-                                                            break;
-                                                        case "Sexuality":
-                                                            category_46.IsChecked = true;
-                                                            break;
-                                                        case "Social Networking":
-                                                            category_47.IsChecked = true;
-                                                            break;
-                                                        case "Software/Technology":
-                                                            category_48.IsChecked = true;
-                                                            break;
-                                                        case "Sports":
-                                                            category_49.IsChecked = true;
-                                                            break;
-                                                        case "Tasteless":
-                                                            category_50.IsChecked = true;
-                                                            break;
-                                                        case "Television":
-                                                            category_51.IsChecked = true;
-                                                            break;
-                                                        case "Tobacco":
-                                                            category_52.IsChecked = true;
-                                                            break;
-                                                        case "Travel":
-                                                            category_53.IsChecked = true;
-                                                            break;
-                                                        case "Typo Squatting":
-                                                            category_54.IsChecked = true;
-                                                            break;
-                                                        case "Video Sharing":
-                                                            category_55.IsChecked = true;
-                                                            break;
-                                                        case "Visual Search Engines":
-                                                            category_56.IsChecked = true;
-                                                            break;
-                                                        case "Weapons":
-                                                            category_57.IsChecked = true;
-                                                            break;
-                                                        case "Web Spam":
-                                                            category_58.IsChecked = true;
-                                                            break;
-                                                        case "Webmail":
-                                                            category_59.IsChecked = true;
-                                                            break;
-                                                        case "Phishing Protection":
-                                                            category_60.IsChecked = true;
-                                                            break;
-                                                    }   //switch (category[i])
-                                                }   //for
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        FilterLevelPopup.IsOpen = true;
-                                        ParentalControlInfo.IsCategoriesChanged = false;
-                                        InProgress.IsActive = false;
-                                        pleasewait.Visibility = Visibility.Collapsed;
-                                        PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                                        PopupBackground.Visibility = Visibility.Visible;
-                                        refreshButton.IsEnabled = false;
-                                    }
-                                }                               
-                            }
-                            else if (dicResponse3.Count > 0 && int.Parse(dicResponse3["ResponseCode"]) == 401)
-                            {
-                                InProgress.IsActive = false;
-                                pleasewait.Visibility = Visibility.Collapsed;
-                                var messageDialog = new MessageDialog("Not authenticated");
-                                await messageDialog.ShowAsync();
-                            }                            
-                        }
-                        else if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 401)
-                        {
-                            InProgress.IsActive = false;
-                            pleasewait.Visibility = Visibility.Collapsed;
-                            var messageDialog = new MessageDialog("Invalid username and/or password");
-                            await messageDialog.ShowAsync();
-                        }
-                    }
-                }
-                else
-                {
-                    InProgress.IsActive = false;
-                    pleasewait.Visibility = Visibility.Collapsed;
-                    var messageDialog = new MessageDialog("Login openDNS failed");
-                    await messageDialog.ShowAsync();
-                }
-            }
-        }
-
-        //设置过滤等级上一步
-        private void FilterLvPreviousButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (FilterLevelPopup.IsOpen)
-	        {
-		        LoginPopup.IsOpen = true;
-		        FilterLevelPopup.IsOpen = false;
-                InProgress.IsActive = false;
-                pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-		        PopupBackground.Visibility = Visibility.Visible;
-                refreshButton.IsEnabled = false;
-	        }
-        }
-
-        //设置过滤等级下一步
-        private async void FilterLvNextButton_Click(Object sender, RoutedEventArgs e)
-        {
-            InProgress3.IsActive = true;
-            pleasewait3.Visibility = Visibility.Visible;
-            GenieWebApi webApi = new GenieWebApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            if (ParentalControlInfo.IsCategoriesChanged)
-            {
-                if (ParentalControlInfo.categoriesSelected == string.Empty)
-                {
-                    ParentalControlInfo.filterLevelSelected = "None";
-                    dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevelSelected, ParentalControlInfo.categories);
-                } 
-                else
-                {
-                    dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevelSelected, ParentalControlInfo.categoriesSelected);
-                }
-            } 
-            else
-            {
-                dicResponse = await webApi.SetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId, ParentalControlInfo.filterLevelSelected, ParentalControlInfo.categories);
-            }
-            
-            if (dicResponse["status"] != "success")
-            {
-                InProgress3.IsActive = false;
-                pleasewait3.Visibility = Visibility.Collapsed;
-                var messageDialog = new MessageDialog(dicResponse["error_message"]);
-                await messageDialog.ShowAsync();
-            } 
-            else
-            {
-                if (FilterLevelPopup.IsOpen)
-                {
-                    ParentalControlInfo.filterLevel = ParentalControlInfo.filterLevelSelected;
-                    if (ParentalControlInfo.IsCategoriesChanged)
-                    {
-                        ParentalControlInfo.categories = ParentalControlInfo.categoriesSelected;
-                    }
-                    ParentalControlInfo.SavedInfo = string.Empty;
-                    ParentalControlInfo.SavedInfo = ParentalControlInfo.RouterMacaddr + ";" + ParentalControlInfo.token + ";" + ParentalControlInfo.DeviceId + ";" + ParentalControlInfo.Username;
-                    WriteSavedInfoToFile();
-                    FilterLevelPopup.IsOpen = false;
-                    SettingCompletePopup.IsOpen = true;
-                    InProgress3.IsActive = false;
-                    pleasewait3.Visibility = Visibility.Collapsed;
-                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                    PopupBackground.Visibility = Visibility.Visible;
-                    refreshButton.IsEnabled = false;
-                }
-            }           
-        }
-
-        //返回状态页面
-        private void ReturnToStatusButton_Click(Object sender, RoutedEventArgs e)
-        {
-            if (SettingCompletePopup.IsOpen)
-	        {
-		        SettingCompletePopup.IsOpen = false;
-                InProgress.IsActive = false;
-                pleasewait.Visibility = Visibility.Collapsed;
-                PopupBackgroundTop.Visibility = Visibility.Collapsed;
-		        PopupBackground.Visibility = Visibility.Collapsed;
                 this.Frame.Navigate(typeof(ParentalControlPage));
-	        }
-        }
-
-        private async void checkParentalControl_Click(Object sender, RoutedEventArgs e)
-        {
-            InProgress.IsActive = true;
-            pleasewait.Visibility = Visibility.Visible;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            string parentalControlEnable;
-            if (checkPatentalControl.IsChecked == true)
-            {
-                parentalControlEnable = "1";
-                dicResponse = await soapApi.EnableParentalControl(parentalControlEnable);
-                ParentalControlInfo.isParentalControlEnabled = "1";
-                FilterLevelListView.Visibility = Visibility.Visible;
-                ChangeCustomSettings.Visibility = Visibility.Visible;
-                stpOpenDNSAccount.Visibility = Visibility.Visible;
-                BypassAccount.Visibility = Visibility.Visible;
             }
-            else if (checkPatentalControl.IsChecked == false)
-            {
-                parentalControlEnable = "0";
-                dicResponse = await soapApi.EnableParentalControl(parentalControlEnable);
-                ParentalControlInfo.isParentalControlEnabled = "0";
-                FilterLevelListView.Visibility = Visibility.Collapsed;
-                ChangeCustomSettings.Visibility = Visibility.Collapsed;
-                stpOpenDNSAccount.Visibility = Visibility.Collapsed;
-                BypassAccount.Visibility = Visibility.Collapsed;
-            }
-            InProgress.IsActive = false;
-            pleasewait.Visibility = Visibility.Collapsed;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
-        }
-
-        private async void Refresh_Click(Object sender, RoutedEventArgs e)
-        {
-            InProgress.IsActive = true;
-            pleasewait.Visibility = Visibility.Visible;
-            PopupBackgroundTop.Visibility = Visibility.Visible;
-            PopupBackground.Visibility = Visibility.Visible;
-
-            GenieSoapApi soapApi = new GenieSoapApi();
-            Dictionary<string, string> dicResponse = new Dictionary<string, string>();
-            while (dicResponse == null || dicResponse.Count == 0 || int.Parse(dicResponse["ResponseCode"]) != 0)
-            {
-                dicResponse = await soapApi.GetEnableStatus();
-            }
-            ParentalControlInfo.isParentalControlEnabled = dicResponse["ParentalControl"];
-
-            //获取过滤等级
-            GenieWebApi webApi = new GenieWebApi();
-            dicResponse = await webApi.GetFilters(ParentalControlInfo.token, ParentalControlInfo.DeviceId);
-            if (dicResponse["status"] != "success")
-            {
-                ParentalControlInfo.filterLevel = "";
-            }
-            else
-            {
-                ParentalControlInfo.filterLevel = dicResponse["bundle"];
-            }
-            switch (ParentalControlInfo.filterLevel)
-            {
-                case "None":
-                    radioButton_None.IsChecked = true;
-                    break;
-                case "Minimal":
-                    radioButton_Minimum.IsChecked = true;
-                    break;
-                case "Low":
-                    radioButton_Low.IsChecked = true;
-                    break;
-                case "Moderate":
-                    radioButton_Medium.IsChecked = true;
-                    break;
-                case "High":
-                    radioButton_High.IsChecked = true;
-                    break;
-                case "Custom":
-                    radioButton_Custom.IsChecked = true;
-                    ParentalControlInfo.categories = dicResponse["categories"];
-                    string[] category = ParentalControlInfo.categories.Split(',');
-                    for (int i = 0; i < category.Length; i++)
-                    {
-                        switch (category[i])
-                        {
-                            case "Academic Fraud":
-                                category_1.IsChecked = true;
-                                break;
-                            case "Adult Themes":
-                                category_2.IsChecked = true;
-                                break;
-                            case "Adware":
-                                category_3.IsChecked = true;
-                                break;
-                            case "Alcohol":
-                                category_4.IsChecked = true;
-                                break;
-                            case "Anime/Manga/Webcomic":
-                                category_5.IsChecked = true;
-                                break;
-                            case "Auctions":
-                                category_6.IsChecked = true;
-                                break;
-                            case "Automotive":
-                                category_7.IsChecked = true;
-                                break;
-                            case "Blogs":
-                                category_8.IsChecked = true;
-                                break;
-                            case "Business Services":
-                                category_9.IsChecked = true;
-                                break;
-                            case "Chat":
-                                category_10.IsChecked = true;
-                                break;
-                            case "Classifieds":
-                                category_11.IsChecked = true;
-                                break;
-                            case "Dating":
-                                category_12.IsChecked = true;
-                                break;
-                            case "Drugs":
-                                category_13.IsChecked = true;
-                                break;
-                            case "Ecommerce/Shopping":
-                                category_14.IsChecked = true;
-                                break;
-                            case "Educational Institutions":
-                                category_15.IsChecked = true;
-                                break;
-                            case "File Storage":
-                                category_16.IsChecked = true;
-                                break;
-                            case "Financial Institutions":
-                                category_17.IsChecked = true;
-                                break;
-                            case "Forums/Message boards":
-                                category_18.IsChecked = true;
-                                break;
-                            case "Gambling":
-                                category_19.IsChecked = true;
-                                break;
-                            case "Games":
-                                category_20.IsChecked = true;
-                                break;
-                            case "German Youth Protection":
-                                category_21.IsChecked = true;
-                                break;
-                            case "Government":
-                                category_22.IsChecked = true;
-                                break;
-                            case "Hate/Discrimination":
-                                category_23.IsChecked = true;
-                                break;
-                            case "Health and Fitness":
-                                category_24.IsChecked = true;
-                                break;
-                            case "Humor":
-                                category_25.IsChecked = true;
-                                break;
-                            case "Instant Messaging":
-                                category_26.IsChecked = true;
-                                break;
-                            case "Jobs/Employment":
-                                category_27.IsChecked = true;
-                                break;
-                            case "Lingerie/Bikini":
-                                category_28.IsChecked = true;
-                                break;
-                            case "Movies":
-                                category_29.IsChecked = true;
-                                break;
-                            case "Music":
-                                category_30.IsChecked = true;
-                                break;
-                            case "News/Media":
-                                category_31.IsChecked = true;
-                                break;
-                            case "Non-Profits":
-                                category_32.IsChecked = true;
-                                break;
-                            case "Nudity":
-                                category_33.IsChecked = true;
-                                break;
-                            case "P2P/File sharing":
-                                category_34.IsChecked = true;
-                                break;
-                            case "Parked Domains":
-                                category_35.IsChecked = true;
-                                break;
-                            case "Photo Sharing":
-                                category_36.IsChecked = true;
-                                break;
-                            case "Podcasts":
-                                category_37.IsChecked = true;
-                                break;
-                            case "Politics":
-                                category_38.IsChecked = true;
-                                break;
-                            case "Pornography":
-                                category_39.IsChecked = true;
-                                break;
-                            case "Portals":
-                                category_40.IsChecked = true;
-                                break;
-                            case "Proxy/Anonymizer":
-                                category_41.IsChecked = true;
-                                break;
-                            case "Radio":
-                                category_42.IsChecked = true;
-                                break;
-                            case "Religious":
-                                category_43.IsChecked = true;
-                                break;
-                            case "Research/Reference":
-                                category_44.IsChecked = true;
-                                break;
-                            case "Search Engines":
-                                category_45.IsChecked = true;
-                                break;
-                            case "Sexuality":
-                                category_46.IsChecked = true;
-                                break;
-                            case "Social Networking":
-                                category_47.IsChecked = true;
-                                break;
-                            case "Software/Technology":
-                                category_48.IsChecked = true;
-                                break;
-                            case "Sports":
-                                category_49.IsChecked = true;
-                                break;
-                            case "Tasteless":
-                                category_50.IsChecked = true;
-                                break;
-                            case "Television":
-                                category_51.IsChecked = true;
-                                break;
-                            case "Tobacco":
-                                category_52.IsChecked = true;
-                                break;
-                            case "Travel":
-                                category_53.IsChecked = true;
-                                break;
-                            case "Typo Squatting":
-                                category_54.IsChecked = true;
-                                break;
-                            case "Video Sharing":
-                                category_55.IsChecked = true;
-                                break;
-                            case "Visual Search Engines":
-                                category_56.IsChecked = true;
-                                break;
-                            case "Weapons":
-                                category_57.IsChecked = true;
-                                break;
-                            case "Web Spam":
-                                category_58.IsChecked = true;
-                                break;
-                            case "Webmail":
-                                category_59.IsChecked = true;
-                                break;
-                            case "Phishing Protection":
-                                category_60.IsChecked = true;
-                                break;
-                        }   //switch (category[i])
-                    }   //for
-                    break;
-                default:
-                    break;
-            }   //switch (ParentalControlInfo.filterLevel)
-            InProgress.IsActive = false;
-            pleasewait.Visibility = Visibility.Collapsed;
-            PopupBackgroundTop.Visibility = Visibility.Collapsed;
-            PopupBackground.Visibility = Visibility.Collapsed;
-            this.Frame.Navigate(typeof(ParentalControlPage));
         }
 
         public async Task<string> ReadBypassChildrenDeviceIdFromFile()
