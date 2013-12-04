@@ -334,8 +334,8 @@
                                    FontSize="20" Margin="10,0,0,0" Foreground="White"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.RightsReservedText, Source={StaticResource LocalizedStrings}}"
                                    FontSize="20" Margin="10,0,0,0" Foreground="White"/>
-                        <HyperlinkButton Content="{Binding Path=LocalizedResources.PrivacyPolicyContent, Source={StaticResource LocalizedStrings}}" NavigateUri="http://www.netgear.com/about/privacypolicy/"
-                                         FontSize="20" Margin="5,0,0,0" HorizontalContentAlignment="Left" Padding="0" Foreground="BlueViolet"/>
+                        <HyperlinkButton Content="{Binding Path=LocalizedResources.PrivacyPolicyContent, Source={StaticResource LocalizedStrings}}" Tag="http://www.netgear.com/about/privacypolicy/"
+                                         Click="Policy_Click" FontSize="20" Margin="5,0,0,0" HorizontalContentAlignment="Left" Padding="0" Foreground="BlueViolet"/>
                         <TextBlock Text="{Binding Path=LocalizedResources.SupportText, Source={StaticResource LocalizedStrings}}"
                                    FontSize="20" Margin="10,0,0,0" Foreground="White"/>
                     </StackPanel>

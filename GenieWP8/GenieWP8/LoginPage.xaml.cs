@@ -180,10 +180,13 @@ namespace GenieWP8
                 }
                 else
                 {
-                    PopupBackgroundTop.Visibility = Visibility.Collapsed;
-                    PopupBackground.Visibility = Visibility.Collapsed;
-                    var strtext = AppResources.login_alertinfo;
-                    MessageBox.Show(strtext);
+                    PopupBackgroundTop.Background = new SolidColorBrush(Colors.Black);
+                    PopupBackgroundTop.Opacity = 0.95;
+                    PopupBackground.Background = new SolidColorBrush(Colors.Black);
+                    PopupBackground.Opacity = 0.95;
+                    InProgress.Visibility = Visibility.Collapsed;
+                    pleasewait.Visibility = Visibility.Collapsed;
+                    LoginalertPopup.IsOpen = true;
                 }
             }
             else
@@ -552,6 +555,25 @@ namespace GenieWP8
         private void tbPassword_GotFocus(object sender, RoutedEventArgs e)
         {
             tbPassword.Background = new SolidColorBrush(Colors.White);
+        }
+
+        private async void SupportButton_Click(Object sender, RoutedEventArgs e)
+        {
+            var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
+            await Windows.System.Launcher.LaunchUriAsync(uri);
+        }
+
+        private void OkButton_Click(object sender, EventArgs e)
+        {
+            LoginalertPopup.IsOpen = false;
+            PopupBackgroundTop.Visibility = Visibility.Collapsed;
+            PopupBackground.Visibility = Visibility.Collapsed;
+            InProgress.Visibility = Visibility.Visible;
+            pleasewait.Visibility = Visibility.Visible;
+            PopupBackgroundTop.Background = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+            PopupBackgroundTop.Opacity = 0.9;
+            PopupBackground.Background = new SolidColorBrush(Color.FromArgb(255, 90, 90, 90));
+            PopupBackground.Opacity = 0.9;
         }
     }
 }

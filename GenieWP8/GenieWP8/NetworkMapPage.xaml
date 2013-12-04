@@ -227,7 +227,7 @@
                             <StackPanel x:Name="StpLinkRate">
                                 <TextBlock x:Name="txtLinkRate" Foreground="Black"/>
                                 <TextBlock x:Name="LinkRate" Foreground="#B4B4B4"/>
-                                <HyperlinkButton x:Name="btnWhat" NavigateUri="http://support.netgear.com/app/answers/list/kw/link%20rate" Foreground="BlueViolet"/>
+                                <HyperlinkButton x:Name="btnWhat" Click="btnWhat_Click" Tag="http://support.netgear.com/app/answers/list/kw/link%20rate" Foreground="BlueViolet"/>
                                 <Image Source="/Assets/deviceInfoPopup/line.png" Stretch="Fill" Margin="0,5,0,0"/>
                             </StackPanel>
                             <StackPanel x:Name="StpMACAddress">

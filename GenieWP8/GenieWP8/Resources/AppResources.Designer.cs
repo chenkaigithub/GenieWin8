@@ -853,6 +853,15 @@ namespace GenieWP8.Resources {
         }
         
         /// <summary>
+        ///   查找类似 &lt;支持&gt; 的本地化字符串。
+        /// </summary>
+        public static string hlbtnSupport {
+            get {
+                return ResourceManager.GetString("hlbtnSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 幽默 的本地化字符串。
         /// </summary>
         public static string Humor {

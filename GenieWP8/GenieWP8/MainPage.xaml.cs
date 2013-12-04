@@ -216,11 +216,11 @@ namespace GenieWP8
         //}
 
         //隐私权政策链接响应事件
-        //private async void Policy_Click(Object sender, RoutedEventArgs e)
-        //{
-        //    var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
-        //    await Windows.System.Launcher.LaunchUriAsync(uri);
-        //}
+        private async void Policy_Click(Object sender, RoutedEventArgs e)
+        {
+            var uri = new Uri(((HyperlinkButton)sender).Tag.ToString());
+            await Windows.System.Launcher.LaunchUriAsync(uri);
+        }
 
         //关闭“关于”事件
         private void CloseAboutButton_Click(Object sender, RoutedEventArgs e)

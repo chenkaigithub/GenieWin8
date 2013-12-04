@@ -1057,4 +1057,7 @@
   <data name="WifiDisconnected" xml:space="preserve">
     <value>Не подключен</value>
   </data>
+  <data name="hlbtnSupport" xml:space="preserve">
+    <value>&lt;Поддержка&gt;</value>
+  </data>
 </root>
