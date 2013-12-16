@@ -25,6 +25,118 @@
             <Setter Property="AutomationProperties.Name" Value="Refresh"/>
             <Setter Property="Content" Value="&#xE117;"/>
         </Style>
+        <Style x:Key="CheckBoxStyle1" TargetType="CheckBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource CheckBoxContentForegroundThemeBrush}"/>
+            <Setter Property="Padding" Value="2,3,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxContentDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="IndeterminateGlyph"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid VerticalAlignment="Top">
+                                    <Rectangle x:Name="NormalRectangle" Fill="{StaticResource CheckBoxBackgroundThemeBrush}" Height="30" Stroke="{StaticResource CheckBoxBorderThemeBrush}" StrokeThickness="{StaticResource CheckBoxBorderThemeThickness}" UseLayoutRounding="False" Width="30"/>
+                                    <Path x:Name="CheckGlyph" Data="F1 M 0,58 L 2,56 L 6,60 L 13,51 L 15,53 L 6,64 z" Fill="{StaticResource CheckBoxForegroundThemeBrush}" FlowDirection="LeftToRight" Height="25" Opacity="0" Stretch="Fill" Width="25"/>
+                                    <Rectangle x:Name="IndeterminateGlyph" Fill="{StaticResource CheckBoxForegroundThemeBrush}" Height="9" Opacity="0" UseLayoutRounding="False" Width="9"/>
+                                    <Rectangle x:Name="FocusVisualWhite" Height="30" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1" Width="30"/>
+                                    <Rectangle x:Name="FocusVisualBlack" Height="30" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1" Width="30"/>
+                                </Grid>
+                                <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <!--
@@ -64,45 +176,39 @@
             <Button Click="Refresh_Click" Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
-        <StackPanel Grid.Row="1"
-                    VerticalAlignment="Top" Margin="60,40,60,0">
-            <Grid>
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <TextBlock x:Uid="CheckGuestAccess" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0" Foreground="White"/>
-                <CheckBox x:Name="checkGuestSetting" HorizontalAlignment="Right" FontSize="24" IsChecked="True" Click="checkGuestSetting_Click"/>
-            </Grid>
-
-            <ListView x:Name="GuestSettingsList"
-                      ItemsSource="{Binding Source={StaticResource guestSettingItemsSource}}"
-                      SelectionMode="None"
-                      IsItemClickEnabled="True"
-                      Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
-                      ItemClick="GuestSetting_ItemClick"
-                      Foreground="White">
-                <ListView.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </ListView.Background>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                            <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Content}" FontSize="22"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <TextBlock x:Name="textScanQRCode" x:Uid="ScanQrCodeTips"  Grid.Row="1" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,0" Foreground="#FF5A5A5A"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="60,40,60,0">
+            <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White">
+                <StackPanel>
+                    <Grid Height="60">
+                        <TextBlock x:Uid="CheckGuestAccess" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" Margin="15,0,45,0" Foreground="Black" TextWrapping="Wrap"/>
+                        <CheckBox x:Name="checkGuestSetting" HorizontalAlignment="Right" FontSize="25" IsChecked="True" Click="checkGuestSetting_Click" Margin="0,0,10,0" Style="{StaticResource CheckBoxStyle1}"/>
+                    </Grid>
+                    <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1" Margin="5,0,5,0"/>
+                    
+                    <ListView x:Name="GuestSettingsList"
+                              ItemsSource="{Binding Source={StaticResource guestSettingItemsSource}}"
+                              SelectionMode="None"
+                              IsItemClickEnabled="True"
+                              HorizontalAlignment="Center" VerticalAlignment="Top"
+                              ItemClick="GuestSetting_ItemClick" Padding="0,0,-15,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Grid>
+                                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                                            <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" Foreground="Black"/>
+                                            <TextBlock Text="{Binding Content}" FontSize="22" Foreground="#555555"/>
+                                        </StackPanel>
+                                        <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                    </Grid>
+                                    <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </Border>
+            <TextBlock x:Name="textScanQRCode" x:Uid="ScanQrCodeTips" Grid.Row="1" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,0" Foreground="Black"/>
             <Image x:Name="imageQRCode" Width="200" Height="200" Stretch="UniformToFill" Margin="0,10,0,0" HorizontalAlignment="Center"/>
         </StackPanel>
 
@@ -117,7 +223,7 @@
                 <TextBlock x:Name="waittime" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="24" Foreground="White"/>
             </StackPanel>
         </Grid>
-        
+
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

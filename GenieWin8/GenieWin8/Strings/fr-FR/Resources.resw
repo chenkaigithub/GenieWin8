@@ -1006,4 +1006,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>Assurez-vous également que le périphérique n'est pas connecté au réseau invité du routeur et qu'aucun protocole IPv6 n'est activé.</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>Charger</value>
+  </data>
 </root>

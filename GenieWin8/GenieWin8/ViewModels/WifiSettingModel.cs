@@ -70,9 +70,17 @@ namespace GenieWin8.Data
 
     public class SettingGroup : SettingCommon
     {
-        public SettingGroup(String uniqueId, String title, String content)
+        public SettingGroup(String uniqueId, String title, String content, String imagePath)
             : base(uniqueId, title, content)
-        {            
+        {
+            this._imagePath = imagePath;
+        }
+
+        private string _imagePath = string.Empty;
+        public string ImagePath
+        {
+            get { return this._imagePath; }
+            set { this.SetProperty(ref this._imagePath, value); }
         }
 
         private ObservableCollection<SettingItem> _items = new ObservableCollection<SettingItem>();
@@ -179,33 +187,38 @@ namespace GenieWin8.Data
             var strTitle = loader.GetString("txtSignalStrength");
             var groupSignalStrength = new SettingGroup("txtSignalStrength",
                 strTitle,
-                WifiInfoModel.signalStrength);
+                WifiInfoModel.signalStrength,
+                "/Assets/WirelessSetting/SignalStrength.png");
             this.SignalStrengthGroup.Add(groupSignalStrength);
 
             strTitle = loader.GetString("txtLinkRate");
             var groupLinkRate = new SettingGroup("txtLinkRate",
                 strTitle,
-                WifiInfoModel.linkRate);
+                WifiInfoModel.linkRate,
+                "/Assets/WirelessSetting/LinkRate.png");
             this.LinkRateGroup.Add(groupLinkRate);
 
             strTitle = loader.GetString("WiFiName");
             var group1 = new SettingGroup("WiFiName",
                 strTitle,
-                WifiInfoModel.ssid);
+                WifiInfoModel.ssid,
+                "/Assets/WirelessSetting/ssid.png");
             this.EditName.Add(group1);
             this.SettingGroups.Add(group1);
 
             strTitle = loader.GetString("Key/Password");
             var group2 = new SettingGroup("Password",
                 strTitle,
-                WifiInfoModel.password);
+                WifiInfoModel.password,
+                "/Assets/WirelessSetting/Key.png");
             this.EditKey.Add(group2);
             this.SettingGroups.Add(group2);
 
             strTitle = loader.GetString("Channel");
             var group3 = new SettingGroup("Channel",
                 strTitle,
-                WifiInfoModel.changedChannel);
+                WifiInfoModel.changedChannel,
+                "/Assets/WirelessSetting/Channel.png");
             group3.Items.Add(new SettingItem("Channel-1",
                 "Channel",
                 "Auto",
@@ -269,7 +282,8 @@ namespace GenieWin8.Data
             strTitle = loader.GetString("Security");
             var group4 = new SettingGroup("Security",
                 strTitle,
-                SecurityType);
+                SecurityType,
+                "");
             var strContent = loader.GetString("Security_None");
             group4.Items.Add(new SettingItem("Security-1",
                 "Security",

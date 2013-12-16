@@ -1006,4 +1006,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>تأكد أيضاً من عدم اتصال الجهاز بشبكة الضيف الخاصة بالموجه، ومن عدم تمكين أي IPv6.</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>تنزيل</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
 </root>

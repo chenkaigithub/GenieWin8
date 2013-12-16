@@ -79,19 +79,19 @@ namespace GenieWin8
 
             if (signalStrengthGroup.ElementAt(0).Content == null)
             {
-                stpSignal.Visibility = Visibility.Collapsed;
+                gridSignal.Visibility = Visibility.Collapsed;
             } 
             else
             {
-                stpSignal.Visibility = Visibility.Visible;
+                gridSignal.Visibility = Visibility.Visible;
             }
             if (linkRateGroup.ElementAt(0).Content == null)
             {
-                stpLinkRate.Visibility = Visibility.Collapsed;
+                gridLinkRate.Visibility = Visibility.Collapsed;
             } 
             else
             {
-                stpLinkRate.Visibility = Visibility.Visible;
+                gridLinkRate.Visibility = Visibility.Visible;
             }
 
             //生成二维码

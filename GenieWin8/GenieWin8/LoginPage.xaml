@@ -241,10 +241,10 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid VerticalAlignment="Top">
                                     <Rectangle x:Name="NormalRectangle" Fill="{StaticResource CheckBoxBackgroundThemeBrush}" Height="40" Stroke="{StaticResource CheckBoxBorderThemeBrush}" StrokeThickness="{StaticResource CheckBoxBorderThemeThickness}" UseLayoutRounding="False" Width="40"/>
-                                    <Path x:Name="CheckGlyph" Data="F1 M 0,58 L 2,56 L 6,60 L 13,51 L 15,53 L 6,64 z" Fill="{StaticResource CheckBoxForegroundThemeBrush}" FlowDirection="LeftToRight" Height="30" Opacity="0" Stretch="Fill" Width="30"/>
+                                    <Path x:Name="CheckGlyph" Data="F1 M 0,58 L 2,56 L 6,60 L 13,51 L 15,53 L 6,64 z" Fill="{StaticResource CheckBoxForegroundThemeBrush}" FlowDirection="LeftToRight" Height="35" Opacity="0" Stretch="Fill" Width="35"/>
                                     <Rectangle x:Name="IndeterminateGlyph" Fill="{StaticResource CheckBoxForegroundThemeBrush}" Height="9" Opacity="0" UseLayoutRounding="False" Width="9"/>
-                                    <Rectangle x:Name="FocusVisualWhite" Height="27" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1" Width="27"/>
-                                    <Rectangle x:Name="FocusVisualBlack" Height="27" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1" Width="27"/>
+                                    <Rectangle x:Name="FocusVisualWhite" Height="40" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1" Width="40"/>
+                                    <Rectangle x:Name="FocusVisualBlack" Height="40" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1" Width="40"/>
                                 </Grid>
                                 <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Grid>

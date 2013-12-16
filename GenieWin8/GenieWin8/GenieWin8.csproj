@@ -388,6 +388,16 @@
     <Content Include="Assets\signal\wirelessflag3.png" />
     <Content Include="Assets\signal\wirelessflag4.png" />
     <Content Include="Assets\StartPage_620x300.png" />
+    <Content Include="Assets\WirelessSetting\Channel.png" />
+    <Content Include="Assets\WirelessSetting\first.png" />
+    <Content Include="Assets\WirelessSetting\ico_list.png" />
+    <Content Include="Assets\WirelessSetting\Key.png" />
+    <Content Include="Assets\WirelessSetting\line.png" />
+    <Content Include="Assets\WirelessSetting\LinkRate.png" />
+    <Content Include="Assets\WirelessSetting\second.png" />
+    <Content Include="Assets\WirelessSetting\SignalStrength.png" />
+    <Content Include="Assets\WirelessSetting\ssid.png" />
+    <Content Include="Assets\WirelessSetting\third.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

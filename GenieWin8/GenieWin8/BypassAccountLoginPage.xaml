@@ -52,27 +52,30 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
         </Grid>
 
-        <Border Grid.Row="1" Width="600" Height="400" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Gray" BorderThickness="4" CornerRadius="30">
-            <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF004F74" Offset="1"/>
-                    <GradientStop Color="#FF50C6FD"/>
-                </LinearGradientBrush>
-            </Border.Background>
-            <StackPanel>
-                <TextBlock x:Uid="UserName"  FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,420,0" Foreground="White"/>
-                <TextBox x:Name="tbBypassUserName" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,10,0,0" IsEnabled="False"/>
-                <TextBlock x:Uid="Password"  FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,40,440,0" Foreground="White"/>
-                <PasswordBox x:Name="tbBypassPassword" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" Margin="0,10,0,0" IsPasswordRevealButtonEnabled="True"/>
-                <Grid>
-                    <Button x:Uid="CancelButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" 
-                            FontSize="24" FontWeight="Bold"  Width="200" HorizontalAlignment="Center" Margin="0,50,250,0" VerticalAlignment="Center"
-                            BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
-                    <Button x:Uid="LoginButton" x:Name="LoginButton" Click="LoginButton_Click" FontSize="24" FontWeight="Bold"  HorizontalAlignment="Center" Width="200" Margin="250,50,0,0"
-                            BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
-                </Grid>
-            </StackPanel>
-        </Border>
+        <StackPanel Grid.Row="1">
+            <Grid Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="60,30,60,0">
+                <Grid.Background>
+                    <ImageBrush ImageSource="Assets/LoginPage/textFrame.png"/>
+                </Grid.Background>
+                <Image Height="40" Source="/Assets/LoginPage/name.png" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+                <Image Source="/Assets/LoginPage/SplitLine.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="70,5,0,5"/>
+                <TextBox x:Name="tbBypassUserName" HorizontalAlignment="Stretch" Margin="71,0,0,0" IsEnabled="False" BorderThickness="0" FontSize="40"/>
+            </Grid>
+            <Grid Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="60,20,60,0">
+                <Grid.Background>
+                    <ImageBrush ImageSource="Assets/LoginPage/textFrame.png"/>
+                </Grid.Background>
+                <Image Height="40" Source="/Assets/LoginPage/password.png" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+                <Image Source="/Assets/LoginPage/SplitLine.png" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="70,5,0,5"/>
+                <PasswordBox x:Name="tbBypassPassword" HorizontalAlignment="Stretch" Margin="71,2,2,2" Background="White" BorderThickness="0" Foreground="Black" FontSize="40" IsPasswordRevealButtonEnabled="True"/>
+            </Grid>
+            <Grid>
+                <Button x:Uid="CancelButton"  Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
+                        FontSize="24" FontWeight="Bold" Width="250" HorizontalAlignment="Center" Margin="0,50,300,0" BorderThickness="0"  Foreground="White" Background="#8165A2"/>
+                <Button x:Uid="LoginButton" x:Name="LoginButton" Click="LoginButton_Click"
+                        FontSize="24" FontWeight="Bold" Width="250" HorizontalAlignment="Center" Margin="300,50,0,0" BorderThickness="0"  Foreground="White" Background="#8165A2"/>
+            </Grid>
+        </StackPanel>
 
         <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
         <Grid x:Name="PopupBackground"  Grid.Row="1"  Background="#FF5A5A5A"  Opacity="0.9" Visibility="Collapsed">

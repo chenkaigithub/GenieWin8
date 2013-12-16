@@ -1033,4 +1033,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>Also make sure the device is not connected to the guest network of the router, and no IPv6 is enabled.</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>Upload</value>
+  </data>
 </root>

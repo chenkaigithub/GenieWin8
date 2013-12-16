@@ -1006,4 +1006,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>Также убедитесь в том, что устройство подключено не к гостевой сети роутера, и что не активирован протокол IPv6.</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Загрузить</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>Загрузить</value>
+  </data>
 </root>

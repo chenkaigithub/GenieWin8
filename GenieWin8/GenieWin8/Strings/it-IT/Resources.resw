@@ -1006,4 +1006,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>Inoltre, verificare che il dispositivo non sia collegato alla rete guest del router e che nessun IPv6 sia abilitato.</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Scarica</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>Carica</value>
+  </data>
 </root>

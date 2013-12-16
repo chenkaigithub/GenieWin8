@@ -25,6 +25,118 @@
             <Setter Property="AutomationProperties.Name" Value="Refresh"/>
             <Setter Property="Content" Value="&#xE117;"/>
         </Style>
+        <Style x:Key="CheckBoxStyle1" TargetType="CheckBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource CheckBoxContentForegroundThemeBrush}"/>
+            <Setter Property="Padding" Value="2,3,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxContentDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="IndeterminateGlyph"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid VerticalAlignment="Top">
+                                    <Rectangle x:Name="NormalRectangle" Fill="{StaticResource CheckBoxBackgroundThemeBrush}" Height="30" Stroke="{StaticResource CheckBoxBorderThemeBrush}" StrokeThickness="{StaticResource CheckBoxBorderThemeThickness}" UseLayoutRounding="False" Width="30"/>
+                                    <Path x:Name="CheckGlyph" Data="F1 M 0,58 L 2,56 L 6,60 L 13,51 L 15,53 L 6,64 z" Fill="{StaticResource CheckBoxForegroundThemeBrush}" FlowDirection="LeftToRight" Height="25" Opacity="0" Stretch="Fill" Width="25"/>
+                                    <Rectangle x:Name="IndeterminateGlyph" Fill="{StaticResource CheckBoxForegroundThemeBrush}" Height="9" Opacity="0" UseLayoutRounding="False" Width="9"/>
+                                    <Rectangle x:Name="FocusVisualWhite" Height="30" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1" Width="30"/>
+                                    <Rectangle x:Name="FocusVisualBlack" Height="30" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1" Width="30"/>
+                                </Grid>
+                                <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <!--
@@ -64,100 +176,78 @@
             <Button x:Name="refreshButton" Click="Refresh_Click" Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
-        <StackPanel Grid.Row="1"
-                    VerticalAlignment="Top" Margin="60,40,60,0">
-            <Grid>
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <TextBlock x:Uid="CheckParentalControl" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0" Foreground="White"/>
-                <CheckBox x:Name="checkPatentalControl" HorizontalAlignment="Right" FontSize="24" IsChecked="True" Click="checkParentalControl_Click"/>
-            </Grid>
+        <StackPanel Grid.Row="1" Margin="60,40,60,0">
+            <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White">
+                <StackPanel>
+                    <Grid Height="60">
+                        <TextBlock x:Uid="CheckParentalControl" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" Margin="15,0,45,0" Foreground="Black" TextWrapping="Wrap"/>
+                        <CheckBox x:Name="checkPatentalControl" HorizontalAlignment="Right" FontSize="25" IsChecked="True" Click="checkParentalControl_Click" Margin="0,0,10,0" Style="{StaticResource CheckBoxStyle1}"/>
+                    </Grid>
+                    <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1" Margin="5,0,5,0"/>
 
-            <ListView x:Name="FilterLevelListView"
-                      ItemsSource="{Binding Source={StaticResource filterLevelSource}}"
-                      SelectionMode="None"
-                      IsItemClickEnabled="True"
-                      Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
-                      ItemClick="FilterLevel_ItemClick"
-                      Foreground="White">
-                <ListView.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </ListView.Background>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                            <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Content}" FontSize="22"/>
+                    <ListView x:Name="FilterLevelListView"
+                          ItemsSource="{Binding Source={StaticResource filterLevelSource}}"
+                          SelectionMode="None"
+                          IsItemClickEnabled="True"
+                          HorizontalAlignment="Center" VerticalAlignment="Top"
+                          ItemClick="FilterLevel_ItemClick"
+                          Padding="0,0,-15,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Grid>
+                                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                                            <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" Foreground="Black"/>
+                                            <TextBlock Text="{Binding Content}" FontSize="22" Foreground="#555555"/>
+                                        </StackPanel>
+                                        <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                    </Grid>
+                                    <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <ListView x:Name="ChangeCustomSettings"
+                          SelectionMode="None"
+                          IsItemClickEnabled="True"
+                          HorizontalAlignment="Center" VerticalAlignment="Top"
+                          ItemClick="ChangeSetting_ItemClick"
+                          Padding="0,0,-15,0">
+                        <StackPanel>
+                            <Grid Height="60" Margin="10,0,0,0">
+                                <TextBlock x:Uid="ChangeCustomizingSetting" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" Foreground="Black" Margin="0,0,0,10"/>
+                                <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                            </Grid>
+                            <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1"/>
                         </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    </ListView>
 
-            <ListView x:Name="ChangeCustomSettings"
-                      SelectionMode="None"
-                      IsItemClickEnabled="True"
-                      Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
-                      ItemClick="ChangeSetting_ItemClick"
-                      Foreground="White">
-                <ListView.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </ListView.Background>
-                <TextBlock x:Uid="ChangeCustomizingSetting"  FontSize="24" FontWeight="Bold"/>
-            </ListView>
+                    <StackPanel x:Name="stpOpenDNSAccount">
+                        <TextBlock x:Uid="OpenDNSUser" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" Margin="15,5,0,0" Foreground="Black"/>
+                        <TextBlock x:Name="OpenDNSUserName" FontSize="22" VerticalAlignment="Center" Margin="15,0,0,0" Foreground="#555555"/>
+                    </StackPanel>
+                    <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1" Margin="5,0,5,0"/>
 
-            <StackPanel x:Name="stpOpenDNSAccount" Margin="0,20,0,0">
-                <StackPanel.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </StackPanel.Background>
-                <TextBlock x:Uid="OpenDNSUser"  FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="10,5,0,0" Foreground="White"/>
-                <TextBlock x:Name="OpenDNSUserName"  FontSize="22" VerticalAlignment="Center" Margin="10,5,0,0" Foreground="White"/>
-            </StackPanel>
-
-            <ListView x:Name="BypassAccount"
-                      SelectionMode="None"
-                      IsItemClickEnabled="True"
-                      Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
-                      ItemClick="Bypass_ItemClick"
-                      Foreground="White">
-                <ListView.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </ListView.Background>
-                <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                    <TextBlock x:Uid="Bypass" FontSize="24" FontWeight="Bold"/>
-                    <TextBlock x:Name="bypassaccount" FontSize="22"/>
-                </StackPanel>               
-            </ListView>
+                    <ListView x:Name="BypassAccount"
+                          SelectionMode="None"
+                          IsItemClickEnabled="True"
+                          HorizontalAlignment="Center" VerticalAlignment="Top"
+                          ItemClick="Bypass_ItemClick"
+                          Padding="0,0,-15,0">
+                        <StackPanel>
+                            <Grid>
+                                <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                                    <TextBlock x:Uid="Bypass" FontSize="25" FontWeight="Bold" Foreground="Black"/>
+                                    <TextBlock x:Name="bypassaccount" FontSize="22" Foreground="#555555"/>
+                                </StackPanel>
+                                <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            </Grid>
+                            <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1"/>
+                        </StackPanel>
+                    </ListView>
+                </StackPanel>
+            </Border>
         </StackPanel>
 
         <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>
@@ -171,7 +261,7 @@
                 <TextBlock x:Uid="wait" x:Name="pleasewait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed" Foreground="White"/>
             </StackPanel>
         </Grid>
-        
+
         <!--询问-->
         <Popup x:Name="EnquirePopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,150,400,0">
             <!--<local:PopupEnquireOpenDNS/>-->
@@ -186,7 +276,7 @@
                             BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
                 </Grid>
             </StackPanel>
-        </Popup>       
+        </Popup>
 
         <!--创建OpenDNS账户-->
         <Popup x:Name="RegisterPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
@@ -241,10 +331,10 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                     <ProgressRing x:Name="InProgress2" IsActive="false" Height="50" Width="50" Foreground="White"/>
                     <TextBlock x:Uid="wait" x:Name="pleasewait2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Visibility="Collapsed" Foreground="White"/>
-                </StackPanel>               
+                </StackPanel>
             </StackPanel>
         </Popup>
-        
+
 
         <!--登陆OpenDNS账户-->
         <Popup x:Name="LoginPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,50,600,0">
@@ -269,26 +359,26 @@
                 </Grid>
             </StackPanel>
         </Popup>
-        
+
 
         <!--过滤级别-->
         <Popup x:Name="FilterLevelPopup" Grid.Row="1"  HorizontalAlignment="Center" Margin="0,0,600,0">
             <!--<local:PopupFilterLevel/>-->
             <ScrollViewer Margin="10" Width="600" Height="500" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <TextBlock x:Uid="FiltingIllustration" FontSize="22" TextWrapping="Wrap"/>
+                    <TextBlock x:Uid="FiltingIllustration" FontSize="22" TextWrapping="Wrap" Foreground="White"/>
                     <RadioButton x:Name="radioButton_None" x:Uid="radioButton_None" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
-                    <TextBlock x:Uid="Illustration_None" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBlock x:Uid="Illustration_None" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap" Foreground="White"/>
                     <RadioButton x:Name="radioButton_Minimum" x:Uid="radioButton_Minimum" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
-                    <TextBlock x:Uid="Illustration_Minimum" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBlock x:Uid="Illustration_Minimum" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap" Foreground="White"/>
                     <RadioButton x:Name="radioButton_Low"  x:Uid="radioButton_Low" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
-                    <TextBlock x:Uid="Illustration_Low" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBlock x:Uid="Illustration_Low" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap" Foreground="White"/>
                     <RadioButton x:Name="radioButton_Medium"  x:Uid="radioButton_Medium" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
-                    <TextBlock x:Uid="Illustration_Medium" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBlock x:Uid="Illustration_Medium" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap" Foreground="White"/>
                     <RadioButton x:Name="radioButton_High"  x:Uid="radioButton_High" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Foreground="White"/>
-                    <TextBlock x:Uid="Illustration_High" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBlock x:Uid="Illustration_High" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap" Foreground="White"/>
                     <RadioButton x:Name="radioButton_Custom"  x:Uid="radioButton_Custom" GroupName="FilterLevelGroup" Checked="RadioButton_Checked" FontSize="24" HorizontalAlignment="Left" Padding="5,0,0,0" Margin="0,10,0,0" FontWeight="Bold" Click="CustomRBClicked" Foreground="White"/>
-                    <TextBlock x:Uid="Illustration_Custom" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                    <TextBlock x:Uid="Illustration_Custom" FontSize="22" Margin="0,10,0,0" TextWrapping="Wrap" Foreground="White"/>
                     <Grid>
                         <Button x:Name="FilterLvPreviousButton" x:Uid="PreviousButton" Click="FilterLvPreviousButton_Click"
                                 Grid.Row="1" FontSize="22" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,300,0"

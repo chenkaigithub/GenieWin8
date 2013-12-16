@@ -25,6 +25,118 @@
             <Setter Property="AutomationProperties.Name" Value="Refresh"/>
             <Setter Property="Content" Value="&#xE117;"/>
         </Style>
+        <Style x:Key="CheckBoxStyle1" TargetType="CheckBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource CheckBoxContentForegroundThemeBrush}"/>
+            <Setter Property="Padding" Value="2,3,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPointerOverForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="CheckGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="IndeterminateGlyph">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CheckBoxContentDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="IndeterminateGlyph"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid VerticalAlignment="Top">
+                                    <Rectangle x:Name="NormalRectangle" Fill="{StaticResource CheckBoxBackgroundThemeBrush}" Height="30" Stroke="{StaticResource CheckBoxBorderThemeBrush}" StrokeThickness="{StaticResource CheckBoxBorderThemeThickness}" UseLayoutRounding="False" Width="30"/>
+                                    <Path x:Name="CheckGlyph" Data="F1 M 0,58 L 2,56 L 6,60 L 13,51 L 15,53 L 6,64 z" Fill="{StaticResource CheckBoxForegroundThemeBrush}" FlowDirection="LeftToRight" Height="25" Opacity="0" Stretch="Fill" Width="25"/>
+                                    <Rectangle x:Name="IndeterminateGlyph" Fill="{StaticResource CheckBoxForegroundThemeBrush}" Height="9" Opacity="0" UseLayoutRounding="False" Width="9"/>
+                                    <Rectangle x:Name="FocusVisualWhite" Height="30" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1" Width="30"/>
+                                    <Rectangle x:Name="FocusVisualBlack" Height="30" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1" Width="30"/>
+                                </Grid>
+                                <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <!--
@@ -64,44 +176,39 @@
             <Button Click="Refresh_Click" Grid.Column="1" Style="{StaticResource RefreshAppBarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Grid>
 
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel VerticalAlignment="Top" Margin="60,40">
-                <Grid>
-                    <Grid.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#FF004F74" Offset="1"/>
-                            <GradientStop Color="#FF50C6FD"/>
-                        </LinearGradientBrush>
-                    </Grid.Background>
-                    <TextBlock x:Uid="CheckTrafficMeter" FontFamily="Global User Interface" FontSize="24" Height="32" FontWeight="Bold" Margin="10,10,0,0" Foreground="White"/>
-                    <CheckBox x:Name="checkTrafficMeter" HorizontalAlignment="Right" FontSize="24" IsChecked="True" Click="checkTrafficMeter_Click"/>
-                </Grid>
+                <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White">
+                    <StackPanel>
+                        <Grid  Height="60">
+                            <TextBlock x:Uid="CheckTrafficMeter" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" Margin="15,0,45,0" Foreground="Black"/>
+                            <CheckBox x:Name="checkTrafficMeter" HorizontalAlignment="Right" FontSize="25" IsChecked="True" Click="checkTrafficMeter_Click" Margin="0,0,10,0" Style="{StaticResource CheckBoxStyle1}"/>
+                        </Grid>
+                        <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1" Margin="5,0,5,0"/>
 
-                <ListView x:Name="TrafficMeterList"
-                          ItemsSource="{Binding Source={StaticResource trafficMeterSource}}"
-                          SelectionMode="None"
-                          IsItemClickEnabled="True"
-                          Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
-                          ItemClick="TrafficMeter_ItemClick"
-                          Foreground="White">
-                    <ListView.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF004F74" Offset="1"/>
-                            <GradientStop Color="#FF50C6FD"/>
-                        </LinearGradientBrush>
-                    </ListView.Background>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Content}" FontSize="22"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                        <ListView x:Name="TrafficMeterList"
+                                  ItemsSource="{Binding Source={StaticResource trafficMeterSource}}"
+                                  SelectionMode="None"
+                                  IsItemClickEnabled="True"
+                                  HorizontalAlignment="Center" VerticalAlignment="Top"
+                                  ItemClick="TrafficMeter_ItemClick" Padding="0,0,-15,0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Grid>
+                                            <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                                                <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" Foreground="Black"/>
+                                                <TextBlock Text="{Binding Content}" FontSize="22" Foreground="#555555"/>
+                                            </StackPanel>
+                                            <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                        </Grid>
+                                        <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </Border>
 
                 <Canvas x:Name="TotalCanvas" Grid.Row="1"  Background="White" Margin="0,40,0,0" Height="850">
                     <TextBlock x:Name="TextMbytesTotal" x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
@@ -131,15 +238,14 @@
                     <TextBlock x:Name="TotalMbytes_3" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,350,0,0"/>
                     <TextBlock x:Name="TotalMbytes_4" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,220,0,0"/>
                     <TextBlock x:Name="TotalMbytes_5" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,90,0,0"/>
-                    <!--<Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="750" X2="1200" Y2="750" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="100" X2="1200" Y2="100" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="230" X2="1200" Y2="230" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="360" X2="1200" Y2="360" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="490" X2="1200" Y2="490" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="620" X2="1200" Y2="620" Width="1246" Height="800" />-->
+                    <StackPanel x:Name="InstructionTotal"  Orientation="Horizontal">
+                        <Canvas Background="#8064A2" Width="15" Height="15"/>
+                        <TextBlock x:Uid="Download" Foreground="Black" FontSize="14" Width="75" VerticalAlignment="Center" Margin="5,0,0,0" TextWrapping="Wrap"/>
+                        <Canvas Background="#C3B6D3" Width="15" Height="15" Margin="10,0,0,0"/>
+                        <TextBlock x:Uid="Upload" Foreground="Black" FontSize="14" Width="75" VerticalAlignment="Center" Margin="5,0,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
                 </Canvas>
-                
+
                 <Canvas x:Name="AverageCanvas" Grid.Row="1"  Background="White" Height="850" Margin="0,40,0,0">
                     <TextBlock x:Name="TextMbytesAverage" x:Uid="Mbytes" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="18" RenderTransformOrigin="0.5,0.5" Margin="0,400,0,0">
                         <TextBlock.RenderTransform>
@@ -162,13 +268,12 @@
                     <TextBlock x:Name="AvgMbytes_3" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,350,0,0"/>
                     <TextBlock x:Name="AvgMbytes_4" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,220,0,0"/>
                     <TextBlock x:Name="AvgMbytes_5" Foreground="Black" FontFamily="Global User Interface" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,90,0,0"/>
-                    <!--<Line Stroke="Black" StrokeThickness="3" X1="100" Y1="50" X2="100" Y2="750" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="3" X1="100" Y1="750" X2="1200" Y2="750" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="100" X2="1200" Y2="100" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="230" X2="1200" Y2="230" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="360" X2="1200" Y2="360" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="490" X2="1200" Y2="490" Width="1246" Height="800" />
-                    <Line Stroke="Black" StrokeThickness="2" StrokeDashArray="4" X1="100" Y1="620" X2="1200" Y2="620" Width="1246" Height="800" />-->
+                    <StackPanel x:Name="InstructionAvg"  Orientation="Horizontal">
+                        <Canvas Background="#8064A2" Width="15" Height="15"/>
+                        <TextBlock x:Uid="Download" Foreground="Black" FontSize="14" Width="75" VerticalAlignment="Center" Margin="5,0,0,0" TextWrapping="Wrap"/>
+                        <Canvas Background="#C3B6D3" Width="15" Height="15" Margin="10,0,0,0"/>
+                        <TextBlock x:Uid="Upload" Foreground="Black" FontSize="14" Width="75" VerticalAlignment="Center" Margin="5,0,0,0" TextWrapping="Wrap"/>
+                    </StackPanel>
                 </Canvas>
             </StackPanel>
         </ScrollViewer>

@@ -1006,4 +1006,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>Επίσης, βεβαιωθείτε ότι η συσκευή δεν είναι συνδεδεμένη στο δίκτυο επισκεπτών του δρομολογητή και ότι το πρωτόκολλο IPv6 δεν είναι ενεργοποιημένο.</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Λήψη</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>Αποστολή</value>
+  </data>
 </root>

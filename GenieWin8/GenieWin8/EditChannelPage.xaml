@@ -27,21 +27,6 @@
         * Row 1 contains the rest of the page layout
     -->
     <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
-        <!--<Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <LinearGradientBrush.RelativeTransform>
-                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
-                </LinearGradientBrush.RelativeTransform>
-                <GradientStop Color="#FFFFE7B4" Offset="1"/>
-                <GradientStop Color="#FF058D7A"/>
-                <GradientStop Color="#FFFF645C" Offset="0.75"/>
-                <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
-                <GradientStop Color="#FFC59FB2" Offset="0.3"/>
-                <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
-                <GradientStop Color="#FFFF495A" Offset="0.6"/>
-                <GradientStop Color="#FFFFC547" Offset="0.9"/>
-            </LinearGradientBrush>
-        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -61,16 +46,16 @@
                   ItemsSource="{Binding Source={StaticResource channelItemsSource}}"
                   Margin="60,30,60,20" HorizontalAlignment="Center" VerticalAlignment="Top"
                   SelectionChanged="ChangeChannelItemClick"
-                  Foreground="White">
-            <ListView.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF004F74" Offset="1"/>
-                    <GradientStop Color="#FF50C6FD"/>
-                </LinearGradientBrush>
-            </ListView.Background>
+                  Background="White" Foreground="Black"
+                  Padding="0,0,-15,0">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Content}" FontSize="22" Margin="10,0,0,0"/>
+                    <StackPanel>
+                        <Grid Height="40">
+                            <TextBlock Text="{Binding Content}" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </Grid>
+                        <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -1006,4 +1006,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>Varmista myös, että laitetta ei ole liitetty reitittimen vierasverkkoon eikä IPv6 ole käytössä.</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
 </root>

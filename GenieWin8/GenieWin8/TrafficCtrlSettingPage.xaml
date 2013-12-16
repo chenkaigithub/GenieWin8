@@ -81,96 +81,77 @@
         </Grid>
 
         <StackPanel Grid.Row="1" Margin="60,0">
-            <Grid DataContext="{Binding Source={StaticResource limitPerMonthSource}}"
+            <StackPanel DataContext="{Binding Source={StaticResource limitPerMonthSource}}"
                   d:DataContext="{Binding Source={StaticResource limitPerMonthSource}}" Margin="0,40,0,0">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
-                <TextBox x:Name="monthlyLimit" Text="{Binding Content}" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Width="250"
-                         Margin="0,5,5,5" TextChanged="monthlyLimit_changed" InputScope="Number" MaxLength="6" KeyDown="Textbox_KeyDown"/>
-            </Grid>
+                <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black"/>
+                <TextBox x:Name="monthlyLimit" Text="{Binding Content}" FontSize="20" VerticalAlignment="Center" Margin="0,5,0,0" TextChanged="monthlyLimit_changed" InputScope="Number" MaxLength="6"
+                         KeyDown="Textbox_KeyDown" Foreground="Black"/>
+            </StackPanel>
 
-            <TextBlock x:Uid="TrafficMeterStartTime" Margin="0,25,0,0" FontSize="22" TextWrapping="Wrap" Foreground="#1E1E1E"/>               
+            <TextBlock x:Uid="TrafficMeterStartTime" Margin="0,25,0,0" FontSize="25" FontWeight="Bold" TextWrapping="Wrap" Foreground="Black"/>
 
-            <ListView ItemsSource="{Binding Source={StaticResource startdateSource}}"
-                      SelectionMode="None"
-                      IsItemClickEnabled="True" Margin="0,5,0,0"
-                      ItemClick="StartDate_ItemClick"
-                      Foreground="White">
-                <ListView.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </ListView.Background>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                            <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Content}" FontSize="22"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White">
+                <StackPanel>
+                    <ListView ItemsSource="{Binding Source={StaticResource startdateSource}}"
+                              SelectionMode="None"
+                              IsItemClickEnabled="True" Margin="0,5,0,0"
+                              ItemClick="StartDate_ItemClick"
+                              Padding="0,0,-15,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Grid>
+                                        <StackPanel Margin="10,0,0,0">
+                                            <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" Foreground="Black"/>
+                                            <TextBlock Text="{Binding Content}" FontSize="22" Foreground="#555555"/>
+                                        </StackPanel>
+                                        <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                    </Grid>
+                                    <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
-            <Grid>
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <TextBlock x:Uid="StartTime" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
-                <Grid DataContext="{Binding Source={StaticResource starttimehourSource}}"
-                      d:DataContext="{Binding Source={StaticResource starttimehourSource}}">
-                    <TextBlock x:Uid="StartTimeHour" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,430,0" VerticalAlignment="Center" Foreground="White"/>
-                    <TextBox x:Name="restartHour" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"
-                             Margin="0,5,260,5" TextChanged="restartHour_changed" InputScope="Number" MaxLength="2" KeyDown="Textbox_KeyDown"/>
-                </Grid>
-                <Grid DataContext="{Binding Source={StaticResource starttimeminSource}}"
-                  d:DataContext="{Binding Source={StaticResource starttimeminSource}}">
-                    <TextBlock x:Uid="StartTimeMinute" FontSize="24" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Center" Foreground="White"/>
-                    <TextBox x:Name="restartMinute" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"
-                             Margin="0,5,5,5" TextChanged="restartMinute_changed" InputScope="Number" MaxLength="2" KeyDown="Textbox_KeyDown"/>
-                </Grid>
-            </Grid>
+                    <Grid>
+                        <TextBlock x:Uid="StartTime" FontSize="25" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="Black"/>
+                        <Grid DataContext="{Binding Source={StaticResource starttimehourSource}}" d:DataContext="{Binding Source={StaticResource starttimehourSource}}">
+                            <TextBlock x:Uid="StartTimeHour" FontSize="22" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,430,0" VerticalAlignment="Center" Foreground="#3C3C3C"/>
+                            <TextBox x:Name="restartHour" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"
+                                     Margin="0,5,260,5" TextChanged="restartHour_changed" InputScope="Number" MaxLength="2" KeyDown="Textbox_KeyDown" Background="#BCADCE"/>
+                        </Grid>
+                        <Grid DataContext="{Binding Source={StaticResource starttimeminSource}}" d:DataContext="{Binding Source={StaticResource starttimeminSource}}">
+                            <TextBlock x:Uid="StartTimeMinute" FontSize="22" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Center" Foreground="#3C3C3C"/>
+                            <TextBox x:Name="restartMinute" Text="{Binding Content}" FontSize="20" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150"
+                                     Margin="0,5,5,5" TextChanged="restartMinute_changed" InputScope="Number" MaxLength="2" KeyDown="Textbox_KeyDown" Background="#BCADCE"/>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </Border>
 
-            <ListView ItemsSource="{Binding Source={StaticResource trafficlimitationSource}}"
-                      SelectionMode="None"
-                      IsItemClickEnabled="True" Margin="0,30,0,0"
-                      ItemClick="TrafficLimitation_ItemClick"
-                      Foreground="White">
-                <ListView.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <LinearGradientBrush.RelativeTransform>
-                            <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-90"/>
-                        </LinearGradientBrush.RelativeTransform>
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </ListView.Background>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                            <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Content}" FontSize="22"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White" Margin="0,30,0,0">
+                <ListView ItemsSource="{Binding Source={StaticResource trafficlimitationSource}}"
+                          SelectionMode="None"
+                          IsItemClickEnabled="True"
+                          ItemClick="TrafficLimitation_ItemClick"
+                          Padding="0,0,-15,0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Grid>
+                                    <StackPanel Margin="10,0,0,0">
+                                        <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" Foreground="Black"/>
+                                        <TextBlock Text="{Binding Content}" FontSize="22" Foreground="#555555"/>
+                                    </StackPanel>
+                                    <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1"/>
+                            </StackPanel>
+                                
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
         </StackPanel>
 
         <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>

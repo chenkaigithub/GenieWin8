@@ -1006,4 +1006,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>Overte, či zariadenie nie je pripojené k hostiteľskej sieti smerovača a či nie je povolený žiadny protokol IPv6.</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Prevziať</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>Odovzdať</value>
+  </data>
 </root>

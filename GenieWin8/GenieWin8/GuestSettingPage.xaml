@@ -73,38 +73,46 @@
         </Grid>
 
         <StackPanel Grid.Row="1" Margin="60,0">
-            <Grid DataContext="{Binding Source={StaticResource editNameSource}}"
+            <StackPanel DataContext="{Binding Source={StaticResource editNameSource}}"
                   d:DataContext="{Binding Source={StaticResource editNameSource}}" Margin="0,40,0,0">
-                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" Foreground="#FF5A5A5A"/>
-                <TextBox x:Name="SSID" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40" TextChanged="ssid_changed"/>
-            </Grid>
+                <Grid>
+                    <Image Source="/Assets/WirelessSetting/ssid.png" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" Foreground="Black" Margin="40,0,0,0"/>
+                </Grid>
+                <TextBox x:Name="SSID" Text="{Binding Content}" FontSize="20" Height="40" TextChanged="ssid_changed" Margin="0,10,0,0" Foreground="Black"/>
+            </StackPanel>
 
-            <Grid x:Name="gridKey" DataContext="{Binding Source={StaticResource editKeySource}}"
+            <StackPanel x:Name="gridKey" DataContext="{Binding Source={StaticResource editKeySource}}"
                   d:DataContext="{Binding Source={StaticResource editKeySource}}" Margin="0,30,0,0">
-                <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold" Foreground="#FF5A5A5A"/>
-                <TextBox x:Name="Password" Text="{Binding Content}" Margin="0,35,0,0" FontSize="20" Height="40" TextChanged="pwd_changed"/>
-            </Grid>
+                <Grid>
+                    <Image Source="/Assets/WirelessSetting/Key.png" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" Foreground="Black" Margin="40,0,0,0"/>
+                </Grid>
+                <TextBox x:Name="Password" Text="{Binding Content}" FontSize="20" Height="40" TextChanged="pwd_changed" Margin="0,10,0,0" Foreground="Black"/>
+            </StackPanel>
+            <TextBlock x:Uid="SettingPasswordTips" FontSize="20" Margin="0,10,0,0" HorizontalAlignment="Center" Foreground="#FF5A5A5A"/>
 
-            <ListView ItemsSource="{Binding Source={StaticResource editTimesegSecuritySource}}"
+            <Border BorderThickness="1" BorderBrush="#B4B3B8" Background="White" Margin="0,30,0,0">
+                <ListView ItemsSource="{Binding Source={StaticResource editTimesegSecuritySource}}"
                       SelectionMode="None"
-                      IsItemClickEnabled="True" Margin="0,30,0,0"
-                      ItemClick="TimesegSecurity_ItemClick"
-                      Foreground="White">
-                <ListView.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </ListView.Background>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                            <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Content}" FontSize="22"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                      IsItemClickEnabled="True"
+                      ItemClick="TimesegSecurity_ItemClick" Padding="0,0,-15,0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Grid>
+                                    <StackPanel Margin="10,0,0,0">
+                                        <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="Bold" Foreground="Black"/>
+                                        <TextBlock Text="{Binding Content}" FontSize="22" Foreground="#555555"/>
+                                    </StackPanel>
+                                    <Image Source="/Assets/WirelessSetting/ico_list.png" Width="25" Height="25" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Image Source="/Assets/WirelessSetting/line.png" Stretch="Fill" Height="1"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
         </StackPanel>
 
         <Canvas x:Name="PopupBackgroundTop" Background="#FF5A5A5A" Opacity="0.9" Visibility="Collapsed"/>

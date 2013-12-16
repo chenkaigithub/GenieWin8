@@ -350,7 +350,7 @@ namespace GenieWin8
             //Total Today
             double TodayDownloadHeight = double.Parse(TrafficMeterInfoModel.TodayDownload) / maxOrdinateTotal * 650;
             Rectangle rectTodayDownload = new Rectangle();
-            rectTodayDownload.Fill = new SolidColorBrush(Colors.LightBlue);
+            rectTodayDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectTodayDownload.Height = TodayDownloadHeight;
             rectTodayDownload.Width = intervalTotal;
             rectTodayDownload.Margin = new Thickness(100 + intervalTotal, 750 - TodayDownloadHeight, 0, 0);
@@ -360,7 +360,7 @@ namespace GenieWin8
             TodayDownloadTotal.Margin = new Thickness(100 + intervalTotal, 750 - TodayDownloadHeight / 2 - 20, 0, 0);
             double TodayUploadHeight = double.Parse(TrafficMeterInfoModel.TodayUpload) / maxOrdinateTotal * 650;
             Rectangle rectTodayUpload = new Rectangle();
-            rectTodayUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectTodayUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectTodayUpload.Height = TodayUploadHeight;
             rectTodayUpload.Width = intervalTotal;
             rectTodayUpload.Margin = new Thickness(100 + intervalTotal, 750 - TodayDownloadHeight - TodayUploadHeight, 0, 0);
@@ -376,7 +376,7 @@ namespace GenieWin8
             //Total Yesterday
             double YesterdayDownloadHeight = double.Parse(TrafficMeterInfoModel.YesterdayDownload) / maxOrdinateTotal * 650;
             Rectangle rectYesterdayDownload = new Rectangle();
-            rectYesterdayDownload.Fill = new SolidColorBrush(Colors.LightBlue);
+            rectYesterdayDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectYesterdayDownload.Height = YesterdayDownloadHeight;
             rectYesterdayDownload.Width = intervalTotal;
             rectYesterdayDownload.Margin = new Thickness(100 + intervalTotal * 3, 750 - YesterdayDownloadHeight, 0, 0);
@@ -386,7 +386,7 @@ namespace GenieWin8
             YesterdayDownloadTotal.Margin = new Thickness(100 + intervalTotal * 3, 750 - YesterdayDownloadHeight / 2 - 20, 0, 0);
             double YesterdayUploadHeight = double.Parse(TrafficMeterInfoModel.YesterdayUpload) / maxOrdinateTotal * 650;
             Rectangle rectYesterdayUpload = new Rectangle();
-            rectYesterdayUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectYesterdayUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectYesterdayUpload.Height = YesterdayUploadHeight;
             rectYesterdayUpload.Width = intervalTotal;
             rectYesterdayUpload.Margin = new Thickness(100 + intervalTotal * 3, 750 - YesterdayDownloadHeight - YesterdayUploadHeight, 0, 0);
@@ -402,7 +402,7 @@ namespace GenieWin8
             //Total This week
             double WeekDownloadHeight = double.Parse(WeekDownload[0]) / maxOrdinateTotal * 650;
             Rectangle rectWeekDownload = new Rectangle();
-            rectWeekDownload.Fill = new SolidColorBrush(Colors.LightBlue);
+            rectWeekDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectWeekDownload.Height = WeekDownloadHeight;
             rectWeekDownload.Width = intervalTotal;
             rectWeekDownload.Margin = new Thickness(100 + intervalTotal * 5, 750 - WeekDownloadHeight, 0, 0);
@@ -412,7 +412,7 @@ namespace GenieWin8
             WeekDownloadTotal.Margin = new Thickness(100 + intervalTotal * 5, 750 - WeekDownloadHeight / 2 - 20, 0, 0);
             double WeekUploadHeight = double.Parse(WeekUpload[0]) / maxOrdinateTotal * 650;
             Rectangle rectWeekUpload = new Rectangle();
-            rectWeekUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectWeekUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectWeekUpload.Height = WeekUploadHeight;
             rectWeekUpload.Width = intervalTotal;
             rectWeekUpload.Margin = new Thickness(100 + intervalTotal * 5, 750 - WeekDownloadHeight - WeekUploadHeight, 0, 0);
@@ -428,7 +428,7 @@ namespace GenieWin8
             //Total This month
             double MonthDownloadHeight = double.Parse(MonthDownload[0]) / maxOrdinateTotal * 650;
             Rectangle rectMonthDownload = new Rectangle();
-            rectMonthDownload.Fill = new SolidColorBrush(Colors.LightBlue);
+            rectMonthDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectMonthDownload.Height = MonthDownloadHeight;
             rectMonthDownload.Width = intervalTotal;
             rectMonthDownload.Margin = new Thickness(100 + intervalTotal * 7, 750 - MonthDownloadHeight, 0, 0);
@@ -438,7 +438,7 @@ namespace GenieWin8
             MonthDownloadTotal.Margin = new Thickness(100 + intervalTotal * 7, 750 - MonthDownloadHeight / 2 - 20, 0, 0);
             double MonthUploadHeight = double.Parse(MonthUpload[0]) / maxOrdinateTotal * 650;
             Rectangle rectMonthUpload = new Rectangle();
-            rectMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectMonthUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectMonthUpload.Height = MonthUploadHeight;
             rectMonthUpload.Width = intervalTotal;
             rectMonthUpload.Margin = new Thickness(100 + intervalTotal * 7, 750 - MonthDownloadHeight - MonthUploadHeight, 0, 0);
@@ -454,7 +454,7 @@ namespace GenieWin8
             //Total Last month
             double LastMonthDownloadHeight = double.Parse(LastMonthDownload[0]) / maxOrdinateTotal * 650;
             Rectangle rectLastMonthDownload = new Rectangle();
-            rectLastMonthDownload.Fill = new SolidColorBrush(Colors.LightBlue);
+            rectLastMonthDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             rectLastMonthDownload.Height = LastMonthDownloadHeight;
             rectLastMonthDownload.Width = intervalTotal;
             rectLastMonthDownload.Margin = new Thickness(100 + intervalTotal * 9, 750 - LastMonthDownloadHeight, 0, 0);
@@ -464,7 +464,7 @@ namespace GenieWin8
             LastMonthDownloadTotal.Margin = new Thickness(100 + intervalTotal * 9, 750 - LastMonthDownloadHeight / 2 - 20, 0, 0);
             double LastMonthUploadHeight = double.Parse(LastMonthUpload[0]) / maxOrdinateTotal * 650;
             Rectangle rectLastMonthUpload = new Rectangle();
-            rectLastMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
+            rectLastMonthUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             rectLastMonthUpload.Height = LastMonthUploadHeight;
             rectLastMonthUpload.Width = intervalTotal;
             rectLastMonthUpload.Margin = new Thickness(100 + intervalTotal * 9, 750 - LastMonthDownloadHeight - LastMonthUploadHeight, 0, 0);
@@ -480,7 +480,7 @@ namespace GenieWin8
             //Average This week
             double AvgWeekDownloadHeight = double.Parse(WeekDownload[1]) / maxOrdinateAvg * 650;
             Rectangle AvgrectWeekDownload = new Rectangle();
-            AvgrectWeekDownload.Fill = new SolidColorBrush(Colors.LightBlue);
+            AvgrectWeekDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             AvgrectWeekDownload.Height = AvgWeekDownloadHeight;
             AvgrectWeekDownload.Width = intervalAvg;
             AvgrectWeekDownload.Margin = new Thickness(100 + intervalAvg, 750 - AvgWeekDownloadHeight, 0, 0);
@@ -490,7 +490,7 @@ namespace GenieWin8
             WeekDownloadAvg.Margin = new Thickness(100 + intervalAvg, 750 - AvgWeekDownloadHeight / 2 - 20, 0, 0);
             double AvgWeekUploadHeight = double.Parse(WeekUpload[1]) / maxOrdinateAvg * 650;
             Rectangle AvgrectWeekUpload = new Rectangle();
-            AvgrectWeekUpload.Fill = new SolidColorBrush(Colors.Gray);
+            AvgrectWeekUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             AvgrectWeekUpload.Height = AvgWeekUploadHeight;
             AvgrectWeekUpload.Width = intervalAvg;
             AvgrectWeekUpload.Margin = new Thickness(100 + intervalAvg, 750 - AvgWeekDownloadHeight - AvgWeekUploadHeight, 0, 0);
@@ -506,7 +506,7 @@ namespace GenieWin8
             //Average This month
             double AvgMonthDownloadHeight = double.Parse(MonthDownload[1]) / maxOrdinateAvg * 650;
             Rectangle AvgrectMonthDownload = new Rectangle();
-            AvgrectMonthDownload.Fill = new SolidColorBrush(Colors.LightBlue);
+            AvgrectMonthDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             AvgrectMonthDownload.Height = AvgMonthDownloadHeight;
             AvgrectMonthDownload.Width = intervalAvg;
             AvgrectMonthDownload.Margin = new Thickness(100 + intervalAvg * 3, 750 - AvgMonthDownloadHeight, 0, 0);
@@ -516,7 +516,7 @@ namespace GenieWin8
             MonthDownloadAvg.Margin = new Thickness(100 + intervalAvg * 3, 750 - AvgMonthDownloadHeight / 2 - 20, 0, 0);
             double AvgMonthUploadHeight = double.Parse(MonthUpload[1]) / maxOrdinateAvg * 650;
             Rectangle AvgrectMonthUpload = new Rectangle();
-            AvgrectMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
+            AvgrectMonthUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             AvgrectMonthUpload.Height = AvgMonthUploadHeight;
             AvgrectMonthUpload.Width = intervalAvg;
             AvgrectMonthUpload.Margin = new Thickness(100 + intervalAvg * 3, 750 - AvgMonthDownloadHeight - AvgMonthUploadHeight, 0, 0);
@@ -532,7 +532,7 @@ namespace GenieWin8
             //Average Last month
             double AvgLastMonthDownloadHeight = double.Parse(LastMonthDownload[1]) / maxOrdinateAvg * 650;
             Rectangle AvgrectLastMonthDownload = new Rectangle();
-            AvgrectLastMonthDownload.Fill = new SolidColorBrush(Colors.LightBlue);
+            AvgrectLastMonthDownload.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 100, 162));
             AvgrectLastMonthDownload.Height = AvgLastMonthDownloadHeight;
             AvgrectLastMonthDownload.Width = intervalAvg;
             AvgrectLastMonthDownload.Margin = new Thickness(100 + intervalAvg * 5, 750 - AvgLastMonthDownloadHeight, 0, 0);
@@ -542,7 +542,7 @@ namespace GenieWin8
             LastMonthDownloadAvg.Margin = new Thickness(100 + intervalAvg * 5, 750 - AvgLastMonthDownloadHeight / 2 - 20, 0, 0);
             double AvgLastMonthUploadHeight = double.Parse(LastMonthUpload[1]) / maxOrdinateAvg * 650;
             Rectangle AvgrectLastMonthUpload = new Rectangle();
-            AvgrectLastMonthUpload.Fill = new SolidColorBrush(Colors.Gray);
+            AvgrectLastMonthUpload.Fill = new SolidColorBrush(Color.FromArgb(255, 195, 182, 211));
             AvgrectLastMonthUpload.Height = AvgLastMonthUploadHeight;
             AvgrectLastMonthUpload.Width = intervalAvg;
             AvgrectLastMonthUpload.Margin = new Thickness(100 + intervalAvg * 5, 750 - AvgLastMonthDownloadHeight - AvgLastMonthUploadHeight, 0, 0);
@@ -554,6 +554,13 @@ namespace GenieWin8
             AverageCanvas.Children.Add(AvgrectLastMonthUpload);
             AverageCanvas.Children.Add(LastMonthDownloadAvg);
             AverageCanvas.Children.Add(LastMonthUploadAvg);
+
+            //颜色含义指示绘制
+            InstructionTotal.Margin = new Thickness(width - 350, 820, 0, 0);
+            TotalCanvas.Children.Add(InstructionTotal);
+            InstructionAvg.Margin = new Thickness(width - 350, 820, 0, 0);
+            AverageCanvas.Children.Add(InstructionAvg);
+
             InProgress.IsActive = false;
             PopupBackgroundTop.Visibility = Visibility.Collapsed;
             PopupBackground.Visibility = Visibility.Collapsed;

@@ -55,58 +55,52 @@
         </Grid>
 
         <Grid Grid.Row="1" Width="700" VerticalAlignment="Top" Margin="0,20,0,0">
-            <Border BorderBrush="Gray" BorderThickness="4" CornerRadius="30">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF004F74" Offset="1"/>
-                        <GradientStop Color="#FF50C6FD"/>
-                    </LinearGradientBrush>
-                </Border.Background>
+            <Border BorderBrush="#B4B3B8" BorderThickness="1" CornerRadius="30" Background="White">
                 <StackPanel x:Name="StpDeviceInfo" Margin="5,10">
                     <Grid>
                         <StackPanel x:Name="StpRouter">
-                            <TextBlock x:Name="txtRoutename" Foreground="White"/>
-                            <TextBlock x:Name="RouteName" Foreground="White"/>
+                            <TextBlock x:Name="txtRoutename" Foreground="Black"/>
+                            <TextBlock x:Name="RouteName" Foreground="#555555"/>
                         </StackPanel>
                         <StackPanel x:Name="StpDeviceName">
-                            <TextBlock x:Name="txtDeviceName" Foreground="White"/>
-                            <TextBlock x:Name="txtBlockDeviceName" Foreground="White"/>
-                            <TextBox x:Name="txtBoxDeviceName" KeyDown="txtBoxDeviceName_KeyDown"/>
+                            <TextBlock x:Name="txtDeviceName" Foreground="Black"/>
+                            <TextBlock x:Name="txtBlockDeviceName" Foreground="#555555"/>
+                            <TextBox x:Name="txtBoxDeviceName" KeyDown="txtBoxDeviceName_KeyDown" Foreground="#555555"/>
                         </StackPanel>
                     </Grid>
                     <StackPanel x:Name="StpRouterFirmware">
-                        <TextBlock x:Name="txtRouterFirmware" Foreground="White"/>
-                        <TextBlock x:Name="Firmware" Foreground="White"/>
+                        <TextBlock x:Name="txtRouterFirmware" Foreground="Black"/>
+                        <TextBlock x:Name="Firmware" Foreground="#555555"/>
                     </StackPanel>
                     <StackPanel x:Name="StpType">
-                        <TextBlock x:Name="txtType" Foreground="White"/>
-                        <TextBlock x:Name="Type" Foreground="White"/>
-                        <ComboBox x:Name="ComboType"/>
+                        <TextBlock x:Name="txtType" Foreground="Black"/>
+                        <TextBlock x:Name="Type" Foreground="#555555"/>
+                        <ComboBox x:Name="ComboType" Foreground="#555555"/>
                     </StackPanel>
                     <StackPanel x:Name="StpIPAddress">
-                        <TextBlock x:Name="txtIPAddress" Foreground="White"/>
-                        <TextBlock x:Name="IPAddress" Foreground="White"/>
+                        <TextBlock x:Name="txtIPAddress" Foreground="Black"/>
+                        <TextBlock x:Name="IPAddress" Foreground="#555555"/>
                     </StackPanel>
                     <StackPanel x:Name="StpSignalStrength">
-                        <TextBlock x:Name="txtSignalStrength" Foreground="White"/>
-                        <TextBlock x:Name="SignalStrength" Foreground="White"/>
+                        <TextBlock x:Name="txtSignalStrength" Foreground="Black"/>
+                        <TextBlock x:Name="SignalStrength" Foreground="#555555"/>
                     </StackPanel>
                     <StackPanel x:Name="StpLinkRate">
-                        <TextBlock x:Name="txtLinkRate" Foreground="White"/>
-                        <TextBlock x:Name="LinkRate" Foreground="White"/>
+                        <TextBlock x:Name="txtLinkRate" Foreground="Black"/>
+                        <TextBlock x:Name="LinkRate" Foreground="#555555"/>
                         <HyperlinkButton x:Name="btnWhat" Foreground="BlueViolet" NavigateUri="http://support.netgear.com/app/answers/list/kw/link%20rate"/>
                     </StackPanel>
                     <StackPanel x:Name="StpMACAddress">
-                        <TextBlock x:Name="txtMACAddress" Foreground="White"/>
-                        <TextBlock x:Name="MACAddress" Foreground="White"/>
+                        <TextBlock x:Name="txtMACAddress" Foreground="Black"/>
+                        <TextBlock x:Name="MACAddress" Foreground="#555555"/>
                     </StackPanel>
                     <Grid x:Name="GridButton">
-                        <Button x:Name="btnBack" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
-                        <Button x:Name="btnModify" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
-                        <Button x:Name="btnFileUpload" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
-                        <Button x:Name="btnApply" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
-                        <Button x:Name="btnAllow" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
-                        <Button x:Name="btnBlock" BorderThickness="3" BorderBrush="White" Foreground="White" Background="{x:Null}"/>
+                        <Button x:Name="btnBack" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnModify" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnFileUpload" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnApply" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnAllow" BorderThickness="0" Foreground="White" Background="#8064A2"/>
+                        <Button x:Name="btnBlock" BorderThickness="0" Foreground="White" Background="#8064A2"/>
                     </Grid>
                 </StackPanel>
             </Border>

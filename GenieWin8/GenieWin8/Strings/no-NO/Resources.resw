@@ -1006,4 +1006,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>Kontroller også at enheten ikke er tilkoblet ruterens gjestenettverk, og at ingen IPv6 er aktivert.</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Last ned</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>Last opp</value>
+  </data>
 </root>

@@ -1033,4 +1033,10 @@
   <data name="login_alertinfo2.Text" xml:space="preserve">
     <value>同时确保该设备未连接至路由器的访客网络，并且未启用 IPv6。</value>
   </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="Upload.Text" xml:space="preserve">
+    <value>上传</value>
+  </data>
 </root>
