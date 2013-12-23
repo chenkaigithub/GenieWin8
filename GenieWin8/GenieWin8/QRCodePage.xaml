@@ -52,6 +52,10 @@
         </Grid>
 
         <!--<TextBlock x:Name="StatusBlock" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="20" Foreground="#FF5A5A5A"/>-->
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,50,0,0">
+            <TextBlock x:Uid="SelectCamera" Text="Select one camera to capture" HorizontalAlignment="Center" FontSize="24"/>
+            <ComboBox x:Name="EnumedCameraList" HorizontalAlignment="Center" VerticalAlignment="Top" Width="500" SelectionChanged="EnumedCameraList_SelectionChanged"/>
+        </StackPanel>
         <Canvas x:Name="captureCanvas" Grid.Row="1" Background="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Width="640" Height="360">
             <CaptureElement x:Name="captureElement" Grid.Row="1" Width="640" Height="360"/>
         </Canvas>      

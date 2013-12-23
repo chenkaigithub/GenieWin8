@@ -77,7 +77,7 @@ namespace GenieWin8
             var linkRateGroup = SettingSource.GetLinkRateGroup((String)navigationParameter);
             this.DefaultViewModel["itemLinkRate"] = linkRateGroup;
 
-            if (signalStrengthGroup.ElementAt(0).Content == null)
+            if (signalStrengthGroup.ElementAt(0).Content == null || signalStrengthGroup.ElementAt(0).Content == "")
             {
                 gridSignal.Visibility = Visibility.Collapsed;
             } 
@@ -85,7 +85,7 @@ namespace GenieWin8
             {
                 gridSignal.Visibility = Visibility.Visible;
             }
-            if (linkRateGroup.ElementAt(0).Content == null)
+            if (linkRateGroup.ElementAt(0).Content == null || linkRateGroup.ElementAt(0).Content == "")
             {
                 gridLinkRate.Visibility = Visibility.Collapsed;
             } 
@@ -93,7 +93,7 @@ namespace GenieWin8
             {
                 gridLinkRate.Visibility = Visibility.Visible;
             }
-
+            
             //生成二维码
             string codeString = "WIRELESS:" + WifiInfoModel.ssid + ";PASSWORD:" + WifiInfoModel.password;
             WriteableBitmap wb = CreateBarcode(codeString);
@@ -137,7 +137,8 @@ namespace GenieWin8
                 PopupBackground.Visibility = Visibility.Visible;
                 GenieSoapApi soapApi = new GenieSoapApi();
 
-                Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                //Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                List<List<string>> attachDeviceAll = new List<List<string>>();
                 attachDeviceAll = await soapApi.GetAttachDevice();
                 UtilityTool util = new UtilityTool();
                 string loacalIp = util.GetLocalHostIp();
@@ -148,21 +149,43 @@ namespace GenieWin8
                 }
                 else
                 {
-                    foreach (string key in attachDeviceAll.Keys)
+                    //foreach (string key in attachDeviceAll.Keys)
+                    //{
+                    //    if (loacalIp == attachDeviceAll[key]["Ip"])
+                    //    {
+                    //        if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                    //        {
+                    //            WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                    //        }
+                    //        else
+                    //        {
+                    //            WifiInfoModel.linkRate = "";
+                    //        }
+                    //        if (attachDeviceAll[key].ContainsKey("Signal"))
+                    //        {
+                    //            WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                    //        }
+                    //        else
+                    //        {
+                    //            WifiInfoModel.signalStrength = "";
+                    //        }
+                    //    }
+                    //}
+                    foreach (List<string> deviceInfo in attachDeviceAll)
                     {
-                        if (loacalIp == attachDeviceAll[key]["Ip"])
+                        if (loacalIp == deviceInfo.ElementAt(0))
                         {
-                            if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                            if (deviceInfo.Count > 4)
                             {
-                                WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                                WifiInfoModel.linkRate = deviceInfo.ElementAt(4) + "Mbps";
                             }
                             else
                             {
                                 WifiInfoModel.linkRate = "";
                             }
-                            if (attachDeviceAll[key].ContainsKey("Signal"))
+                            if (deviceInfo.Count > 5)
                             {
-                                WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                                WifiInfoModel.signalStrength = deviceInfo.ElementAt(5) + "%";
                             }
                             else
                             {

@@ -239,7 +239,7 @@ namespace GenieWin8
                                 }
                             }
                             Image imgSignal = new Image();
-                            if (j == 1)
+                            if (j == 1 && Group.ElementAt(1).NODE.connectType == "wireless")
                             {
                                 DoubleCollection dc = new DoubleCollection();
                                 dc.Add(2);
@@ -525,7 +525,7 @@ namespace GenieWin8
                         map.Children.Add(BtnLocalDevice);
                         MapFlipView.Items.Add(map);
                     } //if (i != m)
-                    else
+                    else if (n != 0)
                     {
                         double Angle = 360.0 / (n + 2);
                         Grid map = new Grid();
@@ -600,7 +600,7 @@ namespace GenieWin8
                                 }
                             }
                             Image imgSignal = new Image();
-                            if (j == 1)
+                            if (j == 1 && Group.ElementAt(1).NODE.connectType == "wireless")
                             {
                                 DoubleCollection dc = new DoubleCollection();
                                 dc.Add(2);

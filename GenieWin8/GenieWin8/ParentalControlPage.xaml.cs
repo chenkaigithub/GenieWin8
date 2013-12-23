@@ -181,6 +181,13 @@ namespace GenieWin8
             {
                 InProgress.IsActive = true;
                 pleasewait.Visibility = Visibility.Visible;
+                GenieSoapApi soapApi = new GenieSoapApi();
+                Dictionary<string, string>  dicResponse = new Dictionary<string, string>();
+                while (dicResponse == null || dicResponse.Count == 0 || int.Parse(dicResponse["ResponseCode"]) != 0)
+                {
+                    dicResponse = await soapApi.GetEnableStatus();
+                }
+                ParentalControlInfo.isParentalControlEnabled = dicResponse["ParentalControl"];
                 if (ParentalControlInfo.isParentalControlEnabled == "0")
                 {
                     checkPatentalControl.IsChecked = false;
@@ -1236,6 +1243,11 @@ namespace GenieWin8
                                     pleasewait.Visibility = Visibility.Collapsed;
                                     var messageDialog = new MessageDialog("Not authenticated");
                                     await messageDialog.ShowAsync();
+                                }
+                                else
+                                {
+                                    InProgress.IsActive = false;
+                                    pleasewait.Visibility = Visibility.Collapsed;
                                 }
                             }
                             else if (dicResponse2.Count > 0 && int.Parse(dicResponse2["ResponseCode"]) == 401)

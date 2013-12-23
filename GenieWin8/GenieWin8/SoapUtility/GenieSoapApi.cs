@@ -62,11 +62,66 @@ namespace GenieWin8
         /// 返回结果以MacAddress作为Dictionary的key
         /// </summary>
         /// <returns></returns>
-        public async Task<Dictionary<string,Dictionary<string,string>>> GetAttachDevice()
+        //public async Task<Dictionary<string,Dictionary<string,string>>> GetAttachDevice()
+        public async Task<List<List<string>>> GetAttachDevice()
         {
+            //Dictionary<string, string> param = new Dictionary<string, string>();
+            //string retParam = "";
+            //Dictionary<string,Dictionary<string,string>> dicAttachDevice = new Dictionary<string,Dictionary<string,string>>();
+            //try
+            //{
+            //    retParam = await postSoap("DeviceInfo", "GetAttachDevice", param);
+            //    if (retParam != null)
+            //    {
+            //        retParam = util.SubString(retParam, "<NewAttachDevice>", "</NewAttachDevice>");
+            //        string[] tempArray = retParam.Split('@');
+            //        string macAdr = "";
+            //        for (int i = 1; i < tempArray.Length; i++)
+            //        {
+            //            if (tempArray[i] != "" && tempArray[i] != null)
+            //            {
+            //                Dictionary<string, string> dicRow = new Dictionary<string, string>();
+            //                string[] itemArray = tempArray[i].Split(';');
+            //                if (itemArray.Length >= 4)
+            //                {
+            //                    dicRow.Add("Ip", itemArray[1]);
+            //                    dicRow.Add("HostName", itemArray[2]);
+            //                    macAdr = itemArray[3];
+
+
+            //                }
+            //                if (itemArray.Length >= 5)
+            //                {
+            //                    dicRow.Add("Connect", itemArray[4]);
+            //                }
+            //                if (itemArray.Length >= 7)
+            //                {
+            //                    dicRow.Add("LinkSpeed", itemArray[5]);
+            //                    dicRow.Add("Signal", itemArray[6]);
+            //                }
+            //                if (itemArray.Length >= 8)
+            //                {
+            //                    dicRow.Add("AccessControl", itemArray[7]);
+            //                }
+            //                if (macAdr != "")
+            //                {
+            //                    System.Diagnostics.Debug.WriteLine(macAdr);
+            //                    dicAttachDevice.Add(macAdr, dicRow);
+            //                }
+            //            }
+            //        }
+            //    }
+            //    return dicAttachDevice;
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    //var messageDialog = new MessageDialog("API:GetAttachDevice failed! press 'OK' to retry.");
+            //    //messageDialog.ShowAsync();
+            //    return null;
+            //}
             Dictionary<string, string> param = new Dictionary<string, string>();
             string retParam = "";
-            Dictionary<string,Dictionary<string,string>> dicAttachDevice = new Dictionary<string,Dictionary<string,string>>();
+            List<List<string>> dicAttachDevice = new List<List<string>>();
             try
             {
                 retParam = await postSoap("DeviceInfo", "GetAttachDevice", param);
@@ -79,33 +134,32 @@ namespace GenieWin8
                     {
                         if (tempArray[i] != "" && tempArray[i] != null)
                         {
-                            Dictionary<string, string> dicRow = new Dictionary<string, string>();
+                            List<string> dicRow = new List<string>();
                             string[] itemArray = tempArray[i].Split(';');
                             if (itemArray.Length >= 4)
                             {
-                                dicRow.Add("Ip", itemArray[1]);
-                                dicRow.Add("HostName", itemArray[2]);
+                                dicRow.Add(itemArray[1]);           //Ip
+                                dicRow.Add(itemArray[2]);           //HostName
+                                dicRow.Add(itemArray[3]);           //MacAddress
                                 macAdr = itemArray[3];
-
-
                             }
                             if (itemArray.Length >= 5)
                             {
-                                dicRow.Add("Connect", itemArray[4]);
+                                dicRow.Add(itemArray[4]);            //Connect
                             }
                             if (itemArray.Length >= 7)
                             {
-                                dicRow.Add("LinkSpeed", itemArray[5]);
-                                dicRow.Add("Signal", itemArray[6]);
+                                dicRow.Add(itemArray[5]);           //LinkSpeed
+                                dicRow.Add(itemArray[6]);           //Signal
                             }
                             if (itemArray.Length >= 8)
                             {
-                                dicRow.Add("AccessControl", itemArray[7]);
+                                dicRow.Add(itemArray[7]);           //AccessControl
                             }
                             if (macAdr != "")
                             {
                                 System.Diagnostics.Debug.WriteLine(macAdr);
-                                dicAttachDevice.Add(macAdr, dicRow);
+                                dicAttachDevice.Add(dicRow);
                             }
                         }
                     }

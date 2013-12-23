@@ -33,6 +33,24 @@
             </Grid>
         </DataTemplate>
 
+        <DataTemplate x:Key="SnappedItemTemplate">
+            <Grid Margin="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Width="60" Height="60">
+                    <Border.Background>
+                        <ImageBrush ImageSource="Assets/MainPage/bg.png"/>
+                    </Border.Background>
+                    <Image Source="{Binding Image}" Width="50" Height="50" Stretch="UniformToFill"/>
+                </Border>
+                <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
         <Style x:Key="AboutAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
             <Setter Property="AutomationProperties.AutomationId" Value="AboutAppBarButton"/>
             <Setter Property="AutomationProperties.Name" Value="About"/>
@@ -81,10 +99,10 @@
             TabIndex="1"
             Grid.Row="1"
             Visibility="Collapsed"
-            Margin="0,-10,0,0"
+            Margin="0,0,0,0"
             Padding="10,0,0,60"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource Standard80ItemTemplate}"
+            ItemTemplate="{StaticResource SnappedItemTemplate}"
             SelectionMode="None"
             IsSwipeEnabled="false"
             IsItemClickEnabled="True"
@@ -240,9 +258,9 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
+                        </ObjectAnimationUsingKeyFrames>-->
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
@@ -257,7 +275,7 @@
     </Grid>
 
     <Page.BottomAppBar>
-        <AppBar Padding="10,0,10,0">
+        <AppBar x:Name="BottomAppBar" Padding="10,0,10,0">
             <Grid>
                 <Button x:Name="btnLogin" x:Uid="LoginButton" Click="LoginButton_Click" FontSize="22" HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="Bold" Width="150"
                         BorderThickness="3" BorderBrush="Black" Foreground="Black" Background="{x:Null}"/>

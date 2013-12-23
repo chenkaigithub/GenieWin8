@@ -1761,7 +1761,8 @@
                     VerticalAlignment="Center"
                     Stretch="Uniform"/>
             </Grid>
-            <ToolTipService.Placement>鼠标</ToolTipService.Placement>
+            <!--<ToolTipService.Placement>鼠标</ToolTipService.Placement>-->
+            <ToolTipService.Placement>Mouse</ToolTipService.Placement>
             <ToolTipService.ToolTip>
                 <ToolTip>
                     <ToolTip.Style>

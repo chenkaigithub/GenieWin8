@@ -209,7 +209,8 @@ namespace GenieWin8
                     InProgress.IsActive = true;
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
-                    Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                    //Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                    List<List<string>> attachDeviceAll = new List<List<string>>();
                     attachDeviceAll = await soapApi.GetAttachDevice();
                     //UtilityTool util = new UtilityTool();
                     string loacalIp = util.GetLocalHostIp();
@@ -220,21 +221,43 @@ namespace GenieWin8
                     } 
                     else
                     {
-                        foreach (string key in attachDeviceAll.Keys)
+                        //foreach (string key in attachDeviceAll.Keys)
+                        //{
+                        //    if (loacalIp == attachDeviceAll[key]["Ip"])
+                        //    {
+                        //        if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                        //        {
+                        //            WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                        //        }
+                        //        else
+                        //        {
+                        //            WifiInfoModel.linkRate = "";
+                        //        }
+                        //        if (attachDeviceAll[key].ContainsKey("Signal"))
+                        //        {
+                        //            WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                        //        }
+                        //        else
+                        //        {
+                        //            WifiInfoModel.signalStrength = "";
+                        //        }
+                        //    }
+                        //}
+                        foreach (List<string> deviceInfo in attachDeviceAll)
                         {
-                            if (loacalIp == attachDeviceAll[key]["Ip"])
+                            if (loacalIp == deviceInfo.ElementAt(0))
                             {
-                                if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                                if (deviceInfo.Count > 4)
                                 {
-                                    WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                                    WifiInfoModel.linkRate = deviceInfo.ElementAt(4) + "Mbps";
                                 }
                                 else
                                 {
                                     WifiInfoModel.linkRate = "";
                                 }
-                                if (attachDeviceAll[key].ContainsKey("Signal"))
+                                if (deviceInfo.Count > 5)
                                 {
-                                    WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                                    WifiInfoModel.signalStrength = deviceInfo.ElementAt(5) + "%";
                                 }
                                 else
                                 {
@@ -459,12 +482,12 @@ namespace GenieWin8
                             }
                             ParentalControlInfo.RouterMacaddr = dicResponse2["NewWLANMACAddress"];
 
-                            dicResponse2 = new Dictionary<string, string>();
-                            while (dicResponse2 == null || dicResponse2.Count == 0 || int.Parse(dicResponse2["ResponseCode"]) != 0)
-                            {
-                                dicResponse2 = await soapApi.GetEnableStatus();
-                            }
-                            ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
+                            //dicResponse2 = new Dictionary<string, string>();
+                            //while (dicResponse2 == null || dicResponse2.Count == 0 || int.Parse(dicResponse2["ResponseCode"]) != 0)
+                            //{
+                            //    dicResponse2 = await soapApi.GetEnableStatus();
+                            //}
+                            //ParentalControlInfo.isParentalControlEnabled = dicResponse2["ParentalControl"];
                             InProgress.IsActive = false;
                             PopupBackgroundTop.Visibility = Visibility.Collapsed;
                             PopupBackground.Visibility = Visibility.Collapsed;

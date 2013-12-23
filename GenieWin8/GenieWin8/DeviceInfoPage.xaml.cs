@@ -108,7 +108,7 @@ namespace GenieWin8
 
             //TextBlock Title = new TextBlock();
             //Title.Text = Group.DeviceName;
-            Title.Text = Group.NODE.deviceName;
+            Title.Text = WifiInfoModel.ssid;
             Title.FontSize = 40;
             Title.VerticalAlignment = VerticalAlignment.Center;
             Title.Margin = new Thickness(10, 0, 0, 0);
