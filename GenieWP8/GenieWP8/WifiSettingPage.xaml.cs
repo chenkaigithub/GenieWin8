@@ -77,24 +77,6 @@ namespace GenieWP8
             } 
             else
             {
-                //string[] signal = WifiSettingInfo.signalStrength.Split('%');
-                //int result = int.Parse(signal[0]);
-                //if (result <= 20)
-                //{
-                //    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_1.png", UriKind.Relative));
-                //}
-                //else if (result > 20 && result <= 40)
-                //{
-                //    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_2.png", UriKind.Relative));
-                //}
-                //else if (result > 40 && result <= 70)
-                //{
-                //    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_3.png", UriKind.Relative));
-                //}
-                //else if (result > 70)
-                //{
-                //    imgSignalStrength.Source = new BitmapImage(new Uri("Assets/deviceInfoPopup/wifi_4.png", UriKind.Relative));
-                //}
                 tbSignalStrength.Text = WifiSettingInfo.signalStrength;
                 gridSignal.Visibility = Visibility.Visible;
             }            
@@ -206,7 +188,8 @@ namespace GenieWP8
                 PopupBackground.Visibility = Visibility.Visible;
                 GenieSoapApi soapApi = new GenieSoapApi();
 
-                Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                //Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
+                List<List<string>> attachDeviceAll = new List<List<string>>();
                 attachDeviceAll = await soapApi.GetAttachDevice();
                 UtilityTool util = new UtilityTool();
                 var ipList = util.GetCurrentIpAddresses();
@@ -218,21 +201,43 @@ namespace GenieWP8
                 }
                 else
                 {
-                    foreach (string key in attachDeviceAll.Keys)
+                    //foreach (string key in attachDeviceAll.Keys)
+                    //{
+                    //    if (loacalIp == attachDeviceAll[key]["Ip"])
+                    //    {
+                    //        if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                    //        {
+                    //            WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                    //        }
+                    //        else
+                    //        {
+                    //            WifiSettingInfo.linkRate = "";
+                    //        }
+                    //        if (attachDeviceAll[key].ContainsKey("Signal"))
+                    //        {
+                    //            WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                    //        }
+                    //        else
+                    //        {
+                    //            WifiSettingInfo.signalStrength = "";
+                    //        }
+                    //    }
+                    //}
+                    foreach (List<string> deviceInfo in attachDeviceAll)
                     {
-                        if (loacalIp == attachDeviceAll[key]["Ip"])
+                        if (loacalIp == deviceInfo.ElementAt(0))
                         {
-                            if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
+                            if (deviceInfo.Count > 4)
                             {
-                                WifiSettingInfo.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
+                                WifiSettingInfo.linkRate = deviceInfo.ElementAt(4) + "Mbps";
                             }
                             else
                             {
                                 WifiSettingInfo.linkRate = "";
                             }
-                            if (attachDeviceAll[key].ContainsKey("Signal"))
+                            if (deviceInfo.Count > 5)
                             {
-                                WifiSettingInfo.signalStrength = attachDeviceAll[key]["Signal"] + "%";
+                                WifiSettingInfo.signalStrength = deviceInfo.ElementAt(5) + "%";
                             }
                             else
                             {

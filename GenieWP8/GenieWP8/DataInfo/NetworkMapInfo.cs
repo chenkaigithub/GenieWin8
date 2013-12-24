@@ -8,7 +8,8 @@ namespace GenieWP8.DataInfo
 {
     class NetworkMapInfo
     {
-        public static Dictionary<string, Dictionary<string, string>> attachDeviceDic = new Dictionary<string, Dictionary<string, string>>();
+        //public static Dictionary<string, Dictionary<string, string>> attachDeviceDic = new Dictionary<string, Dictionary<string, string>>();
+        public static List<List<string>> attachDeviceDic = new List<List<string>>();
         public static string geteway;
         public static string fileContent;
         public static bool bTypeChanged;

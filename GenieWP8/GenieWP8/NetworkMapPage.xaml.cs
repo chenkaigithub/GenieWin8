@@ -579,7 +579,7 @@ namespace GenieWP8
                         map_PivotItem.Content = map;
                         MapPivot.Items.Add(map_PivotItem);
                     }//if (i != m)
-                    else
+                    else if (n != 0)
                     {
                         double Angle = 360.0 / (n + 2);
                         Grid map = new Grid();

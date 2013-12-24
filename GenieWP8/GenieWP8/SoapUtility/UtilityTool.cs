@@ -324,7 +324,8 @@ namespace GenieWP8
         /// <returns></returns>
         public string GetLocalMacAddress()
         {
-            Dictionary<string, Dictionary<string, string>> attachDevice = NetworkMapInfo.attachDeviceDic;
+            //Dictionary<string, Dictionary<string, string>> attachDevice = NetworkMapInfo.attachDeviceDic;
+            List<List<string>> attachDevice = NetworkMapInfo.attachDeviceDic;
             var iplist = GetCurrentIpAddresses();
             if (iplist.Count() > 0)
             {
@@ -332,11 +333,18 @@ namespace GenieWP8
                 {
                     if (attachDevice.Count > 0)
                     {
-                        foreach (string key in attachDevice.Keys)
+                        //foreach (string key in attachDevice.Keys)
+                        //{
+                        //    if (ip == attachDevice[key]["Ip"])
+                        //    {
+                        //        return key;
+                        //    }
+                        //}
+                        foreach (List<string> deviceInfo in attachDevice)
                         {
-                            if (ip == attachDevice[key]["Ip"])
+                            if (ip == deviceInfo.ElementAt(0))
                             {
-                                return key;
+                                return deviceInfo.ElementAt(2);
                             }
                         }
                     }

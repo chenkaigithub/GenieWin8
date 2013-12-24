@@ -37,11 +37,11 @@ namespace GenieWP8
             Match match = regxv.Match(routerName);
             if (match.Success)
             {
-                routerName = routerName.Replace(match.ToString(), "").ToUpper();
+                routerName = routerName.Replace(match.ToString(), "").ToLower();
             }
             else
             {
-                routerName = routerName.ToUpper();
+                routerName = routerName.ToLower();
             }
             
             if (routerName == "" || routerName == "N/A")
