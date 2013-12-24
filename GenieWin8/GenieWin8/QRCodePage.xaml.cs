@@ -24,6 +24,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Popups;
 using Windows.Graphics.Display;
 using Windows.Devices.Enumeration;
+using Windows.ApplicationModel;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -35,99 +36,133 @@ namespace GenieWin8
     public sealed partial class QRCodePage : GenieWin8.Common.LayoutAwarePage
     {
         private Windows.Media.Capture.MediaCapture mediaCaptureMgr;
-        private bool bMediaCaptureInitialized;
+        private bool bMediaCaptureStartedPreview = false;
         DeviceInformationCollection m_devInfoCollection = null;
-        int SelectedCameraIndex = -1;
+        private EventHandler<Object> m_soundLevelHandler;
+        //int SelectedCameraIndex = -1;
 
         public QRCodePage()
         {
             this.InitializeComponent();
+            ScenarioReset();
+            m_soundLevelHandler = new EventHandler<Object>(MediaControl_SoundLevelChanged);
+            //Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
+            //Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
         }
         DispatcherTimer timer = new DispatcherTimer();
         //private int _failedCount = 0;
 
-        /// <summary>
-        /// 使用在导航过程中传递的内容填充页。在从以前的会话
-        /// 重新创建页时，也会提供任何已保存状态。
-        /// </summary>
-        /// <param name="navigationParameter">最初请求此页时传递给
-        /// <see cref="Frame.Navigate(Type, Object)"/> 的参数值。
-        /// </param>
-        /// <param name="pageState">此页在以前会话期间保留的状态
-        /// 字典。首次访问页面时为 null。</param>
-        protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
-        {
-            //ScanQRCode();
-            EnumedCameraList.Items.Clear();
-            m_devInfoCollection = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
-            for (int i = 0; i < m_devInfoCollection.Count; i++)
-            {
-                EnumedCameraList.Items.Add(m_devInfoCollection[i].Name);
-            }
-
-            if (EnumedCameraList.Items.Count > 0 && SelectedCameraIndex != -1)
-            {
-                EnumedCameraList.SelectedIndex = SelectedCameraIndex;
-            }
-            else if (EnumedCameraList.Items.Count > 0)
-            { 
-                EnumedCameraList.SelectedIndex = 0;
-            }
-        }
-
-        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //private async void App_Suspending(Object sender, SuspendingEventArgs e)
         //{
-        //    int a = 0;
-        //    base.OnNavigatedTo(e);
+        //    timer.Stop();
+        //    if (bMediaCaptureStartedPreview)
+        //    {
+        //        await mediaCaptureMgr.StopPreviewAsync();
+        //        bMediaCaptureStartedPreview = false;
+        //    }
         //}
 
-        /// <summary>
-        /// 保留与此页关联的状态，以防挂起应用程序或
-        /// 从导航缓存中放弃此页。值必须符合
-        /// <see cref="SuspensionManager.SessionState"/> 的序列化要求。
-        /// </summary>
-        /// <param name="pageState">要使用可序列化状态填充的空字典。</param>
-        protected override void SaveState(Dictionary<String, Object> pageState)
+        //private async void App_Resuming(Object sender, Object e)
+        //{
+        //    m_devInfoCollection = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
+        //    if (m_devInfoCollection.Count < 1)
+        //    {
+        //        WarnNoCamera.Text = "No camera found!";
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            mediaCaptureMgr = new Windows.Media.Capture.MediaCapture();
+        //            var settings = new MediaCaptureInitializationSettings();
+        //            if (m_devInfoCollection.Count == 1)
+        //            {
+        //                settings.VideoDeviceId = m_devInfoCollection[0].Id; // 0 => front, 1 => back
+        //            }
+        //            else
+        //            {
+        //                settings.VideoDeviceId = m_devInfoCollection[1].Id; // 0 => front, 1 => back
+        //            }
+        //            await mediaCaptureMgr.InitializeAsync(settings);
+        //            captureElement.Source = mediaCaptureMgr;
+        //            await mediaCaptureMgr.StartPreviewAsync();
+        //            bMediaCaptureStartedPreview = true;
+
+        //            timer.Interval = TimeSpan.FromMilliseconds(250);
+        //            timer.Tick += new System.EventHandler<object>(timer_Tick);
+        //            timer.Start();
+        //        }
+        //        catch (Exception exception)
+        //        {
+        //        }
+        //    }
+        //}
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            Windows.Media.MediaControl.SoundLevelChanged += m_soundLevelHandler;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            Windows.Media.MediaControl.SoundLevelChanged -= m_soundLevelHandler;
+        }
+
+        private async void MediaControl_SoundLevelChanged(object sender, Object e)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
+                try
+                {
+                    if (Windows.Media.MediaControl.SoundLevel != Windows.Media.SoundLevel.Muted)
+                    {
+                        ScenarioReset();
+                    }
+                    else
+                    {
+                        if (bMediaCaptureStartedPreview)
+                        {
+                            timer.Stop();
+                            await mediaCaptureMgr.StopPreviewAsync();
+                            bMediaCaptureStartedPreview = false;
+                            btnStartPreview.IsEnabled = true;
+                            captureElement.Source = null;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+            });
         }
 
         private async void GoBack_Click(Object sender, RoutedEventArgs e)
         {
-            timer.Stop();
-            if (bMediaCaptureInitialized)
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
-                await mediaCaptureMgr.StopPreviewAsync();
-            }
-            this.GoHome(null, null);
+                if (bMediaCaptureStartedPreview)
+                {
+                    timer.Stop();
+                    await mediaCaptureMgr.StopPreviewAsync();
+                    bMediaCaptureStartedPreview = false;
+                    btnStartPreview.IsEnabled = true;
+                    captureElement.Source = null;
+                }
+                this.GoHome(null, null);
+            });
         }
 
-        private async void OnWindowSizeChanged(Object sender, SizeChangedEventArgs e)
+        private void OnWindowSizeChanged(Object sender, SizeChangedEventArgs e)
         {
-            //timer.Stop();
-            try
+            if (bMediaCaptureStartedPreview)
             {
-                mediaCaptureMgr = new Windows.Media.Capture.MediaCapture();
-                var settings = new MediaCaptureInitializationSettings();
-                var chosenDevInfo = m_devInfoCollection[EnumedCameraList.SelectedIndex];
-                settings.VideoDeviceId = chosenDevInfo.Id;
-                await mediaCaptureMgr.InitializeAsync(settings);
-                bMediaCaptureInitialized = true;
-                captureElement.Source = mediaCaptureMgr;
-                await mediaCaptureMgr.StartPreviewAsync();
                 if (DisplayProperties.CurrentOrientation == DisplayOrientations.Landscape)
                 {
                     mediaCaptureMgr.SetPreviewRotation(VideoRotation.None);
                 }
                 else if (DisplayProperties.CurrentOrientation == DisplayOrientations.Portrait)
                 {
-                    if(chosenDevInfo.Name.Contains("Front"))
-                    {
-                        mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise270Degrees);
-                    }
-                    else if(chosenDevInfo.Name.Contains("Back"))
-                    {
-                        mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise90Degrees);
-                    }
+                    mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise90Degrees);
                 }
                 else if (DisplayProperties.CurrentOrientation == DisplayOrientations.LandscapeFlipped)
                 {
@@ -135,23 +170,73 @@ namespace GenieWin8
                 }
                 else if (DisplayProperties.CurrentOrientation == DisplayOrientations.PortraitFlipped)
                 {
-                    if (chosenDevInfo.Name.Contains("Front"))
+                    mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise270Degrees);
+                }
+            }
+        }
+
+        private void ScenarioReset()
+        {
+            btnStartPreview.IsEnabled = true;
+            captureElement.Source = null;
+        }
+
+        internal async void btnStartPreview_Click(Object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            bMediaCaptureStartedPreview = false;
+            m_devInfoCollection = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
+            if (m_devInfoCollection.Count < 1)
+            {
+                WarnNoCamera.Text = "No camera found!";
+            }
+            else
+            {
+                try
+                {
+                    mediaCaptureMgr = new Windows.Media.Capture.MediaCapture();
+                    var settings = new MediaCaptureInitializationSettings();
+                    if (m_devInfoCollection.Count == 1)
+                    {
+                        settings.VideoDeviceId = m_devInfoCollection[0].Id; // 0 => front, 1 => back
+                    }
+                    else
+                    {
+                        settings.VideoDeviceId = m_devInfoCollection[1].Id; // 0 => front, 1 => back
+                    }
+                    await mediaCaptureMgr.InitializeAsync(settings);
+
+                    btnStartPreview.IsEnabled = false;
+                    captureElement.Source = mediaCaptureMgr;
+                    await mediaCaptureMgr.StartPreviewAsync();
+                    bMediaCaptureStartedPreview = true;
+
+                    if (DisplayProperties.CurrentOrientation == DisplayOrientations.Landscape)
+                    {
+                        mediaCaptureMgr.SetPreviewRotation(VideoRotation.None);
+                    }
+                    else if (DisplayProperties.CurrentOrientation == DisplayOrientations.Portrait)
                     {
                         mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise90Degrees);
                     }
-                    else if (chosenDevInfo.Name.Contains("Back"))
+                    else if (DisplayProperties.CurrentOrientation == DisplayOrientations.LandscapeFlipped)
+                    {
+                        mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise180Degrees);
+                    }
+                    else if (DisplayProperties.CurrentOrientation == DisplayOrientations.PortraitFlipped)
                     {
                         mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise270Degrees);
                     }
-                }
 
-                timer.Interval = TimeSpan.FromMilliseconds(250);
-                timer.Tick += new System.EventHandler<object>(timer_Tick);
-                timer.Start();
-            }
-            catch (Exception exception)
-            {
-                //this.NotifyUser(exception.Message);
+                    timer.Interval = TimeSpan.FromMilliseconds(250);
+                    timer.Tick += new System.EventHandler<object>(timer_Tick);
+                    timer.Start();
+                }
+                catch (Exception exception)
+                {
+                    bMediaCaptureStartedPreview = false;
+                    captureElement.Source = null;
+                    btnStartPreview.IsEnabled = true;
+                }
             }
         }
 
@@ -160,11 +245,11 @@ namespace GenieWin8
             try
             {
                 StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-                StorageFile m_photoStorageFile = await storageFolder.CreateFileAsync("qrcode.jpg", CreationCollisionOption.ReplaceExisting);
+                StorageFile m_photoStorageFile = await storageFolder.CreateFileAsync("qrcode.jpg", CreationCollisionOption.GenerateUniqueName);
                 ImageEncodingProperties imageProperties = ImageEncodingProperties.CreateJpeg();
                 await mediaCaptureMgr.CapturePhotoToStorageFileAsync(imageProperties, m_photoStorageFile);
 
-                IRandomAccessStream stream = await m_photoStorageFile.OpenAsync(FileAccessMode.Read);
+                IRandomAccessStream stream = await m_photoStorageFile.OpenReadAsync();
                 // initialize with 1,1 to get the current size of the image
                 var writeableBmp = new WriteableBitmap(1, 1);
                 writeableBmp.SetSource(stream);
@@ -175,6 +260,7 @@ namespace GenieWin8
                 writeableBmp.SetSource(stream);
 
                 var result = ScanBitmap(writeableBmp);
+                await m_photoStorageFile.DeleteAsync(StorageDeleteOption.PermanentDelete);
                 if (result != null)
                 {
                     string decodeString = result.Text;
@@ -202,18 +288,7 @@ namespace GenieWin8
             }
             catch (Exception exception)
             {
-                //_failedCount++;
-                //this.NotifyUser(exception.Message);
             }
-            //finally
-            //{
-            //    if (_failedCount >= 100)
-            //    {
-            //        _failedCount = 0;
-            //        timer.Stop();
-            //        this.NotifyUser("Application Force stop monitor,because it can not grab valid image for 100 consecutive times.");
-            //    }
-            //}
         }
 
         private Result ScanBitmap(WriteableBitmap writeableBmp)
@@ -225,57 +300,6 @@ namespace GenieWin8
             };
             var result = barcodeReader.Decode(writeableBmp);
             return result;
-        }
-
-        private async void EnumedCameraList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-
-                mediaCaptureMgr = new Windows.Media.Capture.MediaCapture();
-                var settings = new MediaCaptureInitializationSettings();
-                var chosenDevInfo = m_devInfoCollection[EnumedCameraList.SelectedIndex];
-                settings.VideoDeviceId = chosenDevInfo.Id;
-                await mediaCaptureMgr.InitializeAsync(settings);
-                bMediaCaptureInitialized = true;
-                captureElement.Source = mediaCaptureMgr;
-                await mediaCaptureMgr.StartPreviewAsync();
-                if (DisplayProperties.CurrentOrientation == DisplayOrientations.Landscape)
-                {
-                    mediaCaptureMgr.SetPreviewRotation(VideoRotation.None);
-                }
-                else if (DisplayProperties.CurrentOrientation == DisplayOrientations.Portrait)
-                {
-                    if (chosenDevInfo.Name.Contains("Front"))
-                    {
-                        mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise270Degrees);
-                    }
-                    else if (chosenDevInfo.Name.Contains("Back"))
-                    {
-                        mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise90Degrees);
-                    }
-                }
-                else if (DisplayProperties.CurrentOrientation == DisplayOrientations.LandscapeFlipped)
-                {
-                    mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise180Degrees);
-                }
-                else if (DisplayProperties.CurrentOrientation == DisplayOrientations.PortraitFlipped)
-                {
-                    if (chosenDevInfo.Name.Contains("Front"))
-                    {
-                        mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise90Degrees);
-                    }
-                    else if (chosenDevInfo.Name.Contains("Back"))
-                    {
-                        mediaCaptureMgr.SetPreviewRotation(VideoRotation.Clockwise270Degrees);
-                    }
-                }
-                SelectedCameraIndex = EnumedCameraList.SelectedIndex;
-            }
-            catch (Exception exception)
-            {
-                //this.NotifyUser(exception.Message);
-            }
         }
     }
 }

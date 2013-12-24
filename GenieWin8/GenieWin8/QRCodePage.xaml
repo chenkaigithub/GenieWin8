@@ -53,12 +53,21 @@
 
         <!--<TextBlock x:Name="StatusBlock" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="20" Foreground="#FF5A5A5A"/>-->
         <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,50,0,0">
-            <TextBlock x:Uid="SelectCamera" Text="Select one camera to capture" HorizontalAlignment="Center" FontSize="24"/>
-            <ComboBox x:Name="EnumedCameraList" HorizontalAlignment="Center" VerticalAlignment="Top" Width="500" SelectionChanged="EnumedCameraList_SelectionChanged"/>
+            <TextBlock x:Name="WarnNoCamera" HorizontalAlignment="Center" FontSize="24"/>
+            <!--<ComboBox x:Name="EnumedCameraList" HorizontalAlignment="Center" VerticalAlignment="Top" Width="500" SelectionChanged="EnumedCameraList_SelectionChanged"/>-->
+
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0,25,0,0">
+                <Button x:Name="btnStartPreview" Content="StartPreview" Click="btnStartPreview_Click" IsEnabled="true" HorizontalAlignment="Center" BorderThickness="0" Foreground="White" Background="#8165A2"/>
+                <Canvas x:Name="captureCanvas"  Background="Gray"  Width="640" Height="360">
+                    <CaptureElement x:Name="captureElement" Grid.Row="1" Width="640" Height="360"/>
+                </Canvas>
+                <!--<StackPanel x:Name="stpMessage" Visibility="Collapsed">
+                    <TextBlock x:Name="ConnectWiFiName" HorizontalAlignment="Left" FontSize="24"/>
+                    <TextBlock x:Name="ConnectWiFiPassword" HorizontalAlignment="Left" FontSize="24"/>
+                    <TextBlock x:Name="CopyToClipboard" HorizontalAlignment="Left" FontSize="24" MaxWidth="640" TextWrapping="Wrap"/>
+                </StackPanel>-->
+            </StackPanel>
         </StackPanel>
-        <Canvas x:Name="captureCanvas" Grid.Row="1" Background="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Width="640" Height="360">
-            <CaptureElement x:Name="captureElement" Grid.Row="1" Width="640" Height="360"/>
-        </Canvas>      
 
         <VisualStateManager.VisualStateGroups>
 

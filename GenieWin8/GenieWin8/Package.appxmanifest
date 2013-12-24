@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="9f470e6b-95f7-484b-9b15-1a191dd0a6bf" Publisher="CN=xie" Version="1.0.1.0" />
+  <Identity Name="9f470e6b-95f7-484b-9b15-1a191dd0a6bf" Publisher="CN=xie" Version="1.0.1.1" />
   <Properties>
     <DisplayName>GenieWin8</DisplayName>
     <PublisherDisplayName>xie</PublisherDisplayName>

@@ -167,7 +167,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Uid="Version" FontSize="20" Margin="10,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
-                            <TextBlock Text="1.0.0.5" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
+                            <TextBlock Text="1.0.1.1" FontSize="20" Margin="0,20,0,0" HorizontalAlignment="Left" Foreground="White"/>
                         </StackPanel>
                         <TextBlock x:Uid="Copyright" FontSize="20" Margin="10,0,0,0" Foreground="White"/>
                         <TextBlock x:Uid="RightsReserved" FontSize="20" Margin="10,0,0,0" Foreground="White"/>
