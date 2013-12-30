@@ -18,7 +18,7 @@ using Windows.Storage.Pickers;
 using Windows.Storage;
 using System.Text;
 using Windows.Storage.AccessCache;
-
+using SV.UPnPLite.Protocols.DLNA.Services.ContentDirectory;
 
 // “空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234238 上有介绍
 
@@ -29,6 +29,11 @@ namespace MyMedia
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        List<string> ServerDeviceList = new List<string>();
+        List<string> RenderDeviceList = new List<string>();
+        MediaServersDiscovery mediaServersDiscovery = new MediaServersDiscovery();
+        MediaRenderersDiscovery mediaRenderersDiscovery = new MediaRenderersDiscovery();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -45,7 +50,8 @@ namespace MyMedia
 
         private void Button_Click_1(object sender, RoutedEventArgs ae)
         {
-
+            //ServerDeviceList.Clear();
+            //ServerList.Items.Clear();
             var devicesDiscovery = new CommonUPnPDevicesDiscovery();
 
             // Receiving notifications about new devices added to a network
@@ -71,28 +77,113 @@ namespace MyMedia
             //});
 
             // Getting currently available devices
-            var devices = devicesDiscovery.DiscoveredDevices;
+            //var devices = devicesDiscovery.DiscoveredDevices;
 
-            var mediaServersDiscovery = new MediaServersDiscovery();
-            var mediaRenderersDiscovery = new MediaRenderersDiscovery();
+            //var mediaServersDiscovery = new MediaServersDiscovery();
+            //var mediaRenderersDiscovery = new MediaRenderersDiscovery();
 
-            // Enumerating currently available servers
+            //// Enumerating currently available servers
+            //foreach (var server in mediaServersDiscovery.DiscoveredDevices)
+            //{
+            //    System.Diagnostics.Debug.WriteLine("Server found: {0}", server.FriendlyName);
+            //}
+
+            // Receiving notifications about new media servers added to a network
+            mediaServersDiscovery.DevicesActivity.Where(e => e.Activity == DeviceActivity.Available).Subscribe(e =>
+            {
+                //System.Diagnostics.Debug.WriteLine("Server found: {0}", e.Device.FriendlyName);
+                ServerDeviceList.Add(e.Device.FriendlyName);
+            });
+
+            // Receiving notifications about media servers left the network
+            mediaServersDiscovery.DevicesActivity.Where(e => e.Activity == DeviceActivity.Gone).Subscribe(e =>
+            {
+                //System.Diagnostics.Debug.WriteLine("Server gone: {0}", e.Device.FriendlyName);
+                ServerDeviceList.Remove(e.Device.FriendlyName);
+            });
+
+            // Receiving notifications about new media renders added to a network
+            mediaRenderersDiscovery.DevicesActivity.Where(e => e.Activity == DeviceActivity.Available).Subscribe(e =>
+            {
+                //System.Diagnostics.Debug.WriteLine("Render found: {0}", e.Device.FriendlyName);
+                RenderDeviceList.Add(e.Device.FriendlyName);
+            });
+
+            // Receiving notifications about media renders left the network
+            mediaRenderersDiscovery.DevicesActivity.Where(e => e.Activity == DeviceActivity.Gone).Subscribe(e =>
+            {
+                //System.Diagnostics.Debug.WriteLine("Render gone: {0}", e.Device.FriendlyName);
+                RenderDeviceList.Remove(e.Device.FriendlyName);
+            });
+        }
+
+        private async void ListServer_Click(object sender, RoutedEventArgs e)
+        {
+            ServerList.Items.Clear();
             foreach (var server in mediaServersDiscovery.DiscoveredDevices)
             {
-                System.Diagnostics.Debug.WriteLine("Server found: {0}", server.FriendlyName);
+                //System.Diagnostics.Debug.WriteLine("Server found: {0}", server.FriendlyName);
+                ServerList.Items.Add(server.FriendlyName);
             }
 
-            //// Receiving notifications about new media servers added to a network
-            //mediaServersDiscovery.DevicesActivity.Where(e => e.Activity == DeviceActivity.Available).Subscribe(e =>
-            //{
-            //    Console.WriteLine("Server found: {0}", e.Device.FriendlyName);
-            //});
+            //var serverDevice = mediaServersDiscovery.DiscoveredDevices.First();
 
-            //// Receiving notifications about media renderers left the network
-            //mediaRenderersDiscovery.DevicesActivity.Where(e => e.Activity == DeviceActivity.Gone).Subscribe(e =>
+            // Find all image items
+            foreach (var serverDevice in mediaServersDiscovery.DiscoveredDevices)
+            {
+                var Images = await serverDevice.SearchAsync<ImageItem>();
+                foreach (var image in Images)
+                {
+                    System.Diagnostics.Debug.WriteLine("Title={0}, Date={1}, Description={2}", image.Title, image.Date, image.Description);
+                }
+
+                //var videos = await serverDevice.SearchAsync<VideoItem>();
+                //foreach (var video in videos)
+                //{
+                //    System.Diagnostics.Debug.WriteLine("Title={0}, Genre={1}", video.Title, video.Genre);
+                //}
+
+                //if (serverDevice.FriendlyName == "ReadyDLNA: Rd")
+                //{
+                //    foreach (var renderer in mediaRenderersDiscovery.DiscoveredDevices)
+                //    {
+                //        if (renderer.FriendlyName == "SDK CS Sample PlayToReceiver")
+                //        {
+                //            var videoItem = await serverDevice.SearchAsync<VideoItem>();
+                //            foreach (var video in videoItem)
+                //            {
+                //                if (video.Title == "贝瓦儿歌 第3集")
+                //                {
+                //                    await renderer.OpenAsync(video);
+                //                    await renderer.PlayAsync();
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+            }
+            //var Images = await serverDevice.SearchAsync<ImageItem>();
+            //foreach (var image in Images)
             //{
-            //    Console.WriteLine("Renderer gone: {0}", e.Device.FriendlyName);
-            //});
+            //    System.Diagnostics.Debug.WriteLine("Title={0}, Date={1}, Description={2}", image.Title, image.Date, image.Description);
+            //}
+
+            // Find all video items
+            //var videos = await serverDevice.SearchAsync<VideoItem>();
+            //foreach (var video in videos)
+            //{
+            //    System.Diagnostics.Debug.WriteLine("Title={0}, Genre={1}", video.Title, video.Genre);
+            //}
+        }
+
+        private void ListRender_Click(object sender, RoutedEventArgs e)
+        {
+            RenderList.Items.Clear();
+            foreach (var render in mediaRenderersDiscovery.DiscoveredDevices)
+            {
+                //System.Diagnostics.Debug.WriteLine("Server found: {0}", render.FriendlyName);
+                RenderList.Items.Add(render.FriendlyName);
+            }
         }
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)
