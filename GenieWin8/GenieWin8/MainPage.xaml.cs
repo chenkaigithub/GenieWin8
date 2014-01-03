@@ -131,41 +131,42 @@ namespace GenieWin8
             {
                 btnLogin.Visibility = Visibility.Collapsed;
                 btnLogout.Visibility = Visibility.Visible;
-            } 
+            }
             else
             {
                 btnLogin.Visibility = Visibility.Visible;
                 btnLogout.Visibility = Visibility.Collapsed;
             }
         }
-        
+
         private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (DisplayProperties.CurrentOrientation == DisplayOrientations.Landscape || DisplayProperties.CurrentOrientation == DisplayOrientations.LandscapeFlipped)
             {
-                itemGridView.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
-                //itemGridView.Width = Window.Current.Bounds.Width * 4 / 5;
-                //itemGridView.Height = (Window.Current.Bounds.Height - 180) * 4 / 5;
+                itemGridView1.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
+                //itemGridView2.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
                 MainPageInfo.itemWidth = (Window.Current.Bounds.Width * 4 / 5 - 30) / 3;
                 MainPageInfo.itemHeight = ((Window.Current.Bounds.Height - 180) * 4 / 5 - 30) / 2;
                 MainPageInfo.itemImageWidth = MainPageInfo.itemImageHeight = MainPageInfo.itemHeight - 120;
             }
             else if (DisplayProperties.CurrentOrientation == DisplayOrientations.Portrait || DisplayProperties.CurrentOrientation == DisplayOrientations.PortraitFlipped)
             {
-                itemGridView.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
-                //itemGridView.Width = Window.Current.Bounds.Width * 4 / 5;
+                itemGridView1.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
+                //itemGridView2.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
                 MainPageInfo.itemHeight = MainPageInfo.itemWidth = (Window.Current.Bounds.Width * 4 / 5 - 20) / 2;
-                //itemGridView.Height = MainPageInfo.itemHeight * 3.5;
                 MainPageInfo.itemImageWidth = MainPageInfo.itemImageHeight = MainPageInfo.itemHeight - 120;
             }
 
-            ItemModel.AllGroups.Clear();
+            ItemModel.Groups1.Clear();
+            ItemModel.Groups2.Clear();
             ItemModel.LoadData();
-            var dataGroups = ItemModel.AllGroups;
-            this.DefaultViewModel["Items"] = dataGroups;
+            var dataGroups1 = ItemModel.Groups1;
+            var dataGroups2 = ItemModel.Groups2;
+            this.DefaultViewModel["Items1"] = dataGroups1;
+            this.DefaultViewModel["Items2"] = dataGroups2;
             if (SearchText.FocusState != FocusState.Pointer)
             {
-                itemGridView.Focus(FocusState.Pointer);
+                MainItemsView.Focus(FocusState.Pointer);
             }
         }
 
@@ -191,7 +192,6 @@ namespace GenieWin8
                     PopupBackgroundTop.Visibility = Visibility.Visible;
                     PopupBackground.Visibility = Visibility.Visible;
 
-                    //Dictionary<string, Dictionary<string, string>> attachDeviceAll = new Dictionary<string, Dictionary<string, string>>();
                     List<List<string>> attachDeviceAll = new List<List<string>>();
                     attachDeviceAll = await soapApi.GetAttachDevice();
                     UtilityTool util = new UtilityTool();
@@ -200,31 +200,9 @@ namespace GenieWin8
                     {
                         WifiInfoModel.linkRate = "";
                         WifiInfoModel.signalStrength = "";
-                    } 
+                    }
                     else
                     {
-                        //foreach (string key in attachDeviceAll.Keys)
-                        //{
-                        //    if (loacalIp == attachDeviceAll[key]["Ip"])
-                        //    {
-                        //        if (attachDeviceAll[key].ContainsKey("LinkSpeed"))
-                        //        {
-                        //            WifiInfoModel.linkRate = attachDeviceAll[key]["LinkSpeed"] + "Mbps";
-                        //        }
-                        //        else
-                        //        {
-                        //            WifiInfoModel.linkRate = "";
-                        //        }
-                        //        if (attachDeviceAll[key].ContainsKey("Signal"))
-                        //        {
-                        //            WifiInfoModel.signalStrength = attachDeviceAll[key]["Signal"] + "%";
-                        //        }
-                        //        else
-                        //        {
-                        //            WifiInfoModel.signalStrength = "";
-                        //        }
-                        //    }
-                        //}
                         foreach (List<string> deviceInfo in attachDeviceAll)
                         {
                             if (loacalIp == deviceInfo.ElementAt(0))
@@ -284,7 +262,7 @@ namespace GenieWin8
                 {
                     this.Frame.Navigate(typeof(LoginPage));
                     MainPageInfo.navigatedPage = "WifiSettingPage";
-                }                
+                }
             }
             //访客访问
             else if (groupId == "GuestAccess")
@@ -329,7 +307,7 @@ namespace GenieWin8
                                 GuestAccessInfoModel.timePeriod = "Always";
                                 GuestAccessInfoModel.changedTimePeriod = "Always";
                             }
-                        }                        
+                        }
                         InProgress.IsActive = false;
                         PopupBackgroundTop.Visibility = Visibility.Collapsed;
                         PopupBackground.Visibility = Visibility.Collapsed;
@@ -352,7 +330,7 @@ namespace GenieWin8
                 {
                     this.Frame.Navigate(typeof(LoginPage));
                     MainPageInfo.navigatedPage = "GuestAccessPage";
-                }                
+                }
             }
             //网络映射
             else if (groupId == "NetworkMap")
@@ -390,7 +368,7 @@ namespace GenieWin8
                 {
                     this.Frame.Navigate(typeof(LoginPage));
                     MainPageInfo.navigatedPage = "NetworkMapPage";
-                }                
+                }
             }
             //流量控制
             else if (groupId == "TrafficMeter")
@@ -467,7 +445,7 @@ namespace GenieWin8
                 {
                     this.Frame.Navigate(typeof(LoginPage));
                     MainPageInfo.navigatedPage = "TrafficMeterPage";
-                }               
+                }
             }
             //家长控制
             else if (groupId == "ParentalControl")
@@ -541,19 +519,19 @@ namespace GenieWin8
                 }
             }
             //我的媒体
-            //else if (groupId == "MyMedia")
-            //{
+            else if (groupId == "MyMedia")
+            {
                 //UtilityTool util = new UtilityTool();
                 //GenieSoapApi soapApi = new GenieSoapApi();
                 //Dictionary<string, Dictionary<string, string>> responseDic = new Dictionary<string, Dictionary<string, string>>();
                 //responseDic = await soapApi.GetAttachDevice();
                 //NetworkMapInfo.attachDeviceDic = responseDic;
-                //  GenieFcml fcml = new GenieFcml();
-                // await fcml.Init("siteviewgenietest@gmail.com", "siteview");
-                // await fcml.GetCPList();
+                //GenieFcml fcml = new GenieFcml();
+                //await fcml.Init("siteviewgenietest@gmail.com", "siteview");
+                //await fcml.GetCPList();
 
-                //this.Frame.Navigate(typeof(MyMediaPage));
-            //}
+                this.Frame.Navigate(typeof(MyMediaPage));
+            }
             //QRCode
             else if (groupId == "QRCode")
             {

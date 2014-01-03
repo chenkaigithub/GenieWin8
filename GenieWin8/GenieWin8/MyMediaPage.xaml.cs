@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Windows.Media.PlayTo;
+
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
 namespace GenieWin8
@@ -57,20 +59,21 @@ namespace GenieWin8
         {
             var groupId = ((MyMediaGroup)e.ClickedItem).UniqueId;
             if (groupId == "MyMediaSource")
-	        {
+            {
                 this.Frame.Navigate(typeof(MyMediaSourcePage), groupId);
-	        }
-	        else if (groupId == "MyMediaPlayer")
-	        {
+            }
+            else if (groupId == "MyMediaPlayer")
+            {
                 this.Frame.Navigate(typeof(MyMediaPlayerPage), groupId);
-	        }
-	        else if (groupId == "MyMediaPlaying")
-	        {
-	        }
-	        else if (groupId == "MyMediaOption")
-	        {
-                this.Frame.Navigate(typeof(MyMediaOptionPage));		
-	        }
+            }
+            else if (groupId == "MyMediaPlaying")
+            {
+
+            }
+            else if (groupId == "MyMediaOption")
+            {
+                this.Frame.Navigate(typeof(MyMediaOptionPage));
+            }
         }
     }
 }

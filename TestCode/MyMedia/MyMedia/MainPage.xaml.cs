@@ -131,11 +131,11 @@ namespace MyMedia
             // Find all image items
             foreach (var serverDevice in mediaServersDiscovery.DiscoveredDevices)
             {
-                var Images = await serverDevice.SearchAsync<ImageItem>();
-                foreach (var image in Images)
-                {
-                    System.Diagnostics.Debug.WriteLine("Title={0}, Date={1}, Description={2}", image.Title, image.Date, image.Description);
-                }
+                //var Images = await serverDevice.SearchAsync<ImageItem>();
+                //foreach (var image in Images)
+                //{
+                //    System.Diagnostics.Debug.WriteLine("Title={0}, Date={1}, Server={2}", image.Title, image.Date, serverDevice.FriendlyName);
+                //}
 
                 //var videos = await serverDevice.SearchAsync<VideoItem>();
                 //foreach (var video in videos)
@@ -143,24 +143,39 @@ namespace MyMedia
                 //    System.Diagnostics.Debug.WriteLine("Title={0}, Genre={1}", video.Title, video.Genre);
                 //}
 
-                //if (serverDevice.FriendlyName == "ReadyDLNA: Rd")
-                //{
-                //    foreach (var renderer in mediaRenderersDiscovery.DiscoveredDevices)
-                //    {
-                //        if (renderer.FriendlyName == "SDK CS Sample PlayToReceiver")
-                //        {
-                //            var videoItem = await serverDevice.SearchAsync<VideoItem>();
-                //            foreach (var video in videoItem)
-                //            {
-                //                if (video.Title == "贝瓦儿歌 第3集")
-                //                {
-                //                    await renderer.OpenAsync(video);
-                //                    await renderer.PlayAsync();
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
+                if (serverDevice.FriendlyName == "ReadyDLNA: R6300v2")
+                {
+                    var Images = await serverDevice.SearchAsync<ImageItem>();
+                    var image = Images.First();
+                    foreach (var renderer in mediaRenderersDiscovery.DiscoveredDevices)
+                    {
+                        if (renderer.FriendlyName == "Genie Media Player (HTC Incredible S)")
+                        {
+                            await renderer.OpenAsync(image);
+                            await renderer.PlayAsync();
+                        }
+                    }
+                    //foreach (var video in videos)
+                    //{
+                    //    System.Diagnostics.Debug.WriteLine("Title={0}, Genre={1}, Server={2}", video.Title, video.Genre, serverDevice.FriendlyName);
+                    //}
+
+                    //foreach (var renderer in mediaRenderersDiscovery.DiscoveredDevices)
+                    //{
+                    //    if (renderer.FriendlyName == "SDK CS Sample PlayToReceiver")
+                    //    {
+                    //        var videoItem = await serverDevice.SearchAsync<VideoItem>();
+                    //        foreach (var video in videoItem)
+                    //        {
+                    //            if (video.Title == "贝瓦儿歌 第3集")
+                    //            {
+                    //                await renderer.OpenAsync(video);
+                    //                await renderer.PlayAsync();
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                }
             }
             //var Images = await serverDevice.SearchAsync<ImageItem>();
             //foreach (var image in Images)

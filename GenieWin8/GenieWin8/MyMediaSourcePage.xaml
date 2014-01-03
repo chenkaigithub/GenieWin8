@@ -15,11 +15,6 @@
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <!--<x:String x:Key="AppName">来源</x:String>-->
-
-        <CollectionViewSource
-            x:Name="MyMediaSourcesSource"
-            Source="{Binding itemSource}"
-            d:Source="{Binding MyMediaGroups[0].Items, Source={d:DesignInstance Type=data:MediaSource, IsDesignTimeCreatable=True}}"/>
     </Page.Resources>
 
     <!--
@@ -58,29 +53,35 @@
             <TextBlock x:Name="pageTitle" x:Uid="MyMediaSourcePageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
         </Grid>
 
-        <ListView Grid.Row="1"
-                  ItemsSource="{Binding Source={StaticResource MyMediaSourcesSource}}"
-                  SelectionMode="None"
-                  IsItemClickEnabled="True" Margin="10,20,10,0" VerticalAlignment="Top"
-                  Foreground="White">
-            <ListView.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF004F74" Offset="1"/>
-                    <GradientStop Color="#FF50C6FD"/>
-                </LinearGradientBrush>
-            </ListView.Background>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
-                        <Border Width="50" Height="50">
-                            <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-                        </Border>
-                        <!--<Image Source="{Binding Image}" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" AutomationProperties.Name="{Binding Title}"/>-->
-                        <TextBlock Text="{Binding Content}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Width="500" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0">
+                <TextBlock x:Name="MediaTitle" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
+                <ComboBox x:Name="AvailableMediaDevices" HorizontalAlignment="Stretch" SelectionChanged="AvailableMediaDevices_SelectionChanged"/>
+                <Button x:Name="Upper" Content="Upper" HorizontalAlignment="Stretch" FontSize="24" Click="Back_Click" Foreground="White" Background="#8165A2" BorderThickness="0"/>
+                <ListBox x:Name="MediaList" Height="500" HorizontalAlignment="Stretch" SelectionChanged="MediaList_SelectionChanged"/>
+            </StackPanel>
+
+            <Button x:Name="SelectReceiver" Content="Select Player" Grid.Column="1" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SelectReceiver_Click"
+                    Foreground="White" Background="#8165A2" BorderThickness="0" Margin="50,0,0,0"/>
+            <StackPanel x:Name="stpVideoPlayer"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+                <Border BorderBrush="Black" BorderThickness="1" Width="642" HorizontalAlignment="Left" Grid.Row="0">
+                    <MediaElement x:Name="VideoPlayer" AutomationProperties.Name="VideoPlayer" HorizontalAlignment="Center" VerticalAlignment="Center" Height="360" Width="640" AutoPlay="True" PosterSource="Assets/poster.png" IsLooping="True" />
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1" Width="642" Height="90" HorizontalAlignment="Left" Grid.Row="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button x:Name="playButton" Margin="0,0" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" />
+                        <Button x:Name="pauseButton" Margin="0,0" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}"/>
                     </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                </Border>
+            </StackPanel>
+
+            <Image x:Name="ImagePlayer" Grid.Column="1" Width="640" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0"/>
+        </Grid>
+
 
         <VisualStateManager.VisualStateGroups>
 

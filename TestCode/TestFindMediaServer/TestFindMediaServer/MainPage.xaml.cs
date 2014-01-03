@@ -78,7 +78,7 @@ namespace TestFindMediaServer
             catch (Exception ecp)
             {
                 Notify1.Text = "Error querying Media Servers :" + ecp.Message;
-            }
+            }            
         }
 
         private void dmsSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)

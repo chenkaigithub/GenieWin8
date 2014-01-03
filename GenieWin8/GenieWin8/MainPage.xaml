@@ -15,9 +15,13 @@
 
         <!-- 此页所显示的项集合-->
         <CollectionViewSource
-            x:Name="itemsViewSource"
-            Source="{Binding Items}"
-            d:Source="{Binding AllGroups, Source={d:DesignInstance Type=data:DataSource, IsDesignTimeCreatable=True}}"/>
+            x:Name="itemsViewSource1"
+            Source="{Binding Items1}"
+            d:Source="{Binding Groups1, Source={d:DesignInstance Type=data:DataSource, IsDesignTimeCreatable=True}}"/>
+        <CollectionViewSource
+            x:Name="itemsViewSource2"
+            Source="{Binding Items2}"
+            d:Source="{Binding Groups2, Source={d:DesignInstance Type=data:DataSource, IsDesignTimeCreatable=True}}"/>
 
         <DataTemplate x:Key="ItemTemplate">
             <Grid HorizontalAlignment="Left" Width="{Binding ItemWidth}" Height="{Binding ItemHeight}">
@@ -51,6 +55,7 @@
             </Grid>
         </DataTemplate>
 
+
         <Style x:Key="AboutAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
             <Setter Property="AutomationProperties.AutomationId" Value="AboutAppBarButton"/>
             <Setter Property="AutomationProperties.Name" Value="About"/>
@@ -74,39 +79,72 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- 在大多数视图状态中使用的水平滚动网格-->
-        <GridView
-            x:Name="itemGridView"
-            AutomationProperties.AutomationId="ItemsGridView"
-            AutomationProperties.Name="Items"
-            TabIndex="1"
-            Grid.Row="1"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource ItemTemplate}"
-            SelectionMode="None"
-            IsSwipeEnabled="false"
-            IsItemClickEnabled="True"
-            ItemClick="ItemView_ItemClick" RenderTransformOrigin="0.5,0.5"
-            Padding="0"
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        </GridView>
 
-        <!-- 垂直滚动列表仅在对齐后使用-->
-        <ListView
-            x:Name="itemListView"
-            AutomationProperties.AutomationId="ItemsListView"
-            AutomationProperties.Name="Items"
-            TabIndex="1"
-            Grid.Row="1"
-            Visibility="Collapsed"
-            Margin="0,0,0,0"
-            Padding="10,0,0,60"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource SnappedItemTemplate}"
-            SelectionMode="None"
-            IsSwipeEnabled="false"
-            IsItemClickEnabled="True"
-            ItemClick="ItemView_ItemClick"/>
+
+        <FlipView x:Name="MainItemsView" Grid.Row="1">
+            <!-- 在大多数视图状态中使用的水平滚动网格-->
+            <GridView
+                x:Name="itemGridView1"
+                AutomationProperties.AutomationId="ItemsGridView1"
+                AutomationProperties.Name="Items1"
+                TabIndex="1"
+                ItemsSource="{Binding Source={StaticResource itemsViewSource1}}"
+                ItemTemplate="{StaticResource ItemTemplate}"
+                SelectionMode="None"
+                IsSwipeEnabled="false"
+                IsItemClickEnabled="True"
+                ItemClick="ItemView_ItemClick" RenderTransformOrigin="0.5,0.5"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            </GridView>
+
+            <!-- 在大多数视图状态中使用的水平滚动网格-->
+            <!--<GridView
+                x:Name="itemGridView2"
+                AutomationProperties.AutomationId="ItemsGridView2"
+                AutomationProperties.Name="Items2"
+                TabIndex="2"
+                ItemsSource="{Binding Source={StaticResource itemsViewSource2}}"
+                ItemTemplate="{StaticResource ItemTemplate}"
+                SelectionMode="None"
+                IsSwipeEnabled="false"
+                IsItemClickEnabled="True"
+                ItemClick="ItemView_ItemClick" RenderTransformOrigin="0.5,0.5"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            </GridView>-->
+        </FlipView>
+
+        <FlipView x:Name="SnappedMainItemsView" Grid.Row="1" Visibility="Collapsed">
+            <!-- 垂直滚动列表仅在对齐后使用-->
+            <ListView
+                x:Name="itemListView1"
+                AutomationProperties.AutomationId="ItemsListView1"
+                AutomationProperties.Name="Items1"
+                TabIndex="1"
+                Grid.Row="1"
+                Margin="0,0,0,0"
+                Padding="10,0,0,60"
+                ItemsSource="{Binding Source={StaticResource itemsViewSource1}}"
+                ItemTemplate="{StaticResource SnappedItemTemplate}"
+                SelectionMode="None"
+                IsSwipeEnabled="false"
+                IsItemClickEnabled="True"
+                ItemClick="ItemView_ItemClick"/>
+
+            <!--<ListView
+                x:Name="itemListView2"
+                AutomationProperties.AutomationId="ItemsListView2"
+                AutomationProperties.Name="Items2"
+                TabIndex="1"
+                Grid.Row="1"
+                Margin="0,0,0,0"
+                Padding="10,0,0,60"
+                ItemsSource="{Binding Source={StaticResource itemsViewSource2}}"
+                ItemTemplate="{StaticResource Standard80ItemTemplate}"
+                SelectionMode="None"
+                IsSwipeEnabled="false"
+                IsItemClickEnabled="True"
+                ItemClick="ItemView_ItemClick"/>-->
+        </FlipView>
 
         <!-- 后退按钮和页标题-->
         <Grid>
@@ -262,10 +300,10 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
                         </ObjectAnimationUsingKeyFrames>-->
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SnappedMainItemsView" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainItemsView" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>

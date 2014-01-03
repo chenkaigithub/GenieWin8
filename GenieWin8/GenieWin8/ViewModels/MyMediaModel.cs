@@ -145,49 +145,49 @@ namespace GenieWin8.Data
             var mymediagroup1 = new MyMediaGroup("MyMediaSource",
                 strTitle,
                 "Assets/MyMedia/browse.png");
-            mymediagroup1.Items.Add(new MediaItem("Source-1",
-                "Source",
-                "Assets/MyMedia/icon48.png",
-                "ReadyDLNA: R6200",
-                mymediagroup1));
-            mymediagroup1.Items.Add(new MediaItem("Source-2",
-                "Source",
-                "Assets/MyMedia/icon48.png",
-                "Genie Media Server (iPad Simulator)",
-                mymediagroup1));
-            mymediagroup1.Items.Add(new MediaItem("Source-3",
-                "Source",
-                "Assets/MyMedia/icon48.png",
-                "Genie Media Server (HTC Incredible S)",
-                mymediagroup1));
+            //mymediagroup1.Items.Add(new MediaItem("Source-1",
+            //    "Source",
+            //    "Assets/MyMedia/icon48.png",
+            //    "ReadyDLNA: R6200",
+            //    mymediagroup1));
+            //mymediagroup1.Items.Add(new MediaItem("Source-2",
+            //    "Source",
+            //    "Assets/MyMedia/icon48.png",
+            //    "Genie Media Server (iPad Simulator)",
+            //    mymediagroup1));
+            //mymediagroup1.Items.Add(new MediaItem("Source-3",
+            //    "Source",
+            //    "Assets/MyMedia/icon48.png",
+            //    "Genie Media Server (HTC Incredible S)",
+            //    mymediagroup1));
             this.MyMediaGroups.Add(mymediagroup1);
 
             strTitle = loader.GetString("MyMediaPlayer");
             var mymediagroup2 = new MyMediaGroup("MyMediaPlayer",
                 strTitle,
                 "Assets/MyMedia/device.png");
-            mymediagroup2.Items.Add(new MediaItem("Player-1",
-                "Player",
-                "Assets/MyMedia/icon48.png",
-                "Genie Media Player (GT-I9100)",
-                mymediagroup2));
-            mymediagroup2.Items.Add(new MediaItem("Player-2",
-                "Player",
-                "Assets/MyMedia/icon48.png",
-                "Genie Media Player (iPad Simulator)",
-                mymediagroup2));
-            mymediagroup2.Items.Add(new MediaItem("Player-3",
-                "Player",
-                "Assets/MyMedia/icon48.png",
-                "Genie Media Player (HTC Incredible S)",
-                mymediagroup2));
+            //mymediagroup2.Items.Add(new MediaItem("Player-1",
+            //    "Player",
+            //    "Assets/MyMedia/icon48.png",
+            //    "Genie Media Player (GT-I9100)",
+            //    mymediagroup2));
+            //mymediagroup2.Items.Add(new MediaItem("Player-2",
+            //    "Player",
+            //    "Assets/MyMedia/icon48.png",
+            //    "Genie Media Player (iPad Simulator)",
+            //    mymediagroup2));
+            //mymediagroup2.Items.Add(new MediaItem("Player-3",
+            //    "Player",
+            //    "Assets/MyMedia/icon48.png",
+            //    "Genie Media Player (HTC Incredible S)",
+            //    mymediagroup2));
             this.MyMediaGroups.Add(mymediagroup2);
 
-            strTitle = loader.GetString("MyMediaPlaying");
-            var mymediagroup3 = new MyMediaGroup("MyMediaPlaying",
-                    strTitle,
-                    "Assets/MyMedia/playing.png");
-            this.MyMediaGroups.Add(mymediagroup3);
+            //strTitle = loader.GetString("MyMediaPlaying");
+            //var mymediagroup3 = new MyMediaGroup("MyMediaPlaying",
+            //        strTitle,
+            //        "Assets/MyMedia/playing.png");
+            //this.MyMediaGroups.Add(mymediagroup3);
 
             strTitle = loader.GetString("MyMediaOption");
             var mymediagrou4 = new MyMediaGroup("MyMediaOption",

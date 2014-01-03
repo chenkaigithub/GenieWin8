@@ -119,11 +119,13 @@ namespace GenieWin8.Data
     {
         public DataSource()
         {
-            this.AllGroups = new ObservableCollection<DataGroup>();
+            this.Groups1 = new ObservableCollection<DataGroup>();
+            this.Groups2 = new ObservableCollection<DataGroup>();
         }
         //private static DataSource _dataSource = new DataSource();
 
-        public ObservableCollection<DataGroup> AllGroups { get; private set; }
+        public ObservableCollection<DataGroup> Groups1 { get; private set; }
+        public ObservableCollection<DataGroup> Groups2 { get; private set; }
         //public ObservableCollection<DataGroup> AllGroups
         //{
         //    get { return this._allGroups; }
@@ -163,8 +165,8 @@ namespace GenieWin8.Data
                 MainPageInfo.itemWidth,
                 MainPageInfo.itemHeight,
                 MainPageInfo.itemImageWidth,
-                MainPageInfo.itemImageHeight);         
-            this.AllGroups.Add(group1);
+                MainPageInfo.itemImageHeight);
+            this.Groups1.Add(group1);
 
             strTitle = loader.GetString("GuestAccess");
             var group2 = new DataGroup("GuestAccess",
@@ -173,8 +175,8 @@ namespace GenieWin8.Data
                 MainPageInfo.itemWidth,
                 MainPageInfo.itemHeight,
                 MainPageInfo.itemImageWidth,
-                MainPageInfo.itemImageHeight);            
-            this.AllGroups.Add(group2);
+                MainPageInfo.itemImageHeight);
+            this.Groups1.Add(group2);
 
             strTitle = loader.GetString("NetworkMap");
             var group3 = new DataGroup("NetworkMap",
@@ -184,7 +186,7 @@ namespace GenieWin8.Data
                 MainPageInfo.itemHeight,
                 MainPageInfo.itemImageWidth,
                 MainPageInfo.itemImageHeight);
-            this.AllGroups.Add(group3);
+            this.Groups1.Add(group3);
 
             strTitle = loader.GetString("ParentalControl");
             var group4 = new DataGroup("ParentalControl",
@@ -194,7 +196,7 @@ namespace GenieWin8.Data
                 MainPageInfo.itemHeight,
                 MainPageInfo.itemImageWidth,
                 MainPageInfo.itemImageHeight);
-            this.AllGroups.Add(group4);
+            this.Groups1.Add(group4);
 
             strTitle = loader.GetString("TrafficMeter");
             var group5 = new DataGroup("TrafficMeter",
@@ -204,17 +206,17 @@ namespace GenieWin8.Data
                 MainPageInfo.itemHeight,
                 MainPageInfo.itemImageWidth,
                 MainPageInfo.itemImageHeight);
-            this.AllGroups.Add(group5);
+            this.Groups1.Add(group5);
 
-            //strTitle = loader.GetString("MyMedia");
-            //var group6 = new DataGroup("MyMedia",
-            //    strTitle,
-            //    "Assets/MainPage/mymedia.png",
-            //    MainPageInfo.itemWidth,
-            //    MainPageInfo.itemHeight,
-            //    MainPageInfo.itemImageWidth,
-            //    MainPageInfo.itemImageHeight);
-            //this.AllGroups.Add(group6);
+            strTitle = loader.GetString("MyMedia");
+            var group6 = new DataGroup("MyMedia",
+                strTitle,
+                "Assets/MainPage/mymedia.png",
+                MainPageInfo.itemWidth,
+                MainPageInfo.itemHeight,
+                MainPageInfo.itemImageWidth,
+                MainPageInfo.itemImageHeight);
+            this.Groups2.Add(group6);
 
             strTitle = loader.GetString("QRCode");
             var group7 = new DataGroup("QRCode",
@@ -224,7 +226,7 @@ namespace GenieWin8.Data
                 MainPageInfo.itemHeight,
                 MainPageInfo.itemImageWidth,
                 MainPageInfo.itemImageHeight);
-            this.AllGroups.Add(group7);
+            this.Groups1.Add(group7);
 
             //strTitle = loader.GetString("MarketPlace");
             //var group8 = new DataGroup("MarketPlace",
