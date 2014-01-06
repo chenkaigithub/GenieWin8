@@ -63,7 +63,7 @@
             </StackPanel>
 
             <TextBlock x:Name="StatusNotify" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="600" TextWrapping="Wrap"/>
-
+            
             <Grid x:Name="Output" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1">
                 <MediaElement x:Name="dmrVideo" AutomationProperties.Name="dmrVideo" Height="480" Width="640" HorizontalAlignment="Left" VerticalAlignment="Top"
                               VolumeChanged="dmrVideo_VolumeChanged"

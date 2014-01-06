@@ -144,7 +144,7 @@ namespace GenieWin8
             if (DisplayProperties.CurrentOrientation == DisplayOrientations.Landscape || DisplayProperties.CurrentOrientation == DisplayOrientations.LandscapeFlipped)
             {
                 itemGridView1.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
-                //itemGridView2.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
+                itemGridView2.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
                 MainPageInfo.itemWidth = (Window.Current.Bounds.Width * 4 / 5 - 30) / 3;
                 MainPageInfo.itemHeight = ((Window.Current.Bounds.Height - 180) * 4 / 5 - 30) / 2;
                 MainPageInfo.itemImageWidth = MainPageInfo.itemImageHeight = MainPageInfo.itemHeight - 120;
@@ -152,7 +152,7 @@ namespace GenieWin8
             else if (DisplayProperties.CurrentOrientation == DisplayOrientations.Portrait || DisplayProperties.CurrentOrientation == DisplayOrientations.PortraitFlipped)
             {
                 itemGridView1.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
-                //itemGridView2.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
+                itemGridView2.Padding = new Thickness(Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10, Window.Current.Bounds.Width / 10, (Window.Current.Bounds.Height - 180) / 10);
                 MainPageInfo.itemHeight = MainPageInfo.itemWidth = (Window.Current.Bounds.Width * 4 / 5 - 20) / 2;
                 MainPageInfo.itemImageWidth = MainPageInfo.itemImageHeight = MainPageInfo.itemHeight - 120;
             }

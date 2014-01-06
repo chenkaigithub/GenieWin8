@@ -98,7 +98,7 @@
             </GridView>
 
             <!-- 在大多数视图状态中使用的水平滚动网格-->
-            <!--<GridView
+            <GridView
                 x:Name="itemGridView2"
                 AutomationProperties.AutomationId="ItemsGridView2"
                 AutomationProperties.Name="Items2"
@@ -110,7 +110,7 @@
                 IsItemClickEnabled="True"
                 ItemClick="ItemView_ItemClick" RenderTransformOrigin="0.5,0.5"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            </GridView>-->
+            </GridView>
         </FlipView>
 
         <FlipView x:Name="SnappedMainItemsView" Grid.Row="1" Visibility="Collapsed">

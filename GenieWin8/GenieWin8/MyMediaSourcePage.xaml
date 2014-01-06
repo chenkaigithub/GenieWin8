@@ -78,10 +78,10 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-
+            
             <Image x:Name="ImagePlayer" Grid.Column="1" Width="640" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0"/>
         </Grid>
-
+        
 
         <VisualStateManager.VisualStateGroups>
 

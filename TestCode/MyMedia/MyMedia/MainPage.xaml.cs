@@ -91,15 +91,15 @@ namespace MyMedia
             // Receiving notifications about new media servers added to a network
             mediaServersDiscovery.DevicesActivity.Where(e => e.Activity == DeviceActivity.Available).Subscribe(e =>
             {
-                //System.Diagnostics.Debug.WriteLine("Server found: {0}", e.Device.FriendlyName);
-                ServerDeviceList.Add(e.Device.FriendlyName);
+                System.Diagnostics.Debug.WriteLine("Server found: {0}", e.Device.FriendlyName);
+                //ServerDeviceList.Add(e.Device.FriendlyName);
             });
 
             // Receiving notifications about media servers left the network
             mediaServersDiscovery.DevicesActivity.Where(e => e.Activity == DeviceActivity.Gone).Subscribe(e =>
             {
-                //System.Diagnostics.Debug.WriteLine("Server gone: {0}", e.Device.FriendlyName);
-                ServerDeviceList.Remove(e.Device.FriendlyName);
+                System.Diagnostics.Debug.WriteLine("Server gone: {0}", e.Device.FriendlyName);
+                //ServerDeviceList.Remove(e.Device.FriendlyName);
             });
 
             // Receiving notifications about new media renders added to a network
@@ -145,11 +145,11 @@ namespace MyMedia
 
                 if (serverDevice.FriendlyName == "ReadyDLNA: R6300v2")
                 {
-                    var Images = await serverDevice.SearchAsync<ImageItem>();
+                    var Images = await serverDevice.SearchAsync<VideoItem>();
                     var image = Images.First();
                     foreach (var renderer in mediaRenderersDiscovery.DiscoveredDevices)
                     {
-                        if (renderer.FriendlyName == "Genie Media Player (HTC Incredible S)")
+                        if (renderer.FriendlyName == "SDK CS Sample PlayToReceiver")
                         {
                             await renderer.OpenAsync(image);
                             await renderer.PlayAsync();
@@ -177,18 +177,6 @@ namespace MyMedia
                     //}
                 }
             }
-            //var Images = await serverDevice.SearchAsync<ImageItem>();
-            //foreach (var image in Images)
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Title={0}, Date={1}, Description={2}", image.Title, image.Date, image.Description);
-            //}
-
-            // Find all video items
-            //var videos = await serverDevice.SearchAsync<VideoItem>();
-            //foreach (var video in videos)
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Title={0}, Genre={1}", video.Title, video.Genre);
-            //}
         }
 
         private void ListRender_Click(object sender, RoutedEventArgs e)

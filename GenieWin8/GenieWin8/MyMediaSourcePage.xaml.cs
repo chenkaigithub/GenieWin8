@@ -180,7 +180,7 @@ namespace GenieWin8
                         stpVideoPlayer.Opacity = 0;
                         ImagePlayer.Opacity = 1;
                         currentType = MediaType.Image;
-                    }
+                    } 
                     else
                     {
                         VideoPlayer.SetSource(stream, CurrentMediaFile.ContentType);
