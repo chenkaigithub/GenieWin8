@@ -83,7 +83,7 @@ namespace GenieWin8
                     await receiver.StartAsync();
                     IsReceiverStarted = true;
                     //rootPage.NotifyUser("PlayToReceiver started", NotifyType.StatusMessage);
-                    StatusNotify.Text = "PlayToReceiver started";
+                    StatusNotify.Text = "Player started to receive";
                 }
                 catch (Exception ecp)
                 {
@@ -91,7 +91,7 @@ namespace GenieWin8
                     startDMRButton.IsEnabled = true;
                     stopDMRButton.IsEnabled = false;
                     //rootPage.NotifyUser("PlayToReceiver start failed, Error " + ecp.Message, NotifyType.ErrorMessage);
-                    StatusNotify.Text = "PlayToReceiver start failed, Error " + ecp.Message;
+                    StatusNotify.Text = "Player start failed, Error " + ecp.Message;
                 }
             }
         }
@@ -114,7 +114,7 @@ namespace GenieWin8
                     await receiver.StopAsync();
                     IsReceiverStarted = false;
                     //rootPage.NotifyUser("PlayToReceiver stopped", NotifyType.StatusMessage);
-                    StatusNotify.Text = "PlayToReceiver stopped";
+                    StatusNotify.Text = "Player stopped to receive";
                 }
                 catch (Exception ecp)
                 {
@@ -122,7 +122,7 @@ namespace GenieWin8
                     startDMRButton.IsEnabled = false;
                     stopDMRButton.IsEnabled = true;
                     //rootPage.NotifyUser("PlayToReceiver stop failed, Error " + ecp.Message, NotifyType.ErrorMessage);
-                    StatusNotify.Text = "PlayToReceiver stop failed, Error " + ecp.Message;
+                    StatusNotify.Text = "Player stop failed, Error " + ecp.Message;
                 }
             }
         }
@@ -158,7 +158,7 @@ namespace GenieWin8
                 startDMRButton.IsEnabled = false;
                 stopDMRButton.IsEnabled = true;
                 //rootPage.NotifyUser("PlayToReceiver initialization failed, Error: " + e.Message, NotifyType.ErrorMessage);
-                StatusNotify.Text = "PlayToReceiver initialization failed, Error: " + e.Message;
+                StatusNotify.Text = "Player initialization failed, Error: " + e.Message;
             }
         }
 

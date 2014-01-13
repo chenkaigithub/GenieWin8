@@ -237,6 +237,7 @@ namespace GenieWin8
                             MediaTitle.Text = "Media Servers refreshed";
                         }
                         bDeviceList = true;
+                        PreviousMediaContainers.Clear();
                     } 
                     else
                     {

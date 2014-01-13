@@ -112,6 +112,7 @@ namespace GenieWin8
                             await MyMediaInfo.mediaRenderer.StopAsync();
                             await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
                             await MyMediaInfo.mediaRenderer.PlayAsync();
+                            MediaRendererTitle.Text = "Playing media file...";
                         } 
                         else
                         {

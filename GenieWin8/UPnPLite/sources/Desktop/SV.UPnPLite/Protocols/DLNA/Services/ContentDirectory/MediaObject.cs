@@ -243,7 +243,19 @@ namespace SV.UPnPLite.Protocols.DLNA.Services.ContentDirectory
                 //this.resources.Add(new MediaResource().Deserialize(value));
                 var mediaRes = new MediaResource();
                 mediaRes.Deserialize(value);
-                mediaRes.Metadata = ContentDirectoryService.strDIDLLite + strXmlReader_item + "</DIDL-Lite>";
+                var strMetadata = strXmlReader_item;
+                while (strMetadata.IndexOf("xmlns") != -1)
+                {
+                    var xmlns_index = strMetadata.IndexOf("xmlns");
+                    var tmp_index = strMetadata.IndexOf("\"", xmlns_index);
+                    var EndDelete_index = strMetadata.IndexOf("\"", tmp_index + 1);
+                    strMetadata = strMetadata.Remove(xmlns_index, EndDelete_index - xmlns_index + 1);
+                    if (strMetadata.Substring(xmlns_index - 1, 1) == " ")
+                    {
+                        strMetadata = strMetadata.Remove(xmlns_index - 1, 1);
+                    }
+                }
+                mediaRes.Metadata = ContentDirectoryService.strDIDLLite + strMetadata + "</DIDL-Lite>";
                 this.resources.Add(mediaRes);
             }
             else
