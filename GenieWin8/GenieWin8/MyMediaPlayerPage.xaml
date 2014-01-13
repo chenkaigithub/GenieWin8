@@ -56,28 +56,18 @@
             <TextBlock x:Name="pageTitle" x:Uid="MyMediaPlayerPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
         </Grid>
 
-        <StackPanel Grid.Row="1" Margin="100,50,0,0">
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <Button x:Name="startDMRButton" Content="Start Receiver" FontSize="24" Margin="0,0,10,0" Click="startPlayToReceiver" Foreground="White" Background="#8165A2" BorderThickness="0"/>
-                <Button x:Name="stopDMRButton"  Content="Stop Receiver" FontSize="24" Margin="0,0,10,0" Click="stopPlayToReceiver" IsEnabled="False" Foreground="White" Background="#8165A2" BorderThickness="0"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Width="500" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0">
+                <TextBlock x:Name="MediaRendererTitle" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
+                <Button x:Name="Refresh" Content="Refresh" HorizontalAlignment="Right" FontSize="24" Click="Refresh_Click" Foreground="White" Background="#8165A2" BorderThickness="0"/>
+                <!--<ComboBox x:Name="AvailableMediaDevices" HorizontalAlignment="Stretch" SelectionChanged="AvailableMediaDevices_SelectionChanged"/>-->
+                <ListBox x:Name="MediaRendererList" Height="500" HorizontalAlignment="Stretch" SelectionChanged="MediaRendererList_SelectionChanged"/>
             </StackPanel>
-
-            <TextBlock x:Name="StatusNotify" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="600" TextWrapping="Wrap"/>
-            
-            <Grid x:Name="Output" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1">
-                <MediaElement x:Name="dmrVideo" AutomationProperties.Name="dmrVideo" Height="480" Width="640" HorizontalAlignment="Left" VerticalAlignment="Top"
-                              VolumeChanged="dmrVideo_VolumeChanged"
-                              RateChanged="dmrVideo_RateChanged"
-                              MediaOpened="dmrVideo_MediaOpened"
-                              CurrentStateChanged="dmrVideo_CurrentStateChanged"
-                              MediaEnded="dmrVideo_MediaEnded"
-                              MediaFailed="dmrVideo_MediaFailed"
-                              SeekCompleted="dmrVideo_SeekCompleted"
-                              DownloadProgressChanged="dmrVideo_DownloadProgressChanged_1"
-                              AutoPlay="False"/>
-                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Height="480" Width="640" x:Name="dmrImage" ImageFailed="dmrImage_ImageFailed_1" Stretch="Uniform"/>
-            </Grid>
-        </StackPanel>
+        </Grid>
 
         <VisualStateManager.VisualStateGroups>
 

@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Collections.Specialized;
 using GenieWin8.DataModel;
+using Windows.Security.ExchangeActiveSyncProvisioning;
 
 namespace GenieWin8.Data
 {  
@@ -76,7 +77,8 @@ namespace GenieWin8.Data
             {
                 Node NodeDevice = new Node();
                 NodeDevice.uniqueId = "LocalDevice";
-                NodeDevice.deviceName = "Win8 Tablet/PC";
+                EasClientDeviceInformation easClientDeviceInformation = new EasClientDeviceInformation();
+                NodeDevice.deviceName = easClientDeviceInformation.FriendlyName;
                 NodeDevice.IPaddress = loacalIp;
                 NodeDevice.MACaddress = "";
                 NodeDevice.connectType = "wireless";

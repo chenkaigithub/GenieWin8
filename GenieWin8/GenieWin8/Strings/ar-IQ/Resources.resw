@@ -1012,4 +1012,8 @@
   <data name="Upload.Text" xml:space="preserve">
     <value>تحميل</value>
   </data>
+  <data name="MyMediaPlayingPageTitle.Text" xml:space="preserve">
+    <value>قيد التشغيل</value>
+    <comment>MyMediaPlayingPage Title</comment>
+  </data>
 </root>

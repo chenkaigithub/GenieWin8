@@ -128,7 +128,6 @@ namespace MyMedia
 
             //var serverDevice = mediaServersDiscovery.DiscoveredDevices.First();
 
-            // Find all image items
             foreach (var serverDevice in mediaServersDiscovery.DiscoveredDevices)
             {
                 //var Images = await serverDevice.SearchAsync<ImageItem>();
@@ -155,26 +154,25 @@ namespace MyMedia
                             await renderer.PlayAsync();
                         }
                     }
-                    //foreach (var video in videos)
-                    //{
-                    //    System.Diagnostics.Debug.WriteLine("Title={0}, Genre={1}, Server={2}", video.Title, video.Genre, serverDevice.FriendlyName);
-                    //}
 
-                    //foreach (var renderer in mediaRenderersDiscovery.DiscoveredDevices)
-                    //{
-                    //    if (renderer.FriendlyName == "SDK CS Sample PlayToReceiver")
-                    //    {
-                    //        var videoItem = await serverDevice.SearchAsync<VideoItem>();
-                    //        foreach (var video in videoItem)
-                    //        {
-                    //            if (video.Title == "贝瓦儿歌 第3集")
-                    //            {
-                    //                await renderer.OpenAsync(video);
-                    //                await renderer.PlayAsync();
-                    //            }
-                    //        }
-                    //    }
-                    //}
+                    // Requesting root media objects
+                    var rootObjects = await serverDevice.BrowseAsync();
+                    var rootContainers = rootObjects.OfType<MediaContainer>();
+                    var count1 = rootContainers.Count();
+                    var rootMediaItems = rootObjects.OfType<MediaItem>();
+                    var count2 = rootMediaItems.Count();
+
+                    // Requesting media objects from child container
+                    var containerToBrowse = rootContainers.ElementAt(2);
+                    var childContainerObjects = await serverDevice.BrowseAsync(containerToBrowse);
+
+                    var childcontainer = childContainerObjects.OfType<MediaContainer>();
+                    var count3 = childcontainer.Count();
+                    var childcontainerToBrowse = childcontainer.First();
+                    var childchildContainerObjects = await serverDevice.BrowseAsync(childcontainerToBrowse);
+                    var childchildMediaItems = childchildContainerObjects.OfType<MediaItem>();
+                    var count4 = childchildMediaItems.Count();
+                    var mediaitem = childchildMediaItems.First();
                 }
             }
         }

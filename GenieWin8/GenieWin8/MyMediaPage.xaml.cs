@@ -68,7 +68,7 @@ namespace GenieWin8
 	        }
 	        else if (groupId == "MyMediaPlaying")
 	        {
-
+                this.Frame.Navigate(typeof(MyMediaPlayingPage), groupId);
 	        }
 	        else if (groupId == "MyMediaOption")
 	        {

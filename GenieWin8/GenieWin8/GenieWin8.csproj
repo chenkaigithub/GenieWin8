@@ -115,6 +115,7 @@
     </Compile>
     <Compile Include="DataModel\GuestAccessInfoModel.cs" />
     <Compile Include="DataModel\MainPageInfo.cs" />
+    <Compile Include="DataModel\MyMediaInfo.cs" />
     <Compile Include="DataModel\NetworkMapInfo.cs" />
     <Compile Include="DataModel\ParentalControlInfo.cs" />
     <Compile Include="DataModel\TrafficMeterInfoModel.cs" />
@@ -130,6 +131,15 @@
     </Compile>
     <Compile Include="EditSettingPage.xaml.cs">
       <DependentUpon>EditSettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaPlayerPage.xaml.cs">
+      <DependentUpon>MyMediaPlayerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaPlayingPage.xaml.cs">
+      <DependentUpon>MyMediaPlayingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaSourcePage.xaml.cs">
+      <DependentUpon>MyMediaSourcePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SoapUtility\GenieFcml.cs" />
     <Compile Include="SoapUtility\GenieSoapApi.cs" />
@@ -158,12 +168,6 @@
     </Compile>
     <Compile Include="MyMediaPage.xaml.cs">
       <DependentUpon>MyMediaPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MyMediaPlayerPage.xaml.cs">
-      <DependentUpon>MyMediaPlayerPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MyMediaSourcePage.xaml.cs">
-      <DependentUpon>MyMediaSourcePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="NetworkMapPage.xaml.cs">
       <DependentUpon>NetworkMapPage.xaml</DependentUpon>
@@ -275,6 +279,10 @@
     <Content Include="Assets\devices\gamedev.png" />
     <Content Include="Assets\devices\gatewaydev.png" />
     <Content Include="Assets\MainPage\guestaccess.png" />
+    <Content Include="Assets\MyMedia\file_audio.png" />
+    <Content Include="Assets\MyMedia\file_image.png" />
+    <Content Include="Assets\MyMedia\file_video.png" />
+    <Content Include="Assets\MyMedia\folder.png" />
     <Content Include="Assets\MyMedia\icon48.png" />
     <Content Include="Assets\devices\imacdev.png" />
     <Content Include="Assets\internet72.png" />
@@ -289,6 +297,7 @@
     <Content Include="Assets\devices\mediadev.png" />
     <Content Include="Assets\devices\mobiledev.png" />
     <Content Include="Assets\MainPage\mymedia.png" />
+    <Content Include="Assets\MyMedia\toolbar_uplevel.png" />
     <Content Include="Assets\NETGEAR_Genie_ico_150.png" />
     <Content Include="Assets\NETGEAR_Genie_ico_30.png" />
     <Content Include="Assets\NETGEAR_Genie_ico_50.png" />
@@ -472,6 +481,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MyMediaPlayingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MyMediaSourcePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -512,6 +525,18 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SV.UPnPLite">
+      <HintPath>..\UPnPLite\Build\Bin\Metro\SV.UPnPLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\UPnPLite\Build\Bin\Metro\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\UPnPLite\Build\Bin\Metro\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\UPnPLite\Build\Bin\Metro\System.Reactive.Linq.dll</HintPath>
     </Reference>
     <Reference Include="zxing.winrt">
       <HintPath>..\packages\ZXing.Net.0.12.0.0\lib\windows8-managed\zxing.winrt.dll</HintPath>

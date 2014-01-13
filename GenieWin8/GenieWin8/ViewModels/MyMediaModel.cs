@@ -68,29 +68,29 @@ namespace GenieWin8.Data
         }
     }
 
-    public class MediaItem : MediaCommon
-    {
-        public MediaItem(String uniqueId, String title, String imagePath, String content, MyMediaGroup group)
-            : base(uniqueId, title, imagePath)
-        {
-            this._content = content;
-            this._group = group;
-        }
+    //public class MediaItem : MediaCommon
+    //{
+    //    public MediaItem(String uniqueId, String title, String imagePath, String content, MyMediaGroup group)
+    //        : base(uniqueId, title, imagePath)
+    //    {
+    //        this._content = content;
+    //        this._group = group;
+    //    }
 
-        private string _content = string.Empty;
-        public string Content
-        {
-            get { return this._content; }
-            set { this.SetProperty(ref this._content, value); }
-        }
+    //    private string _content = string.Empty;
+    //    public string Content
+    //    {
+    //        get { return this._content; }
+    //        set { this.SetProperty(ref this._content, value); }
+    //    }
 
-        private MyMediaGroup _group;
-        public MyMediaGroup Group
-        {
-            get { return this._group; }
-            set { this.SetProperty(ref this._group, value); }
-        }
-    }
+    //    private MyMediaGroup _group;
+    //    public MyMediaGroup Group
+    //    {
+    //        get { return this._group; }
+    //        set { this.SetProperty(ref this._group, value); }
+    //    }
+    //}
 
     public class MyMediaGroup : MediaCommon
     {
@@ -99,11 +99,11 @@ namespace GenieWin8.Data
         {
         }
 
-        private ObservableCollection<MediaItem> _items = new ObservableCollection<MediaItem>();
-        public ObservableCollection<MediaItem> Items
-        {
-            get { return this._items; }
-        }
+        //private ObservableCollection<MediaItem> _items = new ObservableCollection<MediaItem>();
+        //public ObservableCollection<MediaItem> Items
+        //{
+        //    get { return this._items; }
+        //}
     }
 
     public sealed class MediaSource
@@ -183,11 +183,11 @@ namespace GenieWin8.Data
             //    mymediagroup2));
             this.MyMediaGroups.Add(mymediagroup2);
 
-            //strTitle = loader.GetString("MyMediaPlaying");
-            //var mymediagroup3 = new MyMediaGroup("MyMediaPlaying",
-            //        strTitle,
-            //        "Assets/MyMedia/playing.png");
-            //this.MyMediaGroups.Add(mymediagroup3);
+            strTitle = loader.GetString("MyMediaPlaying");
+            var mymediagroup3 = new MyMediaGroup("MyMediaPlaying",
+                    strTitle,
+                    "Assets/MyMedia/playing.png");
+            this.MyMediaGroups.Add(mymediagroup3);
 
             strTitle = loader.GetString("MyMediaOption");
             var mymediagrou4 = new MyMediaGroup("MyMediaOption",

@@ -1039,4 +1039,8 @@
   <data name="Upload.Text" xml:space="preserve">
     <value>上传</value>
   </data>
+  <data name="MyMediaPlayingPageTitle.Text" xml:space="preserve">
+    <value>正在播放</value>
+    <comment>MyMediaPlayingPage Title</comment>
+  </data>
 </root>

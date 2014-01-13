@@ -23,21 +23,6 @@
         * Row 1 contains the rest of the page layout
     -->
     <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
-        <!--<Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <LinearGradientBrush.RelativeTransform>
-                    <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-70"/>
-                </LinearGradientBrush.RelativeTransform>
-                <GradientStop Color="#FFFFE7B4" Offset="1"/>
-                <GradientStop Color="#FF058D7A"/>
-                <GradientStop Color="#FFFF645C" Offset="0.75"/>
-                <GradientStop Color="#FF8FBFB9" Offset="0.15"/>
-                <GradientStop Color="#FFC59FB2" Offset="0.3"/>
-                <GradientStop Color="#FFFF5CAE" Offset="0.45"/>
-                <GradientStop Color="#FFFF495A" Offset="0.6"/>
-                <GradientStop Color="#FFFFC547" Offset="0.9"/>
-            </LinearGradientBrush>
-        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -60,12 +45,12 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Vertical" Width="500" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0">
                 <TextBlock x:Name="MediaTitle" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
-                <ComboBox x:Name="AvailableMediaDevices" HorizontalAlignment="Stretch" SelectionChanged="AvailableMediaDevices_SelectionChanged"/>
-                <Button x:Name="Upper" Content="Upper" HorizontalAlignment="Stretch" FontSize="24" Click="Back_Click" Foreground="White" Background="#8165A2" BorderThickness="0"/>
-                <ListBox x:Name="MediaList" Height="500" HorizontalAlignment="Stretch" SelectionChanged="MediaList_SelectionChanged"/>
+                <Button x:Name="Refresh" Content="Refresh" HorizontalAlignment="Right" FontSize="24" Click="Refresh_Click" Foreground="White" Background="#8165A2" BorderThickness="0"/>
+                <!--<ComboBox x:Name="AvailableMediaDevices" HorizontalAlignment="Stretch" SelectionChanged="AvailableMediaDevices_SelectionChanged"/>-->
+                <ListBox x:Name="DeviceMediaList" Height="500" HorizontalAlignment="Stretch" SelectionChanged="DeviceMediaList_SelectionChanged"/>
             </StackPanel>
 
-            <Button x:Name="SelectReceiver" Content="Select Player" Grid.Column="1" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SelectReceiver_Click"
+            <!--<Button x:Name="SelectReceiver" Content="Select Player" Grid.Column="1" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SelectReceiver_Click"
                     Foreground="White" Background="#8165A2" BorderThickness="0" Margin="50,0,0,0"/>
             <StackPanel x:Name="stpVideoPlayer"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
                 <Border BorderBrush="Black" BorderThickness="1" Width="642" HorizontalAlignment="Left" Grid.Row="0">
@@ -78,10 +63,10 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-            
-            <Image x:Name="ImagePlayer" Grid.Column="1" Width="640" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0"/>
+
+            <Image x:Name="ImagePlayer" Grid.Column="1" Width="640" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0"/>-->
         </Grid>
-        
+
 
         <VisualStateManager.VisualStateGroups>
 

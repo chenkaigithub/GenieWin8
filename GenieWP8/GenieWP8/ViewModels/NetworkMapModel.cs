@@ -6,6 +6,7 @@ using System.ComponentModel;
 
 using GenieWP8.Resources;
 using GenieWP8.DataInfo;
+using Microsoft.Phone.Info;
 
 namespace GenieWP8.ViewModels
 {
@@ -102,7 +103,7 @@ namespace GenieWP8.ViewModels
             {
                 Node NodeDevice = new Node();
                 NodeDevice.uniqueId = "LocalDevice";
-                NodeDevice.deviceName = "Windows Phone";
+                NodeDevice.deviceName = DeviceStatus.DeviceManufacturer + " " + DeviceStatus.DeviceName;
                 NodeDevice.IPaddress = loacalIp;
                 NodeDevice.MACaddress = "";
                 NodeDevice.connectType = "wireless";
