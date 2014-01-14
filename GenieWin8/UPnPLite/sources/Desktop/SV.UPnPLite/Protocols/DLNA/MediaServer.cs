@@ -97,7 +97,15 @@ namespace SV.UPnPLite.Protocols.DLNA
             {
                 var browseResult = await this.contentDirectoryService.BrowseAsync("0", BrowseFlag.BrowseDirectChildren, "*", 0, 0, string.Empty);
 
-                return browseResult.Result;
+                if (browseResult != null)
+                {
+                    return browseResult.Result;
+                }
+                else
+                {
+                    return null;
+                }
+                //return browseResult.Result;
             }
             catch (FormatException ex)
             {
@@ -137,7 +145,15 @@ namespace SV.UPnPLite.Protocols.DLNA
                 var filter = string.Join(",", propertiesFilter);
                 var browseResult = await this.contentDirectoryService.BrowseAsync("0", BrowseFlag.BrowseDirectChildren, filter, 0, 0, string.Empty);
 
-                return browseResult.Result;
+                if (browseResult != null)
+                {
+                    return browseResult.Result;
+                }
+                else
+                {
+                    return null;
+                }
+                //return browseResult.Result;
             }
             catch (FormatException ex)
             {
@@ -171,9 +187,18 @@ namespace SV.UPnPLite.Protocols.DLNA
             try
             {
                 var browseResult = await this.contentDirectoryService.BrowseAsync(container.Id, BrowseFlag.BrowseDirectChildren, "*", 0, 0, string.Empty);
-                container.Revision = browseResult.UpdateId;
+                if (browseResult != null)
+                {
+                    container.Revision = browseResult.UpdateId;
+                    return browseResult.Result;
+                }
+                else
+                {
+                    return null;
+                }
+                //container.Revision = browseResult.UpdateId;
 
-                return browseResult.Result;
+                //return browseResult.Result;
             }
             catch (FormatException ex)
             {
@@ -221,7 +246,15 @@ namespace SV.UPnPLite.Protocols.DLNA
                 var filter = string.Join(",", propertiesFilter);
                 var browseResult = await this.contentDirectoryService.BrowseAsync(container.Id, BrowseFlag.BrowseDirectChildren, filter, 0, 0, string.Empty);
 
-                return browseResult.Result;
+                if (browseResult != null)
+                {
+                    return browseResult.Result;
+                }
+                else
+                {
+                    return null;
+                }
+                //return browseResult.Result;
             }
             catch (FormatException ex)
             {
@@ -255,16 +288,23 @@ namespace SV.UPnPLite.Protocols.DLNA
             try
             {
                 var browseResult = await this.contentDirectoryService.BrowseAsync(containerId, BrowseFlag.BrowseMetadata, "*", 0, 0, string.Empty);
-                var newContainer = browseResult.Result.FirstOrDefault() as MediaContainer;
-                if (newContainer != null)
+                if (browseResult != null)
                 {
-                    newContainer.Revision = browseResult.UpdateId;
+                    var newContainer = browseResult.Result.FirstOrDefault() as MediaContainer;
+                    if (newContainer != null)
+                    {
+                        newContainer.Revision = browseResult.UpdateId;
 
-                    return newContainer;
+                        return newContainer;
+                    }
+                    else
+                    {
+                        throw new FormatException("Container tag is missing in response");
+                    }
                 }
                 else
                 {
-                    throw new FormatException("Container tag is missing in response");
+                    return null;
                 }
             }
             catch (FormatException ex)

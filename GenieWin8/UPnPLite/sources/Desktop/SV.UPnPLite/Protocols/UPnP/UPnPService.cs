@@ -231,7 +231,7 @@ namespace SV.UPnPLite.Protocols.UPnP
                     }
                 }
 
-                if (ex.Message.Contains("A connection that was expected to be kept alive was closed by the server"))        //keep-alive状态被断开连接的情况下重试
+                if (ex.Status.ToString() == "KeepAliveFailure")        //keep-alive状态被断开连接的情况下重试
                 {
                     this.ProcessRequest(requestInfo);
                 } 
@@ -324,7 +324,10 @@ namespace SV.UPnPLite.Protocols.UPnP
                 }
                 else
                 {
-                    throw new XmlException("The '{0}Response' element is missing".F(action));
+                    if (action != "Browse")
+                    {
+                        throw new XmlException("The '{0}Response' element is missing".F(action));
+                    } 
                 }
             }
 

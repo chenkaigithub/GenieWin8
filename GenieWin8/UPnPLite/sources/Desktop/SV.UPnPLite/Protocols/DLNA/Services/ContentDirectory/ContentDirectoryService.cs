@@ -129,17 +129,24 @@ namespace SV.UPnPLite.Protocols.DLNA.Services.ContentDirectory
                                 };
 
             var response = await this.InvokeActionAsync("Browse", arguments);
-            var resultXml = response["Result"];
-            var mediaObjects = ParseMediaObjects(resultXml);
-            var result = new BrowseResult
-                             {
-                                 Result = mediaObjects,
-                                 NumberReturned = Convert.ToInt32(response["NumberReturned"]),
-                                 TotalMatches = Convert.ToInt32(response["TotalMatches"]),
-                                 UpdateId = Convert.ToUInt32(response["UpdateId"])
-                             };
+            if (response.Count == 0)        //发送Browse指令获取响应失败时返回null
+            {
+                return null;
+            }
+            else
+            {
+                var resultXml = response["Result"];
+                var mediaObjects = ParseMediaObjects(resultXml);
+                var result = new BrowseResult
+                {
+                    Result = mediaObjects,
+                    NumberReturned = Convert.ToInt32(response["NumberReturned"]),
+                    TotalMatches = Convert.ToInt32(response["TotalMatches"]),
+                    UpdateId = Convert.ToUInt32(response["UpdateId"])
+                };
 
-            return result;
+                return result;
+            }
         }
 
         /// <summary>

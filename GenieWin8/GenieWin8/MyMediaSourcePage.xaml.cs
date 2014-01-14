@@ -37,7 +37,8 @@ namespace GenieWin8
         int MediaItems_Count = 0;           //该层目录中的媒体资源数目
         Uri _baseUri = new Uri("ms-appx:///");
 
-        Stack<IEnumerable<MediaObject>> PreviousMediaContainers { get; set; }
+        Stack<IEnumerable<MediaObject>> stackMediaObjects { get; set; }
+        Stack<MediaContainer> stackMediaContainer { get; set; }
 
         //PlayToManager playToManager = null;
         //CoreDispatcher dispatcher = null;
@@ -54,7 +55,8 @@ namespace GenieWin8
         {
             this.InitializeComponent();
             //PreviousFolders = new Stack<StorageFolder>();
-            PreviousMediaContainers = new Stack<IEnumerable<MediaObject>>();
+            stackMediaObjects = new Stack<IEnumerable<MediaObject>>();
+            stackMediaContainer = new Stack<MediaContainer>();
             this.InitilizeMediaServers();
         }
 
@@ -125,14 +127,221 @@ namespace GenieWin8
             {
                 if (DeviceMediaList.SelectedIndex != -1)
                 {
-                    bDeviceList = false;
                     //LoadMediaFiles(MediaServers[AvailableMediaDevices.SelectedIndex]);
                     //PreviousFolders.Push(MediaServers[AvailableMediaDevices.SelectedIndex]);
                     foreach (var serverDevice in mediaServersDiscovery.DiscoveredDevices)
                     {
                         if (serverDevice.FriendlyName == DeviceMediaList.SelectedItem.ToString())
                         {
-                            MyMediaInfo.mediaServer = serverDevice;
+                            bDeviceFounded = true;
+                            var rootObjects = await serverDevice.BrowseAsync();
+                            if (rootObjects != null)
+                            {
+                                bDeviceList = false;
+                                stackMediaObjects.Push(rootObjects);
+                                MyMediaInfo.mediaServer = serverDevice;
+                                DeviceMediaList.Items.Clear();
+                                StackPanel uplevel_Item = new StackPanel();
+                                uplevel_Item.Orientation = Orientation.Horizontal;
+                                Image uplevel_Icon = new Image();
+                                uplevel_Icon.Width = 30;
+                                uplevel_Icon.Height = 30;
+                                uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
+                                TextBlock uplevel_Title = new TextBlock();
+                                uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
+                                uplevel_Title.FontSize = 20;
+                                uplevel_Item.Children.Add(uplevel_Icon);
+                                uplevel_Item.Children.Add(uplevel_Title);
+                                DeviceMediaList.Items.Add(uplevel_Item);
+                                
+                                var rootContainers = rootObjects.OfType<MediaContainer>();
+                                Containers_Count = rootContainers.Count();
+                                MyMediaInfo.mediaContainers = rootContainers;
+                                var rootMediaItems = rootObjects.OfType<MediaItem>();
+                                MediaItems_Count = rootMediaItems.Count();
+                                MyMediaInfo.mediaItems = rootMediaItems;
+                                if (Containers_Count > 0)
+                                {
+                                    foreach (var MediaContainer in rootContainers)
+                                    {
+                                        StackPanel mediaContainer_Item = new StackPanel();
+                                        mediaContainer_Item.Orientation = Orientation.Horizontal;
+                                        Image mediaContainer_Icon = new Image();
+                                        mediaContainer_Icon.Width = 35;
+                                        mediaContainer_Icon.Height = 35;
+                                        mediaContainer_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/folder.png"));
+                                        TextBlock mediaContainer_Title = new TextBlock();
+                                        mediaContainer_Title.Text = MediaContainer.Title;
+                                        mediaContainer_Title.FontSize = 22;
+                                        mediaContainer_Item.Children.Add(mediaContainer_Icon);
+                                        mediaContainer_Item.Children.Add(mediaContainer_Title);
+                                        DeviceMediaList.Items.Add(mediaContainer_Item);
+                                        //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
+                                    }
+                                }
+                                if (MediaItems_Count > 0)
+                                {
+                                    foreach (var MediaItem in rootMediaItems)
+                                    {
+                                        StackPanel mediaItem_Item = new StackPanel();
+                                        mediaItem_Item.Orientation = Orientation.Horizontal;
+                                        Image mediaItem_Icon = new Image();
+                                        mediaItem_Icon.Width = 35;
+                                        mediaItem_Icon.Height = 35;
+                                        if (MediaItem.Class == "object.item.imageItem")
+                                        {
+                                            mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
+                                        }
+                                        else if (MediaItem.Class == "object.item.audioItem" || MediaItem.Class == "object.item.audioItem.musicTrack")
+                                        {
+                                            mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_audio.png"));
+                                        }
+                                        else if (MediaItem.Class == "object.item.videoItem")
+                                        {
+                                            mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_video.png"));
+                                        }
+                                        TextBlock mediaItem_Title = new TextBlock();
+                                        mediaItem_Title.Text = MediaItem.Title;
+                                        mediaItem_Title.FontSize = 22;
+                                        mediaItem_Item.Children.Add(mediaItem_Icon);
+                                        mediaItem_Item.Children.Add(mediaItem_Title);
+                                        DeviceMediaList.Items.Add(mediaItem_Item);
+                                        //DeviceMediaList.Items.Add(MediaItem.Title);
+                                    }
+                                }
+                                MediaTitle.Text = "Load completed";
+                            }
+                            else        //rootObjects == null
+                            {
+                                MediaTitle.Text = "Load failed";
+                            }
+                            break;
+                        }
+                    }
+                    if (!bDeviceFounded)
+                    {
+                        MediaTitle.Text = "Device does not exist, please refresh the list";
+                    }
+                }
+            } 
+            else
+            {
+                if (DeviceMediaList.SelectedIndex == 0 && stackMediaObjects.Count > 0)             //第一项为返回上一层
+                {
+                    this.BackToUpperlevel();
+                    //stackMediaObjects.Pop();
+                    //if (stackMediaContainer.Count > 0)
+                    //{
+                    //    stackMediaContainer.Pop();
+                    //}
+
+                    //if (stackMediaObjects.Count == 0)
+                    //{
+                    //    DeviceMediaList.Items.Clear();
+                    //    //MediaServers = await KnownFolders.MediaServerDevices.GetFoldersAsync();
+                    //    if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
+                    //    {
+                    //        MediaTitle.Text = "No MediaServers found";
+                    //    }
+                    //    else
+                    //    {
+                    //        foreach (var server in mediaServersDiscovery.DiscoveredDevices)
+                    //        {
+                    //            DeviceMediaList.Items.Add(server.FriendlyName);
+                    //        }
+                    //        MediaTitle.Text = "Media Servers refreshed";
+                    //    }
+                    //    bDeviceList = true;
+                    //    bDeviceFounded = false;
+                    //    stackMediaObjects.Clear();
+                    //} 
+                    //else
+                    //{
+                    //    var rootObjects = stackMediaObjects.Peek();
+                    //    DeviceMediaList.Items.Clear();
+                    //    StackPanel uplevel_Item = new StackPanel();
+                    //    uplevel_Item.Orientation = Orientation.Horizontal;
+                    //    Image uplevel_Icon = new Image();
+                    //    uplevel_Icon.Width = 30;
+                    //    uplevel_Icon.Height = 30;
+                    //    uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
+                    //    TextBlock uplevel_Title = new TextBlock();
+                    //    uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
+                    //    uplevel_Title.FontSize = 20;
+                    //    uplevel_Item.Children.Add(uplevel_Icon);
+                    //    uplevel_Item.Children.Add(uplevel_Title);
+                    //    DeviceMediaList.Items.Add(uplevel_Item);
+                    //    //DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
+                    //    var rootContainers = rootObjects.OfType<MediaContainer>();
+                    //    Containers_Count = rootContainers.Count();
+                    //    MyMediaInfo.mediaContainers = rootContainers;
+                    //    var rootMediaItems = rootObjects.OfType<MediaItem>();
+                    //    MediaItems_Count = rootMediaItems.Count();
+                    //    MyMediaInfo.mediaItems = rootMediaItems;
+
+                    //    if (Containers_Count > 0)
+                    //    {
+                    //        foreach (var MediaContainer in rootContainers)
+                    //        {
+                    //            StackPanel mediaContainer_Item = new StackPanel();
+                    //            mediaContainer_Item.Orientation = Orientation.Horizontal;
+                    //            Image mediaContainer_Icon = new Image();
+                    //            mediaContainer_Icon.Width = 35;
+                    //            mediaContainer_Icon.Height = 35;
+                    //            mediaContainer_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/folder.png"));
+                    //            TextBlock mediaContainer_Title = new TextBlock();
+                    //            mediaContainer_Title.Text = MediaContainer.Title;
+                    //            mediaContainer_Title.FontSize = 22;
+                    //            mediaContainer_Item.Children.Add(mediaContainer_Icon);
+                    //            mediaContainer_Item.Children.Add(mediaContainer_Title);
+                    //            DeviceMediaList.Items.Add(mediaContainer_Item);
+                    //            //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
+                    //        }
+                    //    }
+                    //    if (MediaItems_Count > 0)
+                    //    {
+                    //        foreach (var MediaItem in rootMediaItems)
+                    //        {
+                    //            StackPanel mediaItem_Item = new StackPanel();
+                    //            mediaItem_Item.Orientation = Orientation.Horizontal;
+                    //            Image mediaItem_Icon = new Image();
+                    //            mediaItem_Icon.Width = 35;
+                    //            mediaItem_Icon.Height = 35;
+                    //            if (MediaItem.Class == "object.item.imageItem")
+                    //            {
+                    //                mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
+                    //            }
+                    //            else if (MediaItem.Class == "object.item.audioItem" || MediaItem.Class == "object.item.audioItem.musicTrack")
+                    //            {
+                    //                mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_audio.png"));
+                    //            }
+                    //            else if (MediaItem.Class == "object.item.videoItem")
+                    //            {
+                    //                mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_video.png"));
+                    //            }
+                    //            TextBlock mediaItem_Title = new TextBlock();
+                    //            mediaItem_Title.Text = MediaItem.Title;
+                    //            mediaItem_Title.FontSize = 22;
+                    //            mediaItem_Item.Children.Add(mediaItem_Icon);
+                    //            mediaItem_Item.Children.Add(mediaItem_Title);
+                    //            DeviceMediaList.Items.Add(mediaItem_Item);
+                    //            //DeviceMediaList.Items.Add(MediaItem.Title);
+                    //        }
+                    //    }
+                    //    MediaTitle.Text = "Load completed";
+                    //}
+                } 
+                else
+                {
+                    if (DeviceMediaList.SelectedIndex > 0 && DeviceMediaList.SelectedIndex < Containers_Count + 1)
+                    {
+                        int containerIndex = DeviceMediaList.SelectedIndex - 1;
+                        var ContainerToBrowse = MyMediaInfo.mediaContainers.ElementAt(containerIndex);
+                        var rootObjects = await MyMediaInfo.mediaServer.BrowseAsync(ContainerToBrowse);
+                        if (rootObjects != null)
+                        {
+                            stackMediaObjects.Push(rootObjects);
+                            stackMediaContainer.Push(ContainerToBrowse);
                             DeviceMediaList.Items.Clear();
                             StackPanel uplevel_Item = new StackPanel();
                             uplevel_Item.Orientation = Orientation.Horizontal;
@@ -141,20 +350,19 @@ namespace GenieWin8
                             uplevel_Icon.Height = 30;
                             uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
                             TextBlock uplevel_Title = new TextBlock();
-                            uplevel_Title.Text = "... " + serverDevice.FriendlyName;
+                            uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
                             uplevel_Title.FontSize = 20;
                             uplevel_Item.Children.Add(uplevel_Icon);
                             uplevel_Item.Children.Add(uplevel_Title);
                             DeviceMediaList.Items.Add(uplevel_Item);
-                            var rootObjects = await serverDevice.BrowseAsync();
-                            PreviousMediaContainers.Push(rootObjects);
+                            //DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
+                            
                             var rootContainers = rootObjects.OfType<MediaContainer>();
                             Containers_Count = rootContainers.Count();
                             MyMediaInfo.mediaContainers = rootContainers;
                             var rootMediaItems = rootObjects.OfType<MediaItem>();
                             MediaItems_Count = rootMediaItems.Count();
                             MyMediaInfo.mediaItems = rootMediaItems;
-
                             if (Containers_Count > 0)
                             {
                                 foreach (var MediaContainer in rootContainers)
@@ -205,195 +413,11 @@ namespace GenieWin8
                                 }
                             }
                             MediaTitle.Text = "Load completed";
-                            bDeviceFounded = true;
-                            break;
                         }
-                    }
-                    if (!bDeviceFounded)
-                    {
-                        MediaTitle.Text = "Device does not exist, please refresh the list";
-                    }
-                }
-            } 
-            else
-            {
-                if (DeviceMediaList.SelectedIndex == 0 && PreviousMediaContainers.Count > 0)             //第一项为返回上一层
-                {
-                    PreviousMediaContainers.Pop();
-                    if (PreviousMediaContainers.Count == 0)
-                    {
-                        DeviceMediaList.Items.Clear();
-                        //MediaServers = await KnownFolders.MediaServerDevices.GetFoldersAsync();
-                        if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
+                        else             //rootObjects == null
                         {
-                            MediaTitle.Text = "No MediaServers found";
+                            MediaTitle.Text = "Load failed";
                         }
-                        else
-                        {
-                            foreach (var server in mediaServersDiscovery.DiscoveredDevices)
-                            {
-                                DeviceMediaList.Items.Add(server.FriendlyName);
-                            }
-                            MediaTitle.Text = "Media Servers refreshed";
-                        }
-                        bDeviceList = true;
-                        PreviousMediaContainers.Clear();
-                    } 
-                    else
-                    {
-                        var rootObjects = PreviousMediaContainers.Peek();
-                        DeviceMediaList.Items.Clear();
-                        StackPanel uplevel_Item = new StackPanel();
-                        uplevel_Item.Orientation = Orientation.Horizontal;
-                        Image uplevel_Icon = new Image();
-                        uplevel_Icon.Width = 30;
-                        uplevel_Icon.Height = 30;
-                        uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
-                        TextBlock uplevel_Title = new TextBlock();
-                        uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
-                        uplevel_Title.FontSize = 20;
-                        uplevel_Item.Children.Add(uplevel_Icon);
-                        uplevel_Item.Children.Add(uplevel_Title);
-                        DeviceMediaList.Items.Add(uplevel_Item);
-                        //DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
-                        var rootContainers = rootObjects.OfType<MediaContainer>();
-                        Containers_Count = rootContainers.Count();
-                        MyMediaInfo.mediaContainers = rootContainers;
-                        var rootMediaItems = rootObjects.OfType<MediaItem>();
-                        MediaItems_Count = rootMediaItems.Count();
-                        MyMediaInfo.mediaItems = rootMediaItems;
-
-                        if (Containers_Count > 0)
-                        {
-                            foreach (var MediaContainer in rootContainers)
-                            {
-                                StackPanel mediaContainer_Item = new StackPanel();
-                                mediaContainer_Item.Orientation = Orientation.Horizontal;
-                                Image mediaContainer_Icon = new Image();
-                                mediaContainer_Icon.Width = 35;
-                                mediaContainer_Icon.Height = 35;
-                                mediaContainer_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/folder.png"));
-                                TextBlock mediaContainer_Title = new TextBlock();
-                                mediaContainer_Title.Text = MediaContainer.Title;
-                                mediaContainer_Title.FontSize = 22;
-                                mediaContainer_Item.Children.Add(mediaContainer_Icon);
-                                mediaContainer_Item.Children.Add(mediaContainer_Title);
-                                DeviceMediaList.Items.Add(mediaContainer_Item);
-                                //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
-                            }
-                        }
-                        if (MediaItems_Count > 0)
-                        {
-                            foreach (var MediaItem in rootMediaItems)
-                            {
-                                StackPanel mediaItem_Item = new StackPanel();
-                                mediaItem_Item.Orientation = Orientation.Horizontal;
-                                Image mediaItem_Icon = new Image();
-                                mediaItem_Icon.Width = 35;
-                                mediaItem_Icon.Height = 35;
-                                if (MediaItem.Class == "object.item.imageItem")
-                                {
-                                    mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
-                                }
-                                else if (MediaItem.Class == "object.item.audioItem" || MediaItem.Class == "object.item.audioItem.musicTrack")
-                                {
-                                    mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_audio.png"));
-                                }
-                                else if (MediaItem.Class == "object.item.videoItem")
-                                {
-                                    mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_video.png"));
-                                }
-                                TextBlock mediaItem_Title = new TextBlock();
-                                mediaItem_Title.Text = MediaItem.Title;
-                                mediaItem_Title.FontSize = 22;
-                                mediaItem_Item.Children.Add(mediaItem_Icon);
-                                mediaItem_Item.Children.Add(mediaItem_Title);
-                                DeviceMediaList.Items.Add(mediaItem_Item);
-                                //DeviceMediaList.Items.Add(MediaItem.Title);
-                            }
-                        }
-                        MediaTitle.Text = "Load completed";
-                    }
-                } 
-                else
-                {
-                    if (DeviceMediaList.SelectedIndex > 0 && DeviceMediaList.SelectedIndex < Containers_Count + 1)
-                    {
-                        int containerIndex = DeviceMediaList.SelectedIndex - 1;
-                        DeviceMediaList.Items.Clear();
-                        StackPanel uplevel_Item = new StackPanel();
-                        uplevel_Item.Orientation = Orientation.Horizontal;
-                        Image uplevel_Icon = new Image();
-                        uplevel_Icon.Width = 30;
-                        uplevel_Icon.Height = 30;
-                        uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
-                        TextBlock uplevel_Title = new TextBlock();
-                        uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
-                        uplevel_Title.FontSize = 20;
-                        uplevel_Item.Children.Add(uplevel_Icon);
-                        uplevel_Item.Children.Add(uplevel_Title);
-                        DeviceMediaList.Items.Add(uplevel_Item);
-                        //DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
-                        var ContainerToBrowse = MyMediaInfo.mediaContainers.ElementAt(containerIndex);
-                        var rootObjects = await MyMediaInfo.mediaServer.BrowseAsync(ContainerToBrowse);
-                        PreviousMediaContainers.Push(rootObjects);
-                        var rootContainers = rootObjects.OfType<MediaContainer>();
-                        Containers_Count = rootContainers.Count();
-                        MyMediaInfo.mediaContainers = rootContainers;
-                        var rootMediaItems = rootObjects.OfType<MediaItem>();
-                        MediaItems_Count = rootMediaItems.Count();
-                        MyMediaInfo.mediaItems = rootMediaItems;
-
-                        if (Containers_Count > 0)
-                        {
-                            foreach (var MediaContainer in rootContainers)
-                            {
-                                StackPanel mediaContainer_Item = new StackPanel();
-                                mediaContainer_Item.Orientation = Orientation.Horizontal;
-                                Image mediaContainer_Icon = new Image();
-                                mediaContainer_Icon.Width = 35;
-                                mediaContainer_Icon.Height = 35;
-                                mediaContainer_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/folder.png"));
-                                TextBlock mediaContainer_Title = new TextBlock();
-                                mediaContainer_Title.Text = MediaContainer.Title;
-                                mediaContainer_Title.FontSize = 22;
-                                mediaContainer_Item.Children.Add(mediaContainer_Icon);
-                                mediaContainer_Item.Children.Add(mediaContainer_Title);
-                                DeviceMediaList.Items.Add(mediaContainer_Item);
-                                //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
-                            }
-                        }
-                        if (MediaItems_Count > 0)
-                        {
-                            foreach (var MediaItem in rootMediaItems)
-                            {
-                                StackPanel mediaItem_Item = new StackPanel();
-                                mediaItem_Item.Orientation = Orientation.Horizontal;
-                                Image mediaItem_Icon = new Image();
-                                mediaItem_Icon.Width = 35;
-                                mediaItem_Icon.Height = 35;
-                                if (MediaItem.Class == "object.item.imageItem")
-                                {
-                                    mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
-                                }
-                                else if (MediaItem.Class == "object.item.audioItem" || MediaItem.Class == "object.item.audioItem.musicTrack")
-                                {
-                                    mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_audio.png"));
-                                }
-                                else if (MediaItem.Class == "object.item.videoItem")
-                                {
-                                    mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_video.png"));
-                                }
-                                TextBlock mediaItem_Title = new TextBlock();
-                                mediaItem_Title.Text = MediaItem.Title;
-                                mediaItem_Title.FontSize = 22;
-                                mediaItem_Item.Children.Add(mediaItem_Icon);
-                                mediaItem_Item.Children.Add(mediaItem_Title);
-                                DeviceMediaList.Items.Add(mediaItem_Item);
-                                //DeviceMediaList.Items.Add(MediaItem.Title);
-                            }
-                        }
-                        MediaTitle.Text = "Load completed";
                     }
                     else if (DeviceMediaList.SelectedIndex > Containers_Count)
                     {
@@ -440,84 +464,113 @@ namespace GenieWin8
             }
         }
 
-        //async private void LoadMediaFiles(StorageFolder mediaServerFolder)
-        //{
-        //    try
-        //    {
-        //        MediaFolders = await mediaServerFolder.GetFoldersAsync();
-        //        MediaList.Items.Clear();
-        //        if (MediaFolders.Count > 0)
-        //        {
-        //            MediaList.Items.Clear();
-        //            foreach (StorageFolder folder in MediaFolders)
-        //            {
-        //                MediaList.Items.Add(" + " + folder.DisplayName);
-        //            }
-        //            MediaTitle.Text = "Media folders retrieved";
-        //        }
-        //        var queryOptions = new QueryOptions();
+        //返回上层目录
+        private void BackToUpperlevel()
+        {
+            stackMediaObjects.Pop();
+            if (stackMediaContainer.Count > 0)
+            {
+                stackMediaContainer.Pop();
+            }
 
-        //        var queryFolder = mediaServerFolder.CreateFileQueryWithOptions(queryOptions);
-        //        MediaFiles = await queryFolder.GetFilesAsync();
-        //        if (MediaFiles.Count > 0)
-        //        {
-        //            foreach (StorageFile file in MediaFiles)
-        //            {
-        //                MediaList.Items.Add(file.DisplayName);
-        //            }
-        //            MediaTitle.Text = "Media files retrieved";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MediaTitle.Text = "Error locating media files " + ex.Message;
-        //    }
-        //}
+            if (stackMediaObjects.Count == 0)
+            {
+                DeviceMediaList.Items.Clear();
+                //MediaServers = await KnownFolders.MediaServerDevices.GetFoldersAsync();
+                if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
+                {
+                    MediaTitle.Text = "No MediaServers found";
+                }
+                else
+                {
+                    foreach (var server in mediaServersDiscovery.DiscoveredDevices)
+                    {
+                        DeviceMediaList.Items.Add(server.FriendlyName);
+                    }
+                    MediaTitle.Text = "Media Servers refreshed";
+                }
+                bDeviceList = true;
+                bDeviceFounded = false;
+                stackMediaObjects.Clear();
+            }
+            else
+            {
+                DeviceMediaList.Items.Clear();
+                this.BrowseMediaContainer();
+                //var rootObjects = stackMediaObjects.Peek();
+                //DeviceMediaList.Items.Clear();
+                //StackPanel uplevel_Item = new StackPanel();
+                //uplevel_Item.Orientation = Orientation.Horizontal;
+                //Image uplevel_Icon = new Image();
+                //uplevel_Icon.Width = 30;
+                //uplevel_Icon.Height = 30;
+                //uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
+                //TextBlock uplevel_Title = new TextBlock();
+                //uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
+                //uplevel_Title.FontSize = 20;
+                //uplevel_Item.Children.Add(uplevel_Icon);
+                //uplevel_Item.Children.Add(uplevel_Title);
+                //DeviceMediaList.Items.Add(uplevel_Item);
+                ////DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
+                //var rootContainers = rootObjects.OfType<MediaContainer>();
+                //Containers_Count = rootContainers.Count();
+                //MyMediaInfo.mediaContainers = rootContainers;
+                //var rootMediaItems = rootObjects.OfType<MediaItem>();
+                //MediaItems_Count = rootMediaItems.Count();
+                //MyMediaInfo.mediaItems = rootMediaItems;
 
-        //private async void MediaList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        VideoPlayer.Stop();
-        //        if (MediaList.SelectedIndex != -1 && MediaList.SelectedIndex <
-        //         MediaFolders.Count && MediaFolders.Count != 0)
-        //        {
-        //            MediaTitle.Text = "Retrieving media files ...";
-        //            LoadMediaFiles(MediaFolders[MediaList.SelectedIndex]);
-        //            PreviousFolders.Push(MediaFolders[MediaList.SelectedIndex]);
-        //            currentType = MediaType.None;
-        //        }
-        //        else if (MediaList.SelectedIndex != -1 && (MediaList.SelectedIndex >=
-        //                 MediaFolders.Count &&
-        //                 MediaList.SelectedIndex < (MediaFolders.Count + MediaFiles.Count)))
-        //        {
-        //            CurrentMediaFile = MediaFiles[MediaList.SelectedIndex - MediaFolders.Count];
-        //            var stream = await CurrentMediaFile.OpenAsync(FileAccessMode.Read);
-        //            if (CurrentMediaFile.ContentType.Contains("image"))
-        //            {
-        //                BitmapImage imagerevd = new BitmapImage();
-        //                imagerevd.SetSource(stream);
-        //                ImagePlayer.Source = imagerevd;
-        //                stpVideoPlayer.Opacity = 0;
-        //                ImagePlayer.Opacity = 1;
-        //                currentType = MediaType.Image;
-        //            }
-        //            else
-        //            {
-        //                VideoPlayer.SetSource(stream, CurrentMediaFile.ContentType);
-        //                VideoPlayer.Play();
-        //                stpVideoPlayer.Opacity = 1;
-        //                ImagePlayer.Opacity = 0;
-        //                currentType = MediaType.AudioVideo;
-        //            }
-        //            MediaTitle.Text = "Playing: " + CurrentMediaFile.DisplayName;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MediaTitle.Text = "Error during file selection :" + ex.Message;
-        //    }
-        //}
+                //if (Containers_Count > 0)
+                //{
+                //    foreach (var MediaContainer in rootContainers)
+                //    {
+                //        StackPanel mediaContainer_Item = new StackPanel();
+                //        mediaContainer_Item.Orientation = Orientation.Horizontal;
+                //        Image mediaContainer_Icon = new Image();
+                //        mediaContainer_Icon.Width = 35;
+                //        mediaContainer_Icon.Height = 35;
+                //        mediaContainer_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/folder.png"));
+                //        TextBlock mediaContainer_Title = new TextBlock();
+                //        mediaContainer_Title.Text = MediaContainer.Title;
+                //        mediaContainer_Title.FontSize = 22;
+                //        mediaContainer_Item.Children.Add(mediaContainer_Icon);
+                //        mediaContainer_Item.Children.Add(mediaContainer_Title);
+                //        DeviceMediaList.Items.Add(mediaContainer_Item);
+                //        //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
+                //    }
+                //}
+                //if (MediaItems_Count > 0)
+                //{
+                //    foreach (var MediaItem in rootMediaItems)
+                //    {
+                //        StackPanel mediaItem_Item = new StackPanel();
+                //        mediaItem_Item.Orientation = Orientation.Horizontal;
+                //        Image mediaItem_Icon = new Image();
+                //        mediaItem_Icon.Width = 35;
+                //        mediaItem_Icon.Height = 35;
+                //        if (MediaItem.Class == "object.item.imageItem")
+                //        {
+                //            mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
+                //        }
+                //        else if (MediaItem.Class == "object.item.audioItem" || MediaItem.Class == "object.item.audioItem.musicTrack")
+                //        {
+                //            mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_audio.png"));
+                //        }
+                //        else if (MediaItem.Class == "object.item.videoItem")
+                //        {
+                //            mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_video.png"));
+                //        }
+                //        TextBlock mediaItem_Title = new TextBlock();
+                //        mediaItem_Title.Text = MediaItem.Title;
+                //        mediaItem_Title.FontSize = 22;
+                //        mediaItem_Item.Children.Add(mediaItem_Icon);
+                //        mediaItem_Item.Children.Add(mediaItem_Title);
+                //        DeviceMediaList.Items.Add(mediaItem_Item);
+                //        //DeviceMediaList.Items.Add(MediaItem.Title);
+                //    }
+                //}
+                //MediaTitle.Text = "Load completed";
+            }
+        }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
@@ -539,80 +592,191 @@ namespace GenieWin8
             } 
             else
             {
-                var rootObjects = PreviousMediaContainers.Peek();
-                StackPanel uplevel_Item = new StackPanel();
-                uplevel_Item.Orientation = Orientation.Horizontal;
-                Image uplevel_Icon = new Image();
-                uplevel_Icon.Width = 30;
-                uplevel_Icon.Height = 30;
-                uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
-                TextBlock uplevel_Title = new TextBlock();
-                uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
-                uplevel_Title.FontSize = 20;
-                uplevel_Item.Children.Add(uplevel_Icon);
-                uplevel_Item.Children.Add(uplevel_Title);
-                DeviceMediaList.Items.Add(uplevel_Item);
-                //DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
-                var rootContainers = rootObjects.OfType<MediaContainer>();
-                Containers_Count = rootContainers.Count();
-                MyMediaInfo.mediaContainers = rootContainers;
-                var rootMediaItems = rootObjects.OfType<MediaItem>();
-                MediaItems_Count = rootMediaItems.Count();
-                MyMediaInfo.mediaItems = rootMediaItems;
-
-                if (Containers_Count > 0)
-                {
-                    foreach (var MediaContainer in rootContainers)
-                    {
-                        StackPanel mediaContainer_Item = new StackPanel();
-                        mediaContainer_Item.Orientation = Orientation.Horizontal;
-                        Image mediaContainer_Icon = new Image();
-                        mediaContainer_Icon.Width = 35;
-                        mediaContainer_Icon.Height = 35;
-                        mediaContainer_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/folder.png"));
-                        TextBlock mediaContainer_Title = new TextBlock();
-                        mediaContainer_Title.Text = MediaContainer.Title;
-                        mediaContainer_Title.FontSize = 22;
-                        mediaContainer_Item.Children.Add(mediaContainer_Icon);
-                        mediaContainer_Item.Children.Add(mediaContainer_Title);
-                        DeviceMediaList.Items.Add(mediaContainer_Item);
-                        //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
-                    }
-                }
-                if (MediaItems_Count > 0)
-                {
-                    foreach (var MediaItem in rootMediaItems)
-                    {
-                        StackPanel mediaItem_Item = new StackPanel();
-                        mediaItem_Item.Orientation = Orientation.Horizontal;
-                        Image mediaItem_Icon = new Image();
-                        mediaItem_Icon.Width = 35;
-                        mediaItem_Icon.Height = 35;
-                        if (MediaItem.Class == "object.item.imageItem")
-                        {
-                            mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
-                        }
-                        else if (MediaItem.Class == "object.item.audioItem" || MediaItem.Class == "object.item.audioItem.musicTrack")
-                        {
-                            mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_audio.png"));
-                        }
-                        else if (MediaItem.Class == "object.item.videoItem")
-                        {
-                            mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_video.png"));
-                        }
-                        TextBlock mediaItem_Title = new TextBlock();
-                        mediaItem_Title.Text = MediaItem.Title;
-                        mediaItem_Title.FontSize = 22;
-                        mediaItem_Item.Children.Add(mediaItem_Icon);
-                        mediaItem_Item.Children.Add(mediaItem_Title);
-                        DeviceMediaList.Items.Add(mediaItem_Item);
-                        //DeviceMediaList.Items.Add(MediaItem.Title);
-                    }
-                }
-                MediaTitle.Text = "Load completed";
+                this.BrowseMediaContainer();
             }
         }
 
+        private async void BrowseMediaContainer()
+        {
+            if (stackMediaContainer.Count == 0)         //设备的第一层根目录
+            {
+                bDeviceFounded = false;
+                foreach (var serverDevice in mediaServersDiscovery.DiscoveredDevices)
+                {
+                    if (serverDevice.FriendlyName == MyMediaInfo.mediaServer.FriendlyName)
+                    {
+                        bDeviceFounded = true;
+                        var rootObjects = await serverDevice.BrowseAsync();
+                        if (rootObjects != null)
+                        {
+                            StackPanel uplevel_Item = new StackPanel();
+                            uplevel_Item.Orientation = Orientation.Horizontal;
+                            Image uplevel_Icon = new Image();
+                            uplevel_Icon.Width = 30;
+                            uplevel_Icon.Height = 30;
+                            uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
+                            TextBlock uplevel_Title = new TextBlock();
+                            uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
+                            uplevel_Title.FontSize = 20;
+                            uplevel_Item.Children.Add(uplevel_Icon);
+                            uplevel_Item.Children.Add(uplevel_Title);
+                            DeviceMediaList.Items.Add(uplevel_Item);
+
+                            var rootContainers = rootObjects.OfType<MediaContainer>();
+                            Containers_Count = rootContainers.Count();
+                            MyMediaInfo.mediaContainers = rootContainers;
+                            var rootMediaItems = rootObjects.OfType<MediaItem>();
+                            MediaItems_Count = rootMediaItems.Count();
+                            MyMediaInfo.mediaItems = rootMediaItems;
+                            if (Containers_Count > 0)
+                            {
+                                foreach (var MediaContainer in rootContainers)
+                                {
+                                    StackPanel mediaContainer_Item = new StackPanel();
+                                    mediaContainer_Item.Orientation = Orientation.Horizontal;
+                                    Image mediaContainer_Icon = new Image();
+                                    mediaContainer_Icon.Width = 35;
+                                    mediaContainer_Icon.Height = 35;
+                                    mediaContainer_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/folder.png"));
+                                    TextBlock mediaContainer_Title = new TextBlock();
+                                    mediaContainer_Title.Text = MediaContainer.Title;
+                                    mediaContainer_Title.FontSize = 22;
+                                    mediaContainer_Item.Children.Add(mediaContainer_Icon);
+                                    mediaContainer_Item.Children.Add(mediaContainer_Title);
+                                    DeviceMediaList.Items.Add(mediaContainer_Item);
+                                    //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
+                                }
+                            }
+                            if (MediaItems_Count > 0)
+                            {
+                                foreach (var MediaItem in rootMediaItems)
+                                {
+                                    StackPanel mediaItem_Item = new StackPanel();
+                                    mediaItem_Item.Orientation = Orientation.Horizontal;
+                                    Image mediaItem_Icon = new Image();
+                                    mediaItem_Icon.Width = 35;
+                                    mediaItem_Icon.Height = 35;
+                                    if (MediaItem.Class == "object.item.imageItem")
+                                    {
+                                        mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
+                                    }
+                                    else if (MediaItem.Class == "object.item.audioItem" || MediaItem.Class == "object.item.audioItem.musicTrack")
+                                    {
+                                        mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_audio.png"));
+                                    }
+                                    else if (MediaItem.Class == "object.item.videoItem")
+                                    {
+                                        mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_video.png"));
+                                    }
+                                    TextBlock mediaItem_Title = new TextBlock();
+                                    mediaItem_Title.Text = MediaItem.Title;
+                                    mediaItem_Title.FontSize = 22;
+                                    mediaItem_Item.Children.Add(mediaItem_Icon);
+                                    mediaItem_Item.Children.Add(mediaItem_Title);
+                                    DeviceMediaList.Items.Add(mediaItem_Item);
+                                    //DeviceMediaList.Items.Add(MediaItem.Title);
+                                }
+                            }
+                            MediaTitle.Text = "Load completed";
+                        }
+                        else        //rootObjects == null
+                        {
+                            this.BackToUpperlevel();
+                            MediaTitle.Text = "Load failed, back to device list";
+                        }
+                        break;
+                    }
+                }
+                if (!bDeviceFounded)
+                {
+                    this.BackToUpperlevel();
+                    MediaTitle.Text = "Device does not exist, please refresh the device list";
+                }
+            }
+            else                   //stackMediaContainer.Count != 0    非设备的第一层根目录
+            {
+                var ContainerToBrowse = stackMediaContainer.Peek();
+                var rootObjects = await MyMediaInfo.mediaServer.BrowseAsync(ContainerToBrowse);
+                if (rootObjects != null)
+                {
+                    StackPanel uplevel_Item = new StackPanel();
+                    uplevel_Item.Orientation = Orientation.Horizontal;
+                    Image uplevel_Icon = new Image();
+                    uplevel_Icon.Width = 30;
+                    uplevel_Icon.Height = 30;
+                    uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
+                    TextBlock uplevel_Title = new TextBlock();
+                    uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
+                    uplevel_Title.FontSize = 20;
+                    uplevel_Item.Children.Add(uplevel_Icon);
+                    uplevel_Item.Children.Add(uplevel_Title);
+                    DeviceMediaList.Items.Add(uplevel_Item);
+                    //DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
+
+                    var rootContainers = rootObjects.OfType<MediaContainer>();
+                    Containers_Count = rootContainers.Count();
+                    MyMediaInfo.mediaContainers = rootContainers;
+                    var rootMediaItems = rootObjects.OfType<MediaItem>();
+                    MediaItems_Count = rootMediaItems.Count();
+                    MyMediaInfo.mediaItems = rootMediaItems;
+                    if (Containers_Count > 0)
+                    {
+                        foreach (var MediaContainer in rootContainers)
+                        {
+                            StackPanel mediaContainer_Item = new StackPanel();
+                            mediaContainer_Item.Orientation = Orientation.Horizontal;
+                            Image mediaContainer_Icon = new Image();
+                            mediaContainer_Icon.Width = 35;
+                            mediaContainer_Icon.Height = 35;
+                            mediaContainer_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/folder.png"));
+                            TextBlock mediaContainer_Title = new TextBlock();
+                            mediaContainer_Title.Text = MediaContainer.Title;
+                            mediaContainer_Title.FontSize = 22;
+                            mediaContainer_Item.Children.Add(mediaContainer_Icon);
+                            mediaContainer_Item.Children.Add(mediaContainer_Title);
+                            DeviceMediaList.Items.Add(mediaContainer_Item);
+                            //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
+                        }
+                    }
+                    if (MediaItems_Count > 0)
+                    {
+                        foreach (var MediaItem in rootMediaItems)
+                        {
+                            StackPanel mediaItem_Item = new StackPanel();
+                            mediaItem_Item.Orientation = Orientation.Horizontal;
+                            Image mediaItem_Icon = new Image();
+                            mediaItem_Icon.Width = 35;
+                            mediaItem_Icon.Height = 35;
+                            if (MediaItem.Class == "object.item.imageItem")
+                            {
+                                mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
+                            }
+                            else if (MediaItem.Class == "object.item.audioItem" || MediaItem.Class == "object.item.audioItem.musicTrack")
+                            {
+                                mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_audio.png"));
+                            }
+                            else if (MediaItem.Class == "object.item.videoItem")
+                            {
+                                mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_video.png"));
+                            }
+                            TextBlock mediaItem_Title = new TextBlock();
+                            mediaItem_Title.Text = MediaItem.Title;
+                            mediaItem_Title.FontSize = 22;
+                            mediaItem_Item.Children.Add(mediaItem_Icon);
+                            mediaItem_Item.Children.Add(mediaItem_Title);
+                            DeviceMediaList.Items.Add(mediaItem_Item);
+                            //DeviceMediaList.Items.Add(MediaItem.Title);
+                        }
+                    }
+                    MediaTitle.Text = "Load completed";
+                }
+                else             //rootObjects == null
+                {
+                    this.BackToUpperlevel();
+                    MediaTitle.Text = "Load failed, back to parent directory";
+                }
+            }
+        }
         //private void Back_Click(object sender, RoutedEventArgs e)
         //{
         //    if (PreviousFolders.Count > 1)
