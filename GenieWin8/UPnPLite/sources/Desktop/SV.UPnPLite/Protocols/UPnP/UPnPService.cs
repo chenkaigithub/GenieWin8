@@ -234,7 +234,11 @@ namespace SV.UPnPLite.Protocols.UPnP
                 if (ex.Status.ToString() == "KeepAliveFailure")        //keep-alive状态被断开连接的情况下重试
                 {
                     this.ProcessRequest(requestInfo);
-                } 
+                }
+                else if (ex.Message == "The remote server returned an error: (404) Not Found.")
+                {
+                    requestInfo.CompletionSource.TrySetResult(new Dictionary<string, string>());
+                }
                 else
                 {
                     requestInfo.CompletionSource.TrySetException(ex);

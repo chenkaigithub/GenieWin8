@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Networking.Connectivity;
 
 using SV.UPnPLite.Protocols.DLNA;
 using SV.UPnPLite.Protocols.UPnP;
@@ -36,6 +37,7 @@ namespace GenieWin8
         int Containers_Count = 0;           //该层目录中的媒体文件夹数目
         int MediaItems_Count = 0;           //该层目录中的媒体资源数目
         Uri _baseUri = new Uri("ms-appx:///");
+        private string networkName;
 
         Stack<IEnumerable<MediaObject>> stackMediaObjects { get; set; }
         Stack<MediaContainer> stackMediaContainer { get; set; }
@@ -58,9 +60,58 @@ namespace GenieWin8
             stackMediaObjects = new Stack<IEnumerable<MediaObject>>();
             stackMediaContainer = new Stack<MediaContainer>();
             this.InitilizeMediaServers();
+
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+        }
+
+        private void App_Resuming(Object sender, Object e)
+        {
+            string compNetworkName = null;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        compNetworkName = connectionProfile.ProfileName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            if (compNetworkName != networkName)
+            {
+                mediaServersDiscovery = new MediaServersDiscovery();
+                networkName = compNetworkName;
+                bDeviceList = true;
+            }
+            DeviceMediaList.Items.Clear();
+            if (bDeviceList)
+            {
+                if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
+                {
+                    MediaTitle.Text = "No MediaServers found";
+                }
+                else
+                {
+                    foreach (var server in mediaServersDiscovery.DiscoveredDevices)
+                    {
+                        DeviceMediaList.Items.Add(server.FriendlyName);
+                    }
+                    MediaTitle.Text = "Media Servers refreshed";
+                }
+            }
+            else
+            {
+                this.BrowseMediaContainer();
+            }
         }
 
         DispatcherTimer timer = new DispatcherTimer();
+        DispatcherTimer timer1 = new DispatcherTimer();
         /// <summary>
         /// 使用在导航过程中传递的内容填充页。在从以前的会话
         /// 重新创建页时，也会提供任何已保存状态。
@@ -72,6 +123,21 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        networkName = connectionProfile.ProfileName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
             timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += new System.EventHandler<object>(timer_Tick);
             timer.Start();
@@ -428,6 +494,18 @@ namespace GenieWin8
                             await MyMediaInfo.mediaRenderer.StopAsync();
                             await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
                             await MyMediaInfo.mediaRenderer.PlayAsync();
+                            MyMediaInfo.mediaRenderer.PositionChanges.Subscribe(position =>
+                            {
+                                System.Diagnostics.Debug.WriteLine("{0}", position);
+                            });
+                            //MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
+                            //{
+                            //    System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
+                            //});
+                            //timer1.Interval = TimeSpan.FromMilliseconds(500);
+                            //timer1.Tick += new System.EventHandler<object>(timer_Tick1);
+                            //timer1.Start();
+                            
                             MediaTitle.Text = "Playing media file...";
                         } 
                         else
@@ -442,6 +520,18 @@ namespace GenieWin8
                 }
             }
         }
+
+        //void timer_Tick1(object sender, object e)
+        //{
+        //    MyMediaInfo.mediaRenderer.PositionChanges.Subscribe(position =>
+        //    {
+        //        System.Diagnostics.Debug.WriteLine("Position changed: {0}", position);
+        //    });
+        //    MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
+        //    {
+        //        System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
+        //    });
+        //}
 
         void timer_Tick(object sender, object e)
         {
@@ -574,6 +664,28 @@ namespace GenieWin8
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
+            string compNetworkName = null;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        compNetworkName = connectionProfile.ProfileName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            if (compNetworkName != networkName)
+            {
+                mediaServersDiscovery = new MediaServersDiscovery();
+                networkName = compNetworkName;
+                bDeviceList = true;
+            }
             DeviceMediaList.Items.Clear();
             if (bDeviceList)
             {

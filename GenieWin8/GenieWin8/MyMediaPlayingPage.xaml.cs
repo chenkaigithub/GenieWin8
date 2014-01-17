@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI;
 
 using Windows.Media.PlayTo;
 using Windows.UI.Core;
@@ -36,6 +37,19 @@ namespace GenieWin8
         MediaType currentType = MediaType.None;
         BitmapImage imagerevd = null;
 
+        bool IsFullScreen = false;
+        private Size _previousmediasize;
+        public Size PreviousMediaSize
+        {
+            get { return _previousmediasize; }
+            set { _previousmediasize = value; }
+        }
+        private Thickness _previousmediaelementmargin;
+        private Thickness _previousScrollViewerMargin;
+        private Brush _previousBGColor;
+        private DispatcherTimer _timer;
+        private bool _sliderpressed = false;
+
         public MyMediaPlayingPage()
         {
             this.InitializeComponent();
@@ -60,8 +74,13 @@ namespace GenieWin8
         /// <see cref="SuspensionManager.SessionState"/> 的序列化要求。
         /// </summary>
         /// <param name="pageState">要使用可序列化状态填充的空字典。</param>
-        protected override void SaveState(Dictionary<String, Object> pageState)
+        protected override async void SaveState(Dictionary<String, Object> pageState)
         {
+            if (IsReceiverStarted)
+            {
+                await receiver.StopAsync();
+                IsReceiverStarted = false;
+            }
         }
 
         /// <summary>
@@ -151,6 +170,17 @@ namespace GenieWin8
                     //receiver.FriendlyName = "SDK CS Sample PlayToReceiver";
                     EasClientDeviceInformation easClientDeviceInformation = new EasClientDeviceInformation();
                     receiver.FriendlyName = "Genie Media Player (" + easClientDeviceInformation.FriendlyName + ")";
+
+                    timelineSlider.ValueChanged += timelineSlider_ValueChanged;
+                    timelineSlider1.ValueChanged += timelineSlider_ValueChanged;
+
+                    PointerEventHandler pointerpressedhandler = new PointerEventHandler(slider_PointerEntered);
+                    timelineSlider.AddHandler(Control.PointerPressedEvent, pointerpressedhandler, true);
+                    timelineSlider1.AddHandler(Control.PointerPressedEvent, pointerpressedhandler, true);
+
+                    PointerEventHandler pointerreleasedhandler = new PointerEventHandler(slider_PointerCaptureLost);
+                    timelineSlider.AddHandler(Control.PointerCaptureLostEvent, pointerreleasedhandler, true);
+                    timelineSlider1.AddHandler(Control.PointerCaptureLostEvent, pointerreleasedhandler, true);
                 }
             }
             catch (Exception e)
@@ -170,11 +200,33 @@ namespace GenieWin8
                 {
                     IsPlayReceivedPreMediaLoaded = true;
                     dmrVideo.Play();
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = true;
+                    stopButton.IsEnabled = true;
+
+                    playButton1.IsEnabled = false;
+                    pauseButton1.IsEnabled = true;
+                    stopButton1.IsEnabled = true;
+
+                    double absvalue = (int)Math.Round(dmrVideo.NaturalDuration.TimeSpan.TotalSeconds, MidpointRounding.AwayFromZero);
+                    timelineSlider.Maximum = absvalue;
+                    timelineSlider1.Maximum = absvalue;
+
+                    timelineSlider.StepFrequency = SliderFrequency(dmrVideo.NaturalDuration.TimeSpan);
+                    timelineSlider1.StepFrequency = SliderFrequency(dmrVideo.NaturalDuration.TimeSpan);
+                    SetupTimer();
                 }
                 else if (currentType == MediaType.Image)
                 {
                     dmrImage.Source = imagerevd;
                     receiver.NotifyPlaying();
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+
+                    playButton1.IsEnabled = false;
+                    pauseButton1.IsEnabled = false;
+                    stopButton1.IsEnabled = false;
                 }
             });
         }
@@ -188,10 +240,24 @@ namespace GenieWin8
                     if (dmrVideo.CurrentState == MediaElementState.Stopped)
                     {
                         receiver.NotifyPaused();
+                        playButton.IsEnabled = true;
+                        pauseButton.IsEnabled = false;
+                        stopButton.IsEnabled = false;
+
+                        playButton1.IsEnabled = true;
+                        pauseButton1.IsEnabled = false;
+                        stopButton1.IsEnabled = false;
                     }
                     else
                     {
                         dmrVideo.Pause();
+                        playButton.IsEnabled = true;
+                        pauseButton.IsEnabled = false;
+                        stopButton.IsEnabled = true;
+
+                        playButton1.IsEnabled = true;
+                        pauseButton1.IsEnabled = false;
+                        stopButton1.IsEnabled = true;
                     }
                 }
             });
@@ -205,11 +271,25 @@ namespace GenieWin8
                 {
                     dmrVideo.Stop();
                     receiver.NotifyStopped();
+                    playButton.IsEnabled = true;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+
+                    playButton1.IsEnabled = true;
+                    pauseButton1.IsEnabled = false;
+                    stopButton1.IsEnabled = false;
                 }
                 else if (dmrImage != null && currentType == MediaType.Image)
                 {
                     dmrImage.Source = null;
                     receiver.NotifyStopped();
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+
+                    playButton1.IsEnabled = false;
+                    pauseButton1.IsEnabled = false;
+                    stopButton1.IsEnabled = false;
                 }
             });
         }
@@ -265,14 +345,30 @@ namespace GenieWin8
                 {
                     if (currentType == MediaType.AudioVideo && dmrVideo != null)
                     {
+                        if (this.IsFullScreen)
+                            FullscreenToggle();
                         dmrVideo.Stop();
                     }
                     else if (currentType == MediaType.Image && dmrImage != null)
                     {
+                        if (this.IsFullScreen)
+                            FullscreenToggle();
                         dmrImage.Source = null;
                         dmrImage.Opacity = 0;
                     }
                     currentType = MediaType.None;
+                    Title.Text = "";
+                    Title1.Text = "";
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+
+                    playButton1.IsEnabled = false;
+                    pauseButton1.IsEnabled = false;
+                    stopButton1.IsEnabled = false;
+
+                    timelineSlider.Visibility = Visibility.Collapsed;
+                    timelineSlider1.Visibility = Visibility.Collapsed;
                 });
             }
             else if (args.Stream.ContentType.Contains("image"))
@@ -286,12 +382,26 @@ namespace GenieWin8
                     {
                         if (currentType == MediaType.AudioVideo)
                         {
+                            if (this.IsFullScreen)
+                                FullscreenToggle();
                             dmrVideo.Stop();
                         }
                         dmrImage.Opacity = 1;
                         dmrVideo.Opacity = 0;
                     }
                     currentType = MediaType.Image;
+                    Title.Text = args.Title;
+                    Title1.Text = args.Title;
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+
+                    playButton1.IsEnabled = false;
+                    pauseButton1.IsEnabled = false;
+                    stopButton1.IsEnabled = false;
+
+                    timelineSlider.Visibility = Visibility.Collapsed;
+                    timelineSlider1.Visibility = Visibility.Collapsed;
                 });
             }
             else
@@ -311,11 +421,25 @@ namespace GenieWin8
 
                     if (currentType == MediaType.Image)
                     {
+                        if (this.IsFullScreen)
+                            FullscreenToggle();
                         dmrImage.Opacity = 0;
                         dmrVideo.Opacity = 1;
                         dmrImage.Source = null;
                     }
                     currentType = MediaType.AudioVideo;
+                    Title.Text = args.Title;
+                    Title1.Text = args.Title;
+                    playButton.IsEnabled = true;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+
+                    playButton1.IsEnabled = true;
+                    pauseButton1.IsEnabled = false;
+                    stopButton1.IsEnabled = false;
+
+                    timelineSlider.Visibility = Visibility.Visible;
+                    timelineSlider1.Visibility = Visibility.Visible;
                 });
             }
         }
@@ -407,6 +531,14 @@ namespace GenieWin8
                 {
                     case MediaElementState.Playing:
                         receiver.NotifyPlaying();
+                        if (_sliderpressed)
+                        {
+                            _timer.Stop();
+                        }
+                        else
+                        {
+                            _timer.Start();
+                        }
                         break;
                     case MediaElementState.Paused:
                         if (justLoadedMedia)
@@ -417,10 +549,14 @@ namespace GenieWin8
                         else
                         {
                             receiver.NotifyPaused();
+                            _timer.Stop();
                         }
                         break;
                     case MediaElementState.Stopped:
                         receiver.NotifyStopped();
+                        _timer.Stop();
+                        timelineSlider.Value = 0.0;
+                        timelineSlider1.Value = 0.0;
                         break;
                     default:
                         break;
@@ -432,9 +568,20 @@ namespace GenieWin8
         {
             if (IsReceiverStarted)
             {
+                StopTimer();
+                timelineSlider.Value = 0.0;
+                timelineSlider1.Value = 0.0;
+
                 receiver.NotifyEnded();
                 if (dmrVideo != null)
                     dmrVideo.Stop();
+                playButton.IsEnabled = true;
+                pauseButton.IsEnabled = false;
+                stopButton.IsEnabled = false;
+
+                playButton1.IsEnabled = true;
+                pauseButton1.IsEnabled = false;
+                stopButton1.IsEnabled = false;
             }
         }
 
@@ -443,6 +590,13 @@ namespace GenieWin8
             if (IsReceiverStarted)
             {
                 receiver.NotifyError();
+                playButton.IsEnabled = false;
+                pauseButton.IsEnabled = false;
+                stopButton.IsEnabled = false;
+
+                playButton1.IsEnabled = false;
+                pauseButton1.IsEnabled = false;
+                stopButton1.IsEnabled = false;
             }
         }
 
@@ -479,6 +633,285 @@ namespace GenieWin8
         private void dmrImage_ImageFailed_1(object sender, ExceptionRoutedEventArgs e)
         {
             receiver.NotifyError();
+            playButton.IsEnabled = false;
+            pauseButton.IsEnabled = false;
+            stopButton.IsEnabled = false;
+
+            playButton1.IsEnabled = false;
+            pauseButton1.IsEnabled = false;
+            stopButton1.IsEnabled = false;
+        }
+
+        private void playButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (dmrVideo != null && currentType == MediaType.AudioVideo)
+            {
+                IsPlayReceivedPreMediaLoaded = true;
+                dmrVideo.Play();
+                playButton.IsEnabled = false;
+                pauseButton.IsEnabled = true;
+                stopButton.IsEnabled = true;
+
+                playButton1.IsEnabled = false;
+                pauseButton1.IsEnabled = true;
+                stopButton1.IsEnabled = true;
+
+                SetupTimer();
+            }
+            else if (currentType == MediaType.Image)
+            {
+                dmrImage.Source = imagerevd;
+                receiver.NotifyPlaying();
+                playButton.IsEnabled = false;
+                pauseButton.IsEnabled = false;
+                stopButton.IsEnabled = false;
+
+                playButton1.IsEnabled = false;
+                pauseButton1.IsEnabled = false;
+                stopButton1.IsEnabled = false;
+            }
+        }
+
+        private void pauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (dmrVideo != null && currentType == MediaType.AudioVideo)
+            {
+                if (dmrVideo.CurrentState == MediaElementState.Stopped)
+                {
+                    receiver.NotifyPaused();
+                    playButton.IsEnabled = true;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+
+                    playButton1.IsEnabled = true;
+                    pauseButton1.IsEnabled = false;
+                    stopButton1.IsEnabled = false;
+                }
+                else
+                {
+                    dmrVideo.Pause();
+                    playButton.IsEnabled = true;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = true;
+
+                    playButton1.IsEnabled = true;
+                    pauseButton1.IsEnabled = false;
+                    stopButton1.IsEnabled = true;
+                }
+            }
+        }
+
+        private void stopButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (dmrVideo != null && currentType == MediaType.AudioVideo)
+            {
+                dmrVideo.Stop();
+                receiver.NotifyStopped();
+                playButton.IsEnabled = true;
+                pauseButton.IsEnabled = false;
+                stopButton.IsEnabled = false;
+
+                playButton1.IsEnabled = true;
+                pauseButton1.IsEnabled = false;
+                stopButton1.IsEnabled = false;
+            }
+            else if (dmrImage != null && currentType == MediaType.Image)
+            {
+                dmrImage.Source = null;
+                receiver.NotifyStopped();
+                playButton.IsEnabled = false;
+                pauseButton.IsEnabled = false;
+                stopButton.IsEnabled = false;
+
+                playButton1.IsEnabled = false;
+                pauseButton1.IsEnabled = false;
+                stopButton1.IsEnabled = false;
+            }
+        }
+
+        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
+        {
+            FullscreenToggle();
+        }
+
+        private void StackPanel_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (IsFullScreen && e.Key == Windows.System.VirtualKey.Escape)
+                FullscreenToggle();
+            e.Handled = true;
+        }
+
+        private void FullscreenToggle()
+        {
+            this.IsFullScreen = !this.IsFullScreen;
+
+            if (this.IsFullScreen)
+            {
+                Header.Visibility = Visibility.Collapsed;
+                
+                _previousmediaelementmargin = LayoutRoot.Margin;
+
+                MediaScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
+                MediaScrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+
+                ControlDMRPanel.Visibility = Visibility.Collapsed;
+                StatusNotify.Visibility = Visibility.Collapsed;
+                ControlMediaPanel.Visibility = Visibility.Collapsed;
+                Title.Visibility = Visibility.Collapsed;
+
+                _previousBGColor = LayoutRoot.Background;
+                LayoutRoot.Margin = new Thickness();
+                LayoutRoot.Background = new SolidColorBrush(Colors.Black);
+
+                _previousScrollViewerMargin = MediaScrollViewer.Margin;
+                MediaScrollViewer.Margin = new Thickness(0);
+
+                BottomAppBar.Visibility = Visibility.Visible;
+
+                if (dmrVideo != null && currentType == MediaType.AudioVideo)
+                {
+                    timelineSlider.Visibility = Visibility.Collapsed;
+                    timelineSlider1.Visibility = Visibility.Visible;
+                    dmrImage.Visibility = Visibility.Collapsed;
+                    _previousmediasize.Height = dmrVideo.Height;
+                    _previousmediasize.Width = dmrVideo.Width;
+
+                    dmrVideo.Width = Window.Current.Bounds.Width;
+                    dmrVideo.Height = Window.Current.Bounds.Height;
+                }
+                else if (dmrImage != null && currentType == MediaType.Image)
+                {
+                    dmrVideo.Visibility = Visibility.Collapsed;
+                    _previousmediasize.Height = dmrImage.Height;
+                    _previousmediasize.Width = dmrImage.Width;
+
+                    dmrImage.Width = Window.Current.Bounds.Width;
+                    dmrImage.Height = Window.Current.Bounds.Height;
+                }
+            }
+            else
+            {
+                Header.Visibility = Visibility.Visible;
+
+                MediaScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+                MediaScrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+
+                ControlDMRPanel.Visibility = Visibility.Visible;
+                StatusNotify.Visibility = Visibility.Visible;
+                ControlMediaPanel.Visibility = Visibility.Visible;
+                Title.Visibility = Visibility.Visible;
+
+                LayoutRoot.Background = _previousBGColor;
+                LayoutRoot.Margin = _previousmediaelementmargin;
+
+                MediaScrollViewer.Margin = _previousScrollViewerMargin;
+
+                BottomAppBar.Visibility = Visibility.Collapsed;
+
+                if (dmrVideo != null && currentType == MediaType.AudioVideo)
+                {
+                    timelineSlider.Visibility = Visibility.Visible;
+                    timelineSlider1.Visibility = Visibility.Collapsed;
+                    dmrImage.Visibility = Visibility.Visible;
+                    dmrVideo.Width = _previousmediasize.Width;
+                    dmrVideo.Height = _previousmediasize.Height;
+                }
+                else if (dmrImage != null && currentType == MediaType.Image)
+                {
+                    dmrVideo.Visibility = Visibility.Visible;
+                    dmrImage.Width = _previousmediasize.Width;
+                    dmrImage.Height = _previousmediasize.Height;
+                }
+            }
+        }
+
+        void timelineSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            //System.Diagnostics.Debug.WriteLine("Slider old value = {0} new value = {1}.", e.OldValue, e.NewValue);
+            if (!_sliderpressed)
+            {
+                dmrVideo.Position = TimeSpan.FromSeconds(e.NewValue);
+            }
+        }
+
+        void slider_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            //System.Diagnostics.Debug.WriteLine("Pointer entered event fired");
+            _sliderpressed = true;
+        }
+
+        void slider_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
+        {
+            //System.Diagnostics.Debug.WriteLine("Pointer capture lost event fired");
+            //System.Diagnostics.Debug.WriteLine("Slider value at capture lost {0}", timelineSlider.Value);
+            //dmrVideo.PlaybackRate = 1;
+            if (!this.IsFullScreen)
+            {
+                dmrVideo.Position = TimeSpan.FromSeconds(timelineSlider.Value);
+            }
+            else
+            {
+                dmrVideo.Position = TimeSpan.FromSeconds(timelineSlider1.Value);
+            }
+            _sliderpressed = false;
+        }
+
+        private void SetupTimer()
+        {
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(timelineSlider.StepFrequency);
+            StartTimer();
+        }
+
+        private void _timer_Tick(object sender, object e)
+        {
+            if (!_sliderpressed)
+            {
+                timelineSlider.Value = dmrVideo.Position.TotalSeconds;
+                timelineSlider1.Value = dmrVideo.Position.TotalSeconds;
+            }
+        }
+
+        private void StartTimer()
+        {
+            _timer.Tick += _timer_Tick;
+            _timer.Start();
+        }
+
+        private void StopTimer()
+        {
+            _timer.Stop();
+            _timer.Tick -= _timer_Tick;
+        }
+
+        private double SliderFrequency(TimeSpan timevalue)
+        {
+            double stepfrequency = -1;
+
+            double absvalue = (int)Math.Round(timevalue.TotalSeconds, MidpointRounding.AwayFromZero);
+            stepfrequency = (int)(Math.Round(absvalue / 100));
+
+            if (timevalue.TotalMinutes >= 10 && timevalue.TotalMinutes < 30)
+            {
+                stepfrequency = 10;
+            }
+            else if (timevalue.TotalMinutes >= 30 && timevalue.TotalMinutes < 60)
+            {
+                stepfrequency = 30;
+            }
+            else if (timevalue.TotalHours >= 1)
+            {
+                stepfrequency = 60;
+            }
+
+            if (stepfrequency == 0) stepfrequency += 1;
+
+            if (stepfrequency == 1)
+            {
+                stepfrequency = absvalue / 100;
+            }
+
+            return stepfrequency;
         }
     }
 }

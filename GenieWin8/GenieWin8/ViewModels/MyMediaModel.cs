@@ -189,11 +189,11 @@ namespace GenieWin8.Data
                     "Assets/MyMedia/playing.png");
             this.MyMediaGroups.Add(mymediagroup3);
 
-            strTitle = loader.GetString("MyMediaOption");
-            var mymediagrou4 = new MyMediaGroup("MyMediaOption",
-                    strTitle,
-                    "Assets/MyMedia/option.png");
-            this.MyMediaGroups.Add(mymediagrou4);
+            //strTitle = loader.GetString("MyMediaOption");
+            //var mymediagrou4 = new MyMediaGroup("MyMediaOption",
+            //        strTitle,
+            //        "Assets/MyMedia/option.png");
+            //this.MyMediaGroups.Add(mymediagrou4);
         }
     }
 }

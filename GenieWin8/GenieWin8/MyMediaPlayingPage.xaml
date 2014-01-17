@@ -22,14 +22,14 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
+    <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Back button and page title -->
-        <Grid>
+        <Grid x:Name="Header">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -38,28 +38,42 @@
             <TextBlock x:Name="pageTitle" x:Uid="MyMediaPlayingPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
         </Grid>
 
-        <StackPanel Grid.Row="1" Margin="100,50,0,0">
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <Button x:Name="startDMRButton" Content="Allow to Receive" FontSize="24" Margin="0,0,10,0" Click="startPlayToReceiver" Foreground="White" Background="#8165A2" BorderThickness="0"/>
-                <Button x:Name="stopDMRButton"  Content="Stop to Receive" FontSize="24" Margin="0,0,10,0" Click="stopPlayToReceiver" IsEnabled="False" Foreground="White" Background="#8165A2" BorderThickness="0"/>
+        <ScrollViewer x:Name="MediaScrollViewer" Grid.RowSpan="2" ZoomMode="Disabled" IsTabStop="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,140,0,0">
+            <StackPanel>
+                <StackPanel x:Name="ControlDMRPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+                    <Button x:Name="startDMRButton" Content="Allow to Receive" FontSize="24" Margin="0,0,10,0" Click="startPlayToReceiver" Foreground="White" Background="#8165A2" BorderThickness="0"/>
+                    <Button x:Name="stopDMRButton"  Content="Stop to Receive" FontSize="24" Margin="0,0,10,0" Click="stopPlayToReceiver" IsEnabled="False" Foreground="White" Background="#8165A2" BorderThickness="0"/>
+                </StackPanel>
+
+                <TextBlock x:Name="StatusNotify" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="600" TextWrapping="Wrap" Margin="50,0,0,10"/>
+
+                <StackPanel x:Name="ControlMediaPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Button x:Name="playButton" Margin="0,0" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="pauseButton" Margin="0,0" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="stopButton" Margin="0,0" Click="stopButton_Click"  Style="{StaticResource StopAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="FullScreenButton" Margin="0,0" Click="FullScreenButton_Click"  Style="{StaticResource FullScreenAppBarButtonStyle}"/>
+                </StackPanel>
+                <TextBlock x:Name="Title" FontSize="25" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" MaxWidth="600" TextWrapping="Wrap"/>
+                <Slider Name="timelineSlider" Width="400" Padding="0,-10,0,-20" Visibility="Collapsed"/>
+                <ContentControl x:Name="Output" HorizontalAlignment="Center" VerticalAlignment="Top" KeyDown="StackPanel_KeyDown">
+                    <Grid>
+                        <MediaElement x:Name="dmrVideo" AutomationProperties.Name="dmrVideo" Height="480" Width="640" HorizontalAlignment="Center" VerticalAlignment="Top"
+                                  VolumeChanged="dmrVideo_VolumeChanged"
+                                  RateChanged="dmrVideo_RateChanged"
+                                  MediaOpened="dmrVideo_MediaOpened"
+                                  CurrentStateChanged="dmrVideo_CurrentStateChanged"
+                                  MediaEnded="dmrVideo_MediaEnded"
+                                  MediaFailed="dmrVideo_MediaFailed"
+                                  SeekCompleted="dmrVideo_SeekCompleted"
+                                  DownloadProgressChanged="dmrVideo_DownloadProgressChanged_1"
+                                  AutoPlay="False"/>
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Top" Height="480" Width="640" x:Name="dmrImage" ImageFailed="dmrImage_ImageFailed_1" Stretch="Uniform"/>
+                    </Grid>
+                </ContentControl>
             </StackPanel>
+        </ScrollViewer>
 
-            <TextBlock x:Name="StatusNotify" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="600" TextWrapping="Wrap"/>
-
-            <Grid x:Name="Output" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1">
-                <MediaElement x:Name="dmrVideo" AutomationProperties.Name="dmrVideo" Height="480" Width="640" HorizontalAlignment="Left" VerticalAlignment="Top"
-                              VolumeChanged="dmrVideo_VolumeChanged"
-                              RateChanged="dmrVideo_RateChanged"
-                              MediaOpened="dmrVideo_MediaOpened"
-                              CurrentStateChanged="dmrVideo_CurrentStateChanged"
-                              MediaEnded="dmrVideo_MediaEnded"
-                              MediaFailed="dmrVideo_MediaFailed"
-                              SeekCompleted="dmrVideo_SeekCompleted"
-                              DownloadProgressChanged="dmrVideo_DownloadProgressChanged_1"
-                              AutoPlay="False"/>
-                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Height="480" Width="640" x:Name="dmrImage" ImageFailed="dmrImage_ImageFailed_1" Stretch="Uniform"/>
-            </Grid>
-        </StackPanel>
+        <!--<Image HorizontalAlignment="Left" VerticalAlignment="Top" Height="480" Width="640" x:Name="dmrImage" ImageFailed="dmrImage_ImageFailed_1" Stretch="Uniform" Grid.RowSpan="2" Margin="100,360,0,0"/>-->
         
         <VisualStateManager.VisualStateGroups>
 
@@ -91,4 +105,19 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
     </Grid>
+
+    <Page.BottomAppBar>
+        <AppBar x:Name="BottomAppBar" Padding="10,0,10,0" Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock x:Name="Title1" FontSize="25" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black"/>
+                <Slider Name="timelineSlider1" HorizontalAlignment="Stretch" Padding="0,-10,0,-25" Visibility="Collapsed"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="playButton1" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="pauseButton1" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="stopButton1" Click="stopButton_Click"  Style="{StaticResource StopAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="BackToWindowButton" Click="FullScreenButton_Click"  Style="{StaticResource BackToWindowAppBarButtonStyle}"/>
+                </StackPanel>
+            </StackPanel>
+        </AppBar>
+    </Page.BottomAppBar>
 </common:LayoutAwarePage>
