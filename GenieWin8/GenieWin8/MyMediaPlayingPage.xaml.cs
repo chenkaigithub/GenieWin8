@@ -827,7 +827,6 @@ namespace GenieWin8
 
         void timelineSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine("Slider old value = {0} new value = {1}.", e.OldValue, e.NewValue);
             if (!_sliderpressed)
             {
                 dmrVideo.Position = TimeSpan.FromSeconds(e.NewValue);
@@ -836,15 +835,11 @@ namespace GenieWin8
 
         void slider_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine("Pointer entered event fired");
             _sliderpressed = true;
         }
 
         void slider_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine("Pointer capture lost event fired");
-            //System.Diagnostics.Debug.WriteLine("Slider value at capture lost {0}", timelineSlider.Value);
-            //dmrVideo.PlaybackRate = 1;
             if (!this.IsFullScreen)
             {
                 dmrVideo.Position = TimeSpan.FromSeconds(timelineSlider.Value);

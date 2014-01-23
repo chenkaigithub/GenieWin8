@@ -67,6 +67,18 @@
                 <!--<ComboBox x:Name="AvailableMediaDevices" HorizontalAlignment="Stretch" SelectionChanged="AvailableMediaDevices_SelectionChanged"/>-->
                 <ListBox x:Name="MediaRendererList" Height="500" HorizontalAlignment="Stretch" SelectionChanged="MediaRendererList_SelectionChanged"/>
             </StackPanel>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+                <StackPanel x:Name="ControlMediaPanel" Orientation="Horizontal">
+                    <Button x:Name="playButton" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="pauseButton" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="stopButton" Click="stopButton_Click"  Style="{StaticResource StopAppBarButtonStyle}" IsEnabled="False"/>
+                </StackPanel>
+                <StackPanel x:Name="SetVolumePanel" Orientation="Horizontal">
+                    <TextBlock Text="Volume" FontSize="25" VerticalAlignment="Center"/>
+                    <Slider Name="volumeSlider" Width="250" VerticalAlignment="Center" Padding="0,0,0,-10" Margin="10,0,0,0" IsEnabled="False"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

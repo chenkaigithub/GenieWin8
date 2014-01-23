@@ -16,5 +16,7 @@ namespace GenieWin8.DataModel
         public static IEnumerable<MediaItem> mediaItems;
         public static MediaRenderer mediaRenderer;
         public static MediaItem mediaItem;
+        public static MediaRendererState mediaRendererState = MediaRendererState.NoMediaPresent;
+        public static int volume = 0;
     }
 }

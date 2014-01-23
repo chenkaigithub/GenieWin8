@@ -4,6 +4,7 @@ namespace SV.UPnPLite.Protocols.DLNA
     using SV.UPnPLite.Extensions;
     using SV.UPnPLite.Logging;
     using SV.UPnPLite.Protocols.DLNA.Services.AvTransport;
+    using SV.UPnPLite.Protocols.DLNA.Services.RenderingControl;
     using SV.UPnPLite.Protocols.UPnP;
     using System;
     using System.Collections.Generic;
@@ -62,14 +63,19 @@ namespace SV.UPnPLite.Protocols.DLNA
             var missingServices = new List<string>();
             
             var avTransportService = services.FirstOrDefault(s => s is IAvTransportService) as IAvTransportService;
+            var renderingControlService = services.FirstOrDefault(s => s is IRenderingControlService) as IRenderingControlService;
             if (avTransportService == null)
             {
                 missingServices.Add(typeof(IAvTransportService).Name);
             }
+            if (renderingControlService == null)
+            {
+                missingServices.Add(typeof(IRenderingControlService).Name);
+            }
 
             if (missingServices.Any() == false)
             {
-                return new MediaRenderer(udn, avTransportService, this.logManager);
+                return new MediaRenderer(udn, avTransportService, renderingControlService, this.logManager);
             }
             else
             {
@@ -105,6 +111,11 @@ namespace SV.UPnPLite.Protocols.DLNA
             if (serviceType.StartsWith("urn:schemas-upnp-org:service:AVTransport", StringComparison.OrdinalIgnoreCase))
             {
                 service = new AvTransportService(serviceType, controlUri, eventsUri, this.logManager);
+            }
+            
+            if (serviceType.StartsWith("urn:schemas-upnp-org:service:RenderingControl", StringComparison.OrdinalIgnoreCase))
+            {
+                service = new RenderingControlService(serviceType, controlUri, eventsUri, this.logManager);
             }
 
             return service;

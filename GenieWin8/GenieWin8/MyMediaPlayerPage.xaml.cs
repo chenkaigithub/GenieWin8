@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using GenieWin8.DataModel;
 using Windows.UI.Popups;
+using Windows.Networking.Connectivity;
 
 using SV.UPnPLite.Protocols.DLNA;
 using SV.UPnPLite.Protocols.UPnP;
@@ -29,15 +30,70 @@ namespace GenieWin8
     /// </summary>
     public sealed partial class MyMediaPlayerPage : GenieWin8.Common.LayoutAwarePage
     {
+        //var devicesDiscovery = new CommonUPnPDevicesDiscovery();
+        //var rendererDevice = devicesDiscovery.DiscoveredDevices.First(device => device.DeviceType == "urn:schemas-upnp-org:device:MediaRenderer");
+        //var renderingControlService = rendererDevice.Services.First(service => service.ServiceType == "urn:upnp-org:serviceId:RenderingControl");
+        CommonUPnPDevicesDiscovery devicesDiscovery = new CommonUPnPDevicesDiscovery();
         MediaRenderersDiscovery mediaRenderersDiscovery = new MediaRenderersDiscovery();
         bool bDeviceFounded = false;
+        private string networkName;
+        private bool _sliderpressed = false;
 
         public MyMediaPlayerPage()
         {
             this.InitializeComponent();
+            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+
+            volumeSlider.ValueChanged += volumeSlider_ValueChanged;
+
+            PointerEventHandler pointerpressedhandler = new PointerEventHandler(slider_PointerEntered);
+            volumeSlider.AddHandler(Control.PointerPressedEvent, pointerpressedhandler, true);
+
+            PointerEventHandler pointerreleasedhandler = new PointerEventHandler(slider_PointerCaptureLost);
+            volumeSlider.AddHandler(Control.PointerCaptureLostEvent, pointerreleasedhandler, true);
+        }
+
+        private void App_Resuming(Object sender, Object e)
+        {
+            string compNetworkName = null;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        compNetworkName = connectionProfile.ProfileName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            if (compNetworkName != networkName)
+            {
+                mediaRenderersDiscovery = new MediaRenderersDiscovery();
+                networkName = compNetworkName;
+            }
+
+            MediaRendererList.Items.Clear();
+            if (mediaRenderersDiscovery.DiscoveredDevices.Count() == 0)
+            {
+                MediaRendererTitle.Text = "No Media Renderers found";
+            }
+            else
+            {
+                foreach (var renderer in mediaRenderersDiscovery.DiscoveredDevices)
+                {
+                    MediaRendererList.Items.Add(renderer.FriendlyName);
+                }
+                MediaRendererTitle.Text = "Media Renderers refreshed";
+            }
         }
 
         DispatcherTimer timer = new DispatcherTimer();
+        DispatcherTimer timer1 = new DispatcherTimer();
         /// <summary>
         /// 使用在导航过程中传递的内容填充页。在从以前的会话
         /// 重新创建页时，也会提供任何已保存状态。
@@ -49,23 +105,38 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            MediaRendererList.Items.Clear();
-            if (mediaRenderersDiscovery.DiscoveredDevices.Count() == 0)
+            try
             {
-                MediaRendererTitle.Text = "No Media Renderers found";
-            }
-            else
-            {
-                foreach (var server in mediaRenderersDiscovery.DiscoveredDevices)
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
                 {
-                    MediaRendererList.Items.Add(server.FriendlyName);
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        networkName = connectionProfile.ProfileName;
+                    }
                 }
-                MediaRendererTitle.Text = "Media Renderers refreshed";
+            }
+            catch (Exception ex)
+            {
             }
 
             timer.Interval = TimeSpan.FromSeconds(5);
             timer.Tick += new System.EventHandler<object>(timer_Tick);
             timer.Start();
+
+            if (MyMediaInfo.mediaRenderer != null)
+            {
+                MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
+                {
+                    //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
+                    MyMediaInfo.mediaRendererState = state;
+                });
+            }
+            timer1.Interval = TimeSpan.FromSeconds(1);
+            timer1.Tick += new System.EventHandler<object>(timer_Tick1);
+            timer1.Start();
+
+            volumeSlider.Value = MyMediaInfo.volume;
         }
 
         /// <summary>
@@ -88,11 +159,77 @@ namespace GenieWin8
             }
             else
             {
-                foreach (var server in mediaRenderersDiscovery.DiscoveredDevices)
+                foreach (var renderer in mediaRenderersDiscovery.DiscoveredDevices)
                 {
-                    MediaRendererList.Items.Add(server.FriendlyName);
+                    MediaRendererList.Items.Add(renderer.FriendlyName);
                 }
-                MediaRendererTitle.Text = "Media Renderers refreshed";
+
+                //foreach (var item in MediaRendererList.Items)
+                //{
+                //    if (MyMediaInfo.mediaRenderer != null && MyMediaInfo.mediaRenderer.FriendlyName == item.ToString())
+                //    {
+                //        MediaRendererList.SelectedItem = item;
+                //    }
+                //}
+            }
+            //if (devicesDiscovery.DiscoveredDevices.Count() == 0)
+            //{
+            //    MediaRendererTitle.Text = "No Media Renderers found";
+            //}
+            //else
+            //{
+            //    foreach (var renderer in devicesDiscovery.DiscoveredDevices)
+            //    {
+            //        //MediaRendererList.Items.Add(renderer.FriendlyName);
+            //        if (renderer.DeviceType == "urn:schemas-upnp-org:device:MediaRenderer")
+            //        {
+            //            foreach (var service in renderer.Services)
+            //            {
+            //                if (service.ServiceType == "urn:schemas-upnp-org:service:RenderingControl:1")
+            //                {
+            //                    MediaRendererList.Items.Add(renderer.FriendlyName);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+        }
+
+        void timer_Tick1(object sender, object e)
+        {
+            if (MyMediaInfo.mediaRendererState == MediaRendererState.Buffering)
+            {
+                playButton.IsEnabled = false;
+                pauseButton.IsEnabled = false;
+                stopButton.IsEnabled = false;
+                volumeSlider.IsEnabled = false;
+            }
+            else if (MyMediaInfo.mediaRendererState == MediaRendererState.NoMediaPresent)
+            {
+                playButton.IsEnabled = false;
+                pauseButton.IsEnabled = false;
+                stopButton.IsEnabled = false;
+                volumeSlider.IsEnabled = false;
+            }
+            else if (MyMediaInfo.mediaRendererState == MediaRendererState.Paused)
+            {
+                playButton.IsEnabled = true;
+                pauseButton.IsEnabled = false;
+                stopButton.IsEnabled = true;
+                volumeSlider.IsEnabled = true;
+            }
+            else if (MyMediaInfo.mediaRendererState == MediaRendererState.Playing)
+            {
+                playButton.IsEnabled = false;
+                pauseButton.IsEnabled = true;
+                stopButton.IsEnabled = true;
+                volumeSlider.IsEnabled = true;
+            }
+            else if (MyMediaInfo.mediaRendererState == MediaRendererState.Stopped)
+            {
+                playButton.IsEnabled = true;
+                pauseButton.IsEnabled = false;
+                stopButton.IsEnabled = false;
             }
         }
 
@@ -102,7 +239,7 @@ namespace GenieWin8
             {
                 foreach (var mediaRenderer in mediaRenderersDiscovery.DiscoveredDevices)
                 {
-                    if (mediaRenderer.FriendlyName == MediaRendererList.SelectedItem.ToString())
+                    if (mediaRenderer.FriendlyName == MediaRendererList.SelectedItem.ToString() && mediaRenderer != MyMediaInfo.mediaRenderer)
                     {
                         MyMediaInfo.mediaRenderer = mediaRenderer;
                         MediaRendererTitle.Text = "Media Renderers selected";
@@ -112,6 +249,11 @@ namespace GenieWin8
                             await MyMediaInfo.mediaRenderer.StopAsync();
                             await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
                             await MyMediaInfo.mediaRenderer.PlayAsync();
+                            MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
+                            {
+                                //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
+                                MyMediaInfo.mediaRendererState = state;
+                            });
                             MediaRendererTitle.Text = "Playing media file...";
                         } 
                         else
@@ -133,6 +275,26 @@ namespace GenieWin8
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
+            string compNetworkName = null;
+            try
+            {
+                var ConnectionProfiles = NetworkInformation.GetConnectionProfiles();
+                foreach (var connectionProfile in ConnectionProfiles)
+                {
+                    if (connectionProfile.GetNetworkConnectivityLevel() != NetworkConnectivityLevel.None)
+                    {
+                        compNetworkName = connectionProfile.ProfileName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            if (compNetworkName != networkName)
+            {
+                mediaRenderersDiscovery = new MediaRenderersDiscovery();
+                networkName = compNetworkName;
+            }
             MediaRendererList.Items.Clear();
             if (mediaRenderersDiscovery.DiscoveredDevices.Count() == 0)
             {
@@ -140,12 +302,56 @@ namespace GenieWin8
             }
             else
             {
-                foreach (var server in mediaRenderersDiscovery.DiscoveredDevices)
+                foreach (var renderer in mediaRenderersDiscovery.DiscoveredDevices)
                 {
-                    MediaRendererList.Items.Add(server.FriendlyName);
+                    MediaRendererList.Items.Add(renderer.FriendlyName);
                 }
                 MediaRendererTitle.Text = "Media Renderers refreshed";
+
+                foreach (var item in MediaRendererList.Items)
+                {
+                    if (MyMediaInfo.mediaRenderer != null && MyMediaInfo.mediaRenderer.FriendlyName == item.ToString())
+                    {
+                        MediaRendererList.SelectedItem = item;
+                    }
+                }
             }
+        }
+
+        private async void playButton_Click(object sender, RoutedEventArgs e)
+        {
+            await MyMediaInfo.mediaRenderer.PlayAsync();
+        }
+
+        private async void pauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            await MyMediaInfo.mediaRenderer.PauseAsync();
+        }
+
+        private async void stopButton_Click(object sender, RoutedEventArgs e)
+        {
+            await MyMediaInfo.mediaRenderer.StopAsync();
+        }
+
+        async void volumeSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (!_sliderpressed)
+            {
+                await MyMediaInfo.mediaRenderer.SetVolume((int)e.NewValue);
+                MyMediaInfo.volume = (int)e.NewValue;
+            }
+        }
+
+        void slider_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            _sliderpressed = true;
+        }
+
+        async void slider_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
+        {
+            await MyMediaInfo.mediaRenderer.SetVolume((int)volumeSlider.Value);
+            _sliderpressed = false;
+            MyMediaInfo.volume = (int)volumeSlider.Value;
         }
     }
 }

@@ -40,6 +40,7 @@ namespace SV.UPnPLite.Protocols.UPnP
         private readonly Uri eventsUri;
 
         private readonly Queue<RequestInfo> pendingRequests = new Queue<RequestInfo>();
+        private readonly Queue<RequestInfo> pendingRequests1 = new Queue<RequestInfo>();
 
         private readonly List<RequestInfo> executingRequests = new List<RequestInfo>();
 
@@ -263,7 +264,7 @@ namespace SV.UPnPLite.Protocols.UPnP
         {
             var requestXml = this.CreateActionRequest(action, parameters);
             var data = Encoding.UTF8.GetBytes(requestXml);
-
+           
             var request = WebRequest.Create(this.controlUri);
             request.Method = "POST";
             request.ContentType = "text/xml; charset=\"utf-8\"";

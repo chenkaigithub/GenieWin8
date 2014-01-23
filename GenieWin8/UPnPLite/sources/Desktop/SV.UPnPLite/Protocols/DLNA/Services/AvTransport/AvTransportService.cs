@@ -350,6 +350,21 @@ namespace SV.UPnPLite.Protocols.DLNA.Services.AvTransport
             }
         }
 
+        //public async Task SetVolume(uint instanceId, int volume)
+        //{
+        //    try
+        //    {
+        //        var args = new Dictionary<string, object>();
+        //        args["InstanceID"] = 0;
+        //        args["Channel"] = "Master";
+        //        args["DesiredVolume"] = volume.ToString();
+        //        await this.InvokeActionAsync("SetVolume", args);
+        //    }
+        //    catch (FormatException)
+        //    {
+        //        // We don't expect result, so, we don't care if parsing error occurred
+        //    }
+        //}
         #endregion
     }
 }

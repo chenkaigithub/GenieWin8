@@ -5,6 +5,7 @@ namespace SV.UPnPLite.Protocols.DLNA
     using SV.UPnPLite.Logging;
     using SV.UPnPLite.Protocols.DLNA.Extensions;
     using SV.UPnPLite.Protocols.DLNA.Services.AvTransport;
+    using SV.UPnPLite.Protocols.DLNA.Services.RenderingControl;
     using SV.UPnPLite.Protocols.DLNA.Services.ContentDirectory;
     using SV.UPnPLite.Protocols.UPnP;
     using System;
@@ -22,6 +23,7 @@ namespace SV.UPnPLite.Protocols.DLNA
         #region Fields
 
         private readonly IAvTransportService avTransportService;
+        private readonly IRenderingControlService renderingControlService;
 
         private readonly static Dictionary<string, MediaRendererState> statesMapper = new Dictionary<string, MediaRendererState>(StringComparer.OrdinalIgnoreCase)
                 {
@@ -84,12 +86,16 @@ namespace SV.UPnPLite.Protocols.DLNA
         ///     <paramref name="avTransportService"/> is <c>null</c> -OR-
         ///     <paramref name="logManager"/> is <c>null</c>.
         /// </exception>
-        public MediaRenderer(string udn, IAvTransportService avTransportService, ILogManager logManager)
+        public MediaRenderer(string udn, IAvTransportService avTransportService, IRenderingControlService renderingControlService, ILogManager logManager)
             : base(udn, logManager)
         {
             avTransportService.EnsureNotNull("avTransportService");
 
             this.avTransportService = avTransportService;
+
+            renderingControlService.EnsureNotNull("renderingControlService");
+
+            this.renderingControlService = renderingControlService;
 
             this.Initialize();
         }
@@ -231,6 +237,18 @@ namespace SV.UPnPLite.Protocols.DLNA
             catch (UPnPServiceException ex)
             {
                 throw new MediaRendererException(this, ex.ErrorCode.ToMediaRendererError(), "An error occurred when requesting pause current media", ex);
+            }
+        }
+
+        public async Task SetVolume(int volume)
+        {
+            try
+            {
+                await this.renderingControlService.SetVolume(0, volume);
+            }
+            catch (UPnPServiceException ex)
+            {
+                throw new MediaRendererException(this, ex.ErrorCode.ToMediaRendererError(), "An error occurred when requesting SetVolume", ex);
             }
         }
 

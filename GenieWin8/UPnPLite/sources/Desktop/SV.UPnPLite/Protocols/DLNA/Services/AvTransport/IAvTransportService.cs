@@ -183,5 +183,7 @@ namespace SV.UPnPLite.Protocols.DLNA.Services.AvTransport
         ///     An internal service error occurred when executing request.
         /// </exception>
         Task StopAsync(uint instanceId);
+
+        //Task SetVolume(uint instanceId, int volume);
     }
 }
