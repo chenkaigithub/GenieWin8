@@ -80,9 +80,11 @@ namespace GenieWin8
             {
                 await receiver.StopAsync();
                 IsReceiverStarted = false;
+                timer.Stop();
             }
         }
 
+        DispatcherTimer timer = new DispatcherTimer();
         /// <summary>
         /// This is the click handler for the 'Default' button.  You would replace this with your own handler
         /// if you have a button or buttons on this page.
@@ -103,6 +105,10 @@ namespace GenieWin8
                     IsReceiverStarted = true;
                     //rootPage.NotifyUser("PlayToReceiver started", NotifyType.StatusMessage);
                     StatusNotify.Text = "Player started to receive";
+
+                    timer.Interval = TimeSpan.FromSeconds(5);
+                    timer.Tick += new System.EventHandler<object>(timer_Tick);
+                    timer.Start();
                 }
                 catch (Exception ecp)
                 {
@@ -113,6 +119,11 @@ namespace GenieWin8
                     StatusNotify.Text = "Player start failed, Error " + ecp.Message;
                 }
             }
+        }
+
+        async void timer_Tick(object sender, object e)
+        {
+            await receiver.StartAsync();
         }
 
         /// <summary>
@@ -134,6 +145,8 @@ namespace GenieWin8
                     IsReceiverStarted = false;
                     //rootPage.NotifyUser("PlayToReceiver stopped", NotifyType.StatusMessage);
                     StatusNotify.Text = "Player stopped to receive";
+
+                    timer.Stop();
                 }
                 catch (Exception ecp)
                 {

@@ -316,6 +316,11 @@ namespace SV.UPnPLite.Protocols.DLNA
         {
             MediaRendererState result;
 
+            if (transportState == null)
+            {
+                return MediaRendererState.NoMediaPresent;
+            }
+            
             if (statesMapper.TryGetValue(transportState, out result) == false)
             {
                 result = MediaRendererState.Stopped;

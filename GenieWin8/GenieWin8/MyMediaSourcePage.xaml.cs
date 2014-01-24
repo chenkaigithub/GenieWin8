@@ -157,6 +157,10 @@ namespace GenieWin8
                 {
                     //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
                     MyMediaInfo.mediaRendererState = state;
+                    if (state == MediaRendererState.NoMediaPresent)
+                    {
+                        MyMediaInfo.mediaRenderer = null;
+                    }
                 });
             }
             timer1.Interval = TimeSpan.FromSeconds(1);
@@ -525,6 +529,10 @@ namespace GenieWin8
                             {
                                 //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
                                 MyMediaInfo.mediaRendererState = state;
+                                if (state == MediaRendererState.NoMediaPresent)
+                                {
+                                    MyMediaInfo.mediaRenderer = null;
+                                }
                             });
                             //timer1.Interval = TimeSpan.FromSeconds(1);
                             //timer1.Tick += new System.EventHandler<object>(timer_Tick1);
@@ -557,40 +565,50 @@ namespace GenieWin8
             //{
             //    System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
             //});
-            if (MyMediaInfo.mediaRendererState == MediaRendererState.Buffering)
+            if (MyMediaInfo.mediaRenderer == null)
             {
                 playButton.IsEnabled = false;
                 pauseButton.IsEnabled = false;
                 stopButton.IsEnabled = false;
                 volumeSlider.IsEnabled = false;
             }
-            else if (MyMediaInfo.mediaRendererState == MediaRendererState.NoMediaPresent)
+            else
             {
-                playButton.IsEnabled = false;
-                pauseButton.IsEnabled = false;
-                stopButton.IsEnabled = false;
-                volumeSlider.IsEnabled = false;
-            }
-            else if (MyMediaInfo.mediaRendererState == MediaRendererState.Paused)
-            {
-                playButton.IsEnabled = true;
-                pauseButton.IsEnabled = false;
-                stopButton.IsEnabled = true;
-                volumeSlider.IsEnabled = true;
-            }
-            else if (MyMediaInfo.mediaRendererState == MediaRendererState.Playing)
-            {
-                playButton.IsEnabled = false;
-                pauseButton.IsEnabled = true;
-                stopButton.IsEnabled = true;
-                volumeSlider.IsEnabled = true;
-            }
-            else if (MyMediaInfo.mediaRendererState == MediaRendererState.Stopped)
-            {
-                playButton.IsEnabled = true;
-                pauseButton.IsEnabled = false;
-                stopButton.IsEnabled = false;
-                volumeSlider.IsEnabled = false;
+                if (MyMediaInfo.mediaRendererState == MediaRendererState.Buffering)
+                {
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+                    volumeSlider.IsEnabled = false;
+                }
+                else if (MyMediaInfo.mediaRendererState == MediaRendererState.NoMediaPresent)
+                {
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+                    volumeSlider.IsEnabled = false;
+                }
+                else if (MyMediaInfo.mediaRendererState == MediaRendererState.Paused)
+                {
+                    playButton.IsEnabled = true;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = true;
+                    volumeSlider.IsEnabled = true;
+                }
+                else if (MyMediaInfo.mediaRendererState == MediaRendererState.Playing)
+                {
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = true;
+                    stopButton.IsEnabled = true;
+                    volumeSlider.IsEnabled = true;
+                }
+                else if (MyMediaInfo.mediaRendererState == MediaRendererState.Stopped)
+                {
+                    playButton.IsEnabled = true;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+                    volumeSlider.IsEnabled = false;
+                }
             }
         }
 
@@ -926,7 +944,7 @@ namespace GenieWin8
 
         private async void test_Click(object sender, RoutedEventArgs e)
         {
-            var t = await MyMediaInfo.mediaRenderer.GetCurrentPosition();
+            var t = await MyMediaInfo.mediaRenderer.GetCurrentState();
             System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", t);
         }
     }

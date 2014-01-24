@@ -130,6 +130,10 @@ namespace GenieWin8
                 {
                     //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
                     MyMediaInfo.mediaRendererState = state;
+                    if (state == MediaRendererState.NoMediaPresent)
+                    {
+                        MyMediaInfo.mediaRenderer = null;
+                    }
                 });
             }
             timer1.Interval = TimeSpan.FromSeconds(1);
@@ -197,39 +201,50 @@ namespace GenieWin8
 
         void timer_Tick1(object sender, object e)
         {
-            if (MyMediaInfo.mediaRendererState == MediaRendererState.Buffering)
+            if (MyMediaInfo.mediaRenderer == null)
             {
                 playButton.IsEnabled = false;
                 pauseButton.IsEnabled = false;
                 stopButton.IsEnabled = false;
                 volumeSlider.IsEnabled = false;
             }
-            else if (MyMediaInfo.mediaRendererState == MediaRendererState.NoMediaPresent)
+            else
             {
-                playButton.IsEnabled = false;
-                pauseButton.IsEnabled = false;
-                stopButton.IsEnabled = false;
-                volumeSlider.IsEnabled = false;
-            }
-            else if (MyMediaInfo.mediaRendererState == MediaRendererState.Paused)
-            {
-                playButton.IsEnabled = true;
-                pauseButton.IsEnabled = false;
-                stopButton.IsEnabled = true;
-                volumeSlider.IsEnabled = true;
-            }
-            else if (MyMediaInfo.mediaRendererState == MediaRendererState.Playing)
-            {
-                playButton.IsEnabled = false;
-                pauseButton.IsEnabled = true;
-                stopButton.IsEnabled = true;
-                volumeSlider.IsEnabled = true;
-            }
-            else if (MyMediaInfo.mediaRendererState == MediaRendererState.Stopped)
-            {
-                playButton.IsEnabled = true;
-                pauseButton.IsEnabled = false;
-                stopButton.IsEnabled = false;
+                if (MyMediaInfo.mediaRendererState == MediaRendererState.Buffering)
+                {
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+                    volumeSlider.IsEnabled = false;
+                }
+                else if (MyMediaInfo.mediaRendererState == MediaRendererState.NoMediaPresent)
+                {
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+                    volumeSlider.IsEnabled = false;
+                }
+                else if (MyMediaInfo.mediaRendererState == MediaRendererState.Paused)
+                {
+                    playButton.IsEnabled = true;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = true;
+                    volumeSlider.IsEnabled = true;
+                }
+                else if (MyMediaInfo.mediaRendererState == MediaRendererState.Playing)
+                {
+                    playButton.IsEnabled = false;
+                    pauseButton.IsEnabled = true;
+                    stopButton.IsEnabled = true;
+                    volumeSlider.IsEnabled = true;
+                }
+                else if (MyMediaInfo.mediaRendererState == MediaRendererState.Stopped)
+                {
+                    playButton.IsEnabled = true;
+                    pauseButton.IsEnabled = false;
+                    stopButton.IsEnabled = false;
+                    volumeSlider.IsEnabled = false;
+                }
             }
         }
 
@@ -253,6 +268,10 @@ namespace GenieWin8
                             {
                                 //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
                                 MyMediaInfo.mediaRendererState = state;
+                                if (state == MediaRendererState.NoMediaPresent)
+                                {
+                                    MyMediaInfo.mediaRenderer = null;
+                                }
                             });
                             MediaRendererTitle.Text = "Playing media file...";
                         } 
@@ -308,13 +327,13 @@ namespace GenieWin8
                 }
                 MediaRendererTitle.Text = "Media Renderers refreshed";
 
-                foreach (var item in MediaRendererList.Items)
-                {
-                    if (MyMediaInfo.mediaRenderer != null && MyMediaInfo.mediaRenderer.FriendlyName == item.ToString())
-                    {
-                        MediaRendererList.SelectedItem = item;
-                    }
-                }
+                //foreach (var item in MediaRendererList.Items)
+                //{
+                //    if (MyMediaInfo.mediaRenderer != null && MyMediaInfo.mediaRenderer.FriendlyName == item.ToString())
+                //    {
+                //        MediaRendererList.SelectedItem = item;
+                //    }
+                //}
             }
         }
 
