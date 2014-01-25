@@ -73,6 +73,8 @@
                     <Button x:Name="playButton" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" IsEnabled="False"/>
                     <Button x:Name="pauseButton" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}" IsEnabled="False"/>
                     <Button x:Name="stopButton" Click="stopButton_Click"  Style="{StaticResource StopAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="previousButton" Click="previousButton_Click"  Style="{StaticResource PreviousAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="nextButton" Click="nextButton_Click"  Style="{StaticResource NextAppBarButtonStyle}" IsEnabled="False"/>
                 </StackPanel>
                 <StackPanel x:Name="SetVolumePanel" Orientation="Horizontal">
                     <TextBlock Text="Volume" FontSize="25" VerticalAlignment="Center"/>

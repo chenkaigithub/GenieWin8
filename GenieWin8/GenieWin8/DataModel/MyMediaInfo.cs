@@ -18,5 +18,10 @@ namespace GenieWin8.DataModel
         public static MediaItem mediaItem;
         public static MediaRendererState mediaRendererState = MediaRendererState.NoMediaPresent;
         public static int volume = 0;
+        public static Stack<IEnumerable<MediaObject>> stackMediaObjects = new Stack<IEnumerable<MediaObject>>();
+        public static Stack<MediaContainer> stackMediaContainer = new Stack<MediaContainer>();
+        public static string networkName;
+        public static int mediaItemIndex;
+        public static bool bLoadFile = true;
     }
 }

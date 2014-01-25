@@ -29,6 +29,11 @@ namespace SV.UPnPLite.Protocols.DLNA
         /// <summary>
         ///     No media is specified.
         /// </summary>
-        NoMediaPresent
+        NoMediaPresent,
+
+        /// <summary>
+        ///     No media is specified.
+        /// </summary>
+        NoMediaRenderer
     }
 }

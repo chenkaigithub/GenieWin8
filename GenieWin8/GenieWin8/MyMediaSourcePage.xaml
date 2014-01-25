@@ -51,10 +51,13 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+                <TextBlock x:Name="MediaItemTitle" FontSize="25" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
                 <StackPanel x:Name="ControlMediaPanel" Orientation="Horizontal">
                     <Button x:Name="playButton" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" IsEnabled="False"/>
                     <Button x:Name="pauseButton" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}" IsEnabled="False"/>
                     <Button x:Name="stopButton" Click="stopButton_Click"  Style="{StaticResource StopAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="previousButton" Click="previousButton_Click"  Style="{StaticResource PreviousAppBarButtonStyle}" IsEnabled="False"/>
+                    <Button x:Name="nextButton" Click="nextButton_Click"  Style="{StaticResource NextAppBarButtonStyle}" IsEnabled="False"/>
                     <Button x:Name="test" Content="test" Click="test_Click" FontSize="24" Foreground="White" Background="#8165A2" BorderThickness="0"/>
                 </StackPanel>
                 <StackPanel x:Name="SetVolumePanel" Orientation="Horizontal">
