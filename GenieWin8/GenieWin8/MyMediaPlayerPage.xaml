@@ -62,6 +62,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Vertical" Width="500" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0">
+                <TextBlock x:Name="MediaRendererSelect" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
                 <TextBlock x:Name="MediaRendererTitle" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
                 <Button x:Name="Refresh" Content="Refresh" HorizontalAlignment="Right" FontSize="24" Click="Refresh_Click" Foreground="White" Background="#8165A2" BorderThickness="0"/>
                 <!--<ComboBox x:Name="AvailableMediaDevices" HorizontalAlignment="Stretch" SelectionChanged="AvailableMediaDevices_SelectionChanged"/>-->
@@ -69,6 +70,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+                <TextBlock x:Name="MediaItemTitle" FontSize="25" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
                 <StackPanel x:Name="ControlMediaPanel" Orientation="Horizontal">
                     <Button x:Name="playButton" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" IsEnabled="False"/>
                     <Button x:Name="pauseButton" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}" IsEnabled="False"/>

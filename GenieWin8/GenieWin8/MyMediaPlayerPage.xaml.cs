@@ -133,7 +133,8 @@ namespace GenieWin8
                     if (state == MediaRendererState.NoMediaRenderer)
                     {
                         MyMediaInfo.mediaRenderer = null;
-                        MediaRendererTitle.Text = "No media renderer selected";
+                        bDeviceFounded = false;
+                        MediaRendererSelect.Text = "No media renderer selected";
                     }
                 });
             }
@@ -222,6 +223,7 @@ namespace GenieWin8
                     previousButton.IsEnabled = false;
                     nextButton.IsEnabled = false;
                     MediaRendererTitle.Text = "Buffering...";
+                    MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                 }
                 else if (MyMediaInfo.mediaRendererState == MediaRendererState.NoMediaPresent)
                 {
@@ -232,6 +234,7 @@ namespace GenieWin8
                     previousButton.IsEnabled = false;
                     nextButton.IsEnabled = false;
                     MediaRendererTitle.Text = "No media file selected";
+                    MediaItemTitle.Text = "";
                 }
                 else if (MyMediaInfo.mediaRendererState == MediaRendererState.Paused)
                 {
@@ -242,6 +245,7 @@ namespace GenieWin8
                     previousButton.IsEnabled = true;
                     nextButton.IsEnabled = true;
                     MediaRendererTitle.Text = "media file paused";
+                    MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                 }
                 else if (MyMediaInfo.mediaRendererState == MediaRendererState.Playing)
                 {
@@ -252,6 +256,7 @@ namespace GenieWin8
                     previousButton.IsEnabled = true;
                     nextButton.IsEnabled = true;
                     MediaRendererTitle.Text = "Playing media file...";
+                    MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                 }
                 else if (MyMediaInfo.mediaRendererState == MediaRendererState.Stopped)
                 {
@@ -262,6 +267,7 @@ namespace GenieWin8
                     previousButton.IsEnabled = true;
                     nextButton.IsEnabled = true;
                     MediaRendererTitle.Text = "media file stopped";
+                    MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                 }
             }
         }
@@ -272,32 +278,77 @@ namespace GenieWin8
             {
                 foreach (var mediaRenderer in mediaRenderersDiscovery.DiscoveredDevices)
                 {
-                    if (mediaRenderer.FriendlyName == MediaRendererList.SelectedItem.ToString() && mediaRenderer != MyMediaInfo.mediaRenderer)
+                    //if (mediaRenderer.FriendlyName == MediaRendererList.SelectedItem.ToString() && mediaRenderer != MyMediaInfo.mediaRenderer)
+                    //{
+                    //    MyMediaInfo.mediaRenderer = mediaRenderer;
+                    //    MediaRendererTitle.Text = "Media Renderers selected";
+                    //    bDeviceFounded = true;
+                    //    if (MyMediaInfo.mediaItem != null)
+                    //    {
+                    //        await MyMediaInfo.mediaRenderer.StopAsync();
+                    //        await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
+                    //        await MyMediaInfo.mediaRenderer.PlayAsync();
+                    //        MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
+                    //        {
+                    //            //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
+                    //            MyMediaInfo.mediaRendererState = state;
+                    //            if (state == MediaRendererState.NoMediaRenderer)
+                    //            {
+                    //                MyMediaInfo.mediaRenderer = null;
+                    //                MediaRendererTitle.Text = "No media renderer selected";
+                    //            }
+                    //        });
+                    //        MediaRendererTitle.Text = "Playing media file...";
+                    //    } 
+                    //    else
+                    //    {
+                    //        //var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                    //        //var strtext = loader.GetString("selectSource");
+                    //        var messageDialog = new MessageDialog("Please select source");
+                    //        await messageDialog.ShowAsync();
+                    //    }
+                    //    break;
+                    //}
+                    if (mediaRenderer.FriendlyName == MediaRendererList.SelectedItem.ToString())
                     {
-                        MyMediaInfo.mediaRenderer = mediaRenderer;
-                        MediaRendererTitle.Text = "Media Renderers selected";
                         bDeviceFounded = true;
-                        if (MyMediaInfo.mediaItem != null)
+                        if (MyMediaInfo.mediaRenderer == null)
                         {
-                            await MyMediaInfo.mediaRenderer.StopAsync();
-                            await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
-                            await MyMediaInfo.mediaRenderer.PlayAsync();
-                            MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
+                            MyMediaInfo.mediaRenderer = mediaRenderer;
+                            MediaRendererSelect.Text = MyMediaInfo.mediaRenderer.FriendlyName + " is selected";
+                            bDeviceFounded = true;
+                            if (MyMediaInfo.mediaItem != null)
                             {
-                                //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
-                                MyMediaInfo.mediaRendererState = state;
-                                if (state == MediaRendererState.NoMediaRenderer)
+                                await MyMediaInfo.mediaRenderer.StopAsync();
+                                await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
+                                await MyMediaInfo.mediaRenderer.PlayAsync();
+                                MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
                                 {
-                                    MyMediaInfo.mediaRenderer = null;
-                                    MediaRendererTitle.Text = "No media renderer selected";
-                                }
-                            });
-                            MediaRendererTitle.Text = "Playing media file...";
-                        } 
-                        else
+                                    //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
+                                    MyMediaInfo.mediaRendererState = state;
+                                    if (state == MediaRendererState.NoMediaRenderer)
+                                    {
+                                        MyMediaInfo.mediaRenderer = null;
+                                        bDeviceFounded = false;
+                                        MediaRendererSelect.Text = "No media renderer selected";
+                                    }
+                                });
+                                MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                                MediaRendererTitle.Text = "Playing media file...";
+                            }
+                            else
+                            {
+                                //var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                                //var strtext = loader.GetString("selectSource");
+                                var messageDialog = new MessageDialog("Please select source");
+                                await messageDialog.ShowAsync();
+                            }
+                        }
+                        else if (mediaRenderer != MyMediaInfo.mediaRenderer)
                         {
-                            //var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-                            //var strtext = loader.GetString("selectSource");
+                            MyMediaInfo.mediaRenderer = mediaRenderer;
+                            MediaRendererSelect.Text = MyMediaInfo.mediaRenderer.FriendlyName + " is selected";
+                            MyMediaInfo.mediaItem = null;
                             var messageDialog = new MessageDialog("Please select source");
                             await messageDialog.ShowAsync();
                         }
@@ -393,7 +444,8 @@ namespace GenieWin8
                     if (state == MediaRendererState.NoMediaRenderer)
                     {
                         MyMediaInfo.mediaRenderer = null;
-                        MediaRendererTitle.Text = "No media renderer selected";
+                        bDeviceFounded = false;
+                        MediaRendererSelect.Text = "No media renderer selected";
                     }
                 });
 
@@ -403,7 +455,7 @@ namespace GenieWin8
             {
                 var messageDialog = new MessageDialog("Please select one player");
                 await messageDialog.ShowAsync();
-                MediaRendererTitle.Text = "No media file selected";
+                MediaRendererSelect.Text = "No media renderer selected";
             }
         }
 
@@ -429,7 +481,8 @@ namespace GenieWin8
                     if (state == MediaRendererState.NoMediaRenderer)
                     {
                         MyMediaInfo.mediaRenderer = null;
-                        MediaRendererTitle.Text = "No media renderer selected";
+                        bDeviceFounded = false;
+                        MediaRendererSelect.Text = "No media renderer selected";
                     }
                 });
 
@@ -439,7 +492,7 @@ namespace GenieWin8
             {
                 var messageDialog = new MessageDialog("Please select one player");
                 await messageDialog.ShowAsync();
-                MediaRendererTitle.Text = "No media file selected";
+                MediaRendererSelect.Text = "No media renderer selected";
             }
         }
 

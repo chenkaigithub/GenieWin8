@@ -32,7 +32,6 @@ namespace GenieWin8
     public sealed partial class MyMediaSourcePage : GenieWin8.Common.LayoutAwarePage
     {
         MediaServersDiscovery mediaServersDiscovery = new MediaServersDiscovery();
-        bool bDeviceList;       //判断是否为DMS列表
         bool bDeviceFounded = false;
         int Containers_Count = 0;           //该层目录中的媒体文件夹数目
         int MediaItems_Count = 0;           //该层目录中的媒体资源数目
@@ -95,10 +94,10 @@ namespace GenieWin8
             {
                 mediaServersDiscovery = new MediaServersDiscovery();
                 MyMediaInfo.networkName = compNetworkName;
-                bDeviceList = true;
+                MyMediaInfo.bDeviceList = true;
             }
             DeviceMediaList.Items.Clear();
-            if (bDeviceList)
+            if (MyMediaInfo.bDeviceList)
             {
                 if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
                 {
@@ -154,10 +153,10 @@ namespace GenieWin8
             {
                 mediaServersDiscovery = new MediaServersDiscovery();
                 MyMediaInfo.networkName = compNetworkName;
-                bDeviceList = true;
+                MyMediaInfo.bDeviceList = true;
             }
             DeviceMediaList.Items.Clear();
-            if (bDeviceList)
+            if (MyMediaInfo.bDeviceList)
             {
                 if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
                 {
@@ -234,9 +233,6 @@ namespace GenieWin8
 
         private void DeviceMediaList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //VideoPlayer.Stop();
-            //MediaList.Items.Clear();
-            //PreviousFolders.Clear();
             if (!MyMediaInfo.bLoadFile)
             {
                 MyMediaInfo.bLoadFile = !MyMediaInfo.bLoadFile;
@@ -253,15 +249,10 @@ namespace GenieWin8
 
         async private void LoadMediaFiles()
         {
-            //VideoPlayer.Stop();
-            //DeviceMediaList.Items.Clear();
-            //PreviousFolders.Clear();
-            if (bDeviceList)
+            if (MyMediaInfo.bDeviceList)
             {
                 if (DeviceMediaList.SelectedIndex != -1)
                 {
-                    //LoadMediaFiles(MediaServers[AvailableMediaDevices.SelectedIndex]);
-                    //PreviousFolders.Push(MediaServers[AvailableMediaDevices.SelectedIndex]);
                     foreach (var serverDevice in mediaServersDiscovery.DiscoveredDevices)
                     {
                         if (serverDevice.FriendlyName == DeviceMediaList.SelectedItem.ToString())
@@ -270,7 +261,7 @@ namespace GenieWin8
                             var rootObjects = await serverDevice.BrowseAsync();
                             if (rootObjects != null)
                             {
-                                bDeviceList = false;
+                                MyMediaInfo.bDeviceList = false;
                                 MyMediaInfo.stackMediaObjects.Push(rootObjects);
                                 MyMediaInfo.mediaServer = serverDevice;
                                 DeviceMediaList.Items.Clear();
@@ -309,7 +300,6 @@ namespace GenieWin8
                                         mediaContainer_Item.Children.Add(mediaContainer_Icon);
                                         mediaContainer_Item.Children.Add(mediaContainer_Title);
                                         DeviceMediaList.Items.Add(mediaContainer_Item);
-                                        //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
                                     }
                                 }
                                 if (MediaItems_Count > 0)
@@ -339,8 +329,25 @@ namespace GenieWin8
                                         mediaItem_Item.Children.Add(mediaItem_Icon);
                                         mediaItem_Item.Children.Add(mediaItem_Title);
                                         DeviceMediaList.Items.Add(mediaItem_Item);
-                                        //DeviceMediaList.Items.Add(MediaItem.Title);
                                     }
+
+                                    MyMediaInfo.bCurrentDirectory = false;
+                                    int index = -1;
+                                    foreach (var MediaItem in rootMediaItems)
+                                    {
+                                        index++;
+                                        if (MyMediaInfo.mediaItem != null && MediaItem.Title == MyMediaInfo.mediaItem.Title)
+                                        {
+                                            MyMediaInfo.bCurrentDirectory = true;
+                                            MyMediaInfo.bLoadFile = false;
+                                            DeviceMediaList.SelectedIndex = MyMediaInfo.mediaContainers.Count() + index + 1;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    MyMediaInfo.bCurrentDirectory = false;
                                 }
                                 MediaTitle.Text = "Load completed";
                             }
@@ -362,107 +369,6 @@ namespace GenieWin8
                 if (DeviceMediaList.SelectedIndex == 0 && MyMediaInfo.stackMediaObjects.Count > 0)             //第一项为返回上一层
                 {
                     this.BackToUpperlevel();
-                    //stackMediaObjects.Pop();
-                    //if (stackMediaContainer.Count > 0)
-                    //{
-                    //    stackMediaContainer.Pop();
-                    //}
-
-                    //if (stackMediaObjects.Count == 0)
-                    //{
-                    //    DeviceMediaList.Items.Clear();
-                    //    //MediaServers = await KnownFolders.MediaServerDevices.GetFoldersAsync();
-                    //    if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
-                    //    {
-                    //        MediaTitle.Text = "No MediaServers found";
-                    //    }
-                    //    else
-                    //    {
-                    //        foreach (var server in mediaServersDiscovery.DiscoveredDevices)
-                    //        {
-                    //            DeviceMediaList.Items.Add(server.FriendlyName);
-                    //        }
-                    //        MediaTitle.Text = "Media Servers refreshed";
-                    //    }
-                    //    bDeviceList = true;
-                    //    bDeviceFounded = false;
-                    //    stackMediaObjects.Clear();
-                    //} 
-                    //else
-                    //{
-                    //    var rootObjects = stackMediaObjects.Peek();
-                    //    DeviceMediaList.Items.Clear();
-                    //    StackPanel uplevel_Item = new StackPanel();
-                    //    uplevel_Item.Orientation = Orientation.Horizontal;
-                    //    Image uplevel_Icon = new Image();
-                    //    uplevel_Icon.Width = 30;
-                    //    uplevel_Icon.Height = 30;
-                    //    uplevel_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/toolbar_uplevel.png"));
-                    //    TextBlock uplevel_Title = new TextBlock();
-                    //    uplevel_Title.Text = "... " + MyMediaInfo.mediaServer.FriendlyName;
-                    //    uplevel_Title.FontSize = 20;
-                    //    uplevel_Item.Children.Add(uplevel_Icon);
-                    //    uplevel_Item.Children.Add(uplevel_Title);
-                    //    DeviceMediaList.Items.Add(uplevel_Item);
-                    //    //DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
-                    //    var rootContainers = rootObjects.OfType<MediaContainer>();
-                    //    Containers_Count = rootContainers.Count();
-                    //    MyMediaInfo.mediaContainers = rootContainers;
-                    //    var rootMediaItems = rootObjects.OfType<MediaItem>();
-                    //    MediaItems_Count = rootMediaItems.Count();
-                    //    MyMediaInfo.mediaItems = rootMediaItems;
-
-                    //    if (Containers_Count > 0)
-                    //    {
-                    //        foreach (var MediaContainer in rootContainers)
-                    //        {
-                    //            StackPanel mediaContainer_Item = new StackPanel();
-                    //            mediaContainer_Item.Orientation = Orientation.Horizontal;
-                    //            Image mediaContainer_Icon = new Image();
-                    //            mediaContainer_Icon.Width = 35;
-                    //            mediaContainer_Icon.Height = 35;
-                    //            mediaContainer_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/folder.png"));
-                    //            TextBlock mediaContainer_Title = new TextBlock();
-                    //            mediaContainer_Title.Text = MediaContainer.Title;
-                    //            mediaContainer_Title.FontSize = 22;
-                    //            mediaContainer_Item.Children.Add(mediaContainer_Icon);
-                    //            mediaContainer_Item.Children.Add(mediaContainer_Title);
-                    //            DeviceMediaList.Items.Add(mediaContainer_Item);
-                    //            //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
-                    //        }
-                    //    }
-                    //    if (MediaItems_Count > 0)
-                    //    {
-                    //        foreach (var MediaItem in rootMediaItems)
-                    //        {
-                    //            StackPanel mediaItem_Item = new StackPanel();
-                    //            mediaItem_Item.Orientation = Orientation.Horizontal;
-                    //            Image mediaItem_Icon = new Image();
-                    //            mediaItem_Icon.Width = 35;
-                    //            mediaItem_Icon.Height = 35;
-                    //            if (MediaItem.Class == "object.item.imageItem")
-                    //            {
-                    //                mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
-                    //            }
-                    //            else if (MediaItem.Class == "object.item.audioItem" || MediaItem.Class == "object.item.audioItem.musicTrack")
-                    //            {
-                    //                mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_audio.png"));
-                    //            }
-                    //            else if (MediaItem.Class == "object.item.videoItem")
-                    //            {
-                    //                mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_video.png"));
-                    //            }
-                    //            TextBlock mediaItem_Title = new TextBlock();
-                    //            mediaItem_Title.Text = MediaItem.Title;
-                    //            mediaItem_Title.FontSize = 22;
-                    //            mediaItem_Item.Children.Add(mediaItem_Icon);
-                    //            mediaItem_Item.Children.Add(mediaItem_Title);
-                    //            DeviceMediaList.Items.Add(mediaItem_Item);
-                    //            //DeviceMediaList.Items.Add(MediaItem.Title);
-                    //        }
-                    //    }
-                    //    MediaTitle.Text = "Load completed";
-                    //}
                 } 
                 else
                 {
@@ -488,7 +394,6 @@ namespace GenieWin8
                             uplevel_Item.Children.Add(uplevel_Icon);
                             uplevel_Item.Children.Add(uplevel_Title);
                             DeviceMediaList.Items.Add(uplevel_Item);
-                            //DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
                             
                             var rootContainers = rootObjects.OfType<MediaContainer>();
                             Containers_Count = rootContainers.Count();
@@ -512,9 +417,9 @@ namespace GenieWin8
                                     mediaContainer_Item.Children.Add(mediaContainer_Icon);
                                     mediaContainer_Item.Children.Add(mediaContainer_Title);
                                     DeviceMediaList.Items.Add(mediaContainer_Item);
-                                    //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
                                 }
                             }
+
                             if (MediaItems_Count > 0)
                             {
                                 foreach (var MediaItem in rootMediaItems)
@@ -542,8 +447,25 @@ namespace GenieWin8
                                     mediaItem_Item.Children.Add(mediaItem_Icon);
                                     mediaItem_Item.Children.Add(mediaItem_Title);
                                     DeviceMediaList.Items.Add(mediaItem_Item);
-                                    //DeviceMediaList.Items.Add(MediaItem.Title);
                                 }
+
+                                MyMediaInfo.bCurrentDirectory = false;
+                                int index = -1;
+                                foreach (var MediaItem in rootMediaItems)
+                                {
+                                    index++;
+                                    if (MyMediaInfo.mediaItem != null && MediaItem.Title == MyMediaInfo.mediaItem.Title)
+                                    {
+                                        MyMediaInfo.bCurrentDirectory = true;
+                                        MyMediaInfo.bLoadFile = false;
+                                        DeviceMediaList.SelectedIndex = MyMediaInfo.mediaContainers.Count() + index + 1;
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                MyMediaInfo.bCurrentDirectory = false;
                             }
                             MediaTitle.Text = "Load completed";
                         }
@@ -556,6 +478,7 @@ namespace GenieWin8
                     {
                         MyMediaInfo.mediaItemIndex = DeviceMediaList.SelectedIndex - (Containers_Count + 1);
                         MyMediaInfo.mediaItem = MyMediaInfo.mediaItems.ElementAt(MyMediaInfo.mediaItemIndex);
+                        MyMediaInfo.bCurrentDirectory = true;
                         if (MyMediaInfo.mediaRenderer != null)
                         {
                             await MyMediaInfo.mediaRenderer.StopAsync();
@@ -598,14 +521,6 @@ namespace GenieWin8
 
         void timer_Tick1(object sender, object e)
         {
-            //MyMediaInfo.mediaRenderer.PositionChanges.Subscribe(position =>
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Position changed: {0}", position);
-            //});
-            //MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
-            //});
             if (MyMediaInfo.mediaRenderer == null)
             {
                 playButton.IsEnabled = false;
@@ -677,10 +592,9 @@ namespace GenieWin8
 
         void timer_Tick(object sender, object e)
         {
-            if (bDeviceList)
+            if (MyMediaInfo.bDeviceList)
             {
                 DeviceMediaList.Items.Clear();
-                //MediaServers = await KnownFolders.MediaServerDevices.GetFoldersAsync();
                 if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
                 {
                     MediaTitle.Text = "No MediaServers found";
@@ -699,7 +613,11 @@ namespace GenieWin8
         //返回上层目录
         private void BackToUpperlevel()
         {
-            MyMediaInfo.stackMediaObjects.Pop();
+            if (MyMediaInfo.stackMediaObjects.Count > 0)
+            {
+                MyMediaInfo.stackMediaObjects.Pop();
+            }
+            
             if (MyMediaInfo.stackMediaContainer.Count > 0)
             {
                 MyMediaInfo.stackMediaContainer.Pop();
@@ -708,7 +626,6 @@ namespace GenieWin8
             if (MyMediaInfo.stackMediaObjects.Count == 0)
             {
                 DeviceMediaList.Items.Clear();
-                //MediaServers = await KnownFolders.MediaServerDevices.GetFoldersAsync();
                 if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
                 {
                     MediaTitle.Text = "No MediaServers found";
@@ -721,9 +638,10 @@ namespace GenieWin8
                     }
                     MediaTitle.Text = "Media Servers refreshed";
                 }
-                bDeviceList = true;
+                MyMediaInfo.bDeviceList = true;
                 bDeviceFounded = false;
                 MyMediaInfo.stackMediaObjects.Clear();
+                MyMediaInfo.bCurrentDirectory = false;
             }
             else
             {
@@ -754,10 +672,10 @@ namespace GenieWin8
             {
                 mediaServersDiscovery = new MediaServersDiscovery();
                 MyMediaInfo.networkName = compNetworkName;
-                bDeviceList = true;
+                MyMediaInfo.bDeviceList = true;
             }
             DeviceMediaList.Items.Clear();
-            if (bDeviceList)
+            if (MyMediaInfo.bDeviceList)
             {
                 if (mediaServersDiscovery.DiscoveredDevices.Count() == 0)
                 {
@@ -828,9 +746,9 @@ namespace GenieWin8
                                     mediaContainer_Item.Children.Add(mediaContainer_Icon);
                                     mediaContainer_Item.Children.Add(mediaContainer_Title);
                                     DeviceMediaList.Items.Add(mediaContainer_Item);
-                                    //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
                                 }
                             }
+
                             if (MediaItems_Count > 0)
                             {
                                 foreach (var MediaItem in rootMediaItems)
@@ -858,8 +776,25 @@ namespace GenieWin8
                                     mediaItem_Item.Children.Add(mediaItem_Icon);
                                     mediaItem_Item.Children.Add(mediaItem_Title);
                                     DeviceMediaList.Items.Add(mediaItem_Item);
-                                    //DeviceMediaList.Items.Add(MediaItem.Title);
                                 }
+
+                                MyMediaInfo.bCurrentDirectory = false;
+                                int index = -1;
+                                foreach (var MediaItem in rootMediaItems)
+                                {
+                                    index++;
+                                    if (MyMediaInfo.mediaItem != null && MediaItem.Title == MyMediaInfo.mediaItem.Title)
+                                    {
+                                        MyMediaInfo.bCurrentDirectory = true;
+                                        MyMediaInfo.bLoadFile = false;
+                                        DeviceMediaList.SelectedIndex = MyMediaInfo.mediaContainers.Count() + index + 1;
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                MyMediaInfo.bCurrentDirectory = false;
                             }
                             MediaTitle.Text = "Load completed";
                         }
@@ -895,7 +830,6 @@ namespace GenieWin8
                     uplevel_Item.Children.Add(uplevel_Icon);
                     uplevel_Item.Children.Add(uplevel_Title);
                     DeviceMediaList.Items.Add(uplevel_Item);
-                    //DeviceMediaList.Items.Add("... " + MyMediaInfo.mediaServer.FriendlyName);
 
                     var rootContainers = rootObjects.OfType<MediaContainer>();
                     Containers_Count = rootContainers.Count();
@@ -919,9 +853,9 @@ namespace GenieWin8
                             mediaContainer_Item.Children.Add(mediaContainer_Icon);
                             mediaContainer_Item.Children.Add(mediaContainer_Title);
                             DeviceMediaList.Items.Add(mediaContainer_Item);
-                            //DeviceMediaList.Items.Add(" + " + MediaContainer.Title);
                         }
                     }
+
                     if (MediaItems_Count > 0)
                     {
                         foreach (var MediaItem in rootMediaItems)
@@ -949,8 +883,25 @@ namespace GenieWin8
                             mediaItem_Item.Children.Add(mediaItem_Icon);
                             mediaItem_Item.Children.Add(mediaItem_Title);
                             DeviceMediaList.Items.Add(mediaItem_Item);
-                            //DeviceMediaList.Items.Add(MediaItem.Title);
                         }
+
+                        MyMediaInfo.bCurrentDirectory = false;
+                        int index = -1;
+                        foreach (var MediaItem in rootMediaItems)
+                        {
+                            index++;
+                            if (MyMediaInfo.mediaItem != null && MediaItem.Title == MyMediaInfo.mediaItem.Title)
+                            {
+                                MyMediaInfo.bCurrentDirectory = true;
+                                MyMediaInfo.bLoadFile = false;
+                                DeviceMediaList.SelectedIndex = MyMediaInfo.mediaContainers.Count() + index + 1;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MyMediaInfo.bCurrentDirectory = false;
                     }
                     MediaTitle.Text = "Load completed";
                 }
@@ -1017,7 +968,7 @@ namespace GenieWin8
             //{
             //    var messageDialog = new MessageDialog("Please select one player");
             //    await messageDialog.ShowAsync();
-            //    MediaTitle.Text = "Play failed";
+            //    MediaTitle.Text = "No media renderer selected";
             //}
         }
 
@@ -1061,7 +1012,7 @@ namespace GenieWin8
             //{
             //    var messageDialog = new MessageDialog("Please select one player");
             //    await messageDialog.ShowAsync();
-            //    MediaTitle.Text = "Play failed";
+            //    MediaTitle.Text = "No media renderer selected";
             //}
         }
 

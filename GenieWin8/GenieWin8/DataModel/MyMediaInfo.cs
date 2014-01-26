@@ -21,7 +21,9 @@ namespace GenieWin8.DataModel
         public static Stack<IEnumerable<MediaObject>> stackMediaObjects = new Stack<IEnumerable<MediaObject>>();
         public static Stack<MediaContainer> stackMediaContainer = new Stack<MediaContainer>();
         public static string networkName;
-        public static int mediaItemIndex;
+        public static int mediaItemIndex = -1;
         public static bool bLoadFile = true;
+        public static bool bCurrentDirectory;
+        public static bool bDeviceList = true;       //判断是否为DMS列表
     }
 }
