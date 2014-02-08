@@ -23,7 +23,8 @@ namespace GenieWin8.DataModel
         public static string networkName;
         public static int mediaItemIndex = -1;
         public static bool bLoadFile = true;
-        public static bool bCurrentDirectory;
+        public static bool bCurrentDirectory;        //判断是否为当前播放媒体资源所在目录
         public static bool bDeviceList = true;       //判断是否为DMS列表
+        public static double currentPosition;        //记录当前播放位置
     }
 }

@@ -32,12 +32,20 @@ namespace SV.UPnPLite.Protocols.DLNA.Services
             {
                 var splittedSeconds = splitted[2].Split('.');
 
-                var hours = int.Parse(splitted[0]);
-                var minutes = int.Parse(splitted[1]);
-                var seconds = int.Parse(splittedSeconds[0]);
-                var milliseconds = splittedSeconds.Length == 2 ? int.Parse(splittedSeconds[1]) : 0;
+                int timeResult;
+                if (int.TryParse(splitted[0], out timeResult) && int.TryParse(splitted[1], out timeResult) && int.TryParse(splittedSeconds[0], out timeResult))
+                {
+                    var hours = int.Parse(splitted[0]);
+                    var minutes = int.Parse(splitted[1]);
+                    var seconds = int.Parse(splittedSeconds[0]);
+                    var milliseconds = (splittedSeconds.Length == 2 && int.TryParse(splittedSeconds[1], out timeResult)) ? int.Parse(splittedSeconds[1]) : 0;
 
-                result = new TimeSpan(0, hours, minutes, seconds, milliseconds);
+                    result = new TimeSpan(0, hours, minutes, seconds, milliseconds);
+                }
+                else
+                {
+                    result = new TimeSpan();
+                }
             }
             else
             {

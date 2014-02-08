@@ -38,6 +38,7 @@ namespace GenieWin8
         Uri _baseUri = new Uri("ms-appx:///");
         //private string networkName;
         private bool _sliderpressed = false;
+        private bool resetDuration = false;
 
         //Stack<IEnumerable<MediaObject>> stackMediaObjects { get; set; }
         //Stack<MediaContainer> stackMediaContainer { get; set; }
@@ -65,11 +66,11 @@ namespace GenieWin8
 
             volumeSlider.ValueChanged += volumeSlider_ValueChanged;
 
-            PointerEventHandler pointerpressedhandler = new PointerEventHandler(slider_PointerEntered);
-            volumeSlider.AddHandler(Control.PointerPressedEvent, pointerpressedhandler, true);
+            PointerEventHandler volumepointerpressedhandler = new PointerEventHandler(volumeSlider_PointerEntered);
+            volumeSlider.AddHandler(Control.PointerPressedEvent, volumepointerpressedhandler, true);
 
-            PointerEventHandler pointerreleasedhandler = new PointerEventHandler(slider_PointerCaptureLost);
-            volumeSlider.AddHandler(Control.PointerCaptureLostEvent, pointerreleasedhandler, true);
+            PointerEventHandler volumepointerreleasedhandler = new PointerEventHandler(volumeSlider_PointerCaptureLost);
+            volumeSlider.AddHandler(Control.PointerCaptureLostEvent, volumepointerreleasedhandler, true);
         }
 
         private void App_Resuming(Object sender, Object e)
@@ -200,6 +201,7 @@ namespace GenieWin8
             timer1.Start();
 
             volumeSlider.Value = MyMediaInfo.volume;
+            resetDuration = true;
         }
 
         /// <summary>
@@ -211,6 +213,7 @@ namespace GenieWin8
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
             timer.Stop();
+            timer1.Stop();
         }
 
         //private void InitilizeMediaServers()
@@ -484,10 +487,6 @@ namespace GenieWin8
                             await MyMediaInfo.mediaRenderer.StopAsync();
                             await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
                             await MyMediaInfo.mediaRenderer.PlayAsync();
-                            //MyMediaInfo.mediaRenderer.PositionChanges.Subscribe(position =>
-                            //{
-                            //    System.Diagnostics.Debug.WriteLine("{0}", position);
-                            //});
                             MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
                             {
                                 //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
@@ -497,6 +496,10 @@ namespace GenieWin8
                                     MyMediaInfo.mediaRenderer = null;
                                     MediaTitle.Text = "No media renderer selected";
                                 }
+                            });
+                            MyMediaInfo.mediaRenderer.PositionChanges.Subscribe(position =>
+                            {
+                                MyMediaInfo.currentPosition = position.TotalSeconds;
                             });
                             //timer1.Interval = TimeSpan.FromSeconds(1);
                             //timer1.Tick += new System.EventHandler<object>(timer_Tick1);
@@ -519,7 +522,7 @@ namespace GenieWin8
             }
         }
 
-        void timer_Tick1(object sender, object e)
+        async void timer_Tick1(object sender, object e)
         {
             if (MyMediaInfo.mediaRenderer == null)
             {
@@ -529,6 +532,8 @@ namespace GenieWin8
                 volumeSlider.IsEnabled = false;
                 previousButton.IsEnabled = false;
                 nextButton.IsEnabled = false;
+                timelineSlider.IsEnabled = false;
+                timelineSlider.Value = 0.0;
             }
             else
             {
@@ -540,8 +545,14 @@ namespace GenieWin8
                     volumeSlider.IsEnabled = false;
                     previousButton.IsEnabled = false;
                     nextButton.IsEnabled = false;
-                    MediaTitle.Text = "Buffering...";
-                    MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                    timelineSlider.IsEnabled = false;
+                    if (MyMediaInfo.mediaItem != null)
+                    {
+                        MediaTitle.Text = "Buffering...";
+                        MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                        timelineSlider.Value = 0.0;
+                        resetDuration = true;
+                    }
                 }
                 else if (MyMediaInfo.mediaRendererState == MediaRendererState.NoMediaPresent)
                 {
@@ -551,8 +562,10 @@ namespace GenieWin8
                     volumeSlider.IsEnabled = false;
                     previousButton.IsEnabled = false;
                     nextButton.IsEnabled = false;
+                    timelineSlider.IsEnabled = false;
                     MediaTitle.Text = "No media file selected";
                     MediaItemTitle.Text = "";
+                    timelineSlider.Value = 0.0;
                 }
                 else if (MyMediaInfo.mediaRendererState == MediaRendererState.Paused)
                 {
@@ -562,8 +575,13 @@ namespace GenieWin8
                     volumeSlider.IsEnabled = true;
                     previousButton.IsEnabled = true;
                     nextButton.IsEnabled = true;
-                    MediaTitle.Text = "media file paused";
-                    MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                    timelineSlider.IsEnabled = true;
+                    if (MyMediaInfo.mediaItem != null)
+                    {
+                        MediaTitle.Text = "media file paused";
+                        MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                        timelineSlider.Value = MyMediaInfo.currentPosition;
+                    }
                 }
                 else if (MyMediaInfo.mediaRendererState == MediaRendererState.Playing)
                 {
@@ -573,8 +591,19 @@ namespace GenieWin8
                     volumeSlider.IsEnabled = true;
                     previousButton.IsEnabled = true;
                     nextButton.IsEnabled = true;
-                    MediaTitle.Text = "Playing media file...";
-                    MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                    timelineSlider.IsEnabled = true;
+                    if (MyMediaInfo.mediaItem != null)
+                    {
+                        MediaTitle.Text = "Playing media file...";
+                        MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                        if (resetDuration)
+                        {
+                            var duration = await MyMediaInfo.mediaRenderer.GetDuration();
+                            timelineSlider.Maximum = duration.TotalSeconds;
+                            resetDuration = false;
+                        }
+                        timelineSlider.Value = MyMediaInfo.currentPosition;
+                    }
                 }
                 else if (MyMediaInfo.mediaRendererState == MediaRendererState.Stopped)
                 {
@@ -584,8 +613,13 @@ namespace GenieWin8
                     volumeSlider.IsEnabled = false;
                     previousButton.IsEnabled = true;
                     nextButton.IsEnabled = true;
-                    MediaTitle.Text = "media file stopped";
-                    MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                    timelineSlider.IsEnabled = true;
+                    if (MyMediaInfo.mediaItem != null)
+                    {
+                        MediaTitle.Text = "media file stopped";
+                        MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                        timelineSlider.Value = 0.0;
+                    }
                 }
             }
         }
@@ -1025,12 +1059,12 @@ namespace GenieWin8
             }
         }
 
-        void slider_PointerEntered(object sender, PointerRoutedEventArgs e)
+        void volumeSlider_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             _sliderpressed = true;
         }
 
-        async void slider_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
+        async void volumeSlider_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
             await MyMediaInfo.mediaRenderer.SetVolume((int)volumeSlider.Value);
             _sliderpressed = false;
@@ -1039,7 +1073,7 @@ namespace GenieWin8
 
         private async void test_Click(object sender, RoutedEventArgs e)
         {
-            var t = await MyMediaInfo.mediaRenderer.GetCurrentState();
+            var t = await MyMediaInfo.mediaRenderer.GetCurrentPosition();
             System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", t);
         }
     }

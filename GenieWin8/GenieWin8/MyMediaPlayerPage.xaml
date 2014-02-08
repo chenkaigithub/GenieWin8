@@ -71,6 +71,7 @@
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
                 <TextBlock x:Name="MediaItemTitle" FontSize="25" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
+                <Slider Name="timelineSlider" Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,-15" IsEnabled="False"/>
                 <StackPanel x:Name="ControlMediaPanel" Orientation="Horizontal">
                     <Button x:Name="playButton" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" IsEnabled="False"/>
                     <Button x:Name="pauseButton" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}" IsEnabled="False"/>

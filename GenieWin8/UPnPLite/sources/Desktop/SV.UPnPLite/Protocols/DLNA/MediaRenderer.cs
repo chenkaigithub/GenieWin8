@@ -282,6 +282,24 @@ namespace SV.UPnPLite.Protocols.DLNA
             }
         }
 
+        public async Task<TimeSpan> GetDuration()
+        {
+            try
+            {
+                var info = await this.avTransportService.GetPositionInfoAsync(0);
+
+                return info.TrackDuration;
+            }
+            catch (FormatException ex)
+            {
+                throw new MediaRendererException(this, MediaRendererError.UnexpectedError, "Received result is in a bad format", ex);
+            }
+            catch (UPnPServiceException ex)
+            {
+                throw new MediaRendererException(this, ex.ErrorCode.ToMediaRendererError(), "An error occurred when requesting trackDuration", ex);
+            }
+        }
+
         /// <summary>
         ///     Requests current playback state.
         /// </summary>
