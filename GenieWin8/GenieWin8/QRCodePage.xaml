@@ -20,7 +20,10 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6" SizeChanged="OnWindowSizeChanged">
+    <Grid Style="{StaticResource LayoutRootStyle}" SizeChanged="OnWindowSizeChanged">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/pagebg.png"/>
+        </Grid.Background>
         <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>

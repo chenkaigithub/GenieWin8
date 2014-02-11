@@ -15,10 +15,87 @@
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <!--<x:String x:Key="AppName">我的媒体</x:String>-->
-        <CollectionViewSource
+        <!--<CollectionViewSource
             x:Name="MyMediaSource"
             Source="{Binding mymediaGroup}"
-            d:Source="{Binding MyMediaGroups, Source={d:DesignInstance Type=data:MediaSource, IsDesignTimeCreatable=True}}"/>
+            d:Source="{Binding MyMediaGroups, Source={d:DesignInstance Type=data:MediaSource, IsDesignTimeCreatable=True}}"/>-->
+        <Style x:Key="ButtonStyle1" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}"/>
+            <Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="12,10,12,10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonPointerOverBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonPointerOverForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <ImageBrush ImageSource="Assets/MyMedia/button_press.png" Stretch="Fill"/>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3" CornerRadius="80">
+                                <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                            <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Page.Resources>
 
@@ -27,7 +104,10 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
+    <Grid Style="{StaticResource LayoutRootStyle}">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/pagebg.png"/>
+        </Grid.Background>
         <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
@@ -58,7 +138,7 @@
             <TextBlock x:Name="pageTitle" x:Uid="MyMediaPageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
         </Grid>
 
-        <GridView Grid.Row="1"
+        <!--<GridView Grid.Row="1"
                   VerticalAlignment="Top"
                   Margin="60,60,0,0"
                   ItemsSource="{Binding Source={StaticResource MyMediaSource}}"
@@ -86,7 +166,27 @@
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
-        </GridView>
+        </GridView>-->
+        <StackPanel Grid.Row="1" Margin="0,30,0,0">
+            <Button x:Name="SourceButton" Width="550" HorizontalAlignment="Center" Style="{StaticResource ButtonStyle1}" HorizontalContentAlignment="Left" Background="{x:Null}" Click="SourceButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="75,0,0,0">
+                    <Image Source="Assets/MyMedia/Browse.png" Width="100" Height="100" Stretch="Fill"/>
+                    <TextBlock x:Uid="MyMediaSource" FontSize="50" FontWeight="Normal" VerticalAlignment="Center" Margin="50,0,0,0" CharacterSpacing="100" Foreground="Black"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="PlayerButton" Width="550" HorizontalAlignment="Center" Style="{StaticResource ButtonStyle1}" HorizontalContentAlignment="Left" Background="{x:Null}" Click="SourceButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="75,0,0,0">
+                    <Image Source="Assets/MyMedia/Device.png" Width="100" Height="100" Stretch="Fill"/>
+                    <TextBlock x:Uid="MyMediaPlayer" FontSize="50" FontWeight="Normal" VerticalAlignment="Center" Margin="50,0,0,0" CharacterSpacing="100" Foreground="Black"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="PlayingButton" Width="550" HorizontalAlignment="Center" Style="{StaticResource ButtonStyle1}" HorizontalContentAlignment="Left" Background="{x:Null}" Click="SourceButton_Click">
+                <StackPanel Orientation="Horizontal" Margin="75,0,0,0">
+                    <Image Source="Assets/MyMedia/Playing.png" Width="100" Height="100" Stretch="Fill"/>
+                    <TextBlock x:Uid="MyMediaPlaying" FontSize="50" FontWeight="Normal" VerticalAlignment="Center" Margin="50,0,0,0" CharacterSpacing="100" Foreground="Black"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
 
         <VisualStateManager.VisualStateGroups>
 

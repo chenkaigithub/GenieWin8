@@ -23,6 +23,9 @@
         * Row 1 contains the rest of the page layout
     -->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/pagebg.png"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>

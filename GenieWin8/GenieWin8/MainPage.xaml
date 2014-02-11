@@ -73,7 +73,10 @@
         * 第 0 行包含后退按钮和页标题
         * 第 1 行包含页布局的其余部分
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}" SizeChanged="OnWindowSizeChanged" Background="#FFE6E6E6">
+    <Grid Style="{StaticResource LayoutRootStyle}" SizeChanged="OnWindowSizeChanged">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/pagebg.png"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="180"/>
             <RowDefinition Height="*"/>

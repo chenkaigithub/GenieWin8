@@ -311,7 +311,7 @@
     <value>我的媒体</value>
     <comment>MyMediaPage Title</comment>
   </data>
-  <data name="MyMediaPlayer" xml:space="preserve">
+  <data name="MyMediaPlayer.Text" xml:space="preserve">
     <value>播放器</value>
     <comment>Player</comment>
   </data>
@@ -319,11 +319,11 @@
     <value>播放器</value>
     <comment>MyMediaPlayerPage Title</comment>
   </data>
-  <data name="MyMediaPlaying" xml:space="preserve">
+  <data name="MyMediaPlaying.Text" xml:space="preserve">
     <value>正在播放</value>
     <comment>Playing</comment>
   </data>
-  <data name="MyMediaSource" xml:space="preserve">
+  <data name="MyMediaSource.Text" xml:space="preserve">
     <value>来源</value>
     <comment>Source</comment>
   </data>

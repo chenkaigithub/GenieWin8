@@ -216,23 +216,30 @@ namespace SV.UPnPLite.Protocols.UPnP
             {
                 if (ex.Response != null)
                 {
-                    using (var responseStream = ex.Response.GetResponseStream())
+                    if (ex.Message == "The remote server returned an error: (500) Internal Server Error.")
                     {
-                        if (responseStream.Length > 0)
+                        requestInfo.CompletionSource.TrySetResult(new Dictionary<string, string>());
+                    }
+                    else
+                    {
+                        using (var responseStream = ex.Response.GetResponseStream())
                         {
-                            var error = this.ParseActionError(requestInfo.Action, responseStream, ex);
-                            if (error != null)
+                            if (responseStream.Length > 0)
                             {
-                                error.Action = requestInfo.Action;
-                                error.Arguments = requestInfo.Arguments;
+                                var error = this.ParseActionError(requestInfo.Action, responseStream, ex);
+                                if (error != null)
+                                {
+                                    error.Action = requestInfo.Action;
+                                    error.Arguments = requestInfo.Arguments;
 
-                                requestInfo.CompletionSource.TrySetException(error);
+                                    requestInfo.CompletionSource.TrySetException(error);
+                                }
                             }
                         }
                     }
+                    
                 }
-
-                if (ex.Status.ToString() == "KeepAliveFailure")        //keep-alive状态被断开连接的情况下重试
+                else if (ex.Status.ToString() == "KeepAliveFailure")        //keep-alive状态被断开连接的情况下重试
                 {
                     this.ProcessRequest(requestInfo);
                 }

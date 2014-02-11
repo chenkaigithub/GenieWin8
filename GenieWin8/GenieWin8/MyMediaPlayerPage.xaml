@@ -14,10 +14,10 @@
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <CollectionViewSource
+        <!--<CollectionViewSource
             x:Name="myMediaPlayersSource"
             Source="{Binding itemPlayer}"
-            d:Source="{Binding MyMediaGroups[1].Items, Source={d:DesignInstance Type=data:MediaSource, IsDesignTimeCreatable=True}}"/>
+            d:Source="{Binding MyMediaGroups[1].Items, Source={d:DesignInstance Type=data:MediaSource, IsDesignTimeCreatable=True}}"/>-->
     </Page.Resources>
 
     <!--
@@ -25,7 +25,10 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}" Background="#FFE6E6E6">
+    <Grid Style="{StaticResource LayoutRootStyle}">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/pagebg.png"/>
+        </Grid.Background>
         <!--<Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <LinearGradientBrush.RelativeTransform>
@@ -70,6 +73,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+                <TextBlock x:Name="MediaRendererStatus" FontSize="25" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black"/>
                 <TextBlock x:Name="MediaItemTitle" FontSize="25" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
                 <Slider Name="timelineSlider" Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,-15" IsEnabled="False"/>
                 <StackPanel x:Name="ControlMediaPanel" Orientation="Horizontal">

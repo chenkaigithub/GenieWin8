@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 using Windows.Media.PlayTo;
+using Windows.UI.Xaml.Media.Imaging;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -41,8 +42,8 @@ namespace GenieWin8
         /// 字典。首次访问页面时为 null。</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            var mymediaGroups = MediaSource.GetMymediaGroups((String)navigationParameter);
-            this.DefaultViewModel["mymediaGroup"] = mymediaGroups;
+            //var mymediaGroups = MediaSource.GetMymediaGroups((String)navigationParameter);
+            //this.DefaultViewModel["mymediaGroup"] = mymediaGroups;
         }
 
         /// <summary>
@@ -55,25 +56,42 @@ namespace GenieWin8
         {
         }
 
-        private void MyMedia_ItemClick(Object sender, ItemClickEventArgs e)
+        //private void MyMedia_ItemClick(Object sender, ItemClickEventArgs e)
+        //{
+        //    var groupId = ((MyMediaGroup)e.ClickedItem).UniqueId;
+        //    if (groupId == "MyMediaSource")
+        //    {
+        //        this.Frame.Navigate(typeof(MyMediaSourcePage), groupId);
+        //    }
+        //    else if (groupId == "MyMediaPlayer")
+        //    {
+        //        this.Frame.Navigate(typeof(MyMediaPlayerPage), groupId);
+        //    }
+        //    else if (groupId == "MyMediaPlaying")
+        //    {
+        //        this.Frame.Navigate(typeof(MyMediaPlayingPage), groupId);
+        //    }
+        //    else if (groupId == "MyMediaOption")
+        //    {
+        //        this.Frame.Navigate(typeof(MyMediaOptionPage));		
+        //    }
+        //}
+
+        private void SourceButton_Click(object sender, RoutedEventArgs e)
         {
-            var groupId = ((MyMediaGroup)e.ClickedItem).UniqueId;
-            if (groupId == "MyMediaSource")
-	        {
-                this.Frame.Navigate(typeof(MyMediaSourcePage), groupId);
-	        }
-	        else if (groupId == "MyMediaPlayer")
-	        {
-                this.Frame.Navigate(typeof(MyMediaPlayerPage), groupId);
-	        }
-	        else if (groupId == "MyMediaPlaying")
-	        {
-                this.Frame.Navigate(typeof(MyMediaPlayingPage), groupId);
-	        }
-	        else if (groupId == "MyMediaOption")
-	        {
-                this.Frame.Navigate(typeof(MyMediaOptionPage));		
-	        }
+            Button btn = (Button)sender;
+            if (btn.Name=="SourceButton")
+            {
+                this.Frame.Navigate(typeof(MyMediaSourcePage));
+            }
+            else if (btn.Name == "PlayerButton")
+            {
+                this.Frame.Navigate(typeof(MyMediaPlayerPage));
+            }
+            else if (btn.Name == "PlayingButton")
+            {
+                this.Frame.Navigate(typeof(MyMediaPlayingPage));
+            }
         }
     }
 }

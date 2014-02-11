@@ -21,6 +21,9 @@ using Windows.Networking.Connectivity;
 using SV.UPnPLite.Protocols.DLNA;
 using SV.UPnPLite.Protocols.UPnP;
 using SV.UPnPLite.Protocols.DLNA.Services.ContentDirectory;
+using Windows.Networking;
+using Windows.Networking.Sockets;
+using Windows.Storage.Streams;
 
 // “基本页”项模板在 http://go.microsoft.com/fwlink/?LinkId=234237 上有介绍
 
@@ -484,9 +487,15 @@ namespace GenieWin8
                         MyMediaInfo.bCurrentDirectory = true;
                         if (MyMediaInfo.mediaRenderer != null)
                         {
+                            status.Text = "StopAsync";
                             await MyMediaInfo.mediaRenderer.StopAsync();
+                            status.Text = "";
+                            status.Text = "OpenAsync";
                             await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
+                            status.Text = "";
+                            status.Text = "PlayAsync";
                             await MyMediaInfo.mediaRenderer.PlayAsync();
+                            status.Text = "";
                             MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
                             {
                                 //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", state);
@@ -494,7 +503,7 @@ namespace GenieWin8
                                 if (state == MediaRendererState.NoMediaRenderer)
                                 {
                                     MyMediaInfo.mediaRenderer = null;
-                                    MediaTitle.Text = "No media renderer selected";
+                                    MediaRendererStatus.Text = "No media renderer selected";
                                 }
                             });
                             MyMediaInfo.mediaRenderer.PositionChanges.Subscribe(position =>
@@ -507,7 +516,7 @@ namespace GenieWin8
                             //var t = await MyMediaInfo.mediaRenderer.GetCurrentPosition();
                             //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", t);
                             MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
-                            MediaTitle.Text = "Playing media file...";
+                            MediaRendererStatus.Text = "Playing media file...";
                         } 
                         else
                         {
@@ -515,7 +524,7 @@ namespace GenieWin8
                             //var strtext = loader.GetString("selectPlayer");
                             var messageDialog = new MessageDialog("Please select one player");
                             await messageDialog.ShowAsync();
-                            MediaTitle.Text = "No media renderer selected";
+                            MediaRendererStatus.Text = "No media renderer selected";
                         }
                     }
                 }
@@ -548,7 +557,7 @@ namespace GenieWin8
                     timelineSlider.IsEnabled = false;
                     if (MyMediaInfo.mediaItem != null)
                     {
-                        MediaTitle.Text = "Buffering...";
+                        MediaRendererStatus.Text = "Buffering...";
                         MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                         timelineSlider.Value = 0.0;
                         resetDuration = true;
@@ -563,7 +572,7 @@ namespace GenieWin8
                     previousButton.IsEnabled = false;
                     nextButton.IsEnabled = false;
                     timelineSlider.IsEnabled = false;
-                    MediaTitle.Text = "No media file selected";
+                    MediaRendererStatus.Text = "No media file selected";
                     MediaItemTitle.Text = "";
                     timelineSlider.Value = 0.0;
                 }
@@ -578,7 +587,7 @@ namespace GenieWin8
                     timelineSlider.IsEnabled = true;
                     if (MyMediaInfo.mediaItem != null)
                     {
-                        MediaTitle.Text = "media file paused";
+                        MediaRendererStatus.Text = "media file paused";
                         MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                         timelineSlider.Value = MyMediaInfo.currentPosition;
                     }
@@ -594,11 +603,13 @@ namespace GenieWin8
                     timelineSlider.IsEnabled = true;
                     if (MyMediaInfo.mediaItem != null)
                     {
-                        MediaTitle.Text = "Playing media file...";
+                        MediaRendererStatus.Text = "Playing media file...";
                         MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                         if (resetDuration)
                         {
+                            status.Text = "GetDuration";
                             var duration = await MyMediaInfo.mediaRenderer.GetDuration();
+                            status.Text = "";
                             timelineSlider.Maximum = duration.TotalSeconds;
                             resetDuration = false;
                         }
@@ -616,9 +627,16 @@ namespace GenieWin8
                     timelineSlider.IsEnabled = true;
                     if (MyMediaInfo.mediaItem != null)
                     {
-                        MediaTitle.Text = "media file stopped";
+                        MediaRendererStatus.Text = "media file stopped";
                         MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                         timelineSlider.Value = 0.0;
+                    }
+
+                    if (MyMediaInfo.mediaItem.Class == "object.item.imageItem")
+                    {
+                        playButton.IsEnabled = false;
+                        timelineSlider.IsEnabled = false;
+                        MediaRendererStatus.Text = "Playing media file...";
                     }
                 }
             }
@@ -1073,8 +1091,26 @@ namespace GenieWin8
 
         private async void test_Click(object sender, RoutedEventArgs e)
         {
-            var t = await MyMediaInfo.mediaRenderer.GetCurrentPosition();
-            System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", t);
+            //var t = await MyMediaInfo.mediaRenderer.GetCurrentPosition();
+            //System.Diagnostics.Debug.WriteLine("Playback state changed: {0}", t);
+
+            //var multicastHost = new HostName("239.255.255.250");
+            //int MulticastPort = 1900;
+            //var notifySocket = new DatagramSocket();
+            //notifySocket.BindEndpointAsync(null, "0").GetAwaiter().GetResult();
+            //notifySocket.JoinMulticastGroup(multicastHost);
+
+            //var outputStream = notifySocket.GetOutputStreamAsync(multicastHost, MulticastPort.ToString()).GetAwaiter().GetResult();
+            //var request =
+            //    "NOTIFY * HTTP/1.1" + "\r\n" +
+            //    "HOST: 239.255.255.250:1900" + "\r\n" +
+            //    "CACHE-CONTROL: max-age=300" + "\r\n" +
+            //    "ST: {0}" + "\r\n" +
+            //    "MX: {1}" + "\r\n" +
+            //    "Content-Length: 0" + "\r\n\r\n";
+            //var buffer = Encoding.UTF8.GetBytes(request).AsBuffer();
+            //outputStream.WriteAsync(buffer);
+            //outputStream.WriteAsync(buffer);
         }
     }
 }
