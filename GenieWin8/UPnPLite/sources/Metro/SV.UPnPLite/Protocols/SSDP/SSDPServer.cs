@@ -152,12 +152,13 @@ namespace SV.UPnPLite.Protocols.SSDP
         /// <returns>
         ///     An observable collection which contains search results.
         /// </returns>
+        DatagramSocket searchSocket;
         public IObservable<SearchResponseMessage> Search(string searchTarget, int timeForResponse)
         {
             return Observable.Create<SearchResponseMessage>(
                 observer =>
                 {
-                    var searchSocket = new DatagramSocket();
+                    searchSocket = new DatagramSocket();
 
                     // Handling responses from found devices
                     searchSocket.MessageReceived += async (sender, args) =>

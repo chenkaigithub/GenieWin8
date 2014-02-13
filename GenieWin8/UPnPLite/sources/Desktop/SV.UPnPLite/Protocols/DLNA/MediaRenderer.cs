@@ -252,6 +252,22 @@ namespace SV.UPnPLite.Protocols.DLNA
             }
         }
 
+        public async Task SetCurrentPosition(TimeSpan RelTimePosition)
+        {
+            try
+            {
+                await this.avTransportService.SetPositionInfoAsync(0, RelTimePosition);
+            }
+            //catch (FormatException ex)
+            //{
+            //    throw new MediaRendererException(this, MediaRendererError.UnexpectedError, "Received result is in a bad format", ex);
+            //}
+            catch (UPnPServiceException ex)
+            {
+                throw new MediaRendererException(this, ex.ErrorCode.ToMediaRendererError(), "An error occurred when requesting set the current position", ex);
+            }
+        }
+
         /// <summary>
         ///     Requests current playback position.
         /// </summary>

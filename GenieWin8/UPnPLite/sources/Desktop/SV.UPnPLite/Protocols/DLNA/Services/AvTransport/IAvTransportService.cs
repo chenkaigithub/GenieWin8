@@ -185,5 +185,6 @@ namespace SV.UPnPLite.Protocols.DLNA.Services.AvTransport
         Task StopAsync(uint instanceId);
 
         //Task SetVolume(uint instanceId, int volume);
+        Task SetPositionInfoAsync(uint instanceId, TimeSpan RelTimePosition);
     }
 }

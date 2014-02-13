@@ -365,6 +365,22 @@ namespace SV.UPnPLite.Protocols.DLNA.Services.AvTransport
         //        // We don't expect result, so, we don't care if parsing error occurred
         //    }
         //}
+
+        public async Task SetPositionInfoAsync(uint instanceId, TimeSpan RelTimePosition)
+        {
+            try
+            {
+                var args = new Dictionary<string, object>();
+                args["InstanceID"] = 0;
+                args["Unit"] = "REL_TIME";
+                args["Target"] = RelTimePosition.ToString();
+                await this.InvokeActionAsync("Seek", args);
+            }
+            catch (FormatException)
+            {
+                // We don't expect result, so, we don't care if parsing error occurred
+            }
+        }
         #endregion
     }
 }

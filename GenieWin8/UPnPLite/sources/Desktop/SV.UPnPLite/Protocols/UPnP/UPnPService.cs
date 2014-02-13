@@ -202,7 +202,7 @@ namespace SV.UPnPLite.Protocols.UPnP
             {
                 var request = this.CreateRequest(requestInfo.Action, requestInfo.Arguments);
 
-                using (var response = await request.GetResponseAsync())
+                using (var response = await request.GetResponseAsync().ConfigureAwait(false))
                 {
                     using (var responseStream = response.GetResponseStream())
                     {

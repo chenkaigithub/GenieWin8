@@ -22,7 +22,7 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Style="{StaticResource LayoutRootStyle}">
+    <Grid Style="{StaticResource LayoutRootStyle}" SizeChanged="OnWindowSizeChanged">
         <Grid.Background>
             <ImageBrush Stretch="Fill" ImageSource="Assets/pagebg.png"/>
         </Grid.Background>
@@ -41,11 +41,12 @@
             <TextBlock x:Name="pageTitle" x:Uid="MyMediaSourcePageTitle"  Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}" Foreground="#1E1E1E"/>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <!--<Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>-->
+        <StackPanel x:Name="panelSource" Grid.Row="1" Orientation="Horizontal">
             <StackPanel Orientation="Vertical" Width="500" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0">
                 <TextBlock x:Name="MediaTitle" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
                 <Button x:Name="Refresh" Content="Refresh" HorizontalAlignment="Right" FontSize="24" Click="Refresh_Click" Foreground="White" Background="#8165A2" BorderThickness="0"/>
@@ -53,7 +54,7 @@
                 <ListBox x:Name="DeviceMediaList" Height="500" HorizontalAlignment="Stretch" SelectionChanged="DeviceMediaList_SelectionChanged"/>
             </StackPanel>
 
-            <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,50,0,0">
                 <TextBlock x:Name="MediaRendererStatus" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black"/>
                 <TextBlock x:Name="MediaItemTitle" FontSize="25" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
                 <Slider Name="timelineSlider" Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,-15" IsEnabled="False"/>
@@ -71,6 +72,8 @@
                 </StackPanel>
                 <TextBlock x:Name="status" FontSize="25" VerticalAlignment="Center"/>
             </StackPanel>
+        </StackPanel>
+            
             <!--<Button x:Name="SelectReceiver" Content="Select Player" Grid.Column="1" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SelectReceiver_Click"
                     Foreground="White" Background="#8165A2" BorderThickness="0" Margin="50,0,0,0"/>
             <StackPanel x:Name="stpVideoPlayer"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
@@ -86,8 +89,17 @@
             </StackPanel>
 
             <Image x:Name="ImagePlayer" Grid.Column="1" Width="640" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0"/>-->
-        </Grid>
+        <!--</Grid>-->
 
+        <!--<Grid x:Name="PopupBackground"  Grid.RowSpan="2"  Background="#FF5A5A5A"  Opacity="0.9" Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressRing x:Name="InProgress"
+                          IsActive="true"
+                          Height="60" Width="60"
+                          Foreground="White"/>
+                <TextBlock x:Name="pleasewait" x:Uid="wait" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="24" Foreground="White"/>
+            </StackPanel>
+        </Grid>-->
 
         <VisualStateManager.VisualStateGroups>
 
