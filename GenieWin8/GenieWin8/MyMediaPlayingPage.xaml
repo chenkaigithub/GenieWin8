@@ -14,7 +14,8 @@
     <Page.Resources>
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
+        <!--<x:String x:Key="AppName">My Application</x:String>-->
+        <local:ThumbToolTipValueConverter x:Key="ThumbToolTipValueConverter"/>
     </Page.Resources>
 
     <!--
@@ -57,7 +58,7 @@
                     <Button x:Name="FullScreenButton" Margin="0,0" Click="FullScreenButton_Click"  Style="{StaticResource FullScreenAppBarButtonStyle}"/>
                 </StackPanel>
                 <TextBlock x:Name="Title" FontSize="25" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" MaxWidth="600" TextWrapping="Wrap"/>
-                <Slider Name="timelineSlider" Width="400" Padding="0,-10,0,-20" Visibility="Collapsed"/>
+                <Slider Name="timelineSlider" Width="400" Padding="0,-10,0,-20" Visibility="Collapsed" ThumbToolTipValueConverter="{StaticResource ThumbToolTipValueConverter}"/>
                 <ContentControl x:Name="Output" HorizontalAlignment="Center" VerticalAlignment="Top" KeyDown="StackPanel_KeyDown">
                     <Grid>
                         <MediaElement x:Name="dmrVideo" AutomationProperties.Name="dmrVideo" Height="480" Width="640" HorizontalAlignment="Center" VerticalAlignment="Top"
@@ -113,7 +114,7 @@
         <AppBar x:Name="BottomAppBar" Padding="10,0,10,0" Visibility="Collapsed">
             <StackPanel>
                 <TextBlock x:Name="Title1" FontSize="25" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black"/>
-                <Slider Name="timelineSlider1" HorizontalAlignment="Stretch" Padding="0,-10,0,-25" Visibility="Collapsed"/>
+                <Slider Name="timelineSlider1" HorizontalAlignment="Stretch" Padding="0,-10,0,-25" Visibility="Collapsed" ThumbToolTipValueConverter="{StaticResource ThumbToolTipValueConverter}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button x:Name="playButton1" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" IsEnabled="False"/>
                     <Button x:Name="pauseButton1" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}" IsEnabled="False"/>

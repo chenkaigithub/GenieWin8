@@ -15,6 +15,7 @@
 
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <!--<x:String x:Key="AppName">来源</x:String>-->
+        <local:ThumbToolTipValueConverter x:Key="ThumbToolTipValueConverter"/>
     </Page.Resources>
 
     <!--
@@ -57,7 +58,7 @@
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,50,0,0">
                 <TextBlock x:Name="MediaRendererStatus" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black"/>
                 <TextBlock x:Name="MediaItemTitle" FontSize="25" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" MaxWidth="500" TextWrapping="Wrap"/>
-                <Slider Name="timelineSlider" Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,-15" IsEnabled="False"/>
+                <Slider Name="timelineSlider" Width="500" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,-15" IsEnabled="False" ThumbToolTipValueConverter="{StaticResource ThumbToolTipValueConverter}"/>
                 <StackPanel x:Name="ControlMediaPanel" Orientation="Horizontal">
                     <Button x:Name="playButton" Click="playButton_Click" Style="{StaticResource PlayAppBarButtonStyle}" IsEnabled="False"/>
                     <Button x:Name="pauseButton" Click="pauseButton_Click"  Style="{StaticResource PauseAppBarButtonStyle}" IsEnabled="False"/>
