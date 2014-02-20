@@ -211,14 +211,21 @@ namespace SV.UPnPLite.Protocols.DLNA.Services.AvTransport
 
             var response = await this.InvokeActionAsync("GetTransportInfo", arguments);
 
-            var transportInfo = new TransportInfo
+            if (response.Count == 0)
             {
-                State = response.GetValueOrDefault<string>("CurrentTransportState"),
-                Status = response.GetValueOrDefault<string>("CurrentTransportStatus"),
-                Speed = response.GetValueOrDefault<string>("CurrentSpeed")
-            };
+                return null;
+            }
+            else
+            {
+                var transportInfo = new TransportInfo
+                {
+                    State = response.GetValueOrDefault<string>("CurrentTransportState"),
+                    Status = response.GetValueOrDefault<string>("CurrentTransportStatus"),
+                    Speed = response.GetValueOrDefault<string>("CurrentSpeed")
+                };
 
-            return transportInfo;
+                return transportInfo;
+            }
         }
 
         /// <summary>
@@ -245,19 +252,26 @@ namespace SV.UPnPLite.Protocols.DLNA.Services.AvTransport
 
             var response = await this.InvokeActionAsync("GetPositionInfo", arguments);
 
-            var positionInfo = new PositionInfo
+            if (response.Count == 0)
             {
-                Track = response.GetValueOrDefault<uint>("Track"),
-                TrackDuration = ParsingHelper.ParseTimeSpan(response.GetValueOrDefault<string>("TrackDuration")),
-                TrackMetaData = response.GetValueOrDefault<string>("TrackMetaData"),
-                TrackUri = response.GetValueOrDefault<Uri>("TrackURI"),
-                RelativeTimePosition = ParsingHelper.ParseTimeSpan(response.GetValueOrDefault<string>("RelTime")),
-                AbsoluteTimePosition = ParsingHelper.ParseTimeSpan(response.GetValueOrDefault<string>("AbsTime")),
-                RelativeCounterPosition = response.GetValueOrDefault<int>("RelCount"),
-                AbsoluteCounterPosition = response.GetValueOrDefault<int>("AbsCount")
-            };
+                return null;
+            }
+            else
+            {
+                var positionInfo = new PositionInfo
+                {
+                    Track = response.GetValueOrDefault<uint>("Track"),
+                    TrackDuration = ParsingHelper.ParseTimeSpan(response.GetValueOrDefault<string>("TrackDuration")),
+                    TrackMetaData = response.GetValueOrDefault<string>("TrackMetaData"),
+                    TrackUri = response.GetValueOrDefault<Uri>("TrackURI"),
+                    RelativeTimePosition = ParsingHelper.ParseTimeSpan(response.GetValueOrDefault<string>("RelTime")),
+                    AbsoluteTimePosition = ParsingHelper.ParseTimeSpan(response.GetValueOrDefault<string>("AbsTime")),
+                    RelativeCounterPosition = response.GetValueOrDefault<int>("RelCount"),
+                    AbsoluteCounterPosition = response.GetValueOrDefault<int>("AbsCount")
+                };
 
-            return positionInfo;
+                return positionInfo;
+            }
         }
 
         /// <summary>

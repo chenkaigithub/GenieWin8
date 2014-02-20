@@ -1185,17 +1185,4 @@ namespace GenieWin8
             //outputStream.WriteAsync(buffer);
         //}
     }
-
-    public sealed class ThumbToolTipValueConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            return TimeSpan.FromSeconds((double)value).ToString();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return null;
-        }
-    }
 }

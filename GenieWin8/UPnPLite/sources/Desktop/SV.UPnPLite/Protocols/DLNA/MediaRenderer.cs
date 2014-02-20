@@ -286,7 +286,14 @@ namespace SV.UPnPLite.Protocols.DLNA
             {
                 var info = await this.avTransportService.GetPositionInfoAsync(0);
 
-                return info.RelativeTimePosition;
+                if (info == null)
+                {
+                    return TimeSpan.Zero;
+                }
+                else
+                {
+                    return info.RelativeTimePosition;
+                }
             }
             catch (FormatException ex)
             {
@@ -304,7 +311,14 @@ namespace SV.UPnPLite.Protocols.DLNA
             {
                 var info = await this.avTransportService.GetPositionInfoAsync(0);
 
-                return info.TrackDuration;
+                if (info == null)
+                {
+                    return TimeSpan.Zero;
+                }
+                else
+                {
+                    return info.TrackDuration;
+                }
             }
             catch (FormatException ex)
             {
@@ -334,7 +348,14 @@ namespace SV.UPnPLite.Protocols.DLNA
             {
                 var stateInfo = await this.avTransportService.GetTransportInfoAsync(0);
 
-                return ParseTransportState(stateInfo.State);
+                if (stateInfo == null)
+                {
+                    return ParseTransportState(null);
+                }
+                else
+                {
+                    return ParseTransportState(stateInfo.State);
+                }
             }
             catch (FormatException ex)
             {
@@ -376,10 +397,21 @@ namespace SV.UPnPLite.Protocols.DLNA
                         {
                             var positionInfo = await this.avTransportService.GetPositionInfoAsync(0);
 
-                            if (this.currentPosition != positionInfo.RelativeTimePosition)
+                            if (positionInfo == null)
                             {
-                                this.currentPosition = positionInfo.RelativeTimePosition;
-                                o.OnNext(positionInfo.RelativeTimePosition);
+                                if (this.currentPosition != TimeSpan.Zero)
+                                {
+                                    this.currentPosition = TimeSpan.Zero;
+                                    o.OnNext(TimeSpan.Zero);
+                                }
+                            }
+                            else
+                            {
+                                if (this.currentPosition != positionInfo.RelativeTimePosition)
+                                {
+                                    this.currentPosition = positionInfo.RelativeTimePosition;
+                                    o.OnNext(positionInfo.RelativeTimePosition);
+                                }
                             }
                         }
                         catch (WebException ex)
@@ -407,12 +439,24 @@ namespace SV.UPnPLite.Protocols.DLNA
                         try
                         {
                             var info = await this.avTransportService.GetTransportInfoAsync(0);
-                            var state = ParseTransportState(info.State);
-
-                            if (this.currentState != state)
+                            MediaRendererState state;
+                            if (info == null)
                             {
-                                this.currentState = state;
-                                o.OnNext(ParseTransportState(info.State));
+                                state = ParseTransportState(null);
+                                if (this.currentState != state)
+                                {
+                                    this.currentState = state;
+                                    o.OnNext(ParseTransportState(null));
+                                }
+                            }
+                            else
+                            {
+                                state = ParseTransportState(info.State);
+                                if (this.currentState != state)
+                                {
+                                    this.currentState = state;
+                                    o.OnNext(ParseTransportState(info.State));
+                                }
                             }
                         }
                         catch (WebException ex)

@@ -216,7 +216,7 @@ namespace SV.UPnPLite.Protocols.UPnP
             {
                 if (ex.Response != null)
                 {
-                    if (ex.Message == "The remote server returned an error: (500) Internal Server Error.")
+                    if (ex.Status.ToString() == "ProtocolError" || ex.Message == "The remote server returned an error: (500) Internal Server Error.")
                     {
                         requestInfo.CompletionSource.TrySetResult(new Dictionary<string, string>());
                     }
@@ -244,6 +244,10 @@ namespace SV.UPnPLite.Protocols.UPnP
                     this.ProcessRequest(requestInfo);
                 }
                 else if (ex.Message == "The remote server returned an error: (404) Not Found.")
+                {
+                    requestInfo.CompletionSource.TrySetResult(new Dictionary<string, string>());
+                }
+                else if (ex.Status.ToString() == "ConnectionClosed" || ex.Status == WebExceptionStatus.ConnectFailure)
                 {
                     requestInfo.CompletionSource.TrySetResult(new Dictionary<string, string>());
                 }
