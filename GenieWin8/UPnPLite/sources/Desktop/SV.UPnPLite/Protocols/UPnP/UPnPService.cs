@@ -247,7 +247,7 @@ namespace SV.UPnPLite.Protocols.UPnP
                 {
                     requestInfo.CompletionSource.TrySetResult(new Dictionary<string, string>());
                 }
-                else if (ex.Status.ToString() == "ConnectionClosed" || ex.Status == WebExceptionStatus.ConnectFailure)
+                else if (ex.Status.ToString() == "ConnectionClosed" || ex.Status == WebExceptionStatus.ConnectFailure || ex.Status.ToString() == "ReceiveFailure")
                 {
                     requestInfo.CompletionSource.TrySetResult(new Dictionary<string, string>());
                 }
