@@ -333,12 +333,13 @@ namespace GenieWin8
             {
                 if (DeviceMediaList.SelectedIndex != -1)
                 {
+                    PopupBackground.Visibility = Visibility.Visible;
                     foreach (var serverDevice in mediaServersDiscovery.DiscoveredDevices)
                     {
                         if (serverDevice.FriendlyName == DeviceMediaList.SelectedItem.ToString())
                         {
                             bDMSFounded = true;
-                            PopupBackground.Visibility = Visibility.Visible;
+                            //PopupBackground.Visibility = Visibility.Visible;
                             var rootObjects = await serverDevice.BrowseAsync();
                             if (rootObjects != null)
                             {
@@ -444,6 +445,7 @@ namespace GenieWin8
                     if (!bDMSFounded)
                     {
                         //MediaTitle.Text = "Device does not exist, please refresh the list";
+                        PopupBackground.Visibility = Visibility.Collapsed;
                     }
                 }
             }
@@ -457,9 +459,9 @@ namespace GenieWin8
                 {
                     if (DeviceMediaList.SelectedIndex > 0 && DeviceMediaList.SelectedIndex < Containers_Count + 1)
                     {
+                        PopupBackground.Visibility = Visibility.Visible;
                         int containerIndex = DeviceMediaList.SelectedIndex - 1;
                         var ContainerToBrowse = MyMediaInfo.mediaContainers.ElementAt(containerIndex);
-                        PopupBackground.Visibility = Visibility.Visible;
                         var rootObjects = await MyMediaInfo.mediaServer.BrowseAsync(ContainerToBrowse);
                         if (rootObjects != null)
                         {
@@ -562,13 +564,13 @@ namespace GenieWin8
                     }
                     else if (DeviceMediaList.SelectedIndex > Containers_Count)
                     {
+                        PopupBackground.Visibility = Visibility.Visible;
                         MyMediaInfo.mediaItemsforSwitch = MyMediaInfo.mediaItems;
                         MyMediaInfo.mediaItemIndex = DeviceMediaList.SelectedIndex - (Containers_Count + 1);
                         MyMediaInfo.mediaItem = MyMediaInfo.mediaItemsforSwitch.ElementAt(MyMediaInfo.mediaItemIndex);
                         MyMediaInfo.bCurrentDirectory = true;
                         if (MyMediaInfo.mediaRenderer != null)
                         {
-                            PopupBackground.Visibility = Visibility.Visible;
                             await MyMediaInfo.mediaRenderer.StopAsync();
                             await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
                             await MyMediaInfo.mediaRenderer.PlayAsync();
@@ -581,21 +583,37 @@ namespace GenieWin8
                             if (MyMediaInfo.mediaItem.Class == "object.item.imageItem")
                             {
                                 //mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
+                                var imageUri = MyMediaInfo.mediaItem.Resources.ElementAt(0).Uri;
+                                var imagerecv = new BitmapImage();
+                                imagerecv.ImageOpened += imagerevd_ImageOpened;
+                                imagerecv.UriSource = new Uri(imageUri);
+                                dmrImage.Source = imagerecv;
+                                dmrImage.Opacity = 1;
+                                Output.Background = null;
+                                var mediaRendererState = await MyMediaInfo.mediaRenderer.GetCurrentState();
+                                MyMediaInfo.mediaRendererState = mediaRendererState;
+                                if (mediaRendererState == MediaRendererState.NoMediaRenderer)
+                                {
+                                    MyMediaInfo.mediaRenderer = null;
+                                }
                             }
                             else if (MyMediaInfo.mediaItem.Class == "object.item.audioItem" || MyMediaInfo.mediaItem.Class == "object.item.audioItem.musicTrack")
                             {
+                                dmrImage.Opacity = 0;
                                 SetVolumePanel.Visibility = Visibility.Visible;
                                 bg.ImageSource = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/playing_music_icon.png"));
                                 Output.Background = bg;
                             }
                             else if (MyMediaInfo.mediaItem.Class == "object.item.videoItem")
                             {
+                                dmrImage.Opacity = 0;
                                 SetVolumePanel.Visibility = Visibility.Visible;
                                 bg.ImageSource = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/playing_video_icon.png"));
                                 Output.Background = bg;
                             }
                             MyMediaInfo.mediaRenderer.StateChanges.Subscribe(state =>
                             {
+                                //System.Diagnostics.Debug.WriteLine("Playback state : {0}", state);
                                 MyMediaInfo.mediaRendererState = state;
                                 if (state == MediaRendererState.NoMediaRenderer)
                                 {
@@ -604,12 +622,14 @@ namespace GenieWin8
                             });
                             MyMediaInfo.mediaRenderer.PositionChanges.Subscribe(position =>
                             {
+                                //System.Diagnostics.Debug.WriteLine("Playback position : {0}", position);
                                 MyMediaInfo.currentPosition = position.TotalSeconds;
                             });
                             MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                         }
                         else
                         {
+                            PopupBackground.Visibility = Visibility.Collapsed;
                             var messageDialog = new MessageDialog("Please select one player");
                             await messageDialog.ShowAsync();
                             MymediaFlipview.SelectedIndex = 1;
@@ -701,6 +721,7 @@ namespace GenieWin8
                         playButton.Visibility = Visibility.Collapsed;
                         pauseButton.Visibility = Visibility.Visible;
                         stopButton.IsEnabled = true;
+                        SetVolumePanel.Visibility = Visibility.Visible;
                         volumeSlider.IsEnabled = true;
                         previousButton.IsEnabled = true;
                         nextButton.IsEnabled = true;
@@ -720,6 +741,7 @@ namespace GenieWin8
                         playButton.Visibility = Visibility.Visible;
                         pauseButton.Visibility = Visibility.Collapsed;
                         stopButton.IsEnabled = false;
+                        SetVolumePanel.Visibility = Visibility.Collapsed;
                         volumeSlider.IsEnabled = false;
                         previousButton.IsEnabled = false;
                         nextButton.IsEnabled = false;
@@ -742,10 +764,12 @@ namespace GenieWin8
                         {
                             playButton.IsEnabled = false;
                             playButton.Visibility = Visibility.Visible;
+                            SetVolumePanel.Visibility = Visibility.Collapsed;
                             timelineSlider.IsEnabled = false;
                         }
                         else
                         {
+                            SetVolumePanel.Visibility = Visibility.Visible;
                             playButton.IsEnabled = true;
                             playButton.Visibility = Visibility.Visible;
                             timelineSlider.IsEnabled = true;
@@ -813,6 +837,7 @@ namespace GenieWin8
                 MyMediaInfo.stackMediaContainer.Pop();
             }
 
+            PopupBackground.Visibility = Visibility.Visible;
             if (MyMediaInfo.stackMediaObjects.Count == 0)
             {
                 DeviceMediaList.Items.Clear();
@@ -827,9 +852,11 @@ namespace GenieWin8
                 bDMSFounded = false;
                 MyMediaInfo.stackMediaObjects.Clear();
                 MyMediaInfo.bCurrentDirectory = false;
+                PopupBackground.Visibility = Visibility.Collapsed;
             }
             else
             {
+                PopupBackground.Visibility = Visibility.Collapsed;
                 DeviceMediaList.Items.Clear();
                 this.BrowseMediaContainer();
             }
@@ -883,12 +910,12 @@ namespace GenieWin8
             if (MyMediaInfo.stackMediaContainer.Count == 0)         //设备的第一层根目录
             {
                 bDMSFounded = false;
+                PopupBackground.Visibility = Visibility.Visible;
                 foreach (var serverDevice in mediaServersDiscovery.DiscoveredDevices)
                 {
                     if (serverDevice.FriendlyName == MyMediaInfo.mediaServer.FriendlyName)
                     {
                         bDMSFounded = true;
-                        PopupBackground.Visibility = Visibility.Visible;
                         var rootObjects = await serverDevice.BrowseAsync();
                         if (rootObjects != null)
                         {
@@ -989,13 +1016,14 @@ namespace GenieWin8
                 }
                 if (!bDMSFounded)
                 {
+                    PopupBackground.Visibility = Visibility.Collapsed;
                     this.BackToUpperlevel();
                 }
             }
             else                   //stackMediaContainer.Count != 0    非设备的第一层根目录
             {
-                var ContainerToBrowse = MyMediaInfo.stackMediaContainer.Peek();
                 PopupBackground.Visibility = Visibility.Visible;
+                var ContainerToBrowse = MyMediaInfo.stackMediaContainer.Peek();
                 var rootObjects = await MyMediaInfo.mediaServer.BrowseAsync(ContainerToBrowse);
                 if (rootObjects != null)
                 {
@@ -1149,10 +1177,10 @@ namespace GenieWin8
                 {
                     MyMediaInfo.mediaItemIndex = MyMediaInfo.mediaItemIndex - 1;
                 }
+                PopupBackground.Visibility = Visibility.Visible;
                 MyMediaInfo.mediaItem = MyMediaInfo.mediaItemsforSwitch.ElementAt(MyMediaInfo.mediaItemIndex);
                 if (MyMediaInfo.mediaRenderer != null)
                 {
-                    PopupBackground.Visibility = Visibility.Visible;
                     await MyMediaInfo.mediaRenderer.StopAsync();
                     await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
                     await MyMediaInfo.mediaRenderer.PlayAsync();
@@ -1164,15 +1192,30 @@ namespace GenieWin8
                     if (MyMediaInfo.mediaItem.Class == "object.item.imageItem")
                     {
                         //mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
+                        var imageUri = MyMediaInfo.mediaItem.Resources.ElementAt(0).Uri;
+                        var imagerecv = new BitmapImage();
+                        imagerecv.ImageOpened += imagerevd_ImageOpened;
+                        imagerecv.UriSource = new Uri(imageUri);
+                        dmrImage.Source = imagerecv;
+                        dmrImage.Opacity = 1;
+                        Output.Background = null;
+                        var mediaRendererState = await MyMediaInfo.mediaRenderer.GetCurrentState();
+                        MyMediaInfo.mediaRendererState = mediaRendererState;
+                        if (mediaRendererState == MediaRendererState.NoMediaRenderer)
+                        {
+                            MyMediaInfo.mediaRenderer = null;
+                        }
                     }
                     else if (MyMediaInfo.mediaItem.Class == "object.item.audioItem" || MyMediaInfo.mediaItem.Class == "object.item.audioItem.musicTrack")
                     {
+                        dmrImage.Opacity = 0;
                         SetVolumePanel.Visibility = Visibility.Visible;
                         bg.ImageSource = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/playing_music_icon.png"));
                         Output.Background = bg;
                     }
                     else if (MyMediaInfo.mediaItem.Class == "object.item.videoItem")
                     {
+                        dmrImage.Opacity = 0;
                         SetVolumePanel.Visibility = Visibility.Visible;
                         bg.ImageSource = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/playing_video_icon.png"));
                         Output.Background = bg;
@@ -1189,6 +1232,7 @@ namespace GenieWin8
                 }
                 else
                 {
+                    PopupBackground.Visibility = Visibility.Collapsed;
                     var messageDialog = new MessageDialog("Please select one player");
                     await messageDialog.ShowAsync();
                     MymediaFlipview.SelectedIndex = 1;
@@ -1219,10 +1263,10 @@ namespace GenieWin8
                 {
                     MyMediaInfo.mediaItemIndex = MyMediaInfo.mediaItemIndex + 1;
                 }
+                PopupBackground.Visibility = Visibility.Visible;
                 MyMediaInfo.mediaItem = MyMediaInfo.mediaItemsforSwitch.ElementAt(MyMediaInfo.mediaItemIndex);
                 if (MyMediaInfo.mediaRenderer != null)
                 {
-                    PopupBackground.Visibility = Visibility.Visible;
                     await MyMediaInfo.mediaRenderer.StopAsync();
                     await MyMediaInfo.mediaRenderer.OpenAsync(MyMediaInfo.mediaItem);
                     await MyMediaInfo.mediaRenderer.PlayAsync();
@@ -1234,15 +1278,30 @@ namespace GenieWin8
                     if (MyMediaInfo.mediaItem.Class == "object.item.imageItem")
                     {
                         //mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
+                        var imageUri = MyMediaInfo.mediaItem.Resources.ElementAt(0).Uri;
+                        var imagerecv = new BitmapImage();
+                        imagerecv.ImageOpened += imagerevd_ImageOpened;
+                        imagerecv.UriSource = new Uri(imageUri);
+                        dmrImage.Source = imagerecv;
+                        dmrImage.Opacity = 1;
+                        Output.Background = null;
+                        var mediaRendererState = await MyMediaInfo.mediaRenderer.GetCurrentState();
+                        MyMediaInfo.mediaRendererState = mediaRendererState;
+                        if (mediaRendererState == MediaRendererState.NoMediaRenderer)
+                        {
+                            MyMediaInfo.mediaRenderer = null;
+                        }
                     }
                     else if (MyMediaInfo.mediaItem.Class == "object.item.audioItem" || MyMediaInfo.mediaItem.Class == "object.item.audioItem.musicTrack")
                     {
+                        dmrImage.Opacity = 0;
                         SetVolumePanel.Visibility = Visibility.Visible;
                         bg.ImageSource = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/playing_music_icon.png"));
                         Output.Background = bg;
                     }
                     else if (MyMediaInfo.mediaItem.Class == "object.item.videoItem")
                     {
+                        dmrImage.Opacity = 0;
                         SetVolumePanel.Visibility = Visibility.Visible;
                         bg.ImageSource = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/playing_video_icon.png"));
                         Output.Background = bg;
@@ -1259,6 +1318,7 @@ namespace GenieWin8
                 }
                 else
                 {
+                    PopupBackground.Visibility = Visibility.Collapsed;
                     var messageDialog = new MessageDialog("Please select one player");
                     await messageDialog.ShowAsync();
                     MymediaFlipview.SelectedIndex = 1;
@@ -1369,15 +1429,30 @@ namespace GenieWin8
                                     if (MyMediaInfo.mediaItem.Class == "object.item.imageItem")
                                     {
                                         //mediaItem_Icon.Source = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/file_image.png"));
+                                        var imageUri = MyMediaInfo.mediaItem.Resources.ElementAt(0).Uri;
+                                        var imagerecv = new BitmapImage();
+                                        imagerecv.ImageOpened += imagerevd_ImageOpened;
+                                        imagerecv.UriSource = new Uri(imageUri);
+                                        dmrImage.Source = imagerecv;
+                                        dmrImage.Opacity = 1;
+                                        Output.Background = null;
+                                        var mediaRendererState = await MyMediaInfo.mediaRenderer.GetCurrentState();
+                                        MyMediaInfo.mediaRendererState = mediaRendererState;
+                                        if (mediaRendererState == MediaRendererState.NoMediaRenderer)
+                                        {
+                                            MyMediaInfo.mediaRenderer = null;
+                                        }
                                     }
                                     else if (MyMediaInfo.mediaItem.Class == "object.item.audioItem" || MyMediaInfo.mediaItem.Class == "object.item.audioItem.musicTrack")
                                     {
+                                        dmrImage.Opacity = 0;
                                         SetVolumePanel.Visibility = Visibility.Visible;
                                         bg.ImageSource = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/playing_music_icon.png"));
                                         Output.Background = bg;
                                     }
                                     else if (MyMediaInfo.mediaItem.Class == "object.item.videoItem")
                                     {
+                                        dmrImage.Opacity = 0;
                                         SetVolumePanel.Visibility = Visibility.Visible;
                                         bg.ImageSource = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/playing_video_icon.png"));
                                         Output.Background = bg;
@@ -2130,7 +2205,17 @@ namespace GenieWin8
                 LayoutRoot.Background = _previousBGColor;
                 LayoutRoot.Margin = _previousLayoutrootmargin;
 
-                Output.Background = _previousGridbackground;
+                if (_previousGridbackground == null)
+                {
+                    var bg = new ImageBrush();
+                    bg.Stretch = Stretch.Uniform;
+                    bg.ImageSource = new BitmapImage(new Uri(_baseUri, "Assets/MyMedia/playing_video_icon.png"));
+                    Output.Background = bg;
+                }
+                else
+                {
+                    Output.Background = _previousGridbackground;
+                }
                 Output.Margin = _previousGridMargin;
 
                 BottomAppBar.Visibility = Visibility.Collapsed;
