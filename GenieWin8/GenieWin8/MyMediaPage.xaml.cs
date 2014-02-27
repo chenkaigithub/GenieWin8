@@ -718,15 +718,28 @@ namespace GenieWin8
                     if (MyMediaInfo.mediaItem != null)
                     {
                         playButton.IsEnabled = false;
-                        playButton.Visibility = Visibility.Collapsed;
-                        pauseButton.Visibility = Visibility.Visible;
                         stopButton.IsEnabled = true;
-                        SetVolumePanel.Visibility = Visibility.Visible;
                         volumeSlider.IsEnabled = true;
                         previousButton.IsEnabled = true;
                         nextButton.IsEnabled = true;
                         timelineSlider.IsEnabled = true;
                         MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
+                        if (MyMediaInfo.mediaItem.Class == "object.item.imageItem")
+                        {
+                            SetVolumePanel.Visibility = Visibility.Collapsed;
+                            playButton.Visibility = Visibility.Visible;
+                            pauseButton.Visibility = Visibility.Collapsed;
+                            stopButton.IsEnabled = false;
+                            timelineSlider.IsEnabled = false;
+                        }
+                        else
+                        {
+                            SetVolumePanel.Visibility = Visibility.Visible;
+                            playButton.Visibility = Visibility.Collapsed;
+                            pauseButton.Visibility = Visibility.Visible;
+                            stopButton.IsEnabled = true;
+                            timelineSlider.IsEnabled = true;
+                        }
                         if (resetDuration)
                         {
                             var duration = await MyMediaInfo.mediaRenderer.GetDuration();
@@ -760,6 +773,7 @@ namespace GenieWin8
                         nextButton.IsEnabled = true;
                         MediaItemTitle.Text = MyMediaInfo.mediaItem.Title;
                         timelineSlider.Value = 0.0;
+                        resetDuration = true;
                         if (MyMediaInfo.mediaItem.Class == "object.item.imageItem")
                         {
                             playButton.IsEnabled = false;
@@ -1373,10 +1387,20 @@ namespace GenieWin8
             if (DisplayProperties.CurrentOrientation == DisplayOrientations.Landscape || DisplayProperties.CurrentOrientation == DisplayOrientations.LandscapeFlipped)
             {
                 MediaItemTitle.MaxWidth = Window.Current.Bounds.Width - 100;
-                dmrVideo.Height = Window.Current.Bounds.Height - 365;
-                dmrVideo.Width = (Window.Current.Bounds.Height - 365) * 4 / 3;
-                dmrImage.Height = Window.Current.Bounds.Height - 365;
-                dmrImage.Width = (Window.Current.Bounds.Height - 365) * 4 / 3;
+                if (this.IsFullScreen)
+                {
+                    dmrVideo.Width = Window.Current.Bounds.Width;
+                    dmrVideo.Height = Window.Current.Bounds.Height;
+                    dmrImage.Width = Window.Current.Bounds.Width;
+                    dmrImage.Height = Window.Current.Bounds.Height;
+                }
+                else
+                {
+                    dmrVideo.Height = Window.Current.Bounds.Height - 365;
+                    dmrVideo.Width = (Window.Current.Bounds.Height - 365) * 4 / 3;
+                    dmrImage.Height = Window.Current.Bounds.Height - 365;
+                    dmrImage.Width = (Window.Current.Bounds.Height - 365) * 4 / 3;
+                }
                 timelineSlider.Width = (Window.Current.Bounds.Height - 365) * 4 / 3;
                 SetVolumePanel.Width = (Window.Current.Bounds.Height - 365) * 4 / 3;
                 volumeSlider.Width = (Window.Current.Bounds.Height - 365) * 4 / 3;
@@ -1384,10 +1408,20 @@ namespace GenieWin8
             else if (DisplayProperties.CurrentOrientation == DisplayOrientations.Portrait || DisplayProperties.CurrentOrientation == DisplayOrientations.PortraitFlipped)
             {
                 MediaItemTitle.MaxWidth = Window.Current.Bounds.Width - 100;
-                dmrVideo.Height = (Window.Current.Bounds.Width - 100) * 3 / 4;
-                dmrVideo.Width = Window.Current.Bounds.Width - 100;
-                dmrImage.Height = (Window.Current.Bounds.Width - 100) * 3 / 4;
-                dmrImage.Width = Window.Current.Bounds.Width - 100;
+                if (this.IsFullScreen)
+                {
+                    dmrVideo.Width = Window.Current.Bounds.Width;
+                    dmrVideo.Height = Window.Current.Bounds.Height;
+                    dmrImage.Width = Window.Current.Bounds.Width;
+                    dmrImage.Height = Window.Current.Bounds.Height;
+                }
+                else
+                {
+                    dmrVideo.Height = (Window.Current.Bounds.Width - 100) * 3 / 4;
+                    dmrVideo.Width = Window.Current.Bounds.Width - 100;
+                    dmrImage.Height = (Window.Current.Bounds.Width - 100) * 3 / 4;
+                    dmrImage.Width = Window.Current.Bounds.Width - 100;
+                }
                 timelineSlider.Width = Window.Current.Bounds.Width - 100;
                 SetVolumePanel.Width = Window.Current.Bounds.Width - 100;
                 volumeSlider.Width = Window.Current.Bounds.Width - 100;
@@ -2352,6 +2386,12 @@ namespace GenieWin8
                 }
             }
         }
+
+        //private async void test_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var a = await MyMediaInfo.mediaRenderer.GetCurrentState();
+        //    System.Diagnostics.Debug.WriteLine("Playback state : {0}", a);
+        //}
     }
 
     public sealed class ThumbToolTipValueConverter : IValueConverter
