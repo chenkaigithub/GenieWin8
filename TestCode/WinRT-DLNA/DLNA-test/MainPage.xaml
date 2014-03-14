@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="DLNA_test.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DLNA_test"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="start" Content="start" FontSize="25" Click="start_Click"/>
+            <Button x:Name="stop" Content="stop" FontSize="25" Click="stop_Click"/>
+            <Button x:Name="refresh" Content="refresh" FontSize="25" Click="refresh_Click"/>
+            <Button x:Name="getlist" Content="get list" FontSize="25" Click="getlist_Click"/>
+            <Button x:Name="importfile" Content="import file" FontSize="25" Click="importfile_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

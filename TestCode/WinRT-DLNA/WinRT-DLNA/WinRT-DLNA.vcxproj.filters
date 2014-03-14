@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>ae592c48-bc9b-41b6-b1d1-5c65f617456f</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="mydlna.cpp" />
+    <ClCompile Include="..\Source\DLNACore\avcore1.cpp" />
+    <ClCompile Include="..\Source\DLNACore\avcore2.cpp" />
+    <ClCompile Include="..\Source\DLNACore\avcore3.cpp" />
+    <ClCompile Include="..\Source\DLNACore\avcore4.cpp" />
+    <ClCompile Include="..\Source\DLNACore\DLNACore.cpp" />
+    <ClCompile Include="..\Source\DLNACore\DLNACoreImpl.cpp" />
+    <ClCompile Include="..\Source\DLNACore\DLNACoreOp.cpp" />
+    <ClCompile Include="..\Source\DLNACore\DLNACoreOpImpl.cpp" />
+    <ClCompile Include="..\Source\DLNACore\DLNALibrary.cpp" />
+    <ClCompile Include="..\Source\DLNACore\DLNALibraryImpl.cpp" />
+    <ClCompile Include="..\Source\DLNACore\DLNAObject.cpp" />
+    <ClCompile Include="..\Source\DLNACore\DLNAObjectImpl.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVConnector.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVControlPoint.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVDesc.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVDescPriv.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVDeviceImpl.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVFrontEnd.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVIconsData.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVMediaStore.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVMediaStoreImpl.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVTaskGroup.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVTasks.cpp" />
+    <ClCompile Include="..\Source\DLNACore\SVUtils.cpp" />
+    <ClCompile Include="..\Source\DLNATest\DLNADelegation.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="..\Source\DLNACore\avcore1.h" />
+    <ClInclude Include="..\Source\DLNACore\avcore2.h" />
+    <ClInclude Include="..\Source\DLNACore\avcore3.h" />
+    <ClInclude Include="..\Source\DLNACore\avcore4.h" />
+    <ClInclude Include="..\Source\DLNACore\DLNACore.h" />
+    <ClInclude Include="..\Source\DLNACore\DLNACoreImpl.h" />
+    <ClInclude Include="..\Source\DLNACore\DLNACoreOp.h" />
+    <ClInclude Include="..\Source\DLNACore\DLNACoreOpImpl.h" />
+    <ClInclude Include="..\Source\DLNACore\DLNALibrary.h" />
+    <ClInclude Include="..\Source\DLNACore\DLNALibraryImpl.h" />
+    <ClInclude Include="..\Source\DLNACore\DLNAObject.h" />
+    <ClInclude Include="..\Source\DLNACore\DLNAObjectImpl.h" />
+    <ClInclude Include="..\Source\DLNACore\SVConnector.h" />
+    <ClInclude Include="..\Source\DLNACore\SVControlPoint.h" />
+    <ClInclude Include="..\Source\DLNACore\SVDesc.h" />
+    <ClInclude Include="..\Source\DLNACore\SVDescPriv.h" />
+    <ClInclude Include="..\Source\DLNACore\SVDeviceImpl.h" />
+    <ClInclude Include="..\Source\DLNACore\SVFrontEnd.h" />
+    <ClInclude Include="..\Source\DLNACore\SVMediaStore.h" />
+    <ClInclude Include="..\Source\DLNACore\SVMediaStoreImpl.h" />
+    <ClInclude Include="..\Source\DLNACore\SVTaskGroup.h" />
+    <ClInclude Include="..\Source\DLNACore\SVTasks.h" />
+    <ClInclude Include="..\Source\DLNACore\SVUtils.h" />
+    <ClInclude Include="..\Source\DLNATest\DLNADelegation.h" />
+    <ClInclude Include="mydlna.h" />
+  </ItemGroup>
+</Project>
