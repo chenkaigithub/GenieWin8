@@ -656,6 +656,161 @@ NPT_TcpClientSocket::~NPT_TcpClientSocket()
 }
 
 /*----------------------------------------------------------------------
+|   NPT_WinRtTcpServerSocket
++---------------------------------------------------------------------*/
+class NPT_WinRtTcpServerSocket : public    NPT_TcpServerSocketInterface,
+								 protected NPT_WinRtTcpClientSocket
+
+{
+public:
+	// methods
+	NPT_WinRtTcpServerSocket(NPT_Flags flags);
+	~NPT_WinRtTcpServerSocket();
+
+	// NPT_SocketInterface methods
+	NPT_Result GetInputStream(NPT_InputStreamReference& stream) {
+		// no stream
+		//stream = NULL;
+		//return NPT_ERROR_NOT_SUPPORTED;
+		stream = new NPT_WinRtSocketInputStream(m_Socket, m_ReadTimeout);
+		return NPT_SUCCESS;
+	}
+	NPT_Result GetOutputStream(NPT_OutputStreamReference& stream) {
+		// no stream
+		//stream = NULL;
+		//return NPT_ERROR_NOT_SUPPORTED;
+		stream = new NPT_WinRtSocketOutputStream(m_Socket, m_ReadTimeout);
+		return NPT_SUCCESS;
+	}
+
+	// NPT_TcpServerSocket methods
+	NPT_Result Listen(unsigned int max_clients);
+	NPT_Result WaitForNewClient(NPT_Socket*& client, 
+		NPT_Timeout  timeout,
+		NPT_Flags    flags);
+
+	void listener_ConnectionReceived(StreamSocketListener^ listener, StreamSocketListenerConnectionReceivedEventArgs^ args);
+private:
+	StreamSocket^ m_Socket;
+	StreamSocketListener^ m_SocketListener;
+	NPT_Timeout   m_ReadTimeout;
+
+protected:
+	// members
+	unsigned int m_ListenMax;
+
+	// friends
+	friend class NPT_TcpServerSocket;
+};
+
+/*----------------------------------------------------------------------
+|   NPT_WinRtTcpServerSocket::NPT_WinRtTcpServerSocket
++---------------------------------------------------------------------*/
+NPT_WinRtTcpServerSocket::NPT_WinRtTcpServerSocket(NPT_Flags flags) : 
+	m_ReadTimeout(NPT_WINRT_SOCKET_DEFAULT_READ_TIMEOUT),
+	m_ListenMax(0)
+{
+	m_SocketListener = ref new StreamSocketListener();
+	//m_SocketListener->ConnectionReceived += listener_ConnectionReceived;
+	m_SocketListener->ConnectionReceived += ref new TypedEventHandler<StreamSocketListener^, StreamSocketListenerConnectionReceivedEventArgs^>(this, &NPT_WinRtTcpServerSocket::listener_ConnectionReceived);
+}
+
+/*----------------------------------------------------------------------
+|   NPT_WinRtTcpServerSocket::~NPT_WinRtTcpServerSocket
++---------------------------------------------------------------------*/
+NPT_WinRtTcpServerSocket::~NPT_WinRtTcpServerSocket()
+{
+}
+
+/*----------------------------------------------------------------------
+|   NPT_WinRtTcpServerSocket::Listen
++---------------------------------------------------------------------*/
+NPT_Result
+	NPT_WinRtTcpServerSocket::Listen(unsigned int max_clients)
+{
+	// listen for connections
+	//if (listen(m_SocketFdReference->m_SocketFd, max_clients) < 0) {
+	//	m_ListenMax = 0;
+	//	return NPT_ERROR_LISTEN_FAILED;
+	//}   
+	//m_ListenMax = max_clients;
+
+	return NPT_SUCCESS;
+}
+
+/*----------------------------------------------------------------------
+|   NPT_WinRtTcpServerSocket::WaitForNewClient
++---------------------------------------------------------------------*/
+NPT_Result
+	NPT_WinRtTcpServerSocket::WaitForNewClient(NPT_Socket*& client, 
+	NPT_Timeout  timeout,
+	NPT_Flags    flags)
+{
+	// default value
+	client = NULL;
+
+	// check that we are listening for clients
+	//if (m_ListenMax == 0) {
+	//	Listen(NPT_TCP_SERVER_SOCKET_DEFAULT_LISTEN_COUNT);
+	//}
+
+	//// wait until the socket is readable or writeable
+	//NPT_LOG_FINER("waiting until socket is readable or writeable");
+	//NPT_Result result = m_SocketFdReference->WaitForCondition(true, true, false, timeout);
+	//if (result != NPT_SUCCESS) return result;
+
+	//NPT_LOG_FINER("accepting connection");
+	//struct sockaddr_in inet_address;
+	//socklen_t          namelen = sizeof(inet_address);
+	//SocketFd socket_fd = accept(m_SocketFdReference->m_SocketFd, (struct sockaddr*)&inet_address, &namelen); 
+	//if (NPT_BSD_SOCKET_IS_INVALID(socket_fd)) {
+	//	if (m_SocketFdReference->m_Cancelled) return NPT_ERROR_CANCELLED;
+	//	result = MapErrorCode(GetSocketError());
+	//	NPT_LOG_FINE_1("socket error %d", result);
+	//	return result;
+	//} else {
+		client = new NPT_Socket(new NPT_WinRtTcpClientSocket());
+	//}
+
+	// done
+	//return result;
+		return NPT_SUCCESS;
+}
+
+void NPT_WinRtTcpServerSocket::listener_ConnectionReceived(StreamSocketListener^ sender, StreamSocketListenerConnectionReceivedEventArgs^ args)
+{
+	DataReader^ reader = ref new DataReader(args->Socket->InputStream);
+	//try
+	//{
+	//	while (true)
+	//	{
+	//		//这里由于我的发包规则会在包的最前面描述包的长度，所以我先把长度读取出来
+	//		uint stringLength = reader.ReadUInt32();
+	//		//然后获取真正未读的长度
+	//		uint actualStringLength = await reader.LoadAsync(stringLength);
+	//		if (stringLength != actualStringLength)
+	//		{
+	//			//如果我描述的长度和实际读取的长度不相符说明包数据不完整，可能是对方提早关闭了连接，停止监听
+	//			return;
+	//		}
+	//		//然后读取数据
+	//		string data = reader.ReadString(actualStringLength);
+
+	//		//这里我把数据加到了另外一个控件里面用来显示
+	//		lstMessage.Items.Add(data);
+	//	}
+	//}
+	//catch (Exception exception)
+	//{
+	//	//这里可以获取各种异常的状态
+	//	if (SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown)
+	//	{
+
+	//	}
+	//}
+}
+
+/*----------------------------------------------------------------------
 |   NPT_TcpServerSocket::NPT_TcpServerSocket
 +---------------------------------------------------------------------*/
 NPT_TcpServerSocket::NPT_TcpServerSocket(NPT_Flags flags)
